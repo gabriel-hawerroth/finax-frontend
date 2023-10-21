@@ -1,0 +1,6 @@
+<div class="app">
+    <app-sidebar *ngIf="_loginService.logged && _location.path() !== ''"></app-sidebar>
+    <main [ngClass]="_loginService.logged && _location.path() !== '' ? 'change-size' : ''">
+        <router-outlet></router-outlet>
+    </main>
+</div>

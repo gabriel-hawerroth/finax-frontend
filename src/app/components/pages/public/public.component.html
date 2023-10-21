@@ -1,0 +1,412 @@
+<div id="public-page">
+  <button mat-fab id="back-to-top" (click)="scrollTo('public-page')">
+    <span class="material-symbols-outlined">arrow_upward</span>
+  </button>
+  <!-- Start of **** Public Header **** -->
+  <div class="public-header">
+    <div class="left-side">
+      <button mat-button (click)="scrollTo('reset-the-possible')">
+        Nossos serviços
+      </button>
+      <!-- <button mat-button (click)="scrollTo('who-we-are')">Sobre nós</button> -->
+      <button mat-button (click)="scrollTo('signatures')">Planos</button>
+    </div>
+    <div class="title">
+      <img src="assets/money-coin.svg" />
+      <h1>Finax</h1>
+    </div>
+    <div class="right-side">
+      <button mat-raised-button (click)="navigateLogin()" id="login-button">
+        Entrar
+      </button>
+    </div>
+  </div>
+  <!-- End of **** Public Header **** -->
+
+  <!-- Start of **** First Section **** -->
+  <div class="public-section" id="first-ps">
+    <div class="content">
+      <div class="left-side">
+        <h1>
+          Maximizando seu potencial <br />
+          financeiro
+        </h1>
+
+        <p>
+          O Finax é uma solução abrangente de software financeiro para
+          acompanhar seus gastos, criar orçamentos e planejar seus
+          investimentos. Nossa plataforma também conta com gráficos, relatórios,
+          índices de mercado, controle de investimentos e muito mais.
+          <br /><br />Tornando-se a principal escolha para quem quer <br />
+          <span class="benefits">Previsibilidade, Segurança e Controle </span>
+          <br />
+          sobre suas finanças!
+        </p>
+
+        <div class="call-action">
+          <span>Não tem uma conta ainda?</span>
+          <button mat-raised-button color="primary" routerLink="/nova-conta">
+            Comece já
+          </button>
+        </div>
+      </div>
+      <div class="right-side">
+        <img src="assets/hero-illustration.svg" />
+      </div>
+    </div>
+  </div>
+  <!-- End of **** First Section **** -->
+
+  <!-- Start of **** Second Section **** -->
+
+  <div class="public-section" id="reset-the-possible">
+    <div class="left">
+      <img src="assets/img-section2.png" />
+    </div>
+
+    <div class="right">
+      <h1>Redefina o possível</h1>
+
+      <div class="list">
+        <div class="item">
+          <div class="icon">
+            <span class="material-symbols-outlined">done</span>
+          </div>
+          <div class="content">
+            <div class="title">Simples de usar</div>
+            <div class="detail">
+              Desfrute de uma plataforma interativa e dinâmica sem perder a
+              simplicidade
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="icon">
+            <span class="material-symbols-outlined">done</span>
+          </div>
+          <div class="content">
+            <div class="title">Controle seus investimentos</div>
+            <div class="detail">
+              Dê aos seus investimentos a atenção que eles merecem mantendo eles
+              separados dos seus gastos do dia a dia
+            </div>
+          </div>
+        </div>
+
+        <div class="item margin-top">
+          <div class="icon">
+            <span class="material-symbols-outlined">done</span>
+          </div>
+          <div class="content">
+            <div class="title">Cálculo de rendimentos automático</div>
+            <div class="detail">
+              Atualização diária do rendimento das suas aplicações
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="icon">
+            <span class="material-symbols-outlined">done</span>
+          </div>
+          <div class="content">
+            <div class="title">Boletins semanais</div>
+            <div class="detail">
+              Toda semana um novo boletim resumindo todos os acontecimentos mais
+              relevantes da b3, do mercado internacional e também do mundo
+              cripto
+            </div>
+          </div>
+        </div>
+
+        <div class="item margin-top market-indices">
+          <div class="icon">
+            <span class="material-symbols-outlined">done</span>
+          </div>
+          <div class="content">
+            <div class="title">Índices de mercado sempre atualizados</div>
+            <div class="detail">
+              Todos os indicadores da economia que você possa imaginar, nós
+              temos, <br />
+              e com atualização em tempo real!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End of **** Second Section **** -->
+
+  <!-- Start of **** Third Section **** -->
+
+  <div class="public-section" id="who-we-are">
+    <div class="title">
+      <h2 class="text-3xl">Quem nós somos</h2>
+      <div class="w-full flex justify-content-around">
+        <h2>Sobre nós</h2>
+        <h2>Nosso time</h2>
+      </div>
+    </div>
+
+    <div class="content flex w-full">
+      <div class="about-us">
+        <span
+          >A Finax nasceu da junção de duas paixões do criador, as finanças e a
+          programação, nosso objetivo é aumentar cada vez mais o número de
+          brasileiros que tem estabilidade financeira com consciência e controle
+          de todos as suas despesas e receitas, ao mesmo tempo em que fomentamos
+          o mercado de investidores no Brasil
+        </span>
+      </div>
+
+      <div class="our-team">
+        <div class="flip-box">
+          <div class="flip-box-inner">
+            <div class="flip-box-front">
+              <img
+                src="assets/my-image.jpeg"
+                style="width: 100%; height: 100%; border-radius: 10px"
+              />
+
+              <div class="about">
+                <span class="name">Gabriel Hawerroth</span>
+                <span class="job">Fundador e CEO</span>
+              </div>
+            </div>
+
+            <div class="flip-box-back">
+              <img
+                src="assets/my-image.jpeg"
+                style="width: 100%; height: 100%; border-radius: 10px"
+              />
+
+              <span>
+                Gabriel fundou a Finax com o objetivo de fornecer uma solução
+                abrangente de software financeiro que pudesse beneficiar
+                qualquer pessoa, mesmo tendo pouco ou nenhum conhecimento sobre
+                finanças. Com um vasto conhecimento em finanças e tecnologia,
+                ele lidera a equipe da Finax com paixão e experiência para
+                garantir o sucesso de cada cliente.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End of **** Third Section **** -->
+
+  <!-- Start of **** Fourth Section **** -->
+
+  <div class="public-section" id="signatures">
+    <div class="top">
+      <h1>Nossos planos</h1>
+      <form [formGroup]="switchPlansForm">
+        <span
+          >Mensal
+          <p-inputSwitch formControlName="planSwitch"></p-inputSwitch>
+          Anual</span
+        >
+      </form>
+    </div>
+
+    <div class="content">
+      <div class="plan free">
+        <div class="title">
+          <h3 class="text-2xl">Gratuito</h3>
+          <div>
+            <span class="font-bold text-3xl">R$0</span>
+            <span class="text-bluegray-400"> / mês</span>
+          </div>
+        </div>
+        <div class="services">
+          <h4>Telas liberadas</h4>
+
+          <ul>
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Fluxo de caixa</span>
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Metas de gasto</span>
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Contas de banco</span>
+            </li>
+          </ul>
+
+          <button mat-raised-button pRipple>Assinar agora</button>
+        </div>
+      </div>
+
+      <div class="plan basic">
+        <div class="title">
+          <h3 class="text-2xl">Básico</h3>
+          <div>
+            <span class="font-bold text-3xl"
+              >R${{
+                switchPlansForm.get("planSwitch")!.value ? "7,90" : "11,90"
+              }}</span
+            >
+            <span class="text-bluegray-400"> / mês</span>
+          </div>
+        </div>
+
+        <div class="services">
+          <h4>Telas liberadas</h4>
+
+          <ul>
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Todas do plano gratuito</span>
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Controle de investimentos</span>
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Relatórios</span>
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Calculadora de juros</span>
+            </li>
+          </ul>
+
+          <button mat-raised-button pRipple>Assinar agora</button>
+        </div>
+      </div>
+
+      <div class="plan premium">
+        <div class="title">
+          <h3 class="text-2xl">Premium</h3>
+          <div>
+            <span class="font-bold text-3xl"
+              >R${{
+                switchPlansForm.get("planSwitch")!.value ? "29,90" : "49,90"
+              }}</span
+            >
+            <span class="text-bluegray-400"> / mês</span>
+          </div>
+        </div>
+
+        <div class="services">
+          <h4>Telas liberadas</h4>
+
+          <ul>
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Todas do plano básico</span>
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Newsletter (B3, internacional, cripto)</span>
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span
+                >+ de 20 índices de mercado em <br />
+                tempo real</span
+              >
+            </li>
+
+            <li>
+              <i class="pi pi-dollar"></i>
+              <span>Cálculo de rendimentos automático</span>
+            </li>
+          </ul>
+
+          <button mat-raised-button pRipple>Assinar agora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End of **** Fourth Section **** -->
+
+  <!-- Start of **** Mobile Section **** -->
+
+  <div id="mobile-section">
+    <h2>Disponível apenas para computador</h2>
+    <span
+      >Sentimos muito, no momento nosso sistema está disponível para acesso
+      apenas através do notebook ou desktop.</span
+    >
+  </div>
+
+  <!-- End of **** Mobile Section **** -->
+
+  <!-- Start of **** Public Footer **** -->
+
+  <div class="public-footer">
+    <div class="left">
+      <h1>Finax</h1>
+      <span
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="1em"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c31.2 31.2 81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1z"
+          />
+        </svg>
+        2023 Finax, Inc.</span
+      >
+    </div>
+
+    <div class="right">
+      <a href="https://www.linkedin.com/in/gabriel-hawerroth/" target="_blank">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="1.3rem"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
+          />
+        </svg>
+      </a>
+
+      <a href="">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="1.3rem"
+          viewBox="0 0 320 512"
+        >
+          <path
+            d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"
+          />
+        </svg>
+      </a>
+
+      <a href="mailto:gabrielhawerroth04@gmail.com">
+        <!-- susbtituir pelo email da Finax -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="1.3rem"
+          viewBox="0 0 512 512"
+        >
+          <path
+            d="M215.4 96H144 107.8 96v8.8V144v40.4 89L.2 202.5c1.6-18.1 10.9-34.9 25.7-45.8L48 140.3V96c0-26.5 21.5-48 48-48h76.6l49.9-36.9C232.2 3.9 243.9 0 256 0s23.8 3.9 33.5 11L339.4 48H416c26.5 0 48 21.5 48 48v44.3l22.1 16.4c14.8 10.9 24.1 27.7 25.7 45.8L416 273.4v-89V144 104.8 96H404.2 368 296.6 215.4zM0 448V242.1L217.6 403.3c11.1 8.2 24.6 12.7 38.4 12.7s27.3-4.4 38.4-12.7L512 242.1V448v0c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64v0zM176 160H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16zm0 64H336c8.8 0 16 7.2 16 16s-7.2 16-16 16H176c-8.8 0-16-7.2-16-16s7.2-16 16-16z"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- End of **** Public Footer **** -->
+</div>

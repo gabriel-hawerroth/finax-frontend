@@ -1,0 +1,140 @@
+@import 'src/app/utils/colors.scss';
+
+.simple-page {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    .page-title {
+        margin-bottom: 1.5rem;
+    }
+
+    #profileImg {
+        width: 8rem;
+        border-radius: 50%;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        background: #dfdfdf;
+        margin-bottom: .4rem;
+    }
+
+    .custom-file-input {
+        font-weight: bold;
+        font-size: 1rem;
+        font-family: 'Nunito';
+        cursor: pointer;
+        color: #6a6d6b;
+        margin-bottom: 2rem;
+    }
+
+    .form-box {
+        width: 50%;
+        padding-top: 1.4rem;
+        padding-left: 1rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        // gap: 1.8rem;
+    }
+
+    #plan-box {
+        flex: 1;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        gap: 1rem;
+
+        #plan {
+            width: 100%;
+            box-shadow: 0 0 2px #00000034;
+            border-radius: .2rem;
+            color: #fff;
+            background-color: #2e5491;
+
+            .title {
+                padding: 1rem 0;
+                display: grid;
+                place-items: center;
+            }
+
+            .content {
+                padding: .5rem .8rem;
+
+                #month-year {
+                    font-size: 1.2rem;
+                }
+
+                #plan-price {
+                    font-size: 1.7rem;
+                }
+
+                #signature-expiration {
+                    font-size: 1rem;
+                }
+
+                #adm-plan {
+                    display: none;
+                }
+            }
+
+            .actions {
+                padding: 1rem 1.5rem 1rem .7rem;
+                display: flex;
+                justify-content: space-between;
+
+                .change-plan {
+                    span {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        gap: .5rem;
+                        color: #fff;
+                    }
+                }
+
+                #cancel-signature {
+                    margin: .4rem;
+
+                    &:hover {
+                        color: #dfdfdf;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+
+        #change-payment-method {
+            span {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: .5rem;
+            }
+        }
+    }
+
+    .buttons {
+        padding: 2.5rem 0 0 .6rem;
+        height: 100%;
+        gap: 2rem;
+
+        button {
+            padding: 1.4rem 1.8rem;
+            font-size: 1rem;
+
+            span {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: .5rem;
+            }
+        }
+    }
+}

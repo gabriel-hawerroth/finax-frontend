@@ -1,0 +1,11 @@
+@import 'src/app/app.component.scss';
+@import 'src/app/utils/colors.scss';
+
+.header {
+    width: 100%;
+    height: $header-height;
+    box-shadow: 4px -2px 6px #0000003a;
+    background-color: $primary-bg-color;
+    position: fixed;
+    z-index: 8;
+}

@@ -1,0 +1,91 @@
+<div
+  [ngClass]="{
+    'simple-page': true,
+    login: true,
+    'dark-page': darkTheme
+  }"
+>
+  <div class="login-box">
+    <div class="top">
+      <img src="assets/money-coin.svg" width="50px" height="50px" />
+
+      <h1>
+        {{ language === "pt-br" ? "Bem vindo de volta" : "Welcome back" }}
+      </h1>
+    </div>
+
+    <form [formGroup]="loginForm">
+      <div fxLayout="row" fxLayoutAlign="center">
+        <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            formControlName="email"
+            autocomplete="off"
+            autofocus
+          />
+        </mat-form-field>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="center">
+        <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+          <mat-label>{{
+            language === "pt-br" ? "Senha" : "Password"
+          }}</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            autocomplete="new-password"
+          />
+        </mat-form-field>
+      </div>
+
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-around center"
+        fxLayoutGap="70px"
+      >
+        <div fxLayoutGap="15px">
+          <mat-checkbox formControlName="rememberMe">{{
+            language === "pt-br" ? "Lembrar de mim" : "Remember me"
+          }}</mat-checkbox>
+        </div>
+        <div>
+          <span routerLink="/esqueci-minha-senha" id="forgot-password-label"
+            >{{
+              language === "pt-br" ? "Esqueceu a senha" : "Forgot the password"
+            }}?</span
+          >
+        </div>
+      </div>
+    </form>
+
+    <div class="bottom" fxLayoutAlign="center start">
+      <button
+        mat-raised-button
+        color="primary"
+        style="border-radius: 3rem; box-sizing: initial; padding: 1.5rem 2rem"
+        fxFlex="65"
+        (click)="login()"
+      >
+        <span *ngIf="!showLoading"><mat-icon>person</mat-icon>Login</span>
+        <mat-spinner *ngIf="showLoading" color="accent"></mat-spinner>
+      </button>
+    </div>
+  </div>
+
+  <span class="opt-login-page"
+    ><span
+      >{{
+        language === "pt-br" ? "Não tem uma conta" : "Don't have an account"
+      }}? </span
+    ><span
+      routerLink="/nova-conta"
+      class="primary-color"
+      style="font-weight: bold; cursor: pointer"
+    >
+      {{ language === "pt-br" ? "Crie uma" : "Create one" }}!</span
+    ></span
+  >
+</div>

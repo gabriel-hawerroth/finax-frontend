@@ -1,0 +1,23 @@
+<div
+  [ngClass]="{
+    'confirmation-dialog': true,
+    'dark-page': utilsService.userConfigs.getValue()!.theme === 'dark'
+  }"
+>
+  <div class="title">
+    <h3>{{ language === "pt-br" ? "Confirmação" : "Confirmation" }}</h3>
+  </div>
+
+  <div class="content">
+    <p>{{ message }}</p>
+  </div>
+
+  <div class="buttons">
+    <button mat-raised-button color="primary" (click)="onConfirmClick()">
+      {{ language === "pt-br" ? "Confirmar" : "Confirm" }}
+    </button>
+    <button mat-raised-button mat-button (click)="onCancelClick()">
+      {{ language === "pt-br" ? "Cancelar" : "Cancel" }}
+    </button>
+  </div>
+</div>

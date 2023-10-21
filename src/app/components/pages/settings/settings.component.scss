@@ -1,0 +1,18 @@
+.simple-page {
+    display: flex;
+    flex-direction: column;
+
+    .page-title {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .content {
+        flex: 1;
+        padding: 3.5rem 3rem;
+
+        .config {
+            padding: 1rem;
+        }
+    }
+}

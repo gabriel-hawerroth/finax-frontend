@@ -1,0 +1,82 @@
+<div
+  [ngClass]="{
+    'simple-page': true,
+    'dark-page': utilsService.userConfigs.getValue()!.theme === 'dark'
+  }"
+>
+  <h1 class="page-title">
+    {{ language === "pt-br" ? "Configurações" : "Settings" }}
+  </h1>
+
+  <form [formGroup]="configsForm" class="content">
+    <div class="config flex flex-column">
+      <span class="mb-3">{{ language === "pt-br" ? "Tema" : "Theme" }}:</span>
+      <p-selectButton
+        [options]="themeOptions"
+        formControlName="theme"
+        optionLabel="icon"
+        optionValue="value"
+      >
+        <ng-template let-item pTemplate>
+          <i [class]="item.icon"></i>
+        </ng-template>
+      </p-selectButton>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="config">
+      <span
+        >{{
+          language === "pt-br"
+            ? "Somar bens materiais no patrimônio total"
+            : "Adding material assets to total equity"
+        }}:</span
+      >
+      <mat-radio-group
+        formControlName="addingMaterialGoodsToPatrimony"
+        class="flex flex-column"
+      >
+        <mat-radio-button [value]="true" color="primary">{{
+          language === "pt-br" ? "Sim" : "Yes"
+        }}</mat-radio-button>
+        <mat-radio-button [value]="false" color="primary">{{
+          language === "pt-br" ? "Não" : "No"
+        }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="config">
+      <span>{{ language === "pt-br" ? "Idioma" : "Language" }}:</span>
+      <div>
+        <mat-form-field>
+          <mat-select formControlName="language">
+            <mat-option value="pt-br">{{
+              language === "pt-br" ? "Português" : "Portuguese"
+            }}</mat-option>
+            <mat-option value="en">{{
+              language === "pt-br" ? "Inglês" : "English"
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="config flex flex-column">
+      <span>{{ language === "pt-br" ? "Moeda" : "Currency" }}:</span>
+      <div>
+        <mat-form-field>
+          <mat-select formControlName="currency">
+            <mat-option value="R$">Real brasileiro</mat-option>
+            <mat-option value="$">Dólar</mat-option>
+            <mat-option value="¥">Yuan</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</div>

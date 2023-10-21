@@ -1,0 +1,159 @@
+<div
+  [ngClass]="{
+    'simple-page': true,
+    'dark-page': utilsService.userConfigs.getValue()!.theme === 'dark'
+  }"
+>
+  <h1 class="page-title">
+    {{ language === "pt-br" ? "Meu perfil" : "My profile" }}
+  </h1>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <img
+      [src]="profileImageSrc"
+      alt="foto de perfil do usuário"
+      id="profileImg"
+    />
+    <input
+      type="file"
+      id="fileInput"
+      (change)="onFileSelected($event)"
+      style="display: none"
+      accept="image/*"
+    />
+    <label for="fileInput" class="custom-file-input">{{
+      language === "pt-br" ? "Alterar foto de perfil" : "Change profile picture"
+    }}</label>
+  </div>
+
+  <div fxLayout="row">
+    <div class="form-box">
+      <form [formGroup]="userForm">
+        <div fxLayout="row">
+          <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+            <mat-label>Email</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="email"
+              readonly="true"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+            <mat-label>{{
+              language === "pt-br" ? "Nome" : "First name"
+            }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="firstName"
+              maxlength="30"
+            />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row">
+          <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+            <mat-label>{{
+              language === "pt-br" ? "Sobrenome" : "Last name"
+            }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="lastName"
+              maxlength="90"
+            />
+          </mat-form-field>
+        </div>
+      </form>
+
+      <div fxLayout="row" class="buttons">
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="
+            (userForm.pristine && !changedProfileImg) || userForm.invalid
+          "
+          (click)="saveUser()"
+        >
+          <span *ngIf="!showLoading"
+            ><i class="pi pi-save"></i
+            >{{ language === "pt-br" ? "Salvar" : "Save" }}</span
+          >
+          <mat-spinner
+            *ngIf="showLoading"
+            color="primary"
+            class="spinner-h32px"
+          ></mat-spinner>
+        </button>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="openChangePasswordDialog()"
+        >
+          <span
+            ><span class="material-symbols-outlined">vpn_key</span
+            >{{
+              language === "pt-br" ? "Alterar a senha" : "Change password"
+            }}</span
+          >
+        </button>
+      </div>
+    </div>
+
+    <div id="plan-box">
+      <div id="plan">
+        <div class="title">
+          <h2>
+            {{ language === "pt-br" ? "Acesso antecipado" : "Early Access" }}
+          </h2>
+        </div>
+
+        <div class="content">
+          <div fxLayout="column">
+            <span id="month-year">{{
+              language === "pt-br" ? "Mensal" : "Monthly"
+            }}</span>
+            <span id="plan-price">{{ currency }}0,00</span>
+            <span id="signature-expiration" class="hidden"
+              >{{ language === "pt-br" ? "Expira em" : "Expires on" }}:
+              {{ signatureExpiration | date : "dd/MM/yyyy" }}</span
+            >
+          </div>
+
+          <span id="adm-plan">Congratulations, you're the boss!</span>
+        </div>
+
+        <div class="actions">
+          <button mat-button class="change-plan" (click)="changePlan()">
+            <span>
+              <span class="material-symbols-outlined"
+                >swap_horizontal_circle</span
+              >
+              {{ language === "pt-br" ? "Trocar de plano" : "Switch plan" }}
+            </span>
+          </button>
+
+          <span id="cancel-signature">
+            <span>{{ language === "pt-br" ? "Cancelar" : "Cancel" }}</span>
+          </span>
+        </div>
+      </div>
+
+      <button mat-button color="primary" id="change-payment-method">
+        <span
+          ><span class="material-symbols-outlined">credit_card</span
+          >{{
+            language === "pt-br"
+              ? "Alterar forma de pagamento"
+              : "Change payment method"
+          }}</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+@import 'src/app/utils/colors.scss';
+
+.simple-page {
+    .login-box {
+        .top {
+            justify-content: space-evenly !important;
+        }
+
+        form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+            #forgot-password-label {
+                color: $primary-color;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+
+        .bottom {
+            height: 18%;
+        }
+    }
+}

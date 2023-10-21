@@ -1,0 +1,25 @@
+$sidebar-width: 270px;
+$header-height: 60px;
+
+.app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    app-sidebar {
+        width: $sidebar-width;
+        height: 100%;
+        position: fixed;
+    }
+
+    main,
+    router-outlet {
+        width: 100%;
+        height: 100%;
+    }
+
+    .change-size {
+        width: calc(100% - $sidebar-width) !important;
+        margin-left: $sidebar-width !important;
+    }
+}

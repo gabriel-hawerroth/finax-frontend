@@ -1,0 +1,12 @@
+<div
+  [ngClass]="{
+    'simple-page': true,
+    'dark-page': utilsService.userConfigs.getValue()?.theme === 'dark'
+  }"
+>
+  <h1>
+    {{ language === "pt-br" ? "Bem vindo ao" : "Welcome to" }}
+    <br />
+    Finax
+  </h1>
+</div>

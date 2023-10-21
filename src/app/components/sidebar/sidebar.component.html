@@ -1,0 +1,182 @@
+<div id="sidebar">
+  <div class="sidebar-title">
+    <img src="assets/money-coin.svg" />
+    <h1>Finax</h1>
+  </div>
+
+  <div class="navigation">
+    <ul class="nav-ul">
+      <li>
+        <a routerLink="/home" class="nav-ul-item">
+          <i class="pi pi-home mr-2"></i>
+          <span>{{ language === "pt-br" ? "Início" : "Home" }}</span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/fluxo-de-caixa" class="nav-ul-item">
+          <i class="pi pi-wallet mr-2"></i>
+          <span>{{
+            language === "pt-br" ? "Fluxo de caixa" : "Cash flow"
+          }}</span>
+        </a>
+      </li>
+
+      <li class="basic-plan">
+        <a routerLink="/investimentos" class="nav-ul-item">
+          <i class="pi pi-briefcase mr-2"></i>
+          <span>{{
+            language === "pt-br" ? "Investimentos" : "Investments"
+          }}</span>
+        </a>
+      </li>
+
+      <li class="basic-plan">
+        <a (click)="toggleUlVisibility('reportsUl')" class="nav-ul-item">
+          <i class="pi pi-chart-bar mr-2"></i>
+          <span>{{ language === "pt-br" ? "Relatórios" : "Reports" }}</span>
+          <i class="pi pi-chevron-down ml-auto mr-1"></i>
+        </a>
+
+        <ul id="reportsUl" class="ul-item hidden">
+          <li>
+            <a routerLink="/relatorio/fluxo-de-caixa" class="nav-ul-item">
+              <i class="pi pi-chart-bar mr-2"></i>
+              <span>{{
+                language === "pt-br" ? "Fluxo de caixa" : "Cash flow"
+              }}</span>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/relatorio/investimentos" class="nav-ul-item">
+              <i class="pi pi-chart-bar mr-2"></i>
+              <span>{{
+                language === "pt-br" ? "Investimentos" : "Investments"
+              }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="premium-plan">
+        <a routerLink="/indicadores" class="nav-ul-item">
+          <i class="pi pi-chart-line mr-2"></i>
+          <span>{{ language === "pt-br" ? "Indicadores" : "Indicators" }}</span>
+        </a>
+      </li>
+
+      <li class="premium-plan">
+        <a (click)="toggleUlVisibility('noticesUl')" class="nav-ul-item">
+          <i class="pi pi-book mr-2"></i>
+          <span>{{ language === "pt-br" ? "Notícias" : "Notices" }}</span>
+          <i class="pi pi-chevron-down ml-auto mr-1"></i>
+        </a>
+
+        <ul id="noticesUl" class="ul-item hidden">
+          <li>
+            <a routerLink="/noticias/b3" class="nav-ul-item">
+              <i class="pi pi-book mr-2"></i>
+              <span>B3</span>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/noticias/internacional" class="nav-ul-item">
+              <i class="pi pi-book mr-2"></i>
+              <span>{{
+                language === "pt-br" ? "Internacional" : "International"
+              }}</span>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/noticias/criptos" class="nav-ul-item">
+              <i class="pi pi-book mr-2"></i>
+              <span>{{ language === "pt-br" ? "Critpos" : "Cryptos" }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a routerLink="/metas-de-gasto" class="nav-ul-item">
+          <i class="pi pi-sliders-v mr-2"></i>
+          <span>{{
+            language === "pt-br" ? "Metas de gasto" : "Spending goals"
+          }}</span>
+        </a>
+      </li>
+
+      <li>
+        <a (click)="toggleUlVisibility('moreUl')" class="nav-ul-item">
+          <i class="pi pi-plus mr-2"></i>
+          <span>{{
+            language === "pt-br" ? "Outras opções" : "Other options"
+          }}</span>
+          <i class="pi pi-chevron-down ml-auto mr-1"></i>
+        </a>
+
+        <ul id="moreUl" class="ul-item hidden">
+          <li>
+            <a routerLink="/minhas-contas-de-banco" class="gap-2 nav-ul-item">
+              <i class="material-symbols-outlined" style="margin-left: -3px"
+                >account_balance</i
+              >
+              <span>{{
+                language === "pt-br"
+                  ? "Minhas contas de banco"
+                  : "My bank accounts"
+              }}</span>
+            </a>
+          </li>
+
+          <li class="basic-plan">
+            <a routerLink="/calculadora-de-juros" class="nav-ul-item">
+              <i class="pi pi-calculator mr-2"></i>
+              <span>{{
+                language === "pt-br"
+                  ? "Calculadora de juros"
+                  : "Interest Calculator"
+              }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="user-options">
+    <ul id="userActionsUl" class="nav-ul hidden">
+      <li>
+        <a routerLink="/meu-perfil" class="nav-ul-item">
+          <i class="pi pi-user mr-2"></i>
+          <span>{{ language === "pt-br" ? "Meu perfil" : "My profile" }}</span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/configuracoes" class="nav-ul-item">
+          <i class="pi pi-cog mr-2"></i>
+          <span>{{ language === "pt-br" ? "Configurações" : "Settings" }}</span>
+        </a>
+      </li>
+
+      <li>
+        <a (click)="logout()" class="nav-ul-item">
+          <i class="pi pi-sign-out mr-2"></i>
+          <span>{{ language === "pt-br" ? "Sair" : "Logout" }}</span>
+        </a>
+      </li>
+    </ul>
+
+    <a
+      (click)="toggleUlVisibility('userActionsUl')"
+      class="nav-ul-item user-item"
+    >
+      <img [src]="_utilsService.userImage | async" />
+      <span>{{ _loginService.getLoggedUser.firstName }}</span>
+      <i class="pi pi-chevron-up ml-auto"></i>
+    </a>
+  </div>
+</div>
