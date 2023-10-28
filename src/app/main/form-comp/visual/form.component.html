@@ -1,0 +1,1005 @@
+<!-- <div class="flex form-component-v1" fxFlex="100">
+  <div>
+    <div *ngFor="let group of props.groups">
+      <div
+        [ngClass]="{group.class: !group.class}"
+      >
+        <ng-container
+          [ngTemplateOutlet]="formLines"
+          [ngTemplateOutletContext]="{
+            input: { group: group, form: props.form }
+          }"
+        ></ng-container>
+      </div>
+
+      <div
+        *ngIf="group.layout === 'card'"
+        [ngClass]="group.class ? [group.class.toString()] : {}"
+      >
+        <mat-card class="fuse-white" [class.mat-elevation-z2]="true">
+          <ng-container
+            [ngTemplateOutlet]="formLines"
+            [ngTemplateOutletContext]="{
+              input: { group: group, form: props.form }
+            }"
+          ></ng-container>
+        </mat-card>
+      </div>
+
+      <div
+        *ngIf="group.layout === 'expansion'"
+        [ngClass]="group.class ? [group.class.toString()] : {}"
+      >
+        <mat-expansion-panel [expanded]="group.expanded">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="new-expansion-panel-header-label">
+                {{ group.title }}
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <ng-container
+            [ngTemplateOutlet]="formLines"
+            [ngTemplateOutletContext]="{
+              input: { group: group, form: props.form }
+            }"
+          ></ng-container>
+        </mat-expansion-panel>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #formLines let-input="input">
+  <form [formGroup]="input.form" fxFlex="100">
+    <div *ngFor="let line of input.group.lines">
+      <div
+        fxFlex="100"
+        fxLayout="row"
+        fxLayout.xs="column"
+        [fxLayoutAlign]="line.layout ? line.layout : 'start'"
+        [fxLayoutGap]="line.widthGap ? line.widthGap + 'px' : '10px'"
+        [ngClass]="line.class ? [line.class.toString()] : {}"
+      >
+        <div
+          *ngFor="let field of line.fields; let i = index"
+          [fxFlex]="field.width"
+          [fxShow]="field.visible === true"
+        >
+          ||--- MASK EDIT ---||
+          <div
+            *ngIf="field.type === 'edit' && field.mask"
+            [ngClass]="{
+              'disable-color': field.readonly && field.type === 'edit'
+            }"
+          >
+            <mat-icon *ngIf="field.showLeftArrow" class="mr-6" matSuffix
+              >subdirectory_arrow_right</mat-icon
+            >
+            <mat-form-field fxFlex="100" [floatLabel]="true">
+              <input
+                [id]="field.key"
+                matInput
+                autocomplete="off"
+                #input
+                [type]="field.inputType ? field.inputType : null"
+                [placeholder]="field.label"
+                [formControlName]="field.key"
+                [mask]="field.mask"
+                [readonly]="field.readonly"
+                [dropSpecialCharacters]="field.dropSpecialCharacters || false"
+                (input)="onInputEvt(field, $event)"
+                (blur)="onInputBlur(field, $event)"
+              />
+              <mat-hint
+                *ngIf="field.maxLength && field.maxLength > 0"
+                [ngClass]="{
+                  'red-text': input.value?.length > field.maxLength,
+                  null: input.value?.length <= field.maxLength
+                }"
+                align="end"
+                >{{ input.value?.length }}/{{ field.maxLength }}</mat-hint
+              >
+              <mat-hint *ngIf="field.hint" align="end"
+                ><strong>{{ field.hint }}</strong></mat-hint
+              >
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+            </mat-form-field>
+          </div>
+
+          ||--- ONLY-NUMBER INPUT ---||
+          <div
+            *ngIf="
+              field.type === 'edit' &&
+              !field.mask &&
+              field.inputType &&
+              field.inputType === 'onlyNumber'
+            "
+            [ngClass]="{
+              'disable-color': field.readonly && field.type === 'edit'
+            }"
+          >
+            <mat-icon *ngIf="field.showLeftArrow" class="mr-6" matSuffix
+              >subdirectory_arrow_right</mat-icon
+            >
+            <mat-form-field
+              fxFlex="100"
+              [floatLabel]="true"
+              [ngClass]="{
+                'max-w-80': field.inputType === 'time',
+                null: field.inputType !== 'time'
+              }"
+            >
+              <input
+                onlyNumber
+                #input
+                [id]="field.key"
+                matInput
+                autocomplete="off"
+                [placeholder]="field.label"
+                [ngClass]="
+                  field.inputType && field.inputType === 'number'
+                    ? 'mat-form-field-align-right'
+                    : {}
+                "
+                [formControlName]="field.key"
+                [readonly]="field.readonly"
+                (input)="onInputEvt(field, $event)"
+                (blur)="onInputBlur(field, $event)"
+              />
+
+              <div
+                *ngIf="
+                  field.formEditProps &&
+                  field.formEditProps.buttons &&
+                  field.formEditProps.buttons.length > 0
+                "
+                class="edit-buttons-div"
+                fxLayout="row"
+                fxLayoutAlign="start"
+              >
+                <button
+                  *ngFor="let but of field.formEditProps.buttons"
+                  mat-icon-button
+                  [ngClass]="but.class ? [but.class.toString()] : {}"
+                  (click)="but.clickFunction()"
+                >
+                  <mat-icon matSuffix class="secondary-text">{{
+                    but.icon.iconType
+                  }}</mat-icon>
+                </button>
+              </div>
+
+              <mat-hint
+                *ngIf="field.maxLength && field.maxLength > 0"
+                [ngClass]="{
+                  'red-text': input.value?.length > field.maxLength,
+                  null: input.value?.length <= field.maxLength
+                }"
+                align="end"
+                >{{ input.value?.length }}/{{ field.maxLength }}</mat-hint
+              >
+
+              <mat-error
+                *ngIf="
+                  field.formEditProps &&
+                  field.formEditProps.errorMessage &&
+                  field.formEditProps.errorMessage.length > 0
+                "
+                class="deleteColor-fg"
+              >
+                {{ field.formEditProps.errorMessage }}
+              </mat-error>
+
+              <mat-hint *ngIf="field.hint" align="end"
+                ><strong>{{ field.hint }}</strong></mat-hint
+              >
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  !field.iconProps.tooltipProps
+                "
+                matSuffix
+                class="tooltip-color"
+              >
+                {{ field.iconProps.iconType }}
+              </mat-icon>
+
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color mat-tooltip-style"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  field.iconProps.tooltipProps &&
+                  field.iconProps.tooltipProps.text
+                "
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.iconProps.tooltipProps.text"
+                [matTooltipPosition]="field.iconProps.tooltipProps.position"
+                [matTooltipShowDelay]="field.iconProps.tooltipProps.delay"
+                >{{ field.iconProps.iconType }}</mat-icon
+              >
+            </mat-form-field>
+          </div>
+
+          ||--- NON CURRENCY NON MASK EDIT ---||
+          <div
+            *ngIf="
+              field.type === 'edit' &&
+              !field.mask &&
+              (!field.inputType ||
+                (field.inputType !== 'currency' &&
+                  field.inputType !== 'onlyNumber'))
+            "
+            [ngClass]="{
+              'disable-color': field.readonly && field.type === 'edit'
+            }"
+          >
+            <mat-icon *ngIf="field.showLeftArrow" class="mr-6" matSuffix
+              >subdirectory_arrow_right</mat-icon
+            >
+            <mat-form-field
+              fxFlex="100"
+              [floatLabel]="true"
+              [ngClass]="{
+                'max-w-80': field.inputType === 'time',
+                null: field.inputType !== 'time'
+              }"
+            >
+              <input
+                [id]="field.key"
+                matInput
+                [autocomplete]="
+                  field.inputType === 'password' ||
+                  field.inputType === 'customPassword'
+                    ? 'new-password'
+                    : 'off'
+                "
+                #input
+                [type]="field.inputType ? field.inputType : null"
+                [placeholder]="field.label"
+                [ngClass]="
+                  field.inputType && field.inputType === 'number'
+                    ? 'mat-form-field-align-right'
+                    : field.inputType && field.inputType === 'customPassword'
+                    ? 'customPassword'
+                    : ''
+                "
+                [formControlName]="field.key"
+                [readonly]="field.readonly"
+                (input)="onInputEvt(field, $event)"
+                (blur)="onInputBlur(field, $event)"
+              />
+
+              <div
+                *ngIf="
+                  field.formEditProps &&
+                  field.formEditProps.buttons &&
+                  field.formEditProps.buttons.length > 0
+                "
+                class="edit-buttons-div"
+                fxLayout="row"
+                fxLayoutAlign="start"
+              >
+                <button
+                  *ngFor="let but of field.formEditProps.buttons"
+                  mat-icon-button
+                  [ngClass]="but.class ? [but.class.toString()] : {}"
+                  (click)="but.clickFunction()"
+                >
+                  <mat-icon
+                    matSuffix
+                    class="secondary-text"
+                    [matTooltip]="
+                      but.icon.tooltipProps ? but.icon.tooltipProps.text : null
+                    "
+                    [matTooltipShowDelay]="
+                      but.icon.tooltipProps && but.icon.tooltipProps.delay
+                        ? but.icon.tooltipProps.delay
+                        : '500'
+                    "
+                    [matTooltipPosition]="
+                      but.icon.tooltipProps
+                        ? but.icon.tooltipProps.position
+                        : 'after'
+                    "
+                  >
+                    {{ but.icon.iconType }}
+                  </mat-icon>
+                </button>
+              </div>
+
+              <mat-hint
+                *ngIf="field.maxLength && field.maxLength > 0"
+                [ngClass]="{
+                  'red-text': input.value?.length > field.maxLength,
+                  null: input.value?.length <= field.maxLength
+                }"
+                align="end"
+                >{{ input.value?.length }}/{{ field.maxLength }}</mat-hint
+              >
+
+              <mat-hint *ngIf="field.hint" align="end"
+                ><strong>{{ field.hint }}</strong></mat-hint
+              >
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  !field.iconProps.tooltipProps
+                "
+                matSuffix
+                class="tooltip-color"
+              >
+                {{ field.iconProps.iconType }}
+              </mat-icon>
+
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color mat-tooltip-style"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  field.iconProps.tooltipProps &&
+                  field.iconProps.tooltipProps.text
+                "
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.iconProps.tooltipProps.text"
+                [matTooltipPosition]="field.iconProps.tooltipProps.position"
+                [matTooltipShowDelay]="field.iconProps.tooltipProps.delay"
+                >{{ field.iconProps.iconType }}</mat-icon
+              >
+
+              <mat-error
+                *ngIf="
+                  field.formEditProps &&
+                  field.formEditProps.errorMessage &&
+                  props.form.controls[field.key].invalid &&
+                  props.form.controls
+                "
+                class="deleteColor-fg"
+              >
+                {{ field.formEditProps.errorMessage }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          ||--- CURRENCY EDIT ---||
+          <div
+            *ngIf="
+              field.type === 'edit' &&
+              !field.mask &&
+              field.inputType &&
+              field.inputType === 'currency'
+            "
+            [ngClass]="{
+              'disable-color': field.readonly && field.type === 'edit'
+            }"
+          >
+            <mat-icon *ngIf="field.showLeftArrow" class="mr-6" matSuffix
+              >subdirectory_arrow_right</mat-icon
+            >
+            <mat-form-field fxFlex="100" [floatLabel]="true">
+              <input
+                [id]="field.key"
+                matInput
+                autocomplete="off"
+                #input
+                currencyMask
+                [placeholder]="field.label"
+                [options]="
+                  field.formEditProps && field.formEditProps.maskOptions
+                    ? field.formEditProps.maskOptions
+                    : currencyOpt
+                "
+                [formControlName]="field.key"
+                [readonly]="field.readonly"
+                (input)="onInputEvt(field, $event)"
+                (blur)="onInputBlur(field, $event)"
+                (keydown)="onKeyDown($event, field)"
+              />
+              <mat-hint
+                *ngIf="!field.hint && field.maxLength && field.maxLength > 0"
+                [ngClass]="{
+                  'red-text': input.value.length > field.maxLength,
+                  null: input.value.length <= field.maxLength
+                }"
+                align="end"
+                >{{ input.value.length }}/{{ field.maxLength }}</mat-hint
+              >
+
+              <mat-hint *ngIf="field.hint" align="end"
+                ><strong>{{ field.hint }}</strong></mat-hint
+              >
+
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+            </mat-form-field>
+          </div>
+
+          ||--- SIMPLE TEXT ---||
+          <div class="h-full" *ngIf="field.type === 'simpleText'">
+            <mat-icon *ngIf="field.showLeftArrow" class="mr-6" matSuffix
+              >subdirectory_arrow_right</mat-icon
+            >
+            <div
+              class="h-full"
+              fxFlex="100"
+              class="simple-text-div"
+              [ngClass]="
+                field.simpleTextProps && field.simpleTextProps.class
+                  ? [field.simpleTextProps.class.toString()]
+                  : {}
+              "
+              [ngStyle]="{
+                'font-size':
+                  field.simpleTextProps && field.simpleTextProps.fontSize
+                    ? field.simpleTextProps.fontSize.toString() + 'px'
+                    : null,
+                'font-weight':
+                  field.simpleTextProps && field.simpleTextProps.fontWeight
+                    ? field.simpleTextProps.fontWeight
+                    : 'none'
+              }"
+              [fxLayoutAlign]="
+                field.simpleTextProps && field.simpleTextProps.layoutAlign
+                  ? field.simpleTextProps.layoutAlign
+                  : 'start'
+              "
+            >
+              {{ input.form.get(field.key).value }}
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  !field.iconProps.tooltipProps
+                "
+                matSuffix
+                class="tooltip-color"
+              >
+                {{ field.iconProps.iconType }}
+              </mat-icon>
+
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color ml-4 mt-16"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  field.iconProps.tooltipProps &&
+                  field.iconProps.tooltipProps.text
+                "
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.iconProps.tooltipProps.text"
+                [matTooltipPosition]="field.iconProps.tooltipProps.position"
+                [matTooltipShowDelay]="field.iconProps.tooltipProps.delay"
+                >{{ field.iconProps.iconType }}</mat-icon
+              >
+            </div>
+          </div>
+
+          ||--- RADIO GROUP ---||
+          <div class="mt-16" *ngIf="field.type === 'radioGroup'">
+            <mat-label
+              [attr.for]="field.key"
+              class="radio-group-label-custom"
+              >{{ field.label }}</mat-label
+            >
+            <mat-radio-group
+              color="primary"
+              [formControlName]="field.key"
+              [disabled]="field.readonly"
+              [id]="field.key"
+              (change)="radioGroupChangeEvt(field, $event)"
+            >
+              <mat-radio-button
+                class="radio-group-button-custom"
+                *ngFor="let opt of field.radioGroupProps.options"
+                [value]="opt.id"
+                >{{ opt.ds }}
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
+
+          <div *ngIf="field.type === 'time'">
+            <mat-form-field fxFlex="100" [floatLabel]="true">
+              <input
+                matInput
+                class="input-time-height-override"
+                type="time"
+                [placeholder]="field.label"
+                [formControlName]="field.key"
+              />
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  field.iconProps.tooltipProps &&
+                  field.iconProps.tooltipProps.text
+                "
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.iconProps.tooltipProps.text"
+                [matTooltipPosition]="field.iconProps.tooltipProps.position"
+                [matTooltipShowDelay]="field.iconProps.tooltipProps.delay"
+              >
+                {{ field.iconProps.iconType }}
+              </mat-icon>
+
+              <mat-hint *ngIf="field.hint" align="end">
+                <strong>{{ field.hint }}</strong>
+              </mat-hint>
+            </mat-form-field>
+          </div>
+
+          ||--- TEXT AREA ---||
+          <div *ngIf="field.type === 'textarea'">
+            <mat-form-field
+              fxFlex="100"
+              [floatLabel]="true"
+              appearance="outline"
+            >
+              <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+              <textarea
+                matInput
+                #input
+                [id]="field.key"
+                autocomplete="off"
+                [required]="field.required"
+                [readonly]="field.readonly"
+                [formControlName]="field.key"
+                [rows]="
+                  field.textAreaProps && field.textAreaProps.rows
+                    ? field.textAreaProps.rows
+                    : 1
+                "
+              ></textarea>
+              <mat-hint
+                *ngIf="field.maxLength && field.maxLength > 0"
+                [ngClass]="{
+                  'red-text': input.value?.length > field.maxLength,
+                  null: input.value?.length <= field.maxLength
+                }"
+                align="end"
+                >{{ input.value?.length }}/{{ field.maxLength }}</mat-hint
+              >
+            </mat-form-field>
+          </div>
+
+          ||--- DATE PICKER ---||
+          <div *ngIf="field.type === 'datePicker'">
+            <mat-form-field
+              fxFlex="100"
+              [floatLabel]="true"
+              [ngClass]="{
+                'disable-color': field.readonly && field.type === 'datePicker'
+              }"
+            >
+              <input
+                [id]="field.key"
+                matInput
+                autocomplete="off"
+                [matDatepicker]="dtpck"
+                [readonly]="field.readonly"
+                [placeholder]="field.label"
+                [formControlName]="field.key"
+                (dateChange)="datePickerDateChangeEvt(field, $event)"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dtpck"
+                [disabled]="field.readonly"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #dtpck></mat-datepicker>
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  !field.iconProps.tooltipProps
+                "
+                matSuffix
+                class="tooltip-color"
+              >
+                {{ field.iconProps.iconType }}
+              </mat-icon>
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  field.iconProps.tooltipProps &&
+                  field.iconProps.tooltipProps.text
+                "
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.iconProps.tooltipProps.text"
+                [matTooltipPosition]="field.iconProps.tooltipProps.position"
+                [matTooltipShowDelay]="field.iconProps.tooltipProps.delay"
+                >{{ field.iconProps.iconType }}</mat-icon
+              >
+            </mat-form-field>
+          </div>
+
+          ||--- MONTH PICKER ---||
+          <div *ngIf="field.type === 'monthPicker'">
+            <app-month-picker
+              (monthSelected)="monthSelected($event, field.key)"
+              [customLabel]="field.label"
+              [reset]="field.reset"
+            >
+            </app-month-picker>
+          </div>
+
+          ||--- CHECKBOX ---||
+          <div *ngIf="field.type === 'checkBox'" class="checkbox-field-div">
+            <mat-icon *ngIf="field.showLeftArrow" class="mr-6" matSuffix
+              >subdirectory_arrow_right</mat-icon
+            >
+            <mat-checkbox
+              [id]="field.key"
+              [ngClass]="{
+                'mt-16':
+                  !field.disableCheckBoxMT && (i > 0 || line.fields.length > 1),
+                'mt-0': i == 0 || field.disableCheckBoxMT
+              }"
+              #checkbox
+              [checked]="props.form.get(field.key).value"
+              [value]="checkbox.checked"
+              color="primary"
+              [disabled]="field.readonly"
+              [formControlName]="field.key"
+              (change)="checkBoxChangeEvt(field, $event)"
+              [class]="field.class"
+            >
+              {{ field.label }}
+            </mat-checkbox>
+
+            <mat-icon
+              *ngIf="
+                field.tooltipText &&
+                !(
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  field.iconProps.tooltipProps &&
+                  field.iconProps.tooltipProps.text
+                )
+              "
+              matSuffix
+              [ngClass]="{
+                'mt-16':
+                  !field.disableCheckBoxMT && (i > 0 || line.fields.length > 1),
+                'mt-0': i == 0 || field.disableCheckBoxMT
+              }"
+              class="tooltip-color ml-4"
+              [matTooltip]="field.tooltipText"
+              [matTooltipPosition]="'below'"
+              [matTooltipShowDelay]="100"
+              >info</mat-icon
+            >
+
+            <mat-icon
+              *ngIf="
+                field.iconProps &&
+                field.iconProps.iconType &&
+                field.iconProps.tooltipProps &&
+                field.iconProps.tooltipProps.text
+              "
+              matSuffix
+              [ngClass]="field.iconProps.tooltipProps.class"
+              class="tooltip-color"
+              [matTooltip]="field.iconProps.tooltipProps.text"
+              [matTooltipPosition]="field.iconProps.tooltipProps.position"
+              [matTooltipShowDelay]="field.iconProps.tooltipProps.delay || 500"
+              >{{ field.iconProps.iconType }}</mat-icon
+            >
+          </div>
+
+          ||--- DROPDOWN / SELECT ---||
+          <div
+            *ngIf="
+              field.type === 'dropDown' &&
+              field.dropDownProps &&
+              field.dropDownProps.internal
+            "
+            [ngClass]="
+              field.dropDownProps && field.dropDownProps.class
+                ? [field.dropDownProps.class.toString()]
+                : ''
+            "
+          >
+            <mat-form-field fxFlex="100" [floatLabel]="true">
+              <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+              <mat-select
+                #matSelect
+                (focus)="dropDownFocus(field, matSelect)"
+                [id]="field.key"
+                [formControlName]="field.key"
+                [disabled]="field.readonly || input.form.disabled"
+                [multiple]="field.dropDownProps.multiple"
+                (selectionChange)="
+                  dropDownSelectionChangeEvt(field, $event, matSelect)
+                "
+              >
+                <mat-option *ngIf="field.dropDownProps.filterCtrlLabel">
+                  <ngx-mat-select-search
+                    [formControl]="field.dropDownProps.internal.filterCtrl"
+                    [placeholderLabel]="field.dropDownProps.filterCtrlLabel"
+                    [noEntriesFoundLabel]="
+                      field.dropDownProps.noEntriesFoundLabel
+                    "
+                  >
+                  </ngx-mat-select-search>
+                </mat-option>
+                <mat-option
+                  *ngIf="
+                    field.dropDownProps.showNullOption !== null &&
+                    field.dropDownProps.showNullOption === true
+                  "
+                  [value]="
+                    field.dropDownProps.nullOptionHash
+                      ? field.dropDownProps.nullOptionHash.value
+                      : null
+                  "
+                  >{{
+                    field.dropDownProps.nullOptionHash
+                      ? field.dropDownProps.nullOptionHash.label
+                      : ""
+                  }}</mat-option
+                >
+
+                <mat-option
+                  [matTooltip]="
+                    opt[field.dropDownProps.optionsLabelField] ||
+                    opt[field.dropDownProps.optionsKeyField]
+                  "
+                  matTooltipClass="mat-tooltip"
+                  matTooltipPosition="right"
+                  *ngFor="
+                    let opt of field.dropDownProps.internal.filteredOptions
+                  "
+                  [value]="opt[field.dropDownProps.optionsKeyField]"
+                  [ngStyle]="{
+                    color: field.dropDownProps.colorOptionFunction
+                      ? field.dropDownProps.colorOptionFunction(opt)
+                      : null
+                  }"
+                  >{{
+                    opt[field.dropDownProps.optionsLabelField] ||
+                      opt[field.dropDownProps.optionsKeyField]
+                  }}</mat-option
+                >
+              </mat-select>
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  !field.iconProps.tooltipProps
+                "
+                matSuffix
+                class="tooltip-color"
+              >
+                {{ field.iconProps.iconType }}
+              </mat-icon>
+
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+
+              <mat-icon
+                *ngIf="
+                  field.iconProps &&
+                  field.iconProps.iconType &&
+                  field.iconProps.tooltipProps &&
+                  field.iconProps.tooltipProps.text
+                "
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.iconProps.tooltipProps.text"
+                [matTooltipPosition]="field.iconProps.tooltipProps.position"
+                [matTooltipShowDelay]="field.iconProps.tooltipProps.delay"
+                >{{ field.iconProps.iconType }}</mat-icon
+              >
+            </mat-form-field>
+          </div>
+
+          ||--- AUTOCOMPLETE ---||
+          <div
+            *ngIf="
+              field.type === 'autoComplete' &&
+              field.dropDownProps &&
+              field.dropDownProps.internal
+            "
+          >
+            <mat-form-field fxFlex="100" [floatLabel]="true">
+              <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+              <input
+                [id]="field.key"
+                #input
+                matInput
+                #triggetAutoComplete="matAutocompleteTrigger"
+                [type]="field.inputType ? field.inputType : null"
+                [placeholder]="field.dropDownProps.filterCtrlLabel"
+                [formControl]="field.dropDownProps.internal.filterCtrl"
+                [matAutocomplete]="auto"
+                [required]="field.required"
+                (input)="onInputEvt(field, $event)"
+                (focusout)="onFocusOut($event, triggetAutoComplete)"
+              />
+              <mat-hint
+                *ngIf="field.maxLength && field.maxLength > 0"
+                [ngClass]="{
+                  'red-text': input.value?.length > field.maxLength,
+                  null: input.value?.length <= field.maxLength
+                }"
+                align="end"
+                >{{ input.value?.length }}/{{ field.maxLength }}</mat-hint
+              >
+
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+              <mat-autocomplete
+                autoActiveFirstOption
+                #auto="matAutocomplete"
+                (optionSelected)="autoCompleteEvent(field, $event)"
+              >
+                <mat-option
+                  [matTooltip]="
+                    opt[field.dropDownProps.optionsLabelField] ||
+                    opt[field.dropDownProps.optionsKeyField]
+                  "
+                  matTooltipClass="mat-tooltip"
+                  matTooltipPosition="right"
+                  *ngFor="
+                    let opt of field.dropDownProps.internal.filteredOptions
+                  "
+                  [value]="opt[field.dropDownProps.optionsKeyField]"
+                  >{{
+                    opt[field.dropDownProps.optionsLabelField] ||
+                      opt[field.dropDownProps.optionsKeyField]
+                  }}</mat-option
+                >
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+
+          ||--- AUTOCOMPLETE  CUSTOMIZADO PARA USAR A PROPRIEDADE displayFn (CASO ESTAJA TRABALHANDO COM RETORNO EM OBJETO) ---||
+          <div
+            *ngIf="
+              field.type === 'autoCompleteObjectData' &&
+              field.dropDownProps &&
+              field.dropDownProps.internal
+            "
+          >
+            <mat-form-field fxFlex="100" [floatLabel]="true">
+              <mat-label [attr.for]="field.key">{{ field.label }}</mat-label>
+              <input
+                [id]="field.key"
+                #input
+                matInput
+                [type]="field.inputType ? field.inputType : null"
+                [placeholder]="field.dropDownProps.filterCtrlLabel"
+                [formControl]="field.dropDownProps.internal.filterCtrl"
+                [matAutocomplete]="auto"
+                [required]="field.required"
+                (input)="onInputEvt(field, $event)"
+              />
+              <mat-hint
+                *ngIf="field.maxLength && field.maxLength > 0"
+                [ngClass]="{
+                  'red-text': input.value?.length > field.maxLength,
+                  null: input.value?.length <= field.maxLength
+                }"
+                align="end"
+                >{{ input.value?.length }}/{{ field.maxLength }}</mat-hint
+              >
+
+              <mat-icon
+                *ngIf="field.tooltipText"
+                matSuffix
+                class="tooltip-color"
+                [matTooltip]="field.tooltipText"
+                [matTooltipPosition]="'below'"
+                [matTooltipShowDelay]="100"
+                >info</mat-icon
+              >
+              <mat-autocomplete
+                [displayWith]="displayFn.bind(this, field)"
+                autoActiveFirstOption
+                #auto="matAutocomplete"
+                (optionSelected)="autoCompleteEvent(field, $event)"
+              >
+                <mat-option
+                  [matTooltip]="
+                    opt[field.dropDownProps.optionsLabelField] ||
+                    opt[field.dropDownProps.optionsKeyField]
+                  "
+                  matTooltipClass="mat-tooltip"
+                  matTooltipPosition="right"
+                  *ngFor="
+                    let opt of field.dropDownProps.internal.filteredOptions
+                  "
+                  [value]="opt"
+                  >{{
+                    opt[field.dropDownProps.optionsLabelField] ||
+                      opt[field.dropDownProps.optionsKeyField]
+                  }}</mat-option
+                >
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-template> -->

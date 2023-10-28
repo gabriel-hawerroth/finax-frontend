@@ -26,8 +26,8 @@ export class LoginService {
   ) {}
 
   async login(credentials: Credentials) {
-    const savedConfigs = localStorage.getItem('savedConfigsFinax');
-    var language: string = '';
+    const savedConfigs = localStorage.getItem('savedUserConfigsFinax');
+    var language: string = 'pt-br';
     if (savedConfigs) {
       language = JSON.parse(atob(savedConfigs)).language;
     }

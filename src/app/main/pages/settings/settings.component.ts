@@ -65,7 +65,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   getConfigs() {
-    this.userConfigs = this.utilsService.getSavedUserConfigs;
+    this.userConfigs = this.utilsService.getSavedUserConfigs!;
     this.configsForm.patchValue(this.userConfigs);
   }
 
