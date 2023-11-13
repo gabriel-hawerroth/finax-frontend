@@ -32,7 +32,7 @@ export class SidebarComponent implements OnInit {
     this.handleTheme();
 
     this._utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value?.language;
+      this.language = value.language;
     });
   }
 
@@ -66,7 +66,7 @@ export class SidebarComponent implements OnInit {
     const navUlItens = document.querySelectorAll('.nav-ul-item');
 
     this._utilsService.userConfigs.asObservable().subscribe((value) => {
-      if (value?.theme === 'light') {
+      if (value.theme === 'light') {
         sidebar!.style.backgroundColor = '#fafafa';
 
         navUlItens.forEach((element) => {

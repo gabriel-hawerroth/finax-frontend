@@ -1,8 +1,12 @@
 <div
   [ngClass]="{
     'simple-page': true,
-    'dark-page': utilsService.userConfigs.getValue()!.theme === 'dark'
+    'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
   }"
 >
-  <p>notices-international works!</p>
+  <h1 class="page-title">
+    {{
+      language === "pt-br" ? "Notícias internacionais" : "Notices international"
+    }}
+  </h1>
 </div>

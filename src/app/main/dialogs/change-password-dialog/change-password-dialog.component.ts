@@ -103,7 +103,6 @@ export class ChangePasswordDialogComponent implements OnInit {
         }
       })
       .catch((error) => {
-        console.log(error.status);
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'A senha atual está incorreta'

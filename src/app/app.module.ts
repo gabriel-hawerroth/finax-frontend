@@ -19,6 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatExpansionModule } from '@angular/material/expansion';
 // primeng
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -30,6 +32,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 // ngx
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import {
+  NgxCurrencyDirective,
+  NgxCurrencyInputMode,
+  provideEnvironmentNgxCurrency,
+} from 'ngx-currency';
 
 // internos
 import { AppRoutingModule } from './app-routing.module';
@@ -59,6 +66,9 @@ import { UserActivationComponent } from './main/pages/public/components/user-act
 import { ChangePasswordComponent } from './main/pages/public/components/change-password/change-password.component';
 import { ChangePasswordDialogComponent } from './main/dialogs/change-password-dialog/change-password-dialog.component';
 import { ConfirmationDialogComponent } from './main/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { BankAccountsEditComponent } from './main/pages/my-bank-accounts/components/bank-accounts-edit/bank-accounts-edit.component';
+import { EditBalanceDialogComponent } from './main/pages/my-bank-accounts/components/edit-balance-dialog/edit-balance-dialog.component';
+import { CustomCurrencyPipe } from './utils/customCurrencyPipe';
 
 @NgModule({
   declarations: [
@@ -87,6 +97,9 @@ import { ConfirmationDialogComponent } from './main/dialogs/confirmation-dialog/
     ChangePasswordComponent,
     ChangePasswordDialogComponent,
     ConfirmationDialogComponent,
+    BankAccountsEditComponent,
+    EditBalanceDialogComponent,
+    CustomCurrencyPipe,
   ],
   imports: [
     //angular
@@ -110,6 +123,8 @@ import { ConfirmationDialogComponent } from './main/dialogs/confirmation-dialog/
     MatDialogModule,
     MatRadioModule,
     MatSelectModule,
+    DragDropModule,
+    MatExpansionModule,
     //primeng
     InputTextModule,
     ButtonModule,
@@ -121,13 +136,29 @@ import { ConfirmationDialogComponent } from './main/dialogs/confirmation-dialog/
     //ngx
     NgxMaskDirective,
     NgxMaskPipe,
+    NgxMatSelectSearchModule,
     NgxMaskDirective,
+    NgxCurrencyDirective,
   ],
   providers: [
     provideNgxMask(),
     DatePipe,
     { provide: MAT_DATE_LOCALE, useValue: 'pt-br' },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    provideEnvironmentNgxCurrency({
+      align: 'right',
+      allowNegative: true,
+      allowZero: true,
+      decimal: ',',
+      precision: 2,
+      prefix: '',
+      suffix: '',
+      thousands: '.',
+      nullable: false,
+      min: null,
+      max: null,
+      inputMode: NgxCurrencyInputMode.Financial,
+    }),
   ],
   bootstrap: [AppComponent],
 })

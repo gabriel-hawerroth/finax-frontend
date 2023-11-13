@@ -33,7 +33,7 @@ export class UserConfigsService {
       btoa(JSON.stringify(userConfigs))
     );
     return lastValueFrom(
-      this._http.post<UserConfigs>(this.apiUrl, userConfigs)
+      this._http.post<UserConfigs>(`${this.apiUrl}/save`, userConfigs)
     );
   }
 }

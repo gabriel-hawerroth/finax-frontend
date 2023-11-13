@@ -63,15 +63,16 @@
 
     <div class="bottom" fxLayoutAlign="center start">
       <button
+        *ngIf="!showLoading"
         mat-raised-button
         color="primary"
         style="border-radius: 3rem; box-sizing: initial; padding: 1.5rem 2rem"
         fxFlex="65"
         (click)="login()"
       >
-        <span *ngIf="!showLoading"><mat-icon>person</mat-icon>Login</span>
-        <mat-spinner *ngIf="showLoading" color="accent"></mat-spinner>
+        <span><mat-icon>person</mat-icon>Login</span>
       </button>
+      <mat-spinner *ngIf="showLoading" [diameter]="40"></mat-spinner>
     </div>
   </div>
 

@@ -7,7 +7,13 @@ import { UtilsService } from 'src/app/utils/utils.service';
   styleUrls: ['./notices-brazil.component.scss'],
 })
 export class NoticesBrazilComponent implements OnInit {
+  language = 'pt-br';
+
   constructor(public utilsService: UtilsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.utilsService.userConfigs.asObservable().subscribe((value) => {
+      this.language = value.language;
+    });
+  }
 }

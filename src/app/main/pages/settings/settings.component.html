@@ -1,7 +1,7 @@
 <div
   [ngClass]="{
     'simple-page': true,
-    'dark-page': utilsService.userConfigs.getValue()!.theme === 'dark'
+    'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
   }"
 >
   <h1 class="page-title">
@@ -71,9 +71,10 @@
       <div>
         <mat-form-field>
           <mat-select formControlName="currency">
-            <mat-option value="R$">Real brasileiro</mat-option>
-            <mat-option value="$">Dólar</mat-option>
-            <mat-option value="¥">Yuan</mat-option>
+            <mat-option value="R$">R$ Real brasileiro</mat-option>
+            <mat-option value="$">$ Dólar</mat-option>
+            <!-- <mat-option value="€">€ Euro</mat-option> -->
+            <mat-option value="¥">¥ Yuan</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

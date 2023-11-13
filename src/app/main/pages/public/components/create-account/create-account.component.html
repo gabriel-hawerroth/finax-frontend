@@ -83,18 +83,19 @@
 
     <div class="bottom">
       <button
+        *ngIf="!showLoading"
         mat-raised-button
         color="primary"
         style="border-radius: 3rem; box-sizing: initial; padding: 1.5rem 2rem"
         fxFlex="65"
         (click)="createUser()"
       >
-        <span *ngIf="!showLoading"
+        <span
           ><mat-icon>person</mat-icon
           >{{ language === "pt-br" ? "Criar conta" : "Create account" }}</span
         >
-        <mat-spinner *ngIf="showLoading" color="accent"></mat-spinner>
       </button>
+      <mat-spinner *ngIf="showLoading" [diameter]="40"></mat-spinner>
     </div>
   </div>
 

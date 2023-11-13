@@ -35,7 +35,13 @@
         <a (click)="reportsUl = !reportsUl" class="nav-ul-item">
           <i class="pi pi-chart-bar mr-2"></i>
           <span>{{ language === "pt-br" ? "Relatórios" : "Reports" }}</span>
-          <i class="pi pi-chevron-down ml-auto mr-1"></i>
+          <i
+            class="pi ml-auto mr-1"
+            [ngClass]="{
+              'pi-chevron-down': reportsUl,
+              'pi-chevron-up': !reportsUl
+            }"
+          ></i>
         </a>
 
         <ul [ngClass]="{ 'ul-item': true, hidden: reportsUl }">
@@ -74,7 +80,13 @@
         <a (click)="noticesUl = !noticesUl" class="nav-ul-item">
           <i class="pi pi-book mr-2"></i>
           <span>{{ language === "pt-br" ? "Notícias" : "Notices" }}</span>
-          <i class="pi pi-chevron-down ml-auto mr-1"></i>
+          <i
+            class="pi ml-auto mr-1"
+            [ngClass]="{
+              'pi-chevron-down': noticesUl,
+              'pi-chevron-up': !noticesUl
+            }"
+          ></i>
         </a>
 
         <ul [ngClass]="{ 'ul-item': true, hidden: noticesUl }">
@@ -118,12 +130,18 @@
           <span>{{
             language === "pt-br" ? "Outras opções" : "Other options"
           }}</span>
-          <i class="pi pi-chevron-down ml-auto mr-1"></i>
+          <i
+            class="pi ml-auto mr-1"
+            [ngClass]="{
+              'pi-chevron-down': moreUl,
+              'pi-chevron-up': !moreUl
+            }"
+          ></i>
         </a>
 
         <ul [ngClass]="{ 'ul-item': true, hidden: moreUl }">
           <li>
-            <a routerLink="/minhas-contas-de-banco" class="gap-2 nav-ul-item">
+            <a routerLink="/contas-de-banco" class="gap-2 nav-ul-item">
               <i class="material-symbols-outlined" style="margin-left: -3px"
                 >account_balance</i
               >
@@ -177,7 +195,13 @@
     <a (click)="userActionsUl = !userActionsUl" class="nav-ul-item user-item">
       <img [src]="_utilsService.userImage | async" />
       <span>{{ _loginService.getLoggedUser.firstName }}</span>
-      <i class="pi pi-chevron-up ml-auto"></i>
+      <i
+        class="pi ml-auto"
+        [ngClass]="{
+          ' pi-chevron-up': userActionsUl,
+          ' pi-chevron-down': !userActionsUl
+        }"
+      ></i>
     </a>
   </div>
 </div>

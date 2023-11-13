@@ -1,7 +1,7 @@
 <div
   [ngClass]="{
     'simple-page': true,
-    'dark-page': utilsService.userConfigs.getValue()!.theme === 'dark'
+    'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
   }"
 >
   <h1 class="page-title">
@@ -75,7 +75,9 @@
           mat-stroked-button
           color="primary"
           [disabled]="
-            (userForm.pristine && !changedProfileImg) || userForm.invalid
+            (userForm.pristine && !changedProfileImg) ||
+            userForm.invalid ||
+            showLoading
           "
           (click)="saveUser()"
         >
@@ -83,11 +85,7 @@
             ><i class="pi pi-save"></i
             >{{ language === "pt-br" ? "Salvar" : "Save" }}</span
           >
-          <mat-spinner
-            *ngIf="showLoading"
-            color="primary"
-            class="spinner-h32px"
-          ></mat-spinner>
+          <mat-spinner *ngIf="showLoading" [diameter]="30"></mat-spinner>
         </button>
 
         <button

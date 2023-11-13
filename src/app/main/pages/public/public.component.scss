@@ -183,7 +183,7 @@ $footer-height: 100px;
             width: $right-side-width;
             height: 100%;
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
             align-items: center;
             gap: 20px;
             padding-right: 2rem;
@@ -724,7 +724,7 @@ $footer-height: 100px;
             height: 100%;
             padding-right: 5rem;
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
             align-items: center;
             gap: 1.4rem;
 

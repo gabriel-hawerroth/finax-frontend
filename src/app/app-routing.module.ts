@@ -25,6 +25,7 @@ import { MyProfileComponent } from './main/pages/my-profile/my-profile.component
 import { SettingsComponent } from './main/pages/settings/settings.component';
 import { UserActivationComponent } from './main/pages/public/components/user-activation/user-activation.component';
 import { ChangePasswordComponent } from './main/pages/public/components/change-password/change-password.component';
+import { BankAccountsEditComponent } from './main/pages/my-bank-accounts/components/bank-accounts-edit/bank-accounts-edit.component';
 
 const routes: Routes = [
   { path: '', component: PublicComponent },
@@ -100,8 +101,13 @@ const routes: Routes = [
     canActivate: [FreeTierGuard],
   },
   {
-    path: 'minhas-contas-de-banco',
+    path: 'contas-de-banco',
     component: MyBankAccountsComponent,
+    canActivate: [FreeTierGuard],
+  },
+  {
+    path: 'contas-de-banco/:id',
+    component: BankAccountsEditComponent,
     canActivate: [FreeTierGuard],
   },
   {

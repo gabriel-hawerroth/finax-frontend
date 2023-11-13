@@ -50,9 +50,9 @@ export class CreateAccountComponent implements OnInit {
   }
 
   createUser() {
-    this.showLoading = true;
-
     if (this.userRegisterForm.invalid) return;
+
+    this.showLoading = true;
 
     this._loginService
       .newUser(this.userRegisterForm.value)

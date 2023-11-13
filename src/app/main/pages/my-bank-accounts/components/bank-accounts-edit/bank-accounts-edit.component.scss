@@ -1,0 +1,36 @@
+@import 'src/app/utils/colors.scss';
+
+.dark-page {
+    .content {
+        .account-card {
+            background-color: $dark-bg-color !important;
+            color: #fff !important;
+        }
+    }
+}
+
+.simple-page {
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        flex: 1;
+        display: grid;
+        place-items: center;
+
+        .account-card {
+            width: 70%;
+            padding: 2rem;
+            background-color: #fefefe;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+
+            #adjust-balance {
+                font-size: .9rem;
+                cursor: pointer;
+                color: $primary-color;
+            }
+        }
+    }
+}

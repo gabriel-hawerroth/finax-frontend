@@ -5,6 +5,7 @@ import * as moment from 'moment-timezone';
 
 import { BehaviorSubject } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
+import { LoginService } from '../services/login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,11 @@ export class UtilsService {
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
     new BehaviorSubject<string | ArrayBuffer | null>(null);
 
-  public userConfigs: BehaviorSubject<UserConfigs | null> =
-    new BehaviorSubject<UserConfigs | null>(this.getSavedUserConfigs);
+  public userConfigs: BehaviorSubject<UserConfigs> =
+    new BehaviorSubject<UserConfigs>(this.getSavedUserConfigs);
   // user observables
 
-  constructor(private _snackBar: MatSnackBar, private _http: HttpClient) {}
+  constructor(private _snackBar: MatSnackBar) {}
 
   showSimpleMessage(message: string) {
     this._snackBar.open(message, '', {
@@ -52,10 +53,16 @@ export class UtilsService {
       .join('');
   }
 
-  get getSavedUserConfigs(): UserConfigs | null {
+  get getSavedUserConfigs(): UserConfigs {
     return localStorage.getItem('savedUserConfigsFinax')
       ? JSON.parse(atob(localStorage.getItem('savedUserConfigsFinax')!))
-      : null;
+      : {
+          userId: 0,
+          theme: 'light',
+          addingMaterialGoodsToPatrimony: false,
+          language: 'pt-br',
+          currency: 'R$',
+        };
   }
 
   filterList(rows: any, atributo: string, keyWord: any) {
@@ -131,28 +138,5 @@ export class UtilsService {
     }
 
     return str;
-  }
-
-  stringToBoolean(stringBool: string | boolean): boolean | null {
-    if (typeof stringBool === 'boolean') return null;
-    if (stringBool === 'false') return false;
-    else if (stringBool === 'true') return true;
-    else return false;
-  }
-
-  onlyNumberExtractor(value: string): string | null {
-    return value ? value.replace(/\D/g, "") : null;
-  }
-
-  pickTextColorBasedOnBgColorSimple(hexColor: string): string {
-    if (!hexColor) {
-      return "#000000";
-    }
-    const color =
-      hexColor.charAt(0) === "#" ? hexColor.substring(1, 7) : hexColor;
-    const r = parseInt(color.substring(0, 2), 16); // hexToR
-    const g = parseInt(color.substring(2, 4), 16); // hexToG
-    const b = parseInt(color.substring(4, 6), 16); // hexToB
-    return r * 0.299 + g * 0.587 + b * 0.114 > 155 ? "#000000" : "#ffffff";
   }
 }

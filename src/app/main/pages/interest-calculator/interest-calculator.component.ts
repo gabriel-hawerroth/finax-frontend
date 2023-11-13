@@ -7,7 +7,13 @@ import { UtilsService } from 'src/app/utils/utils.service';
   styleUrls: ['./interest-calculator.component.scss'],
 })
 export class InterestCalculatorComponent implements OnInit {
+  language = '';
+
   constructor(public utilsService: UtilsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.utilsService.userConfigs.asObservable().subscribe((value) => {
+      this.language = value.language;
+    });
+  }
 }

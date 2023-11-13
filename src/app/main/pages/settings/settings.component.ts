@@ -38,7 +38,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buidForm();
     this.getConfigs();
-    this.saveConfigs();
 
     this.utilsService.userConfigs
       .asObservable()
@@ -46,9 +45,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .subscribe((value) => {
         this.language = value!.language;
       });
+
+    this.configsForm.valueChanges
+      .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
+      .subscribe((value) => {
+        this.utilsService.userConfigs.next(value);
+      });
   }
 
   ngOnDestroy(): void {
+    this.saveConfigs();
     this._unsubscribeAll.next('');
     this._unsubscribeAll.complete();
   }
@@ -70,9 +76,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   saveConfigs() {
-    this.configsForm.valueChanges.pipe(debounceTime(500)).subscribe((value) => {
-      this._userConfigsService.save(value);
-      this.utilsService.userConfigs.next(value);
+    this.utilsService.userConfigs.next(this.configsForm.value);
+    this._userConfigsService.save(this.configsForm.value).catch(() => {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'Erro ao salvar as configuraçãoes'
+          : 'Error saving settings'
+      );
     });
   }
 }

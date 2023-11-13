@@ -1,0 +1,44 @@
+<div
+  [ngClass]="{
+    'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
+  }"
+  class="edit-balance-dialog"
+>
+  <h1 class="title">
+    {{ language === "pt-br" ? "Ajustar saldo" : "Adjuste balance" }}
+    {{ data.account.accountName }}
+  </h1>
+
+  <form [formGroup]="balanceForm" class="content">
+    <mat-form-field floatLabel="always" fxFlex="40" [hideRequiredMarker]="true">
+      <mat-label>{{ language === "pt-br" ? "Saldo" : "Balance" }}</mat-label>
+      <input
+        matInput
+        placeholder="0"
+        currencyMask
+        [options]="{ prefix: currency + ' ' }"
+        formControlName="balance"
+      />
+      <mat-hint class="text-600 w-full">{{
+        language === "pt-br"
+          ? "Digite - para saldo negativo e + para positivo"
+          : "Enter - for negative balance and + for positive"
+      }}</mat-hint>
+    </mat-form-field>
+  </form>
+
+  <div class="actions">
+    <button
+      mat-stroked-button
+      (click)="save()"
+      color="primary"
+      [disabled]="balanceForm.invalid || balanceForm.pristine || loading"
+      class="button"
+    >
+      <span *ngIf="!loading">{{
+        language === "pt-br" ? "Salvar" : "Save"
+      }}</span>
+      <mat-spinner *ngIf="loading" [diameter]="30"></mat-spinner>
+    </button>
+  </div>
+</div>

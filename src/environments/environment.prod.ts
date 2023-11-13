@@ -1,5 +1,5 @@
 export const environment = {
   mode: 'production',
   production: true,
-  baseApiUrl: 'http://3.144.152.77:8080/finax/',
+  baseApiUrl: 'https://api.hawetec.com.br/finax/',
 };

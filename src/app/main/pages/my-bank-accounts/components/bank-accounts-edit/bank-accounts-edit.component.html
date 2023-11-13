@@ -1,0 +1,140 @@
+<div
+  [ngClass]="{
+    'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
+  }"
+  class="simple-page"
+>
+  <h1 class="page-title">
+    {{ language === "pt-br" ? "Contas de banco" : "Bank accounts" }}
+  </h1>
+
+  <div class="content">
+    <form class="account-card" [formGroup]="accountForm">
+      <div class="w-full flex justify-content-between">
+        <div class="h-full flex align-items-center" fxLayoutGap="1rem">
+          <button mat-icon-button (click)="location.back()">
+            <mat-icon style="cursor: pointer">arrow_back</mat-icon>
+          </button>
+
+          <b *ngIf="accountId" class="text-3xl">{{
+            accountForm.value.accountName
+          }}</b>
+
+          <mat-form-field
+            *ngIf="!accountId"
+            [hideRequiredMarker]="true"
+            fxFlex="42"
+          >
+            <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>
+            <input
+              type="text"
+              matInput
+              #accountName
+              maxlength="40"
+              formControlName="accountName"
+              autofocus
+            />
+            <mat-hint align="end"
+              >{{ accountName.value.length }}/{{
+                accountName.maxLength
+              }}</mat-hint
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            floatLabel="always"
+            *ngIf="!accountId"
+            [hideRequiredMarker]="true"
+          >
+            <mat-label>{{
+              language === "pt-br" ? "Saldo" : "Balance"
+            }}</mat-label>
+            <input
+              matInput
+              placeholder="0"
+              currencyMask
+              [options]="{ prefix: currency + ' ' }"
+              formControlName="balance"
+            />
+            <mat-hint class="text-600 w-full">{{
+              language === "pt-br"
+                ? "Digite - para saldo negativo e + para positivo"
+                : "Enter - for negative balance and + for positive"
+            }}</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <button
+          class="button"
+          mat-stroked-button
+          color="primary"
+          (click)="save()"
+          [disabled]="accountForm.pristine"
+        >
+          <i class="pi pi-save"></i>
+          {{ language === "pt-br" ? "Salvar" : "Save" }}
+        </button>
+      </div>
+
+      <div class="p-4" fxLayoutGap=".7rem">
+        <div class="flex align-items-center text-2xl" fxLayoutGap=".7rem">
+          <b *ngIf="accountId"
+            >{{ currency }} {{ accountForm.value.balance | customCurrency }}</b
+          >
+          <span
+            *ngIf="accountId"
+            (click)="changeBalance()"
+            id="adjust-balance"
+            >{{
+              language === "pt-br" ? "Ajustar saldo" : "Adjust balance"
+            }}</span
+          >
+        </div>
+
+        <div class="mt-3">
+          <mat-checkbox formControlName="investments">{{
+            language === "pt-br"
+              ? "Conta com investimentos"
+              : "Account with investments"
+          }}</mat-checkbox>
+
+          <br />
+
+          <mat-checkbox formControlName="addOverallBalance">{{
+            language === "pt-br"
+              ? "Somar no saldo geral"
+              : "Add to the overall balance"
+          }}</mat-checkbox>
+
+          <br />
+
+          <mat-checkbox formControlName="active">{{
+            language === "pt-br" ? "Ativo" : "Active"
+          }}</mat-checkbox>
+        </div>
+      </div>
+
+      <div class="mt-4" fxLayoutGap="3rem" *ngIf="accountId">
+        <button
+          mat-stroked-button
+          class="button large-button"
+          [disabled]="!accountId"
+        >
+          <span class="material-symbols-outlined h-full">sort</span>
+          {{ language === "pt-br" ? "Ver lançamentos" : "See releases" }}
+        </button>
+
+        <button
+          mat-stroked-button
+          class="button large-button"
+          [disabled]="!accountId"
+        >
+          <span class="material-symbols-outlined h-full">query_stats</span>
+          <span class="h-full">{{
+            language === "pt-br" ? "Relatórios" : "Reports"
+          }}</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
