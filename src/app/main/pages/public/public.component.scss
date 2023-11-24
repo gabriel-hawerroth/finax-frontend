@@ -210,10 +210,15 @@ $footer-height: 100px;
 
     #first-ps {
         height: calc(100vh - $header-height);
-        background-image: url(../../../../assets/bg-first-section.jpg);
+        background-image: url(../../../../assets/bg-first-section.webp);
         background-size: cover;
         display: flex;
         justify-content: center;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
 
         .content {
             width: 85%;
@@ -247,7 +252,7 @@ $footer-height: 100px;
                     display: flex;
                     flex-direction: column;
                     gap: 15px;
-                    align-items: start;
+                    align-items: flex-start;
 
                     span {
                         font-size: 1.15rem;
@@ -312,7 +317,7 @@ $footer-height: 100px;
             height: 90%;
             display: flex;
             flex-direction: column;
-            justify-content: start;
+            justify-content: flex-start;
             padding-top: 1.7rem;
             border-top-right-radius: 10px;
             border-bottom-right-radius: 10px;
@@ -469,8 +474,8 @@ $footer-height: 100px;
                             margin-bottom: 12px;
                             display: flex;
                             flex-direction: column;
-                            justify-content: start;
-                            align-items: start;
+                            justify-content: flex-start;
+                            align-items: flex-start;
                             padding-top: 4%;
                             padding-left: 4%;
                             gap: 10%;
@@ -679,7 +684,7 @@ $footer-height: 100px;
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
-        background-image: url(../../../../assets/bg-first-section.jpg);
+        background-image: url(../../../../assets/bg-first-section.webp);
         background-size: cover;
         background-position: center;
         color: white;

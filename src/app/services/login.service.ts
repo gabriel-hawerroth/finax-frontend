@@ -142,7 +142,7 @@ export class LoginService {
     localStorage.removeItem('userFinax');
     localStorage.removeItem('tokenFinax');
     this._router.navigate(['']);
-    this._utilsService.userImage.next('assets/user-image.png');
+    this._utilsService.userImage.next('assets/user-image.webp');
   }
 
   get getLoggedUser(): User {

@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit {
       .getUserImage(this.loggedUserId)
       .then((response) => {
         if (response.size === 0) {
-          this._utilsService.userImage.next('assets/user-image.png');
+          this._utilsService.userImage.next('assets/user-image.webp');
           return;
         }
 
@@ -57,7 +57,7 @@ export class SidebarComponent implements OnInit {
         }
       })
       .catch(() => {
-        this._utilsService.userImage.next('assets/user-image.png');
+        this._utilsService.userImage.next('assets/user-image.webp');
       });
   }
 
