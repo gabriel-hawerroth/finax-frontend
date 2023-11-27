@@ -41,7 +41,7 @@ export class CreateAccountComponent implements OnInit {
   userRegisterForm!: FormGroup;
   showLoading: boolean = false;
 
-  language: string = this.utilsService.getSavedUserConfigs.language;
+  language: string = this.utilsService.getUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();

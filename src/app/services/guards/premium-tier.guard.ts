@@ -11,7 +11,7 @@ export class PremiumTierGuard implements CanActivate {
   private _router = inject(Router);
   private _utilsService = inject(UtilsService);
 
-  language = this._utilsService.getSavedUserConfigs.language;
+  language = this._utilsService.getUserConfigs.language;
 
   canActivate() {
     if (this._loginService.logged) {

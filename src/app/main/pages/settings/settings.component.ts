@@ -41,7 +41,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   configsForm!: FormGroup;
   userConfigs!: UserConfigs;
 
-  language: string = this.utilsService.getSavedUserConfigs.language;
+  language: string = this.utilsService.getUserConfigs.language;
 
   themeOptions = [
     { icon: 'pi pi-sun', value: 'light' },
@@ -77,7 +77,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   getConfigs() {
-    this.userConfigs = this.utilsService.getSavedUserConfigs!;
+    this.userConfigs = this.utilsService.getUserConfigs!;
     this.configsForm.patchValue(this.userConfigs);
   }
 

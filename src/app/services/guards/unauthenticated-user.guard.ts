@@ -16,7 +16,6 @@ export class UnauthenticatedUserGuard implements CanActivate {
       this._router.navigate(['home']);
       return false;
     }
-    this._utilsService.userToken = '';
     this._utilsService.userImage.next('assets/user-image.webp');
     return true;
   }

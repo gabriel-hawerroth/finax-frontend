@@ -32,7 +32,7 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language: string = this.utilsService.getSavedUserConfigs.language;
+  language: string = this.utilsService.getUserConfigs.language;
 
   situationFilter = new FormControl();
 

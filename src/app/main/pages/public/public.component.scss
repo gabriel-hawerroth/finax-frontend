@@ -2,79 +2,14 @@ $primary-color: #005d13;
 $primary-bg-color: #eff3f8;
 
 // desktop fullhd+
-@media screen and (min-width: 1800px) and (min-height: 850px) {
-    #public-page {
-        .public-header {
-            $header-height: 115px;
-            height: $header-height !important;
-            font-size: 1.5rem !important;
-
-            .left-side,
-            .right-side {
-                button {
-                    font-size: 1.2rem !important;
-                }
-            }
-
-            .left-side {
-                button {
-                    font-size: 1.3rem !important;
-                    padding: 1.3rem 1.4rem;
-                }
-            }
-
-            .right-side {
-                padding-right: 3rem !important;
-
-                button {
-                    font-size: 1.4rem !important;
-                    padding: 1.6rem 1.7rem !important;
-                    border-radius: 40px !important;
-                }
-            }
-        }
-
-        .public-section {
-            height: calc(100vh - 15vh) !important;
-        }
-
-        #first-ps {
-            .content {
-                .left-side {
-                    padding: 5.5em 2.5em 0 2.5em !important;
-                    font-size: 1.15rem !important;
-
-                    p {
-                        margin-bottom: 5.4em !important;
-                    }
-                }
-            }
-        }
-
-        #reset-the-possible {
-            .right {
-                font-size: 1.2rem !important;
-                padding-top: 3.5rem !important;
-            }
-        }
-
-        #signatures {
-            padding: 3.5rem 0 !important;
-            font-size: 1.2rem !important;
-
+@media screen and (min-width: 1800px) and (min-height: 800px) {
+    #signatures {
+        .content {
             .plan {
-                width: 25rem !important;
+                height: 78% !important;
             }
-        }
-
-        .public-footer {
-            font-size: 1.2rem;
         }
     }
-}
-
-.hidden {
-    display: none !important;
 }
 
 // Tablet responsive
@@ -128,7 +63,7 @@ $footer-height: 100px;
 
     $left-side-width: 36%;
     $right-side-width: 40%;
-    $header-height: 80px;
+    $header-height: 5.5rem;
 
     .public-header {
         width: 100%;
@@ -191,7 +126,7 @@ $footer-height: 100px;
 
     .public-section {
         width: 100%;
-        height: calc(100vh - 130px);
+        height: calc(100vh - 9rem);
     }
 
     // ******* Start First Section
@@ -306,6 +241,7 @@ $footer-height: 100px;
                 width: 100%;
                 height: 12%;
                 border-bottom: 1px solid black;
+                font-size: 2.1rem;
             }
 
             .list {
@@ -313,11 +249,11 @@ $footer-height: 100px;
                 flex: 1;
                 display: flex;
                 flex-direction: column;
-                margin-top: 10px;
+                margin-top: 1rem;
+                gap: 1rem;
 
                 .item {
                     width: 100%;
-                    height: 75px;
                     display: flex;
                     max-width: 90%;
 
@@ -400,7 +336,7 @@ $footer-height: 100px;
             align-items: center;
 
             .plan {
-                height: 83%;
+                height: 85%;
                 width: 22rem;
                 border-radius: 4px;
                 display: flex;
@@ -561,7 +497,7 @@ $footer-height: 100px;
     // ******* Start Public Footer
 
     .public-footer {
-        height: 100px;
+        height: 5.8rem;
         display: flex;
         background-color: $primary-bg-color;
         box-shadow: 0 1px 5px #0000007c;

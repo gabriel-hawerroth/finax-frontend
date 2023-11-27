@@ -17,13 +17,11 @@ export class AppComponent implements OnInit {
   loginService = inject(LoginService);
   location = inject(Location);
 
-  title = 'finax-front';
-
   ngOnInit(): void {
     // test request to validate that the user is still logged
-    this.loginService.stillLoggedTest();
+    // this.loginService.stillLoggedTest();
   }
 
-  @HostListener('window:beforeunload', ['$event'])
-  beforeUnloadHandler($event: any) {}
+  // @HostListener('window:beforeunload', ['$event'])
+  // beforeUnloadHandler($event: any) {}
 }

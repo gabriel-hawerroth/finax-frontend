@@ -12,7 +12,7 @@ import { UtilsService } from '../../../utils/utils.service';
 export class InterestCalculatorComponent implements OnInit {
   public utilsService = inject(UtilsService);
 
-  language = this.utilsService.getSavedUserConfigs.language;
+  language = this.utilsService.getUserConfigs.language;
 
   ngOnInit(): void {}
 }

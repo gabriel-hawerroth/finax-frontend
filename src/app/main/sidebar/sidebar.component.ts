@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject();
 
   loggedUserId: number = this.loginService.getLoggedUserId;
-  language: string = this.utilsService.getSavedUserConfigs.language;
+  language: string = this.utilsService.getUserConfigs.language;
   profileImageSrc!: string | ArrayBuffer | null;
   userAccess: string = 'free';
 
@@ -99,6 +99,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.loginService.logout(true);
+    this.loginService.logout(false);
   }
 }

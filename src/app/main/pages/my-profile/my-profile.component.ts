@@ -42,8 +42,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   userForm!: FormGroup;
   loggedUserId: number = this.loginService.getLoggedUserId;
-  language: string = this.utilsService.getSavedUserConfigs.language;
-  currency: string = this.utilsService.getSavedUserConfigs.currency;
+  language: string = this.utilsService.getUserConfigs.language;
+  currency: string = this.utilsService.getUserConfigs.currency;
 
   userPlanTitle: string = '';
   monthYear: string = '';

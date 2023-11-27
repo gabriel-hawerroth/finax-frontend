@@ -18,6 +18,7 @@ import { Credentials } from '../../../../../interfaces/Credentials';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-change-password',
@@ -42,12 +43,13 @@ export class ChangePasswordComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   private _router = inject(Router);
   private _loginService = inject(LoginService);
+  private _loginComponent = inject(LoginComponent);
 
   changePasswordForm!: FormGroup;
   showLoading: boolean = false;
   user!: User;
 
-  language: string = this.utilsService.getSavedUserConfigs.language;
+  language: string = this.utilsService.getUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();
@@ -120,7 +122,7 @@ export class ChangePasswordComponent implements OnInit {
             changedPassword: true,
           };
 
-          this._loginService.login(credentials);
+          this._loginComponent.login(credentials);
         }
         this.showLoading = false;
       })

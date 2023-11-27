@@ -12,7 +12,7 @@ import { UtilsService } from '../../../utils/utils.service';
 export class HomeComponent implements OnInit {
   utilsService = inject(UtilsService);
 
-  language: string = this.utilsService.getSavedUserConfigs.language;
+  language: string = this.utilsService.getUserConfigs.language;
 
   ngOnInit(): void {}
 }

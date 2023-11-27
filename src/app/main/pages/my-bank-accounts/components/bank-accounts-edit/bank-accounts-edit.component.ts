@@ -48,8 +48,8 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language = this.utilsService.getSavedUserConfigs.language;
-  currency = this.utilsService.getSavedUserConfigs.currency;
+  language = this.utilsService.getUserConfigs.language;
+  currency = this.utilsService.getUserConfigs.currency;
 
   accountId!: number | null;
 

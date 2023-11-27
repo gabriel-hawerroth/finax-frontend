@@ -11,24 +11,22 @@ import { isPlatformBrowser } from '@angular/common';
 export class UtilsService {
   public isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   public isPcScreen = this.isBrowser
-    ? window.innerWidth > 1050 && window.innerHeight > 700
+    ? window.innerWidth > 1050 && window.innerHeight > 580
     : false;
 
   private _snackBar = inject(MatSnackBar);
 
   // user observables
-  public userToken: string = '';
-
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
     new BehaviorSubject<string | ArrayBuffer | null>('assets/user-image.webp');
 
   public userConfigs: BehaviorSubject<UserConfigs> =
-    new BehaviorSubject<UserConfigs>(this.getSavedUserConfigs);
+    new BehaviorSubject<UserConfigs>(this.getUserConfigs);
   // user observables
 
-  get getSavedUserConfigs(): UserConfigs {
+  get getUserConfigs(): UserConfigs {
     return this.getItemLocalStorage('savedUserConfigsFinax')
-      ? JSON.parse(atob(this.getItemLocalStorage('savedUserConfigsFinax')!))
+      ? JSON.parse(atob(localStorage.getItem('savedUserConfigsFinax')!))
       : {
           userId: 0,
           theme: 'light',

@@ -37,8 +37,8 @@ export class EditBalanceDialogComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _accountService = inject(AccountService);
 
-  language = this.utilsService.getSavedUserConfigs.language;
-  currency = this.utilsService.getSavedUserConfigs.currency;
+  language = this.utilsService.getUserConfigs.language;
+  currency = this.utilsService.getUserConfigs.currency;
 
   balanceForm!: FormGroup;
   loading: boolean = false;

@@ -60,9 +60,9 @@
         </div>
       </div>
       <div class="right-side" id="fs-img-container">
-        @defer { @if (imgWidth > 0) {
-        <img ngSrc="assets/img-first-section.svg" [width]="imgWidth" [height]="imgHeight" alt="fantasy image" />
-        } }
+        @defer {
+        <img ngSrc="assets/img-first-section.svg" [width]="getWidth" [height]="getHeight" alt="fantasy image" />
+        }
       </div>
     </div>
   </div>
@@ -73,8 +73,8 @@
   @defer {
   <div [ngClass]="{ hidden: !isPcScreen }" class="public-section" #secondSection id="reset-the-possible">
     @defer (on viewport(secondSection)) {
-    <div class="left">
-      <img ngSrc="assets/img-section2.webp" width="580" height="380" alt="fantasy image" />
+    <div class="left" id="ss-img-container">
+      <img ngSrc="assets/img-section2.webp" [width]="getSecondWidth" [height]="getSecondHeight" alt="fantasy image" />
     </div>
 
     <div class="right">
@@ -107,7 +107,7 @@
           </div>
         </div>
 
-        <div class="item margin-top">
+        <div class="item">
           <div class="icon">
             <span class="material-symbols-outlined">done</span>
           </div>
@@ -133,7 +133,7 @@
           </div>
         </div>
 
-        <div class="item margin-top market-indices">
+        <div class="item">
           <div class="icon">
             <span class="material-symbols-outlined">done</span>
           </div>
