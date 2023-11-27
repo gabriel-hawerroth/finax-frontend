@@ -148,15 +148,16 @@ export class LoginService {
       });
   }
 
-  logout() {
+  logout(userLogout: boolean = false) {
     this._utilsService.removeItemLocalStorage('userFinax');
     this._utilsService.removeItemLocalStorage('tokenFinax');
     this._router.navigate(['']);
     this._utilsService.userImage.next('assets/user-image.webp');
     this._utilsService.userToken = '';
-    this._utilsService.showSimpleMessage(
-      'Acesso expirado, por favor logue novamente'
-    );
+    if (!userLogout)
+      this._utilsService.showSimpleMessage(
+        'Acesso expirado, por favor logue novamente'
+      );
   }
 
   get getLoggedUser(): User {

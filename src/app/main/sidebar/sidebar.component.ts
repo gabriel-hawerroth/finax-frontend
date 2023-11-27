@@ -99,6 +99,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.loginService.logout();
+    this.loginService.logout(true);
   }
 }
