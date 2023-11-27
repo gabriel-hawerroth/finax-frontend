@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { Injectable, inject } from '@angular/core';
+import { environment } from '../../environments/environment';
 import { LoginService } from './login.service';
 import { lastValueFrom } from 'rxjs';
 import { Account } from '../interfaces/account';
@@ -9,9 +9,10 @@ import { Account } from '../interfaces/account';
   providedIn: 'root',
 })
 export class AccountService {
-  apiUrl = `${environment.baseApiUrl}accounts`;
+  private _http = inject(HttpClient);
+  private _loginService = inject(LoginService);
 
-  constructor(private _http: HttpClient, private _loginService: LoginService) {}
+  apiUrl = `${environment.baseApiUrl}accounts`;
 
   getByUser() {
     return lastValueFrom(
@@ -29,11 +30,5 @@ export class AccountService {
     data.userId = this._loginService.getLoggedUserId;
 
     return lastValueFrom(this._http.post(this.apiUrl, data));
-  }
-
-  saveSequence(accountsList: Account[]) {
-    return lastValueFrom(
-      this._http.put(`${this.apiUrl}/save-sequence`, accountsList)
-    );
   }
 }

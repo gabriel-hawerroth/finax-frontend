@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { UserConfigs } from '../interfaces/UserConfigs';
+import { UtilsService } from '../utils/utils.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserConfigsService {
-  apiUrl = `${environment.baseApiUrl}user-configs`;
+  private _http = inject(HttpClient);
+  private _utilsService = inject(UtilsService);
 
-  constructor(private _http: HttpClient) {}
+  apiUrl = `${environment.baseApiUrl}user-configs`;
 
   getById(id: number): Promise<UserConfigs> {
     return lastValueFrom(this._http.get<UserConfigs>(`${this.apiUrl}/${id}`));
@@ -28,10 +30,11 @@ export class UserConfigsService {
   }
 
   save(userConfigs: UserConfigs): Promise<UserConfigs> {
-    localStorage.setItem(
+    this._utilsService.setItemLocalStorage(
       'savedUserConfigsFinax',
       btoa(JSON.stringify(userConfigs))
     );
+
     return lastValueFrom(
       this._http.post<UserConfigs>(`${this.apiUrl}/save`, userConfigs)
     );

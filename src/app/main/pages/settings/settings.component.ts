@@ -1,50 +1,56 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 
-import { UserConfigs } from 'src/app/interfaces/UserConfigs';
-import { LoginService } from 'src/app/services/login.service';
-import { UserConfigsService } from 'src/app/services/userConfigs.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { UserConfigs } from '../../../interfaces/UserConfigs';
+import { LoginService } from '../../../services/login.service';
+import { UserConfigsService } from '../../../services/userConfigs.service';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-settings',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    SelectButtonModule,
+    MatDividerModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatButtonToggleModule,
+  ],
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
+  styleUrl: './settings.component.scss',
 })
 export class SettingsComponent implements OnInit, OnDestroy {
+  public utilsService = inject(UtilsService);
+  private _fb = inject(FormBuilder);
+  private _userConfigsService = inject(UserConfigsService);
+  private _loginService = inject(LoginService);
+
+  private _unsubscribeAll: Subject<any> = new Subject();
+
   configsForm!: FormGroup;
   userConfigs!: UserConfigs;
 
-  language: string = '';
-  isDarkTheme: boolean = false;
-
-  private _unsubscribeAll: Subject<any>;
+  language: string = this.utilsService.getSavedUserConfigs.language;
 
   themeOptions = [
     { icon: 'pi pi-sun', value: 'light' },
     { icon: 'pi pi-moon', value: 'dark' },
   ];
 
-  constructor(
-    public utilsService: UtilsService,
-    private _fb: FormBuilder,
-    private _userConfigsService: UserConfigsService,
-    private _loginService: LoginService
-  ) {
-    this._unsubscribeAll = new Subject();
-  }
-
   ngOnInit(): void {
     this.buidForm();
     this.getConfigs();
-
-    this.utilsService.userConfigs
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.language = value!.language;
-      });
 
     this.configsForm.valueChanges
       .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))

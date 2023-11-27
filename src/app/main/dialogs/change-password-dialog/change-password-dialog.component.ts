@@ -1,28 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
-import { Credentials } from 'src/app/interfaces/Credentials';
-import { LoginService } from 'src/app/services/login.service';
-import { UserService } from 'src/app/services/user.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
+import { LoginService } from '../../../services/login.service';
+import { UserService } from '../../../services/user.service';
+import { Credentials } from '../../../interfaces/Credentials';
 
 @Component({
   selector: 'app-change-password-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
   templateUrl: './change-password-dialog.component.html',
-  styleUrls: ['./change-password-dialog.component.scss'],
+  styleUrl: './change-password-dialog.component.scss',
 })
 export class ChangePasswordDialogComponent implements OnInit {
+  public utilsService = inject(UtilsService);
+  public dialogRef = inject(MatDialogRef<ChangePasswordDialogComponent>);
+  private _fb = inject(FormBuilder);
+  private _userService = inject(UserService);
+  private _loginService = inject(LoginService);
+
   changePasswordForm!: FormGroup;
   language: string = '';
-
-  constructor(
-    public utilsService: UtilsService,
-    private _fb: FormBuilder,
-    private _userService: UserService,
-    private _loginService: LoginService,
-    private dialogRef: MatDialogRef<ChangePasswordDialogComponent>
-  ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -86,9 +103,13 @@ export class ChangePasswordDialogComponent implements OnInit {
         );
         this.dialogRef.close();
 
-        const savedLogin = localStorage.getItem('savedLoginFinax');
+        const savedLogin =
+          this.utilsService.getItemLocalStorage('savedLoginFinax');
 
-        localStorage.setItem('userFinax', btoa(JSON.stringify(user)));
+        this.utilsService.setItemLocalStorage(
+          'userFinax',
+          btoa(JSON.stringify(user))
+        );
 
         if (savedLogin) {
           const credentials: Credentials = {
@@ -96,7 +117,7 @@ export class ChangePasswordDialogComponent implements OnInit {
             password: passwords.newPassword,
             rememberMe: true,
           };
-          localStorage.setItem(
+          this.utilsService.setItemLocalStorage(
             'savedLoginFinax',
             btoa(JSON.stringify(credentials))
           );

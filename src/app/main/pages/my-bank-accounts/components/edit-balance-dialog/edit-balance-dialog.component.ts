@@ -1,39 +1,55 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AccountService } from 'src/app/services/account.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AccountService } from '../../../../../services/account.service';
+import { UtilsService } from '../../../../../utils/utils.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-edit-balance-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgxCurrencyDirective,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+  ],
   templateUrl: './edit-balance-dialog.component.html',
-  styleUrls: ['./edit-balance-dialog.component.scss'],
+  styleUrl: './edit-balance-dialog.component.scss',
 })
 export class EditBalanceDialogComponent implements OnInit {
-  language = '';
-  currency = '';
+  public dialogRef = inject(MatDialogRef<EditBalanceDialogComponent>);
+  public data = inject(MAT_DIALOG_DATA);
+  public utilsService = inject(UtilsService);
+  private _fb = inject(FormBuilder);
+  private _accountService = inject(AccountService);
+
+  language = this.utilsService.getSavedUserConfigs.language;
+  currency = this.utilsService.getSavedUserConfigs.currency;
 
   balanceForm!: FormGroup;
   loading: boolean = false;
 
-  constructor(
-    public dialogRef: MatDialogRef<EditBalanceDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public utilsService: UtilsService,
-    private _fb: FormBuilder,
-    private _accountService: AccountService
-  ) {}
-
   ngOnInit(): void {
-    this.language = this.utilsService.getSavedUserConfigs.language;
-    this.currency = this.utilsService.getSavedUserConfigs.currency;
-
     this.balanceForm = this._fb.group({
       balance: ['', Validators.required],
     });
-    this.balanceForm.markAsTouched();
 
     this.balanceForm.patchValue(this.data.account);
+    this.balanceForm.markAsTouched();
   }
 
   save() {

@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  language: string = '';
+  utilsService = inject(UtilsService);
 
-  constructor(public utilsService: UtilsService) {}
+  language: string = this.utilsService.getSavedUserConfigs.language;
 
-  ngOnInit(): void {
-    this.utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value!.language;
-    });
-  }
+  ngOnInit(): void {}
 }

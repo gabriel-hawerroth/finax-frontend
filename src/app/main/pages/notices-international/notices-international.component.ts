@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-notices-international',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './notices-international.component.html',
-  styleUrls: ['./notices-international.component.scss'],
+  styleUrl: './notices-international.component.scss',
 })
 export class NoticesInternationalComponent implements OnInit {
-  language = '';
+  public utilsService = inject(UtilsService);
 
-  constructor(public utilsService: UtilsService) {}
+  language = this.utilsService.getSavedUserConfigs.language;
 
-  ngOnInit(): void {
-    this.utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value.language;
-    });
-  }
+  ngOnInit(): void {}
 }

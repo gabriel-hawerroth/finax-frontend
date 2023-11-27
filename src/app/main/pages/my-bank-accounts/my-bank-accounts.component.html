@@ -1,40 +1,38 @@
-<div
-  [ngClass]="{
+<div [ngClass]="{
     'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
-  }"
-  class="simple-page"
->
+  }" class="simple-page">
   <h1 class="page-title">
     {{ language === "pt-br" ? "Contas de banco" : "Bank accounts" }}
   </h1>
 
   <div class="content">
     <div class="accounts-card">
-      <div fxLayoutAlign="end center">
-        <button
-          mat-stroked-button
-          color="primary"
-          routerLink="/contas-de-banco/novo"
-        >
+      <div class="flex justify-content-between align-items-center">
+        <mat-form-field>
+          <mat-label>Situação</mat-label>
+          <mat-select [formControl]="situationFilter">
+            <mat-option value="all">Todas</mat-option>
+            <mat-option [value]="true">Ativas</mat-option>
+            <mat-option [value]="false">Inativas</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-stroked-button color="primary" routerLink="/contas-de-banco/novo">
           {{ language === "pt-br" ? "Nova conta" : "New account" }}
         </button>
       </div>
-      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-        <div
-          class="example-box"
-          *ngFor="let account of accountsList"
-          cdkDrag
-          cdkDragLockAxis="y"
-        >
-          <mat-icon class="menu-icon">menu</mat-icon>
+      <div class="list">
+        @for (account of filteredRows.getValue(); track account.id) {
+        <div class="account">
           <div class="content" (click)="navigate(account.id!)">
-            <img src="assets/money-coin.svg" width="52px" />
-            <span
-              ><b>{{ account.accountName }}</b></span
-            >
-            <mat-icon class="navigate-icon">navigate_next</mat-icon>
+            <img ngSrc="assets/money-coin.svg" width="52" height="52" alt="account logo" />
+            <span>
+              <b>{{ account.accountName }}</b>
+            </span>
+            <span class="material-symbols-outlined">navigate_next</span>
           </div>
         </div>
+        }
       </div>
     </div>
   </div>

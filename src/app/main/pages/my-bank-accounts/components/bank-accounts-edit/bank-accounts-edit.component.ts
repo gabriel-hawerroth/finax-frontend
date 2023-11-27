@@ -1,62 +1,64 @@
-import { Location } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { Account } from 'src/app/interfaces/account';
-import { AccountService } from 'src/app/services/account.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { AccountService } from '../../../../../services/account.service';
+import { UtilsService } from '../../../../../utils/utils.service';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 
 @Component({
   selector: 'app-bank-accounts-edit',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    NgxCurrencyDirective,
+    CustomCurrencyPipe,
+    MatButtonModule,
+    MatCheckboxModule,
+  ],
   templateUrl: './bank-accounts-edit.component.html',
-  styleUrls: ['./bank-accounts-edit.component.scss'],
+  styleUrl: './bank-accounts-edit.component.scss',
 })
 export class BankAccountsEditComponent implements OnInit, OnDestroy {
-  language = '';
-  currency = '';
+  public utilsService = inject(UtilsService);
+  public location = inject(Location);
+  private _activatedRoute = inject(ActivatedRoute);
+  private _accountService = inject(AccountService);
+  private _fb = inject(FormBuilder);
+  private _router = inject(Router);
+  private _dialog = inject(MatDialog);
+
+  private _unsubscribeAll: Subject<any> = new Subject();
+
+  language = this.utilsService.getSavedUserConfigs.language;
+  currency = this.utilsService.getSavedUserConfigs.currency;
 
   accountId!: number | null;
 
-  accountForm!: FormGroup;
-
-  private _unsubscribeAll: Subject<any>;
-
-  constructor(
-    public utilsService: UtilsService,
-    public location: Location,
-    private _activatedRoute: ActivatedRoute,
-    private _accountService: AccountService,
-    private _fb: FormBuilder,
-    private _router: Router,
-    private _dialog: MatDialog
-  ) {
-    this._unsubscribeAll = new Subject();
-  }
+  public accountForm!: FormGroup;
 
   ngOnInit(): void {
     this.buildForm();
 
     this.accountId = +this._activatedRoute.snapshot.paramMap.get('id')! || null;
-
-    this.utilsService.userConfigs
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.language = value.language;
-        this.currency = value.currency;
-      });
-
-    this.utilsService.userConfigs
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe({
-        next: () => {},
-        error: () => {},
-        complete() {},
-      });
 
     if (this.accountId) {
       this._accountService.getById(this.accountId!).then((account: any) => {
@@ -66,6 +68,7 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this._unsubscribeAll.next('');
     this._unsubscribeAll.complete();
   }
 
@@ -123,7 +126,6 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((result: any) => {
         if (!result) return;
-
         this.accountForm.get('balance')!.setValue(result);
       });
   }

@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-notices-brazil',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './notices-brazil.component.html',
-  styleUrls: ['./notices-brazil.component.scss'],
+  styleUrl: './notices-brazil.component.scss',
 })
 export class NoticesBrazilComponent implements OnInit {
-  language = 'pt-br';
+  public utilsService = inject(UtilsService);
 
-  constructor(public utilsService: UtilsService) {}
+  language = this.utilsService.getSavedUserConfigs.language;
 
-  ngOnInit(): void {
-    this.utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value.language;
-    });
-  }
+  ngOnInit(): void {}
 }

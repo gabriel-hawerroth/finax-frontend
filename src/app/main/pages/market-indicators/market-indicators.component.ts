@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-market-indicators',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './market-indicators.component.html',
-  styleUrls: ['./market-indicators.component.scss'],
+  styleUrl: './market-indicators.component.scss',
 })
 export class MarketIndicatorsComponent implements OnInit {
-  language = '';
+  public utilsService = inject(UtilsService);
 
-  constructor(public utilsService: UtilsService) {}
+  language = this.utilsService.getSavedUserConfigs.language;
 
-  ngOnInit(): void {
-    this.utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value.language;
-    });
-  }
+  ngOnInit(): void {}
 }

@@ -1,64 +1,75 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
-import { UtilsService } from 'src/app/utils/utils.service';
-import { Router } from '@angular/router';
-import { AccountService } from 'src/app/services/account.service';
-import { Account } from 'src/app/interfaces/account';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { Account } from '../../../interfaces/account';
+import { AccountService } from '../../../services/account.service';
+import { UtilsService } from '../../../utils/utils.service';
+import { MatButtonModule } from '@angular/material/button';
+import { Router, RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-my-bank-accounts',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    NgOptimizedImage,
+    RouterModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+  ],
   templateUrl: './my-bank-accounts.component.html',
-  styleUrls: ['./my-bank-accounts.component.scss'],
+  styleUrl: './my-bank-accounts.component.scss',
 })
 export class MyBankAccountsComponent implements OnInit, OnDestroy {
-  language: string = '';
+  public utilsService = inject(UtilsService);
+  private _router = inject(Router);
+  private _accountService = inject(AccountService);
 
-  accountsList: Account[] = [];
+  private _unsubscribeAll: Subject<any> = new Subject();
 
-  changedOrder: boolean = false;
+  language: string = this.utilsService.getSavedUserConfigs.language;
 
-  private _unsubscribeAll: Subject<any>;
+  situationFilter = new FormControl();
 
-  constructor(
-    public utilsService: UtilsService,
-    private _router: Router,
-    private _accountService: AccountService
-  ) {
-    this._unsubscribeAll = new Subject();
-  }
+  rows: Account[] = [];
+  filteredRows: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>([]);
 
   ngOnInit(): void {
-    this.utilsService.userConfigs
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.language = value.language;
-      });
-
     this._accountService.getByUser().then((result: any) => {
-      this.accountsList = result;
+      this.rows = result;
+      this.filteredRows.next(result);
+      this.filterList();
+    });
+
+    this.situationFilter.setValue(true);
+
+    this.situationFilter.valueChanges.subscribe(() => {
+      this.filterList();
     });
   }
 
   ngOnDestroy(): void {
-    if (this.changedOrder) {
-      this._accountService.saveSequence(this.accountsList).catch(() => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar a sequência de apresentação'
-            : ''
-        );
-      });
-    }
+    this._unsubscribeAll.next('');
     this._unsubscribeAll.complete();
   }
 
-  drop(event: CdkDragDrop<Account[]>) {
-    this.changedOrder = true;
-    moveItemInArray(this.accountsList, event.previousIndex, event.currentIndex);
+  filterList() {
+    let rows = this.rows.slice();
+
+    if (this.situationFilter.value !== 'all') {
+      rows = this.utilsService.filterList(
+        rows,
+        'active',
+        this.situationFilter.value
+      );
+    }
+
+    this.filteredRows.next(rows);
   }
 
   navigate(accountId: number) {

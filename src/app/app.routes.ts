@@ -1,33 +1,31 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { UnauthenticatedUserGuard } from './services/guards/unauthenticated-user.guard';
-import { FreeTierGuard } from './services/guards/free-tier.guard';
-import { BasicTierGuard } from './services/guards/basic-tier.guard';
-import { PremiumTierGuard } from './services/guards/premium-tier.guard';
-import { AdmTierGuard } from './services/guards/adm-tier.guard';
+import { Routes } from '@angular/router';
 import { PublicComponent } from './main/pages/public/public.component';
-import { HomeComponent } from './main/pages/home/home.component';
-import { LoginComponent } from './main/pages/public/components/login/login.component';
+import { UnauthenticatedUserGuard } from './services/guards/unauthenticated-user.guard';
 import { CreateAccountComponent } from './main/pages/public/components/create-account/create-account.component';
-import { ForgotMyPasswordComponent } from './main/pages/public/components/forgot-my-password/forgot-my-password.component';
+import { ChangePasswordComponent } from './main/pages/public/components/change-password/change-password.component';
+import { LoginComponent } from './main/pages/public/components/login/login.component';
+import { ForgotPasswordComponent } from './main/pages/public/components/forgot-password/forgot-password.component';
+import { UserActivationComponent } from './main/pages/public/components/user-activation/user-activation.component';
+import { HomeComponent } from './main/pages/home/home.component';
+import { FreeTierGuard } from './services/guards/free-tier.guard';
+import { SettingsComponent } from './main/pages/settings/settings.component';
+import { MyProfileComponent } from './main/pages/my-profile/my-profile.component';
+import { MyBankAccountsComponent } from './main/pages/my-bank-accounts/my-bank-accounts.component';
+import { BankAccountsEditComponent } from './main/pages/my-bank-accounts/components/bank-accounts-edit/bank-accounts-edit.component';
 import { CashFlowComponent } from './main/pages/cash-flow/cash-flow.component';
 import { InvestmentsComponent } from './main/pages/investments/investments.component';
-import { ReportCashFlowComponent } from './main/pages/report-cash-flow/report-cash-flow.component';
 import { MarketIndicatorsComponent } from './main/pages/market-indicators/market-indicators.component';
 import { NoticesBrazilComponent } from './main/pages/notices-brazil/notices-brazil.component';
-import { NoticesInternationalComponent } from './main/pages/notices-international/notices-international.component';
 import { NoticesCriptoComponent } from './main/pages/notices-cripto/notices-cripto.component';
+import { NoticesInternationalComponent } from './main/pages/notices-international/notices-international.component';
+import { ReportCashFlowComponent } from './main/pages/report-cash-flow/report-cash-flow.component';
 import { ReportInvestmentsComponent } from './main/pages/report-investments/report-investments.component';
 import { SpendingGoalsComponent } from './main/pages/spending-goals/spending-goals.component';
-import { MyBankAccountsComponent } from './main/pages/my-bank-accounts/my-bank-accounts.component';
+import { BasicTierGuard } from './services/guards/basic-tier.guard';
+import { PremiumTierGuard } from './services/guards/premium-tier.guard';
 import { InterestCalculatorComponent } from './main/pages/interest-calculator/interest-calculator.component';
-import { MyProfileComponent } from './main/pages/my-profile/my-profile.component';
-import { SettingsComponent } from './main/pages/settings/settings.component';
-import { UserActivationComponent } from './main/pages/public/components/user-activation/user-activation.component';
-import { ChangePasswordComponent } from './main/pages/public/components/change-password/change-password.component';
-import { BankAccountsEditComponent } from './main/pages/my-bank-accounts/components/bank-accounts-edit/bank-accounts-edit.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: PublicComponent },
   {
     path: 'login',
@@ -46,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'esqueci-minha-senha',
-    component: ForgotMyPasswordComponent,
+    component: ForgotPasswordComponent,
     canActivate: [UnauthenticatedUserGuard],
   },
   {
@@ -54,7 +52,11 @@ const routes: Routes = [
     component: ChangePasswordComponent,
     canActivate: [UnauthenticatedUserGuard],
   },
-  { path: 'home', component: HomeComponent, canActivate: [FreeTierGuard] },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [FreeTierGuard],
+  },
   {
     path: 'fluxo-de-caixa',
     component: CashFlowComponent,
@@ -126,9 +128,3 @@ const routes: Routes = [
     canActivate: [FreeTierGuard],
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

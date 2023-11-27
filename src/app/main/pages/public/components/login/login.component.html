@@ -1,92 +1,57 @@
-<div
-  [ngClass]="{
+<div [ngClass]="{
     'simple-page': true,
     login: true,
-    'dark-page': darkTheme
-  }"
->
+    'dark-page': utilsService.getSavedUserConfigs.theme === 'dark'
+  }">
   <div class="login-box">
     <div class="top">
-      <img src="assets/money-coin.svg" width="50px" height="50px" />
-
+      <img ngSrc="assets/money-coin.svg" width="50" height="50" priority alt="company logo" />
       <h1>
         {{ language === "pt-br" ? "Bem vindo de volta" : "Welcome back" }}
       </h1>
     </div>
 
     <form [formGroup]="loginForm">
-      <div fxLayout="row" fxLayoutAlign="center">
-        <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+      <div style="display: flex; justify-content: center">
+        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>Email</mat-label>
-          <input
-            matInput
-            formControlName="email"
-            autocomplete="off"
-            autofocus
-          />
+          <input matInput formControlName="email" autocomplete="off" autofocus />
         </mat-form-field>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="center">
-        <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+      <div style="display: flex; justify-content: center">
+        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>{{
             language === "pt-br" ? "Senha" : "Password"
-          }}</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="password"
-            autocomplete="new-password"
-          />
+            }}</mat-label>
+          <input matInput type="password" formControlName="password" autocomplete="new-password" />
         </mat-form-field>
       </div>
 
-      <div
-        fxLayout="row"
-        fxLayoutAlign="space-around center"
-        fxLayoutGap="70px"
-      >
-        <div fxLayoutGap="15px">
+      <div style="display: flex; justify-content: space-around; gap: 70px">
+        <div style="gap: 15px">
           <mat-checkbox formControlName="rememberMe">{{
             language === "pt-br" ? "Lembrar de mim" : "Remember me"
-          }}</mat-checkbox>
+            }}</mat-checkbox>
         </div>
         <div>
-          <span routerLink="/esqueci-minha-senha" id="forgot-password-label"
-            >{{
-              language === "pt-br" ? "Esqueceu a senha" : "Forgot the password"
-            }}?</span
-          >
+          <span routerLink="/esqueci-minha-senha" id="forgot-password-label">{{
+            language === "pt-br" ? "Esqueceu a senha" : "Forgot the password"
+            }}?</span>
         </div>
       </div>
     </form>
 
-    <div class="bottom" fxLayoutAlign="center start">
-      <button
-        *ngIf="!showLoading"
-        mat-raised-button
-        color="primary"
-        style="border-radius: 3rem; box-sizing: initial; padding: 1.5rem 2rem"
-        fxFlex="65"
-        (click)="login()"
-      >
-        <span><mat-icon>person</mat-icon>Login</span>
+    <div class="bottom" style="display: flex; justify-content: center">
+      <button *ngIf="!showLoading" mat-raised-button color="primary" (click)="login()">
+        <span><span class="material-symbols-outlined">person</span>Login</span>
       </button>
       <mat-spinner *ngIf="showLoading" [diameter]="40"></mat-spinner>
     </div>
   </div>
 
-  <span class="opt-login-page"
-    ><span
-      >{{
-        language === "pt-br" ? "Não tem uma conta" : "Don't have an account"
-      }}? </span
-    ><span
-      routerLink="/nova-conta"
-      class="primary-color"
-      style="font-weight: bold; cursor: pointer"
-    >
-      {{ language === "pt-br" ? "Crie uma" : "Create one" }}!</span
-    ></span
-  >
+  <span class="opt-login-page"><span>{{
+      language === "pt-br" ? "Não tem uma conta" : "Don't have an account"
+      }}? </span><span routerLink="/nova-conta" class="primary-color" style="font-weight: bold; cursor: pointer">
+      {{ language === "pt-br" ? "Crie uma" : "Create one" }}!</span></span>
 </div>

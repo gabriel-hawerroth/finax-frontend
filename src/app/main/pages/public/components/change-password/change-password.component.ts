@@ -1,43 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
-import { Credentials } from 'src/app/interfaces/Credentials';
-import { User } from 'src/app/interfaces/User';
-import { LoginService } from 'src/app/services/login.service';
-import { UserService } from 'src/app/services/user.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { User } from '../../../../../interfaces/User';
+import { LoginService } from '../../../../../services/login.service';
+import { UserService } from '../../../../../services/user.service';
+import { UtilsService } from '../../../../../utils/utils.service';
+import { Credentials } from '../../../../../interfaces/Credentials';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-change-password',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
+    MatButtonModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss'],
+  styleUrl: './change-password.component.scss',
 })
 export class ChangePasswordComponent implements OnInit {
+  public utilsService = inject(UtilsService);
+  private _fb = inject(FormBuilder);
+  private _userService = inject(UserService);
+  private _activatedRoute = inject(ActivatedRoute);
+  private _router = inject(Router);
+  private _loginService = inject(LoginService);
+
   changePasswordForm!: FormGroup;
   showLoading: boolean = false;
   user!: User;
-  darkTheme: boolean = false;
-  language: string = '';
 
-  constructor(
-    private _fb: FormBuilder,
-    private _utilsService: UtilsService,
-    private _userService: UserService,
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router,
-    private _loginService: LoginService
-  ) {}
+  language: string = this.utilsService.getSavedUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();
-
-    const configs = localStorage.getItem('savedUserConfigsFinax');
-    if (configs) {
-      const savedConfigs = JSON.parse(atob(configs));
-      this.darkTheme = savedConfigs.theme === 'dark';
-      this.language = savedConfigs.language;
-    }
 
     this._userService
       .getById(+this._activatedRoute.snapshot.paramMap.get('userId')!)
@@ -57,7 +70,7 @@ export class ChangePasswordComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern(this._utilsService.passwordValidator()),
+          Validators.pattern(this.utilsService.passwordValidator()),
         ],
       ],
       newPasswordConfirm: ['', Validators.required],
@@ -73,7 +86,7 @@ export class ChangePasswordComponent implements OnInit {
       this.changePasswordForm.get('newPasswordConfirm')!.value;
 
     if (newPassword !== newPasswordConfirm) {
-      this._utilsService.showSimpleMessage(
+      this.utilsService.showSimpleMessage(
         this.language === 'pt-br'
           ? 'As senhas não coincidem'
           : "Passwords don't match"
@@ -85,10 +98,15 @@ export class ChangePasswordComponent implements OnInit {
     this._userService
       .changeForgetedPassword(this.user.id!, newPassword)
       .then(() => {
-        const savedLogin = localStorage.getItem('savedLoginFinax');
+        const savedLogin =
+          this.utilsService.getItemLocalStorage('savedLoginFinax');
 
-        if (window.innerWidth < 870 && window.innerHeight < 1230) {
-          this._utilsService.showSimpleMessage(
+        if (
+          this.utilsService.isBrowser &&
+          window.innerWidth < 870 &&
+          window.innerHeight < 1230
+        ) {
+          this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
               ? 'Senha alterada com sucesso'
               : 'Password changed sucessfully'
@@ -108,7 +126,7 @@ export class ChangePasswordComponent implements OnInit {
       })
       .catch(() => {
         this.showLoading = false;
-        this._utilsService.showSimpleMessage(
+        this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Erro ao alterar a senha, tente novamente mais tarde'
             : 'Error changing password, please try again later'

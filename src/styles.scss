@@ -1,46 +1,55 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$finax-front-primary: mat.define-palette(mat.$green-palette, 900);
+$finax-front-accent: mat.define-palette(mat.$light-green-palette, 900);
+$finax-front-warn: mat.define-palette(mat.$green-palette, 900);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primary,
+        accent: $finax-front-accent,
+        warn: $finax-front-warn,
+      )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($finax-front-theme);
+
 @import "primeng/resources/primeng.css";
 @import 'primeng/resources/primeng.min.css';
 @import "primeng/resources/themes/saga-green/theme.css";
 @import "primeicons/primeicons.css";
 
-@import "/node_modules/@angular/material/theming";
-@import "/node_modules/@angular/material/prebuilt-themes/purple-green.css";
-
 @import 'app/app.component.scss';
 @import 'app/utils/colors.scss';
 
-
-@include mat-core();
-
-$custom-app-primary: mat-palette($mat-green, 900);
-$custom-app-secondary: mat-palette($mat-grey, 200);
-$custom-app-warn: mat-palette($mat-green, 900);
-
-$custom-theme: mat-light-theme($custom-app-primary,
-        $custom-app-secondary,
-        $custom-app-warn);
-
-@include angular-material-theme($custom-theme);
-
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    font-size: 16px;
-    user-select: none;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  user-select: none;
+  color: rgba(0, 0, 0, 0.812);
+  font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 app-root {
-    width: 100%;
-    height: 100%;
-    color: rgba(0, 0, 0, 0.812);
-    font-family: 'Nunito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  width: 100%;
+  height: 100%;
 }
 
 // ::-webkit-scrollbar {
@@ -48,205 +57,223 @@ app-root {
 // }
 
 .material-symbols-outlined {
-    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
 }
 
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .mat-mdc-form-field {
-    height: 73px;
-    flex-direction: column;
+  height: 73px;
+  flex-direction: column;
 
-    .mdc-text-field--filled {
-        background-color: transparent !important;
-        padding-left: 4px;
-
-        .mdc-floating-label {
-            transform: none;
-        }
-
-        .mdc-floating-label--float-above {
-            transform: translateY(-106%) scale(0.75);
-        }
-    }
-
-    .mat-mdc-form-field-focus-overlay {
-        background-color: transparent;
-    }
-
-    // .mat-mdc-form-field-subscript-wrapper {}
-
-    // .mdc-line-ripple {}
-
-}
-
-.simple-page {
-    width: 100%;
-    height: 100%;
-    background-color: $primary-bg-color;
-    padding: 1rem;
-    overflow-x: hidden;
-
-    .page-title {
-        color: #383838;
-        position: relative;
-        left: 1.5rem;
-        top: 1rem;
-    }
-}
-
-.dark-page {
-    transition-duration: 1s;
-    color: #dfdfdf !important;
-    background-color: #383838 !important;
-
-    .login-box {
-        background-color: #212121 !important;
-    }
-
-    label {
-        color: #d5d5d5 !important;
-    }
-
-    .page-title {
-        color: #e6e6e6;
-    }
+  .mdc-text-field--filled {
+    background-color: transparent !important;
+    padding-left: 4px;
 
     .mdc-floating-label {
-        color: #e6e6e6 !important;
+      transform: none;
     }
 
-    .mat-mdc-input-element {
-        color: #e6e6e6 !important;
+    .mdc-floating-label--float-above {
+      transform: translateY(-106%) scale(0.75);
     }
+  }
 
-    button {
-        color: #e6e6e6 !important;
+  .mat-mdc-form-field-focus-overlay {
+    background-color: transparent;
+  }
 
-        span {
-            transition-duration: 1s;
-            color: #e6e6e6 !important;
-        }
-    }
+  // .mat-mdc-form-field-subscript-wrapper {}
 
-    .mdc-form-field {
-        transition-duration: 1s;
-        color: #e6e6e6 !important;
-    }
+  // .mdc-line-ripple {}
 
-    .mat-mdc-select-min-line {
-        transition-duration: 1s;
-        color: #e6e6e6 !important;
-    }
-
-    .mat-mdc-select-arrow {
-        transition-duration: 1s;
-        color: #e6e6e6 !important;
-    }
-
-    .mat-mdc-dialog-title {
-        transition-duration: 1s;
-        color: #e6e6e6 !important;
-    }
 }
 
-.login {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 1.4rem;
-    background-color: #eff3f8;
+.mat-mdc-snack-bar-action {
+  font-family: 'Nunito', system-ui, -apple-system, Roboto;
+  color: #fff !important;
+}
 
-    .login-box {
-        max-width: 95vw;
-        width: 510px;
-        height: 510px;
-        background-color: white;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0px 7px 30px rgba(0, 0, 0, 0.08), 0px 22px 30px 2px rgba(0, 0, 0, 0.15), 0px 8px 10px rgba(0, 0, 0, 0.15) !important;
-
-        .top {
-            height: 30%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            padding-top: 1.3em;
-
-            h1 {
-                font-size: 2.2em;
-            }
-        }
-
-        form {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-        }
-
-        .bottom {
-            width: 100%;
-            height: 22%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            button {
-                font-size: 1rem;
-
-                span {
-                    display: flex;
-                    align-items: center;
-                    gap: .6rem;
-                }
-            }
-
-            // .mat-mdc-progress-spinner {}
-        }
-    }
+.mdc-tooltip__surface {
+  font-size: 0.9rem !important;
 }
 
 .mdc-button {
-    border-radius: 4px;
+  font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
+  font-size: 1rem !important;
+}
+
+.simple-page {
+  width: 100%;
+  height: 100%;
+  background-color: $primary-bg-color;
+  padding: 1rem;
+  overflow-x: hidden;
+
+  .page-title {
+    color: #383838;
+    position: relative;
+    left: 1.5rem;
+    top: 1rem;
+  }
+}
+
+.dark-page {
+  transition-duration: 1s;
+  color: #dfdfdf !important;
+  background-color: #383838 !important;
+
+  .login-box {
+    background-color: #212121 !important;
+  }
+
+  label {
+    color: #d5d5d5 !important;
+  }
+
+  .page-title {
+    color: #e6e6e6;
+  }
+
+  .mdc-floating-label {
+    color: #e6e6e6 !important;
+  }
+
+  .mat-mdc-input-element {
+    color: #e6e6e6 !important;
+  }
+
+  button {
+    color: #e6e6e6 !important;
+
+    span {
+      transition-duration: 1s;
+      color: #e6e6e6 !important;
+    }
+  }
+
+  .mdc-form-field {
+    transition-duration: 1s;
+    color: #e6e6e6 !important;
+  }
+
+  .mat-mdc-select-min-line {
+    transition-duration: 1s;
+    color: #e6e6e6 !important;
+  }
+
+  .mat-mdc-select-arrow {
+    transition-duration: 1s;
+    color: #e6e6e6 !important;
+  }
+
+  .mat-mdc-dialog-title {
+    transition-duration: 1s;
+    color: #e6e6e6 !important;
+  }
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+  background-color: #eff3f8;
+
+  .login-box {
+    max-width: 95vw;
+    width: 510px;
+    height: 510px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 7px 30px rgba(0, 0, 0, 0.08), 0px 22px 30px 2px rgba(0, 0, 0, 0.15), 0px 8px 10px rgba(0, 0, 0, 0.15) !important;
+
+    .top {
+      height: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: end;
+      padding-top: 1.3em;
+
+      h1 {
+        font-size: 2.2em;
+      }
+    }
+
+    form {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    .bottom {
+      width: 100%;
+      height: 22%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      button {
+        font-size: 1rem;
+
+        span {
+          display: flex;
+          align-items: center;
+          gap: .6rem;
+        }
+      }
+
+      // .mat-mdc-progress-spinner {}
+    }
+  }
+}
+
+.mdc-button {
+  border-radius: 4px;
 }
 
 mat-hint {
-    color: #3a3a3a !important;
+  color: #3a3a3a !important;
 }
 
 .primary-color {
-    color: $primary-color;
+  color: $primary-color;
 }
 
 .primary-bg-color {
-    background-color: $primary-bg-color;
+  background-color: $primary-bg-color;
 }
 
 .button {
-    font-size: .9rem;
-    padding: 1.4rem 1.8rem !important;
+  font-size: .9rem;
+  padding: 1.4rem 1.8rem !important;
 
-    .mdc-button__label {
-        display: flex;
-        align-items: center;
-        gap: .5rem;
+  .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
 
-        * {
-            height: 100%;
-        }
+    * {
+      height: 100%;
     }
+  }
 }
 
 .large-button {
-    padding: 2rem 2.6rem !important;
-    font-size: 1.1rem !important;
-    color: #676767 !important;
+  padding: 2rem 2.6rem !important;
+  font-size: 1.1rem !important;
+  color: #676767 !important;
 }

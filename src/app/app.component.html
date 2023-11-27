@@ -1,6 +1,10 @@
 <div class="app">
-    <app-sidebar *ngIf="_loginService.logged && _location.path() !== ''"></app-sidebar>
-    <main [ngClass]="_loginService.logged && _location.path() !== '' ? 'change-size' : ''">
-        <router-outlet></router-outlet>
-    </main>
+  @if (loginService.logged && location.path() !== '') {
+  <app-sidebar></app-sidebar>
+  }
+  <main [ngClass]="
+      loginService.logged && location.path() !== '' ? 'change-size' : ''
+    ">
+    <router-outlet></router-outlet>
+  </main>
 </div>

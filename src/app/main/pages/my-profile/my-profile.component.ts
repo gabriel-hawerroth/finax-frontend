@@ -1,23 +1,49 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-
-import { LoginService } from 'src/app/services/login.service';
-import { UserService } from 'src/app/services/user.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from '../../../services/login.service';
+import { UserService } from '../../../services/user.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { ChangePasswordDialogComponent } from '../../dialogs/change-password-dialog/change-password-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-my-profile',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+  ],
   templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.scss'],
+  styleUrl: './my-profile.component.scss',
 })
 export class MyProfileComponent implements OnInit, OnDestroy {
+  public utilsService = inject(UtilsService);
+  public loginService = inject(LoginService);
+  private _fb = inject(FormBuilder);
+  private _userService = inject(UserService);
+  private _matDialog = inject(MatDialog);
+
+  private _unsubscribeAll: Subject<any> = new Subject();
+
   userForm!: FormGroup;
-  loggedUserId: number = this._loginService.getLoggedUserId;
-  language: string = '';
-  currency: string = '';
+  loggedUserId: number = this.loginService.getLoggedUserId;
+  language: string = this.utilsService.getSavedUserConfigs.language;
+  currency: string = this.utilsService.getSavedUserConfigs.currency;
 
   userPlanTitle: string = '';
   monthYear: string = '';
@@ -29,17 +55,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   selectedProfileImage: File | null = null;
 
   showLoading: boolean = false;
-  private _unsubscribeAll: Subject<any>;
-
-  constructor(
-    private _fb: FormBuilder,
-    private _loginService: LoginService,
-    private _userService: UserService,
-    private _matDialog: MatDialog,
-    public utilsService: UtilsService
-  ) {
-    this._unsubscribeAll = new Subject();
-  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -69,47 +84,24 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       .subscribe((image) => {
         this.profileImageSrc = image;
       });
-
-    this.utilsService.userConfigs
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.language = value!.language;
-        this.currency = value!.currency;
-      });
   }
 
   getUser() {
-    this.userForm.patchValue(this._loginService.getLoggedUser);
-  }
-
-  getUserImage() {
-    this._userService.getUserImage(this.loggedUserId).then((response) => {
-      if (response === undefined) return;
-
-      const file = new Blob([response], {
-        type: response.type,
-      });
-      if (file.size !== 0) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => this.utilsService.userImage.next(reader.result);
-      }
-    });
+    this.userForm.patchValue(this.loginService.getLoggedUser);
   }
 
   getUserPlan() {
     this.monthYear =
-      this._loginService.getLoggedUser.signature === 'month'
+      this.loginService.getLoggedUser.signature === 'month'
         ? 'Mensal'
         : 'Anual';
 
     if (this.monthYear === 'Anual') {
       this.signatureExpiration =
-        this._loginService.getLoggedUser.signatureExpiration.toString();
+        this.loginService.getLoggedUser.signatureExpiration.toString();
     }
 
-    switch (this._loginService.getUserAccess) {
+    switch (this.loginService.getUserAccess) {
       case 'free':
         this.userPlanTitle = 'Plano gratuito';
         document.getElementById('month-year')!.style.display = 'none';
@@ -148,7 +140,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     this._userService
       .saveUser(this.userForm.value)
       .then((user: any) => {
-        localStorage.setItem('userFinax', btoa(JSON.stringify(user)));
+        this.utilsService.setItemLocalStorage(
+          'userFinax',
+          btoa(JSON.stringify(user))
+        );
 
         if (this.changedProfileImg) {
           this._userService
@@ -161,7 +156,16 @@ export class MyProfileComponent implements OnInit, OnDestroy {
               );
               this.changedProfileImg = false;
 
-              this.getUserImage();
+              const file = new Blob([this.selectedProfileImage!], {
+                type: 'application/json',
+              });
+              if (file.size !== 0) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                  this.utilsService.userImage.next(reader.result);
+                };
+                reader.readAsDataURL(file);
+              }
             })
             .catch(() => {
               this.utilsService.showSimpleMessage(
@@ -231,7 +235,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   openChangePasswordDialog() {
     this._matDialog.open(ChangePasswordDialogComponent, {
       data: {
-        userId: this._loginService.getLoggedUserId,
+        userId: this.loginService.getLoggedUserId,
       },
       disableClose: false,
       autoFocus: true,

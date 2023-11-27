@@ -1,8 +1,8 @@
-@import 'src/app/utils/colors.scss';
+@import '../../../../../utils/colors.scss';
 
 .login {
     .login-box {
-        height: 50%;
+        height: 55%;
 
         .top {
             margin-top: 3rem !important;
@@ -19,7 +19,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 2rem;
+            gap: 3.5rem;
+
+            button {
+                border-radius: 2rem;
+                padding: 1.5rem 2rem;
+            }
         }
     }
 }

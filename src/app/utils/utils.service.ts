@@ -1,25 +1,54 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient } from '@angular/common/http';
-import * as moment from 'moment-timezone';
 
 import { BehaviorSubject } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
-import { LoginService } from '../services/login.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilsService {
+  public isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  public isPcScreen = this.isBrowser
+    ? window.innerWidth > 1050 && window.innerHeight > 700
+    : false;
+
+  private _snackBar = inject(MatSnackBar);
+
   // user observables
+  public userToken: string = '';
+
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
-    new BehaviorSubject<string | ArrayBuffer | null>(null);
+    new BehaviorSubject<string | ArrayBuffer | null>('assets/user-image.webp');
 
   public userConfigs: BehaviorSubject<UserConfigs> =
     new BehaviorSubject<UserConfigs>(this.getSavedUserConfigs);
   // user observables
 
-  constructor(private _snackBar: MatSnackBar) {}
+  get getSavedUserConfigs(): UserConfigs {
+    return this.getItemLocalStorage('savedUserConfigsFinax')
+      ? JSON.parse(atob(this.getItemLocalStorage('savedUserConfigsFinax')!))
+      : {
+          userId: 0,
+          theme: 'light',
+          addingMaterialGoodsToPatrimony: false,
+          language: 'pt-br',
+          currency: 'R$',
+        };
+  }
+
+  getItemLocalStorage(item: string): string | null {
+    return this.isBrowser ? localStorage.getItem(item) : null;
+  }
+
+  setItemLocalStorage(key: string, value: string): void {
+    if (this.isBrowser) localStorage.setItem(key, value);
+  }
+
+  removeItemLocalStorage(item: string): void {
+    if (this.isBrowser) localStorage.removeItem(item);
+  }
 
   showSimpleMessage(message: string) {
     this._snackBar.open(message, '', {
@@ -53,18 +82,6 @@ export class UtilsService {
       .join('');
   }
 
-  get getSavedUserConfigs(): UserConfigs {
-    return localStorage.getItem('savedUserConfigsFinax')
-      ? JSON.parse(atob(localStorage.getItem('savedUserConfigsFinax')!))
-      : {
-          userId: 0,
-          theme: 'light',
-          addingMaterialGoodsToPatrimony: false,
-          language: 'pt-br',
-          currency: 'R$',
-        };
-  }
-
   filterList(rows: any, atributo: string, keyWord: any) {
     if (!rows) return [];
 
@@ -93,7 +110,7 @@ export class UtilsService {
 
     return rows.filter((item: any) => {
       if (item[atributo]) {
-        const itemDate = moment(item[atributo]).toDate();
+        const itemDate = new Date(item[atributo]);
 
         if (!isNaN(itemDate.getTime())) {
           return (

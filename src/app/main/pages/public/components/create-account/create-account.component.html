@@ -1,113 +1,69 @@
-<div
-  [ngClass]="{
+<div [ngClass]="{
     'simple-page': true,
     login: true,
-    'dark-page': darkTheme
-  }"
->
+    'dark-page': utilsService.getSavedUserConfigs.theme === 'dark'
+  }">
   <div class="login-box">
     <div class="top">
-      <img src="assets/money-coin.svg" width="50px" height="50px" />
+      <img ngSrc="assets/money-coin.svg" width="50" height="50" priority alt="company logo" />
       <h1>
         {{ language === "pt-br" ? "Crie sua conta" : "Create your account" }}
       </h1>
     </div>
 
     <form [formGroup]="userRegisterForm">
-      <div fxLayout="row" fxLayoutAlign="center">
-        <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+      <div style="display: flex; justify-content: center">
+        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>Email</mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="email"
-            autocomplete="off"
-            autofocus
-          />
+          <input type="text" matInput formControlName="email" autocomplete="off" autofocus />
         </mat-form-field>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="0.3rem">
-        <mat-form-field fxFlex="80" [hideRequiredMarker]="true">
+      <div style="display: flex; justify-content: center; gap: 0.3rem">
+        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>{{
             language === "pt-br" ? "Senha" : "Password"
-          }}</mat-label>
-          <input
-            type="password"
-            matInput
-            formControlName="password"
-            autocomplete="new-password"
-          />
+            }}</mat-label>
+          <input type="password" matInput formControlName="password" autocomplete="new-password" />
 
-          <span
-            class="material-symbols-outlined primary-color"
-            matSuffix
-            [matTooltip]="
+          <span class="material-symbols-outlined primary-color" matSuffix [matTooltip]="
               language === 'pt-br'
                 ? 'A senha deve conter pelo menos 8 caracteres, 1 número e 1 letra maiúscula'
                 : 'The password must contain at least 8 characters, 1 number, and 1 uppercase letter'
-            "
-            matTooltipPosition="below"
-            matTooltipShowDelay="200"
-            >info</span
-          >
+            " matTooltipPosition="below" matTooltipShowDelay="200">info</span>
         </mat-form-field>
       </div>
 
-      <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0.9rem">
-        <mat-form-field fxFlex="32" [hideRequiredMarker]="true">
+      <div style="display: flex; justify-content: center; gap: 0.9rem">
+        <mat-form-field style="width: 32%" [hideRequiredMarker]="true">
           <mat-label>{{
             language === "pt-br" ? "Nome" : "First name"
-          }}</mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="firstName"
-            maxlength="30"
-          />
+            }}</mat-label>
+          <input type="text" matInput formControlName="firstName" maxlength="30" />
         </mat-form-field>
 
-        <mat-form-field fxFlex="45">
+        <mat-form-field style="width: 45%">
           <mat-label>{{
             language === "pt-br" ? "Sobrenome" : "Last name"
-          }}</mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="lastName"
-            maxlength="40"
-          />
+            }}</mat-label>
+          <input type="text" matInput formControlName="lastName" maxlength="40" />
         </mat-form-field>
       </div>
     </form>
 
     <div class="bottom">
-      <button
-        *ngIf="!showLoading"
-        mat-raised-button
-        color="primary"
-        style="border-radius: 3rem; box-sizing: initial; padding: 1.5rem 2rem"
-        fxFlex="65"
-        (click)="createUser()"
-      >
-        <span
-          ><mat-icon>person</mat-icon
-          >{{ language === "pt-br" ? "Criar conta" : "Create account" }}</span
-        >
+      <button *ngIf="!showLoading" mat-raised-button color="primary" (click)="createUser()">
+        <span><span class="material-symbols-outlined">person</span>{{ language === "pt-br" ? "Criar conta" : "Create
+          account" }}</span>
       </button>
       <mat-spinner *ngIf="showLoading" [diameter]="40"></mat-spinner>
     </div>
   </div>
 
-  <span class="opt-login-page"
-    ><span
-      >{{
-        language === "pt-br"
-          ? "Já possui uma conta"
-          : "Already have an account"
-      }}? </span
-    ><span routerLink="/login" class="login-label">
-      {{ language === "pt-br" ? "Fazer login" : "Log in" }}!</span
-    ></span
-  >
+  <span class="opt-login-page"><span>{{
+      language === "pt-br"
+      ? "Já possui uma conta"
+      : "Already have an account"
+      }}? </span><span routerLink="/login" class="login-label">
+      {{ language === "pt-br" ? "Fazer login" : "Log in" }}!</span></span>
 </div>

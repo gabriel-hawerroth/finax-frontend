@@ -1,30 +1,39 @@
 <div id="public-page">
+  @defer { @if (showScrollTop && isPcScreen) {
   <button mat-fab id="back-to-top" (click)="scrollTo('public-page')">
     <span class="material-symbols-outlined">arrow_upward</span>
   </button>
+  } }
+
   <!-- Start of **** Public Header **** -->
   <div class="public-header">
+    @if (isPcScreen) {
     <div class="left-side">
       <button mat-button (click)="scrollTo('reset-the-possible')">
         Nossos serviços
       </button>
-      <!-- <button mat-button (click)="scrollTo('who-we-are')">Sobre nós</button> -->
+
       <button mat-button (click)="scrollTo('signatures')">Planos</button>
     </div>
+    }
+
     <div class="title">
-      <img src="assets/money-coin.svg" />
+      <img ngSrc="assets/money-coin.svg" width="45" height="45" alt="company logo" />
       <h1>Finax</h1>
     </div>
+
+    @if (isPcScreen) {
     <div class="right-side">
-      <button mat-raised-button (click)="navigateLogin()" id="login-button">
+      <button mat-raised-button [routerLink]="loginService.logged ? 'home' : 'login'" id="login-button">
         Entrar
       </button>
     </div>
+    }
   </div>
   <!-- End of **** Public Header **** -->
 
   <!-- Start of **** First Section **** -->
-  <div class="public-section" id="first-ps">
+  <div [ngClass]="{ hidden: !isPcScreen }" class="public-section" id="first-ps">
     <div class="content">
       <div class="left-side">
         <h1>
@@ -50,8 +59,10 @@
           </button>
         </div>
       </div>
-      <div class="right-side">
-        <img src="assets/img-first-section.svg" />
+      <div class="right-side" id="fs-img-container">
+        @defer { @if (imgWidth > 0) {
+        <img ngSrc="assets/img-first-section.svg" [width]="imgWidth" [height]="imgHeight" alt="fantasy image" />
+        } }
       </div>
     </div>
   </div>
@@ -59,9 +70,11 @@
 
   <!-- Start of **** Second Section **** -->
 
-  <div class="public-section" id="reset-the-possible">
+  @defer {
+  <div [ngClass]="{ hidden: !isPcScreen }" class="public-section" #secondSection id="reset-the-possible">
+    @defer (on viewport(secondSection)) {
     <div class="left">
-      <img src="assets/img-section2.webp" />
+      <img ngSrc="assets/img-section2.webp" width="580" height="380" alt="fantasy image" />
     </div>
 
     <div class="right">
@@ -135,71 +148,20 @@
         </div>
       </div>
     </div>
+    }
   </div>
 
   <!-- End of **** Second Section **** -->
 
   <!-- Start of **** Third Section **** -->
 
-  <!-- <div class="public-section" id="who-we-are">
-    <div class="title">
-      <h2 class="text-3xl">Quem nós somos</h2>
-      <div class="w-full flex justify-content-around">
-        <h2>Sobre nós</h2>
-        <h2>Nosso time</h2>
-      </div>
-    </div>
-
-    <div class="content flex w-full">
-      <div class="about-us">
-        <span>A Finax nasceu da junção de duas paixões do criador, as finanças e a
-          programação, nosso objetivo é aumentar cada vez mais o número de
-          brasileiros que tem estabilidade financeira com consciência e controle
-          de todos as suas despesas e receitas, ao mesmo tempo em que fomentamos
-          o mercado de investidores no Brasil
-        </span>
-      </div>
-
-      <div class="our-team">
-        <div class="flip-box">
-          <div class="flip-box-inner">
-            <div class="flip-box-front">
-              <img src="assets/my-image.jpeg" style="width: 100%; height: 100%; border-radius: 10px" />
-
-              <div class="about">
-                <span class="name">Gabriel Hawerroth</span>
-                <span class="job">Fundador e CEO</span>
-              </div>
-            </div>
-
-            <div class="flip-box-back">
-              <img src="assets/my-image.jpeg" style="width: 100%; height: 100%; border-radius: 10px" />
-
-              <span>
-                Gabriel fundou a Finax com o objetivo de fornecer uma solução
-                abrangente de software financeiro que pudesse beneficiar
-                qualquer pessoa, mesmo tendo pouco ou nenhum conhecimento sobre
-                finanças. Com um vasto conhecimento em finanças e tecnologia,
-                ele lidera a equipe da Finax com paixão e experiência para
-                garantir o sucesso de cada cliente.
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- End of **** Third Section **** -->
-
-  <!-- Start of **** Fourth Section **** -->
-
-  <div class="public-section" id="signatures">
+  <div [ngClass]="{ hidden: !isPcScreen }" class="public-section" #signaturesSection id="signatures">
+    @defer (on viewport(signaturesSection)) {
     <div class="top">
       <h1>Nossos planos</h1>
       <form [formGroup]="switchPlansForm">
         <span>Mensal
-          <p-inputSwitch formControlName="planSwitch"></p-inputSwitch>
+          <mat-slide-toggle formControlName="planSwitch"></mat-slide-toggle>
           Anual</span>
       </form>
     </div>
@@ -207,10 +169,10 @@
     <div class="content">
       <div class="plan free">
         <div class="title">
-          <h3 class="text-2xl">Gratuito</h3>
+          <h3 style="font-size: 1.5rem">Gratuito</h3>
           <div>
-            <span class="font-bold text-3xl">R$0</span>
-            <span class="text-bluegray-400"> / mês</span>
+            <span style="font-weight: bold; font-size: 1.75rem">R$0</span>
+            <span style="color: #7e96a1"> / mês</span>
           </div>
         </div>
         <div class="services">
@@ -218,33 +180,33 @@
 
           <ul>
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Fluxo de caixa</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Metas de gasto</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Contas de banco</span>
             </li>
           </ul>
 
-          <button mat-raised-button pRipple>Assinar agora</button>
+          <button mat-raised-button>Assinar agora</button>
         </div>
       </div>
 
       <div class="plan basic">
         <div class="title">
-          <h3 class="text-2xl">Básico</h3>
+          <h3 style="font-size: 1.5rem">Básico</h3>
           <div>
-            <span class="font-bold text-3xl">R${{
+            <span style="font-weight: bold; font-size: 1.75rem">R${{
               switchPlansForm.get("planSwitch")!.value ? "7,90" : "11,90"
               }}</span>
-            <span class="text-bluegray-400"> / mês</span>
+            <span style="color: #7e96a1"> / mês</span>
           </div>
         </div>
 
@@ -253,38 +215,38 @@
 
           <ul>
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Todas do plano gratuito</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Controle de investimentos</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Relatórios</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Calculadora de juros</span>
             </li>
           </ul>
 
-          <button mat-raised-button pRipple>Assinar agora</button>
+          <button mat-raised-button>Assinar agora</button>
         </div>
       </div>
 
       <div class="plan premium">
         <div class="title">
-          <h3 class="text-2xl">Premium</h3>
+          <h3 style="font-size: 1.5rem">Premium</h3>
           <div>
-            <span class="font-bold text-3xl">R${{
+            <span style="font-weight: bold; font-size: 1.75rem">R${{
               switchPlansForm.get("planSwitch")!.value ? "29,90" : "49,90"
               }}</span>
-            <span class="text-bluegray-400"> / mês</span>
+            <span style="color: #7e96a1"> / mês</span>
           </div>
         </div>
 
@@ -293,48 +255,52 @@
 
           <ul>
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Todas do plano básico</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Newsletter (B3, internacional, cripto)</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>+ de 20 índices de mercado em <br />
                 tempo real</span>
             </li>
 
             <li>
-              <i class="pi pi-dollar"></i>
+              <span class="material-symbols-outlined">attach_money</span>
               <span>Cálculo de rendimentos automático</span>
             </li>
           </ul>
 
-          <button mat-raised-button pRipple>Assinar agora</button>
+          <button mat-raised-button>Assinar agora</button>
         </div>
       </div>
     </div>
+    }
   </div>
 
-  <!-- End of **** Fourth Section **** -->
+  <!-- End of **** Third Section **** -->
 
   <!-- Start of **** Mobile Section **** -->
 
+  @if (!isPcScreen) {
   <div id="mobile-section">
     <h2>Disponível apenas para computador</h2>
     <span>Sentimos muito, no momento nosso sistema está disponível para acesso
       apenas através do notebook ou desktop.</span>
   </div>
+  }
 
   <!-- End of **** Mobile Section **** -->
 
   <!-- Start of **** Public Footer **** -->
 
-  <div class="public-footer">
+  <div class="public-footer" #trigger>
+    @defer (on viewport(trigger)) {
     <div class="left">
       <h1>Finax</h1>
       <span><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
@@ -367,7 +333,9 @@
         </svg>
       </a>
     </div>
+    }
   </div>
+  }
 
   <!-- End of **** Public Footer **** -->
 </div>

@@ -1,32 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/services/login.service';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import {
+  CommonModule,
+  isPlatformBrowser,
+  NgOptimizedImage,
+} from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { LoginService } from '../../../../../services/login.service';
+import { RouterModule } from '@angular/router';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    NgOptimizedImage,
+    MatCheckboxModule,
+    RouterModule,
+  ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
+  public utilsService = inject(UtilsService);
+  private _fb = inject(FormBuilder);
+  private _loginService = inject(LoginService);
+
   loginForm!: FormGroup;
   showLoading: boolean = false;
-  darkTheme: boolean = false;
-  language: string = 'pt-br';
 
-  constructor(private _fb: FormBuilder, private _loginService: LoginService) {}
+  language: string = this.utilsService.getSavedUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();
 
-    const savedLogin = localStorage.getItem('savedLoginFinax');
+    const savedLogin = this.utilsService.getItemLocalStorage('savedLoginFinax');
     if (savedLogin) this.loginForm.patchValue(JSON.parse(atob(savedLogin!)));
-
-    const configs = localStorage.getItem('savedUserConfigsFinax');
-    if (configs) {
-      const savedConfigs = JSON.parse(atob(configs));
-      this.darkTheme = savedConfigs.theme === 'dark';
-      this.language = savedConfigs.language;
-    }
 
     this.loginForm.markAllAsTouched();
   }
@@ -37,6 +61,8 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       rememberMe: false,
     });
+
+    this.loginForm.markAllAsTouched();
   }
 
   login() {

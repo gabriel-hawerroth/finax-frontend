@@ -1,4 +1,4 @@
-@import 'src/app/utils/colors.scss';
+@import '../../../../../utils/colors.scss';
 
 .simple-page {
     .login-box {
@@ -21,6 +21,20 @@
 
         .bottom {
             height: 18%;
+
+            button {
+                width: 65%;
+                border-radius: 3rem;
+                padding: 1.5rem 2rem;
+
+                .material-symbols-outlined {
+                    font-variation-settings:
+                        'FILL' 1,
+                        'wght' 400,
+                        'GRAD' 0,
+                        'opsz' 24
+                }
+            }
         }
     }
 }

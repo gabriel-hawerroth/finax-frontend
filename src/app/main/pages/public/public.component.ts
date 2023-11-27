@@ -1,25 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  inject,
+} from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LoginService } from '../../../services/login.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RouterModule } from '@angular/router';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-public',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    NgOptimizedImage,
+    RouterModule,
+  ],
   templateUrl: './public.component.html',
-  styleUrls: ['./public.component.scss'],
+  styleUrl: './public.component.scss',
 })
-export class PublicComponent implements OnInit {
-  switchPlansForm!: FormGroup;
+export class PublicComponent implements OnInit, AfterViewInit {
+  public utilsService = inject(UtilsService);
+  public loginService = inject(LoginService);
+  public el = inject(ElementRef);
+  private _fb = inject(FormBuilder);
 
-  constructor(
-    private _router: Router,
-    private _loginService: LoginService,
-    private _fb: FormBuilder
-  ) {}
+  switchPlansForm!: FormGroup;
+  isPcScreen: boolean = this.utilsService.isPcScreen;
+  showScrollTop: boolean = false;
+
+  imgWidth: number = 0;
+  imgHeight: number = 0;
 
   ngOnInit(): void {
     this.buildForm();
-    this.validateByScreenSize();
+    if (this.isPcScreen) this.validateByScreenSize();
+  }
+
+  ngAfterViewInit(): void {
+    this.imgWidth = this.getWidth;
+    this.imgHeight = this.getHeight;
   }
 
   buildForm() {
@@ -29,24 +57,27 @@ export class PublicComponent implements OnInit {
   }
 
   validateByScreenSize() {
-    if (window.innerWidth >= 1100 && window.innerHeight >= 600) {
+    if (this.utilsService.isBrowser) {
       window.onscroll = () => {
-        var scrollButton = document.getElementById('back-to-top');
-        if (
-          document.body.scrollTop > 600 ||
-          document.documentElement.scrollTop > 600
-        ) {
-          scrollButton!.style.display = 'block';
-        } else {
-          scrollButton!.style.display = 'none';
-        }
+        this.showScrollTop = document.documentElement.scrollTop > 600;
       };
     }
   }
 
-  navigateLogin() {
-    if (this._loginService.logged) this._router.navigate(['home']);
-    else this._router.navigate(['login']);
+  get getWidth(): number {
+    const width = +this.el.nativeElement.querySelector(
+      '[id="fs-img-container"]'
+    ).clientWidth;
+
+    return (80 / 100) * width + 1;
+  }
+
+  get getHeight(): number {
+    const height = +this.el.nativeElement.querySelector(
+      '[id="fs-img-container"]'
+    ).clientHeight;
+
+    return (80 / 100) * height + 1;
   }
 
   scrollTo(elementId: string) {

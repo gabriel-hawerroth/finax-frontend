@@ -1,22 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { LoginService } from '../login.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { UtilsService } from '../../utils/utils.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdmTierGuard implements CanActivate {
-  savedUserConfigs = localStorage.getItem('savedUserConfigs');
-  language: string = this.savedUserConfigs
-    ? JSON.parse(atob(this.savedUserConfigs)).language
-    : 'pt-br';
+  private _loginService = inject(LoginService);
+  private _router = inject(Router);
+  private _utilsService = inject(UtilsService);
 
-  constructor(
-    private _loginService: LoginService,
-    private _router: Router,
-    private _utilsService: UtilsService
-  ) {}
+  language = this._utilsService.getSavedUserConfigs.language;
 
   canActivate() {
     if (this._loginService.logged) {

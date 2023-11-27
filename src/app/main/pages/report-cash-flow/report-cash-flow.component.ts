@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-report-cash-flow',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './report-cash-flow.component.html',
-  styleUrls: ['./report-cash-flow.component.scss'],
+  styleUrl: './report-cash-flow.component.scss',
 })
 export class ReportCashFlowComponent implements OnInit {
-  language = '';
+  public utilsService = inject(UtilsService);
 
-  constructor(public utilsService: UtilsService) {}
+  language = this.utilsService.getSavedUserConfigs.language;
 
-  ngOnInit(): void {
-    this.utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value.language;
-    });
-  }
+  ngOnInit(): void {}
 }

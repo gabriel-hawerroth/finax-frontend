@@ -1,36 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { LoginService } from '../../../../../services/login.service';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-create-account',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    RouterModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './create-account.component.html',
-  styleUrls: ['./create-account.component.scss'],
+  styleUrl: './create-account.component.scss',
 })
 export class CreateAccountComponent implements OnInit {
+  public utilsService = inject(UtilsService);
+  private _fb = inject(FormBuilder);
+  private _router = inject(Router);
+  private _loginService = inject(LoginService);
+
   userRegisterForm!: FormGroup;
   showLoading: boolean = false;
-  darkTheme: boolean = false;
-  language: string = 'pt-br';
 
-  constructor(
-    private _fb: FormBuilder,
-    private _utilsService: UtilsService,
-    private _router: Router,
-    private _loginService: LoginService
-  ) {}
+  language: string = this.utilsService.getSavedUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();
-
-    const configs = localStorage.getItem('savedUserConfigsFinax');
-    if (configs) {
-      const savedConfigs: any = JSON.parse(atob(configs));
-      this.darkTheme = savedConfigs.theme === 'dark';
-      this.language = savedConfigs.language;
-    }
   }
 
   buildForm() {
@@ -40,16 +54,23 @@ export class CreateAccountComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern(this._utilsService.passwordValidator()),
+          Validators.pattern(this.utilsService.passwordValidator()),
         ],
       ],
       firstName: ['', Validators.required],
       lastName: '',
     });
+
+    this.userRegisterForm.markAllAsTouched();
   }
 
   createUser() {
-    if (this.userRegisterForm.invalid) return;
+    if (this.userRegisterForm.get('password')!.invalid) {
+      this.utilsService.showSimpleMessage(
+        'A senha não cumpre os requisitos de segurança'
+      );
+      return;
+    } else if (this.userRegisterForm.invalid) return;
 
     this.showLoading = true;
 
@@ -57,7 +78,7 @@ export class CreateAccountComponent implements OnInit {
       .newUser(this.userRegisterForm.value)
       .then((result) => {
         this.showLoading = false;
-        this._utilsService.showSimpleMessageWithoutDuration(
+        this.utilsService.showSimpleMessageWithoutDuration(
           this.language === 'pt-br'
             ? `Conta criada com sucesso, um link de ativação foi enviado \n para o email: ${result.email}`
             : `Account created successfully, an activation link was sent to the email: ${result.email}`
@@ -67,13 +88,13 @@ export class CreateAccountComponent implements OnInit {
       .catch((error) => {
         this.showLoading = false;
         if (error.status == 406) {
-          this._utilsService.showSimpleMessage(
+          this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
               ? 'Esse usuário já existe'
               : 'This user already exists'
           );
         } else {
-          this._utilsService.showSimpleMessage(
+          this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
               ? 'Erro ao criar o usuário, entre em contato com nosso suporte'
               : 'Error creating user, please contact our support'

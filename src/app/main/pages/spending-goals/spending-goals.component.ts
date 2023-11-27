@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-spending-goals',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './spending-goals.component.html',
-  styleUrls: ['./spending-goals.component.scss'],
+  styleUrl: './spending-goals.component.scss',
 })
 export class SpendingGoalsComponent implements OnInit {
-  language = '';
+  public utilsService = inject(UtilsService);
 
-  constructor(public utilsService: UtilsService) {}
+  language = this.utilsService.getSavedUserConfigs.language;
 
-  ngOnInit(): void {
-    this.utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value.language;
-    });
-  }
+  ngOnInit(): void {}
 }

@@ -1,20 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-confirmation-dialog',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.scss'],
+  styleUrl: './confirmation-dialog.component.scss',
 })
 export class ConfirmationDialogComponent implements OnInit {
   @Input() message: string = '';
-  language: string = '';
 
-  constructor(
-    private dialogRef: MatDialogRef<ConfirmationDialogComponent>,
-    public utilsService: UtilsService
-  ) {}
+  private _dialogRef = inject(MatDialogRef<ConfirmationDialogComponent>);
+  public utilsService = inject(UtilsService);
+
+  language: string = '';
 
   ngOnInit(): void {
     this.utilsService.userConfigs.asObservable().subscribe((value) => {
@@ -23,10 +25,10 @@ export class ConfirmationDialogComponent implements OnInit {
   }
 
   onConfirmClick(): void {
-    this.dialogRef.close(true);
+    this._dialogRef.close(true);
   }
 
   onCancelClick(): void {
-    this.dialogRef.close(false);
+    this._dialogRef.close(false);
   }
 }

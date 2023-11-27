@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 import { UtilsService } from '../utils/utils.service';
 import { UserService } from './user.service';
 import { User } from '../interfaces/User';
@@ -15,22 +15,16 @@ import { UserConfigs } from '../interfaces/UserConfigs';
   providedIn: 'root',
 })
 export class LoginService {
+  private _http = inject(HttpClient);
+  private _router = inject(Router);
+  private _utilsService = inject(UtilsService);
+  private _userService = inject(UserService);
+  private _userConfigsService = inject(UserConfigsService);
+
   apiUrl = `${environment.baseApiUrl}login`;
 
-  constructor(
-    private _http: HttpClient,
-    private _router: Router,
-    private _utilsService: UtilsService,
-    private _userService: UserService,
-    private _userConfigsService: UserConfigsService
-  ) {}
-
   async login(credentials: Credentials) {
-    const savedConfigs = localStorage.getItem('savedUserConfigsFinax');
-    var language: string = 'pt-br';
-    if (savedConfigs) {
-      language = JSON.parse(atob(savedConfigs)).language;
-    }
+    const language = this._utilsService.getSavedUserConfigs.language;
 
     const basicAuth = 'client-id:secret-id';
     let headers = new HttpHeaders();
@@ -47,7 +41,7 @@ export class LoginService {
         params: params,
       })
     )
-      .then((result: any) => {
+      .then(async (result: any) => {
         if (!result) {
           this._utilsService.showSimpleMessage(
             language === 'pt-br' ? 'Login inválido' : 'Invalid login'
@@ -55,12 +49,14 @@ export class LoginService {
           return;
         }
 
-        this._userService
+        await this._userService
           .getByEmail(result.username)
           .then((user: User) => {
             if (!user) {
               this._utilsService.showSimpleMessage(
-                language === 'pt-br' ? 'Login inválido' : 'Invalid login'
+                language === 'pt-br'
+                  ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
+                  : 'Error getting the user, please contact our support'
               );
               return;
             }
@@ -74,11 +70,20 @@ export class LoginService {
               return;
             }
 
-            localStorage.setItem(
+            this._router.navigate(['home']);
+
+            this._utilsService.setItemLocalStorage(
               'tokenFinax',
               btoa(JSON.stringify(result.access_token))
             );
-            localStorage.setItem('userFinax', btoa(JSON.stringify(user)));
+            this._utilsService.setItemLocalStorage(
+              'userFinax',
+              btoa(JSON.stringify(user))
+            );
+
+            this._utilsService.userToken = btoa(
+              JSON.stringify(result.access_token)
+            );
 
             if (credentials.changedPassword) {
               this._utilsService.showSimpleMessage(
@@ -94,20 +99,21 @@ export class LoginService {
               );
             }
 
-            this._router.navigate(['home']);
-
             if (credentials.rememberMe) {
-              localStorage.setItem(
+              this._utilsService.setItemLocalStorage(
                 'savedLoginFinax',
                 btoa(JSON.stringify(credentials))
               );
-            } else localStorage.removeItem('savedLoginFinax');
+            } else {
+              this._utilsService.removeItemLocalStorage('savedLoginFinax');
+            }
 
             this._userConfigsService
               .getByUserId(user.id!)
               .then((userConfigs: UserConfigs) => {
                 this._utilsService.userConfigs.next(userConfigs);
-                localStorage.setItem(
+
+                this._utilsService.setItemLocalStorage(
                   'savedUserConfigsFinax',
                   btoa(JSON.stringify(userConfigs))
                 );
@@ -131,51 +137,61 @@ export class LoginService {
             );
           });
       })
-      .catch(() => {
-        this._utilsService.showSimpleMessage(
-          language === 'pt-br' ? 'Login inválido' : 'Invalid login'
-        );
+      .catch((error) => {
+        if (error.status === 0) {
+          this._utilsService.showSimpleMessage('Sistema fora do ar');
+        } else {
+          this._utilsService.showSimpleMessage(
+            language === 'pt-br' ? 'Login inválido' : 'Invalid login'
+          );
+        }
       });
   }
 
   logout() {
-    localStorage.removeItem('userFinax');
-    localStorage.removeItem('tokenFinax');
+    this._utilsService.removeItemLocalStorage('userFinax');
+    this._utilsService.removeItemLocalStorage('tokenFinax');
     this._router.navigate(['']);
     this._utilsService.userImage.next('assets/user-image.webp');
+    this._utilsService.userToken = '';
+    this._utilsService.showSimpleMessage(
+      'Acesso expirado, por favor logue novamente'
+    );
   }
 
   get getLoggedUser(): User {
-    return localStorage.getItem('userFinax')
-      ? JSON.parse(atob(localStorage.getItem('userFinax')!))
+    return this._utilsService.getItemLocalStorage('userFinax')
+      ? JSON.parse(atob(this._utilsService.getItemLocalStorage('userFinax')!))
       : null;
   }
 
   get getLoggedUserId(): number {
-    return +JSON.parse(atob(localStorage.getItem('userFinax')!)).id;
+    return +JSON.parse(
+      atob(this._utilsService.getItemLocalStorage('userFinax')!)
+    ).id;
   }
 
   get getUserToken(): string {
-    return localStorage.getItem('tokenFinax')
-      ? JSON.parse(atob(localStorage.getItem('tokenFinax')!))
-      : null;
+    return this._utilsService.getItemLocalStorage('tokenFinax')
+      ? JSON.parse(atob(this._utilsService.getItemLocalStorage('tokenFinax')!))
+      : '';
   }
 
   get getUserAccess(): string {
-    return localStorage.getItem('userFinax')
-      ? JSON.parse(atob(localStorage.getItem('userFinax')!)).access
+    return this._utilsService.getItemLocalStorage('userFinax')
+      ? JSON.parse(atob(this._utilsService.getItemLocalStorage('userFinax')!))
+          .access
       : null;
   }
 
   get logged(): boolean {
-    return localStorage.getItem('tokenFinax') ? true : false;
+    return this._utilsService.getItemLocalStorage('tokenFinax') ? true : false;
   }
 
   stillLoggedTest() {
     lastValueFrom(this._http.get(`${this.apiUrl}/authentication-test`)).catch(
       () => {
-        localStorage.removeItem('tokenFinax');
-        localStorage.removeItem('userFinax');
+        this.logout();
       }
     );
   }

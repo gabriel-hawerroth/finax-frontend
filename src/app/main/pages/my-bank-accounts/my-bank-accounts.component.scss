@@ -1,4 +1,8 @@
-@import 'src/app/utils/colors.scss';
+@import '../../../utils/colors.scss';
+
+::-webkit-scrollbar {
+    display: none;
+}
 
 .dark-page {
     .content {
@@ -20,91 +24,58 @@
         place-items: center;
 
         .accounts-card {
-            width: 60%;
+            width: 68%;
+            height: 75vh;
+            max-height: 75vh;
             padding: 2rem;
             background-color: #fefefe;
             border-radius: 1rem;
             display: flex;
             flex-direction: column;
-        }
-    }
-}
 
-.example-list {
-    width: 75%;
-    border-radius: 4px;
-    overflow: hidden;
-    margin: 1rem 0;
-}
+            .list {
+                width: 75%;
+                max-height: 85% !important;
+                border-radius: 4px;
+                margin: 1rem 0;
+                overflow-y: scroll;
 
-.example-box {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    gap: 1.5rem;
-    font-size: 1.2rem;
+                .account {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                    gap: 1.5rem;
+                    font-size: 1.2rem;
 
-    .content {
-        height: 100%;
-        display: flex;
-        flex: 1;
-        gap: 1.5rem;
-        padding: 20px 10px;
-        margin-left: 2rem;
-        border-bottom: 1px solid #74747437;
+                    .content {
+                        height: 100%;
+                        display: flex;
+                        flex: 1;
+                        gap: 1.5rem;
+                        padding: 20px 10px;
+                        margin-left: 2rem;
+                        border-bottom: 1px solid #74747437;
 
-        .navigate-icon {
-            display: none;
-            margin-left: auto;
-            color: #50505040;
-        }
-    }
+                        .material-symbols-outlined {
+                            display: none;
+                            margin-left: auto;
+                            color: #50505040;
+                        }
+                    }
 
-    .menu-icon {
-        width: 2rem;
-        display: none;
-        position: absolute;
-        cursor: move;
-        color: #50505040;
-    }
+                    &:hover {
+                        .content {
+                            .material-symbols-outlined {
+                                display: block;
+                            }
+                        }
+                    }
 
-    &:hover {
-        .menu-icon {
-            display: block;
-        }
-
-        .content {
-            .navigate-icon {
-                display: block;
+                    // &:last-child .content {
+                    //     border: none !important;
+                    // }
+                }
             }
         }
     }
-}
-
-.cdk-drag-preview {
-    height: 100%;
-    font-family: 'Nunito';
-    border-radius: 4px;
-    background-color: #cee1f75f;
-
-    .content {
-        border-bottom: none;
-        align-items: center;
-    }
-}
-
-.cdk-drag-placeholder {
-    opacity: 0;
-}
-
-.cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.example-box:last-child {
-    border: none;
-}
-
-.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

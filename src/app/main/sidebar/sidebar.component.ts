@@ -1,16 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
-import { UserService } from 'src/app/services/user.service';
-import { UtilsService } from 'src/app/utils/utils.service';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { LoginService } from '../../services/login.service';
+import { UserService } from '../../services/user.service';
+import { UtilsService } from '../../utils/utils.service';
+import { RouterModule } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
+  standalone: true,
+  imports: [CommonModule, RouterModule, NgOptimizedImage],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
+  styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent implements OnInit {
-  loggedUserId: number = this._loginService.getLoggedUserId;
-  language: string | undefined = '';
+export class SidebarComponent implements OnInit, OnDestroy {
+  private _userService = inject(UserService);
+  public loginService = inject(LoginService);
+  public utilsService = inject(UtilsService);
+
+  private _unsubscribeAll: Subject<any> = new Subject();
+
+  loggedUserId: number = this.loginService.getLoggedUserId;
+  language: string = this.utilsService.getSavedUserConfigs.language;
   profileImageSrc!: string | ArrayBuffer | null;
   userAccess: string = 'free';
 
@@ -19,21 +30,23 @@ export class SidebarComponent implements OnInit {
   moreUl: boolean = true;
   userActionsUl: boolean = true;
 
-  constructor(
-    public _loginService: LoginService,
-    private _userService: UserService,
-    public _utilsService: UtilsService
-  ) {}
-
   ngOnInit(): void {
-    this.userAccess = this._loginService.getUserAccess;
+    this.userAccess = this.loginService.getUserAccess;
 
     this.getUserImage();
     this.handleTheme();
 
-    this._utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value.language;
-    });
+    this.utilsService.userConfigs
+      .asObservable()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.language = value.language;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next('');
+    this._unsubscribeAll.complete();
   }
 
   getUserImage() {
@@ -41,7 +54,7 @@ export class SidebarComponent implements OnInit {
       .getUserImage(this.loggedUserId)
       .then((response) => {
         if (response.size === 0) {
-          this._utilsService.userImage.next('assets/user-image.webp');
+          this.utilsService.userImage.next('assets/user-image.webp');
           return;
         }
 
@@ -52,12 +65,12 @@ export class SidebarComponent implements OnInit {
           const reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = () => {
-            this._utilsService.userImage.next(reader.result);
+            this.utilsService.userImage.next(reader.result);
           };
         }
       })
       .catch(() => {
-        this._utilsService.userImage.next('assets/user-image.webp');
+        this.utilsService.userImage.next('assets/user-image.webp');
       });
   }
 
@@ -65,24 +78,27 @@ export class SidebarComponent implements OnInit {
     const sidebar = document.getElementById('sidebar');
     const navUlItens = document.querySelectorAll('.nav-ul-item');
 
-    this._utilsService.userConfigs.asObservable().subscribe((value) => {
-      if (value.theme === 'light') {
-        sidebar!.style.backgroundColor = '#fafafa';
+    this.utilsService.userConfigs
+      .asObservable()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        if (value.theme === 'light') {
+          sidebar!.style.backgroundColor = '#fafafa';
 
-        navUlItens.forEach((element) => {
-          element.classList.remove('nav-ul-item-dark');
-        });
-      } else {
-        sidebar!.style.backgroundColor = '#212121';
+          navUlItens.forEach((element) => {
+            element.classList.remove('nav-ul-item-dark');
+          });
+        } else {
+          sidebar!.style.backgroundColor = '#212121';
 
-        navUlItens.forEach((element) => {
-          element.classList.add('nav-ul-item-dark');
-        });
-      }
-    });
+          navUlItens.forEach((element) => {
+            element.classList.add('nav-ul-item-dark');
+          });
+        }
+      });
   }
 
   logout() {
-    this._loginService.logout();
+    this.loginService.logout();
   }
 }
