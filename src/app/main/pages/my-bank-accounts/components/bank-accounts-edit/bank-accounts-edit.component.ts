@@ -139,6 +139,8 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
     lastValueFrom(
       this._dialog.open(SelectIconDialogComponent).afterClosed()
     ).then((value) => {
+      if (!value) return;
+
       this.accountForm.get('image')!.setValue(value);
       this.disable = false;
     });
