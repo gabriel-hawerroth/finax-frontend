@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, lastValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../../../../services/account.service';
@@ -19,6 +19,7 @@ import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
+import { SelectIconDialogComponent } from '../select-icon-dialog/select-icon-dialog.component';
 
 @Component({
   selector: 'app-bank-accounts-edit',
@@ -33,6 +34,7 @@ import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-
     CustomCurrencyPipe,
     MatButtonModule,
     MatCheckboxModule,
+    NgOptimizedImage,
   ],
   templateUrl: './bank-accounts-edit.component.html',
   styleUrl: './bank-accounts-edit.component.scss',
@@ -53,7 +55,9 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
 
   accountId!: number | null;
 
-  public accountForm!: FormGroup;
+  accountForm!: FormGroup;
+
+  disable: boolean = true;
 
   ngOnInit(): void {
     this.buildForm();
@@ -65,6 +69,7 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
         this.accountForm.patchValue(account);
       });
     }
+    // this.selectIcon();
   }
 
   ngOnDestroy(): void {
@@ -82,7 +87,7 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
       addOverallBalance: true,
       active: true,
       archived: false,
-      presentationSequence: null,
+      image: '',
     });
 
     this.accountForm.markAllAsTouched();
@@ -128,5 +133,18 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
         if (!result) return;
         this.accountForm.get('balance')!.setValue(result);
       });
+  }
+
+  selectIcon() {
+    lastValueFrom(
+      this._dialog.open(SelectIconDialogComponent).afterClosed()
+    ).then((value) => {
+      this.accountForm.get('image')!.setValue(value);
+      this.disable = false;
+    });
+  }
+
+  disableSave(): boolean {
+    return this.accountForm.pristine && this.disable;
   }
 }

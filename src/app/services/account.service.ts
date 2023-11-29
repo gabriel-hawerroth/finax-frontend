@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoginService } from './login.service';
 import { lastValueFrom } from 'rxjs';
-import { Account } from '../interfaces/account';
+import { Account } from '../interfaces/Account';
 
 @Injectable({
   providedIn: 'root',

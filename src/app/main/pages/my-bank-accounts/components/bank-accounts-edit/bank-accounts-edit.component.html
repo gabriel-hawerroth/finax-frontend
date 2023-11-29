@@ -7,47 +7,55 @@
 
     <div class="content">
         <form class="account-card" [formGroup]="accountForm">
-            <div class="w-full flex justify-content-between">
-                <div class="h-full flex align-items-center" style="gap: 1rem">
-                    <button mat-icon-button (click)="location.back()">
-                        <mat-icon style="cursor: pointer">arrow_back</mat-icon>
-                    </button>
+            <div class="top">
+                <button mat-icon-button (click)="location.back()">
+                    <mat-icon style="cursor: pointer">arrow_back</mat-icon>
+                </button>
 
-                    @if (accountId) {
-                    <b class="text-3xl">
-                        {{ accountForm.value.accountName }}
-                    </b>
+                @if (accountId) {
+                <b class="text-3xl">
+                    {{ accountForm.value.accountName }}
+                </b>
+                } @else {
+                <mat-form-field [hideRequiredMarker]="true" style="width: 30%;">
+                    <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>
+                    <input type="text" matInput #accountName maxlength="40" formControlName="accountName" autofocus />
+                    <mat-hint align="end">
+                        {{ accountName.value.length }}/{{ accountName.maxLength }}
+                    </mat-hint>
+                </mat-form-field>
+                }
+
+                <div id="bank-img-div">
+                    @if (!accountForm.value.image) {
+                    <span class="material-symbols-outlined" (click)="selectIcon()">account_balance</span>
                     } @else {
-                    <mat-form-field [hideRequiredMarker]="true" style="width: 42%">
-                        <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>
-                        <input type="text" matInput #accountName maxlength="40" formControlName="accountName"
-                            autofocus />
-                        <mat-hint align="end">
-                            {{ accountName.value.length }}/{{ accountName.maxLength }}
-                        </mat-hint>
-                    </mat-form-field>
-
-                    <mat-form-field floatLabel="always" [hideRequiredMarker]="true">
-                        <mat-label>
-                            {{ language === "pt-br" ? "Saldo" : "Balance" }}
-                        </mat-label>
-                        <input matInput placeholder="0" currencyMask [options]="{ prefix: currency + ' ' }"
-                            formControlName="balance" />
-                        <mat-hint class="text-600 w-full">{{
-                            language === "pt-br"
-                            ? "Digite - para saldo negativo e + para positivo"
-                            : "Enter - for negative balance and + for positive"
-                            }}</mat-hint>
-                    </mat-form-field>
+                    <img [ngSrc]="'assets/banks/'+ accountForm.value.image" class="bank-img" width="70" height="70"
+                        (click)="selectIcon()" alt="bank account image">
                     }
+                    <span id="text" (click)="selectIcon()">Selecione um ícone</span>
                 </div>
 
-                <button class="button" mat-stroked-button color="primary" (click)="save()"
-                    [disabled]="accountForm.pristine">
+                <button class="button" mat-stroked-button color="primary" (click)="save()" [disabled]="disableSave()">
                     <i class="pi pi-save"></i>
                     {{ language === "pt-br" ? "Salvar" : "Save" }}
                 </button>
             </div>
+
+            @if (!accountId) {
+            <mat-form-field floatLabel="always" style="width: 28%; margin-bottom: 1rem;" [hideRequiredMarker]="true">
+                <mat-label>
+                    {{ language === "pt-br" ? "Saldo" : "Balance" }}
+                </mat-label>
+                <input matInput placeholder="0" currencyMask [options]="{ prefix: currency + ' ' }"
+                    formControlName="balance" />
+                <mat-hint class="text-600 w-full">{{
+                    language === "pt-br"
+                    ? "Digite - para saldo negativo e + para positivo"
+                    : "Enter - for negative balance and + for positive"
+                    }}</mat-hint>
+            </mat-form-field>
+            }
 
             <div class="p-4" style="gap: 0.7rem">
                 <div class="flex align-items-center text-2xl" style="gap: 0.7rem">

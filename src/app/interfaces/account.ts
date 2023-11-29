@@ -7,4 +7,5 @@ export interface Account {
   addOverallBalance: boolean;
   active: boolean;
   archived: boolean;
+  image: string;
 }

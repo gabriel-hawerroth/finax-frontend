@@ -133,7 +133,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mdc-button {
   font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
-  font-size: 1rem !important;
+  font-size: 1rem;
 }
 
 .simple-page {
@@ -154,7 +154,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .dark-page {
   transition-duration: 1s;
   color: #dfdfdf !important;
-  background-color: #383838 !important;
+  background-color: $dark-bg !important;
 
   .login-box {
     background-color: #212121 !important;
@@ -204,6 +204,10 @@ input[type="number"]::-webkit-outer-spin-button {
     transition-duration: 1s;
     color: #e6e6e6 !important;
   }
+
+  .mat-mdc-outlined-button {
+    border-color: rgba(198, 198, 198, 0.47) !important;
+  }
 }
 
 .login {
@@ -232,7 +236,7 @@ input[type="number"]::-webkit-outer-spin-button {
       justify-content: end;
       padding-top: 1.3em;
 
-      h1 {
+      .h1 {
         font-size: 2.2em;
       }
     }

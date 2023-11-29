@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 import { UtilsService } from '../utils/utils.service';
 import { User } from '../interfaces/User';
 import { Credentials } from '../interfaces/Credentials';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,89 @@ export class LoginService {
   private _http = inject(HttpClient);
   private _router = inject(Router);
   private _utilsService = inject(UtilsService);
+  private _userService = inject(UserService);
 
   apiUrl = `${environment.baseApiUrl}login`;
+
+  async login(credentials: Credentials) {
+    const language = this._utilsService.getUserConfigs.language;
+
+    await this.oauthLogin(credentials)
+      .then(async (response: any) => {
+        if (!response) {
+          this._utilsService.showSimpleMessage(
+            language === 'pt-br' ? 'Login inválido' : 'Invalid login'
+          );
+          return;
+        }
+
+        await this._userService
+          .getByEmail(response.username)
+          .then((user: User) => {
+            if (!user) {
+              this._utilsService.showSimpleMessage(
+                language === 'pt-br'
+                  ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
+                  : 'Error getting the user, please contact our support'
+              );
+              return;
+            } else if (user.activate === false) {
+              this._utilsService.showSimpleMessage(
+                language === 'pt-br'
+                  ? 'Usuário inativo, verifique seu email'
+                  : 'Inactive user, check your email'
+              );
+              return;
+            }
+
+            this._router.navigate(['home']);
+
+            if (!credentials.changedPassword) {
+              this._utilsService.showSimpleMessage(
+                language === 'pt-br'
+                  ? 'Login realizado com sucesso'
+                  : 'Login successfully'
+              );
+            } else {
+              this._utilsService.showSimpleMessage(
+                language === 'pt-br'
+                  ? 'Senha alterada com sucesso'
+                  : 'Password changed successfully'
+              );
+            }
+
+            this._utilsService.setItemLocalStorage(
+              'tokenFinax',
+              btoa(JSON.stringify(response.access_token))
+            );
+            this._utilsService.setItemLocalStorage(
+              'userFinax',
+              btoa(JSON.stringify(user))
+            );
+
+            if (credentials.rememberMe) {
+              this._utilsService.setItemLocalStorage(
+                'savedLoginFinax',
+                btoa(JSON.stringify(credentials))
+              );
+            } else {
+              this._utilsService.removeItemLocalStorage('savedLoginFinax');
+            }
+          })
+          .catch((error) => {
+            this._utilsService.showSimpleMessage(
+              language === 'pt-br'
+                ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
+                : 'Error getting the user, please contact our support'
+            );
+          });
+      })
+      .catch((err) => {
+        this._utilsService.showSimpleMessage(
+          language === 'pt-br' ? 'Login inválido' : 'Invalid login'
+        );
+      });
+  }
 
   oauthLogin(credentials: Credentials) {
     const basicAuth = 'client-id:secret-id';

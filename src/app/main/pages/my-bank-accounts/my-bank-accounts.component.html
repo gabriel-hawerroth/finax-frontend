@@ -25,11 +25,15 @@
         @for (account of filteredRows.getValue(); track account.id) {
         <div class="account">
           <div class="content" (click)="navigate(account.id!)">
-            <img ngSrc="assets/money-coin.svg" width="52" height="52" alt="account logo" />
+            @if (account.image) {
+            <img [ngSrc]="'assets/banks/' + account.image" width="60" height="60" alt="account logo" />
+            } @else {
+            <span class="material-symbols-outlined default-bank-account">account_balance</span>
+            }
             <span>
               <b>{{ account.accountName }}</b>
             </span>
-            <span class="material-symbols-outlined">navigate_next</span>
+            <span class="material-symbols-outlined navigate-icon">navigate_next</span>
           </div>
         </div>
         }

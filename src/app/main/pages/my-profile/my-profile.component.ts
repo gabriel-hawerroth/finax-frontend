@@ -200,13 +200,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     const file = event.target.files[0];
 
     if (file) {
-      const imageExtensions = ['jpg', 'jpeg', 'png', 'jfif'];
+      const imageExtensions = ['jpg', 'jpeg', 'png', 'jfif', 'webp'];
       const extension = file.name.split('.').pop().toLowerCase();
       if (imageExtensions.indexOf(extension) === -1) {
         alert(
           this.language === 'pt-br'
-            ? 'Por favor, selecione um arquivo de imagem válido (jpg, jpeg, png, jfif).'
-            : 'Please select a valid image file (jpg, jpeg, png, jfif).'
+            ? 'Por favor, selecione um arquivo de imagem válido (jpg, jpeg, png, jfif, webp).'
+            : 'Please select a valid image file (jpg, jpeg, png, jfif, webp).'
         );
         return;
       }

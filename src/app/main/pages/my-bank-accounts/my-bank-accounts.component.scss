@@ -56,7 +56,22 @@
                         margin-left: 2rem;
                         border-bottom: 1px solid #74747437;
 
-                        .material-symbols-outlined {
+                        img {
+                            border-radius: 50%;
+                        }
+
+                        .default-bank-account {
+                            width: 60px;
+                            height: 60px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            box-shadow: 0 0 2px #5d5d5d;
+                            cursor: pointer;
+                        }
+
+                        .navigate-icon {
                             display: none;
                             margin-left: auto;
                             color: #50505040;
@@ -65,7 +80,7 @@
 
                     &:hover {
                         .content {
-                            .material-symbols-outlined {
+                            .navigate-icon {
                                 display: block;
                             }
                         }

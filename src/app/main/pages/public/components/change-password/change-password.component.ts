@@ -11,7 +11,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { User } from '../../../../../interfaces/User';
-import { LoginService } from '../../../../../services/login.service';
 import { UserService } from '../../../../../services/user.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { Credentials } from '../../../../../interfaces/Credentials';
@@ -19,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from '../login/login.component';
+import { LoginService } from '../../../../../services/login.service';
 
 @Component({
   selector: 'app-change-password',
@@ -43,7 +43,6 @@ export class ChangePasswordComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   private _router = inject(Router);
   private _loginService = inject(LoginService);
-  private _loginComponent = inject(LoginComponent);
 
   changePasswordForm!: FormGroup;
   showLoading: boolean = false;
@@ -122,7 +121,7 @@ export class ChangePasswordComponent implements OnInit {
             changedPassword: true,
           };
 
-          this._loginComponent.login(credentials);
+          this._loginService.login(credentials);
         }
         this.showLoading = false;
       })

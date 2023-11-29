@@ -1,0 +1,38 @@
+@import '../../../../../utils/colors.scss';
+
+.select-icon-dialog {
+    max-height: 75vh;
+    max-width: 30rem;
+
+    .title {
+        padding: 1.5rem;
+    }
+
+    .icons {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        max-height: 60%;
+        overflow-y: hidden;
+        gap: 1.5rem;
+        padding: 0 3rem 1.5rem 3rem;
+
+        img {
+            border-radius: 50%;
+            border: 1px solid rgba(151, 151, 151, 0.33);
+            cursor: pointer;
+        }
+    }
+}
+
+.dark-page {
+    .icons {
+        background-color: $dark-bg;
+
+        img {
+            background-color: #777777;
+        }
+    }
+}

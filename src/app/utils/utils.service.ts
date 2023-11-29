@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class UtilsService {
   public isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   public isPcScreen = this.isBrowser
-    ? window.innerWidth > 1050 && window.innerHeight > 580
+    ? window.innerWidth > 1000 && window.innerHeight > 520
     : false;
 
   private _snackBar = inject(MatSnackBar);
