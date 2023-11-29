@@ -12,12 +12,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { LoginService } from '../../../../../services/login.service';
-import { Router, RouterModule } from '@angular/router';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { User } from '../../../../../interfaces/User';
-import { UserService } from '../../../../../services/user.service';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Credentials } from '../../../../../interfaces/Credentials';
+import { MatDialog } from '@angular/material/dialog';
+import { ReleasedFeaturesDialogComponent } from '../../../../dialogs/released-features-dialog/released-features-dialog.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -40,8 +38,7 @@ export class LoginComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _loginService = inject(LoginService);
-  private _router = inject(Router);
-  private _userService = inject(UserService);
+  private _matDialog = inject(MatDialog);
 
   loginForm!: FormGroup;
   showLoading: boolean = false;
@@ -75,6 +72,14 @@ export class LoginComponent implements OnInit {
 
     this._loginService.login(credentials).finally(() => {
       this.showLoading = false;
+    });
+  }
+
+  openReleasedFeatures() {
+    this._matDialog.open(ReleasedFeaturesDialogComponent, {
+      width: '65%',
+      height: '55%',
+      autoFocus: false,
     });
   }
 }

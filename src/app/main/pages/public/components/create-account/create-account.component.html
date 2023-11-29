@@ -52,18 +52,28 @@
     </form>
 
     <div class="bottom">
-      <button *ngIf="!showLoading" mat-raised-button color="primary" (click)="createUser()">
-        <span><span class="material-symbols-outlined">person</span>{{ language === "pt-br" ? "Criar conta" : "Create
-          account" }}</span>
+      @if (!showLoading) {
+      <button mat-raised-button color="primary" (click)="createUser()">
+        <span>
+          <span class="material-symbols-outlined">person</span>
+          {{ language === "pt-br" ? "Criar conta" : "Create account" }}
+        </span>
       </button>
-      <mat-spinner *ngIf="showLoading" [diameter]="40"></mat-spinner>
+      } @else {
+      <mat-spinner [diameter]="40"></mat-spinner>
+      }
     </div>
   </div>
 
-  <span class="opt-login-page"><span>{{
+  <span class="opt-login-page">
+    <span>{{
       language === "pt-br"
       ? "Já possui uma conta"
       : "Already have an account"
-      }}? </span><span routerLink="/login" class="login-label">
-      {{ language === "pt-br" ? "Fazer login" : "Log in" }}!</span></span>
+      }}?
+    </span>
+    <span routerLink="/login" class="login-label">
+      {{ language === "pt-br" ? "Fazer login" : "Log in" }}!
+    </span>
+  </span>
 </div>

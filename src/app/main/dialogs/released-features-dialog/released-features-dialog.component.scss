@@ -1,0 +1,80 @@
+@import '../../../utils/colors.scss';
+
+@media screen and (max-width: 1400px) and (max-height: 650px) {
+    .grid-box {
+        margin-top: 0 !important;
+    }
+}
+
+.dark-page {
+
+    .released-features-dialog,
+    .content,
+    .grid-box,
+    .top {
+        background-color: $dark-bg-color !important;
+    }
+}
+
+.released-features-dialog {
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    overflow: hidden;
+
+    .top {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 0;
+
+        h1 {
+            font-size: 1.7rem;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+
+        .grid-box {
+            width: 95%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 33% 33% 33%;
+            grid-template-rows: 25% 25% 25% 25%;
+            gap: 1rem;
+            grid-auto-flow: row;
+            grid-template-areas:
+                ". . ."
+                ". . ."
+                ". . ."
+                ". . .";
+            margin-top: 1.5rem;
+
+
+            .grid-item {
+                font-size: 1.25rem;
+                padding: .5rem;
+                display: flex;
+                padding-left: 19%;
+                align-items: center;
+
+                .material-symbols-outlined {
+                    margin-right: 1.5rem;
+                }
+
+                .done {
+                    color: #00de34;
+                }
+
+                .pending {
+                    color: rgb(225, 0, 0);
+                }
+            }
+        }
+    }
+}

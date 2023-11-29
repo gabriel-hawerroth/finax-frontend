@@ -37,4 +37,13 @@
             }
         }
     }
+
+    #released-features {
+        position: absolute;
+        left: 2rem;
+        bottom: 2rem;
+        padding: .7rem 1.3rem;
+        box-sizing: initial;
+        border-color: $primary-color;
+    }
 }
