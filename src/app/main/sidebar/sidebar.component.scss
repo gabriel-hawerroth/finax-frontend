@@ -94,6 +94,11 @@
     }
 
     .user-item {
+
+        span {
+            overflow-x: hidden;
+        }
+
         img {
             width: 28px;
             aspect-ratio: 1/1;

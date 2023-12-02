@@ -1,11 +1,20 @@
-<div class="select-icon-dialog" [ngClass]="{'dark-page': utilsService.getUserConfigs.theme === 'dark'}">
-    <h2 mat-dialog-title class="title">
-        Selecione um ícone
-    </h2>
+<div
+  class="select-icon-dialog"
+  [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
+>
+  <h2 mat-dialog-title class="title">
+    {{ language === "pt-br" ? "Selecione um ícone" : "Select an icon" }}
+  </h2>
 
-    <div mat-dialog-content class="icons">
-        @for (icon of icons; track $index) {
-        <img [ngSrc]="'assets/banks/'+ icon" width="65" height="65" (click)="close(icon)" alt="bank account image">
-        }
-    </div>
+  <div mat-dialog-content class="icons">
+    @for (icon of icons; track $index) {
+    <img
+      [ngSrc]="'assets/banks/' + icon"
+      width="65"
+      height="65"
+      (click)="close(icon)"
+      alt="bank account image"
+    />
+    }
+  </div>
 </div>

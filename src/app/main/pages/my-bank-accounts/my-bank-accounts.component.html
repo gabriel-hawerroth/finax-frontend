@@ -1,6 +1,9 @@
-<div [ngClass]="{
+<div
+  [ngClass]="{
     'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
-  }" class="simple-page">
+  }"
+  class="simple-page"
+>
   <h1 class="page-title">
     {{ language === "pt-br" ? "Contas de banco" : "Bank accounts" }}
   </h1>
@@ -17,7 +20,11 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-stroked-button color="primary" routerLink="/contas-de-banco/novo">
+        <button
+          mat-stroked-button
+          color="primary"
+          routerLink="/contas-de-banco/novo"
+        >
           {{ language === "pt-br" ? "Nova conta" : "New account" }}
         </button>
       </div>
@@ -26,14 +33,23 @@
         <div class="account">
           <div class="content" (click)="navigate(account.id!)">
             @if (account.image) {
-            <img [ngSrc]="'assets/banks/' + account.image" width="60" height="60" alt="account logo" />
+            <img
+              [ngSrc]="'assets/banks/' + account.image"
+              width="60"
+              height="60"
+              alt="account logo"
+            />
             } @else {
-            <span class="material-symbols-outlined default-bank-account">account_balance</span>
+            <span class="material-symbols-outlined default-bank-account">
+              account_balance
+            </span>
             }
             <span>
-              <b>{{ account.accountName }}</b>
+              <b>{{ account.name }}</b>
             </span>
-            <span class="material-symbols-outlined navigate-icon">navigate_next</span>
+            <span class="material-symbols-outlined navigate-icon">
+              navigate_next
+            </span>
           </div>
         </div>
         }

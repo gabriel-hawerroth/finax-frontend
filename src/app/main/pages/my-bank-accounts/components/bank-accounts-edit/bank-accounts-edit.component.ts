@@ -81,7 +81,7 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
     this.accountForm = this._fb.group({
       id: null,
       userId: '',
-      accountName: ['', Validators.required],
+      name: ['', Validators.required],
       balance: [0, Validators.required],
       investments: false,
       addOverallBalance: true,

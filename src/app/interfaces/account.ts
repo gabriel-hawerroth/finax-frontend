@@ -1,7 +1,7 @@
 export interface Account {
   id?: number;
   userId: number;
-  accountName: string;
+  name: string;
   balance: number;
   investments: boolean;
   addOverallBalance: boolean;

@@ -129,10 +129,11 @@ export class LoginService {
     this._router.navigate(['']);
     this._utilsService.userImage.next('assets/user-image.webp');
     if (showMessage)
-      this._utilsService.showSimpleMessage(
+      this._utilsService.showSimpleMessageWithDuration(
         this._utilsService.getUserConfigs.language === 'pt-br'
           ? 'Acesso expirado, por favor logue novamente'
-          : 'Access expired, please log in again'
+          : 'Access expired, please log in again',
+        5000
       );
   }
 

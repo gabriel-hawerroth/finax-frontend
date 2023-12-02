@@ -80,6 +80,7 @@ export class LoginComponent implements OnInit {
       width: '65%',
       height: '55%',
       autoFocus: false,
+      panelClass: 'released-features-dialog',
     });
   }
 }

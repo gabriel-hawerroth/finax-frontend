@@ -1,112 +1,155 @@
-<div [ngClass]="{
+<div
+  [ngClass]="{
     'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
-  }" class="simple-page">
-    <h1 class="page-title">
-        {{ language === "pt-br" ? "Contas de banco" : "Bank accounts" }}
-    </h1>
+  }"
+  class="simple-page"
+>
+  <h1 class="page-title">
+    {{ language === "pt-br" ? "Contas de banco" : "Bank accounts" }}
+  </h1>
 
-    <div class="content">
-        <form class="account-card" [formGroup]="accountForm">
-            <div class="top">
-                <button mat-icon-button (click)="location.back()">
-                    <mat-icon style="cursor: pointer">arrow_back</mat-icon>
-                </button>
+  <div class="content">
+    <form class="account-card" [formGroup]="accountForm">
+      <div class="top">
+        <button mat-icon-button (click)="location.back()">
+          <mat-icon style="cursor: pointer">arrow_back</mat-icon>
+        </button>
 
-                @if (accountId) {
-                <b class="text-3xl">
-                    {{ accountForm.value.accountName }}
-                </b>
-                } @else {
-                <mat-form-field [hideRequiredMarker]="true" style="width: 30%;">
-                    <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>
-                    <input type="text" matInput #accountName maxlength="40" formControlName="accountName" autofocus />
-                    <mat-hint align="end">
-                        {{ accountName.value.length }}/{{ accountName.maxLength }}
-                    </mat-hint>
-                </mat-form-field>
-                }
+        @if (accountId) {
+        <b class="text-3xl">
+          {{ accountForm.value.name }}
+        </b>
+        } @else {
+        <mat-form-field [hideRequiredMarker]="true" style="width: 30%">
+          <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>
+          <input
+            type="text"
+            matInput
+            #accountName
+            maxlength="40"
+            formControlName="name"
+            autofocus
+          />
+          <mat-hint align="end">
+            {{ accountName.value.length }}/{{ accountName.maxLength }}
+          </mat-hint>
+        </mat-form-field>
+        }
 
-                <div id="bank-img-div">
-                    @if (!accountForm.value.image) {
-                    <span class="material-symbols-outlined" (click)="selectIcon()">account_balance</span>
-                    } @else {
-                    <img [ngSrc]="'assets/banks/'+ accountForm.value.image" class="bank-img" width="70" height="70"
-                        (click)="selectIcon()" alt="bank account image">
-                    }
-                    <span id="text" (click)="selectIcon()">Selecione um ícone</span>
-                </div>
+        <div id="bank-img-div">
+          @if (!accountForm.value.image) {
+          <span class="material-symbols-outlined" (click)="selectIcon()"
+            >account_balance</span
+          >
+          } @else {
+          <img
+            [ngSrc]="'assets/banks/' + accountForm.value.image"
+            class="bank-img"
+            width="70"
+            height="70"
+            (click)="selectIcon()"
+            alt="bank account image"
+          />
+          }
+          <span id="text" (click)="selectIcon()">
+            {{ language === "pt-br" ? "Selecione um ícone" : "Select an icon" }}
+          </span>
+        </div>
 
-                <button class="button" mat-stroked-button color="primary" (click)="save()" [disabled]="disableSave()">
-                    <i class="pi pi-save"></i>
-                    {{ language === "pt-br" ? "Salvar" : "Save" }}
-                </button>
-            </div>
+        <button
+          class="button"
+          mat-stroked-button
+          color="primary"
+          (click)="save()"
+          [disabled]="disableSave()"
+        >
+          <i class="pi pi-save"></i>
+          {{ language === "pt-br" ? "Salvar" : "Save" }}
+        </button>
+      </div>
 
-            @if (!accountId) {
-            <mat-form-field floatLabel="always" style="width: 28%; margin-bottom: 1rem;" [hideRequiredMarker]="true">
-                <mat-label>
-                    {{ language === "pt-br" ? "Saldo" : "Balance" }}
-                </mat-label>
-                <input matInput placeholder="0" currencyMask [options]="{ prefix: currency + ' ' }"
-                    formControlName="balance" />
-                <mat-hint class="text-600 w-full">{{
-                    language === "pt-br"
-                    ? "Digite - para saldo negativo e + para positivo"
-                    : "Enter - for negative balance and + for positive"
-                    }}</mat-hint>
-            </mat-form-field>
-            }
+      @if (!accountId) {
+      <mat-form-field
+        floatLabel="always"
+        style="width: 28%; margin-bottom: 1rem"
+        [hideRequiredMarker]="true"
+      >
+        <mat-label>
+          {{ language === "pt-br" ? "Saldo" : "Balance" }}
+        </mat-label>
+        <input
+          matInput
+          placeholder="0"
+          currencyMask
+          [options]="{ prefix: currency + ' ' }"
+          formControlName="balance"
+        />
+        <mat-hint class="text-600 w-full">{{
+          language === "pt-br"
+            ? "Digite - para saldo negativo e + para positivo"
+            : "Enter - for negative balance and + for positive"
+        }}</mat-hint>
+      </mat-form-field>
+      }
 
-            <div class="p-4" style="gap: 0.7rem">
-                <div class="flex align-items-center text-2xl" style="gap: 0.7rem">
-                    @if (accountId) {
-                    <b>
-                        {{ currency }} {{ accountForm.value.balance | customCurrency }}
-                    </b>
-                    <span (click)="changeBalance()" id="adjust-balance">
-                        {{language === "pt-br" ? "Ajustar saldo" : "Adjust balance"}}
-                    </span>
-                    }
-                </div>
+      <div class="p-4" style="gap: 0.7rem">
+        <div class="flex align-items-center text-2xl" style="gap: 0.7rem">
+          @if (accountId) {
+          <b>
+            {{ currency }} {{ accountForm.value.balance | customCurrency }}
+          </b>
+          <span (click)="changeBalance()" id="adjust-balance">
+            {{ language === "pt-br" ? "Ajustar saldo" : "Adjust balance" }}
+          </span>
+          }
+        </div>
 
-                <div class="mt-3">
-                    <mat-checkbox formControlName="investments">{{
-                        language === "pt-br"
-                        ? "Conta com investimentos"
-                        : "Account with investments"
-                        }}</mat-checkbox>
+        <div class="mt-3">
+          <mat-checkbox formControlName="investments">{{
+            language === "pt-br"
+              ? "Conta com investimentos"
+              : "Account with investments"
+          }}</mat-checkbox>
 
-                    <br />
+          <br />
 
-                    <mat-checkbox formControlName="addOverallBalance">{{
-                        language === "pt-br"
-                        ? "Somar no saldo geral"
-                        : "Add to the overall balance"
-                        }}</mat-checkbox>
+          <mat-checkbox formControlName="addOverallBalance">{{
+            language === "pt-br"
+              ? "Somar no saldo geral"
+              : "Add to the overall balance"
+          }}</mat-checkbox>
 
-                    <br />
+          <br />
 
-                    <mat-checkbox formControlName="active">
-                        {{language === "pt-br" ? "Ativo" : "Active"}}
-                    </mat-checkbox>
-                </div>
-            </div>
+          <mat-checkbox formControlName="active">
+            {{ language === "pt-br" ? "Ativo" : "Active" }}
+          </mat-checkbox>
+        </div>
+      </div>
 
-            @if (accountId) {
-            <div class="mt-4" style="display: flex; gap: 3rem">
-                <button mat-stroked-button class="button large-button" [disabled]="!accountId">
-                    <span class="material-symbols-outlined h-full">sort</span>
-                    {{ language === "pt-br" ? "Ver lançamentos" : "See releases" }}
-                </button>
+      @if (accountId) {
+      <div class="mt-4" style="display: flex; gap: 3rem">
+        <button
+          mat-stroked-button
+          class="button large-button"
+          [disabled]="!accountId"
+        >
+          <span class="material-symbols-outlined h-full">sort</span>
+          {{ language === "pt-br" ? "Ver lançamentos" : "See releases" }}
+        </button>
 
-                <button mat-stroked-button class="button large-button" [disabled]="!accountId">
-                    <span class="material-symbols-outlined h-full">query_stats</span>
-                    <span class="h-full">
-                        {{language === "pt-br" ? "Relatórios" : "Reports"}}
-                    </span>
-                </button>
-            </div>
-            }
-        </form>
-    </div>
+        <button
+          mat-stroked-button
+          class="button large-button"
+          [disabled]="!accountId"
+        >
+          <span class="material-symbols-outlined h-full">query_stats</span>
+          <span class="h-full">
+            {{ language === "pt-br" ? "Relatórios" : "Reports" }}
+          </span>
+        </button>
+      </div>
+      }
+    </form>
+  </div>
 </div>

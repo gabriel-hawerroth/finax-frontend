@@ -14,6 +14,8 @@ export class SelectIconDialogComponent {
   public utilsService = inject(UtilsService);
   private dialogRef = inject(MatDialogRef);
 
+  language: string = this.utilsService.getUserConfigs.language;
+
   icons: string[] = [
     'bradesco.png',
     'itau.png',
