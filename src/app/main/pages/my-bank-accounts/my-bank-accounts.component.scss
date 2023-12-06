@@ -4,16 +4,6 @@
     display: none;
 }
 
-.dark-page {
-    .content {
-        .accounts-card {
-            background-color: $dark-bg-color !important;
-            color: #fff !important;
-
-        }
-    }
-}
-
 .simple-page {
     display: flex;
     flex-direction: column;
@@ -39,6 +29,7 @@
                 border-radius: 4px;
                 margin: 1rem 0;
                 overflow-y: scroll;
+                padding-left: 2rem;
 
                 .account {
                     display: flex;
@@ -46,43 +37,34 @@
                     cursor: pointer;
                     gap: 1.5rem;
                     font-size: 1.2rem;
+                    padding: 20px 10px;
+                    border-bottom: 1px solid #74747437;
 
-                    .content {
-                        height: 100%;
+
+                    img {
+                        border-radius: 50%;
+                    }
+
+                    .default-bank-account {
+                        width: 60px;
+                        height: 60px;
                         display: flex;
-                        flex: 1;
-                        gap: 1.5rem;
-                        padding: 20px 10px;
-                        margin-left: 2rem;
-                        border-bottom: 1px solid #74747437;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 50%;
+                        box-shadow: 0 0 2px #5d5d5d;
+                        cursor: pointer;
+                    }
 
-                        img {
-                            border-radius: 50%;
-                        }
-
-                        .default-bank-account {
-                            width: 60px;
-                            height: 60px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            border-radius: 50%;
-                            box-shadow: 0 0 2px #5d5d5d;
-                            cursor: pointer;
-                        }
-
-                        .navigate-icon {
-                            display: none;
-                            margin-left: auto;
-                            color: #50505040;
-                        }
+                    .navigate-icon {
+                        display: none;
+                        margin-left: auto;
+                        color: #50505040;
                     }
 
                     &:hover {
-                        .content {
-                            .navigate-icon {
-                                display: block;
-                            }
+                        .navigate-icon {
+                            display: block;
                         }
                     }
 
@@ -91,6 +73,16 @@
                     // }
                 }
             }
+        }
+    }
+}
+
+.dark-page {
+    .content {
+        .accounts-card {
+            background-color: $dark-card-bg !important;
+            color: #fff !important;
+
         }
     }
 }

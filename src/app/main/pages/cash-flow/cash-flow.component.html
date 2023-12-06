@@ -1,8 +1,66 @@
-<div [ngClass]="{
+<div
+  [ngClass]="{
     'simple-page': true,
     'dark-page': utilsService.getUserConfigs.theme === 'dark'
-  }">
+  }"
+>
   <h1 class="page-title">
     {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
   </h1>
+
+  <div class="content">
+    <mat-card class="releases-card">
+      <header>
+        <div class="first-row">
+          <div class="left">
+            <h2>{{ language === "pt-br" ? "Lançamentos" : "Releases" }}</h2>
+          </div>
+
+          <div class="right">
+            <button mat-button [matMenuTriggerFor]="menu">
+              <span
+                >{{ language === "pt-br" ? "Filtrar" : "Filter" }}
+                <i class="pi pi-filter"></i
+              ></span>
+            </button>
+
+            <mat-menu #menu="matMenu" class="filter-menu"></mat-menu>
+          </div>
+        </div>
+
+        <div class="second-row">
+          <button mat-icon-button (click)="selectMonth('before')">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+
+          <div class="tab">
+            {{ getMonthName(currentMonth) + " " + currentYear }}
+          </div>
+
+          <button mat-icon-button (click)="selectMonth('next')">
+            <span class="material-symbols-outlined">navigate_next</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="releases-list"></div>
+
+      <div class="totals">
+        <span>
+          {{ language === "pt-br" ? "Receitas: " : "Revenue: " }}
+          {{ currency + "0,00" }}
+        </span>
+
+        <span>
+          {{ language === "pt-br" ? "Despesas: " : "Expenses: " }}
+          {{ currency + "0,00" }}
+        </span>
+
+        <span>
+          {{ language === "pt-br" ? "Balanço: " : "Balance: " }}
+          {{ currency + "0,00" }}
+        </span>
+      </div>
+    </mat-card>
+  </div>
 </div>

@@ -2,9 +2,11 @@
   @if (loginService.logged && location.path() !== '') {
   <app-sidebar></app-sidebar>
   }
-  <main [ngClass]="
-      loginService.logged && location.path() !== '' ? 'change-size' : ''
-    ">
+  <main
+    [ngClass]="{
+      'change-size': loginService.logged && location.path() !== '',
+    }"
+  >
     <router-outlet></router-outlet>
   </main>
 </div>

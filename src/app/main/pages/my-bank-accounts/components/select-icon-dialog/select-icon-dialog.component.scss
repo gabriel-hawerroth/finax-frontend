@@ -17,12 +17,18 @@
         max-height: 60%;
         overflow-y: hidden;
         gap: 1.5rem;
-        padding: 0 3rem 1.5rem 3rem;
+        padding: .5rem 3rem 1.5rem 3rem;
 
         img {
             border-radius: 50%;
             border: 1px solid rgba(151, 151, 151, 0.33);
             cursor: pointer;
+            transition-duration: 0.4s;
+
+            &:hover {
+                opacity: 70%;
+                box-shadow: 0 0 4px #ffffff95;
+            }
         }
     }
 }

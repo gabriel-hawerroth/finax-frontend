@@ -4,6 +4,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
 import { isPlatformBrowser } from '@angular/common';
+import {
+  AbstractControl,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -153,5 +159,23 @@ export class UtilsService {
     }
 
     return str;
+  }
+
+  maxLengthValidator(maxLength: number): ValidatorFn {
+    const pattern = new RegExp(`^\\d{0,${maxLength}}$`);
+
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+
+      if (value === null || value === undefined || value === '') {
+        return null;
+      }
+
+      const stringValue = value.toString();
+      const isValid =
+        stringValue.length <= maxLength && pattern.test(stringValue);
+
+      return isValid ? null : { maxCharacterLength: { maxLength } };
+    };
   }
 }

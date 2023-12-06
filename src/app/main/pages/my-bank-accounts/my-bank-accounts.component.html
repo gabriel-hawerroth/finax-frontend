@@ -30,27 +30,25 @@
       </div>
       <div class="list">
         @for (account of filteredRows.getValue(); track account.id) {
-        <div class="account">
-          <div class="content" (click)="navigate(account.id!)">
-            @if (account.image) {
-            <img
-              [ngSrc]="'assets/banks/' + account.image"
-              width="60"
-              height="60"
-              alt="account logo"
-            />
-            } @else {
-            <span class="material-symbols-outlined default-bank-account">
-              account_balance
-            </span>
-            }
-            <span>
-              <b>{{ account.name }}</b>
-            </span>
-            <span class="material-symbols-outlined navigate-icon">
-              navigate_next
-            </span>
-          </div>
+        <div class="account" (click)="openDetails(account)">
+          @if (account.image) {
+          <img
+            [ngSrc]="'assets/banks/' + account.image"
+            width="60"
+            height="60"
+            alt="account logo"
+          />
+          } @else {
+          <span class="material-symbols-outlined default-bank-account">
+            account_balance
+          </span>
+          }
+          <span>
+            <b>{{ account.name }}</b>
+          </span>
+          <span class="material-symbols-outlined navigate-icon">
+            navigate_next
+          </span>
         </div>
         }
       </div>

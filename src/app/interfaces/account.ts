@@ -8,4 +8,8 @@ export interface Account {
   active: boolean;
   archived: boolean;
   image: string;
+  accountNumber: string;
+  agency: number;
+  code: number;
+  type: string;
 }

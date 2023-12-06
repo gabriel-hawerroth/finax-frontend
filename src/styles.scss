@@ -36,13 +36,13 @@ $finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primar
 
   html,
   body {
-    font-size: 18px !important;
+    font-size: 17px !important;
   }
 
   .mat-mdc-form-field {
     .mdc-text-field--filled {
       .mdc-floating-label {
-        top: 23px !important;
+        top: 25px !important;
       }
 
       .mdc-floating-label--float-above {
@@ -50,7 +50,6 @@ $finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primar
       }
 
       .mat-mdc-input-element {
-        bottom: 5px !important;
         position: relative;
         bottom: 3px !important;
       }
@@ -71,6 +70,28 @@ $finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primar
   html,
   body {
     font-size: 13px !important;
+  }
+
+  .mat-mdc-form-field {
+    .mdc-text-field--filled {
+      .mdc-floating-label {
+        top: 33px !important;
+      }
+
+      .mdc-floating-label--float-above {
+        transform: translateY(-105%) scale(0.75) !important;
+      }
+
+      .mat-mdc-input-element {
+        position: relative;
+        top: 6px !important;
+      }
+    }
+
+    .mat-mdc-select-trigger {
+      position: relative !important;
+      top: 3px !important;
+    }
   }
 }
 
@@ -141,17 +162,32 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .mat-mdc-snack-bar-action {
-  font-family: 'Nunito', system-ui, -apple-system, Roboto;
+  font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
   color: #fff !important;
 }
 
 .mdc-tooltip__surface {
+  font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
   font-size: 0.9rem !important;
 }
 
 .mdc-button {
   font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
-  font-size: 1rem;
+  font-size: 1rem !important;
+}
+
+.mat-bottom-sheet-container {
+  max-width: 100vw !important;
+  background-color: #fff !important;
+
+  &:has(.dark-page) {
+    background-color: $dark-bg !important;
+  }
+}
+
+#cdk-overlay-0 {
+  max-width: 100vw !important;
+  background-color: transparent !important;
 }
 
 .simple-page {
@@ -170,8 +206,12 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .dark-page {
-  color: #dfdfdf !important;
+  color: $dark-font-color !important;
   background-color: $dark-bg !important;
+
+  .mat-bottom-sheet-container {
+    background-color: $dark-bg !important;
+  }
 
   .login-box {
     background-color: #212121 !important;

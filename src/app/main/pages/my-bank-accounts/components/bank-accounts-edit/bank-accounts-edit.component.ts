@@ -20,6 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 import { SelectIconDialogComponent } from '../select-icon-dialog/select-icon-dialog.component';
+import { Account } from '../../../../../interfaces/Account';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-bank-accounts-edit',
@@ -35,6 +37,7 @@ import { SelectIconDialogComponent } from '../select-icon-dialog/select-icon-dia
     MatButtonModule,
     MatCheckboxModule,
     NgOptimizedImage,
+    MatSelectModule,
   ],
   templateUrl: './bank-accounts-edit.component.html',
   styleUrl: './bank-accounts-edit.component.scss',
@@ -57,19 +60,18 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
 
   accountForm!: FormGroup;
 
-  disable: boolean = true;
+  changedIcon: boolean = false;
 
   ngOnInit(): void {
-    this.buildForm();
-
     this.accountId = +this._activatedRoute.snapshot.paramMap.get('id')! || null;
 
+    this.buildForm();
+
     if (this.accountId) {
-      this._accountService.getById(this.accountId!).then((account: any) => {
-        this.accountForm.patchValue(account);
+      this._accountService.getById(this.accountId).then((response) => {
+        this.accountForm.patchValue(response);
       });
     }
-    // this.selectIcon();
   }
 
   ngOnDestroy(): void {
@@ -80,9 +82,13 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
   buildForm() {
     this.accountForm = this._fb.group({
       id: null,
-      userId: '',
+      userId: null,
       name: ['', Validators.required],
+      type: '',
+      code: '',
       balance: [0, Validators.required],
+      accountNumber: '',
+      agency: null,
       investments: false,
       addOverallBalance: true,
       active: true,
@@ -91,6 +97,32 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
     });
 
     this.accountForm.markAllAsTouched();
+
+    this.accountForm
+      .get('code')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        if (!value) return;
+
+        value = value.toString();
+        if (value.length > 3) {
+          value = value.substring(0, 3);
+          this.accountForm.get('code')!.setValue(value);
+        }
+      });
+
+    this.accountForm
+      .get('agency')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        if (!value) return;
+
+        value = value.toString();
+        if (value.length > 5) {
+          value = value.substring(0, 5);
+          this.accountForm.get('agency')!.setValue(value);
+        }
+      });
   }
 
   save() {
@@ -142,11 +174,14 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
       if (!value) return;
 
       this.accountForm.get('image')!.setValue(value);
-      this.disable = false;
+      this.changedIcon = true;
     });
   }
 
   disableSave(): boolean {
-    return this.accountForm.pristine && this.disable;
+    return (
+      (this.accountForm.invalid || this.accountForm.pristine) &&
+      !this.changedIcon
+    );
   }
 }

@@ -5,10 +5,15 @@ import { Account } from '../../../interfaces/Account';
 import { AccountService } from '../../../services/account.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatBottomSheet,
+  MatBottomSheetModule,
+} from '@angular/material/bottom-sheet';
+import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
 
 @Component({
   selector: 'app-my-bank-accounts',
@@ -21,14 +26,15 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatBottomSheetModule,
   ],
   templateUrl: './my-bank-accounts.component.html',
   styleUrl: './my-bank-accounts.component.scss',
 })
 export class MyBankAccountsComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
-  private _router = inject(Router);
   private _accountService = inject(AccountService);
+  private _bottomSheet = inject(MatBottomSheet);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -72,7 +78,12 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
     this.filteredRows.next(rows);
   }
 
-  navigate(accountId: number) {
-    this._router.navigate([`contas-de-banco/${accountId}`]);
+  openDetails(account: Account) {
+    this._bottomSheet.open(BankAccountDetailsComponent, {
+      data: {
+        account: account,
+      },
+      panelClass: 'bank-account-details',
+    });
   }
 }

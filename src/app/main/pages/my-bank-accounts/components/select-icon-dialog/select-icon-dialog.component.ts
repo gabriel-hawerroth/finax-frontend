@@ -22,7 +22,6 @@ export class SelectIconDialogComponent {
     'banco-brasil.png',
     'nubank.png',
     'santander.png',
-    'cooperativa-ailos.png',
     'sicoob.png',
     'viacredi.png',
     'inter.png',

@@ -14,21 +14,21 @@ export class AccountService {
 
   apiUrl = `${environment.baseApiUrl}accounts`;
 
-  getByUser() {
+  getByUser(): Promise<Account[]> {
     return lastValueFrom(
-      this._http.get(
+      this._http.get<Account[]>(
         `${this.apiUrl}/get-by-user/${this._loginService.getLoggedUserId}`
       )
     );
   }
 
-  getById(id: number) {
-    return lastValueFrom(this._http.get(`${this.apiUrl}/${id}`));
+  getById(id: number): Promise<Account> {
+    return lastValueFrom(this._http.get<Account>(`${this.apiUrl}/${id}`));
   }
 
-  save(data: Account) {
+  save(data: Account): Promise<Account> {
     data.userId = this._loginService.getLoggedUserId;
 
-    return lastValueFrom(this._http.post(this.apiUrl, data));
+    return lastValueFrom(this._http.post<Account>(this.apiUrl, data));
   }
 }

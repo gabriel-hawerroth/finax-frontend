@@ -1,6 +1,11 @@
 <div id="sidebar">
   <div class="sidebar-title">
-    <img ngSrc="assets/money-coin.svg" width="45" height="45" alt="company logo" />
+    <img
+      ngSrc="assets/money-coin.svg"
+      width="45"
+      height="45"
+      alt="company logo"
+    />
     <h1>Finax</h1>
   </div>
 
@@ -18,7 +23,7 @@
           <i class="pi pi-wallet mr-2"></i>
           <span>{{
             language === "pt-br" ? "Fluxo de caixa" : "Cash flow"
-            }}</span>
+          }}</span>
         </a>
       </li>
 
@@ -27,7 +32,7 @@
           <i class="pi pi-briefcase mr-2"></i>
           <span>{{
             language === "pt-br" ? "Investimentos" : "Investments"
-            }}</span>
+          }}</span>
         </a>
       </li>
 
@@ -35,10 +40,13 @@
         <a (click)="reportsUl = !reportsUl" class="nav-ul-item">
           <i class="pi pi-chart-bar mr-2"></i>
           <span>{{ language === "pt-br" ? "Relatórios" : "Reports" }}</span>
-          <i class="pi ml-auto mr-1" [ngClass]="{
+          <i
+            class="pi ml-auto mr-1"
+            [ngClass]="{
               'pi-chevron-down': reportsUl,
               'pi-chevron-up': !reportsUl
-            }"></i>
+            }"
+          ></i>
         </a>
 
         <ul [ngClass]="{ 'ul-item': true, hidden: reportsUl }">
@@ -47,7 +55,7 @@
               <i class="pi pi-chart-bar mr-2"></i>
               <span>{{
                 language === "pt-br" ? "Fluxo de caixa" : "Cash flow"
-                }}</span>
+              }}</span>
             </a>
           </li>
 
@@ -56,20 +64,24 @@
               <i class="pi pi-chart-bar mr-2"></i>
               <span>{{
                 language === "pt-br" ? "Investimentos" : "Investments"
-                }}</span>
+              }}</span>
             </a>
           </li>
         </ul>
       </li>
 
-      <li [ngClass]="{ hidden: userAccess === 'free' || userAccess === 'basic' }">
+      <li
+        [ngClass]="{
+          hidden: userAccess === 'free' || userAccess === 'basic'
+        }"
+      >
         <a routerLink="/indicadores" class="nav-ul-item">
           <i class="pi pi-chart-line mr-2"></i>
           <span>{{ language === "pt-br" ? "Indicadores" : "Indicators" }}</span>
         </a>
       </li>
 
-      <li [ngClass]="{ hidden: userAccess === 'free' || userAccess === 'basic' }">
+      <!-- <li [ngClass]="{ hidden: userAccess === 'free' || userAccess === 'basic' }">
         <a (click)="noticesUl = !noticesUl" class="nav-ul-item">
           <i class="pi pi-book mr-2"></i>
           <span>{{ language === "pt-br" ? "Notícias" : "Notices" }}</span>
@@ -103,14 +115,14 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> -->
 
       <li>
         <a routerLink="/metas-de-gasto" class="nav-ul-item">
           <i class="pi pi-sliders-v mr-2"></i>
           <span>{{
             language === "pt-br" ? "Metas de gasto" : "Spending goals"
-            }}</span>
+          }}</span>
         </a>
       </li>
 
@@ -119,22 +131,27 @@
           <i class="pi pi-plus mr-2"></i>
           <span>{{
             language === "pt-br" ? "Outras opções" : "Other options"
-            }}</span>
-          <i class="pi ml-auto mr-1" [ngClass]="{
+          }}</span>
+          <i
+            class="pi ml-auto mr-1"
+            [ngClass]="{
               'pi-chevron-down': moreUl,
               'pi-chevron-up': !moreUl
-            }"></i>
+            }"
+          ></i>
         </a>
 
         <ul [ngClass]="{ 'ul-item': true, hidden: moreUl }">
           <li>
             <a routerLink="/contas-de-banco" class="gap-2 nav-ul-item">
-              <i class="material-symbols-outlined" style="margin-left: -3px">account_balance</i>
+              <i
+                class="material-symbols-outlined"
+                style="margin-left: -3px; font-size: 1.3rem"
+                >account_balance</i
+              >
               <span>{{
-                language === "pt-br"
-                ? "Minhas contas de banco"
-                : "My bank accounts"
-                }}</span>
+                language === "pt-br" ? "Contas de banco" : "Bank accounts"
+              }}</span>
             </a>
           </li>
 
@@ -143,9 +160,9 @@
               <i class="pi pi-calculator mr-2"></i>
               <span>{{
                 language === "pt-br"
-                ? "Calculadora de juros"
-                : "Interest Calculator"
-                }}</span>
+                  ? "Calculadora de juros"
+                  : "Interest Calculator"
+              }}</span>
             </a>
           </li>
         </ul>
@@ -180,10 +197,13 @@
     <a (click)="userActionsUl = !userActionsUl" class="nav-ul-item user-item">
       <img [src]="utilsService.userImage | async" alt="user profile image" />
       <span>{{ loginService.getLoggedUser.firstName }}</span>
-      <i class="pi ml-auto" [ngClass]="{
+      <i
+        class="pi ml-auto"
+        [ngClass]="{
           ' pi-chevron-up': userActionsUl,
           ' pi-chevron-down': !userActionsUl
-        }"></i>
+        }"
+      ></i>
     </a>
   </div>
 </div>

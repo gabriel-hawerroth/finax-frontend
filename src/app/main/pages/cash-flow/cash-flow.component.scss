@@ -1,0 +1,104 @@
+@import '../../../utils/colors.scss';
+
+.simple-page {
+    .content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+
+        .releases-card {
+            background-color: #fff;
+            width: 65%;
+            min-height: 86vh;
+            margin-top: 1rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            // box-shadow: 0 0 2px #00000059;
+
+            header {
+                display: flex;
+                flex-direction: column;
+
+                .first-row {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: .8rem 1.2rem;
+
+                    .right {
+                        button {
+                            padding: .6rem 1rem;
+                            font-size: 1.1rem;
+                            color: #525252;
+
+                            span {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 1rem;
+                            }
+                        }
+                    }
+                }
+
+                .second-row {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    color: #464646;
+
+                    .tab {
+                        font-size: 1.3rem;
+                        text-transform: capitalize;
+                        width: 12rem;
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .releases-list {
+                flex: 1;
+            }
+
+            .totals {
+                padding: 1.4rem;
+                display: flex;
+                justify-content: space-around;
+                font-size: 1.1rem;
+                border-top: 1px solid #00000032;
+            }
+        }
+    }
+}
+
+.dark-page {
+    .content {
+        .releases-card {
+            background-color: $dark-card-bg;
+
+            header {
+                .first-row {
+
+                    .filter-menu,
+                    .mat-mdc-menu-content {
+                        background-color: $dark-bg !important;
+                    }
+                }
+
+                .second-row {
+                    .tab {
+                        color: $dark-font-color;
+                    }
+                }
+            }
+
+            .totals {
+                border-top: 1px solid #ffffff32 !important;
+            }
+        }
+    }
+}
