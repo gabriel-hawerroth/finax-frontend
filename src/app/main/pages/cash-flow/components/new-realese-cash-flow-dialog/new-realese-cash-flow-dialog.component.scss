@@ -1,0 +1,32 @@
+.new-release-cash-flow-dialog {
+    background-color: transparent;
+
+    .top {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.7rem 0;
+        z-index: 1;
+        background-color: transparent;
+
+        .close-btn {
+            position: absolute;
+            left: 1rem;
+        }
+
+        .save-btn {
+            position: absolute;
+            right: 1.5rem;
+        }
+    }
+
+    mat-tab-group {
+        width: 40rem !important;
+
+        .tab-content {
+            height: 60vh !important;
+            min-height: 60vh !important;
+        }
+    }
+}

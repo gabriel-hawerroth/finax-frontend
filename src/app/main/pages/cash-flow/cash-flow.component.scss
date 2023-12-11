@@ -1,6 +1,18 @@
 @import '../../../utils/colors.scss';
 
+::-webkit-scrollbar {
+    background-color: transparent !important;
+    width: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7a7a7ad7 !important;
+    border-radius: 10px !important;
+}
+
 .simple-page {
+    overflow: hidden;
+
     .content {
         width: 100%;
         display: flex;
@@ -10,13 +22,14 @@
 
         .releases-card {
             background-color: #fff;
-            width: 65%;
-            min-height: 86vh;
-            margin-top: 1rem;
-            border-radius: 1rem;
+            width: 60%;
+            min-height: 95vh;
+            max-height: 95vh;
+            border-radius: .6rem;
             display: flex;
             flex-direction: column;
-            // box-shadow: 0 0 2px #00000059;
+            position: absolute;
+            top: 1.1rem;
 
             header {
                 display: flex;
@@ -27,17 +40,28 @@
                     justify-content: space-between;
                     padding: .8rem 1.2rem;
 
+                    .left {
+                        display: flex;
+                        align-items: center;
+                        gap: 1.5rem;
+                    }
+
                     .right {
                         button {
                             padding: .6rem 1rem;
                             font-size: 1.1rem;
                             color: #525252;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 1rem;
+                        }
 
-                            span {
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                gap: 1rem;
+                        .filter-menu {
+                            padding: 1rem !important;
+
+                            .filter-form {
+                                padding: 1rem !important;
                             }
                         }
                     }
@@ -62,6 +86,71 @@
 
             .releases-list {
                 flex: 1;
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                overflow-y: scroll;
+
+                .release {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    padding: .8rem 0;
+                    border-radius: 5px;
+
+                    &:hover {
+                        background-color: #adffea25;
+                        cursor: pointer;
+                    }
+
+                    .category {
+                        width: 8%;
+                    }
+
+                    .description {
+                        width: 38%;
+
+                        span {
+                            color: #777777;
+                            font-size: .9rem;
+                        }
+                    }
+
+                    .account {
+                        width: 22%;
+                        color: #777777;
+                    }
+
+                    .date {
+                        width: 11%;
+                        font-size: .8rem;
+                        display: flex;
+                        flex-direction: column;
+                        color: #777777;
+                    }
+
+                    .amount {
+                        width: 15%;
+                        display: flex;
+                        justify-content: flex-end;
+                        padding-right: 1.2rem;
+                    }
+
+                    .situation {
+                        width: 6%;
+                        display: flex;
+                        justify-content: center;
+
+                        span {
+                            font-size: 1.5rem;
+                        }
+
+                        .done {
+                            color: green;
+                        }
+                    }
+                }
             }
 
             .totals {
@@ -70,6 +159,23 @@
                 justify-content: space-around;
                 font-size: 1.1rem;
                 border-top: 1px solid #00000032;
+            }
+        }
+
+        #add-btn {
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $primary-color;
+            margin: 0 .5rem .5rem auto;
+            position: absolute;
+            right: 2.5rem;
+            bottom: 2.5rem;
+
+            i {
+                color: #fff;
             }
         }
     }

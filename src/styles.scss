@@ -134,6 +134,8 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+// START ANGULAR FIX ***********
+
 .mat-mdc-form-field {
   height: 73px;
   flex-direction: column;
@@ -144,6 +146,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
     .mdc-floating-label {
       transform: none;
+      cursor: text !important;
     }
 
     .mdc-floating-label--float-above {
@@ -155,10 +158,9 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: transparent;
   }
 
-  // .mat-mdc-form-field-subscript-wrapper {}
-
-  // .mdc-line-ripple {}
-
+  mat-hint {
+    color: #3a3a3a !important;
+  }
 }
 
 .mat-mdc-snack-bar-action {
@@ -174,6 +176,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .mdc-button {
   font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
   font-size: 1rem !important;
+  border-radius: 4px;
 }
 
 .mat-bottom-sheet-container {
@@ -189,6 +192,10 @@ input[type="number"]::-webkit-outer-spin-button {
   max-width: 100vw !important;
   background-color: transparent !important;
 }
+
+// .mat-mdc-select-panel {}
+
+// END ANGULAR FIX ***********
 
 .simple-page {
   width: 100%;
@@ -233,8 +240,14 @@ input[type="number"]::-webkit-outer-spin-button {
     color: #e6e6e6 !important;
   }
 
-  button {
-    color: #e6e6e6 !important;
+  .mdc-button {
+    color: #e6e6e6;
+
+    &:disabled {
+      span {
+        color: #747474 !important;
+      }
+    }
 
     span {
       transition-duration: 1s;
@@ -264,6 +277,18 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .mat-mdc-outlined-button {
     border-color: rgba(198, 198, 198, 0.47) !important;
+  }
+
+  .mdc-tab__text-label {
+    color: #fff !important;
+  }
+
+  .mdc-tab--active .mdc-tab__text-label {
+    color: $primary-color !important;
+  }
+
+  .mat-datepicker-toggle-default-icon {
+    color: #dddddd !important;
   }
 }
 
@@ -327,22 +352,6 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-.mdc-button {
-  border-radius: 4px;
-}
-
-mat-hint {
-  color: #3a3a3a !important;
-}
-
-.primary-color {
-  color: $primary-color;
-}
-
-.primary-bg-color {
-  background-color: $primary-bg-color;
-}
-
 .button {
   font-size: .9rem;
   padding: 1.4rem 1.8rem !important;
@@ -362,4 +371,45 @@ mat-hint {
   padding: 2rem 2.6rem !important;
   font-size: 1.1rem !important;
   color: #676767 !important;
+}
+
+.mat-mdc-select-panel:has(.bank-account-item) {
+  padding: 0 !important;
+
+  // .cdk-overlay-pane,
+  // .mat-mdc-select-panel {
+  // }
+
+  .mat-mdc-option {
+    width: 100%;
+    padding: 0 1rem !important;
+    // background-color: $dark-bg !important;
+    // color: #fff !important;
+
+    .mdc-list-item__primary-text {
+      width: 100% !important;
+
+      .option-content {
+        display: flex !important;
+        align-items: center !important;
+        gap: .8rem !important;
+
+        img {
+          border-radius: 50% !important;
+        }
+
+        .default-account-logo {
+          width: 29px;
+          height: 29px;
+          font-size: 18px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 50%;
+          box-shadow: 0 0 1px #747474;
+          color: #3f3f3f;
+        }
+      }
+    }
+  }
 }

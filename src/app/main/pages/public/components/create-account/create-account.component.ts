@@ -67,7 +67,9 @@ export class CreateAccountComponent implements OnInit {
   createUser() {
     if (this.userRegisterForm.get('password')!.invalid) {
       this.utilsService.showSimpleMessage(
-        'A senha não cumpre os requisitos de segurança'
+        this.language === 'pt-br'
+          ? 'A senha não cumpre os requisitos de segurança'
+          : "Password doesn't meet security requirements"
       );
       return;
     } else if (this.userRegisterForm.invalid) return;

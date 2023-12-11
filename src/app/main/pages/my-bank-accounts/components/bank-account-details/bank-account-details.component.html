@@ -2,12 +2,14 @@
   class="bank-account-details"
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
+  @if (account.image) {
   <img
     [ngSrc]="'assets/banks/' + account.image"
     width="80"
     height="80"
     alt="bank account logo"
   />
+  }
 
   <div class="content">
     <div class="row1">

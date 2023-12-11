@@ -47,13 +47,6 @@ export class LoginService {
                   : 'Error getting the user, please contact our support'
               );
               return;
-            } else if (user.activate === false) {
-              this._utilsService.showSimpleMessage(
-                language === 'pt-br'
-                  ? 'Usuário inativo, verifique seu email'
-                  : 'Inactive user, check your email'
-              );
-              return;
             }
 
             this._router.navigate(['home']);
@@ -99,9 +92,7 @@ export class LoginService {
           });
       })
       .catch((err) => {
-        this._utilsService.showSimpleMessage(
-          language === 'pt-br' ? 'Login inválido' : 'Invalid login'
-        );
+        console.log(err);
       });
   }
 
@@ -137,21 +128,21 @@ export class LoginService {
       );
   }
 
-  stillLoggedTest() {
-    lastValueFrom(this._http.get(`${this.apiUrl}/authentication-test`)).catch(
-      (err) => {
-        if (err.status === 0) {
-          this._utilsService.showSimpleMessage(
-            this._utilsService.getUserConfigs.language === 'pt-br'
-              ? 'Atualização em andamento, tente novamente mais tarde'
-              : 'Update in progress, please try again later'
-          );
-        } else if (err.status === 401) {
-          this.logout();
-        }
-      }
-    );
-  }
+  // stillLoggedTest() {
+  //   lastValueFrom(this._http.get(`${this.apiUrl}/authentication-test`)).catch(
+  //     (err) => {
+  //       if (err.status === 0) {
+  //         this._utilsService.showSimpleMessage(
+  //           this._utilsService.getUserConfigs.language === 'pt-br'
+  //             ? 'Atualização em andamento, tente novamente mais tarde'
+  //             : 'Update in progress, please try again later'
+  //         );
+  //       } else if (err.status === 401) {
+  //         this.logout();
+  //       }
+  //     }
+  //   );
+  // }
 
   newUser(user: User): Promise<User> {
     return lastValueFrom(

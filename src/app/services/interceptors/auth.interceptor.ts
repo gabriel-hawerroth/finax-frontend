@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { catchError } from 'rxjs/operators';
-import { EMPTY, throwError } from 'rxjs';
+import { throwError } from 'rxjs';
 import { LoginService } from '../login.service';
 import { UtilsService } from '../../utils/utils.service';
 
@@ -30,12 +30,13 @@ export const authInterceptor: HttpInterceptorFn = (
 
     return next(request).pipe(
       catchError((error) => {
+        console.log('Error: ', error);
         if (
           error instanceof HttpErrorResponse &&
           (error.status === 401 || error.status === 0)
         ) {
           loginService.logout(error.status !== 0);
-          return EMPTY;
+          return throwError(() => new Error(error.message));
         }
         return throwError(() => new Error(error.message));
       })
@@ -49,8 +50,21 @@ export const authInterceptor: HttpInterceptorFn = (
               ? 'Atualização em andamento, tente novamente mais tarde'
               : 'Update in progress, please try again later'
           );
+        } else if (err.error.error_description === 'Bad credentials') {
+          utilsService.showSimpleMessage(
+            utilsService.getUserConfigs.language === 'pt-br'
+              ? 'Login inválido'
+              : 'Invalid login'
+          );
+        } else if (err.error.error_description === 'Inactive user') {
+          utilsService.showSimpleMessage(
+            utilsService.getUserConfigs.language === 'pt-br'
+              ? 'Usuário inativo, verifique seu email'
+              : 'Inactive user, check your email'
+          );
         }
-        return EMPTY;
+
+        return throwError(() => new Error(err.error.error_description));
       })
     );
   }

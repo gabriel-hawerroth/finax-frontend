@@ -4,63 +4,146 @@
     'dark-page': utilsService.getUserConfigs.theme === 'dark'
   }"
 >
-  <h1 class="page-title">
-    {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
-  </h1>
-
   <div class="content">
     <mat-card class="releases-card">
       <header>
         <div class="first-row">
           <div class="left">
-            <h2>{{ language === "pt-br" ? "Lançamentos" : "Releases" }}</h2>
+            <h1>
+              {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
+            </h1>
           </div>
 
           <div class="right">
-            <button mat-button [matMenuTriggerFor]="menu">
-              <span
-                >{{ language === "pt-br" ? "Filtrar" : "Filter" }}
-                <i class="pi pi-filter"></i
-              ></span>
-            </button>
+            <!-- <button mat-button [mat-menu-trigger-for]="menu">
+              {{ language === "pt-br" ? "Filtrar" : "Filter" }}
+              <i class="pi pi-filter"></i>
+            </button> -->
 
-            <mat-menu #menu="matMenu" class="filter-menu"></mat-menu>
+            <mat-menu #menu="matMenu" class="filter-menu">
+              <form [formGroup]="filterForm" class="filter-form">
+                <mat-form-field>
+                  <mat-label>
+                    {{ language === "pt-br" ? "Conta" : "Account" }}
+                  </mat-label>
+                  <mat-select formControlName="account">
+                    <mat-option></mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+            </mat-menu>
           </div>
         </div>
 
         <div class="second-row">
-          <button mat-icon-button (click)="selectMonth('before')">
+          <button
+            mat-icon-button
+            (click)="selectMonth('before')"
+            [disabled]="searching"
+          >
             <span class="material-symbols-outlined">chevron_left</span>
           </button>
 
           <div class="tab">
-            {{ getMonthName(currentMonth) + " " + currentYear }}
+            {{ getMonthName(currentMonth) }}
+            {{ currentYear.toString() !== "2023" ? currentYear : "" }}
           </div>
 
-          <button mat-icon-button (click)="selectMonth('next')">
+          <button
+            mat-icon-button
+            (click)="selectMonth('next')"
+            [disabled]="searching"
+          >
             <span class="material-symbols-outlined">navigate_next</span>
           </button>
         </div>
       </header>
 
-      <div class="releases-list"></div>
+      <div class="releases-list">
+        @for (item of releases; track item.id) {
+        <div class="release">
+          <div class="category"></div>
+
+          <div class="description">
+            @if (item.type !== 'T') {
+            <h3>
+              {{ item.description ? item.description : item.categoryName }}
+            </h3>
+            } @else {
+            <div class="flex flex-column">
+              <h3>
+                {{
+                  item.description
+                    ? item.description
+                    : language === "pt-br"
+                    ? "Transferência"
+                    : "Transfer"
+                }}
+              </h3>
+              @if (language === 'pt-br') {
+              <span>
+                {{
+                  "De " + item.accountName + " para " + item.targetAccountName
+                }}
+              </span>
+              } @else {
+              <span>
+                {{
+                  "From " + item.accountName + " to " + item.targetAccountName
+                }}
+              </span>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="account">
+            <span>{{ item.accountName }}</span>
+          </div>
+
+          <div class="date">
+            <span>{{ item.date | date : "dd/MM/yyyy" }}</span>
+            <span>{{ item.time }}</span>
+          </div>
+
+          <div class="amount">
+            @if (item.type === 'E') {
+            <span>-</span>
+            }
+            <span> {{ item.amount | customCurrency }}</span>
+          </div>
+
+          <div class="situation">
+            @if (item.done) {
+            <span class="material-symbols-outlined done"> thumb_up </span>
+            } @else {
+            <span class="material-symbols-outlined pending"> thumb_down </span>
+            }
+          </div>
+        </div>
+        }
+      </div>
 
       <div class="totals">
         <span>
           {{ language === "pt-br" ? "Receitas: " : "Revenue: " }}
-          {{ currency + "0,00" }}
+          {{ currency }}{{ totals.revenues | customCurrency }}
         </span>
 
         <span>
           {{ language === "pt-br" ? "Despesas: " : "Expenses: " }}
-          {{ currency + "0,00" }}
+          {{ currency }}{{ totals.expenses | customCurrency }}
         </span>
 
         <span>
           {{ language === "pt-br" ? "Balanço: " : "Balance: " }}
-          {{ currency + "0,00" }}
+          {{ currency }}{{ totals.balance | customCurrency }}
         </span>
       </div>
     </mat-card>
+
+    <button mat-icon-button id="add-btn" (click)="addRelease()">
+      <i class="pi pi-plus"></i>
+    </button>
   </div>
 </div>

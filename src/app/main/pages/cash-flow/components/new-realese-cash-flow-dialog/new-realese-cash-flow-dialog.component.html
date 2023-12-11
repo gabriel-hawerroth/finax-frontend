@@ -1,0 +1,59 @@
+<div
+  class="new-release-cash-flow-dialog"
+  [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
+>
+  <div class="top">
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <h2>{{ language === "pt-br" ? "Novo lançamento" : "New release" }}</h2>
+
+    <button
+      mat-stroked-button
+      class="save-btn"
+      color="primary"
+      (click)="save()"
+      [disabled]="disableSave()"
+    >
+      <i class="pi pi-save"></i>
+      {{ language === "pt-br" ? "Salvar" : "Save" }}
+    </button>
+  </div>
+
+  <div class="content">
+    <mat-tab-group
+      [tabIndex]="selectedTabIndex"
+      (selectedIndexChange)="selectedTabIndex = $event"
+      color="primary"
+    >
+      <mat-tab [label]="language === 'pt-br' ? 'Despesa' : 'Expense'">
+        <div class="tab-content">
+          <app-new-expense-form
+            [expenseForm]="expenseForm"
+          ></app-new-expense-form>
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="language === 'pt-br' ? 'Receita' : 'Revenue'">
+        <div class="tab-content">
+          @defer {
+          <app-new-revenue-form
+            [revenueForm]="revenueForm"
+          ></app-new-revenue-form>
+          }
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="language === 'pt-br' ? 'Transferência' : 'Transfer'">
+        <div class="tab-content">
+          @defer {
+          <app-new-transfer-form
+            [transferForm]="transferForm"
+          ></app-new-transfer-form>
+          }
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

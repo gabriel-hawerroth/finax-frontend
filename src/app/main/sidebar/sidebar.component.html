@@ -27,16 +27,16 @@
         </a>
       </li>
 
-      <li [ngClass]="{ hidden: userAccess === 'free' }">
+      <!-- <li [ngClass]="{ hidden: userAccess === 'free' }">
         <a routerLink="/investimentos" class="nav-ul-item">
           <i class="pi pi-briefcase mr-2"></i>
           <span>{{
             language === "pt-br" ? "Investimentos" : "Investments"
           }}</span>
         </a>
-      </li>
+      </li> -->
 
-      <li [ngClass]="{ hidden: userAccess === 'free' }">
+      <!-- <li [ngClass]="{ hidden: userAccess === 'free' }">
         <a (click)="reportsUl = !reportsUl" class="nav-ul-item">
           <i class="pi pi-chart-bar mr-2"></i>
           <span>{{ language === "pt-br" ? "Relatórios" : "Reports" }}</span>
@@ -68,9 +68,9 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> -->
 
-      <li
+      <!-- <li
         [ngClass]="{
           hidden: userAccess === 'free' || userAccess === 'basic'
         }"
@@ -79,7 +79,7 @@
           <i class="pi pi-chart-line mr-2"></i>
           <span>{{ language === "pt-br" ? "Indicadores" : "Indicators" }}</span>
         </a>
-      </li>
+      </li> -->
 
       <!-- <li [ngClass]="{ hidden: userAccess === 'free' || userAccess === 'basic' }">
         <a (click)="noticesUl = !noticesUl" class="nav-ul-item">
@@ -117,16 +117,29 @@
         </ul>
       </li> -->
 
-      <li>
+      <!-- <li>
         <a routerLink="/metas-de-gasto" class="nav-ul-item">
           <i class="pi pi-sliders-v mr-2"></i>
           <span>{{
             language === "pt-br" ? "Metas de gasto" : "Spending goals"
           }}</span>
         </a>
-      </li>
+      </li> -->
 
       <li>
+        <a routerLink="/contas-de-banco" class="gap-2 nav-ul-item">
+          <i
+            class="material-symbols-outlined"
+            style="margin-left: -3px; font-size: 1.3rem"
+            >account_balance</i
+          >
+          <span>{{
+            language === "pt-br" ? "Contas de banco" : "Bank accounts"
+          }}</span>
+        </a>
+      </li>
+
+      <!-- <li>
         <a (click)="moreUl = !moreUl" class="nav-ul-item">
           <i class="pi pi-plus mr-2"></i>
           <span>{{
@@ -166,7 +179,7 @@
             </a>
           </li>
         </ul>
-      </li>
+      </li> -->
     </ul>
   </div>
 

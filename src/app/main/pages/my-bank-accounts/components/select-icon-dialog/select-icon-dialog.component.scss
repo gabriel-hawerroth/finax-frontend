@@ -1,5 +1,15 @@
 @import '../../../../../utils/colors.scss';
 
+::-webkit-scrollbar {
+    background-color: transparent !important;
+    width: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7a7a7ad7 !important;
+    border-radius: 10px !important;
+}
+
 .select-icon-dialog {
     max-height: 75vh;
     max-width: 30rem;

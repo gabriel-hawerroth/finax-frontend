@@ -24,6 +24,8 @@ export class CustomCurrencyPipe implements PipeTransform {
     // Adiciona o ponto para separar as milhares
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
+    parts[1] = parts[1].substring(0, 2);
+
     // Se houver parte decimal, adiciona a vírgula
     if (parts.length > 1) {
       formattedValue = parts.join(',');
