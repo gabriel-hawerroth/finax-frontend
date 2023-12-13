@@ -13,7 +13,7 @@
             justify-content: space-evenly;
 
             #forgot-password-label {
-                color: $primary-color;
+                color: $primary-font-color;
                 font-weight: bold;
                 cursor: pointer;
             }
@@ -44,6 +44,6 @@
         bottom: 2rem;
         padding: .7rem 1.3rem;
         box-sizing: initial;
-        border-color: $primary-color;
+        border-color: $primary-font-color;
     }
 }

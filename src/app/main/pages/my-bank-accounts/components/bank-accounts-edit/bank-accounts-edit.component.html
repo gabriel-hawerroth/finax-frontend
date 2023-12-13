@@ -44,6 +44,7 @@
         </mat-form-field>
 
         <mat-form-field>
+          <!-- The value of the options follows a pattern of two characters, the first is the first letter of the first acronym of the label, the second is the first letter of the second acronym of the label  -->
           <mat-label>
             {{ language === "pt-br" ? "Tipo de conta" : "Account type" }}
           </mat-label>
@@ -51,13 +52,20 @@
             <mat-option value="CC">
               {{ language === "pt-br" ? "Conta corrente" : "Checking account" }}
             </mat-option>
-            <mat-option value="CP">
+
+            <mat-option value="SV">
               {{ language === "pt-br" ? "Conta poupança" : "Savings account" }}
             </mat-option>
-            <mat-option value="CS">
+
+            <mat-option value="SL">
               {{ language === "pt-br" ? "Conta salário" : "Salary account" }}
             </mat-option>
-            <mat-option value="CR">
+
+            <mat-option value="LG">
+              {{ language === "pt-br" ? "Conta jurídica" : "Legal account" }}
+            </mat-option>
+
+            <mat-option value="BK">
               {{ language === "pt-br" ? "Corretora" : "Brokerage" }}
             </mat-option>
           </mat-select>

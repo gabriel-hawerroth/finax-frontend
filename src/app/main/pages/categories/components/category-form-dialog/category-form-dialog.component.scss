@@ -1,0 +1,17 @@
+.category-form-dialog {
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    overflow: hidden;
+
+    .top {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 0;
+
+        h1 {
+            font-size: 1.7rem;
+        }
+    }
+}

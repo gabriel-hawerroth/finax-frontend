@@ -14,6 +14,7 @@ import {
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
 import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-my-bank-accounts',
@@ -27,6 +28,7 @@ import { BankAccountDetailsComponent } from './components/bank-account-details/b
     MatFormFieldModule,
     MatSelectModule,
     MatBottomSheetModule,
+    MatCardModule,
   ],
   templateUrl: './my-bank-accounts.component.html',
   styleUrl: './my-bank-accounts.component.scss',

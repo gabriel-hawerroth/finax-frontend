@@ -200,7 +200,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .simple-page {
   width: 100%;
   height: 100%;
-  background-color: $primary-bg-color;
+  background-color: $primary-bg;
   padding: 1rem;
   overflow-x: hidden;
 
@@ -210,11 +210,20 @@ input[type="number"]::-webkit-outer-spin-button {
     left: 1.5rem;
     top: .5rem;
   }
+
+  .card {
+    background-color: $primary-card-bg !important;
+  }
 }
 
 .dark-page {
   color: $dark-font-color !important;
   background-color: $dark-bg !important;
+
+  .card {
+    background-color: $dark-card-bg !important;
+    color: #fff !important;
+  }
 
   .mat-bottom-sheet-container {
     background-color: $dark-bg !important;
@@ -255,6 +264,12 @@ input[type="number"]::-webkit-outer-spin-button {
     }
   }
 
+  .mat-mdc-form-field {
+    mat-hint {
+      color: #999999 !important;
+    }
+  }
+
   .mdc-form-field {
     transition-duration: 1s;
     color: #e6e6e6 !important;
@@ -284,7 +299,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .mdc-tab--active .mdc-tab__text-label {
-    color: $primary-color !important;
+    color: $primary-font-color !important;
   }
 
   .mat-datepicker-toggle-default-icon {

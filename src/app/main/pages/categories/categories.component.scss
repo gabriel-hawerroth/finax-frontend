@@ -1,0 +1,83 @@
+@import '../../../utils/colors.scss';
+
+::-webkit-scrollbar {
+    background-color: transparent !important;
+    width: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7a7a7ad7 !important;
+    border-radius: 10px !important;
+}
+
+.simple-page {
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        place-items: center;
+
+        .card {
+            width: 80%;
+            height: 80vh;
+            max-height: 80vh;
+            padding: 1.5rem 1rem;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: row;
+
+            .categories {
+                width: 50%;
+                height: 100%;
+                padding: .5rem 1.5rem 0 1.5rem;
+
+                &:first-child {
+                    border-right: 1px solid #6161613b;
+                }
+
+                .top {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 1rem;
+
+                    .btn-content {
+                        display: flex;
+                        align-items: center;
+                        gap: .6rem;
+                    }
+                }
+
+                .list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: .5rem;
+                    overflow-y: scroll;
+
+                    .item {
+                        // box-shadow: 0 0 1px #6c6c6c;
+                        padding: .8rem;
+                        cursor: pointer;
+                        border-radius: 2px;
+                        display: flex;
+                        align-items: center;
+                        gap: 1.5rem;
+                        border-bottom: 1px solid #6161613b;
+
+                        .material-symbols-outlined {
+                            border-radius: 50%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            // border: 1px solid #636363;
+                            padding: .7rem;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

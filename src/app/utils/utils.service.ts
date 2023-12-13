@@ -86,7 +86,7 @@ export class UtilsService {
       .join('');
   }
 
-  filterList(rows: any, atributo: string, keyWord: any) {
+  filterList(rows: any[], atributo: string, keyWord: any): any[] {
     if (!rows) return [];
 
     if (typeof keyWord === 'string') {

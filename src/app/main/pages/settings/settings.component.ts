@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { UserConfigs } from '../../../interfaces/UserConfigs';
 import { LoginService } from '../../../services/login.service';
-import { UserConfigsService } from '../../../services/userConfigs.service';
+import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
 
 @Component({

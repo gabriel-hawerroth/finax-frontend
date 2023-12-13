@@ -36,8 +36,8 @@ import { RouterModule } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public utilsService = inject(UtilsService);
+  public loginService = inject(LoginService);
   private _fb = inject(FormBuilder);
-  private _loginService = inject(LoginService);
   private _matDialog = inject(MatDialog);
 
   loginForm!: FormGroup;
@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
     const credentials = this.loginForm.value;
     this.showLoading = true;
 
-    this._loginService.login(credentials).finally(() => {
+    this.loginService.login(credentials).finally(() => {
       this.showLoading = false;
     });
   }

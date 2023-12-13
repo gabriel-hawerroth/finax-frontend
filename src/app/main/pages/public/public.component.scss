@@ -1,5 +1,5 @@
-$primary-color: #005d13;
-$primary-bg-color: #eff3f8;
+$primary-font-color: #005d13;
+$primary-bg: #eff3f8;
 
 // desktop fullhd+
 @media screen and (min-width: 1800px) and (min-height: 800px) {
@@ -93,7 +93,7 @@ $footer-height: 100px;
             gap: 20px;
             font-family: "Dosis";
             font-size: 1.7em;
-            color: $primary-color;
+            color: $primary-font-color;
         }
 
         .right-side {
@@ -107,7 +107,7 @@ $footer-height: 100px;
 
             button {
                 color: white;
-                background-color: $primary-color;
+                background-color: $primary-font-color;
                 border-radius: 2rem !important;
                 padding: 1.4rem 1.7rem;
                 font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont,
@@ -495,7 +495,7 @@ $footer-height: 100px;
     .public-footer {
         height: 5.8rem;
         display: flex;
-        background-color: $primary-bg-color;
+        background-color: $primary-bg;
         box-shadow: 0 1px 5px #0000007c;
 
         .left {

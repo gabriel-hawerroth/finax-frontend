@@ -166,9 +166,10 @@ export class LoginService {
   }
 
   get getLoggedUserId(): number {
-    return +JSON.parse(
-      atob(this._utilsService.getItemLocalStorage('userFinax')!)
-    ).id;
+    return this._utilsService.getItemLocalStorage('userFinax')
+      ? +JSON.parse(atob(this._utilsService.getItemLocalStorage('userFinax')!))
+          .id
+      : 0;
   }
 
   get getUserToken(): string {

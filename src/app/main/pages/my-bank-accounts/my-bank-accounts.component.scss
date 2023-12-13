@@ -10,15 +10,15 @@
 
     .content {
         flex: 1;
-        display: grid;
+        display: flex;
+        justify-content: center;
         place-items: center;
 
-        .accounts-card {
-            width: 68%;
-            height: 75vh;
-            max-height: 75vh;
+        .card {
+            width: 70%;
+            height: 78vh;
+            max-height: 78vh;
             padding: 2rem;
-            background-color: #fefefe;
             border-radius: 1rem;
             display: flex;
             flex-direction: column;
@@ -73,16 +73,6 @@
                     // }
                 }
             }
-        }
-    }
-}
-
-.dark-page {
-    .content {
-        .accounts-card {
-            background-color: $dark-card-bg !important;
-            color: #fff !important;
-
         }
     }
 }

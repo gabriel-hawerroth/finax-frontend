@@ -1,0 +1,29 @@
+<div
+  class="category-form-dialog"
+  [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
+>
+  <div class="top">
+    @if (data.category === 'new') { @if (language === 'pt-br') {
+    <h1>Nova categoria de {{ data.type === "E" ? "despesa" : "receita" }}</h1>
+    } @else {
+    <h1>New {{ data.type === "E" ? "expense" : "revenue" }} category</h1>
+    } } @else { @if (language === 'pt-br') {
+    <h1>
+      Editando categoria de
+      {{ data.type === "E" ? "despesa" : "receita" }}
+    </h1>
+    } @else {
+    <h1>Editing {{ data.type === "E" ? "expense" : "revenue" }} category</h1>
+    } }
+
+    <button
+      mat-icon-button
+      mat-dialog-close
+      style="position: absolute; right: 1rem; top: 1rem; transform: scale(0.9)"
+    >
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <div class="content"></div>
+</div>

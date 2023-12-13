@@ -120,9 +120,9 @@
       <!-- <li>
         <a routerLink="/metas-de-gasto" class="nav-ul-item">
           <i class="pi pi-sliders-v mr-2"></i>
-          <span>{{
-            language === "pt-br" ? "Metas de gasto" : "Spending goals"
-          }}</span>
+          <span>
+            {{ language === "pt-br" ? "Metas de gasto" : "Spending goals" }}
+          </span>
         </a>
       </li> -->
 
@@ -133,9 +133,18 @@
             style="margin-left: -3px; font-size: 1.3rem"
             >account_balance</i
           >
-          <span>{{
-            language === "pt-br" ? "Contas de banco" : "Bank accounts"
-          }}</span>
+          <span>
+            {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/categorias" class="gap-2 nav-ul-item">
+          <i class="pi pi-tag"></i>
+          <span>
+            {{ language === "pt-br" ? "Categorias" : "Categories" }}
+          </span>
         </a>
       </li>
 
@@ -165,6 +174,15 @@
               <span>{{
                 language === "pt-br" ? "Contas de banco" : "Bank accounts"
               }}</span>
+            </a>
+          </li>
+
+          <li>
+            <a routerLink="/" class="gap-2 nav-ul-item">
+              <i class="pi pi-tag"></i>
+              <span>
+                {{ language === "pt-br" ? "Categorias" : "Categorys" }}
+              </span>
             </a>
           </li>
 
