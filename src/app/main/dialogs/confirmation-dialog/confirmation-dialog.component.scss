@@ -1,18 +1,14 @@
 .confirmation-dialog {
-    width: 470px !important;
-    height: 200px;
     display: flex;
     flex-direction: column;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    overflow: hidden !important;
+    max-width: 40vw;
 
     .title {
-        padding: .8em;
-        background-color: #2a7869;
-        color: white;
+        padding: .7rem;
         display: flex;
         align-items: center;
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 1.1em;
+        font-size: 1.1rem;
     }
 
     .content {
@@ -20,16 +16,21 @@
         flex: 1;
         align-items: center;
         justify-content: center;
-        padding: 1em;
-        font-size: 1.3em;
-        font-family: Arial, Helvetica, sans-serif;
+        padding: 1rem;
+        flex-wrap: wrap;
+        margin: 0 auto;
     }
 
     .buttons {
-        padding: 1.4em 1.6em;
+        padding: 1rem 1.8rem;
         display: flex;
+        justify-content: end;
         align-items: center;
-        justify-content: space-around;
+        gap: 2rem;
+
+        button {
+            padding: 1.2rem;
+        }
     }
 
 }

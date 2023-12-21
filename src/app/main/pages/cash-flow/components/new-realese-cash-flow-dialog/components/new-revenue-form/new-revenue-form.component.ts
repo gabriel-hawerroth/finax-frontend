@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Account } from '../../../../../../../interfaces/Account';
-import { AccountService } from '../../../../../../../services/account.service';
 import { UtilsService } from '../../../../../../../utils/utils.service';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { Subject } from 'rxjs';
+import { Category } from '../../../../../../../interfaces/Category';
 
 @Component({
   selector: 'app-new-revenue-form',
@@ -35,32 +35,54 @@ import { Subject } from 'rxjs';
 })
 export class NewRevenueFormComponent implements OnInit, OnDestroy {
   @Input() revenueForm!: FormGroup;
+  @Input() accountsList!: Account[];
+  @Input() categoriesList!: Category[];
 
   public utilsService = inject(UtilsService);
-  private _accountsService = inject(AccountService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
-  accountsList: Account[] = [];
   selectedAccount: Account | null = null;
+  selectedCategory: Category | null = null;
 
   ngOnInit(): void {
-    this._accountsService.getByUser().then((response) => {
-      this.accountsList = response;
-    });
-
     this.revenueForm.get('accountId')!.valueChanges.subscribe((value) => {
       this.selectedAccount = this.accountsList.find(
         (item) => item.id === value
       )!;
     });
+
+    this.revenueForm.get('categoryId')!.valueChanges.subscribe((value) => {
+      this.selectedCategory = this.categoriesList.find(
+        (item) => item.id === value
+      )!;
+    });
+
+    const accountId = this.revenueForm.get('accountId')!.value;
+    const categoryId = this.revenueForm.get('categoryId')!.value;
+
+    if (accountId) {
+      this.selectedAccount = this.accountsList.find(
+        (item) => item.id === accountId
+      )!;
+    }
+
+    if (categoryId) {
+      this.selectedCategory = this.categoriesList.find(
+        (item) => item.id === categoryId
+      )!;
+    }
   }
 
   ngOnDestroy(): void {
     this._unsubscribeAll.next('');
     this._unsubscribeAll.complete();
+  }
+
+  get getCategories(): Category[] {
+    return this.utilsService.filterList(this.categoriesList, 'type', 'R');
   }
 }

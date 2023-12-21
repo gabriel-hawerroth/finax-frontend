@@ -388,7 +388,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: #676767 !important;
 }
 
-.mat-mdc-select-panel:has(.bank-account-item) {
+.mat-mdc-select-panel {
   padding: 0 !important;
 
   // .cdk-overlay-pane,
@@ -397,17 +397,19 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .mat-mdc-option {
     width: 100%;
-    padding: 0 1rem !important;
+    padding: 0 !important;
+    padding-left: .5rem !important;
+    padding-right: .3rem !important;
     // background-color: $dark-bg !important;
     // color: #fff !important;
 
     .mdc-list-item__primary-text {
       width: 100% !important;
 
-      .option-content {
+      .account-opt {
         display: flex !important;
         align-items: center !important;
-        gap: .8rem !important;
+        gap: .6rem !important;
 
         img {
           border-radius: 50% !important;
@@ -423,6 +425,22 @@ input[type="number"]::-webkit-outer-spin-button {
           border-radius: 50%;
           box-shadow: 0 0 1px #747474;
           color: #3f3f3f;
+        }
+      }
+
+      .category-opt {
+        display: flex !important;
+        align-items: center !important;
+        gap: .6rem !important;
+
+        .material-symbols-outlined {
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: .5rem;
+          font-size: 1.1rem;
+          color: #fff;
         }
       }
     }

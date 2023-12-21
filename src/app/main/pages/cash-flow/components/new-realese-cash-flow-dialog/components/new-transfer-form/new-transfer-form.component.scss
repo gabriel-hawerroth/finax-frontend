@@ -10,6 +10,7 @@
         overflow-y: hidden;
         position: relative;
         bottom: 1.5rem;
+        padding: 1rem 0;
 
         .row1,
         .row2,
@@ -32,6 +33,14 @@
                     border-radius: 50%;
                 }
             }
+        }
+    }
+}
+
+.dark-page {
+    .row2 {
+        .selected-account {
+            color: #fff !important;
         }
     }
 }

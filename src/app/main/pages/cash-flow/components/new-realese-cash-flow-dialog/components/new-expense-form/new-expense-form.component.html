@@ -1,11 +1,20 @@
-<div class="new-expense-form">
+<div
+  class="new-expense-form"
+  [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
+>
   <form [formGroup]="expenseForm">
     <div class="row1">
       <mat-form-field style="width: 75%" [hideRequiredMarker]="true">
         <mat-label>
           {{ language === "pt-br" ? "Descrição" : "Description" }}
         </mat-label>
-        <input matInput type="text" formControlName="description" autofocus />
+        <input
+          matInput
+          type="text"
+          formControlName="description"
+          autofocus
+          maxlength="50"
+        />
       </mat-form-field>
     </div>
 
@@ -17,13 +26,13 @@
         <mat-select formControlName="accountId">
           <mat-select-trigger>
             <ng-container
-              *ngTemplateOutlet="selectedItemTemplate"
+              *ngTemplateOutlet="selectedAccountTemplate"
             ></ng-container>
           </mat-select-trigger>
 
           @for (account of accountsList; track account.id) {
           <mat-option [value]="account.id" class="bank-account-item">
-            <div class="option-content">
+            <div class="account-opt">
               @if (account.image) {
               <img
                 [ngSrc]="'assets/banks/' + account.image"
@@ -43,7 +52,7 @@
         </mat-select>
       </mat-form-field>
 
-      <ng-template #selectedItemTemplate>
+      <ng-template #selectedAccountTemplate>
         <div class="selected-account">
           @if (selectedAccount && selectedAccount.image) {
           <img
@@ -94,11 +103,47 @@
     </div>
 
     <div class="row4">
-      <mat-form-field style="width: 38%">
+      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
           {{ language === "pt-br" ? "Categoria" : "Category" }}
         </mat-label>
-        <mat-select formControlName="categoryId"></mat-select>
+        <mat-select formControlName="categoryId">
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="selectedCategoryTemplate"
+            ></ng-container>
+          </mat-select-trigger>
+
+          @for (item of getCategories; track item.id) {
+          <mat-option [value]="item.id">
+            <div class="category-opt">
+              @if (item.icon) {
+              <span
+                class="material-symbols-outlined"
+                [ngStyle]="{ 'background-color': item.color }"
+              >
+                {{ item.icon }}
+              </span>
+              }
+              {{ item.name }}
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+
+        <ng-template #selectedCategoryTemplate>
+          <div class="selected-category">
+            @if (selectedCategory && selectedCategory.icon) {
+            <span
+              class="material-symbols-outlined"
+              [ngStyle]="{ 'background-color': selectedCategory.color }"
+            >
+              {{ selectedCategory.icon }}
+            </span>
+            }
+            <span>{{ selectedCategory?.name }}</span>
+          </div>
+        </ng-template>
       </mat-form-field>
 
       <mat-checkbox formControlName="done">
@@ -111,7 +156,11 @@
         <mat-label>
           {{ language === "pt-br" ? "Observação" : "Observation" }}
         </mat-label>
-        <textarea matInput formControlName="observation"></textarea>
+        <textarea
+          matInput
+          formControlName="observation"
+          maxlength="400"
+        ></textarea>
       </mat-form-field>
     </div>
   </form>

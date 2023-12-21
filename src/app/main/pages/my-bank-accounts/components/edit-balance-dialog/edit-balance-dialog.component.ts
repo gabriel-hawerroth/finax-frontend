@@ -6,7 +6,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { AccountService } from '../../../../../services/account.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
     NgxCurrencyDirective,
     MatProgressSpinnerModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   templateUrl: './edit-balance-dialog.component.html',
   styleUrl: './edit-balance-dialog.component.scss',

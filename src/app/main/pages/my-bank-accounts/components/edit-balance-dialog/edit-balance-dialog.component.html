@@ -4,10 +4,16 @@
   }"
   class="edit-balance-dialog"
 >
-  <h1 class="title">
-    {{ language === "pt-br" ? "Ajustar saldo" : "Adjuste balance" }}
-    {{ data.account.accountName }}
-  </h1>
+  <div class="title">
+    <h1>
+      {{ language === "pt-br" ? "Ajustar saldo" : "Adjuste balance" }}
+      {{ data.account.accountName }}
+    </h1>
+
+    <button mat-icon-button mat-dialog-close>
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
 
   <form [formGroup]="balanceForm" class="content">
     <mat-form-field

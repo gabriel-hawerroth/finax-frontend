@@ -50,6 +50,7 @@ export class BankAccountDetailsComponent {
             account: this.account,
           },
           panelClass: 'edit-balance-dialog',
+          autoFocus: false,
         })
         .afterClosed()
     ).then((result: any) => {

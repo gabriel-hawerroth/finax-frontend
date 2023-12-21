@@ -1,0 +1,125 @@
+<div
+  class="release-details"
+  [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
+>
+  <div class="content">
+    <div class="row1">
+      <span
+        class="material-symbols-outlined"
+        [ngClass]="{ 'margin-top': !release.observation }"
+        [ngStyle]="{ 'background-color': release.categoryColor || '#AFAFAF' }"
+      >
+        {{ release.categoryIcon || "list" }}
+      </span>
+
+      <div class="principal" [ngClass]="{ 'margin-top': !release.observation }">
+        @if (release.type !== 'T') {
+        <h2>
+          {{ release.description || release.categoryName }}
+
+          @if (!release.description && !release.categoryName) {
+          {{ language === "pt-br" ? "Outros" : "Others" }}
+          }
+        </h2>
+
+        <span>
+          {{ release.accountName }}
+        </span>
+        } @else {
+        <h2>
+          {{
+            release.description
+              ? release.description
+              : language === "pt-br"
+              ? "Transferência"
+              : "Transfer"
+          }}
+        </h2>
+
+        <span class="transfer">
+          {{ release.accountName }}
+          <span class="material-symbols-outlined">arrow_right_alt</span>
+          {{ release.targetAccountName }}
+        </span>
+        }
+      </div>
+
+      <div class="amount">
+        <h2>
+          {{ release.type === "E" ? "-" : "" }}{{ currency
+          }}{{ release.amount | customCurrency }}
+        </h2>
+
+        @if (release.done) {
+        <span class="material-symbols-outlined done"> thumb_up </span>
+        } @else {
+        <span class="material-symbols-outlined pending"> thumb_down </span>
+        }
+      </div>
+    </div>
+
+    <div class="row2">
+      @if (release.observation) {
+      <div class="observation">
+        <span>
+          {{ language === "pt-br" ? "Observação:" : "Observation:" }}
+        </span>
+
+        <span>
+          {{ release.observation }}
+        </span>
+      </div>
+      }
+
+      <div class="date">
+        <span>
+          {{ release.date | date : "dd/MM/yyyy" }}
+        </span>
+
+        <span>
+          {{ release.time }}
+        </span>
+      </div>
+    </div>
+
+    <div class="row3">
+      <button mat-stroked-button color="primary" (click)="edit()">
+        <div class="btn-content">
+          <span class="material-symbols-outlined">edit</span>
+          {{ language === "pt-br" ? "Editar" : "Edit" }}
+        </div>
+      </button>
+
+      <div class="delete">
+        @if (excluding) {
+        <mat-spinner [diameter]="30"></mat-spinner>
+        } @else if (!confirmDelete) {
+        <button mat-stroked-button (click)="confirmDelete = true">
+          <div class="btn-content">
+            <span class="material-symbols-outlined">delete</span>
+            {{ language === "pt-br" ? "Excluir" : "Delete" }}
+          </div>
+        </button>
+        } @else {
+        <span>
+          {{ language === "pt-br" ? "Confirmar exclusão?" : "Confirm delete?" }}
+        </span>
+
+        <div class="delete-confirmation">
+          <button mat-icon-button (click)="confirmDelete = false">
+            <span class="material-symbols-outlined" style="color: red">
+              close
+            </span>
+          </button>
+
+          <button mat-icon-button (click)="delete()">
+            <span class="material-symbols-outlined" style="color: green">
+              done
+            </span>
+          </button>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

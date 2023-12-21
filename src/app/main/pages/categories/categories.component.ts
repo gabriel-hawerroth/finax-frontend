@@ -9,6 +9,7 @@ import { LoginService } from '../../../services/login.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-categories',
@@ -57,24 +58,44 @@ export class CategorysComponent implements OnInit {
   }
 
   editCategory(category: Category) {
-    this._matDialog.open(CategoryFormDialogComponent, {
-      data: {
-        category: category,
-        type: category.type,
-      },
-      width: '40%',
-      autoFocus: false,
+    lastValueFrom(
+      this._matDialog
+        .open(CategoryFormDialogComponent, {
+          data: {
+            category: category,
+            type: category.type,
+          },
+          width: '40%',
+          autoFocus: false,
+        })
+        .afterClosed()
+    ).then((response) => {
+      if (!response) return;
+
+      const index: number = this.categories.findIndex(
+        (item) => item.id === response.id
+      );
+
+      if (index !== -1) this.categories[index] = response;
     });
   }
 
   newCategory(type: 'E' | 'R') {
-    this._matDialog.open(CategoryFormDialogComponent, {
-      data: {
-        category: 'new',
-        type: type,
-      },
-      width: '40%',
-      autoFocus: false,
+    lastValueFrom(
+      this._matDialog
+        .open(CategoryFormDialogComponent, {
+          data: {
+            category: 'new',
+            type: type,
+          },
+          width: '40%',
+          autoFocus: false,
+        })
+        .afterClosed()
+    ).then((response) => {
+      if (!response) return;
+
+      this.categories.push(response);
     });
   }
 }

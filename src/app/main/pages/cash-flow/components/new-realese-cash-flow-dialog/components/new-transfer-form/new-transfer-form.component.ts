@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { Account } from '../../../../../../../interfaces/Account';
-import { AccountService } from '../../../../../../../services/account.service';
 import { UtilsService } from '../../../../../../../utils/utils.service';
 import { Subject } from 'rxjs';
 
@@ -35,24 +34,19 @@ import { Subject } from 'rxjs';
 })
 export class NewTransferFormComponent implements OnInit, OnDestroy {
   @Input() transferForm!: FormGroup;
+  @Input() accountsList!: Account[];
 
   public utilsService = inject(UtilsService);
-  private _accountsService = inject(AccountService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
-  accountsList: Account[] = [];
   selectedAccountLeave: Account | null = null;
   selectedAccountEnter: Account | null = null;
 
   ngOnInit(): void {
-    this._accountsService.getByUser().then((response) => {
-      this.accountsList = response;
-    });
-
     this.transferForm.get('accountId')!.valueChanges.subscribe((value) => {
       this.selectedAccountLeave = this.accountsList.find(
         (item) => item.id === value
@@ -66,6 +60,21 @@ export class NewTransferFormComponent implements OnInit, OnDestroy {
           (item) => item.id === value
         )!;
       });
+
+    const accountId = this.transferForm.get('accountId')!.value;
+    const targetAccountId = this.transferForm.get('targetAccountId')!.value;
+
+    if (accountId) {
+      this.selectedAccountLeave = this.accountsList.find(
+        (item) => item.id === accountId
+      )!;
+    }
+
+    if (targetAccountId) {
+      this.selectedAccountEnter = this.accountsList.find(
+        (item) => item.id === targetAccountId
+      )!;
+    }
   }
 
   ngOnDestroy(): void {

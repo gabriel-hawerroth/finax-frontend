@@ -34,4 +34,8 @@ export class CashFlowService {
   save(data: CashFlow): Promise<CashFlow> {
     return lastValueFrom(this._http.post<CashFlow>(this.apiUrl, data));
   }
+
+  delete(id: number): Promise<any> {
+    return lastValueFrom(this._http.delete<any>(`${this.apiUrl}/${id}`));
+  }
 }

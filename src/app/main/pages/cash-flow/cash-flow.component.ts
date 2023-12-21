@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NewRealeseCashFlowDialogComponent } from './components/new-realese-cash-flow-dialog/new-realese-cash-flow-dialog.component';
 import {
+  CashFlow,
   CashFlowFilters,
   MonthlyCashFlow,
   TotalsCashFlow,
@@ -19,6 +20,15 @@ import { CashFlowService } from '../../../services/cash-flow.service';
 import { LoginService } from '../../../services/login.service';
 import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
 import { lastValueFrom } from 'rxjs';
+import { Category } from '../../../interfaces/Category';
+import { CategoryService } from '../../../services/category.service';
+import {
+  MatBottomSheet,
+  MatBottomSheetModule,
+} from '@angular/material/bottom-sheet';
+import { ReleaseDetailsComponent } from './components/release-details/release-details.component';
+import { Account } from '../../../interfaces/Account';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-cash-flow',
@@ -34,6 +44,7 @@ import { lastValueFrom } from 'rxjs';
     MatSelectModule,
     MatDialogModule,
     CustomCurrencyPipe,
+    MatBottomSheetModule,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -42,8 +53,11 @@ export class CashFlowComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _matDialog = inject(MatDialog);
+  private _bottomSheet = inject(MatBottomSheet);
   private _cashFlowService = inject(CashFlowService);
   private _loginService = inject(LoginService);
+  private _accountService = inject(AccountService);
+  private _categoryService = inject(CategoryService);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -64,9 +78,15 @@ export class CashFlowComponent implements OnInit {
     balance: 0,
   };
 
+  accounts: Account[] = [];
+  categories: Category[] = [];
+
   ngOnInit(): void {
     this.buildForm();
     this.getReleases();
+
+    this.getAccounts();
+    this.getCategories();
   }
 
   buildForm() {
@@ -114,6 +134,20 @@ export class CashFlowComponent implements OnInit {
       });
   }
 
+  getAccounts() {
+    this._accountService.getByUser().then((response) => {
+      this.accounts = response;
+    });
+  }
+
+  getCategories() {
+    this._categoryService
+      .getByUser(this._loginService.getLoggedUserId)
+      .then((response) => {
+        this.categories = response;
+      });
+  }
+
   getMonthName(index: number): string {
     const tempDate = new Date(this.currentYear, index, 15);
     return tempDate.toLocaleString(this.language, { month: 'long' });
@@ -137,7 +171,51 @@ export class CashFlowComponent implements OnInit {
     lastValueFrom(
       this._matDialog
         .open(NewRealeseCashFlowDialogComponent, {
-          data: {},
+          data: {
+            accounts: this.accounts,
+            categories: this.categories,
+            editing: false,
+          },
+          panelClass: 'new-release-cash-flow-dialog',
+          disableClose: true,
+          autoFocus: false,
+        })
+        .afterClosed()
+    ).then((response) => {
+      if (!response) return;
+
+      this.getReleases();
+    });
+  }
+
+  openDetails(cashFlow: MonthlyCashFlow) {
+    lastValueFrom(
+      this._bottomSheet
+        .open(ReleaseDetailsComponent, {
+          data: {
+            cashFlow: cashFlow,
+          },
+          panelClass: 'release-details',
+        })
+        .afterDismissed()
+    ).then((response) => {
+      if (!response) return;
+
+      if (response === 'edit') this.editRelease(cashFlow);
+      else if (response === 'delete') this.getReleases();
+    });
+  }
+
+  editRelease(release: MonthlyCashFlow) {
+    lastValueFrom(
+      this._matDialog
+        .open(NewRealeseCashFlowDialogComponent, {
+          data: {
+            accounts: this.accounts,
+            categories: this.categories,
+            editing: true,
+            release: release,
+          },
           panelClass: 'new-release-cash-flow-dialog',
           disableClose: true,
           autoFocus: false,

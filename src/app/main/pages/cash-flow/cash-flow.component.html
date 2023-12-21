@@ -61,13 +61,26 @@
 
       <div class="releases-list">
         @for (item of releases; track item.id) {
-        <div class="release">
-          <div class="category"></div>
+        <div class="release" (click)="openDetails(item)">
+          <div class="category">
+            <span
+              class="material-symbols-outlined"
+              [ngStyle]="{
+                'background-color': item.categoryColor || '#AFAFAF'
+              }"
+            >
+              {{ item.categoryIcon || "list" }}
+            </span>
+          </div>
 
           <div class="description">
             @if (item.type !== 'T') {
             <h3>
-              {{ item.description ? item.description : item.categoryName }}
+              {{ item.description || item.categoryName }}
+
+              @if (!item.description && !item.categoryName) {
+              {{ language === "pt-br" ? "Outros" : "Others" }}
+              }
             </h3>
             } @else {
             <div class="flex flex-column">

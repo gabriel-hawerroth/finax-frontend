@@ -1,5 +1,6 @@
 export interface CashFlow {
   id?: number;
+  description?: string;
   accountId: number;
   amount: number;
   type: string;
@@ -7,8 +8,8 @@ export interface CashFlow {
   targetAccountId?: number;
   categoryId?: number;
   date: Date;
-  time: string;
-  observation: string;
+  time?: string;
+  observation?: string;
 }
 
 export interface CashFlowFilters {
@@ -29,6 +30,8 @@ export interface MonthlyCashFlow {
   targetAccountName: string;
   categoryId: number;
   categoryName: string;
+  categoryColor: string;
+  categoryIcon: string;
   date: Date;
   time: string;
   observation: string;

@@ -1,7 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { NewExpenseFormComponent } from './components/new-expense-form/new-expense-form.component';
@@ -28,6 +32,7 @@ import { CashFlow } from '../../../../../interfaces/CashFlow';
 })
 export class NewRealeseCashFlowDialogComponent implements OnInit {
   public utilsService = inject(UtilsService);
+  public data = inject(MAT_DIALOG_DATA);
   private _fb = inject(FormBuilder);
   private _cashFlowService = inject(CashFlowService);
   private _matDialogRef = inject(MatDialogRef);
@@ -42,6 +47,25 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForms();
+
+    if (this.data.editing) {
+      switch (this.data.release.type) {
+        case 'E':
+          this.selectedTabIndex = 0;
+          this.expenseForm.patchValue(this.data.release);
+          break;
+
+        case 'R':
+          this.selectedTabIndex = 1;
+          this.revenueForm.patchValue(this.data.release);
+          break;
+
+        case 'T':
+          this.selectedTabIndex = 2;
+          this.transferForm.patchValue(this.data.release);
+          break;
+      }
+    }
   }
 
   buildForms() {
@@ -52,7 +76,7 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
       amount: [0, Validators.required],
       type: ['E', Validators.required],
       done: [true, Validators.required],
-      categoryId: null,
+      categoryId: [null, Validators.required],
       date: [new Date(), Validators.required],
       time: '',
       observation: '',
@@ -65,7 +89,7 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
       amount: [0, Validators.required],
       type: ['R', Validators.required],
       done: [true, Validators.required],
-      categoryId: null,
+      categoryId: [null, Validators.required],
       date: [new Date(), Validators.required],
       time: '',
       observation: '',
@@ -147,6 +171,18 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
   }
 
   saveTransfer() {
+    if (
+      this.transferForm.value.accountId ===
+      this.transferForm.value.targetAccountId
+    ) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'Não é possível realizar uma transferência para o mesmo banco'
+          : 'It is not possible to make a transfer to the same bank'
+      );
+      return;
+    }
+
     this._cashFlowService
       .save(this.transferForm.value)
       .then((response: CashFlow) => {

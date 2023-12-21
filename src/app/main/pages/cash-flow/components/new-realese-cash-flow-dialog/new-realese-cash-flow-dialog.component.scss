@@ -12,12 +12,13 @@
 
         .close-btn {
             position: absolute;
-            left: 1rem;
+            right: 1rem;
         }
 
         .save-btn {
             position: absolute;
-            right: 1.5rem;
+            left: 1.5rem;
+            padding: 1.3rem 1.3rem;
         }
     }
 
@@ -25,8 +26,7 @@
         width: 40rem !important;
 
         .tab-content {
-            height: 60vh !important;
-            min-height: 60vh !important;
+            padding: 1.5rem 0 !important;
         }
     }
 }

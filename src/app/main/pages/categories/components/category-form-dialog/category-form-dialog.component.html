@@ -3,7 +3,13 @@
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
   <div class="top">
-    @if (data.category === 'new') { @if (language === 'pt-br') {
+    @if (data.category !== 'new') {
+    <button mat-button>
+      {{ language === "pt-br" ? "Excluir" : "Delete" }}
+    </button>
+    } @else {
+    <span>&emsp;&nbsp;&emsp;</span>
+    } @if (data.category === 'new') { @if (language === 'pt-br') {
     <h1>Nova categoria de {{ data.type === "E" ? "despesa" : "receita" }}</h1>
     } @else {
     <h1>New {{ data.type === "E" ? "expense" : "revenue" }} category</h1>
@@ -16,14 +22,81 @@
     <h1>Editing {{ data.type === "E" ? "expense" : "revenue" }} category</h1>
     } }
 
-    <button
-      mat-icon-button
-      mat-dialog-close
-      style="position: absolute; right: 1rem; top: 1rem; transform: scale(0.9)"
-    >
+    <button mat-icon-button mat-dialog-close class="close-btn">
       <span class="material-symbols-outlined">close</span>
     </button>
   </div>
 
-  <div class="content"></div>
+  <div class="content">
+    <form [formGroup]="categoryForm">
+      <div class="row1">
+        <span
+          class="material-symbols-outlined"
+          [ngStyle]="{
+            'background-color': categoryForm.value.color
+          }"
+        >
+          {{ categoryForm.value.icon }}
+        </span>
+
+        <mat-form-field style="width: 50%" [hideRequiredMarker]="true">
+          <mat-label>
+            {{ language === "pt-br" ? "Descrição" : "Description" }}
+          </mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            autofocus
+            maxlength="40"
+          />
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="row2">
+        <span>
+          {{ language === "pt-br" ? "Escolha uma cor" : "Choose a color" }}
+        </span>
+
+        <div class="colors">
+          @for (item of colors; track $index) {
+          <div
+            class="color"
+            [ngStyle]="{ 'background-color': item }"
+            (click)="pickColor(item)"
+          ></div>
+          }
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="row3">
+        <span>
+          {{ language === "pt-br" ? "Escolha um ícone" : "Choose an icon" }}
+        </span>
+
+        <div class="icons">
+          @for (item of icons; track $index) {
+          <span class="material-symbols-outlined" (click)="pickIcon(item)">
+            {{ item }}
+          </span>
+          }
+        </div>
+      </div>
+    </form>
+
+    <div class="row4">
+      <button
+        mat-stroked-button
+        color="primary"
+        [disabled]="categoryForm.invalid || categoryForm.pristine"
+        (click)="save()"
+      >
+        {{ language === "pt-br" ? "Salvar" : "Save" }}
+      </button>
+    </div>
+  </div>
 </div>

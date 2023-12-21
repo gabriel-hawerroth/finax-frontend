@@ -7,7 +7,21 @@
       <span class="material-symbols-outlined">close</span>
     </button>
 
-    <h2>{{ language === "pt-br" ? "Novo lançamento" : "New release" }}</h2>
+    @if (data.editing) {
+    <h2>
+      @switch (data.release.type) { @case ("E") {
+      {{ language === "pt-br" ? "Editando despesa" : "Editing expense" }}
+      } @case ("R") {
+      {{ language === "pt-br" ? "Editando receita" : "Editing revenue" }}
+      } @case ("T") {
+      {{ language === "pt-br" ? "Editando transferência" : "Editing transfer" }}
+      } }
+    </h2>
+    } @else {
+    <h2>
+      {{ language === "pt-br" ? "Novo lançamento" : "New release" }}
+    </h2>
+    }
 
     <button
       mat-stroked-button
@@ -27,33 +41,40 @@
       (selectedIndexChange)="selectedTabIndex = $event"
       color="primary"
     >
+      @if (!data.editing || data.release.type === 'E') {
       <mat-tab [label]="language === 'pt-br' ? 'Despesa' : 'Expense'">
         <div class="tab-content">
           <app-new-expense-form
             [expenseForm]="expenseForm"
+            [accountsList]="data.accounts"
+            [categoriesList]="data.categories"
           ></app-new-expense-form>
         </div>
       </mat-tab>
-
+      } @if (!data.editing || data.release.type === 'R') {
       <mat-tab [label]="language === 'pt-br' ? 'Receita' : 'Revenue'">
         <div class="tab-content">
           @defer {
           <app-new-revenue-form
             [revenueForm]="revenueForm"
+            [accountsList]="data.accounts"
+            [categoriesList]="data.categories"
           ></app-new-revenue-form>
           }
         </div>
       </mat-tab>
-
+      } @if (!data.editing || data.release.type === 'T') {
       <mat-tab [label]="language === 'pt-br' ? 'Transferência' : 'Transfer'">
         <div class="tab-content">
           @defer {
           <app-new-transfer-form
             [transferForm]="transferForm"
+            [accountsList]="data.accounts"
           ></app-new-transfer-form>
           }
         </div>
       </mat-tab>
+      }
     </mat-tab-group>
   </div>
 </div>

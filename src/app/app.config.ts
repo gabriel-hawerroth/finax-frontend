@@ -14,7 +14,6 @@ import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
-  MatNativeDateModule,
 } from '@angular/material/core';
 import { provideNgxMask } from 'ngx-mask';
 import { authInterceptor } from './services/interceptors/auth.interceptor';
@@ -22,7 +21,6 @@ import {
   NgxCurrencyInputMode,
   provideEnvironmentNgxCurrency,
 } from 'ngx-currency';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MAT_MOMENT_DATE_ADAPTER_OPTIONS,
   MomentDateAdapter,

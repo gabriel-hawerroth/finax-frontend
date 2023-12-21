@@ -9,15 +9,16 @@
   </div>
 
   <div class="content">
-    <p>{{ message }}</p>
+    <p>{{ data.message }}</p>
   </div>
 
   <div class="buttons">
-    <button mat-raised-button color="primary" (click)="onConfirmClick()">
-      {{ language === "pt-br" ? "Confirmar" : "Confirm" }}
-    </button>
-    <button mat-raised-button mat-button (click)="onCancelClick()">
+    <button mat-stroked-button mat-button (click)="onCancelClick()">
       {{ language === "pt-br" ? "Cancelar" : "Cancel" }}
+    </button>
+
+    <button mat-stroked-button color="primary" (click)="onConfirmClick()">
+      {{ language === "pt-br" ? "Confirmar" : "Confirm" }}
     </button>
   </div>
 </div>

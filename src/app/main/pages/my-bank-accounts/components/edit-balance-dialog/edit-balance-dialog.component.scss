@@ -12,6 +12,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        button {
+            position: absolute;
+            right: 1.5rem;
+        }
     }
 
     .content {
