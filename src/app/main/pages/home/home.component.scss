@@ -1,8 +1,212 @@
-@import '../../../app.component.scss';
+@import '../../../utils/colors.scss';
+
+::-webkit-scrollbar {
+    background-color: transparent !important;
+    width: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7a7a7ad7 !important;
+    border-radius: 10px !important;
+}
 
 .simple-page {
     height: 100%;
-    display: grid;
-    place-items: center;
-    font-size: 2.3em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    .top-card {
+        width: 90%;
+        border-radius: .5rem;
+
+        .top-card-content {
+            display: flex;
+            justify-content: space-between;
+
+            .amounts {
+                display: flex;
+                gap: 1.2rem;
+
+                .item {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    align-items: center;
+                    padding: .6rem;
+                    border-radius: .3rem;
+                    transform: scale(0.92);
+                    box-shadow: 2px 2px 5px #2c2c2c4d;
+
+                    span {
+                        font-size: 1.5rem;
+                        font-weight: bold;
+                    }
+                }
+
+                .revenue {
+                    span {
+                        color: #15e627;
+                    }
+                }
+
+                .expense {
+                    span {
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
+
+    .row {
+        width: 90%;
+        display: flex;
+
+        mat-card {
+            border-radius: .5rem;
+        }
+
+        .left {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            .accounts {
+                width: 95%;
+
+                mat-card-header {
+                    padding: 1rem 2.5rem !important;
+
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                mat-card-content {
+                    max-height: 60vh;
+                    overflow-y: scroll;
+                    padding: 1rem 2.5rem !important;
+
+                    .list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1.2rem;
+
+                        .account {
+                            display: flex;
+                            align-items: center;
+                            gap: 1.5rem;
+                            font-size: 1.2rem;
+                            padding: 0 10px;
+
+                            img {
+                                border-radius: 50%;
+                            }
+
+                            .default-bank-account {
+                                width: 55px;
+                                aspect-ratio: 1/1;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 50%;
+                                cursor: pointer;
+                            }
+
+                            .account-balance {
+                                margin-left: auto;
+                                font-size: 1.1rem;
+                                color: #3d799c;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .right {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+
+            .upcoming-releases-expected {
+
+                mat-card-content {
+                    padding: 1rem !important;
+                    max-height: 30vh;
+                    overflow-y: scroll;
+
+                    .release {
+                        padding: .7rem;
+                        display: flex;
+                        align-items: center;
+                        gap: 1.5rem;
+
+                        .material-symbols-outlined {
+                            width: 2.5rem;
+                            height: 2.5rem;
+                            color: #fff;
+                            border-radius: 50%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        .title-account {
+                            display: flex;
+                            flex-direction: column;
+                            flex: 1;
+
+                            .release-title {
+                                font-size: 1.1rem;
+                            }
+
+                            .release-account {
+                                font-size: .9rem;
+                                color: #616161;
+                            }
+                        }
+
+                        .date {
+                            width: 20%;
+                            color: #616161;
+                        }
+
+                        .amount {
+                            width: 18%;
+                            color: #616161;
+                            overflow-x: hidden;
+                        }
+                    }
+
+                    .no-releases {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: #616161;
+                        padding: 2rem 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dark-page {
+    mat-card {
+        background-color: $dark-card-bg;
+    }
+
+    .top-card {
+        .top-card-content {
+            .amounts {
+                .item {
+                    box-shadow: 2px 2px 5px #9292924d;
+                }
+            }
+        }
+    }
 }

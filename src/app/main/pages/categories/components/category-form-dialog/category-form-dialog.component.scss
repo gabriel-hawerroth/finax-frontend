@@ -17,16 +17,48 @@
     .top {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding: 1.5rem 1.5rem;
+
+        .delete {
+            position: absolute;
+            left: .8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            .btn-content {
+                color: red;
+            }
+
+            .delete-confirmation {
+                display: flex;
+                flex-direction: column;
+                transform: scale(0.9);
+
+                button {
+                    padding: .1rem !important;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            mat-spinner {
+                margin: 0 2.5rem !important;
+            }
+        }
 
         h1 {
             font-size: 1.7rem;
         }
 
         .close-btn {
-            transform: scale(0.9);
+            transform: scale(0.95);
+            position: absolute;
+            right: 1.5rem;
         }
     }
 

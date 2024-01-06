@@ -1,18 +1,75 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
+import { MatCardModule } from '@angular/material/card';
+import { LoginService } from '../../../services/login.service';
+import { HomeService } from '../../../services/home.service';
+import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
+import { MatDividerModule } from '@angular/material/divider';
+import { HomeValues } from '../../../interfaces/Home';
+import { MonthlyCashFlow } from '../../../interfaces/CashFlow';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    CustomCurrencyPipe,
+    MatDividerModule,
+    NgOptimizedImage,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  utilsService = inject(UtilsService);
+  public utilsService = inject(UtilsService);
+  public loginService = inject(LoginService);
+  private _homeService = inject(HomeService);
 
   language: string = this.utilsService.getUserConfigs.language;
+  currency: string = this.utilsService.getUserConfigs.currency;
 
-  ngOnInit(): void {}
+  homeValues: HomeValues = {
+    generalBalance: 0,
+    monthlyFlow: {
+      revenues: 0,
+      expenses: 0,
+    },
+    accountsList: [],
+    upcomingReleasesExpected: [],
+  };
+
+  accountsPayable: MonthlyCashFlow[] = [];
+  accountsReceivable: MonthlyCashFlow[] = [];
+
+  ngOnInit(): void {
+    this._homeService.getHomeValues().then((response) => {
+      this.homeValues = response;
+    });
+  }
+
+  getUpcomingReleases(type: string): MonthlyCashFlow[] {
+    return this.utilsService.filterList(
+      this.homeValues.upcomingReleasesExpected,
+      'type',
+      type
+    );
+  }
+
+  isntLastItemAccounts(id: number): boolean {
+    const index = this.homeValues.accountsList.findIndex(
+      (item) => item.id === id
+    );
+
+    return index !== this.homeValues.accountsList.length - 1;
+  }
+
+  isntLastItem(id: number, type: string): boolean {
+    const index = this.getUpcomingReleases(type).findIndex(
+      (item) => item.id === id
+    );
+
+    return index !== this.getUpcomingReleases(type).length - 1;
+  }
 }

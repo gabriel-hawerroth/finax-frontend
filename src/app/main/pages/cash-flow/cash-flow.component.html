@@ -12,6 +12,10 @@
             <h1>
               {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
             </h1>
+
+            <button mat-icon-button id="add-btn" (click)="addRelease()">
+              <i class="pi pi-plus"></i>
+            </button>
           </div>
 
           <div class="right">
@@ -45,8 +49,8 @@
           </button>
 
           <div class="tab">
-            {{ getMonthName(currentMonth) }}
-            {{ currentYear.toString() !== "2023" ? currentYear : "" }}
+            {{ getMonthName(selectedMonth) }}
+            {{ selectedYear.toString() !== currentYear ? selectedYear : "" }}
           </div>
 
           <button
@@ -77,10 +81,6 @@
             @if (item.type !== 'T') {
             <h3>
               {{ item.description || item.categoryName }}
-
-              @if (!item.description && !item.categoryName) {
-              {{ language === "pt-br" ? "Outros" : "Others" }}
-              }
             </h3>
             } @else {
             <div class="flex flex-column">
@@ -154,9 +154,5 @@
         </span>
       </div>
     </mat-card>
-
-    <button mat-icon-button id="add-btn" (click)="addRelease()">
-      <i class="pi pi-plus"></i>
-    </button>
   </div>
 </div>

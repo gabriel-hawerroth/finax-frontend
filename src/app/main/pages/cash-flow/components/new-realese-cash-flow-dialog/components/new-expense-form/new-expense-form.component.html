@@ -133,15 +133,16 @@
 
         <ng-template #selectedCategoryTemplate>
           <div class="selected-category">
-            @if (selectedCategory && selectedCategory.icon) {
+            @if (selectedCategory) {
             <span
               class="material-symbols-outlined"
               [ngStyle]="{ 'background-color': selectedCategory.color }"
             >
               {{ selectedCategory.icon }}
             </span>
+
+            <span>{{ selectedCategory.name }}</span>
             }
-            <span>{{ selectedCategory?.name }}</span>
           </div>
         </ng-template>
       </mat-form-field>

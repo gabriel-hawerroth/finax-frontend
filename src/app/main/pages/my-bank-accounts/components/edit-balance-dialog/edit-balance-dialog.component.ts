@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { Account } from '../../../../../interfaces/Account';
 
 @Component({
   selector: 'app-edit-balance-dialog',
@@ -60,19 +61,18 @@ export class EditBalanceDialogComponent implements OnInit {
   save() {
     this.loading = true;
 
-    const data = this.data.account;
-
-    data.balance = this.balanceForm.value.balance;
-
     this._accountService
-      .save(data)
-      .then(() => {
+      .adjustBalance(this.data.account.id, this.balanceForm.value.balance)
+      .then((response) => {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Saldo alterado com sucesso'
             : 'Balance changed successfully'
         );
-        this.dialogRef.close(data.balance);
+
+        console.log(response);
+
+        this.dialogRef.close(response.balance);
       })
       .catch(() => {
         this.utilsService.showSimpleMessage(

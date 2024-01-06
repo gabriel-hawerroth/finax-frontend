@@ -27,6 +27,6 @@ export class CategoryService {
   }
 
   delete(id: number): Promise<void> {
-    return lastValueFrom(this._http.delete<void>(`${this.apiUrl}`));
+    return lastValueFrom(this._http.delete<void>(`${this.apiUrl}/${id}`));
   }
 }

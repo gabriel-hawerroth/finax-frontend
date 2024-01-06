@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -14,6 +14,9 @@ import { NewTransferFormComponent } from './components/new-transfer-form/new-tra
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { CashFlow } from '../../../../../interfaces/CashFlow';
+import { Category } from '../../../../../interfaces/Category';
+import { Subject, takeUntil } from 'rxjs';
+import moment from 'moment';
 
 @Component({
   selector: 'app-new-realese-cash-flow-dialog',
@@ -30,7 +33,7 @@ import { CashFlow } from '../../../../../interfaces/CashFlow';
   templateUrl: './new-realese-cash-flow-dialog.component.html',
   styleUrl: './new-realese-cash-flow-dialog.component.scss',
 })
-export class NewRealeseCashFlowDialogComponent implements OnInit {
+export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   public data = inject(MAT_DIALOG_DATA);
   private _fb = inject(FormBuilder);
@@ -44,6 +47,8 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
   expenseForm!: FormGroup;
   revenueForm!: FormGroup;
   transferForm!: FormGroup;
+
+  _unsubscribeAll: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this.buildForms();
@@ -65,7 +70,24 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
           this.transferForm.patchValue(this.data.release);
           break;
       }
+    } else {
+      const otherExpensesCategorieId: number = this.data.categories.find(
+        (item: Category) => item.name === 'Outras despesas'
+      ).id;
+      this.expenseForm.get('categoryId')!.setValue(otherExpensesCategorieId);
+
+      const otherRevenuesCategorieId: number = this.data.categories.find(
+        (item: Category) => item.name === 'Outras receitas'
+      ).id;
+      this.revenueForm.get('categoryId')!.setValue(otherRevenuesCategorieId);
     }
+
+    this.subscribeDateChanges();
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next('');
+    this._unsubscribeAll.complete();
   }
 
   buildForms() {
@@ -114,6 +136,33 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
     this.transferForm.markAllAsTouched();
   }
 
+  subscribeDateChanges() {
+    this.expenseForm
+      .get('date')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.expenseForm
+          .get('done')!
+          .setValue(!moment(value).isAfter(new Date()));
+      });
+    this.revenueForm
+      .get('date')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.revenueForm
+          .get('done')!
+          .setValue(!moment(value).isAfter(new Date()));
+      });
+    this.transferForm
+      .get('date')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.transferForm
+          .get('done')!
+          .setValue(!moment(value).isAfter(new Date()));
+      });
+  }
+
   disableSave(): boolean {
     if (this.selectedTabIndex === 0) {
       return this.expenseForm.pristine || this.expenseForm.invalid;
@@ -125,9 +174,37 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
   }
 
   save() {
-    if (this.selectedTabIndex === 0) this.saveExpense();
-    else if (this.selectedTabIndex === 1) this.saveRevenue();
-    else if (this.selectedTabIndex === 2) this.saveTransfer();
+    if (this.selectedTabIndex === 0) {
+      if (this.expenseForm.value.amount === 0) {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'O valor deve ser maior que zero'
+            : 'The amount must be greater than zero'
+        );
+      } else {
+        this.saveExpense();
+      }
+    } else if (this.selectedTabIndex === 1) {
+      if (this.revenueForm.value.amount === 0) {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'O valor deve ser maior que zero'
+            : 'The amount must be greater than zero'
+        );
+      } else {
+        this.saveRevenue();
+      }
+    } else if (this.selectedTabIndex === 2) {
+      if (this.transferForm.value.amount === 0) {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'O valor deve ser maior que zero'
+            : 'The amount must be greater than zero'
+        );
+      } else {
+        this.saveTransfer();
+      }
+    }
   }
 
   saveExpense() {
@@ -141,7 +218,7 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
         );
         this._matDialogRef.close(true);
       })
-      .catch((error) => {
+      .catch(() => {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Erro ao salvar a despesa'
@@ -161,7 +238,7 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
         );
         this._matDialogRef.close(true);
       })
-      .catch((error) => {
+      .catch(() => {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Erro ao salvar a receita'
@@ -194,11 +271,19 @@ export class NewRealeseCashFlowDialogComponent implements OnInit {
         this._matDialogRef.close(true);
       })
       .catch((error) => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar a transferência'
-            : 'Error saving transfer'
-        );
+        if (error.error.status === 406) {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Saldo insuficiente'
+              : 'Insufficient balance'
+          );
+        } else {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Erro ao salvar a transferência'
+              : 'Error saving transfer'
+          );
+        }
       });
   }
 }

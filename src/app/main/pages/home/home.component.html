@@ -4,9 +4,210 @@
     'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
   }"
 >
-  <h1>
-    {{ language === "pt-br" ? "Bem vindo ao" : "Welcome to" }}
-    <br />
-    Finax
-  </h1>
+  <mat-card class="top-card">
+    <mat-card-content class="top-card-content">
+      <h1>
+        {{ language === "pt-br" ? "Olá" : "Hello" }}
+        {{ loginService.getLoggedUser.firstName }}!
+      </h1>
+
+      <div class="amounts">
+        <div class="item revenue">
+          {{ language === "pt-br" ? "Receita mensal" : "Monthly revenue" }}
+
+          <span
+            >{{ currency
+            }}{{ homeValues.monthlyFlow.revenues | customCurrency }}
+          </span>
+        </div>
+
+        <div class="item expense">
+          {{ language === "pt-br" ? "Despesa mensal" : "Monthly expense" }}
+
+          <span
+            >{{ currency
+            }}{{ homeValues.monthlyFlow.expenses | customCurrency }}
+          </span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="row">
+    <div class="left">
+      <mat-card class="accounts">
+        <mat-card-header>
+          <span class="text-xl">
+            {{ language === "pt-br" ? "Saldo geral" : "General balance" }}
+          </span>
+
+          <span
+            class="text-3xl font-bold"
+            [ngStyle]="{
+              color:
+                homeValues.generalBalance > 0
+                  ? '#15e627'
+                  : homeValues.generalBalance === 0
+                  ? '#3d799c'
+                  : 'red'
+            }"
+          >
+            {{ currency }}{{ homeValues.generalBalance | customCurrency }}
+          </span>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content class="flex flex-column">
+          <span class="mb-3" style="font-size: 1.15rem">
+            {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
+          </span>
+
+          @defer {
+          <div class="list">
+            @for (account of homeValues.accountsList; track account.id) {
+            <div class="account">
+              @if (account.image) {
+              <img
+                [ngSrc]="'assets/banks/' + account.image"
+                width="55"
+                height="55"
+                alt="account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-bank-account">
+                account_balance
+              </span>
+              }
+
+              <b>{{ account.name }}</b>
+
+              <span class="account-balance"
+                >{{ currency }}{{ account.balance | customCurrency }}</span
+              >
+            </div>
+
+            @if (isntLastItemAccounts(account.id!)) {
+            <mat-divider></mat-divider>
+            } }
+          </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="right">
+      <mat-card class="upcoming-releases-expected">
+        <mat-card-header>
+          <mat-card-title>
+            <h3>
+              {{ language === "pt-br" ? "Contas a pagar" : "Accounts Payable" }}
+            </h3>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          @for (item of getUpcomingReleases('E'); track item.id) {
+          <div class="release">
+            <span
+              class="material-symbols-outlined"
+              [ngStyle]="{ 'background-color': item.categoryColor }"
+            >
+              {{ item.categoryIcon }}
+            </span>
+
+            <div class="title-account">
+              <span class="release-title">{{
+                item.description || item.categoryName
+              }}</span>
+
+              <span class="release-account">{{ item.accountName }}</span>
+            </div>
+
+            <span class="date">{{ item.date | date : "dd/MM/yyyy" }}</span>
+
+            <span class="amount">
+              {{ currency }}{{ item.amount | customCurrency }}
+            </span>
+          </div>
+
+          @if (isntLastItem(item.id, 'E')) {
+          <mat-divider></mat-divider>
+          }
+
+          <span></span>
+
+          } @empty {
+          <div class="no-releases">
+            <span>
+              {{
+                language === "pt-br"
+                  ? "Você não possui contas a pagar"
+                  : "You don't have any accounts payable"
+              }}
+            </span>
+          </div>
+          }
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="upcoming-releases-expected">
+        <mat-card-header>
+          <mat-card-title>
+            <h3>
+              {{
+                language === "pt-br"
+                  ? "Contas a receber"
+                  : "Accounts Receivable"
+              }}
+            </h3>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          @for (item of getUpcomingReleases('R'); track item.id) {
+          <div class="release">
+            <span
+              class="material-symbols-outlined"
+              [ngStyle]="{ 'background-color': item.categoryColor }"
+            >
+              {{ item.categoryIcon }}
+            </span>
+
+            <div class="title-account">
+              <span class="release-title">{{
+                item.description || item.categoryName
+              }}</span>
+
+              <span class="release-account">{{ item.accountName }}</span>
+            </div>
+
+            <span class="date">{{ item.date | date : "dd/MM/yyyy" }}</span>
+
+            <span class="amount">
+              {{ currency }}{{ item.amount | customCurrency }}
+            </span>
+          </div>
+
+          @if (isntLastItem(item.id, 'R')) {
+          <mat-divider></mat-divider>
+          }
+
+          <span></span>
+
+          } @empty {
+          <div class="no-releases">
+            <span>
+              {{
+                language === "pt-br"
+                  ? "Você não possui contas a receber"
+                  : "You don't have any accounts receivable"
+              }}
+            </span>
+          </div>
+          }
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

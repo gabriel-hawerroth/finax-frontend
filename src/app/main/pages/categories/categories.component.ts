@@ -35,6 +35,10 @@ export class CategorysComponent implements OnInit {
   categories: Category[] = [];
 
   ngOnInit(): void {
+    this.getCategories();
+  }
+
+  getCategories() {
     this._categoryService
       .getByUser(this._loginService.getLoggedUserId)
       .then((response) => {
@@ -73,10 +77,14 @@ export class CategorysComponent implements OnInit {
       if (!response) return;
 
       const index: number = this.categories.findIndex(
-        (item) => item.id === response.id
+        (item) => item.id === response.category.id
       );
 
-      if (index !== -1) this.categories[index] = response;
+      if (response.action === 'saved') {
+        if (index !== -1) this.categories[index] = response.category;
+      } else {
+        this.getCategories();
+      }
     });
   }
 
@@ -95,7 +103,7 @@ export class CategorysComponent implements OnInit {
     ).then((response) => {
       if (!response) return;
 
-      this.categories.push(response);
+      this.categories.push(response.category);
     });
   }
 }

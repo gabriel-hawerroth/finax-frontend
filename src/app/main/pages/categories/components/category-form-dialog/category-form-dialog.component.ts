@@ -18,6 +18,8 @@ import {
 import { MatDividerModule } from '@angular/material/divider';
 import { CategoryService } from '../../../../../services/category.service';
 import { LoginService } from '../../../../../services/login.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { response } from 'express';
 
 @Component({
   selector: 'app-category-form-dialog',
@@ -30,6 +32,7 @@ import { LoginService } from '../../../../../services/login.service';
     MatInputModule,
     MatButtonModule,
     MatDividerModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './category-form-dialog.component.html',
   styleUrl: './category-form-dialog.component.scss',
@@ -46,8 +49,24 @@ export class CategoryFormDialogComponent implements OnInit {
 
   categoryForm!: FormGroup;
 
+  confirmDelete: boolean = false;
+  excluding: boolean = false;
+
+  disabled: boolean = false;
+
   ngOnInit(): void {
     this.buildForm();
+
+    if (this.data.category !== 'new')
+      this.categoryForm.patchValue(this.data.category);
+
+    if (
+      this.categoryForm.value.name === 'Outras despesas' ||
+      this.categoryForm.value.name === 'Outras receitas'
+    ) {
+      this.disabled = true;
+      this.categoryForm.disable();
+    }
   }
 
   buildForm() {
@@ -58,12 +77,10 @@ export class CategoryFormDialogComponent implements OnInit {
       icon: ['', Validators.required],
       type: [this.data.type, Validators.required],
       userId: this._loginService.getLoggedUserId,
+      active: true,
     });
 
     this.categoryForm.markAllAsTouched();
-
-    if (this.data.category !== 'new')
-      this.categoryForm.patchValue(this.data.category);
   }
 
   pickColor(color: string) {
@@ -80,7 +97,12 @@ export class CategoryFormDialogComponent implements OnInit {
     this._categoryService
       .save(this.categoryForm.value)
       .then((response) => {
-        this._dialogRef.close(response);
+        const result = {
+          category: response,
+          action: 'saved',
+        };
+        this._dialogRef.close(result);
+
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Categoria salva com sucesso'
@@ -93,6 +115,37 @@ export class CategoryFormDialogComponent implements OnInit {
             ? 'Erro ao salvar a categoria'
             : 'Error saving category'
         );
+      });
+  }
+
+  delete() {
+    this.excluding = true;
+    this.confirmDelete = false;
+
+    this._categoryService
+      .delete(this.categoryForm.value.id)
+      .then(() => {
+        const result = {
+          category: this.categoryForm.value,
+          action: 'excluded',
+        };
+        this._dialogRef.close(result);
+
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Categoria excluída com sucesso'
+            : 'Category deleted successfully'
+        );
+      })
+      .catch(() => {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Erro ao tentar excluir a categoria'
+            : 'Error trying to delete the category'
+        );
+      })
+      .finally(() => {
+        this.excluding = false;
       });
   }
 
@@ -156,6 +209,7 @@ export class CategoryFormDialogComponent implements OnInit {
     'currency_bitcoin',
     'attach_money',
     'finance_mode',
+    'trending_down',
     'order_approve',
     'trolley',
     'local_gas_station',

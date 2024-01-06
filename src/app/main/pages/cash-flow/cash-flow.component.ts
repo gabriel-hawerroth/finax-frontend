@@ -66,9 +66,11 @@ export class CashFlowComponent implements OnInit {
 
   releases: MonthlyCashFlow[] = [];
 
-  currentDate: Date = new Date();
-  currentMonth: number = this.currentDate.getMonth();
-  currentYear: number = this.currentDate.getFullYear();
+  selectedDate: Date = new Date();
+  selectedMonth: number = this.selectedDate.getMonth();
+  selectedYear: number = this.selectedDate.getFullYear();
+
+  currentYear: string = this.selectedDate.getFullYear().toString();
 
   searching: boolean = false;
 
@@ -100,8 +102,8 @@ export class CashFlowComponent implements OnInit {
 
     const filters: CashFlowFilters = {
       userId: this._loginService.getLoggedUserId,
-      month: this.currentMonth + 1,
-      year: this.currentYear,
+      month: this.selectedMonth + 1,
+      year: this.selectedYear,
     };
 
     this._cashFlowService
@@ -136,7 +138,7 @@ export class CashFlowComponent implements OnInit {
 
   getAccounts() {
     this._accountService.getByUser().then((response) => {
-      this.accounts = response;
+      this.accounts = this.utilsService.filterList(response, 'active', true);
     });
   }
 
@@ -149,43 +151,22 @@ export class CashFlowComponent implements OnInit {
   }
 
   getMonthName(index: number): string {
-    const tempDate = new Date(this.currentYear, index, 15);
+    const tempDate = new Date(this.selectedYear, index, 15);
     return tempDate.toLocaleString(this.language, { month: 'long' });
   }
 
   selectMonth(direction: 'before' | 'next'): void {
     if (direction === 'before') {
-      this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+      this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
     } else {
-      this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+      this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
     }
 
-    this.currentDate.setDate(15);
-    this.currentMonth = this.currentDate.getMonth();
-    this.currentYear = this.currentDate.getFullYear();
+    this.selectedDate.setDate(15);
+    this.selectedMonth = this.selectedDate.getMonth();
+    this.selectedYear = this.selectedDate.getFullYear();
 
     this.getReleases();
-  }
-
-  addRelease() {
-    lastValueFrom(
-      this._matDialog
-        .open(NewRealeseCashFlowDialogComponent, {
-          data: {
-            accounts: this.accounts,
-            categories: this.categories,
-            editing: false,
-          },
-          panelClass: 'new-release-cash-flow-dialog',
-          disableClose: true,
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (!response) return;
-
-      this.getReleases();
-    });
   }
 
   openDetails(cashFlow: MonthlyCashFlow) {
@@ -206,6 +187,26 @@ export class CashFlowComponent implements OnInit {
     });
   }
 
+  addRelease() {
+    lastValueFrom(
+      this._matDialog
+        .open(NewRealeseCashFlowDialogComponent, {
+          data: {
+            accounts: this.accounts,
+            categories: this.categories,
+            editing: false,
+          },
+          panelClass: 'new-release-cash-flow-dialog',
+          autoFocus: false,
+        })
+        .afterClosed()
+    ).then((response) => {
+      if (!response) return;
+
+      this.getReleases();
+    });
+  }
+
   editRelease(release: MonthlyCashFlow) {
     lastValueFrom(
       this._matDialog
@@ -217,7 +218,6 @@ export class CashFlowComponent implements OnInit {
             release: release,
           },
           panelClass: 'new-release-cash-flow-dialog',
-          disableClose: true,
           autoFocus: false,
         })
         .afterClosed()

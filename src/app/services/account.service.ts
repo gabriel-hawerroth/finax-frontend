@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoginService } from './login.service';
@@ -30,5 +30,16 @@ export class AccountService {
     data.userId = this._loginService.getLoggedUserId;
 
     return lastValueFrom(this._http.post<Account>(this.apiUrl, data));
+  }
+
+  adjustBalance(accountId: number, newBalance: number): Promise<Account> {
+    let params = new HttpParams();
+    params = params.append('newBalance', newBalance);
+
+    return lastValueFrom(
+      this._http.get<Account>(`${this.apiUrl}/adjust-balance/${accountId}`, {
+        params,
+      })
+    );
   }
 }
