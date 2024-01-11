@@ -1,9 +1,9 @@
 <div
-  class="new-expense-form"
+  class="release-form"
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
-  <form [formGroup]="expenseForm">
-    <div class="row1">
+  <form [formGroup]="form">
+    <div class="row row1">
       <mat-form-field style="width: 75%" [hideRequiredMarker]="true">
         <mat-label>
           {{ language === "pt-br" ? "Descrição" : "Description" }}
@@ -18,7 +18,8 @@
       </mat-form-field>
     </div>
 
-    <div class="row2">
+    <div class="row row2">
+      @if (form.get('type')!.value !== 'T') {
       <mat-form-field style="width: 39%" [hideRequiredMarker]="true">
         <mat-label>
           {{ language === "pt-br" ? "Conta/cartão" : "Account/card" }}
@@ -79,9 +80,104 @@
           [options]="{ prefix: currency + ' ', allowNegative: false }"
         />
       </mat-form-field>
+      } @else {
+      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+        <mat-label>
+          {{ language === "pt-br" ? "Conta origem" : "Origin Account" }}
+        </mat-label>
+        <mat-select formControlName="accountId">
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="leavedAccountTemplate"
+            ></ng-container>
+          </mat-select-trigger>
+
+          @for (account of accountsList; track account.id) {
+          <mat-option [value]="account.id" class="bank-account-item">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="'assets/banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                account_balance
+              </span>
+              }
+              <span>{{ account.name }}</span>
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <ng-template #leavedAccountTemplate>
+        <div class="selected-account">
+          @if (selectedAccount && selectedAccount.image) {
+          <img
+            [ngSrc]="'assets/banks/' + selectedAccount.image"
+            width="20"
+            height="20"
+            alt="bank account logo"
+          />
+          }
+          <span>{{ selectedAccount?.name }}</span>
+        </div>
+      </ng-template>
+
+      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+        <mat-label>
+          {{ language === "pt-br" ? "Conta destino" : "Target Account" }}
+        </mat-label>
+        <mat-select formControlName="targetAccountId">
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="enteredAccountTemplate"
+            ></ng-container>
+          </mat-select-trigger>
+
+          @for (account of accountsList; track account.id) {
+          <mat-option [value]="account.id" class="bank-account-item">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="'assets/banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                account_balance
+              </span>
+              }
+              <span>{{ account.name }}</span>
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <ng-template #enteredAccountTemplate>
+        <div class="selected-account">
+          @if (selectedTargetAccount && selectedTargetAccount.image) {
+          <img
+            [ngSrc]="'assets/banks/' + selectedTargetAccount.image"
+            width="20"
+            height="20"
+            alt="bank account logo"
+          />
+          }
+          <span>{{ selectedTargetAccount?.name }}</span>
+        </div>
+      </ng-template>
+      }
     </div>
 
-    <div class="row3">
+    <div class="row row3">
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
           {{ language === "pt-br" ? "Data" : "Date" }}
@@ -102,7 +198,8 @@
       </mat-form-field>
     </div>
 
-    <div class="row4">
+    <div class="row row4">
+      @if (form.get('type')!.value !== 'T') {
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
           {{ language === "pt-br" ? "Categoria" : "Category" }}
@@ -146,23 +243,25 @@
           </div>
         </ng-template>
       </mat-form-field>
+      } @else {
+      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+        <mat-label>
+          {{ language === "pt-br" ? "Valor" : "Value" }}
+        </mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="amount"
+          placeholder="0"
+          currencyMask
+          [options]="{ prefix: currency + ' ', allowNegative: false }"
+        />
+      </mat-form-field>
+      }
 
       <mat-checkbox formControlName="done">
         {{ language === "pt-br" ? "Realizado" : "Realized" }}
       </mat-checkbox>
-    </div>
-
-    <div class="row5">
-      <mat-form-field appearance="outline" style="width: 75%">
-        <mat-label>
-          {{ language === "pt-br" ? "Observação" : "Observation" }}
-        </mat-label>
-        <textarea
-          matInput
-          formControlName="observation"
-          maxlength="400"
-        ></textarea>
-      </mat-form-field>
     </div>
   </form>
 </div>

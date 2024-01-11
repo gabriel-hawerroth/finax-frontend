@@ -87,8 +87,7 @@ export class CashFlowComponent implements OnInit {
     this.buildForm();
     this.getReleases();
 
-    this.getAccounts();
-    this.getCategories();
+    this.getValues();
   }
 
   buildForm() {
@@ -136,18 +135,16 @@ export class CashFlowComponent implements OnInit {
       });
   }
 
-  getAccounts() {
-    this._accountService.getByUser().then((response) => {
-      this.accounts = this.utilsService.filterList(response, 'active', true);
-    });
-  }
+  async getValues() {
+    const [accounts, categories] = await Promise.all([
+      this._accountService.getByUser(),
+      this._categoryService.getByUser(),
+    ]);
 
-  getCategories() {
-    this._categoryService
-      .getByUser(this._loginService.getLoggedUserId)
-      .then((response) => {
-        this.categories = response;
-      });
+    this.accounts = this.utilsService.filterList(accounts, 'active', true);
+    this.categories = categories;
+
+    // this.addRelease('E');
   }
 
   getMonthName(index: number): string {
@@ -187,7 +184,7 @@ export class CashFlowComponent implements OnInit {
     });
   }
 
-  addRelease() {
+  addRelease(releaseType: string) {
     lastValueFrom(
       this._matDialog
         .open(NewRealeseCashFlowDialogComponent, {
@@ -195,6 +192,8 @@ export class CashFlowComponent implements OnInit {
             accounts: this.accounts,
             categories: this.categories,
             editing: false,
+            releaseType: releaseType,
+            selectedDate: this.selectedDate,
           },
           panelClass: 'new-release-cash-flow-dialog',
           autoFocus: false,
@@ -215,6 +214,8 @@ export class CashFlowComponent implements OnInit {
             accounts: this.accounts,
             categories: this.categories,
             editing: true,
+            releaseType: release.type,
+            selectedDate: this.selectedDate,
             release: release,
           },
           panelClass: 'new-release-cash-flow-dialog',

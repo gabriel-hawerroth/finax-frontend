@@ -64,6 +64,8 @@
                         }
                     }
 
+
+
                     .right {
                         button {
                             padding: .6rem 1rem;
@@ -191,6 +193,22 @@
                 font-size: 1.1rem;
                 border-top: 1px solid #00000032;
             }
+        }
+    }
+}
+
+.new-release-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0 !important;
+    padding: .5rem 0;
+
+    span {
+        padding: .7rem 1.2rem;
+
+        &:hover {
+            background-color: #8080802a;
+            cursor: pointer;
         }
     }
 }

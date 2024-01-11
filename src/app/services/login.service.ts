@@ -1,10 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
-  HttpParams,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
@@ -13,6 +8,7 @@ import { UtilsService } from '../utils/utils.service';
 import { User } from '../interfaces/User';
 import { Credentials } from '../interfaces/Credentials';
 import { UserService } from './user.service';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -82,6 +78,11 @@ export class LoginService {
             } else {
               this._utilsService.removeItemLocalStorage('savedLoginFinax');
             }
+
+            this._utilsService.setItemLocalStorage(
+              'tokenExpiration',
+              moment().add(1, 'hour').toDate().toString()
+            );
           })
           .catch((error) => {
             this._utilsService.showSimpleMessage(
@@ -117,10 +118,11 @@ export class LoginService {
   logout(showMessage: boolean = true) {
     this._utilsService.removeItemLocalStorage('userFinax');
     this._utilsService.removeItemLocalStorage('tokenFinax');
+    this._utilsService.removeItemLocalStorage('tokenExpiration');
     this._router.navigate(['']);
     this._utilsService.userImage.next('assets/user-image.webp');
     if (showMessage)
-      this._utilsService.showSimpleMessageWithDuration(
+      this._utilsService.showSimpleMessage(
         this._utilsService.getUserConfigs.language === 'pt-br'
           ? 'Acesso expirado, por favor logue novamente'
           : 'Access expired, please log in again',

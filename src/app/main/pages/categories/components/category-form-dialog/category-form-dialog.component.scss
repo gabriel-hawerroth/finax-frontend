@@ -8,18 +8,127 @@
     border-radius: 10px !important;
 }
 
+@media screen and (min-width: 1280px) and (min-height: 720px) and (max-width: 1920px) and (max-height: 1080px) {
+    .category-form-dialog {
+        height: 80vh !important;
+
+        .top {}
+
+        .content {
+            form {
+                .row1 {
+                    margin-bottom: .2rem !important;
+
+                    .material-symbols-outlined {
+                        width: 4rem !important;
+                        font-size: 1.8rem !important;
+                        border-width: 2px !important;
+                    }
+                }
+
+                .row2 {
+                    margin-top: 0 !important;
+                    margin-bottom: 1rem !important;
+                    gap: .8rem !important;
+
+                    .colors {
+                        .color {
+                            width: 2.5rem !important;
+                        }
+                    }
+                }
+
+                .row3 {
+                    margin-top: 0 !important;
+                    margin-bottom: 1.5rem !important;
+                    gap: .8rem !important;
+
+                    .icons {
+                        padding: 0 1rem !important;
+                        gap: 1rem !important;
+                        max-height: 7rem !important;
+
+                        .material-symbols-outlined {
+                            width: 2.7rem !important;
+                            font-size: 1.5rem !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) and (max-height: 720px) {
+    .category-form-dialog {
+        height: 80vh !important;
+
+        .top {
+            padding: 1.3rem !important;
+            padding-bottom: 0 !important;
+        }
+
+        .content {
+            form {
+                .row1 {
+                    margin-bottom: .3rem !important;
+
+                    .material-symbols-outlined {
+                        width: 3.5rem !important;
+                        font-size: 1.6rem !important;
+                        border-width: 1px !important;
+                    }
+                }
+
+                .row2 {
+                    margin-top: .8rem !important;
+                    margin-bottom: 1rem !important;
+                    gap: 1rem !important;
+
+                    .colors {
+                        .color {
+                            width: 2.5rem !important;
+                        }
+                    }
+                }
+
+                .row3 {
+                    margin-top: .8rem !important;
+                    margin-bottom: 1.5rem !important;
+                    gap: 1rem !important;
+
+                    .icons {
+                        padding: 0 1rem !important;
+                        gap: 1rem !important;
+                        max-height: 7rem !important;
+
+                        .material-symbols-outlined {
+                            width: 2.7rem !important;
+                            font-size: 1.5rem !important;
+                        }
+                    }
+                }
+            }
+
+            .row4 {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+}
+
 .category-form-dialog {
     display: flex;
     flex-direction: column;
-    height: 100% !important;
-    overflow: hidden;
+    height: 100%;
+    overflow: scroll;
 
     .top {
         width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 1.5rem 1.5rem;
+        padding: 1.5rem;
 
         .delete {
             position: absolute;
@@ -79,7 +188,7 @@
                 display: flex;
                 align-items: center;
                 gap: 3rem;
-                padding: 0 0 0 3rem;
+                padding-left: 3rem;
                 margin-bottom: 1.5rem;
 
                 .material-symbols-outlined {
@@ -106,8 +215,7 @@
                 display: flex;
                 flex-direction: column;
                 padding: 0 2.6rem;
-                margin-top: 1.5rem;
-                margin-bottom: 1.5rem;
+                margin: 1.5rem 0;
                 gap: 1.5rem;
 
                 .colors {
@@ -160,7 +268,7 @@
         }
 
         .row4 {
-            margin-bottom: 2rem;
+            margin-bottom: 1.3rem;
 
             .mdc-button {
                 scale: (1.2);

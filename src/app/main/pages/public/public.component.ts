@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { UtilsService } from '../../../utils/utils.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-public',
@@ -33,7 +34,13 @@ export class PublicComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    if (this.isPcScreen) this.validateByScreenSize();
+    if (this.isPcScreen && this.utilsService.isBrowser) this.showArrowUp();
+
+    if (
+      moment().isAfter(this.utilsService.getItemLocalStorage('tokenExpiration'))
+    ) {
+      this.loginService.logout(false);
+    }
   }
 
   buildForm() {
@@ -42,12 +49,10 @@ export class PublicComponent implements OnInit {
     });
   }
 
-  validateByScreenSize() {
-    if (this.utilsService.isBrowser) {
-      window.onscroll = () => {
-        this.showScrollTop = document.documentElement.scrollTop > 600;
-      };
-    }
+  showArrowUp() {
+    window.onscroll = () => {
+      this.showScrollTop = document.documentElement.scrollTop > 600;
+    };
   }
 
   get getWidth(): number {

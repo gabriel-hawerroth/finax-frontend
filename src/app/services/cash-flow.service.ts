@@ -38,4 +38,27 @@ export class CashFlowService {
   delete(id: number): Promise<any> {
     return lastValueFrom(this._http.delete<any>(`${this.apiUrl}/${id}`));
   }
+
+  addAttachment(releaseId: number, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return lastValueFrom(
+      this._http.put(`${this.apiUrl}/add-attachment/${releaseId}`, formData)
+    );
+  }
+
+  removeAttachment(releaseId: number) {
+    return lastValueFrom(
+      this._http.put(`${this.apiUrl}/remove-attachment/${releaseId}`, {})
+    );
+  }
+
+  getAttachment(releaseId: number): Promise<Blob> {
+    return lastValueFrom(
+      this._http.get<Blob>(`${this.apiUrl}/get-attachment/${releaseId}`, {
+        responseType: 'blob' as 'json',
+      })
+    );
+  }
 }

@@ -38,6 +38,46 @@ export class ReleaseDetailsComponent {
   confirmDelete: boolean = false;
   excluding: boolean = false;
 
+  downloadAttachment() {
+    this._cashFlowService.getAttachment(this.release.id).then((response) => {
+      if (response.size === 0) {
+        this.utilsService.showSimpleMessage('Erro no arquivo, FFFF');
+        return;
+      }
+
+      const blob = new Blob([response], {
+        type: response.type,
+      });
+
+      const blobUrl = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = blobUrl;
+      anchor.download = this.release.attachmentName!;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(blobUrl);
+    });
+  }
+
+  getMimeTypeFromExtension(filename: string): string {
+    const ext = filename.split('.').pop()!.toLowerCase();
+    switch (ext) {
+      case 'pdf':
+        return 'application/pdf';
+      case 'jpg':
+      case 'jpeg':
+      case 'jfif':
+        return 'image/jpeg';
+      case 'png':
+        return 'image/png';
+      case 'webp':
+        return 'image/webp';
+      default:
+        return 'application/octet-stream';
+    }
+  }
+
   edit() {
     this._bottomSheet.dismiss('edit');
   }

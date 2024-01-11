@@ -13,9 +13,43 @@
               {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
             </h1>
 
-            <button mat-icon-button id="add-btn" (click)="addRelease()">
+            <button
+              mat-icon-button
+              id="add-btn"
+              [mat-menu-trigger-for]="newReleaseMenu"
+            >
               <i class="pi pi-plus"></i>
             </button>
+
+            <mat-menu #newReleaseMenu="matMenu">
+              <div
+                class="new-release-menu"
+                [ngStyle]="{
+                  'background-color':
+                    utilsService.getUserConfigs.theme === 'dark'
+                      ? '#3b3b3bfd'
+                      : '',
+                  color:
+                    utilsService.getUserConfigs.theme === 'dark'
+                      ? '#dddddd'
+                      : ''
+                }"
+              >
+                <span (click)="addRelease('E')">
+                  {{ language === "pt-br" ? "Nova despesa" : "New expense" }}
+                </span>
+
+                <span (click)="addRelease('R')">
+                  {{ language === "pt-br" ? "Nova receita" : "New revenue" }}
+                </span>
+
+                <span (click)="addRelease('T')">
+                  {{
+                    language === "pt-br" ? "Nova transferência" : "New transfer"
+                  }}
+                </span>
+              </div>
+            </mat-menu>
           </div>
 
           <div class="right">

@@ -40,7 +40,7 @@ export class CategorysComponent implements OnInit {
 
   getCategories() {
     this._categoryService
-      .getByUser(this._loginService.getLoggedUserId)
+      .getByUser()
       .then((response) => {
         this.categories = response;
       })
@@ -71,6 +71,7 @@ export class CategorysComponent implements OnInit {
           },
           width: '40%',
           autoFocus: false,
+          maxHeight: '90vh',
         })
         .afterClosed()
     ).then((response) => {

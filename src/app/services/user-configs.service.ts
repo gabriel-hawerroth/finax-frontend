@@ -30,6 +30,7 @@ export class UserConfigsService {
   }
 
   save(userConfigs: UserConfigs): Promise<UserConfigs> {
+    this._utilsService.userConfigs.next(userConfigs);
     this._utilsService.setItemLocalStorage(
       'savedUserConfigsFinax',
       btoa(JSON.stringify(userConfigs))

@@ -83,6 +83,15 @@
     </div>
 
     <div class="row3">
+      @if (release.attachmentName) {
+      <button mat-stroked-button (click)="downloadAttachment()">
+        <div class="btn-content" style="color: #4d4d4d">
+          <span class="material-symbols-outlined">cloud_download</span>
+          {{ language === "pt-br" ? "Baixar anexo" : "Download attachment" }}
+        </div>
+      </button>
+      }
+
       <button
         mat-stroked-button
         color="primary"

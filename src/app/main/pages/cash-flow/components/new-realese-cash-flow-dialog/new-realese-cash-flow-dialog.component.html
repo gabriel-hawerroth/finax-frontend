@@ -3,13 +3,20 @@
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
   <div class="top">
-    <button mat-icon-button mat-dialog-close class="close-btn">
-      <span class="material-symbols-outlined">close</span>
+    <button
+      mat-stroked-button
+      class="save-btn"
+      color="primary"
+      (click)="save()"
+      [disabled]="releaseForm.pristine || releaseForm.invalid"
+    >
+      <i class="pi pi-save"></i>
+      {{ language === "pt-br" ? "Salvar" : "Save" }}
     </button>
 
     @if (data.editing) {
     <h2>
-      @switch (data.release.type) { @case ("E") {
+      @switch (data.releaseType) { @case ("E") {
       {{ language === "pt-br" ? "Editando despesa" : "Editing expense" }}
       } @case ("R") {
       {{ language === "pt-br" ? "Editando receita" : "Editing revenue" }}
@@ -19,62 +26,125 @@
     </h2>
     } @else {
     <h2>
-      {{ language === "pt-br" ? "Novo lançamento" : "New release" }}
+      @switch (data.releaseType) { @case ("E") {
+      {{ language === "pt-br" ? "Nova despesa" : "New expense" }}
+      } @case ("R") {
+      {{ language === "pt-br" ? "Nova receita" : "New revenue" }}
+      } @case ("T") {
+      {{ language === "pt-br" ? "Nova transferência" : "New transfer" }}
+      } }
     </h2>
     }
 
-    <button
-      mat-stroked-button
-      class="save-btn"
-      color="primary"
-      (click)="save()"
-      [disabled]="disableSave()"
-    >
-      <i class="pi pi-save"></i>
-      {{ language === "pt-br" ? "Salvar" : "Save" }}
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <span class="material-symbols-outlined">close</span>
     </button>
   </div>
 
   <div class="content">
-    <mat-tab-group
-      [tabIndex]="selectedTabIndex"
-      (selectedIndexChange)="selectedTabIndex = $event"
-      color="primary"
-    >
-      @if (!data.editing || data.release.type === 'E') {
-      <mat-tab [label]="language === 'pt-br' ? 'Despesa' : 'Expense'">
-        <div class="tab-content">
-          <app-new-expense-form
-            [expenseForm]="expenseForm"
-            [accountsList]="data.accounts"
-            [categoriesList]="data.categories"
-          ></app-new-expense-form>
+    <app-release-form
+      [form]="releaseForm"
+      [accountsList]="data.accounts"
+      [categoriesList]="data.categories"
+      class="mb-2"
+    ></app-release-form>
+
+    @if (selectedFile || showRepeat || showObservation) {
+    <form [formGroup]="releaseForm">
+      @if (selectedFile) {
+      <div class="selected-file">
+        <mat-divider class="mb-3" style="width: 90%"></mat-divider>
+
+        <div class="file-content">
+          <h3>{{ language === "pt-br" ? "Anexos" : "Attachments" }}</h3>
+
+          <div class="file">
+            <span>{{ selectedFile.name }}</span>
+
+            <button
+              mat-icon-button
+              class="remove-file-btn"
+              (click)="removeFile()"
+            >
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
         </div>
-      </mat-tab>
-      } @if (!data.editing || data.release.type === 'R') {
-      <mat-tab [label]="language === 'pt-br' ? 'Receita' : 'Revenue'">
-        <div class="tab-content">
-          @defer {
-          <app-new-revenue-form
-            [revenueForm]="revenueForm"
-            [accountsList]="data.accounts"
-            [categoriesList]="data.categories"
-          ></app-new-revenue-form>
-          }
-        </div>
-      </mat-tab>
-      } @if (!data.editing || data.release.type === 'T') {
-      <mat-tab [label]="language === 'pt-br' ? 'Transferência' : 'Transfer'">
-        <div class="tab-content">
-          @defer {
-          <app-new-transfer-form
-            [transferForm]="transferForm"
-            [accountsList]="data.accounts"
-          ></app-new-transfer-form>
-          }
-        </div>
-      </mat-tab>
+      </div>
+      } @if (showRepeat) {
+      <div class="repeat">
+        <mat-divider class="mb-4" style="width: 90%"></mat-divider>
+      </div>
+      } @if (showObservation) {
+      <div class="observation">
+        <mat-divider class="mb-4" style="width: 90%"></mat-divider>
+
+        <mat-form-field appearance="outline" style="width: 85%">
+          <mat-label>
+            {{ language === "pt-br" ? "Observação" : "Observation" }}
+          </mat-label>
+          <textarea
+            matInput
+            formControlName="observation"
+            maxlength="400"
+          ></textarea>
+        </mat-form-field>
+      </div>
       }
-    </mat-tab-group>
+    </form>
+    }
+
+    <div
+      class="bottom"
+      [ngStyle]="{
+        'margin-top': showRepeat || showObservation ? '2rem' : '.8rem'
+      }"
+    >
+      <label
+        class="bottom-btn"
+        (click)="showRepeat = !showRepeat"
+        [ngStyle]="{
+          'background-color': showRepeat ? '#b6b6b673' : 'transparent',
+          'color': showRepeat ? '#fff' : '',
+          'border': showRepeat ? 'none' : '',
+        }"
+        matTooltip="Repetir"
+      >
+        <span class="material-symbols-outlined">repeat</span>
+      </label>
+
+      <label
+        class="bottom-btn"
+        (click)="showObservation = !showObservation"
+        [ngStyle]="{
+          'background-color': showObservation ? '#b6b6b673' : 'transparent',
+          'color': showObservation ? '#fff' : '',
+          'border': showObservation ? 'none' : '',
+        }"
+        matTooltip="Observação"
+      >
+        <span class="material-symbols-outlined">speaker_notes</span>
+      </label>
+
+      <input
+        type="file"
+        id="fileInput"
+        (change)="onFileSelected($event)"
+        style="display: none"
+      />
+
+      <label
+        for="fileInput"
+        class="bottom-btn"
+        [ngStyle]="{
+          'background-color': selectedFile ? '#b6b6b673' : 'transparent',
+          color: selectedFile ? '#fff' : '',
+          border: selectedFile ? 'none' : '',
+        }"
+        matTooltip="Anexo"
+      >
+        <span class="material-symbols-outlined">attach_file_add</span>
+      </label>
+    </div>
   </div>
 </div>

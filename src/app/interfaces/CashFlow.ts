@@ -10,6 +10,8 @@ export interface CashFlow {
   date: Date;
   time?: string;
   observation?: string;
+  attachment?: File;
+  attachmentName?: string;
 }
 
 export interface CashFlowFilters {
@@ -26,15 +28,17 @@ export interface MonthlyCashFlow {
   amount: number;
   type: string;
   done: boolean;
-  targetAccountId: number;
-  targetAccountName: string;
-  categoryId: number;
-  categoryName: string;
-  categoryColor: string;
-  categoryIcon: string;
+  targetAccountId?: number;
+  targetAccountName?: string;
+  categoryId?: number;
+  categoryName?: string;
+  categoryColor?: string;
+  categoryIcon?: string;
   date: Date;
   time: string;
   observation: string;
+  attachment?: any;
+  attachmentName?: string;
 }
 
 export interface TotalsCashFlow {

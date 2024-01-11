@@ -54,14 +54,7 @@ export class UtilsService {
     if (this.isBrowser) localStorage.removeItem(item);
   }
 
-  showSimpleMessage(message: string) {
-    this._snackBar.open(message, '', {
-      duration: 3000,
-    });
-  }
-
-  showSimpleMessageWithDuration(message: string, duration: number) {
-    if (duration === 0) return;
+  showSimpleMessage(message: string, duration: number = 3000) {
     this._snackBar.open(message, '', {
       duration: duration,
     });

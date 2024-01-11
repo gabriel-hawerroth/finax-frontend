@@ -1,17 +1,33 @@
-<div [ngClass]="{
+<div
+  [ngClass]="{
     'simple-page': true,
     'dark-page': utilsService.getUserConfigs.theme === 'dark'
-  }">
+  }"
+>
   <h1 class="page-title">
     {{ language === "pt-br" ? "Meu perfil" : "My profile" }}
   </h1>
 
   <div class="flex flex-column justify-content-center align-items-center">
-    <img [src]="profileImageSrc" alt="foto de perfil do usuário" id="profileImg" />
-    <input type="file" id="fileInput" (change)="onFileSelected($event)" style="display: none" accept="image/*" />
-    <label for="fileInput" class="custom-file-input">{{
-      language === "pt-br" ? "Alterar foto de perfil" : "Change profile picture"
-      }}</label>
+    <img
+      [src]="profileImageSrc"
+      alt="foto de perfil do usuário"
+      id="profileImg"
+    />
+    <input
+      type="file"
+      id="fileInput"
+      (change)="onFileSelected($event)"
+      style="display: none"
+      accept="image/*"
+    />
+    <label for="fileInput" class="custom-file-input">
+      {{
+        language === "pt-br"
+          ? "Alterar foto de perfil"
+          : "Change profile picture"
+      }}
+    </label>
   </div>
 
   <div class="flex">
@@ -20,7 +36,12 @@
         <div class="flex">
           <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
             <mat-label>Email</mat-label>
-            <input type="text" matInput formControlName="email" readonly="true" />
+            <input
+              type="text"
+              matInput
+              formControlName="email"
+              readonly="true"
+            />
           </mat-form-field>
         </div>
 
@@ -28,8 +49,13 @@
           <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
             <mat-label>{{
               language === "pt-br" ? "Nome" : "First name"
-              }}</mat-label>
-            <input type="text" matInput formControlName="firstName" maxlength="30" />
+            }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="firstName"
+              maxlength="30"
+            />
           </mat-form-field>
         </div>
 
@@ -37,18 +63,28 @@
           <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
             <mat-label>{{
               language === "pt-br" ? "Sobrenome" : "Last name"
-              }}</mat-label>
-            <input type="text" matInput formControlName="lastName" maxlength="90" />
+            }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="lastName"
+              maxlength="90"
+            />
           </mat-form-field>
         </div>
       </form>
 
       <div class="buttons">
-        <button mat-stroked-button color="primary" [disabled]="
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="
             (userForm.pristine && !changedProfileImg) ||
             userForm.invalid ||
             showLoading
-          " (click)="saveUser()">
+          "
+          (click)="saveUser()"
+        >
           @if (!showLoading) {
           <span>
             <i class="pi pi-save"></i>
@@ -59,7 +95,11 @@
           }
         </button>
 
-        <button mat-stroked-button color="primary" (click)="openChangePasswordDialog()">
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="openChangePasswordDialog()"
+        >
           <span>
             <span class="material-symbols-outlined">vpn_key</span>
             {{ language === "pt-br" ? "Alterar a senha" : "Change password" }}
@@ -108,11 +148,14 @@
       </div>
 
       <button mat-button color="primary" id="change-payment-method">
-        <span><span class="material-symbols-outlined">credit_card</span>{{
-          language === "pt-br"
-          ? "Alterar forma de pagamento"
-          : "Change payment method"
-          }}</span>
+        <span
+          ><span class="material-symbols-outlined">credit_card</span
+          >{{
+            language === "pt-br"
+              ? "Alterar forma de pagamento"
+              : "Change payment method"
+          }}</span
+        >
       </button>
     </div>
   </div>

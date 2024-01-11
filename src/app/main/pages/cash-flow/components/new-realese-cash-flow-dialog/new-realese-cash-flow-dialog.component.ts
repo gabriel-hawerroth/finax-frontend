@@ -8,15 +8,24 @@ import {
 } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
-import { NewExpenseFormComponent } from './components/new-expense-form/new-expense-form.component';
-import { NewRevenueFormComponent } from './components/new-revenue-form/new-revenue-form.component';
-import { NewTransferFormComponent } from './components/new-transfer-form/new-transfer-form.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { CashFlow } from '../../../../../interfaces/CashFlow';
 import { Category } from '../../../../../interfaces/Category';
 import { Subject, takeUntil } from 'rxjs';
 import moment from 'moment';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReleaseFormComponent } from './components/release-form/release-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-new-realese-cash-flow-dialog',
@@ -26,9 +35,13 @@ import moment from 'moment';
     MatDialogModule,
     MatTabsModule,
     MatButtonModule,
-    NewExpenseFormComponent,
-    NewRevenueFormComponent,
-    NewTransferFormComponent,
+    MatFormFieldModule,
+    ReleaseFormComponent,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatDividerModule,
+    MatTooltipModule,
+    MatRadioModule,
   ],
   templateUrl: './new-realese-cash-flow-dialog.component.html',
   styleUrl: './new-realese-cash-flow-dialog.component.scss',
@@ -42,47 +55,60 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
 
   language = this.utilsService.getUserConfigs.language;
 
-  selectedTabIndex: number = 0;
+  releaseForm!: FormGroup;
 
-  expenseForm!: FormGroup;
-  revenueForm!: FormGroup;
-  transferForm!: FormGroup;
+  currentDate: Date = new Date();
+  defaultDate: Date = this.data.selectedDate;
+
+  selectedFile: File | null = null;
+  showRepeat: boolean = false;
+  showObservation: boolean = false;
+
+  changedAttachment: boolean = false;
+  removedFile: boolean = false;
 
   _unsubscribeAll: Subject<any> = new Subject();
 
   ngOnInit(): void {
-    this.buildForms();
-
-    if (this.data.editing) {
-      switch (this.data.release.type) {
-        case 'E':
-          this.selectedTabIndex = 0;
-          this.expenseForm.patchValue(this.data.release);
-          break;
-
-        case 'R':
-          this.selectedTabIndex = 1;
-          this.revenueForm.patchValue(this.data.release);
-          break;
-
-        case 'T':
-          this.selectedTabIndex = 2;
-          this.transferForm.patchValue(this.data.release);
-          break;
-      }
+    if (
+      this.defaultDate.getMonth() === this.currentDate.getMonth() &&
+      this.defaultDate.getFullYear() === this.currentDate.getFullYear()
+    ) {
+      this.defaultDate = this.currentDate;
     } else {
-      const otherExpensesCategorieId: number = this.data.categories.find(
-        (item: Category) => item.name === 'Outras despesas'
-      ).id;
-      this.expenseForm.get('categoryId')!.setValue(otherExpensesCategorieId);
-
-      const otherRevenuesCategorieId: number = this.data.categories.find(
-        (item: Category) => item.name === 'Outras receitas'
-      ).id;
-      this.revenueForm.get('categoryId')!.setValue(otherRevenuesCategorieId);
+      this.defaultDate = new Date(this.defaultDate.setDate(1));
     }
 
-    this.subscribeDateChanges();
+    this.buildForm();
+
+    if (this.data.editing) {
+      this.releaseForm.patchValue(this.data.release);
+
+      if (this.data.release.attachmentName) {
+        const blob = new Blob([this.data.release.attachment], {
+          type: 'application/octet-stream',
+        });
+
+        const file = new File([blob], this.data.release.attachmentName);
+        this.selectedFile = file;
+      }
+
+      if (this.data.release.observation) {
+        this.showObservation = true;
+      }
+    } else if (this.data.releaseType === 'E' || this.data.releaseType === 'R') {
+      const otherCategorieId: number = this.data.categories.find(
+        (item: Category) =>
+          item.name ===
+          (this.data.releaseType === 'E'
+            ? 'Outras despesas'
+            : this.data.releaseType === 'R'
+            ? 'Outras receitas'
+            : '')
+      ).id;
+
+      this.releaseForm.get('categoryId')!.setValue(otherCategorieId);
+    }
   }
 
   ngOnDestroy(): void {
@@ -90,167 +116,51 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  buildForms() {
-    this.expenseForm = this._fb.group({
+  buildForm() {
+    this.releaseForm = this._fb.group({
       id: null,
       description: '',
       accountId: [null, Validators.required],
+      targetAccountId: [null],
       amount: [0, Validators.required],
-      type: ['E', Validators.required],
+      type: [this.data.releaseType, Validators.required],
       done: [true, Validators.required],
       categoryId: [null, Validators.required],
-      date: [new Date(), Validators.required],
+      date: [this.defaultDate, Validators.required],
       time: '',
       observation: '',
+      repeat: '',
     });
+    this.releaseForm.markAllAsTouched();
 
-    this.revenueForm = this._fb.group({
-      id: null,
-      description: '',
-      accountId: [null, Validators.required],
-      amount: [0, Validators.required],
-      type: ['R', Validators.required],
-      done: [true, Validators.required],
-      categoryId: [null, Validators.required],
-      date: [new Date(), Validators.required],
-      time: '',
-      observation: '',
-    });
-
-    this.transferForm = this._fb.group({
-      id: '',
-      description: '',
-      accountId: [null, Validators.required],
-      amount: [0, Validators.required],
-      type: ['T', Validators.required],
-      done: [true, Validators.required],
-      categoryId: null,
-      targetAccountId: [null, Validators.required],
-      date: [new Date(), Validators.required],
-      time: '',
-      observation: '',
-    });
-
-    this.expenseForm.markAllAsTouched();
-    this.revenueForm.markAllAsTouched();
-    this.transferForm.markAllAsTouched();
-  }
-
-  subscribeDateChanges() {
-    this.expenseForm
-      .get('date')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.expenseForm
-          .get('done')!
-          .setValue(!moment(value).isAfter(new Date()));
-      });
-    this.revenueForm
-      .get('date')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.revenueForm
-          .get('done')!
-          .setValue(!moment(value).isAfter(new Date()));
-      });
-    this.transferForm
-      .get('date')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.transferForm
-          .get('done')!
-          .setValue(!moment(value).isAfter(new Date()));
-      });
-  }
-
-  disableSave(): boolean {
-    if (this.selectedTabIndex === 0) {
-      return this.expenseForm.pristine || this.expenseForm.invalid;
-    } else if (this.selectedTabIndex === 1) {
-      return this.revenueForm.pristine || this.revenueForm.invalid;
-    } else {
-      return this.transferForm.pristine || this.transferForm.invalid;
+    if (this.data.releaseType === 'T') {
+      this.releaseForm
+        .get('targetAccountId')!
+        .setValidators(Validators.required);
     }
+
+    this.releaseForm
+      .get('date')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.releaseForm
+          .get('done')!
+          .setValue(!moment(value).isAfter(new Date()));
+      });
   }
 
   save() {
-    if (this.selectedTabIndex === 0) {
-      if (this.expenseForm.value.amount === 0) {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'O valor deve ser maior que zero'
-            : 'The amount must be greater than zero'
-        );
-      } else {
-        this.saveExpense();
-      }
-    } else if (this.selectedTabIndex === 1) {
-      if (this.revenueForm.value.amount === 0) {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'O valor deve ser maior que zero'
-            : 'The amount must be greater than zero'
-        );
-      } else {
-        this.saveRevenue();
-      }
-    } else if (this.selectedTabIndex === 2) {
-      if (this.transferForm.value.amount === 0) {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'O valor deve ser maior que zero'
-            : 'The amount must be greater than zero'
-        );
-      } else {
-        this.saveTransfer();
-      }
+    if (this.releaseForm.value.amount === 0) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'O valor deve ser maior que zero'
+          : 'The amount must be greater than zero'
+      );
+      return;
     }
-  }
-
-  saveExpense() {
-    this._cashFlowService
-      .save(this.expenseForm.value)
-      .then((response: CashFlow) => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Despesa salva com sucesso'
-            : 'Expense saved successfully'
-        );
-        this._matDialogRef.close(true);
-      })
-      .catch(() => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar a despesa'
-            : 'Error saving expense'
-        );
-      });
-  }
-
-  saveRevenue() {
-    this._cashFlowService
-      .save(this.revenueForm.value)
-      .then((response: CashFlow) => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Receita salva com sucesso'
-            : 'Revenue saved successfully'
-        );
-        this._matDialogRef.close(true);
-      })
-      .catch(() => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar a receita'
-            : 'Error saving revenue'
-        );
-      });
-  }
-
-  saveTransfer() {
     if (
-      this.transferForm.value.accountId ===
-      this.transferForm.value.targetAccountId
+      this.releaseForm.value.type === 'T' &&
+      this.releaseForm.value.accountId == this.releaseForm.value.targetAccountId
     ) {
       this.utilsService.showSimpleMessage(
         this.language === 'pt-br'
@@ -261,17 +171,61 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
     }
 
     this._cashFlowService
-      .save(this.transferForm.value)
+      .save(this.releaseForm.value)
       .then((response: CashFlow) => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Transferência salva com sucesso'
-            : 'Transfer saved successfully'
-        );
-        this._matDialogRef.close(true);
+        if (this.changedAttachment && this.selectedFile) {
+          this._cashFlowService
+            .addAttachment(response.id!, this.selectedFile)
+            .then((response) => {
+              this.utilsService.showSimpleMessage(
+                this.language === 'pt-br'
+                  ? 'Lançamento salvo com sucesso'
+                  : 'Release saved successfully'
+              );
+            })
+            .catch((err) => {
+              this.utilsService.showSimpleMessage(
+                this.language === 'pt-br'
+                  ? 'Lançamento salvo com sucesso porém houve um erro ao salvar o anexo'
+                  : 'Launch saved successfully, but there was an error saving the attachment',
+                6000
+              );
+            })
+            .finally(() => {
+              this._matDialogRef.close(true);
+            });
+        } else if (this.removedFile) {
+          this._cashFlowService
+            .removeAttachment(response.id!)
+            .then((response) => {
+              this.utilsService.showSimpleMessage(
+                this.language === 'pt-br'
+                  ? 'Lançamento salvo com sucesso'
+                  : 'Release saved successfully'
+              );
+            })
+            .catch((err) => {
+              this.utilsService.showSimpleMessage(
+                this.language === 'pt-br'
+                  ? 'Lançamento salvo com sucesso porém houve um erro ao excluir o anexo'
+                  : 'Launch saved successfully, but there was an error excluding the attachment',
+                6000
+              );
+            })
+            .finally(() => {
+              this._matDialogRef.close(true);
+            });
+        } else {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Lançamento salvo com sucesso'
+              : 'Release saved successfully'
+          );
+          this._matDialogRef.close(true);
+        }
       })
-      .catch((error) => {
-        if (error.error.status === 406) {
+      .catch((err) => {
+        if (err.error.status === 406) {
           this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
               ? 'Saldo insuficiente'
@@ -280,10 +234,53 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
         } else {
           this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
-              ? 'Erro ao salvar a transferência'
-              : 'Error saving transfer'
+              ? 'Erro ao salvar o lançamento'
+              : 'Error saving release'
           );
         }
       });
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const fileExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'jfif', 'webp'];
+    const extension = file.name.split('.').pop().toLowerCase();
+    if (fileExtensions.indexOf(extension) === -1) {
+      alert(
+        this.language === 'pt-br'
+          ? 'Por favor, selecione um arquivo de imagem válido (pdf, jpg, jpeg, png, jfif, webp).'
+          : 'Please select a valid image file (pdf, jpg, jpeg, png, jfif, webp).'
+      );
+      return;
+    }
+
+    const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
+    if (file.size > maxSize) {
+      alert(
+        this.language === 'pt-br'
+          ? 'O arquivo selecionado é muito grande. O tamanho máximo permitido é 3MB.'
+          : 'The selected file is too large. The maximum size allowed is 3MB.'
+      );
+      return;
+    }
+
+    this.selectedFile = file;
+    this.releaseForm.markAsDirty();
+    this.changedAttachment = true;
+  }
+
+  removeFile() {
+    this.selectedFile = null;
+    this.releaseForm.markAsDirty();
+
+    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+    fileInput.value = '';
+
+    if (this.data.release.attachmentName) {
+      this.removedFile = true;
+    }
   }
 }

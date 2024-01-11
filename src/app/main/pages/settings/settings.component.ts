@@ -50,11 +50,24 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buidForm();
-    this.getConfigs();
+
+    this._userConfigsService
+      .getByUserId(this._loginService.getLoggedUserId)
+      .then((response) => {
+        this.configsForm.patchValue(response);
+      })
+      .catch((err) => {
+        this.configsForm.patchValue(this.utilsService.getUserConfigs);
+        this.configsForm
+          .get('userId')!
+          .setValue(this._loginService.getLoggedUserId);
+        this.saveConfigs();
+      });
 
     this.configsForm.valueChanges
       .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
       .subscribe((value) => {
+        this.language = value.language;
         this.utilsService.userConfigs.next(value);
       });
   }
@@ -76,13 +89,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  getConfigs() {
-    this.userConfigs = this.utilsService.getUserConfigs!;
-    this.configsForm.patchValue(this.userConfigs);
-  }
-
   saveConfigs() {
-    this.utilsService.userConfigs.next(this.configsForm.value);
     this._userConfigsService.save(this.configsForm.value).catch(() => {
       this.utilsService.showSimpleMessage(
         this.language === 'pt-br'
