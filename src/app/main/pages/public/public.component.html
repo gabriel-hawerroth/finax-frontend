@@ -90,7 +90,6 @@
     #secondSection
     id="reset-the-possible"
   >
-    @defer (on viewport(secondSection)) {
     <div class="left" id="ss-img-container">
       <img
         ngSrc="assets/img-section2.webp"
@@ -171,7 +170,6 @@
         </div>
       </div>
     </div>
-    }
   </div>
 
   <!-- End of **** Second Section **** -->
@@ -184,7 +182,7 @@
     #signaturesSection
     id="signatures"
   >
-    @defer (on viewport(signaturesSection)) {
+    @defer (on viewport(secondSection)) {
     <div class="top">
       <h1>Nossos planos</h1>
       <form [formGroup]="switchPlansForm">
@@ -324,7 +322,7 @@
   <!-- Start of **** Mobile Section **** -->
 
   @if (!isPcScreen) {
-  <div id="mobile-section">
+  <div id="mobile-section" #mobileSection>
     <h2>Disponível apenas para computador</h2>
     <span
       >Sentimos muito, no momento nosso sistema está disponível para acesso
@@ -338,7 +336,7 @@
   <!-- Start of **** Public Footer **** -->
 
   <div class="public-footer" #trigger>
-    @defer (on viewport(trigger)) {
+    @defer {
     <div class="left">
       <h1>Finax</h1>
       <span
