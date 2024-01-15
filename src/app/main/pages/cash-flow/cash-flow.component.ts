@@ -11,7 +11,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NewRealeseCashFlowDialogComponent } from './components/new-realese-cash-flow-dialog/new-realese-cash-flow-dialog.component';
 import {
-  CashFlow,
   CashFlowFilters,
   MonthlyCashFlow,
   TotalsCashFlow,
@@ -143,8 +142,6 @@ export class CashFlowComponent implements OnInit {
 
     this.accounts = this.utilsService.filterList(accounts, 'active', true);
     this.categories = categories;
-
-    // this.addRelease('E');
   }
 
   getMonthName(index: number): string {

@@ -10,7 +10,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -26,6 +25,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { LoginService } from '../../../../../services/login.service';
 
 @Component({
   selector: 'app-new-realese-cash-flow-dialog',
@@ -42,6 +44,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatDividerModule,
     MatTooltipModule,
     MatRadioModule,
+    MatSelectModule,
+    NgxCurrencyDirective,
   ],
   templateUrl: './new-realese-cash-flow-dialog.component.html',
   styleUrl: './new-realese-cash-flow-dialog.component.scss',
@@ -52,6 +56,7 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
   private _fb = inject(FormBuilder);
   private _cashFlowService = inject(CashFlowService);
   private _matDialogRef = inject(MatDialogRef);
+  private _loginService = inject(LoginService);
 
   language = this.utilsService.getUserConfigs.language;
 
@@ -66,6 +71,8 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
 
   changedAttachment: boolean = false;
   removedFile: boolean = false;
+
+  smallScreen: boolean = window.innerHeight < 800 && window.innerWidth < 1400;
 
   _unsubscribeAll: Subject<any> = new Subject();
 
@@ -119,6 +126,7 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
   buildForm() {
     this.releaseForm = this._fb.group({
       id: null,
+      userId: this._loginService.getLoggedUserId,
       description: '',
       accountId: [null, Validators.required],
       targetAccountId: [null],
@@ -130,6 +138,8 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
       time: '',
       observation: '',
       repeat: '',
+      fixedBy: 'monthly',
+      installmentsBy: '2',
     });
     this.releaseForm.markAllAsTouched();
 
@@ -146,6 +156,15 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
         this.releaseForm
           .get('done')!
           .setValue(!moment(value).isAfter(new Date()));
+      });
+
+    this.releaseForm
+      .get('installmentsBy')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value: string) => {
+        if (value == '0') {
+          this.releaseForm.get('installmentsBy')!.setValue('2');
+        }
       });
   }
 
@@ -171,7 +190,12 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
     }
 
     this._cashFlowService
-      .save(this.releaseForm.value)
+      .save({
+        repeat: this.releaseForm.value.repeat,
+        fixedBy: this.releaseForm.value.fixedBy,
+        installmentsBy: this.releaseForm.value.installmentsBy,
+        release: this.releaseForm.value,
+      })
       .then((response: CashFlow) => {
         if (this.changedAttachment && this.selectedFile) {
           this._cashFlowService

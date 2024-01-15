@@ -4,12 +4,11 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { LoginService } from './services/login.service';
 import { Location } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent, HttpClientModule],
+  imports: [CommonModule, RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

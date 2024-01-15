@@ -1,17 +1,26 @@
 export interface CashFlow {
   id?: number;
+  userId: number;
   description?: string;
   accountId: number;
   amount: number;
   type: string;
   done: boolean;
   targetAccountId?: number;
-  categoryId?: number;
+  categoryId: number;
   date: Date;
   time?: string;
   observation?: string;
   attachment?: File;
   attachmentName?: string;
+  duplicatedReleaseId?: number;
+}
+
+export interface ReleaseSave {
+  repeat: string;
+  fixedBy: string;
+  installmentsBy: number;
+  release: CashFlow;
 }
 
 export interface CashFlowFilters {
@@ -22,6 +31,7 @@ export interface CashFlowFilters {
 
 export interface MonthlyCashFlow {
   id: number;
+  userId: number;
   description: string;
   accountId: number;
   accountName: string;

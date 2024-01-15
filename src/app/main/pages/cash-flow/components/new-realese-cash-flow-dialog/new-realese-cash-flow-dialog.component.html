@@ -2,10 +2,13 @@
   class="new-release-cash-flow-dialog"
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
-  <div class="top">
+  <div
+    class="top"
+    [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2rem' : '0.2rem' }"
+  >
     <button
-      mat-stroked-button
       class="save-btn"
+      mat-stroked-button
       color="primary"
       (click)="save()"
       [disabled]="releaseForm.pristine || releaseForm.invalid"
@@ -42,109 +45,207 @@
   </div>
 
   <div class="content">
-    <app-release-form
-      [form]="releaseForm"
-      [accountsList]="data.accounts"
-      [categoriesList]="data.categories"
-      class="mb-2"
-    ></app-release-form>
+    <div class="form-buttons">
+      <app-release-form
+        [form]="releaseForm"
+        [accountsList]="data.accounts"
+        [categoriesList]="data.categories"
+        class="flex-1"
+      ></app-release-form>
 
-    @if (selectedFile || showRepeat || showObservation) {
-    <form [formGroup]="releaseForm">
-      @if (selectedFile) {
-      <div class="selected-file">
-        <mat-divider class="mb-3" style="width: 90%"></mat-divider>
-
-        <div class="file-content">
-          <h3>{{ language === "pt-br" ? "Anexos" : "Attachments" }}</h3>
-
-          <div class="file">
-            <span>{{ selectedFile.name }}</span>
-
-            <button
-              mat-icon-button
-              class="remove-file-btn"
-              (click)="removeFile()"
-            >
-              <span class="material-symbols-outlined">close</span>
-            </button>
-          </div>
-        </div>
-      </div>
-      } @if (showRepeat) {
-      <div class="repeat">
-        <mat-divider class="mb-4" style="width: 90%"></mat-divider>
-      </div>
-      } @if (showObservation) {
-      <div class="observation">
-        <mat-divider class="mb-4" style="width: 90%"></mat-divider>
-
-        <mat-form-field appearance="outline" style="width: 85%">
-          <mat-label>
-            {{ language === "pt-br" ? "Observação" : "Observation" }}
-          </mat-label>
-          <textarea
-            matInput
-            formControlName="observation"
-            maxlength="400"
-          ></textarea>
-        </mat-form-field>
-      </div>
-      }
-    </form>
-    }
-
-    <div
-      class="bottom"
-      [ngStyle]="{
-        'margin-top': showRepeat || showObservation ? '2rem' : '.8rem'
-      }"
-    >
-      <label
-        class="bottom-btn"
-        (click)="showRepeat = !showRepeat"
+      <div
+        class="buttons"
         [ngStyle]="{
-          'background-color': showRepeat ? '#b6b6b673' : 'transparent',
-          'color': showRepeat ? '#fff' : '',
-          'border': showRepeat ? 'none' : '',
+          'margin-top':
+            showRepeat || showObservation
+              ? smallScreen
+                ? '0'
+                : '2rem'
+              : smallScreen
+              ? '.0'
+              : '.8rem'
         }"
-        matTooltip="Repetir"
       >
-        <span class="material-symbols-outlined">repeat</span>
-      </label>
+        <input
+          type="file"
+          id="fileInput"
+          (change)="onFileSelected($event)"
+          style="display: none"
+        />
 
-      <label
-        class="bottom-btn"
-        (click)="showObservation = !showObservation"
-        [ngStyle]="{
-          'background-color': showObservation ? '#b6b6b673' : 'transparent',
-          'color': showObservation ? '#fff' : '',
-          'border': showObservation ? 'none' : '',
-        }"
-        matTooltip="Observação"
-      >
-        <span class="material-symbols-outlined">speaker_notes</span>
-      </label>
-
-      <input
-        type="file"
-        id="fileInput"
-        (change)="onFileSelected($event)"
-        style="display: none"
-      />
-
-      <label
-        for="fileInput"
-        class="bottom-btn"
-        [ngStyle]="{
+        <label
+          for="fileInput"
+          class="bottom-btn"
+          [ngStyle]="{
           'background-color': selectedFile ? '#b6b6b673' : 'transparent',
           color: selectedFile ? '#fff' : '',
           border: selectedFile ? 'none' : '',
         }"
-        matTooltip="Anexo"
-      >
-        <span class="material-symbols-outlined">attach_file_add</span>
-      </label>
+          matTooltip="Anexo"
+          matTooltipPosition="left"
+        >
+          <span class="material-symbols-outlined">attach_file_add</span>
+        </label>
+
+        @if (!releaseForm.value.id) {
+        <label
+          class="bottom-btn"
+          (click)="showRepeat = !showRepeat"
+          [ngStyle]="{
+          'background-color': showRepeat ? '#b6b6b673' : 'transparent',
+          'color': showRepeat ? '#fff' : '',
+          'border': showRepeat ? 'none' : '',
+        }"
+          matTooltip="Repetir"
+          matTooltipPosition="left"
+        >
+          <span class="material-symbols-outlined">repeat</span>
+        </label>
+        }
+
+        <label
+          class="bottom-btn"
+          (click)="showObservation = !showObservation"
+          [ngStyle]="{
+          'background-color': showObservation ? '#b6b6b673' : 'transparent',
+          'color': showObservation ? '#fff' : '',
+          'border': showObservation ? 'none' : '',
+        }"
+          matTooltip="Observação"
+          matTooltipPosition="left"
+        >
+          <span class="material-symbols-outlined">speaker_notes</span>
+        </label>
+      </div>
     </div>
+
+    @if (selectedFile || showRepeat || showObservation) {
+    <mat-divider></mat-divider>
+
+    <form [formGroup]="releaseForm" class="extras">
+      @if (selectedFile || showObservation) {
+      <div class="file-obs" [ngStyle]="{ width: showRepeat ? '50%' : '100%' }">
+        @if (selectedFile) {
+        <div class="selected-file">
+          <div class="file-content">
+            <h3>{{ language === "pt-br" ? "Anexos" : "Attachments" }}</h3>
+
+            <div class="file">
+              <span>{{ selectedFile.name }}</span>
+
+              <button
+                mat-icon-button
+                class="remove-file-btn"
+                (click)="removeFile()"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        } @if (selectedFile && showObservation) {
+        <mat-divider></mat-divider>
+        } @if (showObservation) {
+        <div class="observation">
+          <mat-form-field appearance="outline" style="width: 80%">
+            <mat-label>
+              {{ language === "pt-br" ? "Observação" : "Observation" }}
+            </mat-label>
+            <textarea
+              matInput
+              formControlName="observation"
+              maxlength="400"
+            ></textarea>
+          </mat-form-field>
+        </div>
+        }
+      </div>
+      } @if (showRepeat) {
+      <div
+        class="repeat"
+        [ngStyle]="{
+          width: selectedFile || showObservation ? '50%' : '100%',
+          'border-left':
+            selectedFile || showObservation ? '1px solid #d1d1d1' : 'none'
+        }"
+      >
+        <mat-radio-group
+          formControlName="repeat"
+          aria-label="Select an option"
+          [ngStyle]="{
+            'flex-direction': selectedFile || showObservation ? 'column' : 'row',
+            gap: selectedFile || showObservation ? '0' : '4rem',
+          }"
+          style="display: flex"
+        >
+          <mat-radio-button value="fixed">
+            {{
+              language === "pt-br"
+                ? "É um lançamento fixo"
+                : "It's a fixed release"
+            }}
+          </mat-radio-button>
+
+          <mat-radio-button value="installments">
+            {{
+              language === "pt-br"
+                ? "É um lançamento parcelado em"
+                : "It's a installment release"
+            }}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        @if (releaseForm.value.repeat === 'fixed') {
+        <div class="fixed-release">
+          <mat-form-field
+            [ngStyle]="{
+              width: selectedFile || showObservation ? '50%' : '30%'
+            }"
+          >
+            <mat-label></mat-label>
+            <mat-select formControlName="fixedBy">
+              <mat-option value="daily">Diário</mat-option>
+              <mat-option value="weekly">Semanal</mat-option>
+              <mat-option value="monthly">Mensal</mat-option>
+              <mat-option value="bimonthly">Bimestral</mat-option>
+              <mat-option value="quarterly">Trimestral</mat-option>
+              <mat-option value="biannual">Semestral</mat-option>
+              <mat-option value="annual">Anual</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        } @else if (releaseForm.value.repeat === 'installments') {
+        <div class="installments-release">
+          <mat-form-field
+            [ngStyle]="{
+              width: selectedFile || showObservation ? '40%' : '20%'
+            }"
+          >
+            <mat-label></mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="installmentsBy"
+              currencyMask
+              [options]="{
+                prefix: '',
+                allowNegative: false,
+                allowZero: false,
+                decimal: '',
+                precision: 0,
+                suffix: language === 'pt-br' ? ' meses' : ' months',
+                thousands: '',
+                nullable: false,
+                min: 2,
+                max: 48,
+              }"
+            />
+          </mat-form-field>
+        </div>
+        }
+      </div>
+      }
+    </form>
+    }
   </div>
 </div>

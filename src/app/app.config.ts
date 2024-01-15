@@ -26,6 +26,7 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import localePt from '@angular/common/locales/pt';
+import { MessageService } from 'primeng/api';
 
 export const MY_FORMATS = {
   parse: {
@@ -72,5 +73,6 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    MessageService,
   ],
 };

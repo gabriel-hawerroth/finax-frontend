@@ -5,6 +5,7 @@ import {
   CashFlow,
   CashFlowFilters,
   MonthlyCashFlow,
+  ReleaseSave,
 } from '../interfaces/CashFlow';
 import { lastValueFrom } from 'rxjs';
 
@@ -31,7 +32,7 @@ export class CashFlowService {
     );
   }
 
-  save(data: CashFlow): Promise<CashFlow> {
+  save(data: ReleaseSave): Promise<CashFlow> {
     return lastValueFrom(this._http.post<CashFlow>(this.apiUrl, data));
   }
 

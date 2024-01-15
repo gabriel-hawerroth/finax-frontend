@@ -4,12 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
 import { isPlatformBrowser } from '@angular/common';
-import {
-  AbstractControl,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',

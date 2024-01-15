@@ -1,26 +1,30 @@
+@media (min-width: 1600px) and (min-height: 800px) {
+    .new-release-cash-flow-dialog {
+        width: 48vw !important;
+    }
+}
+
 .new-release-cash-flow-dialog {
-    background-color: transparent;
-    width: 40vw !important;
+    width: 55vw;
     padding: .6rem;
+    overflow: hidden;
 
     .top {
-        width: 100%;
         display: flex;
         justify-content: center;
-        align-items: center;
-        padding: 1.5rem 0;
-        z-index: 1;
-        background-color: transparent;
-
-        .close-btn {
-            position: absolute;
-            right: 1rem;
-        }
+        margin-top: 1rem;
 
         .save-btn {
             position: absolute;
+            top: 1.5rem;
             left: 1.5rem;
             padding: 1.3rem 1.3rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
         }
     }
 
@@ -28,76 +32,97 @@
         display: flex;
         flex-direction: column;
 
-        .selected-file {
+        .form-buttons {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-bottom: 1.2rem;
+            flex: 1;
 
-            .file-content {
-                width: 90%;
+            .buttons {
                 display: flex;
                 flex-direction: column;
-                padding: 0 2rem;
-                gap: .7rem;
+                justify-content: flex-start;
+                padding: 0 1rem 1rem 0;
 
-                .file {
+                .bottom-btn {
+                    margin-top: 1.8rem;
+                    padding: 1.3rem;
+                    border: 2px solid #d1d1d1;
+                    color: #acacac;
+                    border-radius: 50%;
                     display: flex;
-                    justify-content: start;
+                    justify-content: center;
                     align-items: center;
-
-                    button {
-                        position: absolute;
-                        right: 5rem;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        transform: scale(0.9);
-
-                        &:hover {
-                            border: 1px solid red;
-                            color: red;
-                        }
-                    }
+                    cursor: pointer;
                 }
             }
         }
 
-        .repeat {
+        .extras {
+            width: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+            margin-top: .7rem;
+            margin-bottom: 1.5rem;
 
-        .observation {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .bottom {
-            padding: 0 5rem;
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 2rem;
-
-            .bottom-btn {
-                width: 4.4rem;
-                aspect-ratio: 1/1;
-                border: 1px solid #b6b6b673;
-                color: #a1a1a1;
-                border-radius: 50%;
-                cursor: pointer;
+            .file-obs {
                 display: flex;
-                justify-content: center;
+                flex-direction: column;
                 align-items: center;
 
-                span {
-                    transform: scale(1.2);
+                .selected-file {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .file-content {
+                        width: 90%;
+                        padding: 0 1.3rem;
+
+                        .file {
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+
+                            .remove-file-btn {
+                                transform: scale(0.8);
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+
+                                &:hover {
+                                    border: 1px solid red;
+                                    color: red;
+                                }
+                            }
+                        }
+                    }
                 }
 
-                &:hover {
-                    border-color: #cecece;
+                mat-divider {
+                    width: 90%;
+                    margin-top: 0.25rem;
+                    margin-bottom: 1rem;
+                }
+
+                .observation {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding-top: .8rem;
+                }
+            }
+
+            .repeat {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .fixed-release,
+                .installments-release {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                 }
             }
         }
