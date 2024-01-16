@@ -9,11 +9,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { NewRealeseCashFlowDialogComponent } from './components/new-realese-cash-flow-dialog/new-realese-cash-flow-dialog.component';
+import { ReleaseFormDialogComponent } from './components/release-form-dialog/release-form-dialog.component';
 import {
   CashFlowFilters,
   MonthlyCashFlow,
-  TotalsCashFlow,
+  MonthlyBalance,
 } from '../../../interfaces/CashFlow';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { LoginService } from '../../../services/login.service';
@@ -73,10 +73,12 @@ export class CashFlowComponent implements OnInit {
 
   searching: boolean = false;
 
-  totals: TotalsCashFlow = {
+  totals: MonthlyBalance = {
     revenues: 0,
     expenses: 0,
     balance: 0,
+    generalBalance: 0,
+    expectedBalance: 0,
   };
 
   accounts: Account[] = [];
@@ -105,22 +107,10 @@ export class CashFlowComponent implements OnInit {
     };
 
     this._cashFlowService
-      .getMonthlyReleases(filters)
+      .getMonthlyFlow(filters)
       .then((response) => {
-        this.releases = response;
-
-        this.totals = {
-          expenses: 0,
-          revenues: 0,
-          balance: 0,
-        };
-
-        response.forEach((item) => {
-          if (item.type === 'R') this.totals.revenues += item.amount;
-          else if (item.type === 'E') this.totals.expenses += item.amount;
-        });
-
-        this.totals.balance = this.totals.revenues - this.totals.expenses;
+        this.releases = response.releases;
+        this.totals = response.totals;
       })
       .catch(() => {
         this.utilsService.showSimpleMessage(
@@ -184,7 +174,7 @@ export class CashFlowComponent implements OnInit {
   addRelease(releaseType: string) {
     lastValueFrom(
       this._matDialog
-        .open(NewRealeseCashFlowDialogComponent, {
+        .open(ReleaseFormDialogComponent, {
           data: {
             accounts: this.accounts,
             categories: this.categories,
@@ -206,7 +196,7 @@ export class CashFlowComponent implements OnInit {
   editRelease(release: MonthlyCashFlow) {
     lastValueFrom(
       this._matDialog
-        .open(NewRealeseCashFlowDialogComponent, {
+        .open(ReleaseFormDialogComponent, {
           data: {
             accounts: this.accounts,
             categories: this.categories,

@@ -11,10 +11,16 @@
       mat-stroked-button
       color="primary"
       (click)="save()"
-      [disabled]="releaseForm.pristine || releaseForm.invalid"
+      [disabled]="releaseForm.pristine || releaseForm.invalid || saving"
     >
-      <i class="pi pi-save"></i>
-      {{ language === "pt-br" ? "Salvar" : "Save" }}
+      <div class="save-btn-content">
+        @if (saving) {
+        <mat-spinner [diameter]="28"></mat-spinner>
+        } @else {
+        <i class="pi pi-save"></i>
+        <span>{{ language === "pt-br" ? "Salvar" : "Save" }}</span>
+        }
+      </div>
     </button>
 
     @if (data.editing) {

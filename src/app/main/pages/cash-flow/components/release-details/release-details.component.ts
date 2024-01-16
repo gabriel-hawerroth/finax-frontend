@@ -3,7 +3,6 @@ import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
 import {
   MAT_BOTTOM_SHEET_DATA,
-  MatBottomSheet,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 import { MonthlyCashFlow } from '../../../../../interfaces/CashFlow';
@@ -11,6 +10,9 @@ import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CashFlowService } from '../../../../../services/cash-flow.service';
+import { MatDialog } from '@angular/material/dialog';
+import { lastValueFrom } from 'rxjs';
+import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 
 @Component({
   selector: 'app-release-details',
@@ -27,8 +29,9 @@ import { CashFlowService } from '../../../../../services/cash-flow.service';
 export class ReleaseDetailsComponent {
   public utilsService = inject(UtilsService);
   public data = inject(MAT_BOTTOM_SHEET_DATA);
-  private _bottomSheet = inject(MatBottomSheetRef);
   private _cashFlowService = inject(CashFlowService);
+  private _bottomSheet = inject(MatBottomSheetRef);
+  private _matDialog = inject(MatDialog);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -82,12 +85,35 @@ export class ReleaseDetailsComponent {
     this._bottomSheet.dismiss('edit');
   }
 
-  delete() {
+  async delete() {
+    let duplicatedReleasesAction: string = '';
+
+    if (this.release.isDuplicatedRelease) {
+      await lastValueFrom(
+        this._matDialog
+          .open(ConfirmDuplicatedReleasesActionComponent, {
+            data: {
+              action: 'delete',
+            },
+            autoFocus: false,
+            panelClass: 'confirm-duplicated-releases-action',
+          })
+          .afterClosed()
+      ).then((response: 'just-this' | 'nexts' | 'all') => {
+        if (!response) return;
+
+        duplicatedReleasesAction = response;
+      });
+    }
+
+    if (this.release.isDuplicatedRelease && duplicatedReleasesAction === '')
+      return;
+
     this.excluding = true;
     this.confirmDelete = false;
 
     this._cashFlowService
-      .delete(this.release.id)
+      .delete(this.release.id, duplicatedReleasesAction)
       .then((response) => {
         this._bottomSheet.dismiss('delete');
         this.utilsService.showSimpleMessage(

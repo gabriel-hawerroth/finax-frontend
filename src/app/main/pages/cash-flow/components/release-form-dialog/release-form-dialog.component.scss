@@ -19,6 +19,12 @@
             top: 1.5rem;
             left: 1.5rem;
             padding: 1.3rem 1.3rem;
+
+            .save-btn-content {
+                display: flex;
+                gap: .5rem;
+                align-items: center;
+            }
         }
 
         .close-btn {

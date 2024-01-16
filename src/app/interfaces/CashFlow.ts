@@ -29,6 +29,11 @@ export interface CashFlowFilters {
   month: number;
 }
 
+export interface MonthlyFlow {
+  releases: MonthlyCashFlow[];
+  totals: MonthlyBalance;
+}
+
 export interface MonthlyCashFlow {
   id: number;
   userId: number;
@@ -49,10 +54,14 @@ export interface MonthlyCashFlow {
   observation: string;
   attachment?: any;
   attachmentName?: string;
+  duplicatedReleaseId?: number;
+  isDuplicatedRelease: boolean;
 }
 
-export interface TotalsCashFlow {
+export interface MonthlyBalance {
   revenues: number;
   expenses: number;
   balance: number;
+  generalBalance: number;
+  expectedBalance: number;
 }

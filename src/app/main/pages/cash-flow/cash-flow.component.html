@@ -172,20 +172,36 @@
       </div>
 
       <div class="totals">
-        <span>
-          {{ language === "pt-br" ? "Receitas: " : "Revenue: " }}
-          {{ currency }}{{ totals.revenues | customCurrency }}
-        </span>
+        <div class="row1">
+          <span>
+            {{ language === "pt-br" ? "Receitas:" : "Revenue:" }}
+            {{ currency }}{{ totals.revenues | customCurrency }}
+          </span>
 
-        <span>
-          {{ language === "pt-br" ? "Despesas: " : "Expenses: " }}
-          {{ currency }}{{ totals.expenses | customCurrency }}
-        </span>
+          <span>
+            {{ language === "pt-br" ? "Despesas:" : "Expenses:" }}
+            {{ currency }}{{ totals.expenses | customCurrency }}
+          </span>
 
-        <span>
-          {{ language === "pt-br" ? "Balanço: " : "Balance: " }}
-          {{ currency }}{{ totals.balance | customCurrency }}
-        </span>
+          <span>
+            {{ language === "pt-br" ? "Balanço:" : "Balance:" }}
+            {{ currency }}{{ totals.balance | customCurrency }}
+          </span>
+        </div>
+
+        <div class="row2">
+          <span>
+            {{ language === "pt-br" ? "Saldo geral: " : "General balance: " }}
+            {{ currency }}{{ totals.generalBalance | customCurrency }}
+          </span>
+
+          <span>
+            {{
+              language === "pt-br" ? "Saldo previsto: " : "Expected balance: "
+            }}
+            {{ currency }}{{ totals.expectedBalance | customCurrency }}
+          </span>
+        </div>
       </div>
     </mat-card>
   </div>

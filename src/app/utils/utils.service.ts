@@ -59,6 +59,10 @@ export class UtilsService {
     this._snackBar.open(message, 'OK');
   }
 
+  dismissMessage() {
+    this._snackBar.dismiss();
+  }
+
   passwordValidator() {
     const passRequirement = {
       passwordMinNumber: 1,

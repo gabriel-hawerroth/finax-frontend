@@ -28,9 +28,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { LoginService } from '../../../../../services/login.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-new-realese-cash-flow-dialog',
+  selector: 'release-form-dialog',
   standalone: true,
   imports: [
     CommonModule,
@@ -46,11 +47,12 @@ import { LoginService } from '../../../../../services/login.service';
     MatRadioModule,
     MatSelectModule,
     NgxCurrencyDirective,
+    MatProgressSpinnerModule,
   ],
-  templateUrl: './new-realese-cash-flow-dialog.component.html',
-  styleUrl: './new-realese-cash-flow-dialog.component.scss',
+  templateUrl: './release-form-dialog.component.html',
+  styleUrl: './release-form-dialog.component.scss',
 })
-export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
+export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   public data = inject(MAT_DIALOG_DATA);
   private _fb = inject(FormBuilder);
@@ -73,6 +75,8 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
   removedFile: boolean = false;
 
   smallScreen: boolean = window.innerHeight < 800 && window.innerWidth < 1400;
+
+  saving: boolean = false;
 
   _unsubscribeAll: Subject<any> = new Subject();
 
@@ -147,6 +151,8 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
       this.releaseForm
         .get('targetAccountId')!
         .setValidators(Validators.required);
+
+      this.releaseForm.get('categoryId')!.clearValidators();
     }
 
     this.releaseForm
@@ -189,6 +195,27 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.saving = true;
+
+    setTimeout(() => {
+      if (this.saving) {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
+            : 'Due to the size of the image, this may take a few seconds',
+          4000
+        );
+
+        setTimeout(() => {
+          if (this.saving) {
+            this.utilsService.showSimpleMessage(
+              this.language === 'pt-br' ? 'Quase lá...' : 'Almost there...'
+            );
+          }
+        }, 10000);
+      }
+    }, 8000);
+
     this._cashFlowService
       .save({
         repeat: this.releaseForm.value.repeat,
@@ -196,17 +223,10 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
         installmentsBy: this.releaseForm.value.installmentsBy,
         release: this.releaseForm.value,
       })
-      .then((response: CashFlow) => {
+      .then(async (response: CashFlow) => {
         if (this.changedAttachment && this.selectedFile) {
-          this._cashFlowService
+          await this._cashFlowService
             .addAttachment(response.id!, this.selectedFile)
-            .then((response) => {
-              this.utilsService.showSimpleMessage(
-                this.language === 'pt-br'
-                  ? 'Lançamento salvo com sucesso'
-                  : 'Release saved successfully'
-              );
-            })
             .catch((err) => {
               this.utilsService.showSimpleMessage(
                 this.language === 'pt-br'
@@ -214,20 +234,10 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
                   : 'Launch saved successfully, but there was an error saving the attachment',
                 6000
               );
-            })
-            .finally(() => {
-              this._matDialogRef.close(true);
             });
         } else if (this.removedFile) {
-          this._cashFlowService
+          await this._cashFlowService
             .removeAttachment(response.id!)
-            .then((response) => {
-              this.utilsService.showSimpleMessage(
-                this.language === 'pt-br'
-                  ? 'Lançamento salvo com sucesso'
-                  : 'Release saved successfully'
-              );
-            })
             .catch((err) => {
               this.utilsService.showSimpleMessage(
                 this.language === 'pt-br'
@@ -235,18 +245,16 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
                   : 'Launch saved successfully, but there was an error excluding the attachment',
                 6000
               );
-            })
-            .finally(() => {
-              this._matDialogRef.close(true);
             });
-        } else {
-          this.utilsService.showSimpleMessage(
-            this.language === 'pt-br'
-              ? 'Lançamento salvo com sucesso'
-              : 'Release saved successfully'
-          );
-          this._matDialogRef.close(true);
         }
+
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Lançamento salvo com sucesso'
+            : 'Release saved successfully'
+        );
+
+        this._matDialogRef.close(true);
       })
       .catch((err) => {
         if (err.error.status === 406) {
@@ -262,6 +270,10 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
               : 'Error saving release'
           );
         }
+      })
+      .finally(() => {
+        this.saving = false;
+        this.utilsService.dismissMessage();
       });
   }
 
@@ -275,8 +287,8 @@ export class NewRealeseCashFlowDialogComponent implements OnInit, OnDestroy {
     if (fileExtensions.indexOf(extension) === -1) {
       alert(
         this.language === 'pt-br'
-          ? 'Por favor, selecione um arquivo de imagem válido (pdf, jpg, jpeg, png, jfif, webp).'
-          : 'Please select a valid image file (pdf, jpg, jpeg, png, jfif, webp).'
+          ? 'Por favor, selecione um arquivo válido (pdf, jpg, jpeg, png, jfif, webp).'
+          : 'Please select a valid file (pdf, jpg, jpeg, png, jfif, webp).'
       );
       return;
     }
