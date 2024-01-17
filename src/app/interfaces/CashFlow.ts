@@ -16,13 +16,6 @@ export interface CashFlow {
   duplicatedReleaseId?: number;
 }
 
-export interface ReleaseSave {
-  repeat: string;
-  fixedBy: string;
-  installmentsBy: number;
-  release: CashFlow;
-}
-
 export interface CashFlowFilters {
   userId: number;
   year: number;

@@ -1,13 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {
-  CashFlow,
-  CashFlowFilters,
-  MonthlyCashFlow,
-  MonthlyFlow,
-  ReleaseSave,
-} from '../interfaces/CashFlow';
+import { CashFlow, CashFlowFilters, MonthlyFlow } from '../interfaces/CashFlow';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable({
@@ -33,8 +27,25 @@ export class CashFlowService {
     );
   }
 
-  save(data: ReleaseSave): Promise<CashFlow> {
-    return lastValueFrom(this._http.post<CashFlow>(this.apiUrl, data));
+  addRelease(data: CashFlow, installmentsBy: number): Promise<CashFlow> {
+    let params = new HttpParams();
+    params = params.append('installmentsBy', installmentsBy);
+
+    return lastValueFrom(
+      this._http.post<CashFlow>(this.apiUrl, data, { params })
+    );
+  }
+
+  editRelease(
+    data: CashFlow,
+    duplicatedReleaseAction: string
+  ): Promise<CashFlow> {
+    let params = new HttpParams();
+    params = params.append('duplicatedReleaseAction', duplicatedReleaseAction);
+
+    return lastValueFrom(
+      this._http.put<CashFlow>(this.apiUrl, data, { params })
+    );
   }
 
   delete(id: number, duplicatedReleasesAction: string): Promise<any> {

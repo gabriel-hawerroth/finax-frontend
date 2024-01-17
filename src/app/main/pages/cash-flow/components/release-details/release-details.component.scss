@@ -156,12 +156,8 @@
     }
 
     .content {
-        .row3 {
-            .delete {
-                .btn-content {
-                    color: #fff;
-                }
-            }
+        .btn-content {
+            color: #fff !important;
         }
     }
 }

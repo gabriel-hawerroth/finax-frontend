@@ -3,6 +3,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
 import {
   MAT_DIALOG_DATA,
+  MatDialog,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
@@ -17,7 +18,7 @@ import {
 import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { CashFlow } from '../../../../../interfaces/CashFlow';
 import { Category } from '../../../../../interfaces/Category';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import moment from 'moment';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReleaseFormComponent } from './components/release-form/release-form.component';
@@ -29,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { LoginService } from '../../../../../services/login.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 
 @Component({
   selector: 'release-form-dialog',
@@ -57,6 +59,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   public data = inject(MAT_DIALOG_DATA);
   private _fb = inject(FormBuilder);
   private _cashFlowService = inject(CashFlowService);
+  private _matDialog = inject(MatDialog);
   private _matDialogRef = inject(MatDialogRef);
   private _loginService = inject(LoginService);
 
@@ -163,18 +166,9 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           .get('done')!
           .setValue(!moment(value).isAfter(new Date()));
       });
-
-    this.releaseForm
-      .get('installmentsBy')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value: string) => {
-        if (value == '0') {
-          this.releaseForm.get('installmentsBy')!.setValue('2');
-        }
-      });
   }
 
-  save() {
+  async save() {
     if (this.releaseForm.value.amount === 0) {
       this.utilsService.showSimpleMessage(
         this.language === 'pt-br'
@@ -182,8 +176,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           : 'The amount must be greater than zero'
       );
       return;
-    }
-    if (
+    } else if (
       this.releaseForm.value.type === 'T' &&
       this.releaseForm.value.accountId == this.releaseForm.value.targetAccountId
     ) {
@@ -193,9 +186,44 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           : 'It is not possible to make a transfer to the same bank'
       );
       return;
+    } else if (
+      this.releaseForm.value.repeat === 'installments' &&
+      this.releaseForm.value.installmentsBy === 0
+    ) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'Informe a quantidade de parcelas'
+          : 'Enter the number of installments'
+      );
+      return;
+    }
+
+    let release = this.releaseForm.value;
+    let duplicatedReleaseAction: string = '';
+
+    if (release.id && this.data.release.isDuplicatedRelease) {
+      await lastValueFrom(
+        this._matDialog
+          .open(ConfirmDuplicatedReleasesActionComponent, {
+            data: {
+              action: 'edit',
+            },
+            autoFocus: false,
+            panelClass: 'confirm-duplicated-releases-action',
+          })
+          .afterClosed()
+      ).then((response: 'just-this' | 'nexts' | 'all') => {
+        if (!response) return;
+
+        duplicatedReleaseAction = response;
+      });
+
+      if (duplicatedReleaseAction === '') return;
     }
 
     this.saving = true;
+    let showingMessage: boolean = false;
+    let requestError: boolean = false;
 
     setTimeout(() => {
       if (this.saving) {
@@ -203,78 +231,94 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           this.language === 'pt-br'
             ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
             : 'Due to the size of the image, this may take a few seconds',
-          4000
+          6000
         );
+        showingMessage = true;
+        setTimeout(() => {
+          showingMessage = false;
+        }, 6000);
 
         setTimeout(() => {
           if (this.saving) {
             this.utilsService.showSimpleMessage(
-              this.language === 'pt-br' ? 'Quase lá...' : 'Almost there...'
+              this.language === 'pt-br' ? 'Quase lá...' : 'Almost there...',
+              6000
             );
+            showingMessage = true;
+            setTimeout(() => {
+              showingMessage = false;
+            }, 6000);
           }
-        }, 10000);
+        }, 15000);
       }
     }, 8000);
 
-    this._cashFlowService
-      .save({
-        repeat: this.releaseForm.value.repeat,
-        fixedBy: this.releaseForm.value.fixedBy,
-        installmentsBy: this.releaseForm.value.installmentsBy,
-        release: this.releaseForm.value,
-      })
-      .then(async (response: CashFlow) => {
-        if (this.changedAttachment && this.selectedFile) {
-          await this._cashFlowService
-            .addAttachment(response.id!, this.selectedFile)
-            .catch((err) => {
-              this.utilsService.showSimpleMessage(
-                this.language === 'pt-br'
-                  ? 'Lançamento salvo com sucesso porém houve um erro ao salvar o anexo'
-                  : 'Launch saved successfully, but there was an error saving the attachment',
-                6000
-              );
-            });
-        } else if (this.removedFile) {
-          await this._cashFlowService
-            .removeAttachment(response.id!)
-            .catch((err) => {
-              this.utilsService.showSimpleMessage(
-                this.language === 'pt-br'
-                  ? 'Lançamento salvo com sucesso porém houve um erro ao excluir o anexo'
-                  : 'Launch saved successfully, but there was an error excluding the attachment',
-                6000
-              );
-            });
-        }
-
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Lançamento salvo com sucesso'
-            : 'Release saved successfully'
-        );
-
-        this._matDialogRef.close(true);
-      })
-      .catch((err) => {
-        if (err.error.status === 406) {
-          this.utilsService.showSimpleMessage(
-            this.language === 'pt-br'
-              ? 'Saldo insuficiente'
-              : 'Insufficient balance'
-          );
-        } else {
+    if (!release.id) {
+      await this._cashFlowService
+        .addRelease(release, release.installmentsBy)
+        .then((response) => {
+          release = response;
+        })
+        .catch(() => {
           this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
               ? 'Erro ao salvar o lançamento'
-              : 'Error saving release'
+              : 'Error saving the release'
           );
-        }
-      })
-      .finally(() => {
-        this.saving = false;
-        this.utilsService.dismissMessage();
+          requestError = true;
+        });
+    } else {
+      await this._cashFlowService
+        .editRelease(release, duplicatedReleaseAction)
+        .then((response) => {
+          release = response;
+        })
+        .catch(() => {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Erro ao salvar o lançamento'
+              : 'Error saving the release'
+          );
+          requestError = true;
+        });
+    }
+
+    if (this.changedAttachment && this.selectedFile && !requestError) {
+      await this._cashFlowService
+        .addAttachment(release.id, this.selectedFile)
+        .catch((err) => {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Lançamento salvo com sucesso porém houve um erro ao salvar o anexo'
+              : 'Launch saved successfully, but there was an error saving the attachment',
+            6000
+          );
+          requestError = true;
+        });
+    } else if (this.removedFile && !requestError) {
+      await this._cashFlowService.removeAttachment(release.id).catch((err) => {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Lançamento salvo com sucesso porém houve um erro ao excluir o anexo'
+            : 'Launch saved successfully, but there was an error excluding the attachment',
+          6000
+        );
+        requestError = true;
       });
+    }
+
+    if (!requestError) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'Lançamento salvo com sucesso'
+          : 'Release saved successfully'
+      );
+      this._matDialogRef.close(true);
+    }
+
+    this.saving = false;
+
+    if (showingMessage) this.utilsService.dismissMessage();
   }
 
   onFileSelected(event: any) {
