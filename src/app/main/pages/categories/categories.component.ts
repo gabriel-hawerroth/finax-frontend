@@ -5,11 +5,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { SplitterModule } from 'primeng/splitter';
 import { Category } from '../../../interfaces/Category';
 import { CategoryService } from '../../../services/category.service';
-import { LoginService } from '../../../services/login.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
 import { lastValueFrom } from 'rxjs';
+import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-categories',
@@ -27,7 +27,6 @@ import { lastValueFrom } from 'rxjs';
 export class CategorysComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _categoryService = inject(CategoryService);
-  private _loginService = inject(LoginService);
   private _matDialog = inject(MatDialog);
 
   language = this.utilsService.getUserConfigs.language;
@@ -61,7 +60,15 @@ export class CategorysComponent implements OnInit {
     return this.utilsService.filterList(this.categories, 'type', 'R');
   }
 
-  editCategory(category: Category) {
+  editCategory(event: Event, category: Category) {
+    const isDeleteButtonClick = (event.target as HTMLElement).closest(
+      '.delete-btn'
+    );
+
+    if (isDeleteButtonClick) {
+      return;
+    }
+
     lastValueFrom(
       this._matDialog
         .open(CategoryFormDialogComponent, {
@@ -71,21 +78,17 @@ export class CategorysComponent implements OnInit {
           },
           width: '40%',
           autoFocus: false,
-          maxHeight: '90vh',
+          maxHeight: '95vh',
         })
         .afterClosed()
     ).then((response) => {
       if (!response) return;
 
       const index: number = this.categories.findIndex(
-        (item) => item.id === response.category.id
+        (item) => item.id === response.id
       );
 
-      if (response.action === 'saved') {
-        if (index !== -1) this.categories[index] = response.category;
-      } else {
-        this.getCategories();
-      }
+      this.categories[index] = response;
     });
   }
 
@@ -99,12 +102,50 @@ export class CategorysComponent implements OnInit {
           },
           width: '40%',
           autoFocus: false,
+          maxHeight: '95vh',
         })
         .afterClosed()
     ).then((response) => {
       if (!response) return;
 
-      this.categories.push(response.category);
+      this.categories.push(response);
+    });
+  }
+
+  delete(id: number) {
+    lastValueFrom(
+      this._matDialog
+        .open(ConfirmationDialogComponent, {
+          data: {
+            message:
+              this.language === 'pt-br'
+                ? 'Deseja realmente excluir essa categoria?'
+                : 'Do you really want to delete this category?',
+          },
+          autoFocus: false,
+        })
+        .afterClosed()
+    ).then((response) => {
+      if (!response) return;
+
+      this._categoryService
+        .delete(id)
+        .then(() => {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Categoria excluída com sucesso'
+              : 'Category deleted successfully'
+          );
+
+          this.getCategories();
+        })
+        .catch(() => {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Erro ao tentar excluir a categoria'
+              : 'Error trying to delete the category'
+          );
+        });
     });
   }
 }

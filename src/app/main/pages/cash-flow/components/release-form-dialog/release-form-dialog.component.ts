@@ -81,6 +81,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
   saving: boolean = false;
 
+  repeatForSuffix: string = this.language === 'pt-br' ? 'meses' : 'months';
+
   _unsubscribeAll: Subject<any> = new Subject();
 
   ngOnInit(): void {
@@ -146,6 +148,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       observation: '',
       repeat: '',
       fixedBy: 'monthly',
+      repeatFor: '12',
       installmentsBy: '2',
     });
     this.releaseForm.markAllAsTouched();
@@ -166,6 +169,22 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           .get('done')!
           .setValue(!moment(value).isAfter(new Date()));
       });
+
+    this.releaseForm.get('repeat')!.valueChanges.subscribe((value) => {
+      if (value === 'fixed') {
+        this.releaseForm.get('repeatFor')!.setValidators(Validators.required);
+        this.releaseForm.get('installmentsBy')!.clearValidators();
+      } else if (value === 'installments') {
+        this.releaseForm
+          .get('installmentsBy')!
+          .setValidators(Validators.required);
+        this.releaseForm.get('repeatFor')!.clearValidators();
+      }
+    });
+
+    this.releaseForm.get('fixedBy')!.valueChanges.subscribe((value) => {
+      this.onChangeFixedBy(value);
+    });
   }
 
   async save() {
@@ -219,6 +238,19 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       });
 
       if (duplicatedReleaseAction === '') return;
+
+      if (
+        duplicatedReleaseAction !== 'just-this' &&
+        this.releaseForm.get('date')!.dirty
+      ) {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Para alterar outros lançamentos junto com este, a data deve permanecer igual'
+            : 'To change other releases along with this one, the date must remain the same',
+          4000
+        );
+        return;
+      }
     }
 
     this.saving = true;
@@ -255,7 +287,12 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
     if (!release.id) {
       await this._cashFlowService
-        .addRelease(release, release.installmentsBy)
+        .addRelease(
+          release,
+          release.repeat === 'fixed'
+            ? release.repeatFor
+            : release.installmentsBy
+        )
         .then((response) => {
           release = response;
         })
@@ -285,7 +322,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
     if (this.changedAttachment && this.selectedFile && !requestError) {
       await this._cashFlowService
-        .addAttachment(release.id, this.selectedFile)
+        .addAttachment(release.id, this.selectedFile!)
         .catch((err) => {
           this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
@@ -348,7 +385,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
 
     this.selectedFile = file;
-    this.releaseForm.markAsDirty();
     this.changedAttachment = true;
   }
 
@@ -361,6 +397,42 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
     if (this.data.release.attachmentName) {
       this.removedFile = true;
+    }
+  }
+
+  onChangeFixedBy(value: string) {
+    switch (value) {
+      case 'daily':
+        this.releaseForm.get('repeatFor')!.setValue('365');
+        this.repeatForSuffix = this.language === 'pt-br' ? 'dias' : 'days';
+        break;
+      case 'weekly':
+        this.releaseForm.get('repeatFor')!.setValue('52');
+        this.repeatForSuffix = this.language === 'pt-br' ? 'semanas' : 'weeks';
+        break;
+      case 'monthly':
+        this.releaseForm.get('repeatFor')!.setValue('12');
+        this.repeatForSuffix = this.language === 'pt-br' ? 'meses' : 'months';
+        break;
+      case 'bimonthly':
+        this.releaseForm.get('repeatFor')!.setValue('12');
+        this.repeatForSuffix =
+          this.language === 'pt-br' ? 'bimestres' : 'bimesters';
+        break;
+      case 'quarterly':
+        this.releaseForm.get('repeatFor')!.setValue('8');
+        this.repeatForSuffix =
+          this.language === 'pt-br' ? 'trimestres' : 'quarters';
+        break;
+      case 'biannual':
+        this.releaseForm.get('repeatFor')!.setValue('6');
+        this.repeatForSuffix =
+          this.language === 'pt-br' ? 'semestres' : 'semesters';
+        break;
+      case 'annual':
+        this.releaseForm.get('repeatFor')!.setValue('10');
+        this.repeatForSuffix = this.language === 'pt-br' ? 'anos' : 'years';
+        break;
     }
   }
 }

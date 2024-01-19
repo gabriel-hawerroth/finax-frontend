@@ -19,17 +19,16 @@ export class CashFlowService {
   getMonthlyFlow(filters: CashFlowFilters): Promise<MonthlyFlow> {
     let params = new HttpParams();
     params = params.append('userId', filters.userId);
-    params = params.append('year', filters.year);
-    params = params.append('month', filters.month);
+    params = params.append('date', filters.date.toLocaleDateString());
 
     return lastValueFrom(
       this._http.get<MonthlyFlow>(this.apiUrl, { params: params })
     );
   }
 
-  addRelease(data: CashFlow, installmentsBy: number): Promise<CashFlow> {
+  addRelease(data: CashFlow, repeatFor: number): Promise<CashFlow> {
     let params = new HttpParams();
-    params = params.append('installmentsBy', installmentsBy);
+    params = params.append('repeatFor', repeatFor);
 
     return lastValueFrom(
       this._http.post<CashFlow>(this.apiUrl, data, { params })

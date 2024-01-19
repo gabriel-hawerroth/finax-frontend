@@ -28,7 +28,7 @@
 
         <div class="list">
           @for (item of getExpenseCategories; track item.id) {
-          <div class="item" (click)="editCategory(item)">
+          <div class="item" (click)="editCategory($event, item)">
             <span
               class="material-symbols-outlined"
               [ngStyle]="{ 'background-color': item.color }"
@@ -37,6 +37,10 @@
             </span>
 
             <span>{{ item.name }}</span>
+
+            <button mat-icon-button class="delete-btn">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
           </div>
           }
         </div>
@@ -60,7 +64,7 @@
 
         <div class="list">
           @for (item of getRevenueCategories; track item.id) {
-          <div class="item" (click)="editCategory(item)">
+          <div class="item" (click)="editCategory($event, item)">
             <span
               class="material-symbols-outlined"
               [ngStyle]="{ 'background-color': item.color }"
@@ -69,6 +73,14 @@
             </span>
 
             <span>{{ item.name }}</span>
+
+            <button
+              mat-icon-button
+              class="delete-btn"
+              (click)="delete(item.id!)"
+            >
+              <span class="material-symbols-outlined">delete</span>
+            </button>
           </div>
           }
         </div>

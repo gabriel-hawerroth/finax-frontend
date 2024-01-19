@@ -137,16 +137,46 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   saveUser() {
     this.showLoading = true;
 
+    let showingMessage: boolean = false;
+
+    setTimeout(() => {
+      if (this.showLoading) {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
+            : 'Due to the size of the image, this may take a few seconds',
+          6000
+        );
+        showingMessage = true;
+        setTimeout(() => {
+          showingMessage = false;
+        }, 6000);
+
+        setTimeout(() => {
+          if (this.showLoading) {
+            this.utilsService.showSimpleMessage(
+              this.language === 'pt-br' ? 'Quase lá...' : 'Almost there...',
+              6000
+            );
+            showingMessage = true;
+            setTimeout(() => {
+              showingMessage = false;
+            }, 6000);
+          }
+        }, 15000);
+      }
+    }, 8000);
+
     this._userService
       .saveUser(this.userForm.value)
-      .then((user: any) => {
+      .then(async (user: any) => {
         this.utilsService.setItemLocalStorage(
           'userFinax',
           btoa(JSON.stringify(user))
         );
 
         if (this.changedProfileImg) {
-          this._userService
+          await this._userService
             .changeProfileImagem(user.id, this.selectedProfileImage!)
             .then(() => {
               this.utilsService.showSimpleMessage(
@@ -194,6 +224,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.changedProfileImg = false;
         this.showLoading = false;
       });
+
+    if (showingMessage) this.utilsService.dismissMessage();
   }
 
   onFileSelected(event: any) {

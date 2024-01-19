@@ -64,12 +64,11 @@
                     flex: 1;
 
                     .item {
-                        padding: .8rem;
-                        cursor: pointer;
-                        border-radius: 2px;
                         display: flex;
                         align-items: center;
                         gap: 1.5rem;
+                        padding: .8rem;
+                        border-radius: 2px;
                         border-bottom: 1px solid #6161613b;
 
                         .material-symbols-outlined {
@@ -79,6 +78,27 @@
                             align-items: center;
                             padding: .7rem;
                             color: #fff;
+                        }
+
+                        &:hover {
+                            box-shadow: 0 2px 4px #d4d4d4;
+                            cursor: pointer;
+
+                            .delete-btn {
+                                display: flex;
+                            }
+                        }
+
+                        .delete-btn {
+                            margin-left: auto;
+                            display: none;
+                            justify-content: center;
+                            align-items: center;
+                            transform: scale(0.92);
+
+                            .material-symbols-outlined {
+                                color: #969696;
+                            }
                         }
                     }
                 }

@@ -11,7 +11,11 @@
       mat-stroked-button
       color="primary"
       (click)="save()"
-      [disabled]="releaseForm.pristine || releaseForm.invalid || saving"
+      [disabled]="
+        (releaseForm.pristine && !changedAttachment) ||
+        releaseForm.invalid ||
+        saving
+      "
     >
       <div class="save-btn-content">
         @if (saving) {
@@ -202,7 +206,12 @@
         </mat-radio-group>
 
         @if (releaseForm.value.repeat === 'fixed') {
-        <div class="fixed-release">
+        <div
+          class="fixed-release"
+          [ngStyle]="{
+            'flex-direction': selectedFile || showObservation ? 'column' : 'row'
+          }"
+        >
           <mat-form-field
             [ngStyle]="{
               width: selectedFile || showObservation ? '50%' : '30%'
@@ -219,6 +228,30 @@
               <mat-option value="annual">Anual</mat-option>
             </mat-select>
           </mat-form-field>
+
+          <mat-form-field [hideRequiredMarker]="true">
+            <mat-label>
+              {{ language === "pt-br" ? "Por:" : "For:" }}
+            </mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="repeatFor"
+              currencyMask
+              [options]="{
+                prefix: '',
+                allowNegative: false,
+                allowZero: false,
+                decimal: '',
+                precision: 0,
+                suffix: ' ' + repeatForSuffix,
+                thousands: '',
+                nullable: false,
+                min: 2,
+                max: 1000,
+              }"
+            />
+          </mat-form-field>
         </div>
         } @else if (releaseForm.value.repeat === 'installments') {
         <div class="installments-release">
@@ -226,6 +259,7 @@
             [ngStyle]="{
               width: selectedFile || showObservation ? '40%' : '20%'
             }"
+            [hideRequiredMarker]="true"
           >
             <mat-label></mat-label>
             <input

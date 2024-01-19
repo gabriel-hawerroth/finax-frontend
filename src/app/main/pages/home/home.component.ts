@@ -8,6 +8,7 @@ import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
 import { MatDividerModule } from '@angular/material/divider';
 import { HomeValues } from '../../../interfaces/Home';
 import { MonthlyCashFlow } from '../../../interfaces/CashFlow';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +19,7 @@ import { MonthlyCashFlow } from '../../../interfaces/CashFlow';
     CustomCurrencyPipe,
     MatDividerModule,
     NgOptimizedImage,
+    MatTooltipModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

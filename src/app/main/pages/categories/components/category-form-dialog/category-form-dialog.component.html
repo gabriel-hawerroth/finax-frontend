@@ -3,37 +3,7 @@
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
   <div class="top">
-    @if (data.category !== 'new') {
-    <div class="delete">
-      @if (excluding) {
-      <mat-spinner [diameter]="30"></mat-spinner>
-      } @else if (!confirmDelete) {
-      <button mat-button (click)="confirmDelete = true" [disabled]="disabled">
-        {{ language === "pt-br" ? "Excluir" : "Delete" }}
-      </button>
-      } @else {
-      <div class="delete-confirmation">
-        <span>
-          {{ language === "pt-br" ? "Confirmar exclusão?" : "Confirm delete?" }}
-        </span>
-
-        <div class="flex justify-content-around">
-          <button mat-icon-button (click)="confirmDelete = false">
-            <span class="material-symbols-outlined" style="color: red">
-              close
-            </span>
-          </button>
-
-          <button mat-icon-button (click)="delete()">
-            <span class="material-symbols-outlined" style="color: green">
-              done
-            </span>
-          </button>
-        </div>
-      </div>
-      }
-    </div>
-    } @if (data.category === 'new') { @if (language === 'pt-br') {
+    @if (data.category === 'new') { @if (language === 'pt-br') {
     <h1>Nova categoria de {{ data.type === "E" ? "despesa" : "receita" }}</h1>
     } @else {
     <h1>New {{ data.type === "E" ? "expense" : "revenue" }} category</h1>

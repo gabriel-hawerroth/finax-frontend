@@ -174,7 +174,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mdc-tooltip__surface {
   font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
-  font-size: 0.9rem !important;
+  padding: .5rem !important;
+  // font-size: 0.9rem !important;
 }
 
 .mdc-button {

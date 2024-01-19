@@ -13,6 +13,7 @@
         priority
         alt="company logo"
       />
+
       <h1 class="h1">
         {{ language === "pt-br" ? "Bem vindo de volta" : "Welcome back" }}
       </h1>
@@ -33,9 +34,9 @@
 
       <div style="display: flex; justify-content: center">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>{{
-            language === "pt-br" ? "Senha" : "Password"
-          }}</mat-label>
+          <mat-label>
+            {{ language === "pt-br" ? "Senha" : "Password" }}
+          </mat-label>
           <input
             matInput
             type="password"
@@ -47,16 +48,17 @@
 
       <div style="display: flex; justify-content: space-around; gap: 70px">
         <div style="gap: 15px">
-          <mat-checkbox formControlName="rememberMe">{{
-            language === "pt-br" ? "Lembrar de mim" : "Remember me"
-          }}</mat-checkbox>
+          <mat-checkbox formControlName="rememberMe">
+            {{ language === "pt-br" ? "Lembrar de mim" : "Remember me" }}
+          </mat-checkbox>
         </div>
+
         <div>
-          <span routerLink="/esqueci-minha-senha" id="forgot-password-label"
-            >{{
+          <span routerLink="/esqueci-minha-senha" id="forgot-password-label">
+            {{
               language === "pt-br" ? "Esqueceu a senha" : "Forgot the password"
-            }}?</span
-          >
+            }}?
+          </span>
         </div>
       </div>
     </form>
@@ -64,7 +66,10 @@
     <div class="bottom" style="display: flex; justify-content: center">
       @if (!showLoading) {
       <button mat-raised-button color="primary" (click)="login()">
-        <span><span class="material-symbols-outlined">person</span>Login</span>
+        <span>
+          <span class="material-symbols-outlined">person</span>
+          Login
+        </span>
       </button>
       } @else {
       <mat-spinner [diameter]="40"></mat-spinner>
@@ -72,19 +77,17 @@
     </div>
   </div>
 
-  <span class="opt-login-page"
-    ><span
-      >{{
+  <span class="opt-login-page">
+    <span>
+      {{
         language === "pt-br" ? "Não tem uma conta" : "Don't have an account"
-      }}? </span
-    ><span
-      routerLink="/nova-conta"
-      class="primary-color"
-      style="font-weight: bold; cursor: pointer"
-    >
-      {{ language === "pt-br" ? "Crie uma" : "Create one" }}!</span
-    ></span
-  >
+      }}?
+    </span>
+
+    <span routerLink="/nova-conta" class="create-one-label">
+      {{ language === "pt-br" ? "Crie uma" : "Create one" }}!
+    </span>
+  </span>
 
   <!-- <button
     mat-stroked-button

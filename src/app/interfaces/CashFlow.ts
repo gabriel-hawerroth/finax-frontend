@@ -18,8 +18,7 @@ export interface CashFlow {
 
 export interface CashFlowFilters {
   userId: number;
-  year: number;
-  month: number;
+  date: Date;
 }
 
 export interface MonthlyFlow {

@@ -97,11 +97,7 @@ export class CategoryFormDialogComponent implements OnInit {
     this._categoryService
       .save(this.categoryForm.value)
       .then((response) => {
-        const result = {
-          category: response,
-          action: 'saved',
-        };
-        this._dialogRef.close(result);
+        this._dialogRef.close(response);
 
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
@@ -121,32 +117,6 @@ export class CategoryFormDialogComponent implements OnInit {
   delete() {
     this.excluding = true;
     this.confirmDelete = false;
-
-    this._categoryService
-      .delete(this.categoryForm.value.id)
-      .then(() => {
-        const result = {
-          category: this.categoryForm.value,
-          action: 'excluded',
-        };
-        this._dialogRef.close(result);
-
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Categoria excluída com sucesso'
-            : 'Category deleted successfully'
-        );
-      })
-      .catch(() => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao tentar excluir a categoria'
-            : 'Error trying to delete the category'
-        );
-      })
-      .finally(() => {
-        this.excluding = false;
-      });
   }
 
   colors: string[] = [

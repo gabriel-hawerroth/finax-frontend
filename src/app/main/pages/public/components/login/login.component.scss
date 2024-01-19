@@ -38,6 +38,12 @@
         }
     }
 
+    .create-one-label {
+        color: $primary-font-color;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
     #released-features {
         position: absolute;
         left: 2rem;

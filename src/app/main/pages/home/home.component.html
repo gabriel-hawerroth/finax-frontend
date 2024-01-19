@@ -15,18 +15,16 @@
         <div class="item revenue">
           {{ language === "pt-br" ? "Receita mensal" : "Monthly revenue" }}
 
-          <span
-            >{{ currency
-            }}{{ homeValues.monthlyFlow.revenues | customCurrency }}
+          <span>
+            {{ currency }}{{ homeValues.monthlyFlow.revenues | customCurrency }}
           </span>
         </div>
 
         <div class="item expense">
           {{ language === "pt-br" ? "Despesa mensal" : "Monthly expense" }}
 
-          <span
-            >{{ currency
-            }}{{ homeValues.monthlyFlow.expenses | customCurrency }}
+          <span>
+            {{ currency }}{{ homeValues.monthlyFlow.expenses | customCurrency }}
           </span>
         </div>
       </div>
@@ -82,9 +80,9 @@
 
               <b>{{ account.name }}</b>
 
-              <span class="account-balance"
-                >{{ currency }}{{ account.balance | customCurrency }}</span
-              >
+              <span class="account-balance">
+                {{ currency }}{{ account.balance | customCurrency }}
+              </span>
             </div>
 
             @if (isntLastItemAccounts(account.id!)) {
@@ -117,9 +115,9 @@
             </span>
 
             <div class="title-account">
-              <span class="release-title">{{
-                item.description || item.categoryName
-              }}</span>
+              <span class="release-title">
+                {{ item.description || item.categoryName }}
+              </span>
 
               <span class="release-account">{{ item.accountName }}</span>
             </div>
@@ -175,9 +173,9 @@
             </span>
 
             <div class="title-account">
-              <span class="release-title">{{
-                item.description || item.categoryName
-              }}</span>
+              <span class="release-title">
+                {{ item.description || item.categoryName }}
+              </span>
 
               <span class="release-account">{{ item.accountName }}</span>
             </div>

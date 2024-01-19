@@ -66,8 +66,6 @@ export class CashFlowComponent implements OnInit {
   releases: MonthlyCashFlow[] = [];
 
   selectedDate: Date = new Date();
-  selectedMonth: number = this.selectedDate.getMonth();
-  selectedYear: number = this.selectedDate.getFullYear();
 
   currentYear: string = this.selectedDate.getFullYear().toString();
 
@@ -102,8 +100,7 @@ export class CashFlowComponent implements OnInit {
 
     const filters: CashFlowFilters = {
       userId: this._loginService.getLoggedUserId,
-      month: this.selectedMonth + 1,
-      year: this.selectedYear,
+      date: this.selectedDate,
     };
 
     this._cashFlowService
@@ -134,9 +131,14 @@ export class CashFlowComponent implements OnInit {
     this.categories = categories;
   }
 
-  getMonthName(index: number): string {
-    const tempDate = new Date(this.selectedYear, index, 15);
-    return tempDate.toLocaleString(this.language, { month: 'long' });
+  get getSelectedMonth(): string {
+    return this.selectedDate.toLocaleString(this.language, { month: 'long' });
+  }
+
+  get getSelectedYear(): string {
+    const selectedYear = this.selectedDate.getFullYear().toString();
+
+    return selectedYear !== this.currentYear ? selectedYear : '';
   }
 
   selectMonth(direction: 'before' | 'next'): void {
@@ -147,9 +149,6 @@ export class CashFlowComponent implements OnInit {
     }
 
     this.selectedDate.setDate(15);
-    this.selectedMonth = this.selectedDate.getMonth();
-    this.selectedYear = this.selectedDate.getFullYear();
-
     this.getReleases();
   }
 
