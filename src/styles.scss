@@ -23,8 +23,6 @@ $finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primar
 // that you are using.
 @include mat.all-component-themes($finax-front-theme);
 
-@import "primeicons/primeicons.css";
-
 @import 'app/app.component.scss';
 @import 'app/utils/colors.scss';
 
