@@ -37,12 +37,12 @@
     <div class="left">
       <mat-card class="accounts">
         <mat-card-header>
-          <span class="text-xl">
+          <h3 style="font-weight: 500">
             {{ language === "pt-br" ? "Saldo geral" : "General balance" }}
-          </span>
+          </h3>
 
           <span
-            class="text-3xl font-bold"
+            style="font-size: 2rem; font-weight: bold"
             [ngStyle]="{
               color:
                 homeValues.getValue().generalBalance > 0
@@ -59,8 +59,8 @@
 
         <mat-divider></mat-divider>
 
-        <mat-card-content class="flex flex-column">
-          <span class="mb-3" style="font-size: 1.15rem">
+        <mat-card-content>
+          <span class="my-accounts-title">
             {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
           </span>
 

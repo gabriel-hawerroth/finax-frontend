@@ -8,12 +8,9 @@
     {{ language === "pt-br" ? "Meu perfil" : "My profile" }}
   </h1>
 
-  <div class="flex flex-column justify-content-center align-items-center">
-    <img
-      [src]="profileImageSrc"
-      alt="foto de perfil do usuário"
-      id="profileImg"
-    />
+  <div class="img-content">
+    <img [src]="profileImageSrc" alt="foto de perfil do usuário" />
+
     <input
       type="file"
       id="fileInput"
@@ -21,7 +18,8 @@
       style="display: none"
       accept="image/*"
     />
-    <label for="fileInput" class="custom-file-input">
+
+    <label for="fileInput">
       {{
         language === "pt-br"
           ? "Alterar foto de perfil"
@@ -30,7 +28,7 @@
     </label>
   </div>
 
-  <div class="flex">
+  <div class="content">
     <div class="form-box">
       <form [formGroup]="userForm">
         <div class="flex">

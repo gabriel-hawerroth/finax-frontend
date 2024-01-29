@@ -28,6 +28,7 @@ export class ButtonsComponent {
   @Input() showClose: boolean = false;
   @Input() showGoBack: boolean = false;
   @Input() showChangePassword: boolean = false;
+  @Input() showGeneric: boolean = false;
 
   @Input() disableNew: boolean = false;
   @Input() disableSave: boolean = false;
@@ -35,6 +36,7 @@ export class ButtonsComponent {
   @Input() disableEdit: boolean = false;
   @Input() disableDownload: boolean = false;
   @Input() disableChangePassword: boolean = false;
+  @Input() disableGeneric: boolean = false;
 
   @Output() onNew = new EventEmitter();
   @Output() onSave = new EventEmitter();
@@ -44,6 +46,7 @@ export class ButtonsComponent {
   @Output() onClose = new EventEmitter();
   @Output() onGoBack = new EventEmitter();
   @Output() onChangePassword = new EventEmitter();
+  @Output() onGeneric = new EventEmitter();
 
   @Input() showSaveLoading: boolean = false;
 
@@ -51,6 +54,9 @@ export class ButtonsComponent {
   @Input() bigBtn: boolean = false;
 
   @Input() ptBrLabelNew: string = 'Novo';
+
+  @Input() genericIcon: string = '';
+  @Input() genericLabel: string = '';
 
   private _utilsService = inject(UtilsService);
 

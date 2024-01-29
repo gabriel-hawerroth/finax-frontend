@@ -11,20 +11,16 @@
 
   <div class="navigation">
     <ul class="nav-ul">
-      <li>
-        <a routerLink="/home" class="nav-ul-item">
-          <i class="pi pi-home mr-2"></i>
-          <span>{{ language === "pt-br" ? "Início" : "Home" }}</span>
-        </a>
+      <li routerLink="/home" class="nav-ul-item">
+        <i class="material-symbols-outlined">home</i>
+        <span>{{ language === "pt-br" ? "Início" : "Home" }}</span>
       </li>
 
-      <li>
-        <a routerLink="/fluxo-de-caixa" class="nav-ul-item">
-          <i class="pi pi-wallet mr-2"></i>
-          <span>{{
-            language === "pt-br" ? "Fluxo de caixa" : "Cash flow"
-          }}</span>
-        </a>
+      <li routerLink="/fluxo-de-caixa" class="nav-ul-item">
+        <i class="material-symbols-outlined">wallet</i>
+        <span>
+          {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
+        </span>
       </li>
 
       <!-- <li [ngClass]="{ hidden: userAccess === 'free' }">
@@ -126,35 +122,25 @@
         </a>
       </li> -->
 
-      <li>
-        <a routerLink="/contas-de-banco" class="gap-2 nav-ul-item">
-          <i
-            class="material-symbols-outlined"
-            style="margin-left: -3px; font-size: 1.3rem"
-            >account_balance</i
-          >
-          <span>
-            {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
-          </span>
-        </a>
+      <li routerLink="/contas-de-banco" class="nav-ul-item">
+        <i class="material-symbols-outlined">account_balance</i>
+        <span>
+          {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
+        </span>
       </li>
 
-      <li>
-        <a routerLink="/cartoes-de-credito" class="nav-ul-item">
-          <i class="pi pi-credit-card mr-2"></i>
-          <span>
-            {{ language === "pt-br" ? "Cartões de crédito" : "Credit cards" }}
-          </span>
-        </a>
+      <li routerLink="/cartoes-de-credito" class="nav-ul-item">
+        <i class="material-symbols-outlined">credit_card</i>
+        <span>
+          {{ language === "pt-br" ? "Cartões de crédito" : "Credit cards" }}
+        </span>
       </li>
 
-      <li>
-        <a routerLink="/categorias" class="gap-2 nav-ul-item">
-          <i class="pi pi-tag"></i>
-          <span>
-            {{ language === "pt-br" ? "Categorias" : "Categories" }}
-          </span>
-        </a>
+      <li routerLink="/categorias" class="nav-ul-item">
+        <i class="material-symbols-outlined">sell</i>
+        <span>
+          {{ language === "pt-br" ? "Categorias" : "Categories" }}
+        </span>
       </li>
 
       <!-- <li>
@@ -212,38 +198,30 @@
 
   <div class="user-options">
     <ul [ngClass]="{ 'nav-ul': true, hidden: userActionsUl }">
-      <li>
-        <a routerLink="/meu-perfil" class="nav-ul-item">
-          <i class="pi pi-user mr-2"></i>
-          <span>{{ language === "pt-br" ? "Meu perfil" : "My profile" }}</span>
-        </a>
+      <li routerLink="/meu-perfil" class="nav-ul-item">
+        <i class="material-symbols-outlined">account_circle</i>
+        <span>{{ language === "pt-br" ? "Meu perfil" : "My profile" }}</span>
       </li>
 
-      <li>
-        <a routerLink="/configuracoes" class="nav-ul-item">
-          <i class="pi pi-cog mr-2"></i>
-          <span>{{ language === "pt-br" ? "Configurações" : "Settings" }}</span>
-        </a>
+      <li routerLink="/configuracoes" class="nav-ul-item">
+        <i class="material-symbols-outlined">settings</i>
+        <span>{{ language === "pt-br" ? "Configurações" : "Settings" }}</span>
       </li>
 
-      <li>
-        <a (click)="logout()" class="nav-ul-item">
-          <i class="pi pi-sign-out mr-2"></i>
-          <span>{{ language === "pt-br" ? "Sair" : "Logout" }}</span>
-        </a>
+      <li (click)="logout()" class="nav-ul-item">
+        <i class="material-symbols-outlined">logout</i>
+        <span>{{ language === "pt-br" ? "Sair" : "Logout" }}</span>
       </li>
     </ul>
 
-    <a (click)="userActionsUl = !userActionsUl" class="nav-ul-item user-item">
+    <li (click)="userActionsUl = !userActionsUl" class="nav-ul-item user-item">
       <img [src]="utilsService.userImage | async" alt="user profile image" />
+
       <span>{{ loginService.getLoggedUser.firstName }}</span>
-      <i
-        class="pi ml-auto"
-        [ngClass]="{
-          ' pi-chevron-up': userActionsUl,
-          ' pi-chevron-down': !userActionsUl
-        }"
-      ></i>
-    </a>
+
+      <i class="material-symbols-outlined">
+        {{ userActionsUl ? "expand_less" : "expand_more" }}
+      </i>
+    </li>
   </div>
 </div>

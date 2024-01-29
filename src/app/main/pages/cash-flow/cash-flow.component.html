@@ -18,7 +18,7 @@
               id="add-btn"
               [mat-menu-trigger-for]="newReleaseMenu"
             >
-              <i class="pi pi-plus"></i>
+              <span class="material-symbols-outlined">add</span>
             </button>
 
             <mat-menu #newReleaseMenu="matMenu">
@@ -53,10 +53,12 @@
           </div>
 
           <div class="right">
-            <!-- <button mat-button [mat-menu-trigger-for]="menu">
-              {{ language === "pt-br" ? "Filtrar" : "Filter" }}
-              <i class="pi pi-filter"></i>
-            </button> -->
+            <!-- <app-buttons
+              [mat-menu-trigger-for]="menu"
+              [showGeneric]="true"
+              [genericIcon]="'filter_alt'"
+              [genericLabel]="language === 'pt-br' ? 'Filtrar' : 'Filter'"
+            ></app-buttons> -->
 
             <mat-menu #menu="matMenu" class="filter-menu">
               <form [formGroup]="filterForm" class="filter-form">

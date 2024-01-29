@@ -1,15 +1,7 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
-
-import { SelectButtonModule } from 'primeng/selectbutton';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
@@ -27,7 +19,6 @@ import { UtilsService } from '../../../utils/utils.service';
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    SelectButtonModule,
     MatDividerModule,
     MatRadioModule,
     MatSelectModule,

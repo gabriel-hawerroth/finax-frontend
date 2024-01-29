@@ -90,10 +90,15 @@
                     overflow-y: scroll;
                     padding: 1rem 2.5rem !important;
 
+                    .my-accounts-title {
+                        font-size: 1.15rem;
+                    }
+
                     .list {
                         display: flex;
                         flex-direction: column;
                         gap: 1.2rem;
+                        margin-top: 1rem;
 
                         .account {
                             display: flex;

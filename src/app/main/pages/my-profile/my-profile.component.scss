@@ -1,141 +1,149 @@
-@import '../../../utils/colors.scss';
-
 .simple-page {
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
-    overflow-y: hidden;
 
     .page-title {
         margin-bottom: 1.5rem;
     }
 
-    #profileImg {
-        width: 136px;
-        border-radius: 50%;
-        aspect-ratio: 1/1;
-        object-fit: cover;
-        margin-bottom: .4rem;
-    }
-
-    .custom-file-input {
-        font-weight: bold;
-        font-size: 1rem;
-        font-family: 'Nunito';
-        cursor: pointer;
-        color: #6a6d6b;
-        margin-bottom: 2rem;
-    }
-
-    .form-box {
-        width: 50%;
-        padding-top: 1.4rem;
-        padding-left: 1rem;
-    }
-
-    form {
+    .img-content {
         display: flex;
         flex-direction: column;
-    }
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
 
-    #plan-box {
-        flex: 1;
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 1rem;
-
-        #plan {
-            width: 100%;
-            box-shadow: 0 0 2px #00000034;
-            border-radius: .2rem;
-            color: #fff;
-            background-color: #2e5491;
-
-            .title {
-                padding: 1rem 0;
-                display: grid;
-                place-items: center;
-            }
-
-            .content {
-                padding: .5rem .8rem;
-                display: flex;
-                flex-direction: column;
-
-                #month-year {
-                    font-size: 1.2rem;
-                }
-
-                #plan-price {
-                    font-size: 1.7rem;
-                }
-
-                #signature-expiration {
-                    font-size: 1rem;
-                }
-
-                #adm-plan {
-                    display: none;
-                }
-            }
-
-            .actions {
-                padding: 1rem 1.5rem 1rem .7rem;
-                display: flex;
-                justify-content: space-between;
-
-                .change-plan {
-                    span {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        align-items: center;
-                        gap: .5rem;
-                        color: #fff;
-                    }
-                }
-
-                #cancel-signature {
-                    margin: .4rem;
-
-                    &:hover {
-                        color: #dfdfdf;
-                        cursor: pointer;
-                    }
-                }
-            }
+        img {
+            width: 136px;
+            border-radius: 50%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            margin-bottom: .4rem;
         }
 
-        #change-payment-method {
-            span {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: .5rem;
-            }
-        }
-    }
-
-    .buttons {
-        display: flex;
-        padding: 2.5rem 0 0 .6rem;
-        height: 100%;
-        gap: 2rem;
-        height: 5rem;
-
-        button {
-            padding: 1.4rem 1.8rem;
+        label {
+            font-weight: bold;
             font-size: 1rem;
+            font-family: 'Nunito';
+            cursor: pointer;
+            color: #6a6d6b;
+            margin-bottom: 2rem;
+        }
+    }
 
-            span {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: .5rem;
+    .content {
+        display: flex;
+
+        .form-box {
+            width: 50%;
+            padding-top: 1.4rem;
+            padding-left: 1rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #plan-box {
+            flex: 1;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+
+            #plan {
+                width: 100%;
+                box-shadow: 0 0 2px #00000034;
+                border-radius: .2rem;
+                color: #fff;
+                background-color: #2e5491;
+
+                .title {
+                    padding: 1rem 0;
+                    display: grid;
+                    place-items: center;
+                }
+
+                .content {
+                    padding: .5rem .8rem;
+                    display: flex;
+                    flex-direction: column;
+
+                    #month-year {
+                        font-size: 1.2rem;
+                    }
+
+                    #plan-price {
+                        font-size: 1.7rem;
+                    }
+
+                    #signature-expiration {
+                        font-size: 1rem;
+                    }
+
+                    #adm-plan {
+                        display: none;
+                    }
+                }
+
+                .actions {
+                    padding: 1rem 1.5rem 1rem .7rem;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .change-plan {
+                        span {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: center;
+                            align-items: center;
+                            gap: .5rem;
+                            color: #fff;
+                        }
+                    }
+
+                    #cancel-signature {
+                        margin: .4rem;
+
+                        &:hover {
+                            color: #dfdfdf;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            #change-payment-method {
+                span {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .5rem;
+                }
+            }
+        }
+
+        .buttons {
+            display: flex;
+            padding: 2.5rem 0 0 .6rem;
+            height: 100%;
+            gap: 2rem;
+            height: 5rem;
+
+            button {
+                padding: 1.4rem 1.8rem;
+                font-size: 1rem;
+
+                span {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .5rem;
+                }
             }
         }
     }

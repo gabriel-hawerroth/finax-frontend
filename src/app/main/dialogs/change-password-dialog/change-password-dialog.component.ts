@@ -44,15 +44,12 @@ export class ChangePasswordDialogComponent implements OnInit {
   private _userService = inject(UserService);
   private _loginService = inject(LoginService);
 
+  language: string = this.utilsService.getUserConfigs.language;
+
   changePasswordForm!: FormGroup;
-  language: string = '';
 
   ngOnInit(): void {
     this.buildForm();
-
-    this.utilsService.userConfigs.asObservable().subscribe((value) => {
-      this.language = value!.language;
-    });
   }
 
   buildForm() {

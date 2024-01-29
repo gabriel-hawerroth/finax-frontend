@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
-import { SplitterModule } from 'primeng/splitter';
 import { Category } from '../../../interfaces/Category';
 import { CategoryService } from '../../../services/category.service';
 import { MatCardModule } from '@angular/material/card';
@@ -18,7 +17,6 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
   imports: [
     CommonModule,
     MatButtonModule,
-    SplitterModule,
     MatCardModule,
     MatDialogModule,
     ButtonsComponent,

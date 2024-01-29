@@ -33,6 +33,7 @@ import {
 import { ReleaseDetailsComponent } from './components/release-details/release-details.component';
 import { Account } from '../../../interfaces/Account';
 import { AccountService } from '../../../services/account.service';
+import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 
 @Component({
   selector: 'app-cash-flow',
@@ -49,6 +50,7 @@ import { AccountService } from '../../../services/account.service';
     MatDialogModule,
     CustomCurrencyPipe,
     MatBottomSheetModule,
+    ButtonsComponent,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',

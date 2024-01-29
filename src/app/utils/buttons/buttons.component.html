@@ -94,12 +94,23 @@
       }
     </div>
   </button>
+  } @if (showGeneric) {
+  <button mat-stroked-button (click)="onGeneric.emit()">
+    <div class="btn-content">
+      <span class="material-symbols-outlined">{{ genericIcon }}</span>
+      @if (isPcScreen) {
+      <span>
+        {{ genericLabel }}
+      </span>
+      }
+    </div>
+  </button>
   } @if (showClose) {
-  <button mat-icon-button mat-dialog-close (click)="onClose.emit()">
+  <button mat-icon-button (click)="onClose.emit()">
     <span class="material-symbols-outlined">close</span>
   </button>
   } @if (showGoBack) {
-  <button mat-icon-button mat-dialog-close (click)="onGoBack.emit()">
+  <button mat-icon-button (click)="onGoBack.emit()">
     <span class="material-symbols-outlined">arrow_back</span>
   </button>
   }
