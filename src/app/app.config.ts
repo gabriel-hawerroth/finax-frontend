@@ -68,7 +68,7 @@ export const appConfig: ApplicationConfig = {
       deps: [MAT_DATE_LOCALE],
     },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-br' },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
