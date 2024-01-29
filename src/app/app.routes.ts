@@ -25,6 +25,7 @@ import { BasicTierGuard } from './services/guards/basic-tier.guard';
 import { PremiumTierGuard } from './services/guards/premium-tier.guard';
 import { InterestCalculatorComponent } from './main/pages/interest-calculator/interest-calculator.component';
 import { CategorysComponent } from './main/pages/categories/categories.component';
+import { CreditCardsComponent } from './main/pages/credit-cards/credit-cards.component';
 
 export const routes: Routes = [
   { path: '', component: PublicComponent },
@@ -112,6 +113,11 @@ export const routes: Routes = [
     path: 'contas-de-banco/:id',
     component: BankAccountsEditComponent,
     canActivate: [FreeTierGuard],
+  },
+  {
+    path: 'cartoes-de-credito',
+    component: CreditCardsComponent,
+    canActivate: [BasicTierGuard],
   },
   {
     path: 'categorias',

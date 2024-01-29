@@ -16,14 +16,12 @@
             {{ language === "pt-br" ? "Despesas" : "Expenses" }}
           </h2>
 
-          <button mat-stroked-button (click)="newCategory('E')">
-            <span class="btn-content">
-              <i class="pi pi-plus"></i>
-              <span>
-                {{ language === "pt-br" ? "Nova" : "New" }}
-              </span>
-            </span>
-          </button>
+          <app-buttons
+            [showNew]="true"
+            [smallBtn]="true"
+            [ptBrLabelNew]="'Nova'"
+            (onNew)="newCategory('E')"
+          ></app-buttons>
         </div>
 
         <div class="list">
@@ -38,7 +36,11 @@
 
             <span>{{ item.name }}</span>
 
-            <button mat-icon-button class="delete-btn">
+            <button
+              mat-icon-button
+              class="delete-btn"
+              (click)="delete(item.id!)"
+            >
               <span class="material-symbols-outlined">delete</span>
             </button>
           </div>
@@ -52,14 +54,12 @@
             {{ language === "pt-br" ? "Receitas" : "Revenues" }}
           </h2>
 
-          <button mat-stroked-button (click)="newCategory('R')">
-            <span class="btn-content">
-              <i class="pi pi-plus"></i>
-              <span>
-                {{ language === "pt-br" ? "Nova" : "New" }}
-              </span>
-            </span>
-          </button>
+          <app-buttons
+            [showNew]="true"
+            [smallBtn]="true"
+            [ptBrLabelNew]="'Nova'"
+            (onNew)="newCategory('R')"
+          ></app-buttons>
         </div>
 
         <div class="list">

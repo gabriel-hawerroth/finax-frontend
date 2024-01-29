@@ -105,19 +105,28 @@
   </div>
 
   <div class="actions">
-    <button mat-stroked-button class="button large-button">
-      <span class="material-symbols-outlined h-full">sort</span>
-      {{ language === "pt-br" ? "Ver lançamentos" : "See releases" }}
+    <button mat-stroked-button class="large-btn">
+      <div class="btn-content">
+        <span class="material-symbols-outlined h-full">sort</span>
+        {{ language === "pt-br" ? "Ver lançamentos" : "See releases" }}
+      </div>
     </button>
 
-    <button mat-stroked-button class="button large-button">
-      <span class="material-symbols-outlined h-full">query_stats</span>
-      <span class="h-full">
-        {{ language === "pt-br" ? "Relatórios" : "Reports" }}
-      </span>
+    <button mat-stroked-button class="large-btn">
+      <div class="btn-content">
+        <span class="material-symbols-outlined h-full">query_stats</span>
+        <span class="h-full">
+          {{ language === "pt-br" ? "Relatórios" : "Reports" }}
+        </span>
+      </div>
     </button>
 
-    <button mat-button color="primary" (click)="edit()">
+    <button
+      mat-button
+      color="primary"
+      (click)="edit()"
+      style="padding: 1.3rem 1.6rem; font-size: 1.1rem !important"
+    >
       {{ language === "pt-br" ? "Editar" : "Edit" }}
     </button>
   </div>

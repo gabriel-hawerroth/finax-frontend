@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -13,6 +13,8 @@ import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { MatDialog } from '@angular/material/dialog';
 import { lastValueFrom } from 'rxjs';
 import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
+import { ConfirmationDialogComponent } from '../../../../dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-release-details',
@@ -22,9 +24,11 @@ import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-
     CustomCurrencyPipe,
     MatButtonModule,
     MatProgressSpinnerModule,
+    ButtonsComponent,
   ],
   templateUrl: './release-details.component.html',
   styleUrl: './release-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseDetailsComponent {
   public utilsService = inject(UtilsService);
@@ -87,6 +91,7 @@ export class ReleaseDetailsComponent {
 
   async delete() {
     let duplicatedReleasesAction: string = '';
+    let confirmedDelete: boolean = false;
 
     if (this.release.isDuplicatedRelease) {
       await lastValueFrom(
@@ -103,11 +108,31 @@ export class ReleaseDetailsComponent {
         if (!response) return;
 
         duplicatedReleasesAction = response;
+        confirmedDelete = true;
+      });
+    } else {
+      await lastValueFrom(
+        this._matDialog
+          .open(ConfirmationDialogComponent, {
+            data: {
+              message:
+                this.language === 'pt-br'
+                  ? 'Deseja realmente excluir esse registro?'
+                  : 'Do you really want to delete this record?',
+            },
+            autoFocus: false,
+          })
+          .afterClosed()
+      ).then((response) => {
+        if (!response) return;
+
+        confirmedDelete = response;
       });
     }
 
     if (this.release.isDuplicatedRelease && duplicatedReleasesAction === '')
       return;
+    else if (!confirmedDelete) return;
 
     this.excluding = true;
     this.confirmDelete = false;

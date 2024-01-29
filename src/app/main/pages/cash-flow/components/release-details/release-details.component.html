@@ -83,61 +83,15 @@
     </div>
 
     <div class="row3">
-      @if (release.attachmentName) {
-      <button mat-stroked-button (click)="downloadAttachment()">
-        <div class="btn-content" style="color: #4d4d4d">
-          <span class="material-symbols-outlined">cloud_download</span>
-          {{ language === "pt-br" ? "Baixar anexo" : "Download attachment" }}
-        </div>
-      </button>
-      }
-
-      <button
-        mat-stroked-button
-        color="primary"
-        (click)="edit()"
-        [disabled]="release.categoryId === 21"
-      >
-        <div class="btn-content">
-          <span class="material-symbols-outlined">edit</span>
-          {{ language === "pt-br" ? "Editar" : "Edit" }}
-        </div>
-      </button>
-
-      <div class="delete">
-        @if (excluding) {
-        <mat-spinner [diameter]="30"></mat-spinner>
-        } @else if (!confirmDelete) {
-        <button
-          mat-stroked-button
-          (click)="confirmDelete = true"
-          [disabled]="release.categoryId === 21"
-        >
-          <div class="btn-content">
-            <span class="material-symbols-outlined">delete</span>
-            {{ language === "pt-br" ? "Excluir" : "Delete" }}
-          </div>
-        </button>
-        } @else {
-        <span>
-          {{ language === "pt-br" ? "Confirmar exclusão?" : "Confirm delete?" }}
-        </span>
-
-        <div class="delete-confirmation">
-          <button mat-icon-button (click)="confirmDelete = false">
-            <span class="material-symbols-outlined" style="color: red">
-              close
-            </span>
-          </button>
-
-          <button mat-icon-button (click)="delete()">
-            <span class="material-symbols-outlined" style="color: green">
-              done
-            </span>
-          </button>
-        </div>
-        }
-      </div>
+      <app-buttons
+        [showDownload]="release.attachmentName !== null"
+        [showEdit]="true"
+        [showDelete]="true"
+        [bigBtn]="true"
+        (onDownload)="downloadAttachment()"
+        (onEdit)="edit()"
+        (onDelete)="delete()"
+      ></app-buttons>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   imports: [CommonModule, NgOptimizedImage],
   templateUrl: './select-icon-dialog.component.html',
   styleUrl: './select-icon-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectIconDialogComponent {
   public utilsService = inject(UtilsService);

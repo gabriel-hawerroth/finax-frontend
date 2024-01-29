@@ -11,22 +11,21 @@
   <div class="content">
     <form class="account-card" [formGroup]="accountForm">
       <div class="flex justify-content-end">
-        <button
-          class="button"
-          mat-stroked-button
-          color="primary"
-          (click)="save()"
-          [disabled]="disableSave()"
-        >
-          <i class="pi pi-save"></i>
-          {{ language === "pt-br" ? "Salvar" : "Save" }}
-        </button>
+        <app-buttons
+          [showSave]="true"
+          [disableSave]="
+            (this.accountForm.invalid || this.accountForm.pristine) &&
+            !this.changedIcon
+          "
+          (onSave)="save()"
+        ></app-buttons>
       </div>
 
       <div class="first-row">
-        <button mat-icon-button (click)="location.back()">
-          <mat-icon style="cursor: pointer">arrow_back</mat-icon>
-        </button>
+        <app-buttons
+          [showGoBack]="true"
+          (onGoBack)="location.back()"
+        ></app-buttons>
 
         <mat-form-field [hideRequiredMarker]="true" style="width: 30%">
           <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>

@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatMenuModule } from '@angular/material/menu';
@@ -18,7 +23,7 @@ import {
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { LoginService } from '../../../services/login.service';
 import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { Category } from '../../../interfaces/Category';
 import { CategoryService } from '../../../services/category.service';
 import {
@@ -47,6 +52,7 @@ import { AccountService } from '../../../services/account.service';
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CashFlowComponent implements OnInit {
   public utilsService = inject(UtilsService);
@@ -63,7 +69,9 @@ export class CashFlowComponent implements OnInit {
 
   filterForm!: FormGroup;
 
-  releases: MonthlyCashFlow[] = [];
+  releases: BehaviorSubject<MonthlyCashFlow[]> = new BehaviorSubject<
+    MonthlyCashFlow[]
+  >([]);
 
   selectedDate: Date = new Date();
 
@@ -106,7 +114,7 @@ export class CashFlowComponent implements OnInit {
     this._cashFlowService
       .getMonthlyFlow(filters)
       .then((response) => {
-        this.releases = response.releases;
+        this.releases.next(response.releases);
         this.totals = response.totals;
       })
       .catch(() => {

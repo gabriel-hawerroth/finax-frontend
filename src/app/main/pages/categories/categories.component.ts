@@ -10,6 +10,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
 import { lastValueFrom } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
+import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 
 @Component({
   selector: 'app-categories',
@@ -20,6 +21,7 @@ import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/c
     SplitterModule,
     MatCardModule,
     MatDialogModule,
+    ButtonsComponent,
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',

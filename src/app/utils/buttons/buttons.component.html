@@ -1,0 +1,103 @@
+<div class="form-buttons">
+  @if (showNew) {
+  <button
+    mat-stroked-button
+    [disabled]="disableNew"
+    (click)="onNew.emit()"
+    [ngStyle]="{ padding: getBtnSize + 'rem' }"
+  >
+    <div class="btn-content">
+      <span class="material-symbols-outlined">add</span>
+      @if (isPcScreen) {
+      <span>
+        {{ language === "pt-br" ? ptBrLabelNew : "New" }}
+      </span>
+      }
+    </div>
+  </button>
+  } @if (showSave) {
+  <button
+    mat-stroked-button
+    [disabled]="disableSave"
+    (click)="onSave.emit()"
+    [ngStyle]="{ padding: getBtnSize + 'rem' }"
+    color="primary"
+  >
+    <div class="btn-content">
+      <span class="material-symbols-outlined">save</span>
+      @if (isPcScreen) {
+      <span>{{ language === "pt-br" ? "Salvar" : "Save" }}</span>
+      }
+    </div>
+  </button>
+  } @if (showDownload) {
+  <button
+    mat-stroked-button
+    [disabled]="disableDownload"
+    (click)="onDownload.emit()"
+    [ngStyle]="{ padding: getBtnSize + 'rem' }"
+  >
+    <div class="btn-content" style="color: #4d4d4d">
+      <span class="material-symbols-outlined">cloud_download</span>
+      @if (isPcScreen) {
+      <span>
+        {{ language === "pt-br" ? "Baixar anexo" : "Download attachment" }}
+      </span>
+      }
+    </div>
+  </button>
+  } @if (showEdit) {
+  <button
+    mat-stroked-button
+    [disabled]="disableEdit"
+    (click)="onEdit.emit()"
+    [ngStyle]="{ padding: getBtnSize + 'rem' }"
+    color="primary"
+  >
+    <div class="btn-content">
+      <span class="material-symbols-outlined">edit</span>
+      @if (isPcScreen) {
+      <span>{{ language === "pt-br" ? "Editar" : "Edit" }}</span>
+      }
+    </div>
+  </button>
+  } @if (showDelete) {
+  <button
+    mat-stroked-button
+    [disabled]="disableDelete"
+    (click)="onDelete.emit()"
+    [ngStyle]="{ padding: getBtnSize + 'rem', color: 'red' }"
+  >
+    <div class="btn-content">
+      <span class="material-symbols-outlined">delete</span>
+      @if (isPcScreen) {
+      <span>{{ language === "pt-br" ? "Excluir" : "Delete" }}</span>
+      }
+    </div>
+  </button>
+  } @if (showChangePassword) {
+  <button
+    mat-stroked-button
+    [disabled]="disableChangePassword"
+    (click)="onChangePassword.emit()"
+    [ngStyle]="{ padding: getBtnSize + 'rem' }"
+  >
+    <div class="btn-content">
+      <span class="material-symbols-outlined">vpn_key</span>
+      @if (isPcScreen) {
+      <span>{{
+        language === "pt-br" ? "Alterar a senha" : "Change password"
+      }}</span>
+      }
+    </div>
+  </button>
+  } @if (showClose) {
+  <button mat-icon-button mat-dialog-close (click)="onClose.emit()">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+  } @if (showGoBack) {
+  <button mat-icon-button mat-dialog-close (click)="onGoBack.emit()">
+    <span class="material-symbols-outlined">arrow_back</span>
+  </button>
+  }
+</div>

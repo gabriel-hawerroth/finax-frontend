@@ -74,19 +74,24 @@ export class ChangePasswordComponent implements OnInit {
           Validators.pattern(this.utilsService.passwordValidator()),
         ],
       ],
-      newPasswordConfirm: ['', Validators.required],
+      passwordConfirm: ['', Validators.required],
     });
   }
 
   changePassword() {
-    if (this.changePasswordForm.invalid) return;
-    this.showLoading = true;
+    if (this.changePasswordForm.invalid) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'A senha não cumpre os requisitos'
+          : "Password doesn't meet the requirements"
+      );
+      return;
+    }
 
-    const newPassword = this.changePasswordForm.get('newPassword')!.value;
-    const newPasswordConfirm =
-      this.changePasswordForm.get('newPasswordConfirm')!.value;
+    const newPassword = this.changePasswordForm.value.newPassword;
+    const passwordConfirm = this.changePasswordForm.value.passwordConfirm;
 
-    if (newPassword !== newPasswordConfirm) {
+    if (passwordConfirm !== newPassword) {
       this.utilsService.showSimpleMessage(
         this.language === 'pt-br'
           ? 'As senhas não coincidem'
@@ -95,6 +100,8 @@ export class ChangePasswordComponent implements OnInit {
       this.showLoading = false;
       return;
     }
+
+    this.showLoading = true;
 
     this._userService
       .changeForgetedPassword(this.user.id!, newPassword)
@@ -123,15 +130,16 @@ export class ChangePasswordComponent implements OnInit {
 
           this._loginService.login(credentials);
         }
-        this.showLoading = false;
       })
       .catch(() => {
-        this.showLoading = false;
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Erro ao alterar a senha, tente novamente mais tarde'
             : 'Error changing password, please try again later'
         );
+      })
+      .finally(() => {
+        this.showLoading = false;
       });
   }
 }

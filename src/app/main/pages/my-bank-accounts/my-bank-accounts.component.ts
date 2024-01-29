@@ -5,7 +5,7 @@ import { Account } from '../../../interfaces/Account';
 import { AccountService } from '../../../services/account.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +15,7 @@ import {
 } from '@angular/material/bottom-sheet';
 import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
 import { MatCardModule } from '@angular/material/card';
+import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 
 @Component({
   selector: 'app-my-bank-accounts',
@@ -29,6 +30,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     MatBottomSheetModule,
     MatCardModule,
+    ButtonsComponent,
   ],
   templateUrl: './my-bank-accounts.component.html',
   styleUrl: './my-bank-accounts.component.scss',
@@ -37,6 +39,7 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _accountService = inject(AccountService);
   private _bottomSheet = inject(MatBottomSheet);
+  private _router = inject(Router);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -87,5 +90,9 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
       },
       panelClass: 'bank-account-details',
     });
+  }
+
+  onNew() {
+    this._router.navigate(['contas-de-banco/novo']);
   }
 }

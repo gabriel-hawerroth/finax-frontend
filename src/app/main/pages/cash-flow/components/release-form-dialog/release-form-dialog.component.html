@@ -4,28 +4,18 @@
 >
   <div
     class="top"
-    [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2rem' : '0.2rem' }"
+    [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2.7rem' : '1.5rem' }"
   >
-    <button
-      class="save-btn"
-      mat-stroked-button
-      color="primary"
-      (click)="save()"
-      [disabled]="
+    <app-buttons
+      [showSave]="true"
+      [disableSave]="
         (releaseForm.pristine && !changedAttachment) ||
         releaseForm.invalid ||
         saving
       "
-    >
-      <div class="save-btn-content">
-        @if (saving) {
-        <mat-spinner [diameter]="28"></mat-spinner>
-        } @else {
-        <i class="pi pi-save"></i>
-        <span>{{ language === "pt-br" ? "Salvar" : "Save" }}</span>
-        }
-      </div>
-    </button>
+      (onSave)="save()"
+      class="save-btn"
+    ></app-buttons>
 
     @if (data.editing) {
     <h2>
@@ -49,9 +39,11 @@
     </h2>
     }
 
-    <button mat-icon-button mat-dialog-close class="close-btn">
-      <span class="material-symbols-outlined">close</span>
-    </button>
+    <app-buttons
+      [showClose]="true"
+      mat-dialog-close
+      class="close-btn"
+    ></app-buttons>
   </div>
 
   <div class="content">
@@ -143,13 +135,11 @@
             <div class="file">
               <span>{{ selectedFile.name }}</span>
 
-              <button
-                mat-icon-button
+              <app-buttons
+                [showClose]="true"
+                (onClose)="removeFile()"
                 class="remove-file-btn"
-                (click)="removeFile()"
-              >
-                <span class="material-symbols-outlined">close</span>
-              </button>
+              ></app-buttons>
             </div>
           </div>
         </div>

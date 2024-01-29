@@ -1,5 +1,11 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,6 +33,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ],
   templateUrl: './release-form.component.html',
   styleUrl: './release-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseFormComponent implements OnInit {
   @Input() form!: FormGroup;

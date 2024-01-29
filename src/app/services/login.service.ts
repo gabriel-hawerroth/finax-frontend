@@ -24,77 +24,73 @@ export class LoginService {
   async login(credentials: Credentials) {
     const language = this._utilsService.getUserConfigs.language;
 
-    await this.oauthLogin(credentials)
-      .then(async (response: any) => {
-        if (!response) {
-          this._utilsService.showSimpleMessage(
-            language === 'pt-br' ? 'Login inválido' : 'Invalid login'
-          );
-          return;
-        }
+    await this.oauthLogin(credentials).then(async (response: any) => {
+      if (!response) {
+        this._utilsService.showSimpleMessage(
+          language === 'pt-br' ? 'Login inválido' : 'Invalid login'
+        );
+        return;
+      }
 
-        await this._userService
-          .getByEmail(response.username)
-          .then((user: User) => {
-            if (!user) {
-              this._utilsService.showSimpleMessage(
-                language === 'pt-br'
-                  ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
-                  : 'Error getting the user, please contact our support'
-              );
-              return;
-            }
-
-            this._router.navigate(['home']);
-
-            if (!credentials.changedPassword) {
-              this._utilsService.showSimpleMessage(
-                language === 'pt-br'
-                  ? 'Login realizado com sucesso'
-                  : 'Login successfully'
-              );
-            } else {
-              this._utilsService.showSimpleMessage(
-                language === 'pt-br'
-                  ? 'Senha alterada com sucesso'
-                  : 'Password changed successfully'
-              );
-            }
-
-            this._utilsService.setItemLocalStorage(
-              'tokenFinax',
-              btoa(JSON.stringify(response.access_token))
-            );
-            this._utilsService.setItemLocalStorage(
-              'userFinax',
-              btoa(JSON.stringify(user))
-            );
-
-            if (credentials.rememberMe) {
-              this._utilsService.setItemLocalStorage(
-                'savedLoginFinax',
-                btoa(JSON.stringify(credentials))
-              );
-            } else {
-              this._utilsService.removeItemLocalStorage('savedLoginFinax');
-            }
-
-            this._utilsService.setItemLocalStorage(
-              'tokenExpiration',
-              moment().add(1, 'hour').toDate().toString()
-            );
-          })
-          .catch((error) => {
+      await this._userService
+        .getByEmail(response.username)
+        .then((user: User) => {
+          if (!user) {
             this._utilsService.showSimpleMessage(
               language === 'pt-br'
-                ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
+                ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
                 : 'Error getting the user, please contact our support'
             );
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+            return;
+          }
+
+          this._router.navigate(['home']);
+
+          if (!credentials.changedPassword) {
+            this._utilsService.showSimpleMessage(
+              language === 'pt-br'
+                ? 'Login realizado com sucesso'
+                : 'Login successfully'
+            );
+          } else {
+            this._utilsService.showSimpleMessage(
+              language === 'pt-br'
+                ? 'Senha alterada com sucesso'
+                : 'Password changed successfully'
+            );
+          }
+
+          this._utilsService.setItemLocalStorage(
+            'tokenFinax',
+            btoa(JSON.stringify(response.access_token))
+          );
+          this._utilsService.setItemLocalStorage(
+            'userFinax',
+            btoa(JSON.stringify(user))
+          );
+
+          if (credentials.rememberMe) {
+            this._utilsService.setItemLocalStorage(
+              'savedLoginFinax',
+              btoa(JSON.stringify(credentials))
+            );
+          } else {
+            this._utilsService.removeItemLocalStorage('savedLoginFinax');
+          }
+
+          this._utilsService.setItemLocalStorage(
+            'tokenExpiration',
+            moment().add(1, 'hour').toDate().toString()
+          );
+        })
+        .catch((error) => {
+          this._utilsService.showSimpleMessage(
+            language === 'pt-br'
+              ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
+              : 'Error getting the user, please contact our support'
+          );
+        });
+    });
   }
 
   oauthLogin(credentials: Credentials) {
@@ -129,22 +125,6 @@ export class LoginService {
         5000
       );
   }
-
-  // stillLoggedTest() {
-  //   lastValueFrom(this._http.get(`${this.apiUrl}/authentication-test`)).catch(
-  //     (err) => {
-  //       if (err.status === 0) {
-  //         this._utilsService.showSimpleMessage(
-  //           this._utilsService.getUserConfigs.language === 'pt-br'
-  //             ? 'Atualização em andamento, tente novamente mais tarde'
-  //             : 'Update in progress, please try again later'
-  //         );
-  //       } else if (err.status === 401) {
-  //         this.logout();
-  //       }
-  //     }
-  //   );
-  // }
 
   newUser(user: User): Promise<User> {
     return lastValueFrom(

@@ -1,0 +1,14 @@
+<div
+  [ngClass]="{
+    'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
+  }"
+  class="simple-page"
+>
+  <h1 class="page-title">
+    {{ language === "pt-br" ? "Cartões de crédito" : "Credit cards" }}
+  </h1>
+
+  <div class="content">
+    <mat-card class="card"></mat-card>
+  </div>
+</div>

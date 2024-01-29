@@ -98,7 +98,7 @@
       </header>
 
       <div class="releases-list">
-        @for (item of releases; track item.id) {
+        @for (item of releases | async; track item.id) {
         <div class="release" (click)="openDetails(item)">
           <div class="category">
             <span
@@ -156,6 +156,8 @@
           <div class="amount">
             @if (item.type === 'E') {
             <span>-</span>
+            } @else if (item.type === 'R') {
+            <span>+</span>
             }
             <span> {{ item.amount | customCurrency }}</span>
           </div>

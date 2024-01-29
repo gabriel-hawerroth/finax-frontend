@@ -33,37 +33,34 @@ export const authInterceptor: HttpInterceptorFn = (
     return next(request).pipe(
       catchError((error) => {
         console.log('Error: ', error);
-        
-        const errorResponse = {
-          status: error.status,
-          message: error.error?.message || 'Unknown error occurred',
-          error: error,
-        };
 
-        if ((error.status === 401)) {
-          loginService.logout(true);
-        } else if (error.status === 0) {
-          loginService.logout(false);
-
-          utilsService.showSimpleMessage(
-            utilsService.getUserConfigs.language === 'pt-br'
-              ? 'Atualização em andamento, tente novamente mais tarde'
-              : 'Update in progress, please try again later'
-          );
+        switch (error.status) {
+          case 401:
+            loginService.logout();
+            break;
+          case 0:
+            loginService.logout(false);
+            utilsService.showSimpleMessage(
+              utilsService.getUserConfigs.language === 'pt-br'
+                ? 'Atualização em andamento, tente novamente mais tarde'
+                : 'Update in progress, please try again later'
+            );
         }
-        
-        if (error.error.error_description === 'Bad credentials') {
-          utilsService.showSimpleMessage(
-            utilsService.getUserConfigs.language === 'pt-br'
-              ? 'Login inválido'
-              : 'Invalid login'
-          );
-        } else if (error.error.error_description === 'Inactive user') {
-          utilsService.showSimpleMessage(
-            utilsService.getUserConfigs.language === 'pt-br'
-              ? 'Usuário inativo, verifique seu email'
-              : 'Inactive user, check your email'
-          );
+
+        switch (error.error.error_description) {
+          case 'Bad credentials':
+            utilsService.showSimpleMessage(
+              utilsService.getUserConfigs.language === 'pt-br'
+                ? 'Login inválido'
+                : 'Invalid login'
+            );
+            break;
+          case 'Inactive user':
+            utilsService.showSimpleMessage(
+              utilsService.getUserConfigs.language === 'pt-br'
+                ? 'Usuário inativo, verifique seu email'
+                : 'Inactive user, check your email'
+            );
         }
 
         return throwError(() => error);

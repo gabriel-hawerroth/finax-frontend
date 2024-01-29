@@ -1,0 +1,21 @@
+.simple-page {
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        place-items: center;
+
+        .card {
+            width: 80%;
+            height: 80vh;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+            border-radius: 1rem;
+        }
+    }
+}

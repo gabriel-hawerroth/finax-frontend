@@ -10,9 +10,7 @@
       {{ data.account.accountName }}
     </h1>
 
-    <button mat-icon-button mat-dialog-close>
-      <span class="material-symbols-outlined">close</span>
-    </button>
+    <app-buttons [showClose]="true" mat-dialog-close></app-buttons>
   </div>
 
   <form [formGroup]="balanceForm" class="content">
@@ -38,21 +36,11 @@
   </form>
 
   <div class="actions">
-    <button
-      mat-stroked-button
-      (click)="save()"
-      color="primary"
-      [disabled]="balanceForm.invalid || balanceForm.pristine || loading"
-      class="button"
-    >
-      @if (!loading) {
-      <i class="pi pi-save"></i>
-      <span>
-        {{ language === "pt-br" ? "Salvar" : "Save" }}
-      </span>
-      } @else {
-      <mat-spinner [diameter]="30"></mat-spinner>
-      }
-    </button>
+    <app-buttons
+      [showSave]="true"
+      [disableSave]="balanceForm.invalid || balanceForm.pristine || loading"
+      [smallBtn]="true"
+      (onSave)="save()"
+    ></app-buttons>
   </div>
 </div>

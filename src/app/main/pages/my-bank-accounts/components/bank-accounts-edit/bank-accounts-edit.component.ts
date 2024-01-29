@@ -20,8 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 import { SelectIconDialogComponent } from '../select-icon-dialog/select-icon-dialog.component';
-import { Account } from '../../../../../interfaces/Account';
 import { MatSelectModule } from '@angular/material/select';
+import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 
 @Component({
   selector: 'app-bank-accounts-edit',
@@ -38,6 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     NgOptimizedImage,
     MatSelectModule,
+    ButtonsComponent,
   ],
   templateUrl: './bank-accounts-edit.component.html',
   styleUrl: './bank-accounts-edit.component.scss',
@@ -176,12 +177,5 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
       this.accountForm.get('image')!.setValue(value);
       this.changedIcon = true;
     });
-  }
-
-  disableSave(): boolean {
-    return (
-      (this.accountForm.invalid || this.accountForm.pristine) &&
-      !this.changedIcon
-    );
   }
 }

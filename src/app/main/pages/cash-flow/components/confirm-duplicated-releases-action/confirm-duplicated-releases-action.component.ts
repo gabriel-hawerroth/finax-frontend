@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [CommonModule, MatDialogModule, MatButtonModule],
   templateUrl: './confirm-duplicated-releases-action.component.html',
   styleUrl: './confirm-duplicated-releases-action.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmDuplicatedReleasesActionComponent {
   public utilsService = inject(UtilsService);

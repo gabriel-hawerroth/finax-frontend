@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -19,7 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CategoryService } from '../../../../../services/category.service';
 import { LoginService } from '../../../../../services/login.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { response } from 'express';
+import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 
 @Component({
   selector: 'app-category-form-dialog',
@@ -30,12 +34,13 @@ import { response } from 'express';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     MatDividerModule,
     MatProgressSpinnerModule,
+    ButtonsComponent,
   ],
   templateUrl: './category-form-dialog.component.html',
   styleUrl: './category-form-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryFormDialogComponent implements OnInit {
   public data = inject(MAT_DIALOG_DATA);

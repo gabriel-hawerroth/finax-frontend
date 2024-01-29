@@ -75,36 +75,17 @@
       </form>
 
       <div class="buttons">
-        <button
-          mat-stroked-button
-          color="primary"
-          [disabled]="
+        <app-buttons
+          [showSave]="true"
+          [showChangePassword]="true"
+          [disableSave]="
             (userForm.pristine && !changedProfileImg) ||
             userForm.invalid ||
             showLoading
           "
-          (click)="saveUser()"
-        >
-          @if (!showLoading) {
-          <span>
-            <i class="pi pi-save"></i>
-            {{ language === "pt-br" ? "Salvar" : "Save" }}
-          </span>
-          } @else {
-          <mat-spinner [diameter]="30"></mat-spinner>
-          }
-        </button>
-
-        <button
-          mat-stroked-button
-          color="primary"
-          (click)="openChangePasswordDialog()"
-        >
-          <span>
-            <span class="material-symbols-outlined">vpn_key</span>
-            {{ language === "pt-br" ? "Alterar a senha" : "Change password" }}
-          </span>
-        </button>
+          (onSave)="saveUser()"
+          (onChangePassword)="openChangePasswordDialog()"
+        ></app-buttons>
       </div>
     </div>
 

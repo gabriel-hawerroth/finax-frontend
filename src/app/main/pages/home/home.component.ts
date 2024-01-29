@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatCardModule } from '@angular/material/card';
@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HomeValues } from '../../../interfaces/Home';
 import { MonthlyCashFlow } from '../../../interfaces/CashFlow';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -28,11 +29,12 @@ export class HomeComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public loginService = inject(LoginService);
   private _homeService = inject(HomeService);
+  private ref = inject(ChangeDetectorRef);
 
   language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;
 
-  homeValues: HomeValues = {
+  homeValues: BehaviorSubject<HomeValues> = new BehaviorSubject<HomeValues>({
     generalBalance: 0,
     monthlyFlow: {
       revenues: 0,
@@ -40,31 +42,31 @@ export class HomeComponent implements OnInit {
     },
     accountsList: [],
     upcomingReleasesExpected: [],
-  };
+  });
 
   accountsPayable: MonthlyCashFlow[] = [];
   accountsReceivable: MonthlyCashFlow[] = [];
 
   ngOnInit(): void {
     this._homeService.getHomeValues().then((response) => {
-      this.homeValues = response;
+      this.homeValues.next(response);
     });
   }
 
   getUpcomingReleases(type: string): MonthlyCashFlow[] {
     return this.utilsService.filterList(
-      this.homeValues.upcomingReleasesExpected,
+      this.homeValues.value.upcomingReleasesExpected,
       'type',
       type
     );
   }
 
   isntLastItemAccounts(id: number): boolean {
-    const index = this.homeValues.accountsList.findIndex(
+    const index = this.homeValues.value.accountsList.findIndex(
       (item) => item.id === id
     );
 
-    return index !== this.homeValues.accountsList.length - 1;
+    return index !== this.homeValues.value.accountsList.length - 1;
   }
 
   isntLastItem(id: number, type: string): boolean {

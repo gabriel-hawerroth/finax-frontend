@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
 import {
@@ -8,7 +14,6 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatButtonModule } from '@angular/material/button';
 import {
   FormBuilder,
   FormGroup,
@@ -16,7 +21,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { CashFlowService } from '../../../../../services/cash-flow.service';
-import { CashFlow } from '../../../../../interfaces/CashFlow';
 import { Category } from '../../../../../interfaces/Category';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import moment from 'moment';
@@ -31,6 +35,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { LoginService } from '../../../../../services/login.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 
 @Component({
   selector: 'release-form-dialog',
@@ -39,7 +44,6 @@ import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-
     CommonModule,
     MatDialogModule,
     MatTabsModule,
-    MatButtonModule,
     MatFormFieldModule,
     ReleaseFormComponent,
     ReactiveFormsModule,
@@ -50,9 +54,11 @@ import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-
     MatSelectModule,
     NgxCurrencyDirective,
     MatProgressSpinnerModule,
+    ButtonsComponent,
   ],
   templateUrl: './release-form-dialog.component.html',
   styleUrl: './release-form-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);

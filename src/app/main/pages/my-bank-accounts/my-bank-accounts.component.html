@@ -12,22 +12,30 @@
     <mat-card class="card">
       <div class="card-header">
         <mat-form-field>
-          <mat-label>Situação</mat-label>
+          <mat-label>
+            {{ language === "pt-br" ? "Situação" : "Situation" }}
+          </mat-label>
+
           <mat-select [formControl]="situationFilter">
-            <mat-option value="all">Todas</mat-option>
-            <mat-option [value]="true">Ativas</mat-option>
-            <mat-option [value]="false">Inativas</mat-option>
+            <mat-option value="all">
+              {{ language === "pt-br" ? "Todas" : "All" }}
+            </mat-option>
+            <mat-option [value]="true">
+              {{ language === "pt-br" ? "Ativas" : "Actives" }}
+            </mat-option>
+            <mat-option [value]="false">
+              {{ language === "pt-br" ? "Inativas" : "Inactives" }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <button
-          mat-stroked-button
-          color="primary"
-          routerLink="/contas-de-banco/novo"
-        >
-          {{ language === "pt-br" ? "Nova conta" : "New account" }}
-        </button>
+        <app-buttons
+          [showNew]="true"
+          [ptBrLabelNew]="'Nova'"
+          (onNew)="onNew()"
+        ></app-buttons>
       </div>
+
       <div class="list">
         @for (account of filteredRows.getValue(); track account.id) {
         <div class="account" (click)="openDetails(account)">

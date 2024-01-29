@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -24,6 +24,7 @@ import { lastValueFrom } from 'rxjs';
   ],
   templateUrl: './bank-account-details.component.html',
   styleUrl: './bank-account-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BankAccountDetailsComponent {
   public utilsService = inject(UtilsService);

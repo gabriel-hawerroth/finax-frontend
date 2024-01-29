@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -17,8 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
-import { Account } from '../../../../../interfaces/Account';
+import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 
 @Component({
   selector: 'app-edit-balance-dialog',
@@ -30,11 +34,12 @@ import { Account } from '../../../../../interfaces/Account';
     MatInputModule,
     NgxCurrencyDirective,
     MatProgressSpinnerModule,
-    MatButtonModule,
     MatDialogModule,
+    ButtonsComponent,
   ],
   templateUrl: './edit-balance-dialog.component.html',
   styleUrl: './edit-balance-dialog.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditBalanceDialogComponent implements OnInit {
   public dialogRef = inject(MatDialogRef<EditBalanceDialogComponent>);
