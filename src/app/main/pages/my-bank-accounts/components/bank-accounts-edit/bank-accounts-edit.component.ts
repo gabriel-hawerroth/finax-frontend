@@ -16,7 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 import { SelectIconDialogComponent } from '../select-icon-dialog/select-icon-dialog.component';
@@ -34,7 +33,6 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
     MatInputModule,
     NgxCurrencyDirective,
     CustomCurrencyPipe,
-    MatButtonModule,
     MatCheckboxModule,
     NgOptimizedImage,
     MatSelectModule,
@@ -62,6 +60,8 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
   accountForm!: FormGroup;
 
   changedIcon: boolean = false;
+
+  saving: boolean = false;
 
   ngOnInit(): void {
     this.accountId = +this._activatedRoute.snapshot.paramMap.get('id')! || null;
@@ -129,6 +129,9 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
   save() {
     if (this.accountForm.invalid) return;
 
+    this.saving = true;
+
+    this.accountForm.markAsPristine();
     const data = this.accountForm.value;
 
     this._accountService
@@ -147,9 +150,10 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
             ? 'Erro ao salvar a conta'
             : 'Error saving account'
         );
+      })
+      .finally(() => {
+        this.saving = false;
       });
-
-    this.accountForm.markAsPristine();
   }
 
   changeBalance() {

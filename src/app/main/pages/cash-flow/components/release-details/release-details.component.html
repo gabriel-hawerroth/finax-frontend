@@ -88,6 +88,8 @@
         [showEdit]="true"
         [showDelete]="true"
         [bigBtn]="true"
+        [disableEdit]="release.categoryId === 21"
+        [disableDelete]="release.categoryId === 21"
         (onDownload)="downloadAttachment()"
         (onEdit)="edit()"
         (onDelete)="delete()"

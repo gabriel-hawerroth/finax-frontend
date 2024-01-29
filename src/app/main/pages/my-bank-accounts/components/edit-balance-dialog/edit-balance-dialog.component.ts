@@ -75,8 +75,6 @@ export class EditBalanceDialogComponent implements OnInit {
             : 'Balance changed successfully'
         );
 
-        console.log(response);
-
         this.dialogRef.close(response.balance);
       })
       .catch(() => {

@@ -62,7 +62,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   changedProfileImg: boolean = false;
   selectedProfileImage: File | null = null;
 
-  showLoading: boolean = false;
+  saving: boolean = false;
 
   ngOnInit(): void {
     this.buildForm();
@@ -143,12 +143,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   saveUser() {
-    this.showLoading = true;
+    this.saving = true;
 
     let showingMessage: boolean = false;
 
     setTimeout(() => {
-      if (this.showLoading) {
+      if (this.saving) {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
@@ -159,19 +159,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           showingMessage = false;
         }, 6000);
-
-        setTimeout(() => {
-          if (this.showLoading) {
-            this.utilsService.showSimpleMessage(
-              this.language === 'pt-br' ? 'Quase lá...' : 'Almost there...',
-              6000
-            );
-            showingMessage = true;
-            setTimeout(() => {
-              showingMessage = false;
-            }, 6000);
-          }
-        }, 15000);
       }
     }, 8000);
 
@@ -230,7 +217,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       .finally(() => {
         this.userForm.markAsPristine();
         this.changedProfileImg = false;
-        this.showLoading = false;
+        this.saving = false;
       });
 
     if (showingMessage) this.utilsService.dismissMessage();

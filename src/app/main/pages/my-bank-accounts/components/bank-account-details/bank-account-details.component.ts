@@ -24,7 +24,6 @@ import { lastValueFrom } from 'rxjs';
   ],
   templateUrl: './bank-account-details.component.html',
   styleUrl: './bank-account-details.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BankAccountDetailsComponent {
   public utilsService = inject(UtilsService);

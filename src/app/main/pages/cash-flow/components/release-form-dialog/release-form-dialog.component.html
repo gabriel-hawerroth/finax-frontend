@@ -13,6 +13,7 @@
         releaseForm.invalid ||
         saving
       "
+      [showSaveLoading]="saving"
       (onSave)="save()"
       class="save-btn"
     ></app-buttons>

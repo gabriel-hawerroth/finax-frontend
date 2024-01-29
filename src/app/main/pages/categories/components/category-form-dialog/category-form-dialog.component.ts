@@ -22,7 +22,6 @@ import {
 import { MatDividerModule } from '@angular/material/divider';
 import { CategoryService } from '../../../../../services/category.service';
 import { LoginService } from '../../../../../services/login.service';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 
 @Component({
@@ -35,7 +34,6 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
     MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
-    MatProgressSpinnerModule,
     ButtonsComponent,
   ],
   templateUrl: './category-form-dialog.component.html',
@@ -54,10 +52,9 @@ export class CategoryFormDialogComponent implements OnInit {
 
   categoryForm!: FormGroup;
 
-  confirmDelete: boolean = false;
-  excluding: boolean = false;
-
   disabled: boolean = false;
+
+  saving: boolean = false;
 
   ngOnInit(): void {
     this.buildForm();
@@ -99,6 +96,8 @@ export class CategoryFormDialogComponent implements OnInit {
   }
 
   save() {
+    this.saving = true;
+
     this._categoryService
       .save(this.categoryForm.value)
       .then((response) => {
@@ -116,12 +115,10 @@ export class CategoryFormDialogComponent implements OnInit {
             ? 'Erro ao salvar a categoria'
             : 'Error saving category'
         );
+      })
+      .finally(() => {
+        this.saving = false;
       });
-  }
-
-  delete() {
-    this.excluding = true;
-    this.confirmDelete = false;
   }
 
   colors: string[] = [

@@ -24,9 +24,12 @@
     color="primary"
   >
     <div class="btn-content">
+      @if (!showSaveLoading) {
       <span class="material-symbols-outlined">save</span>
       @if (isPcScreen) {
       <span>{{ language === "pt-br" ? "Salvar" : "Save" }}</span>
+      } } @else {
+      <mat-spinner [diameter]="30"></mat-spinner>
       }
     </div>
   </button>

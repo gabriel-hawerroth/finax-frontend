@@ -253,7 +253,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           this.language === 'pt-br'
             ? 'Para alterar outros lançamentos junto com este, a data deve permanecer igual'
             : 'To change other releases along with this one, the date must remain the same',
-          4000
+          5000
         );
         return;
       }
@@ -275,19 +275,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           showingMessage = false;
         }, 6000);
-
-        setTimeout(() => {
-          if (this.saving) {
-            this.utilsService.showSimpleMessage(
-              this.language === 'pt-br' ? 'Quase lá...' : 'Almost there...',
-              6000
-            );
-            showingMessage = true;
-            setTimeout(() => {
-              showingMessage = false;
-            }, 6000);
-          }
-        }, 15000);
       }
     }, 8000);
 
@@ -317,16 +304,21 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           release = response;
         })
         .catch(() => {
-          this.utilsService.showSimpleMessage(
-            this.language === 'pt-br'
-              ? 'Erro ao salvar o lançamento'
-              : 'Error saving the release'
-          );
           requestError = true;
         });
     }
 
-    if (this.changedAttachment && this.selectedFile && !requestError) {
+    if (requestError) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'Erro ao salvar o lançamento'
+          : 'Error saving the release'
+      );
+      this.saving = false;
+      return;
+    }
+
+    if (this.changedAttachment && this.selectedFile) {
       await this._cashFlowService
         .addAttachment(release.id, this.selectedFile!)
         .catch((err) => {
@@ -338,7 +330,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           );
           requestError = true;
         });
-    } else if (this.removedFile && !requestError) {
+    } else if (this.removedFile) {
       await this._cashFlowService.removeAttachment(release.id).catch((err) => {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
@@ -350,14 +342,12 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       });
     }
 
-    if (!requestError) {
-      this.utilsService.showSimpleMessage(
-        this.language === 'pt-br'
-          ? 'Lançamento salvo com sucesso'
-          : 'Release saved successfully'
-      );
-      this._matDialogRef.close(true);
-    }
+    this.utilsService.showSimpleMessage(
+      this.language === 'pt-br'
+        ? 'Lançamento salvo com sucesso'
+        : 'Release saved successfully'
+    );
+    this._matDialogRef.close(true);
 
     this.saving = false;
 

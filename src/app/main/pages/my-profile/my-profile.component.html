@@ -81,8 +81,9 @@
           [disableSave]="
             (userForm.pristine && !changedProfileImg) ||
             userForm.invalid ||
-            showLoading
+            saving
           "
+          [showSaveLoading]="saving"
           (onSave)="saveUser()"
           (onChangePassword)="openChangePasswordDialog()"
         ></app-buttons>

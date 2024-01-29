@@ -87,7 +87,8 @@
     <div class="row4">
       <app-buttons
         [showSave]="true"
-        [disableSave]="categoryForm.invalid || categoryForm.pristine"
+        [disableSave]="categoryForm.invalid || categoryForm.pristine || saving"
+        [showSaveLoading]="saving"
         (onSave)="save()"
       ></app-buttons>
     </div>

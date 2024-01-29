@@ -1,21 +1,23 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  inject,
+} from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-buttons',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-  ],
+  imports: [CommonModule, MatButtonModule, MatProgressSpinnerModule],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonsComponent {
   @Input() showNew: boolean = false;
@@ -42,6 +44,8 @@ export class ButtonsComponent {
   @Output() onClose = new EventEmitter();
   @Output() onGoBack = new EventEmitter();
   @Output() onChangePassword = new EventEmitter();
+
+  @Input() showSaveLoading: boolean = false;
 
   @Input() smallBtn: boolean = false;
   @Input() bigBtn: boolean = false;
