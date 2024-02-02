@@ -43,16 +43,13 @@ export class HomeComponent implements OnInit {
     upcomingReleasesExpected: [],
   });
 
-  accountsPayable: MonthlyCashFlow[] = [];
-  accountsReceivable: MonthlyCashFlow[] = [];
-
   ngOnInit(): void {
     this._homeService.getHomeValues().then((response) => {
       this.homeValues.next(response);
     });
   }
 
-  getUpcomingReleases(type: string): MonthlyCashFlow[] {
+  getUpcomingReleases(type: 'R' | 'E'): MonthlyCashFlow[] {
     return this.utilsService.filterList(
       this.homeValues.value.upcomingReleasesExpected,
       'type',
@@ -68,7 +65,7 @@ export class HomeComponent implements OnInit {
     return index !== this.homeValues.value.accountsList.length - 1;
   }
 
-  isntLastItem(id: number, type: string): boolean {
+  isntLastItem(id: number, type: 'R' | 'E'): boolean {
     const index = this.getUpcomingReleases(type).findIndex(
       (item) => item.id === id
     );

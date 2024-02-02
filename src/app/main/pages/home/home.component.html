@@ -47,13 +47,13 @@
               color:
                 homeValues.getValue().generalBalance > 0
                   ? '#15e627'
-                  : homeValues.getValue().generalBalance === 0
+                  : (homeValues.getValue().generalBalance || 0) === 0
                   ? '#3d799c'
                   : 'red'
             }"
           >
             {{ currency
-            }}{{ homeValues.getValue().generalBalance | customCurrency }}
+            }}{{ homeValues.getValue().generalBalance || 0 | customCurrency }}
           </span>
         </mat-card-header>
 

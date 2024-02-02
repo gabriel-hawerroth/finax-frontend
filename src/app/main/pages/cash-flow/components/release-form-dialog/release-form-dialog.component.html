@@ -65,7 +65,7 @@
                 ? '0'
                 : '2rem'
               : smallScreen
-              ? '.0'
+              ? '0'
               : '.8rem'
         }"
       >
@@ -84,7 +84,7 @@
           color: selectedFile ? '#fff' : '',
           border: selectedFile ? 'none' : '',
         }"
-          matTooltip="Anexo"
+          [matTooltip]="language === 'pt-br' ? 'Anexo' : 'Attachment'"
           matTooltipPosition="left"
         >
           <span class="material-symbols-outlined">attach_file_add</span>
@@ -99,7 +99,7 @@
           'color': showRepeat ? '#fff' : '',
           'border': showRepeat ? 'none' : '',
         }"
-          matTooltip="Repetir"
+          [matTooltip]="language === 'pt-br' ? 'Repetir' : 'Repeat'"
           matTooltipPosition="left"
         >
           <span class="material-symbols-outlined">repeat</span>
@@ -114,7 +114,7 @@
           'color': showObservation ? '#fff' : '',
           'border': showObservation ? 'none' : '',
         }"
-          matTooltip="Observação"
+          [matTooltip]="language === 'pt-br' ? 'Observação' : 'Observation'"
           matTooltipPosition="left"
         >
           <span class="material-symbols-outlined">speaker_notes</span>

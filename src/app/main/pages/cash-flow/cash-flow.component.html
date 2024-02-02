@@ -196,14 +196,14 @@
         <div class="row2">
           <span>
             {{ language === "pt-br" ? "Saldo geral: " : "General balance: " }}
-            {{ currency }}{{ totals.generalBalance | customCurrency }}
+            {{ currency }}{{ totals.generalBalance || 0 | customCurrency }}
           </span>
 
           <span>
             {{
               language === "pt-br" ? "Saldo previsto: " : "Expected balance: "
             }}
-            {{ currency }}{{ totals.expectedBalance | customCurrency }}
+            {{ currency }}{{ totals.expectedBalance || 0 | customCurrency }}
           </span>
         </div>
       </div>
