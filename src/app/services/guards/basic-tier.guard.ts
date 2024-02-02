@@ -15,7 +15,7 @@ export class BasicTierGuard implements CanActivate {
 
   canActivate() {
     if (this._loginService.logged) {
-      if (this._loginService.getUserAccess !== 'free') return true;
+      if (this._loginService.getLoggedUser!.access !== 'free') return true;
       else {
         this._router.navigate(['home']);
         this._utilsService.showSimpleMessage(

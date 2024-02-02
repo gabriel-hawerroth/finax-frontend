@@ -1,10 +1,4 @@
-import {
-  Component,
-  inject,
-  OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -12,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginService } from '../../../services/login.service';
 import { UserService } from '../../../services/user.service';
@@ -20,9 +13,9 @@ import { UtilsService } from '../../../utils/utils.service';
 import { ChangePasswordDialogComponent } from '../../dialogs/change-password-dialog/change-password-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-my-profile',
@@ -32,7 +25,6 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatProgressSpinnerModule,
     MatInputModule,
     ButtonsComponent,
   ],
@@ -49,7 +41,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   private _unsubscribeAll: Subject<any> = new Subject();
 
   userForm!: FormGroup;
-  loggedUserId: number = this.loginService.getLoggedUserId;
   language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;
 
@@ -58,7 +49,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   planPrice: string = '';
   signatureExpiration: string = '';
 
-  profileImageSrc: string | ArrayBuffer | null = null;
+  profileImageSrc: string | ArrayBuffer | null =
+    this.utilsService.userImage.getValue();
   changedProfileImg: boolean = false;
   selectedProfileImage: File | null = null;
 
@@ -66,9 +58,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.buildForm();
-    this.subscribeUserObservables();
-    this.getUser();
-    this.getUserPlan();
+    // this.getUserPlan();
+
+    this.utilsService.userImage
+      .asObservable()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => (this.profileImageSrc = value));
   }
 
   ngOnDestroy(): void {
@@ -83,63 +78,8 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       firstName: ['', Validators.required],
       lastName: '',
     });
-  }
 
-  subscribeUserObservables() {
-    this.utilsService.userImage
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((image) => {
-        this.profileImageSrc = image;
-      });
-  }
-
-  getUser() {
-    this.userForm.patchValue(this.loginService.getLoggedUser);
-  }
-
-  getUserPlan() {
-    this.monthYear =
-      this.loginService.getLoggedUser.signature === 'month'
-        ? 'Mensal'
-        : 'Anual';
-
-    if (this.monthYear === 'Anual') {
-      this.signatureExpiration =
-        this.loginService.getLoggedUser.signatureExpiration.toString();
-    }
-
-    switch (this.loginService.getUserAccess) {
-      case 'free':
-        this.userPlanTitle = 'Plano gratuito';
-        document.getElementById('month-year')!.style.display = 'none';
-        document.getElementById('signature-expiration')!.style.display = 'none';
-        document.getElementById('cancel-signature')!.style.display = 'none';
-        document.getElementById('change-payment-method')!.style.display =
-          'none';
-        this.planPrice = 'R$0,00';
-        break;
-      case 'basic':
-        this.userPlanTitle = 'Plano básico';
-        this.planPrice =
-          'R$' + (this.monthYear === 'Mensal' ? '11,90' : '94,80');
-        break;
-      case 'premium':
-        this.userPlanTitle = 'Plano premium';
-        this.planPrice =
-          'R$' + (this.monthYear === 'Mensal' ? '49,90' : '358,80');
-        break;
-      case 'adm':
-        this.userPlanTitle = 'Acesso adm';
-        document.getElementById('month-year')!.style.display = 'none';
-        document.getElementById('adm-plan')!.style.display = 'block';
-        document.getElementById('signature-expiration')!.style.display = 'none';
-        break;
-
-      default:
-        this.userPlanTitle = 'Erro ao obter o plano';
-        break;
-    }
+    this.userForm.patchValue(this.loginService.getLoggedUser!);
   }
 
   saveUser() {
@@ -148,7 +88,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     let showingMessage: boolean = false;
 
     setTimeout(() => {
-      if (this.saving) {
+      if (this.saving && this.selectedProfileImage) {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
@@ -172,7 +112,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
         if (this.changedProfileImg) {
           await this._userService
-            .changeProfileImagem(user.id, this.selectedProfileImage!)
+            .changeProfileImagem(this.selectedProfileImage!)
             .then(() => {
               this.utilsService.showSimpleMessage(
                 this.language === 'pt-br'
@@ -262,7 +202,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   openChangePasswordDialog() {
     this._matDialog.open(ChangePasswordDialogComponent, {
       data: {
-        userId: this.loginService.getLoggedUserId,
+        userId: this.loginService.getLoggedUser!.id,
       },
       disableClose: false,
       autoFocus: true,
@@ -272,4 +212,48 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   changePlan() {}
+
+  // getUserPlan() {
+  //   this.monthYear =
+  //     this.loginService.getLoggedUser!.signature === 'month'
+  //       ? 'Mensal'
+  //       : 'Anual';
+
+  //   if (this.monthYear === 'Anual') {
+  //     this.signatureExpiration =
+  //       this.loginService.getLoggedUser!.signatureExpiration!.toString();
+  //   }
+
+  //   switch (this.loginService.getUserAccess) {
+  //     case 'free':
+  //       this.userPlanTitle = 'Plano gratuito';
+  //       document.getElementById('month-year')!.style.display = 'none';
+  //       document.getElementById('signature-expiration')!.style.display = 'none';
+  //       document.getElementById('cancel-signature')!.style.display = 'none';
+  //       document.getElementById('change-payment-method')!.style.display =
+  //         'none';
+  //       this.planPrice = 'R$0,00';
+  //       break;
+  //     case 'basic':
+  //       this.userPlanTitle = 'Plano básico';
+  //       this.planPrice =
+  //         'R$' + (this.monthYear === 'Mensal' ? '11,90' : '94,80');
+  //       break;
+  //     case 'premium':
+  //       this.userPlanTitle = 'Plano premium';
+  //       this.planPrice =
+  //         'R$' + (this.monthYear === 'Mensal' ? '49,90' : '358,80');
+  //       break;
+  //     case 'adm':
+  //       this.userPlanTitle = 'Acesso adm';
+  //       document.getElementById('month-year')!.style.display = 'none';
+  //       document.getElementById('adm-plan')!.style.display = 'block';
+  //       document.getElementById('signature-expiration')!.style.display = 'none';
+  //       break;
+
+  //     default:
+  //       this.userPlanTitle = 'Erro ao obter o plano';
+  //       break;
+  //   }
+  // }
 }

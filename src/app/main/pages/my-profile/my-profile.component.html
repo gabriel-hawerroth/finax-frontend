@@ -31,45 +31,34 @@
   <div class="content">
     <div class="form-box">
       <form [formGroup]="userForm">
-        <div class="flex">
-          <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-            <mat-label>Email</mat-label>
-            <input
-              type="text"
-              matInput
-              formControlName="email"
-              readonly="true"
-            />
-          </mat-form-field>
-        </div>
+        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
+          <mat-label>Email</mat-label>
+          <input type="text" matInput formControlName="email" readonly="true" />
+        </mat-form-field>
 
-        <div class="flex">
-          <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-            <mat-label>{{
-              language === "pt-br" ? "Nome" : "First name"
-            }}</mat-label>
-            <input
-              type="text"
-              matInput
-              formControlName="firstName"
-              maxlength="30"
-            />
-          </mat-form-field>
-        </div>
+        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
+          <mat-label>
+            {{ language === "pt-br" ? "Nome" : "First name" }}
+          </mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="firstName"
+            maxlength="30"
+          />
+        </mat-form-field>
 
-        <div fxLayout="row">
-          <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-            <mat-label>{{
-              language === "pt-br" ? "Sobrenome" : "Last name"
-            }}</mat-label>
-            <input
-              type="text"
-              matInput
-              formControlName="lastName"
-              maxlength="90"
-            />
-          </mat-form-field>
-        </div>
+        <mat-form-field style="width: 80%">
+          <mat-label>
+            {{ language === "pt-br" ? "Sobrenome" : "Last name" }}
+          </mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="lastName"
+            maxlength="90"
+          />
+        </mat-form-field>
       </form>
 
       <div class="buttons">
@@ -103,10 +92,10 @@
 
           <span id="plan-price">{{ currency }}0,00</span>
 
-          <span id="signature-expiration" class="hidden">
+          <!-- <span id="signature-expiration">
             {{ language === "pt-br" ? "Expira em" : "Expires on" }}:
             {{ signatureExpiration | date : "dd/MM/yyyy" }}
-          </span>
+          </span> -->
 
           <span id="adm-plan">Congratulations, you're the boss!</span>
         </div>
@@ -128,14 +117,14 @@
       </div>
 
       <button mat-button color="primary" id="change-payment-method">
-        <span
-          ><span class="material-symbols-outlined">credit_card</span
-          >{{
+        <span>
+          <span class="material-symbols-outlined">credit_card</span>
+          {{
             language === "pt-br"
               ? "Alterar forma de pagamento"
               : "Change payment method"
-          }}</span
-        >
+          }}
+        </span>
       </button>
     </div>
   </div>

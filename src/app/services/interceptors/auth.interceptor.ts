@@ -6,7 +6,7 @@ import { throwError } from 'rxjs';
 import { LoginService } from '../login.service';
 import { UtilsService } from '../../utils/utils.service';
 
-const getToken = (): string => {
+const getToken = (): string | null => {
   return inject(LoginService).getUserToken;
 };
 
@@ -16,13 +16,13 @@ export const authInterceptor: HttpInterceptorFn = (
   loginService = inject(LoginService),
   utilsService = inject(UtilsService)
 ) => {
-  let token: string = getToken();
+  let token: string | null = getToken();
 
   const requestUrl: Array<string> = request.url.split('/');
   const apiUrl: Array<string> = environment.baseApiUrl.split('/');
 
   if (requestUrl[2] === apiUrl[2]) {
-    if (token !== '') {
+    if (token) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,

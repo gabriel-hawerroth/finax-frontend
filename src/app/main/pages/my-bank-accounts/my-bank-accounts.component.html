@@ -13,7 +13,11 @@
       <div class="card-header">
         <mat-form-field>
           <mat-label>
-            {{ language === "pt-br" ? "Situação" : "Situation" }}
+            {{
+              language === "pt-br"
+                ? "Filtrar po situação"
+                : "Filter by situation"
+            }}
           </mat-label>
 
           <mat-select [formControl]="situationFilter">

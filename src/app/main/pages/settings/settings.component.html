@@ -9,13 +9,17 @@
   </h1>
 
   <form [formGroup]="configsForm" class="content">
-    <div class="config flex flex-column align-items-start">
-      <span class="mb-3">{{ language === "pt-br" ? "Tema" : "Theme" }}:</span>
+    <div class="config theme">
+      <span style="margin-bottom: 0.9rem">
+        {{ language === "pt-br" ? "Tema" : "Theme" }}:
+      </span>
 
       <mat-button-toggle-group formControlName="theme">
         @for (option of themeOptions; track $index) {
         <mat-button-toggle [value]="option.value">
-          <i [class]="option.icon"></i>
+          <i class="material-symbols-outlined">
+            {{ option.icon }}
+          </i>
         </mat-button-toggle>
         }
       </mat-button-toggle-group>

@@ -94,7 +94,7 @@ export class ChangePasswordDialogComponent implements OnInit {
 
     this._userService
       .changePassword(
-        this._loginService.getLoggedUserId!,
+        this._loginService.getLoggedUser!.id!,
         passwords.newPassword,
         passwords.currentPassword
       )

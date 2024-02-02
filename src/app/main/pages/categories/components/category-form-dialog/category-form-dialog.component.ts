@@ -78,7 +78,7 @@ export class CategoryFormDialogComponent implements OnInit {
       color: ['', Validators.required],
       icon: ['', Validators.required],
       type: [this.data.type, Validators.required],
-      userId: this._loginService.getLoggedUserId,
+      userId: this._loginService.getLoggedUser!.id,
       active: true,
     });
 

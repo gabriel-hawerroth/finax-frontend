@@ -16,8 +16,8 @@ export class PremiumTierGuard implements CanActivate {
   canActivate() {
     if (this._loginService.logged) {
       if (
-        this._loginService.getUserAccess === 'premium' ||
-        this._loginService.getUserAccess === 'adm'
+        this._loginService.getLoggedUser!.access === 'premium' ||
+        this._loginService.getLoggedUser!.access === 'adm'
       )
         return true;
       else {

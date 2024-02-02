@@ -2,13 +2,15 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import moment from 'moment';
 
 import { environment } from '../../environments/environment';
 import { UtilsService } from '../utils/utils.service';
 import { User } from '../interfaces/User';
 import { Credentials } from '../interfaces/Credentials';
 import { UserService } from './user.service';
-import moment from 'moment';
+import { UserConfigsService } from './user-configs.service';
+import { UserConfigs } from '../interfaces/UserConfigs';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,7 @@ export class LoginService {
   private _router = inject(Router);
   private _utilsService = inject(UtilsService);
   private _userService = inject(UserService);
+  private _userConfigsService = inject(UserConfigsService);
 
   apiUrl = `${environment.baseApiUrl}login`;
 
@@ -32,6 +35,8 @@ export class LoginService {
         return;
       }
 
+      this.setToken(response.access_token);
+
       await this._userService
         .getByEmail(response.username)
         .then((user: User) => {
@@ -44,7 +49,27 @@ export class LoginService {
             return;
           }
 
-          this._router.navigate(['home']);
+          this.updateLoggedUser(user);
+
+          this._utilsService.getUserConfigs;
+          this._userConfigsService
+            .getLoggedUserConfigs()
+            .then((response: UserConfigs) => {
+              this._utilsService.userConfigs.next(response);
+              this._utilsService.setItemLocalStorage(
+                'savedUserConfigsFinax',
+                btoa(JSON.stringify(response))
+              );
+            });
+
+          if (credentials.rememberMe) {
+            this._utilsService.setItemLocalStorage(
+              'savedLoginFinax',
+              btoa(JSON.stringify(credentials))
+            );
+          } else {
+            this._utilsService.removeItemLocalStorage('savedLoginFinax');
+          }
 
           if (!credentials.changedPassword) {
             this._utilsService.showSimpleMessage(
@@ -60,30 +85,9 @@ export class LoginService {
             );
           }
 
-          this._utilsService.setItemLocalStorage(
-            'tokenFinax',
-            btoa(JSON.stringify(response.access_token))
-          );
-          this._utilsService.setItemLocalStorage(
-            'userFinax',
-            btoa(JSON.stringify(user))
-          );
-
-          if (credentials.rememberMe) {
-            this._utilsService.setItemLocalStorage(
-              'savedLoginFinax',
-              btoa(JSON.stringify(credentials))
-            );
-          } else {
-            this._utilsService.removeItemLocalStorage('savedLoginFinax');
-          }
-
-          this._utilsService.setItemLocalStorage(
-            'tokenExpiration',
-            moment().add(1, 'hour').toDate().toString()
-          );
+          this._router.navigate(['home']);
         })
-        .catch((error) => {
+        .catch(() => {
           this._utilsService.showSimpleMessage(
             language === 'pt-br'
               ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
@@ -93,7 +97,7 @@ export class LoginService {
     });
   }
 
-  oauthLogin(credentials: Credentials) {
+  oauthLogin(credentials: Credentials): Promise<any> {
     const basicAuth = 'client-id:secret-id';
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Basic ' + btoa(basicAuth));
@@ -111,12 +115,29 @@ export class LoginService {
     );
   }
 
+  updateLoggedUser(user: User) {
+    this._utilsService.setItemLocalStorage(
+      'userFinax',
+      btoa(JSON.stringify(user))
+    );
+  }
+
+  setToken(token: string) {
+    this._utilsService.setItemLocalStorage(
+      'tokenFinax',
+      btoa(JSON.stringify(token))
+    );
+    this._utilsService.setItemLocalStorage(
+      'tokenExpiration',
+      moment().add(1, 'hour').toDate().toString()
+    );
+  }
+
   logout(showMessage: boolean = true) {
     this._utilsService.removeItemLocalStorage('userFinax');
     this._utilsService.removeItemLocalStorage('tokenFinax');
     this._utilsService.removeItemLocalStorage('tokenExpiration');
     this._router.navigate(['']);
-    this._utilsService.userImage.next('assets/user-image.webp');
     if (showMessage)
       this._utilsService.showSimpleMessage(
         this._utilsService.getUserConfigs.language === 'pt-br'
@@ -132,38 +153,24 @@ export class LoginService {
     );
   }
 
-  sendChangePasswordEmail(userId: number): Promise<any> {
+  sendChangePasswordEmail(email: string): Promise<any> {
     let params = new HttpParams();
-    params = params.append('userId', userId);
+    params = params.append('email', email);
 
     return lastValueFrom(
       this._http.post(`${this.apiUrl}/send-change-password-email`, params)
     );
   }
 
-  get getLoggedUser(): User {
+  get getLoggedUser(): User | null {
     return this._utilsService.getItemLocalStorage('userFinax')
       ? JSON.parse(atob(this._utilsService.getItemLocalStorage('userFinax')!))
       : null;
   }
 
-  get getLoggedUserId(): number {
-    return this._utilsService.getItemLocalStorage('userFinax')
-      ? +JSON.parse(atob(this._utilsService.getItemLocalStorage('userFinax')!))
-          .id
-      : 0;
-  }
-
-  get getUserToken(): string {
+  get getUserToken(): string | null {
     return this._utilsService.getItemLocalStorage('tokenFinax')
       ? JSON.parse(atob(this._utilsService.getItemLocalStorage('tokenFinax')!))
-      : '';
-  }
-
-  get getUserAccess(): string {
-    return this._utilsService.getItemLocalStorage('userFinax')
-      ? JSON.parse(atob(this._utilsService.getItemLocalStorage('userFinax')!))
-          .access
       : null;
   }
 

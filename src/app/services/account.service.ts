@@ -16,9 +16,7 @@ export class AccountService {
 
   getByUser(): Promise<Account[]> {
     return lastValueFrom(
-      this._http.get<Account[]>(
-        `${this.apiUrl}/get-by-user/${this._loginService.getLoggedUserId}`
-      )
+      this._http.get<Account[]>(`${this.apiUrl}/get-by-user`)
     );
   }
 
@@ -27,7 +25,7 @@ export class AccountService {
   }
 
   save(data: Account): Promise<Account> {
-    data.userId = this._loginService.getLoggedUserId;
+    data.userId = this._loginService.getLoggedUser!.id;
 
     return lastValueFrom(this._http.post<Account>(this.apiUrl, data));
   }

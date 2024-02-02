@@ -56,37 +56,28 @@ export class ForgotPasswordComponent implements OnInit {
   resetPassword() {
     if (this.forgotPasswordForm.invalid) return;
     this.showLoading = true;
+    const email: string = this.forgotPasswordForm.value.email;
 
-    this._userService
-      .getByEmail(this.forgotPasswordForm.get('email')!.value)
-      .then((user: User) => {
-        this._loginService
-          .sendChangePasswordEmail(user.id!)
-          .then(() => {
-            this.showLoading = false;
-            this.forgotPasswordForm.reset(this.originalFormValue);
-            this.utilsService.showSimpleMessageWithoutDuration(
-              this.language === 'pt-br'
-                ? `O link de recuperação foi enviado para o email: ${user.email}`
-                : `The recovery link has been sent to the email: ${user.email}`
-            );
-          })
-          .catch(() => {
-            this.showLoading = false;
-            this.utilsService.showSimpleMessage(
-              this.language === 'pt-br'
-                ? 'Erro no sistema, tente novamente mais tarde'
-                : 'System error, please try again later'
-            );
-          });
+    this._loginService
+      .sendChangePasswordEmail(email)
+      .then(() => {
+        this.showLoading = false;
+        this.forgotPasswordForm.reset(this.originalFormValue);
+        this.utilsService.showSimpleMessageWithoutDuration(
+          this.language === 'pt-br'
+            ? `O link de recuperação foi enviado para o email: ${email}`
+            : `The recovery link has been sent to the email: ${email}`
+        );
       })
       .catch(() => {
-        this.showLoading = false;
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Esse usuário não existe'
             : "This user don't exist"
         );
+      })
+      .finally(() => {
+        this.showLoading = false;
       });
   }
 }

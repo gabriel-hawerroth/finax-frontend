@@ -9,6 +9,8 @@
   </h1>
 
   <div class="content">
-    <mat-card class="card"></mat-card>
+    <mat-card class="card">
+      <app-buttons [showNew]="true" (onNew)="sendTestRequest()"></app-buttons>
+    </mat-card>
   </div>
 </div>

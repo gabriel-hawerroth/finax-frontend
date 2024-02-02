@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { UtilsService } from '../../utils/utils.service';
 import { RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { User } from '../../interfaces/User';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,28 +21,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  loggedUserId: number = this.loginService.getLoggedUserId;
   language: string = this.utilsService.getUserConfigs.language;
-  profileImageSrc!: string | ArrayBuffer | null;
-  userAccess: string = 'free';
+  userAccess: string = this.loginService.getLoggedUser?.access || '';
 
   reportsUl: boolean = true;
   noticesUl: boolean = true;
   moreUl: boolean = true;
   userActionsUl: boolean = true;
 
+  darkThemeEnabled: boolean = false;
+
   ngOnInit(): void {
-    this.userAccess = this.loginService.getUserAccess;
-
+    this.subscribeThemeChanges();
     this.getUserImage();
-    this.handleTheme();
-
-    this.utilsService.userConfigs
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.language = value.language;
-      });
   }
 
   ngOnDestroy(): void {
@@ -49,53 +41,26 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  getUserImage() {
-    this._userService
-      .getUserImage(this.loggedUserId)
-      .then((response) => {
-        if (response.size === 0) {
-          this.utilsService.userImage.next('assets/user-image.webp');
-          return;
-        }
-
-        const file = new Blob([response], {
-          type: response.type,
-        });
-        if (file.size !== 0) {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            this.utilsService.userImage.next(reader.result);
-          };
-        }
-      })
-      .catch(() => {
-        this.utilsService.userImage.next('assets/user-image.webp');
-      });
-  }
-
-  handleTheme() {
-    const sidebar = document.getElementById('sidebar');
-    const navUlItens = document.querySelectorAll('.nav-ul-item');
-
+  subscribeThemeChanges() {
     this.utilsService.userConfigs
       .asObservable()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
-        if (value.theme === 'light') {
-          sidebar!.style.backgroundColor = '#fafafa';
-
-          navUlItens.forEach((element) => {
-            element.classList.remove('nav-ul-item-dark');
-          });
-        } else {
-          sidebar!.style.backgroundColor = '#212121';
-
-          navUlItens.forEach((element) => {
-            element.classList.add('nav-ul-item-dark');
-          });
-        }
+        this.darkThemeEnabled = value.theme === 'dark';
+        this.language = value.language;
       });
+  }
+
+  getUserImage() {
+    this._userService.getUserImage().then((response: Blob) => {
+      if (response.size !== 0) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.utilsService.userImage.next(reader.result);
+        };
+        reader.readAsDataURL(response);
+      }
+    });
   }
 
   logout() {

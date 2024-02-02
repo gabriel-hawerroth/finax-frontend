@@ -141,7 +141,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   buildForm() {
     this.releaseForm = this._fb.group({
       id: null,
-      userId: this._loginService.getLoggedUserId,
+      userId: this._loginService.getLoggedUser!.id,
       description: '',
       accountId: [null, Validators.required],
       targetAccountId: [null],
@@ -267,8 +267,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       if (this.saving) {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
-            ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
-            : 'Due to the size of the image, this may take a few seconds',
+            ? 'Devido ao tamanho do arquivo isto pode levar alguns segundos'
+            : 'Due to the size of the file, this may take a few seconds',
           6000
         );
         showingMessage = true;

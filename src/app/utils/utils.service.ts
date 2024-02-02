@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
 import { isPlatformBrowser } from '@angular/common';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root',

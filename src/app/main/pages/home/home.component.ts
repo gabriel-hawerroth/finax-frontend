@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatCardModule } from '@angular/material/card';
@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public loginService = inject(LoginService);
   private _homeService = inject(HomeService);
-  private ref = inject(ChangeDetectorRef);
 
   language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;

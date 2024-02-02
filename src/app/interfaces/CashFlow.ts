@@ -16,11 +16,6 @@ export interface CashFlow {
   duplicatedReleaseId?: number;
 }
 
-export interface CashFlowFilters {
-  userId: number;
-  date: Date;
-}
-
 export interface MonthlyFlow {
   releases: MonthlyCashFlow[];
   totals: MonthlyBalance;

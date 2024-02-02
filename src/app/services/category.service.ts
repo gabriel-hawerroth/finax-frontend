@@ -3,14 +3,12 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Category } from '../interfaces/Category';
 import { lastValueFrom } from 'rxjs';
-import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
   private _http = inject(HttpClient);
-  private _loginService = inject(LoginService);
 
   private apiUrl = `${environment.baseApiUrl}category`;
 
@@ -20,9 +18,7 @@ export class CategoryService {
 
   getByUser(): Promise<Category[]> {
     return lastValueFrom(
-      this._http.get<Category[]>(
-        `${this.apiUrl}/get-by-user/${this._loginService.getLoggedUserId}`
-      )
+      this._http.get<Category[]>(`${this.apiUrl}/get-by-user`)
     );
   }
 

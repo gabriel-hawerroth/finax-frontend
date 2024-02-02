@@ -41,32 +41,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
   language: string = this.utilsService.getUserConfigs.language;
 
   themeOptions = [
-    { icon: 'pi pi-sun', value: 'light' },
-    { icon: 'pi pi-moon', value: 'dark' },
+    { icon: 'light_mode', value: 'light' },
+    { icon: 'dark_mode', value: 'dark' },
   ];
+
+  initError: boolean = false;
 
   ngOnInit(): void {
     this.buidForm();
 
-    this._userConfigsService
-      .getByUserId(this._loginService.getLoggedUserId)
-      .then((response) => {
-        this.configsForm.patchValue(response);
-      })
-      .catch((err) => {
-        this.configsForm.patchValue(this.utilsService.getUserConfigs);
-        this.configsForm
-          .get('userId')!
-          .setValue(this._loginService.getLoggedUserId);
-        this.saveConfigs();
-      });
-
-    this.configsForm.valueChanges
-      .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
-      .subscribe((value) => {
-        this.language = value.language;
-        this.utilsService.userConfigs.next(value);
-      });
+    this.getConfigs();
   }
 
   ngOnDestroy(): void {
@@ -78,21 +62,48 @@ export class SettingsComponent implements OnInit, OnDestroy {
   buidForm() {
     this.configsForm = this._fb.group({
       id: null,
-      userId: this._loginService.getLoggedUserId,
+      userId: this._loginService.getLoggedUser!.id,
       theme: 'light',
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-br',
       currency: 'R$',
     });
+
+    this.configsForm.valueChanges
+      .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
+      .subscribe((value) => {
+        this.language = value.language;
+        this.utilsService.userConfigs.next(value);
+      });
+  }
+
+  getConfigs() {
+    this._userConfigsService
+      .getLoggedUserConfigs()
+      .then((response) => {
+        this.configsForm.patchValue(response);
+      })
+      .catch(() => {
+        this.saveConfigs();
+        this.initError = true;
+      });
   }
 
   saveConfigs() {
-    this._userConfigsService.save(this.configsForm.value).catch(() => {
-      this.utilsService.showSimpleMessage(
-        this.language === 'pt-br'
-          ? 'Erro ao salvar as configuraçãoes'
-          : 'Error saving settings'
-      );
-    });
+    this._userConfigsService
+      .save(this.configsForm.value)
+      .then((response) => {
+        if (this.initError) {
+          this.configsForm.patchValue(response);
+          this.getConfigs();
+        }
+      })
+      .catch(() => {
+        this.utilsService.showSimpleMessage(
+          this.language === 'pt-br'
+            ? 'Erro ao salvar as configuraçãoes'
+            : 'Error saving settings'
+        );
+      });
   }
 }

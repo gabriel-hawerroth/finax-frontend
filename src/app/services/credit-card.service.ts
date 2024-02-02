@@ -2,19 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { lastValueFrom } from 'rxjs';
-import { HomeValues } from '../interfaces/Home';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HomeService {
+export class CreditCardService {
   private _http = inject(HttpClient);
 
-  private apiUrl = `${environment.baseApiUrl}home`;
+  private apiUrl = `${environment.baseApiUrl}credit-card`;
 
-  getHomeValues(): Promise<HomeValues> {
-    return lastValueFrom(
-      this._http.get<HomeValues>(`${this.apiUrl}/get-home-values`)
-    );
+  sendTestRequest(): Promise<any> {
+    return lastValueFrom(this._http.get(`${this.apiUrl}/teste`));
   }
 }

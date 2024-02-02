@@ -8,7 +8,7 @@
     <mat-card-content class="top-card-content">
       <h1>
         {{ language === "pt-br" ? "Olá" : "Hello" }}
-        {{ loginService.getLoggedUser.firstName }}!
+        {{ loginService.getLoggedUser?.firstName }}!
       </h1>
 
       <div class="amounts">

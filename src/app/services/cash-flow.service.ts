@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { CashFlow, CashFlowFilters, MonthlyFlow } from '../interfaces/CashFlow';
+import { CashFlow, MonthlyFlow } from '../interfaces/CashFlow';
 import { lastValueFrom } from 'rxjs';
 
 @Injectable({
@@ -16,10 +16,9 @@ export class CashFlowService {
     return lastValueFrom(this._http.get<CashFlow>(`${this.apiUrl}/${id}`));
   }
 
-  getMonthlyFlow(filters: CashFlowFilters): Promise<MonthlyFlow> {
+  getMonthlyFlow(date: Date): Promise<MonthlyFlow> {
     let params = new HttpParams();
-    params = params.append('userId', filters.userId);
-    params = params.append('date', filters.date.toLocaleDateString());
+    params = params.append('date', date.toLocaleDateString());
 
     return lastValueFrom(
       this._http.get<MonthlyFlow>(this.apiUrl, { params: params })

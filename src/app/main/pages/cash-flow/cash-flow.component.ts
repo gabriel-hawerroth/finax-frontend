@@ -15,11 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ReleaseFormDialogComponent } from './components/release-form-dialog/release-form-dialog.component';
-import {
-  CashFlowFilters,
-  MonthlyCashFlow,
-  MonthlyBalance,
-} from '../../../interfaces/CashFlow';
+import { MonthlyCashFlow, MonthlyBalance } from '../../../interfaces/CashFlow';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { LoginService } from '../../../services/login.service';
 import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
@@ -108,13 +104,8 @@ export class CashFlowComponent implements OnInit {
   getReleases() {
     this.searching = true;
 
-    const filters: CashFlowFilters = {
-      userId: this._loginService.getLoggedUserId,
-      date: this.selectedDate,
-    };
-
     this._cashFlowService
-      .getMonthlyFlow(filters)
+      .getMonthlyFlow(this.selectedDate)
       .then((response) => {
         this.releases.next(response.releases);
         this.totals = response.totals;

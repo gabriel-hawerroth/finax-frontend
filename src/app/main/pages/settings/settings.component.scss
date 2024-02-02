@@ -20,16 +20,18 @@
             padding: 1rem;
 
             .mat-button-toggle-group {
+                width: fit-content !important;
                 border: none !important;
-                height: 2.2rem;
+                height: 2.4rem;
                 display: flex;
                 align-items: center;
 
                 .mat-button-toggle {
                     width: 3rem;
 
-                    .pi {
+                    .material-symbols-outlined {
                         color: #000;
+                        border-radius: 60% !important;
                     }
                 }
 
@@ -37,11 +39,16 @@
                     background-color: #4CAF50 !important;
                     border-color: #4CAF50 !important;
 
-                    .pi {
+                    .material-symbols-outlined {
                         color: #fff !important;
                     }
                 }
             }
+        }
+
+        .theme {
+            display: flex;
+            flex-direction: column;
         }
     }
 }

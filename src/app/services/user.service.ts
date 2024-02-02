@@ -40,18 +40,18 @@ export class UserService {
     return lastValueFrom(this._http.put<User>(this.apiUrl, user));
   }
 
-  changeProfileImagem(userId: number, file: File) {
+  changeProfileImagem(file: File) {
     const formData = new FormData();
     formData.append('file', file);
 
     return lastValueFrom(
-      this._http.put(`${this.apiUrl}/change-profile-image/${userId}`, formData)
+      this._http.put(`${this.apiUrl}/change-profile-image`, formData)
     );
   }
 
-  getUserImage(userId: number): Promise<Blob> {
+  getUserImage(): Promise<Blob> {
     return lastValueFrom(
-      this._http.get<Blob>(`${this.apiUrl}/get-user-image/${userId}`, {
+      this._http.get<Blob>(`${this.apiUrl}/get-user-image`, {
         responseType: 'blob' as 'json',
       })
     );

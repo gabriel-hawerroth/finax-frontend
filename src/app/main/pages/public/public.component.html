@@ -1,9 +1,9 @@
 <div id="public-page">
-  @defer { @if (showScrollTop && isPcScreen) {
+  @if (showScrollTop && isPcScreen) {
   <button mat-fab id="back-to-top" (click)="scrollTo('public-page')">
     <span class="material-symbols-outlined">arrow_upward</span>
   </button>
-  } }
+  }
 
   <!-- Start of **** Public Header **** -->
   <div class="public-header">
@@ -54,7 +54,9 @@
           Acompanhe suas despesas, crie orçamentos e planeje seus investimentos
           com facilidade. Nossa plataforma conta com gráficos, relatórios,
           índices de mercado, controle de investimentos e muito mais.
-          <br /><br />Tornando-se a principal escolha para quem quer <br />
+          <br /><br />
+          Tornando-se a principal escolha para quem quer
+          <br />
           <span class="benefits">Previsibilidade, Segurança e Controle </span>
           <br />
           sobre suas finanças!
@@ -176,21 +178,21 @@
 
   <!-- Start of **** Third Section **** -->
 
+  @defer (on viewport(secondSection)) {
   <div
     [ngClass]="{ hidden: !isPcScreen }"
     class="public-section"
     #signaturesSection
     id="signatures"
   >
-    @defer (on viewport(secondSection)) {
     <div class="top">
       <h1>Nossos planos</h1>
       <form [formGroup]="switchPlansForm">
-        <span
-          >Mensal
+        <span>
+          Mensal
           <mat-slide-toggle formControlName="planSwitch"></mat-slide-toggle>
-          Anual</span
-        >
+          Anual
+        </span>
       </form>
     </div>
 
@@ -231,11 +233,11 @@
         <div class="title">
           <h3 style="font-size: 1.5rem">Básico</h3>
           <div>
-            <span style="font-weight: bold; font-size: 1.75rem"
-              >R${{
+            <span style="font-weight: bold; font-size: 1.75rem">
+              R${{
                 switchPlansForm.get("planSwitch")!.value ? "7,90" : "11,90"
-              }}</span
-            >
+              }}
+            </span>
             <span style="color: #7e96a1"> / mês</span>
           </div>
         </div>
@@ -273,11 +275,11 @@
         <div class="title">
           <h3 style="font-size: 1.5rem">Premium</h3>
           <div>
-            <span style="font-weight: bold; font-size: 1.75rem"
-              >R${{
+            <span style="font-weight: bold; font-size: 1.75rem">
+              R${{
                 switchPlansForm.get("planSwitch")!.value ? "29,90" : "49,90"
-              }}</span
-            >
+              }}
+            </span>
             <span style="color: #7e96a1"> / mês</span>
           </div>
         </div>
@@ -298,10 +300,10 @@
 
             <li>
               <span class="material-symbols-outlined">attach_money</span>
-              <span
-                >+ de 20 índices de mercado em <br />
-                tempo real</span
-              >
+              <span>
+                + de 20 índices de mercado em <br />
+                tempo real
+              </span>
             </li>
 
             <li>
@@ -314,8 +316,8 @@
         </div>
       </div>
     </div>
-    }
   </div>
+  }
 
   <!-- End of **** Third Section **** -->
 
@@ -324,10 +326,10 @@
   @if (!isPcScreen) {
   <div id="mobile-section" #mobileSection>
     <h2>Disponível apenas para computador</h2>
-    <span
-      >Sentimos muito, no momento nosso sistema está disponível para acesso
-      apenas através do notebook ou desktop.</span
-    >
+    <span>
+      Sentimos muito, no momento nosso sistema está disponível para acesso
+      apenas através do notebook ou desktop.
+    </span>
   </div>
   }
 
@@ -335,12 +337,12 @@
 
   <!-- Start of **** Public Footer **** -->
 
+  @defer {
   <div class="public-footer" #trigger>
-    @defer {
     <div class="left">
       <h1>Finax</h1>
-      <span
-        ><svg
+      <span>
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           height="1em"
           viewBox="0 0 512 512"
@@ -349,8 +351,8 @@
             d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM199.4 312.6c31.2 31.2 81.9 31.2 113.1 0c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9c-50 50-131 50-181 0s-50-131 0-181s131-50 181 0c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0c-31.2-31.2-81.9-31.2-113.1 0s-31.2 81.9 0 113.1z"
           />
         </svg>
-        2023 Finax, Inc.</span
-      >
+        2023 Finax, Inc.
+      </span>
     </div>
 
     <div class="right">
@@ -391,9 +393,8 @@
         </svg>
       </a>
     </div>
-    }
   </div>
-  }
+  } }
 
   <!-- End of **** Public Footer **** -->
 </div>

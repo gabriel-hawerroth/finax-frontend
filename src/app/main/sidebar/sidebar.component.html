@@ -1,4 +1,7 @@
-<div id="sidebar">
+<div
+  id="sidebar"
+  [ngStyle]="{ backgroundColor: darkThemeEnabled ? '#212121' : '#fafafa' }"
+>
   <div class="sidebar-title">
     <img
       ngSrc="assets/money-coin.svg"
@@ -11,213 +14,118 @@
 
   <div class="navigation">
     <ul class="nav-ul">
-      <li routerLink="/home" class="nav-ul-item">
+      <li
+        routerLink="/home"
+        [ngClass]="{
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
+        }"
+      >
         <i class="material-symbols-outlined">home</i>
         <span>{{ language === "pt-br" ? "Início" : "Home" }}</span>
       </li>
 
-      <li routerLink="/fluxo-de-caixa" class="nav-ul-item">
+      <li
+        routerLink="/fluxo-de-caixa"
+        [ngClass]="{
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
+        }"
+      >
         <i class="material-symbols-outlined">wallet</i>
         <span>
           {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
         </span>
       </li>
 
-      <!-- <li [ngClass]="{ hidden: userAccess === 'free' }">
-        <a routerLink="/investimentos" class="nav-ul-item">
-          <i class="pi pi-briefcase mr-2"></i>
-          <span>{{
-            language === "pt-br" ? "Investimentos" : "Investments"
-          }}</span>
-        </a>
-      </li> -->
-
-      <!-- <li [ngClass]="{ hidden: userAccess === 'free' }">
-        <a (click)="reportsUl = !reportsUl" class="nav-ul-item">
-          <i class="pi pi-chart-bar mr-2"></i>
-          <span>{{ language === "pt-br" ? "Relatórios" : "Reports" }}</span>
-          <i
-            class="pi ml-auto mr-1"
-            [ngClass]="{
-              'pi-chevron-down': reportsUl,
-              'pi-chevron-up': !reportsUl
-            }"
-          ></i>
-        </a>
-
-        <ul [ngClass]="{ 'ul-item': true, hidden: reportsUl }">
-          <li>
-            <a routerLink="/relatorio/fluxo-de-caixa" class="nav-ul-item">
-              <i class="pi pi-chart-bar mr-2"></i>
-              <span>{{
-                language === "pt-br" ? "Fluxo de caixa" : "Cash flow"
-              }}</span>
-            </a>
-          </li>
-
-          <li>
-            <a routerLink="/relatorio/investimentos" class="nav-ul-item">
-              <i class="pi pi-chart-bar mr-2"></i>
-              <span>{{
-                language === "pt-br" ? "Investimentos" : "Investments"
-              }}</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
-
-      <!-- <li
+      <li
+        routerLink="/contas-de-banco"
         [ngClass]="{
-          hidden: userAccess === 'free' || userAccess === 'basic'
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
         }"
       >
-        <a routerLink="/indicadores" class="nav-ul-item">
-          <i class="pi pi-chart-line mr-2"></i>
-          <span>{{ language === "pt-br" ? "Indicadores" : "Indicators" }}</span>
-        </a>
-      </li> -->
-
-      <!-- <li [ngClass]="{ hidden: userAccess === 'free' || userAccess === 'basic' }">
-        <a (click)="noticesUl = !noticesUl" class="nav-ul-item">
-          <i class="pi pi-book mr-2"></i>
-          <span>{{ language === "pt-br" ? "Notícias" : "Notices" }}</span>
-          <i class="pi ml-auto mr-1" [ngClass]="{
-              'pi-chevron-down': noticesUl,
-              'pi-chevron-up': !noticesUl
-            }"></i>
-        </a>
-
-        <ul [ngClass]="{ 'ul-item': true, hidden: noticesUl }">
-          <li>
-            <a routerLink="/noticias/b3" class="nav-ul-item">
-              <i class="pi pi-book mr-2"></i>
-              <span>B3</span>
-            </a>
-          </li>
-
-          <li>
-            <a routerLink="/noticias/internacional" class="nav-ul-item">
-              <i class="pi pi-book mr-2"></i>
-              <span>{{
-                language === "pt-br" ? "Internacional" : "International"
-                }}</span>
-            </a>
-          </li>
-
-          <li>
-            <a routerLink="/noticias/criptos" class="nav-ul-item">
-              <i class="pi pi-book mr-2"></i>
-              <span>{{ language === "pt-br" ? "Critpos" : "Cryptos" }}</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
-
-      <!-- <li>
-        <a routerLink="/metas-de-gasto" class="nav-ul-item">
-          <i class="pi pi-sliders-v mr-2"></i>
-          <span>
-            {{ language === "pt-br" ? "Metas de gasto" : "Spending goals" }}
-          </span>
-        </a>
-      </li> -->
-
-      <li routerLink="/contas-de-banco" class="nav-ul-item">
         <i class="material-symbols-outlined">account_balance</i>
         <span>
           {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
         </span>
       </li>
 
-      <li routerLink="/cartoes-de-credito" class="nav-ul-item">
+      <li
+        routerLink="/cartoes-de-credito"
+        [ngClass]="{
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
+        }"
+      >
         <i class="material-symbols-outlined">credit_card</i>
         <span>
           {{ language === "pt-br" ? "Cartões de crédito" : "Credit cards" }}
         </span>
       </li>
 
-      <li routerLink="/categorias" class="nav-ul-item">
+      <li
+        routerLink="/categorias"
+        [ngClass]="{
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
+        }"
+      >
         <i class="material-symbols-outlined">sell</i>
         <span>
           {{ language === "pt-br" ? "Categorias" : "Categories" }}
         </span>
       </li>
-
-      <!-- <li>
-        <a (click)="moreUl = !moreUl" class="nav-ul-item">
-          <i class="pi pi-plus mr-2"></i>
-          <span>{{
-            language === "pt-br" ? "Outras opções" : "Other options"
-          }}</span>
-          <i
-            class="pi ml-auto mr-1"
-            [ngClass]="{
-              'pi-chevron-down': moreUl,
-              'pi-chevron-up': !moreUl
-            }"
-          ></i>
-        </a>
-
-        <ul [ngClass]="{ 'ul-item': true, hidden: moreUl }">
-          <li>
-            <a routerLink="/contas-de-banco" class="gap-2 nav-ul-item">
-              <i
-                class="material-symbols-outlined"
-                style="margin-left: -3px; font-size: 1.3rem"
-                >account_balance</i
-              >
-              <span>{{
-                language === "pt-br" ? "Contas de banco" : "Bank accounts"
-              }}</span>
-            </a>
-          </li>
-
-          <li>
-            <a routerLink="/" class="gap-2 nav-ul-item">
-              <i class="pi pi-tag"></i>
-              <span>
-                {{ language === "pt-br" ? "Categorias" : "Categorys" }}
-              </span>
-            </a>
-          </li>
-
-          <li [ngClass]="{ hidden: userAccess === 'free' }">
-            <a routerLink="/calculadora-de-juros" class="nav-ul-item">
-              <i class="pi pi-calculator mr-2"></i>
-              <span>{{
-                language === "pt-br"
-                  ? "Calculadora de juros"
-                  : "Interest Calculator"
-              }}</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
     </ul>
   </div>
 
   <div class="user-options">
     <ul [ngClass]="{ 'nav-ul': true, hidden: userActionsUl }">
-      <li routerLink="/meu-perfil" class="nav-ul-item">
+      <li
+        routerLink="/meu-perfil"
+        [ngClass]="{
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
+        }"
+      >
         <i class="material-symbols-outlined">account_circle</i>
         <span>{{ language === "pt-br" ? "Meu perfil" : "My profile" }}</span>
       </li>
 
-      <li routerLink="/configuracoes" class="nav-ul-item">
+      <li
+        routerLink="/configuracoes"
+        [ngClass]="{
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
+        }"
+      >
         <i class="material-symbols-outlined">settings</i>
         <span>{{ language === "pt-br" ? "Configurações" : "Settings" }}</span>
       </li>
 
-      <li (click)="logout()" class="nav-ul-item">
+      <li
+        (click)="logout()"
+        [ngClass]="{
+          'nav-ul-item': true,
+          'nav-ul-item-dark': darkThemeEnabled
+        }"
+      >
         <i class="material-symbols-outlined">logout</i>
         <span>{{ language === "pt-br" ? "Sair" : "Logout" }}</span>
       </li>
     </ul>
 
-    <li (click)="userActionsUl = !userActionsUl" class="nav-ul-item user-item">
+    <li
+      (click)="userActionsUl = !userActionsUl"
+      [ngClass]="{
+        'nav-ul-item': true,
+        'user-item': true,
+        'nav-ul-item-dark': darkThemeEnabled
+      }"
+    >
       <img [src]="utilsService.userImage | async" alt="user profile image" />
 
-      <span>{{ loginService.getLoggedUser.firstName }}</span>
+      <span>{{ loginService.getLoggedUser?.firstName }}</span>
 
       <i class="material-symbols-outlined">
         {{ userActionsUl ? "expand_less" : "expand_more" }}
