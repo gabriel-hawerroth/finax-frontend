@@ -207,7 +207,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       disableClose: false,
       autoFocus: true,
       width: '39%',
-      height: '50%',
     });
   }
 

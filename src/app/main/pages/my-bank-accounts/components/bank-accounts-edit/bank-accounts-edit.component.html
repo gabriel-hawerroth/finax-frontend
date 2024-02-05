@@ -13,11 +13,7 @@
       <div style="display: flex; justify-content: end">
         <app-buttons
           [showSave]="true"
-          [disableSave]="
-            ((this.accountForm.invalid || this.accountForm.pristine) &&
-              !this.changedIcon) ||
-            saving
-          "
+          [disableSave]="accountForm.invalid || accountForm.pristine || saving"
           [showSaveLoading]="saving"
           (onSave)="save()"
         ></app-buttons>

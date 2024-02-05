@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,9 +13,10 @@ import {
 } from '@angular/forms';
 
 import { UtilsService } from '../../../utils/utils.service';
-import { LoginService } from '../../../services/login.service';
 import { UserService } from '../../../services/user.service';
 import { Credentials } from '../../../interfaces/Credentials';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -32,21 +28,22 @@ import { Credentials } from '../../../interfaces/Credentials';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordDialogComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public dialogRef = inject(MatDialogRef<ChangePasswordDialogComponent>);
   private _fb = inject(FormBuilder);
   private _userService = inject(UserService);
-  private _loginService = inject(LoginService);
 
   language: string = this.utilsService.getUserConfigs.language;
 
   changePasswordForm!: FormGroup;
+
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.buildForm();
@@ -68,10 +65,9 @@ export class ChangePasswordDialogComponent implements OnInit {
 
   changePassword() {
     const passwords = {
-      currentPassword: this.changePasswordForm.get('currentPassword')!.value,
-      newPassword: this.changePasswordForm.get('newPassword')!.value,
-      newPasswordConfirm:
-        this.changePasswordForm.get('newPasswordConfirm')!.value,
+      currentPassword: this.changePasswordForm.value.currentPassword,
+      newPassword: this.changePasswordForm.value.newPassword,
+      newPasswordConfirm: this.changePasswordForm.value.newPasswordConfirm,
     };
 
     if (passwords.newPassword !== passwords.newPasswordConfirm) {
@@ -92,12 +88,10 @@ export class ChangePasswordDialogComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     this._userService
-      .changePassword(
-        this._loginService.getLoggedUser!.id!,
-        passwords.newPassword,
-        passwords.currentPassword
-      )
+      .changePassword(passwords.newPassword, passwords.currentPassword)
       .then((user: any) => {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
@@ -126,12 +120,23 @@ export class ChangePasswordDialogComponent implements OnInit {
           );
         }
       })
-      .catch((error) => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'A senha atual está incorreta'
-            : 'The current password is incorrect'
-        );
+      .catch((err: HttpErrorResponse) => {
+        if (err.status === 406) {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'A senha atual está incorreta'
+              : 'The current password is incorrect'
+          );
+        } else {
+          this.utilsService.showSimpleMessage(
+            this.language === 'pt-br'
+              ? 'Houve um erro inesperado ao atualizar a senha'
+              : 'There was an unexpected error updating the password'
+          );
+        }
+      })
+      .finally(() => {
+        this.loading = false;
       });
   }
 }

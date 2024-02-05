@@ -57,9 +57,8 @@ export class UserService {
     );
   }
 
-  changePassword(userId: number, newPassword: string, currentPassword: string) {
+  changePassword(newPassword: string, currentPassword: string) {
     let params = new HttpParams();
-    params = params.append('userId', userId);
     params = params.append('newPassword', newPassword);
     params = params.append('currentPassword', currentPassword);
 

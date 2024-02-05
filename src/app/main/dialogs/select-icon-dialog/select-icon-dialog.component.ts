@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { UtilsService } from '../../../../../utils/utils.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -22,9 +22,12 @@ export class SelectIconDialogComponent {
     'itau.png',
     'banco-brasil.png',
     'nubank.png',
-    'santander.png',
-    'sicoob.png',
+    'picpay.png',
+    'paypal.png',
+    'mercadopago.png',
     'viacredi.png',
+    'sicoob.png',
+    'santander.png',
     'inter.png',
     'caixa.png',
     'alelo.png',
@@ -32,14 +35,11 @@ export class SelectIconDialogComponent {
     'ame.png',
     'pan.png',
     'pao-acucar.png',
-    'picpay.png',
-    'paypal.png',
-    'mercadopago.png',
     'visa.png',
     'serasa-consumidor.png',
     'wiipo.png',
-    'avenuesecuritie.png',
     'iti.png',
+    'avenuesecuritie.png',
     'c6bank.png',
     'next.png',
     'safra.png',

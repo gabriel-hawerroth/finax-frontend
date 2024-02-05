@@ -53,7 +53,6 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._accountService.getByUser().then((result: any) => {
       this.rows = result;
-      this.filteredRows.next(result);
       this.filterList();
     });
 
@@ -83,6 +82,10 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
     this.filteredRows.next(rows);
   }
 
+  onNew() {
+    this._router.navigate(['contas-de-banco/novo']);
+  }
+
   openDetails(account: Account) {
     this._bottomSheet.open(BankAccountDetailsComponent, {
       data: {
@@ -90,9 +93,5 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
       },
       panelClass: 'bank-account-details',
     });
-  }
-
-  onNew() {
-    this._router.navigate(['contas-de-banco/novo']);
   }
 }

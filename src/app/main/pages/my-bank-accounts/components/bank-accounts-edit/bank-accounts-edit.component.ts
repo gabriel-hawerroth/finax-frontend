@@ -18,7 +18,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
-import { SelectIconDialogComponent } from '../select-icon-dialog/select-icon-dialog.component';
+import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 
@@ -58,8 +58,6 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
   accountId!: number | null;
 
   accountForm!: FormGroup;
-
-  changedIcon: boolean = false;
 
   saving: boolean = false;
 
@@ -127,8 +125,6 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    if (this.accountForm.invalid) return;
-
     this.saving = true;
 
     this.accountForm.markAsPristine();
@@ -136,15 +132,15 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
 
     this._accountService
       .save(data)
-      .then((result) => {
+      .then(() => {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Conta salva com sucesso'
-            : 'Account Saved Successfully'
+            : 'Account saved successfully'
         );
         this._router.navigate(['contas-de-banco']);
       })
-      .catch((error) => {
+      .catch(() => {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
             ? 'Erro ao salvar a conta'
@@ -179,7 +175,7 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
       if (!value) return;
 
       this.accountForm.get('image')!.setValue(value);
-      this.changedIcon = true;
+      this.accountForm.markAsDirty();
     });
   }
 }

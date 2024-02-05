@@ -21,9 +21,16 @@
     <div class="row row2">
       @if (form.get('type')!.value !== 'T') {
       <mat-form-field style="width: 39%" [hideRequiredMarker]="true">
+        @if (form.get('type')!.value === 'E') {
         <mat-label>
           {{ language === "pt-br" ? "Conta/cartão" : "Account/card" }}
         </mat-label>
+        } @else {
+        <mat-label>
+          {{ language === "pt-br" ? "Conta" : "Account" }}
+        </mat-label>
+        }
+
         <mat-select formControlName="accountId">
           <mat-select-trigger>
             <ng-container

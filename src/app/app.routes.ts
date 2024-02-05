@@ -26,6 +26,7 @@ import { PremiumTierGuard } from './services/guards/premium-tier.guard';
 import { InterestCalculatorComponent } from './main/pages/interest-calculator/interest-calculator.component';
 import { CategorysComponent } from './main/pages/categories/categories.component';
 import { CreditCardsComponent } from './main/pages/credit-cards/credit-cards.component';
+import { CreditCardsFormComponent } from './main/pages/credit-cards/components/credit-cards-form/credit-cards-form.component';
 
 export const routes: Routes = [
   { path: '', component: PublicComponent },
@@ -117,6 +118,11 @@ export const routes: Routes = [
   {
     path: 'cartoes-de-credito',
     component: CreditCardsComponent,
+    canActivate: [BasicTierGuard],
+  },
+  {
+    path: 'cartoes-de-credito/:id',
+    component: CreditCardsFormComponent,
     canActivate: [BasicTierGuard],
   },
   {

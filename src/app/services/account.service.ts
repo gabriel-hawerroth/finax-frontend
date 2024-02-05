@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment';
 import { LoginService } from './login.service';
 import { lastValueFrom } from 'rxjs';
 import { Account } from '../interfaces/Account';
+import { GenericIdDs } from '../interfaces/Generic';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,12 @@ export class AccountService {
       this._http.get<Account>(`${this.apiUrl}/adjust-balance/${accountId}`, {
         params,
       })
+    );
+  }
+
+  getBasicList(): Promise<GenericIdDs[]> {
+    return lastValueFrom(
+      this._http.get<GenericIdDs[]>(`${this.apiUrl}/basic-list`)
     );
   }
 }
