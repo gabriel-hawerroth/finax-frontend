@@ -16,7 +16,7 @@
       />
 
       <h1 class="h1">
-        {{ language === "pt-br" ? "Crie sua conta" : "Create your account" }}
+        {{ language === "pt-br" ? "Crie sua contasda" : "Create your account" }}
       </h1>
     </div>
 
@@ -36,9 +36,9 @@
 
       <div style="display: flex; justify-content: center; gap: 0.3rem">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>{{
-            language === "pt-br" ? "Senha" : "Password"
-          }}</mat-label>
+          <mat-label>
+            {{ language === "pt-br" ? "Senha" : "Password" }}
+          </mat-label>
           <input
             type="password"
             matInput
@@ -49,11 +49,7 @@
           <span
             class="material-symbols-outlined primary-color"
             matSuffix
-            [matTooltip]="
-              language === 'pt-br'
-                ? 'A senha deve conter pelo menos 8 caracteres, 1 número e 1 letra maiúscula'
-                : 'The password must contain at least 8 characters, 1 number, and 1 uppercase letter'
-            "
+            [matTooltip]="utilsService.passwordRequirementsText"
             matTooltipPosition="below"
             matTooltipShowDelay="200"
             >info</span
@@ -63,9 +59,9 @@
 
       <div style="display: flex; justify-content: center; gap: 0.9rem">
         <mat-form-field style="width: 32%" [hideRequiredMarker]="true">
-          <mat-label>{{
-            language === "pt-br" ? "Nome" : "First name"
-          }}</mat-label>
+          <mat-label>
+            {{ language === "pt-br" ? "Nome" : "First name" }}
+          </mat-label>
           <input
             type="text"
             matInput

@@ -81,8 +81,8 @@ export class ChangePasswordComponent implements OnInit {
     if (this.changePasswordForm.invalid) {
       this.utilsService.showSimpleMessage(
         this.language === 'pt-br'
-          ? 'A senha não cumpre os requisitos'
-          : "Password doesn't meet the requirements"
+          ? 'A senha não cumpre os requisitos de segurança'
+          : "Password doesn't meet security requirements"
       );
       return;
     }

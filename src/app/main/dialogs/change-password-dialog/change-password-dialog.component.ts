@@ -17,6 +17,7 @@ import { UserService } from '../../../services/user.service';
 import { Credentials } from '../../../interfaces/Credentials';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -29,6 +30,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatTooltipModule,
   ],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',

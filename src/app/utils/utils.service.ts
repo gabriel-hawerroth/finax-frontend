@@ -65,18 +65,15 @@ export class UtilsService {
   }
 
   passwordValidator() {
-    const passRequirement = {
-      passwordMinNumber: 1,
-      passwordMinUpperCase: 1,
-      passwordMinCharacters: 8,
-    };
-    return [
-      `(?=([^A-Z]*[A-Z])\{${passRequirement.passwordMinUpperCase},\})`,
-      `(?=([^0-9]*[0-9])\{${passRequirement.passwordMinNumber},\})`,
-      `[A-Za-z\\d\$\@\$\!\%\*\?\&\.]{${passRequirement.passwordMinCharacters},}`,
-    ]
-      .map((item) => item.toString())
-      .join('');
+    const regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[A-Z]).{8,}$/;
+
+    return regex;
+  }
+
+  get passwordRequirementsText(): string {
+    return this.getUserConfigs.language === 'pt-br'
+      ? 'A senha deve conter pelo menos 8 caracteres, 1 número, 1 letra maiúscula e 1 caracter especial'
+      : 'The password must contain at least 8 characters, 1 number, 1 uppercase letter and 1 special character';
   }
 
   filterList(rows: any[], atributo: string, keyWord: any): any[] {

@@ -38,10 +38,10 @@ export class CreateAccountComponent implements OnInit {
   private _router = inject(Router);
   private _loginService = inject(LoginService);
 
+  language: string = this.utilsService.getUserConfigs.language;
+
   userRegisterForm!: FormGroup;
   showLoading: boolean = false;
-
-  language: string = this.utilsService.getUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();
@@ -71,8 +71,13 @@ export class CreateAccountComponent implements OnInit {
           ? 'A senha não cumpre os requisitos de segurança'
           : "Password doesn't meet security requirements"
       );
-      return;
-    } else if (this.userRegisterForm.invalid) return;
+    } else if (this.userRegisterForm.invalid) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br' ? 'Formulário inválido' : 'Invalid form'
+      );
+    }
+
+    return;
 
     this.showLoading = true;
 
@@ -92,8 +97,8 @@ export class CreateAccountComponent implements OnInit {
         if (error.status == 406) {
           this.utilsService.showSimpleMessage(
             this.language === 'pt-br'
-              ? 'Esse usuário já existe'
-              : 'This user already exists'
+              ? 'Esse email já está cadastrado'
+              : 'This email is already registered'
           );
         } else {
           this.utilsService.showSimpleMessage(

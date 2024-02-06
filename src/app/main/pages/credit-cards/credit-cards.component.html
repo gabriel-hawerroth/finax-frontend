@@ -64,6 +64,14 @@
             navigate_next
           </span>
         </div>
+        } @empty {
+        <h3>
+          {{
+            language === "pt-br"
+              ? "Você não possui cartões cadastrados"
+              : "You don't have any registered card"
+          }}
+        </h3>
         }
       </div>
     </mat-card>
