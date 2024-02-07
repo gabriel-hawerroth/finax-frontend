@@ -1,0 +1,93 @@
+<div
+  class="credit-card-details"
+  [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
+>
+  @if (card.image) {
+  <img
+    id="card-logo"
+    [ngSrc]="'assets/banks/' + card.image"
+    width="80"
+    height="80"
+    alt="credit card logo"
+  />
+  }
+
+  <div class="content">
+    <div class="row1">
+      <h1 class="name">{{ card.name }}</h1>
+
+      <div class="limit">
+        <span>{{ language === "pt-br" ? "Limite" : "Limit" }}:</span>
+        <h1>{{ currency }}{{ card.card_limit | customCurrency }}</h1>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="left">
+        <div class="standard_payment_account">
+          <span>
+            {{
+              language === "pt-br"
+                ? "Conta de pagamento padrão:"
+                : "Standard payment account:"
+            }}
+          </span>
+
+          <span class="account">
+            @if (card.account_image) {
+            <img
+              [ngSrc]="'assets/banks/' + card.account_image"
+              width="27"
+              height="27"
+              alt="standard payment account logo"
+            />
+            }
+
+            {{ card.account_name }}
+          </span>
+        </div>
+
+        <div class="active">
+          @if (card.active) {
+          <span class="material-symbols-outlined true">check</span>
+          } @else {
+          <span class="material-symbols-outlined false">close</span>
+          }
+          {{ language === "pt-br" ? "Ativo" : "Active" }}
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="item">
+          <span>{{ language === "pt-br" ? "Fecha dia" : "Close day" }}:</span>
+
+          <span>{{ card.close_day }}</span>
+        </div>
+
+        <div class="item">
+          <span>{{ language === "pt-br" ? "Vence dia" : "Expires day" }}:</span>
+
+          <span>{{ card.expires_day }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button class="large-btn">
+      <div class="btn-content">
+        <span class="material-symbols-outlined h-full">sort</span>
+        {{ language === "pt-br" ? "Ver fatura" : "See invoice" }}
+      </div>
+    </button>
+
+    <button
+      mat-button
+      color="primary"
+      (click)="edit()"
+      style="padding: 1.3rem 1.6rem; font-size: 1.1rem !important"
+    >
+      {{ language === "pt-br" ? "Editar" : "Edit" }}
+    </button>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import {
   FormBuilder,
@@ -18,7 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AccountService } from '../../../../../services/account.service';
 import { Account } from '../../../../../interfaces/Account';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { lastValueFrom } from 'rxjs';
+import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { LoginService } from '../../../../../services/login.service';
@@ -41,7 +41,7 @@ import { LoginService } from '../../../../../services/login.service';
   templateUrl: './credit-cards-form.component.html',
   styleUrl: './credit-cards-form.component.scss',
 })
-export class CreditCardsFormComponent implements OnInit {
+export class CreditCardsFormComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   public location = inject(Location);
   private _creditCardService = inject(CreditCardService);
@@ -52,10 +52,12 @@ export class CreditCardsFormComponent implements OnInit {
   private _accountService = inject(AccountService);
   private _loginService = inject(LoginService);
 
+  private _unsubscribeAll: Subject<any> = new Subject();
+
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
-  accountId: number | null =
+  cardId: number | null =
     +this._activatedRoute.snapshot.paramMap.get('id')! || null;
 
   cardForm!: FormGroup;
@@ -75,9 +77,20 @@ export class CreditCardsFormComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
 
-    this._accountService.getByUser().then((response) => {
-      this.accounsList = response;
-    });
+    this._accountService
+      .getByUser()
+      .then((response) => (this.accounsList = response));
+
+    if (this.cardId) {
+      this._creditCardService.getById(this.cardId).then((response) => {
+        this.cardForm.patchValue(response);
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next('');
+    this._unsubscribeAll.complete();
   }
 
   buildForm() {
@@ -97,7 +110,8 @@ export class CreditCardsFormComponent implements OnInit {
 
     this.cardForm
       .get('standard_payment_account_id')!
-      .valueChanges.subscribe((value) => {
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
         this.selectedAccount = this.accounsList.find(
           (item) => item.id === value
         )!;

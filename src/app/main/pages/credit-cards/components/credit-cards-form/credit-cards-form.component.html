@@ -13,7 +13,12 @@
       <div style="display: flex; justify-content: end">
         <app-buttons
           [showSave]="true"
-          [disableSave]="cardForm.invalid || cardForm.pristine || saving"
+          [disableSave]="
+            cardForm.invalid ||
+            cardForm.pristine ||
+            cardForm.value.card_limit === 0 ||
+            saving
+          "
           [showSaveLoading]="saving"
           (onSave)="save()"
         ></app-buttons>

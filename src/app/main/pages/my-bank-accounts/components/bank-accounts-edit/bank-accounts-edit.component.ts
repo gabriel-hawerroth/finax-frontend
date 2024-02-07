@@ -55,21 +55,20 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
-  accountId!: number | null;
+  accountId: number | null =
+    +this._activatedRoute.snapshot.paramMap.get('id')! || null;
 
   accountForm!: FormGroup;
 
   saving: boolean = false;
 
   ngOnInit(): void {
-    this.accountId = +this._activatedRoute.snapshot.paramMap.get('id')! || null;
-
     this.buildForm();
 
     if (this.accountId) {
-      this._accountService.getById(this.accountId).then((response) => {
-        this.accountForm.patchValue(response);
-      });
+      this._accountService
+        .getById(this.accountId)
+        .then((response) => this.accountForm.patchValue(response));
     }
   }
 
