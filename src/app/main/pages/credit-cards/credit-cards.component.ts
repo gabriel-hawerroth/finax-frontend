@@ -47,6 +47,8 @@ export class CreditCardsComponent implements OnInit, OnDestroy {
     CreditCard[]
   >([]);
 
+  loading: boolean = true;
+
   ngOnInit(): void {
     this.situationFilter.setValue(true);
 
@@ -77,6 +79,8 @@ export class CreditCardsComponent implements OnInit, OnDestroy {
     }
 
     this.filteredRows.next(rows);
+
+    this.loading = false;
   }
 
   onNew() {

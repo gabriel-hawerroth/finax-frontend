@@ -40,6 +40,7 @@
         ></app-buttons>
       </div>
 
+      @defer {
       <div class="list">
         @for (account of filteredRows.getValue(); track account.id) {
         <div class="account" (click)="openDetails(account)">
@@ -74,6 +75,7 @@
         </h3>
         }
       </div>
+      }
     </mat-card>
   </div>
 </div>

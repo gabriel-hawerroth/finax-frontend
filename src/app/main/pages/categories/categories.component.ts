@@ -8,7 +8,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
 import { lastValueFrom } from 'rxjs';
-import { ConfirmationDialogComponent } from '../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 
 @Component({
@@ -113,39 +112,47 @@ export class CategorysComponent implements OnInit {
   }
 
   delete(id: number) {
-    lastValueFrom(
-      this._matDialog
-        .open(ConfirmationDialogComponent, {
-          data: {
-            message:
+    const deletingCategorie = this.categories.find((item) => item.id === id);
+
+    if (
+      deletingCategorie?.name === 'Outras despesas' ||
+      deletingCategorie?.name === 'Outras receitas'
+    ) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'Não é possível excluir essa categoria'
+          : "You can't delete this category"
+      );
+      return;
+    }
+
+    this.utilsService
+      .showConfirmDialog(
+        this.language === 'pt-br'
+          ? 'Deseja realmente excluir essa categoria?'
+          : 'Do you really want to delete this category?'
+      )
+      .then((response) => {
+        if (!response) return;
+
+        this._categoryService
+          .delete(id)
+          .then(() => {
+            this.utilsService.showSimpleMessage(
               this.language === 'pt-br'
-                ? 'Deseja realmente excluir essa categoria?'
-                : 'Do you really want to delete this category?',
-          },
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (!response) return;
+                ? 'Categoria excluída com sucesso'
+                : 'Category deleted successfully'
+            );
 
-      this._categoryService
-        .delete(id)
-        .then(() => {
-          this.utilsService.showSimpleMessage(
-            this.language === 'pt-br'
-              ? 'Categoria excluída com sucesso'
-              : 'Category deleted successfully'
-          );
-
-          this.getCategories();
-        })
-        .catch(() => {
-          this.utilsService.showSimpleMessage(
-            this.language === 'pt-br'
-              ? 'Erro ao tentar excluir a categoria'
-              : 'Error trying to delete the category'
-          );
-        });
-    });
+            this.getCategories();
+          })
+          .catch(() => {
+            this.utilsService.showSimpleMessage(
+              this.language === 'pt-br'
+                ? 'Erro ao tentar excluir a categoria'
+                : 'Error trying to delete the category'
+            );
+          });
+      });
   }
 }

@@ -301,7 +301,7 @@ $footer-height: 100px;
 
     // ******* End Second Section
 
-    // ******* Start Third Section
+    // ******* Start Signatures Section
 
     #signatures {
         display: flex;
@@ -349,6 +349,21 @@ $footer-height: 100px;
                     gap: 4px;
                     border-top-left-radius: 4px;
                     border-top-right-radius: 4px;
+
+                    h3 {
+                        font-size: 1.5rem;
+                    }
+
+                    .plan-value {
+                        .amount {
+                            font-weight: bold;
+                            font-size: 1.75rem;
+                        }
+
+                        .by-month {
+                            color: #7e96a1;
+                        }
+                    }
                 }
 
                 .services {
@@ -463,7 +478,7 @@ $footer-height: 100px;
         }
     }
 
-    // ******* End Third Section
+    // ******* End Signatures Section
 
     // ******* Start Mobile Section
 

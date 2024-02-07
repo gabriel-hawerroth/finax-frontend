@@ -10,18 +10,16 @@
 
   <form [formGroup]="configsForm" class="content">
     <div class="config theme">
-      <span style="margin-bottom: 0.9rem">
-        {{ language === "pt-br" ? "Tema" : "Theme" }}:
-      </span>
+      <span>{{ language === "pt-br" ? "Tema" : "Theme" }}:</span>
 
       <mat-button-toggle-group formControlName="theme">
-        @for (option of themeOptions; track $index) {
-        <mat-button-toggle [value]="option.value">
-          <i class="material-symbols-outlined">
-            {{ option.icon }}
-          </i>
+        <mat-button-toggle value="light">
+          <i class="material-symbols-outlined">light_mode</i>
         </mat-button-toggle>
-        }
+
+        <mat-button-toggle value="dark">
+          <i class="material-symbols-outlined">dark_mode</i>
+        </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
 

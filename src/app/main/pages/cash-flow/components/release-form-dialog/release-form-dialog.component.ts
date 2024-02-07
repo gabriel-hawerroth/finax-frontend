@@ -16,6 +16,7 @@ import {
 import { MatTabsModule } from '@angular/material/tabs';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -36,6 +37,10 @@ import { LoginService } from '../../../../../services/login.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
+import {
+  MatCheckboxChange,
+  MatCheckboxModule,
+} from '@angular/material/checkbox';
 
 @Component({
   selector: 'release-form-dialog',
@@ -55,6 +60,7 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
     NgxCurrencyDirective,
     MatProgressSpinnerModule,
     ButtonsComponent,
+    MatCheckboxModule,
   ],
   templateUrl: './release-form-dialog.component.html',
   styleUrl: './release-form-dialog.component.scss',
@@ -68,6 +74,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   private _matDialog = inject(MatDialog);
   private _matDialogRef = inject(MatDialogRef);
   private _loginService = inject(LoginService);
+
+  private _unsubscribeAll: Subject<any> = new Subject();
 
   language = this.utilsService.getUserConfigs.language;
 
@@ -87,9 +95,10 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
   saving: boolean = false;
 
-  repeatForSuffix: string = this.language === 'pt-br' ? 'meses' : 'months';
+  fixedRepeat = new FormControl(false);
+  installmenteRepeat = new FormControl(false);
 
-  _unsubscribeAll: Subject<any> = new Subject();
+  repeatForSuffix: string = this.language === 'pt-br' ? 'meses' : 'months';
 
   ngOnInit(): void {
     if (
@@ -168,6 +177,10 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
 
     this.releaseForm
+      .get('done')!
+      .setValue(!moment(this.releaseForm.value.date).isAfter(new Date()));
+
+    this.releaseForm
       .get('date')!
       .valueChanges.pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
@@ -191,6 +204,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     this.releaseForm.get('fixedBy')!.valueChanges.subscribe((value) => {
       this.onChangeFixedBy(value);
     });
+
+    this.releaseForm.get('accountId')!.setValue(this.data.accounts[0].id);
   }
 
   async save() {
@@ -209,16 +224,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
         this.language === 'pt-br'
           ? 'Não é possível realizar uma transferência para o mesmo banco'
           : 'It is not possible to make a transfer to the same bank'
-      );
-      return;
-    } else if (
-      this.releaseForm.value.repeat === 'installments' &&
-      this.releaseForm.value.installmentsBy === 0
-    ) {
-      this.utilsService.showSimpleMessage(
-        this.language === 'pt-br'
-          ? 'Informe a quantidade de parcelas'
-          : 'Enter the number of installments'
       );
       return;
     }
@@ -267,8 +272,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       if (this.saving) {
         this.utilsService.showSimpleMessage(
           this.language === 'pt-br'
-            ? 'Devido ao tamanho do arquivo isto pode levar alguns segundos'
-            : 'Due to the size of the file, this may take a few seconds',
+            ? 'Devido ao tamanho do anexo isto pode levar alguns segundos'
+            : 'Due to the size of the attachment, this may take a few seconds',
           6000
         );
         showingMessage = true;
@@ -342,6 +347,11 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       });
     }
 
+    if (requestError) {
+      this.saving = false;
+      return;
+    }
+
     this.utilsService.showSimpleMessage(
       this.language === 'pt-br'
         ? 'Lançamento salvo com sucesso'
@@ -396,6 +406,24 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  onChangeRepeat(action: 'fixed' | 'installments', event: MatCheckboxChange) {
+    if (!event.checked) {
+      this.releaseForm.get('repeat')!.setValue('');
+      return;
+    }
+
+    this.releaseForm.get('repeat')!.setValue(action);
+
+    switch (action) {
+      case 'fixed':
+        this.installmenteRepeat.setValue(false);
+        break;
+      case 'installments':
+        this.fixedRepeat.setValue(false);
+        break;
+    }
+  }
+
   onChangeFixedBy(value: string) {
     switch (value) {
       case 'daily':
@@ -426,7 +454,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           this.language === 'pt-br' ? 'semestres' : 'semesters';
         break;
       case 'annual':
-        this.releaseForm.get('repeatFor')!.setValue('10');
+        this.releaseForm.get('repeatFor')!.setValue('5');
         this.repeatForSuffix = this.language === 'pt-br' ? 'anos' : 'years';
         break;
     }

@@ -9,8 +9,12 @@
     <app-buttons
       [showSave]="true"
       [disableSave]="
-        (releaseForm.pristine && !changedAttachment) ||
+        (data.editing && releaseForm.pristine && !changedAttachment) ||
         releaseForm.invalid ||
+        (releaseForm.value.repeat === 'fixed' &&
+          !releaseForm.value.repeatFor) ||
+        (releaseForm.value.repeat === 'installments' &&
+          !releaseForm.value.installmentsBy) ||
         saving
       "
       [showSaveLoading]="saving"
@@ -155,7 +159,7 @@
             <textarea
               matInput
               formControlName="observation"
-              maxlength="400"
+              maxlength="100"
             ></textarea>
           </mat-form-field>
         </div>
@@ -170,31 +174,35 @@
             selectedFile || showObservation ? '1px solid #d1d1d1' : 'none'
         }"
       >
-        <mat-radio-group
-          formControlName="repeat"
-          aria-label="Select an option"
+        <div
+          class="choices"
           [ngStyle]="{
             'flex-direction': selectedFile || showObservation ? 'column' : 'row',
             gap: selectedFile || showObservation ? '0' : '4rem',
           }"
-          style="display: flex"
         >
-          <mat-radio-button value="fixed">
+          <mat-checkbox
+            [formControl]="fixedRepeat"
+            (change)="onChangeRepeat('fixed', $event)"
+          >
             {{
               language === "pt-br"
                 ? "É um lançamento fixo"
                 : "It's a fixed release"
             }}
-          </mat-radio-button>
+          </mat-checkbox>
 
-          <mat-radio-button value="installments">
+          <mat-checkbox
+            [formControl]="installmenteRepeat"
+            (change)="onChangeRepeat('installments', $event)"
+          >
             {{
               language === "pt-br"
-                ? "É um lançamento parcelado em"
+                ? "É um lançamento parcelado"
                 : "It's a installment release"
             }}
-          </mat-radio-button>
-        </mat-radio-group>
+          </mat-checkbox>
+        </div>
 
         @if (releaseForm.value.repeat === 'fixed') {
         <div
@@ -210,13 +218,27 @@
           >
             <mat-label></mat-label>
             <mat-select formControlName="fixedBy">
-              <mat-option value="daily">Diário</mat-option>
-              <mat-option value="weekly">Semanal</mat-option>
-              <mat-option value="monthly">Mensal</mat-option>
-              <mat-option value="bimonthly">Bimestral</mat-option>
-              <mat-option value="quarterly">Trimestral</mat-option>
-              <mat-option value="biannual">Semestral</mat-option>
-              <mat-option value="annual">Anual</mat-option>
+              <mat-option value="daily">
+                {{ language === "pt-br" ? "Diário" : "Daily" }}
+              </mat-option>
+              <mat-option value="weekly">
+                {{ language === "pt-br" ? "Semanal" : "Weekly" }}
+              </mat-option>
+              <mat-option value="monthly">
+                {{ language === "pt-br" ? "Mensal" : "Monthly" }}
+              </mat-option>
+              <mat-option value="bimonthly">
+                {{ language === "pt-br" ? "Bimestral" : "Bimonthly" }}
+              </mat-option>
+              <mat-option value="quarterly">
+                {{ language === "pt-br" ? "Trimestral" : "Quarterly" }}
+              </mat-option>
+              <mat-option value="biannual">
+                {{ language === "pt-br" ? "Semestral" : "Biannual" }}
+              </mat-option>
+              <mat-option value="annual">
+                {{ language === "pt-br" ? "Anual" : "Annual" }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -252,7 +274,9 @@
             }"
             [hideRequiredMarker]="true"
           >
-            <mat-label></mat-label>
+            <mat-label>
+              {{ language === "pt-br" ? "Em:" : "In:" }}
+            </mat-label>
             <input
               matInput
               type="text"

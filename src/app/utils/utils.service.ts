@@ -1,22 +1,25 @@
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
 import { isPlatformBrowser } from '@angular/common';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { User } from '../interfaces/User';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../main/dialogs/confirmation-dialog/confirmation-dialog.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilsService {
+  private _snackBar = inject(MatSnackBar);
+  private _dialog = inject(MatDialog);
+
   public isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   public isPcScreen = this.isBrowser
     ? window.innerWidth > 1000 && window.innerHeight > 520
     : false;
-
-  private _snackBar = inject(MatSnackBar);
 
   // user observables
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
@@ -167,5 +170,18 @@ export class UtilsService {
 
       return isValid ? null : { maxCharacterLength: { maxLength } };
     };
+  }
+
+  showConfirmDialog(message: string): Promise<boolean> {
+    return lastValueFrom(
+      this._dialog
+        .open(ConfirmationDialogComponent, {
+          data: {
+            message,
+          },
+          autoFocus: false,
+        })
+        .afterClosed()
+    );
   }
 }

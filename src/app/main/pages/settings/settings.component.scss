@@ -1,7 +1,3 @@
-.dark-page {
-    transition-duration: 1s;
-}
-
 .simple-page {
     transition-duration: 1s;
     display: flex;
@@ -18,37 +14,32 @@
 
         .config {
             padding: 1rem;
+        }
+
+        .theme {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
 
             .mat-button-toggle-group {
                 width: fit-content !important;
+                height: 2.5rem;
                 border: none !important;
-                height: 2.4rem;
-                display: flex;
-                align-items: center;
 
                 .mat-button-toggle {
-                    width: 3rem;
-
-                    .material-symbols-outlined {
-                        color: #000;
-                        border-radius: 60% !important;
-                    }
+                    display: flex !important;
+                    justify-content: center !important;
+                    align-items: center !important;
                 }
 
                 .mat-button-toggle-checked {
                     background-color: #4CAF50 !important;
-                    border-color: #4CAF50 !important;
 
                     .material-symbols-outlined {
                         color: #fff !important;
                     }
                 }
             }
-        }
-
-        .theme {
-            display: flex;
-            flex-direction: column;
         }
     }
 }

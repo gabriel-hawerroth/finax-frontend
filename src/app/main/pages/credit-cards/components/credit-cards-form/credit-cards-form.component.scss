@@ -77,6 +77,7 @@
 
                     #text {
                         cursor: pointer;
+                        text-align: center;
                     }
                 }
             }
@@ -87,8 +88,11 @@
 .dark-page {
     .content {
         .card {
-            background-color: $dark-card-bg !important;
-            color: #fff !important;
+            .second-row {
+                .selected-account {
+                    color: $dark-font-color;
+                }
+            }
         }
     }
 }

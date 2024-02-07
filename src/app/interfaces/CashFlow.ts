@@ -39,7 +39,6 @@ export interface MonthlyCashFlow {
   date: Date;
   time: string;
   observation: string;
-  attachment?: any;
   attachmentName?: string;
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;

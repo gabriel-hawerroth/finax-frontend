@@ -109,6 +109,10 @@
                 align-items: center;
                 gap: .8rem;
 
+                .choices {
+                    display: flex;
+                }
+
                 .fixed-release,
                 .installments-release {
                     width: 100%;

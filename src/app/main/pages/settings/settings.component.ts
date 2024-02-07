@@ -40,11 +40,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   language: string = this.utilsService.getUserConfigs.language;
 
-  themeOptions = [
-    { icon: 'light_mode', value: 'light' },
-    { icon: 'dark_mode', value: 'dark' },
-  ];
-
   initError: boolean = false;
 
   ngOnInit(): void {
