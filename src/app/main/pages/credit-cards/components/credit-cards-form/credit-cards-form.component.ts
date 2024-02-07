@@ -77,15 +77,24 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buildForm();
 
-    this._accountService
-      .getByUser()
-      .then((response) => (this.accounsList = response));
-
     if (this.cardId) {
       this._creditCardService.getById(this.cardId).then((response) => {
         this.cardForm.patchValue(response);
       });
     }
+
+    this._accountService.getByUser().then((response) => {
+      this.accounsList = response;
+
+      if (this.cardId && !this.selectedAccount) {
+        const standardPaymentAccount = this.cardForm.get(
+          'standard_payment_account_id'
+        )!.value;
+        this.cardForm
+          .get('standard_payment_account_id')!
+          .setValue(standardPaymentAccount);
+      }
+    });
   }
 
   ngOnDestroy(): void {
