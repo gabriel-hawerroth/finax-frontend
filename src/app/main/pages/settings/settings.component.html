@@ -48,12 +48,13 @@
       <div>
         <mat-form-field>
           <mat-select formControlName="language">
-            <mat-option value="pt-br">{{
-              language === "pt-br" ? "Português" : "Portuguese"
-            }}</mat-option>
-            <mat-option value="en">{{
-              language === "pt-br" ? "Inglês" : "English"
-            }}</mat-option>
+            <mat-option value="pt-br">
+              {{ language === "pt-br" ? "Português" : "Portuguese" }}
+            </mat-option>
+
+            <mat-option value="en-us">
+              {{ language === "pt-br" ? "Inglês" : "English" }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -68,9 +69,9 @@
           <mat-select formControlName="currency">
             <mat-option value="R$">R$ Real brasileiro</mat-option>
             <mat-option value="$">$ Dólar</mat-option>
-            <!-- <mat-option value="€">€ Euro</mat-option> -->
-            <mat-option value="¥">¥ Yuan</mat-option>
+            <mat-option value="€">€ Euro</mat-option>
             <mat-option value="£">£ Libra</mat-option>
+            <mat-option value="¥">¥ Yuan</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

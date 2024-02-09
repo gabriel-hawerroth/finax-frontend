@@ -31,9 +31,9 @@ export class UtilsService {
 
   get getUserConfigs(): UserConfigs {
     return this.getItemLocalStorage('savedUserConfigsFinax')
-      ? JSON.parse(atob(localStorage.getItem('savedUserConfigsFinax')!))
+      ? JSON.parse(this.getItemLocalStorage('savedUserConfigsFinax')!)
       : {
-          userId: 0,
+          userId: null,
           theme: 'light',
           addingMaterialGoodsToPatrimony: false,
           language: 'pt-br',

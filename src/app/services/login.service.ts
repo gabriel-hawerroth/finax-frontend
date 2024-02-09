@@ -36,6 +36,7 @@ export class LoginService {
       }
 
       this.setToken(response.access_token);
+      this._router.navigate(['home']);
 
       await this._userService
         .getByEmail(response.username)
@@ -58,7 +59,7 @@ export class LoginService {
               this._utilsService.userConfigs.next(response);
               this._utilsService.setItemLocalStorage(
                 'savedUserConfigsFinax',
-                btoa(JSON.stringify(response))
+                JSON.stringify(response)
               );
             });
 
@@ -84,8 +85,6 @@ export class LoginService {
                 : 'Password changed successfully'
             );
           }
-
-          this._router.navigate(['home']);
         })
         .catch(() => {
           this._utilsService.showSimpleMessage(

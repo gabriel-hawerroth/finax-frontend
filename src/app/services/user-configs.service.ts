@@ -25,7 +25,7 @@ export class UserConfigsService {
     this._utilsService.userConfigs.next(userConfigs);
     this._utilsService.setItemLocalStorage(
       'savedUserConfigsFinax',
-      btoa(JSON.stringify(userConfigs))
+      JSON.stringify(userConfigs)
     );
 
     return lastValueFrom(
