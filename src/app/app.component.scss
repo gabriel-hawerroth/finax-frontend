@@ -1,5 +1,14 @@
-$sidebar-width: 18rem;
-$header-height: 60px;
+@import './utils/generic.scss';
+
+@media screen and (max-width: 900px) {
+    .app {
+        display: none !important;
+    }
+
+    #mobile {
+        display: block !important;
+    }
+}
 
 .app {
     width: 100%;
@@ -22,4 +31,8 @@ $header-height: 60px;
         width: calc(100% - $sidebar-width) !important;
         margin-left: $sidebar-width !important;
     }
+}
+
+#mobile {
+    display: none;
 }

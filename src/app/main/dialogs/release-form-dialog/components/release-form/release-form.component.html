@@ -14,6 +14,7 @@
           formControlName="description"
           autofocus
           maxlength="50"
+          #descriptionInput
         />
       </mat-form-field>
     </div>
@@ -38,7 +39,8 @@
             ></ng-container>
           </mat-select-trigger>
 
-          @for (account of accountsList; track account.id) {
+          @if (form.value.type !== 'E') { @for (account of accountsList; track
+          account.id) {
           <mat-option [value]="account.id" class="bank-account-item">
             <div class="account-opt">
               @if (account.image) {
@@ -56,6 +58,50 @@
               <span>{{ account.name }}</span>
             </div>
           </mat-option>
+          } } @else {
+          <mat-optgroup [label]="language === 'pt-br' ? 'Contas' : 'Accounts'">
+            @for (account of accountsList; track account.id) {
+            <mat-option [value]="account.id" class="bank-account-item">
+              <div class="account-opt">
+                @if (account.image) {
+                <img
+                  [ngSrc]="'assets/banks/' + account.image"
+                  width="30"
+                  height="30"
+                  alt="bank account logo"
+                />
+                } @else {
+                <span class="material-symbols-outlined default-account-logo">
+                  account_balance
+                </span>
+                }
+                <span>{{ account.name }}</span>
+              </div>
+            </mat-option>
+            }
+          </mat-optgroup>
+
+          <mat-optgroup [label]="language === 'pt-br' ? 'Cartões' : 'Cards'">
+            @for (creditCard of creditCardsList; track creditCard.id) {
+            <mat-option [value]="creditCard.id" class="bank-account-item">
+              <div class="account-opt">
+                @if (creditCard.image) {
+                <img
+                  [ngSrc]="'assets/banks/' + creditCard.image"
+                  width="30"
+                  height="30"
+                  alt="bank credit card logo"
+                />
+                } @else {
+                <span class="material-symbols-outlined default-account-logo">
+                  account_balance
+                </span>
+                }
+                <span>{{ creditCard.name }}</span>
+              </div>
+            </mat-option>
+            }
+          </mat-optgroup>
           }
         </mat-select>
       </mat-form-field>

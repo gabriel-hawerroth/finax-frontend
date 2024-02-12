@@ -1,5 +1,6 @@
-$primary-font-color: #005d13;
-$primary-bg: #eff3f8;
+@import '../../public-header/public-header.component.scss';
+@import '../../public-footer/public-footer.component.scss';
+@import '../../../utils/colors.scss';
 
 // desktop fullhd+
 @media screen and (min-width: 1800px) and (min-height: 800px) {
@@ -13,28 +14,10 @@ $primary-bg: #eff3f8;
 }
 
 // Tablet responsive
-@media screen and (max-width: 870px) and (max-height: 1230px) {
-    .public-header {
-        .title {
-            padding-right: 3rem;
-        }
-    }
-}
+@media screen and (max-width: 900px) {}
 
 // Mobile responsive
-@media screen and (max-width: 600px) and (max-height: 900px) {
-    #mobile-section {
-        font-size: 1rem !important;
-    }
-
-    .public-footer {
-        .right {
-            display: none !important;
-        }
-    }
-}
-
-$footer-height: 100px;
+@media screen and (max-width: 600px) {}
 
 #public-page {
     width: 100%;
@@ -54,71 +37,6 @@ $footer-height: 100px;
             color: #000;
         }
     }
-
-    // ******* Start Public Header
-
-    $left-side-width: 36%;
-    $right-side-width: 40%;
-    $header-height: 5.5rem;
-
-    .public-header {
-        width: 100%;
-        height: $header-height;
-        display: flex;
-        background-color: #f8f8f8;
-        box-shadow: 0 0 5px #0000005d;
-
-        .left-side {
-            width: $left-side-width;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            padding: 0 1.8em;
-            gap: 15px;
-
-            button {
-                font-size: 1.1rem;
-                font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont,
-                    "Segoe UI", Roboto;
-                padding: 0.9rem 1rem;
-            }
-        }
-
-        .title {
-            flex: 1;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            font-family: "Dosis";
-            font-size: 1.7em;
-            color: $primary-font-color;
-        }
-
-        .right-side {
-            width: $right-side-width;
-            height: 100%;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 20px;
-            padding-right: 2.5rem;
-
-            button {
-                color: white;
-                background-color: $primary-font-color;
-                border-radius: 2rem !important;
-                padding: 1.4rem 1.7rem;
-                font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont,
-                    "Segoe UI", Roboto;
-                font-size: 1.2rem;
-                font-weight: 500;
-            }
-        }
-    }
-
-    // ******* End Public Header
 
     .public-section {
         width: 100%;
@@ -479,76 +397,4 @@ $footer-height: 100px;
     }
 
     // ******* End Signatures Section
-
-    // ******* Start Mobile Section
-
-    #mobile-section {
-        width: 100vw;
-        height: calc(100vh - $header-height - $footer-height);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        background-image: url(../../../../assets/bg-first-section.webp);
-        background-size: cover;
-        background-position: center;
-        color: white;
-        font-size: 2rem;
-
-        h2,
-        span {
-            width: 93%;
-            text-align: center;
-        }
-    }
-
-    // ******* End Mobile Section
-
-    // ******* Start Public Footer
-
-    .public-footer {
-        height: 5.8rem;
-        display: flex;
-        background-color: $primary-bg;
-        box-shadow: 0 1px 5px #0000007c;
-
-        .left {
-            flex: 1;
-            height: 100%;
-            padding-left: 3em;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            span {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-        }
-
-        .right {
-            width: 50%;
-            height: 100%;
-            padding-right: 5rem;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 1.4rem;
-
-            a {
-                width: 2.3rem;
-                height: 2.3rem;
-                display: grid;
-                place-items: center;
-            }
-        }
-
-        svg {
-            fill: #000;
-        }
-    }
-
-    // ******* End Public Footer
 }

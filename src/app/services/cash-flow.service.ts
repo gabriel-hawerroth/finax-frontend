@@ -28,6 +28,7 @@ export class CashFlowService {
   addRelease(data: CashFlow, repeatFor: number): Promise<CashFlow> {
     let params = new HttpParams();
     params = params.append('repeatFor', repeatFor);
+    params = params.append('releasedOn', 'account');
 
     return lastValueFrom(
       this._http.post<CashFlow>(this.apiUrl, data, { params })

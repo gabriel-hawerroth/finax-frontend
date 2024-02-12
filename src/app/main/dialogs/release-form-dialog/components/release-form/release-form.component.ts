@@ -9,13 +9,14 @@ import {
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { UtilsService } from '../../../../../../../utils/utils.service';
-import { Account } from '../../../../../../../interfaces/Account';
-import { Category } from '../../../../../../../interfaces/Category';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Account } from '../../../../../interfaces/Account';
+import { Category } from '../../../../../interfaces/Category';
+import { UtilsService } from '../../../../../utils/utils.service';
+import { CreditCard } from '../../../../../interfaces/CreditCard';
 
 @Component({
   selector: 'app-release-form',
@@ -37,8 +38,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 })
 export class ReleaseFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() accountsList!: Account[];
-  @Input() categoriesList!: Category[];
+  @Input() accountsList: Account[] = [];
+  @Input() categoriesList: Category[] = [];
+  @Input() creditCardsList: CreditCard[] = [];
 
   public utilsService = inject(UtilsService);
 

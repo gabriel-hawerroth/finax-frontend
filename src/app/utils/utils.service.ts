@@ -30,15 +30,23 @@ export class UtilsService {
   // user observables
 
   get getUserConfigs(): UserConfigs {
-    return this.getItemLocalStorage('savedUserConfigsFinax')
-      ? JSON.parse(this.getItemLocalStorage('savedUserConfigsFinax')!)
-      : {
-          userId: null,
-          theme: 'light',
-          addingMaterialGoodsToPatrimony: false,
-          language: 'pt-br',
-          currency: 'R$',
-        };
+    if (this.getItemLocalStorage('savedUserConfigsFinax')) {
+      try {
+        return JSON.parse(this.getItemLocalStorage('savedUserConfigsFinax')!);
+      } catch {
+        return JSON.parse(
+          atob(this.getItemLocalStorage('savedUserConfigsFinax')!)
+        );
+      }
+    }
+
+    return {
+      userId: 0,
+      theme: 'light',
+      addingMaterialGoodsToPatrimony: false,
+      language: 'pt-br',
+      currency: 'R$',
+    };
   }
 
   getItemLocalStorage(item: string): string | null {

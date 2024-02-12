@@ -1,0 +1,31 @@
+<div class="public-header">
+  <div class="left-side">
+    <a href="#reset-the-possible">
+      <button mat-button>Nossos serviços</button>
+    </a>
+
+    <a href="#signatures">
+      <button mat-button>Planos</button>
+    </a>
+  </div>
+
+  <div class="title">
+    <img
+      ngSrc="assets/money-coin.svg"
+      width="45"
+      height="45"
+      alt="company logo"
+    />
+    <h1>Finax</h1>
+  </div>
+
+  <div class="right-side">
+    <button
+      mat-raised-button
+      [routerLink]="loginService.logged ? 'home' : 'login'"
+      id="login-button"
+    >
+      Entrar
+    </button>
+  </div>
+</div>

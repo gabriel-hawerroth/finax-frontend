@@ -129,6 +129,16 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+::-webkit-scrollbar {
+  background-color: transparent !important;
+  width: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #7a7a7ad7 !important;
+  border-radius: 10px !important;
+}
+
 // START ANGULAR FIX ***********
 
 .mat-mdc-form-field {
@@ -217,13 +227,15 @@ input[type="number"]::-webkit-outer-spin-button {
   color: $dark-font-color !important;
   background-color: $dark-bg !important;
 
-  .card {
-    background-color: $dark-card-bg !important;
-    color: #fff !important;
+  .content {
+    .card {
+      background-color: $dark-card-bg !important;
+      color: #fff !important;
+    }
   }
 
   .btn-content {
-    color: #fff;
+    color: #fff !important;
   }
 
   .mat-bottom-sheet-container {

@@ -83,7 +83,7 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
       userId: null,
       name: ['', Validators.required],
       type: '',
-      code: '',
+      code: null,
       balance: [0, Validators.required],
       accountNumber: '',
       agency: null,
@@ -95,32 +95,6 @@ export class BankAccountsEditComponent implements OnInit, OnDestroy {
     });
 
     this.accountForm.markAllAsTouched();
-
-    this.accountForm
-      .get('code')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        if (!value) return;
-
-        value = value.toString();
-        if (value.length > 3) {
-          value = value.substring(0, 3);
-          this.accountForm.get('code')!.setValue(value);
-        }
-      });
-
-    this.accountForm
-      .get('agency')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        if (!value) return;
-
-        value = value.toString();
-        if (value.length > 5) {
-          value = value.substring(0, 5);
-          this.accountForm.get('agency')!.setValue(value);
-        }
-      });
   }
 
   save() {

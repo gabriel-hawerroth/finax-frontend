@@ -6,10 +6,7 @@ import {
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
-import {
-  CreditCard,
-  UserCreditCards,
-} from '../../../../../interfaces/CreditCard';
+import { UserCreditCards } from '../../../../../interfaces/CreditCard';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -39,5 +36,10 @@ export class CreditCardDetailsComponent {
   edit() {
     this._bottomSheetRef.dismiss();
     this._router.navigate([`cartoes-de-credito/${this.card.id}`]);
+  }
+
+  seeInvoice() {
+    this._bottomSheetRef.dismiss();
+    this._router.navigate([`cartoes-de-credito/fatura/${this.card.id}`]);
   }
 }

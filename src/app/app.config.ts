@@ -58,7 +58,7 @@ export const appConfig: ApplicationConfig = {
       thousands: '.',
       nullable: false,
       min: null,
-      max: null,
+      max: 9999999999999.99,
       inputMode: NgxCurrencyInputMode.Financial,
     }),
     DatePipe,

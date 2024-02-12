@@ -14,10 +14,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { ReleaseFormDialogComponent } from './components/release-form-dialog/release-form-dialog.component';
 import { MonthlyCashFlow, MonthlyBalance } from '../../../interfaces/CashFlow';
 import { CashFlowService } from '../../../services/cash-flow.service';
-import { LoginService } from '../../../services/login.service';
 import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { Category } from '../../../interfaces/Category';
@@ -30,6 +28,9 @@ import { ReleaseDetailsComponent } from './components/release-details/release-de
 import { Account } from '../../../interfaces/Account';
 import { AccountService } from '../../../services/account.service';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
+import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
+import { CreditCardService } from '../../../services/credit-card.service';
+import { CreditCard } from '../../../interfaces/CreditCard';
 
 @Component({
   selector: 'app-cash-flow',
@@ -58,9 +59,9 @@ export class CashFlowComponent implements OnInit {
   private _matDialog = inject(MatDialog);
   private _bottomSheet = inject(MatBottomSheet);
   private _cashFlowService = inject(CashFlowService);
-  private _loginService = inject(LoginService);
   private _accountService = inject(AccountService);
   private _categoryService = inject(CategoryService);
+  private _creditCardService = inject(CreditCardService);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -71,7 +72,7 @@ export class CashFlowComponent implements OnInit {
     MonthlyCashFlow[]
   >([]);
 
-  selectedDate: Date = new Date();
+  selectedDate: Date = new Date(new Date().setDate(15));
 
   currentYear: string = this.selectedDate.getFullYear().toString();
 
@@ -87,6 +88,7 @@ export class CashFlowComponent implements OnInit {
 
   accounts: Account[] = [];
   categories: Category[] = [];
+  creditCards: CreditCard[] = [];
 
   ngOnInit(): void {
     this.buildForm();
@@ -123,13 +125,15 @@ export class CashFlowComponent implements OnInit {
   }
 
   async getValues() {
-    const [accounts, categories] = await Promise.all([
+    const [accounts, categories, creditCards] = await Promise.all([
       this._accountService.getByUser(),
       this._categoryService.getByUser(),
+      this._creditCardService.getByUser(),
     ]);
 
     this.accounts = this.utilsService.filterList(accounts, 'active', true);
     this.categories = categories;
+    this.creditCards = creditCards;
   }
 
   get getSelectedMonth(): string {
@@ -142,14 +146,16 @@ export class CashFlowComponent implements OnInit {
     return selectedYear !== this.currentYear ? selectedYear : '';
   }
 
-  selectMonth(direction: 'before' | 'next'): void {
-    if (direction === 'before') {
-      this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
-    } else {
-      this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
+  changeMonth(direction: 'before' | 'next'): void {
+    switch (direction) {
+      case 'before':
+        this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
+        break;
+      case 'next':
+        this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
+        break;
     }
 
-    this.selectedDate.setDate(15);
     this.getReleases();
   }
 
@@ -178,6 +184,7 @@ export class CashFlowComponent implements OnInit {
           data: {
             accounts: this.accounts,
             categories: this.categories,
+            creditCards: this.creditCards,
             editing: false,
             releaseType: releaseType,
             selectedDate: this.selectedDate,
@@ -200,6 +207,7 @@ export class CashFlowComponent implements OnInit {
           data: {
             accounts: this.accounts,
             categories: this.categories,
+            creditCards: this.creditCards,
             editing: true,
             releaseType: release.type,
             selectedDate: this.selectedDate,

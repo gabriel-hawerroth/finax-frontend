@@ -5,51 +5,32 @@
   }"
 >
   <div class="content">
-    <mat-card class="releases-card">
+    <mat-card class="card releases-card">
       <header>
         <div class="first-row">
           <div class="left">
-            <h1>
-              {{ language === "pt-br" ? "Fluxo de caixa" : "Cash flow" }}
-            </h1>
+            <div class="title">
+              <h1>
+                {{ language === "pt-br" ? "Fatura" : "Invoice" }}
+              </h1>
 
-            <button
-              mat-icon-button
-              id="add-btn"
-              [mat-menu-trigger-for]="newReleaseMenu"
-            >
+              <div class="card">
+                @if (creditCard?.image) {
+                <img
+                  [ngSrc]="'assets/banks/' + creditCard!.image"
+                  width="40"
+                  height="40"
+                  alt="credit card logo"
+                />
+                }
+
+                <span>{{ creditCard?.name }}</span>
+              </div>
+            </div>
+
+            <button mat-icon-button id="add-btn" (click)="addRelease()">
               <span class="material-symbols-outlined">add</span>
             </button>
-
-            <mat-menu #newReleaseMenu="matMenu">
-              <div
-                class="new-release-menu"
-                [ngStyle]="{
-                  'background-color':
-                    utilsService.getUserConfigs.theme === 'dark'
-                      ? '#3b3b3bfd'
-                      : '',
-                  color:
-                    utilsService.getUserConfigs.theme === 'dark'
-                      ? '#dddddd'
-                      : ''
-                }"
-              >
-                <span (click)="addRelease('E')">
-                  {{ language === "pt-br" ? "Nova despesa" : "New expense" }}
-                </span>
-
-                <span (click)="addRelease('R')">
-                  {{ language === "pt-br" ? "Nova receita" : "New revenue" }}
-                </span>
-
-                <span (click)="addRelease('T')">
-                  {{
-                    language === "pt-br" ? "Nova transferência" : "New transfer"
-                  }}
-                </span>
-              </div>
-            </mat-menu>
           </div>
 
           <div class="right">
@@ -58,7 +39,7 @@
               [showGeneric]="true"
               [genericIcon]="'filter_alt'"
               [genericLabel]="language === 'pt-br' ? 'Filtrar' : 'Filter'"
-            ></app-buttons> -->
+            ></app-buttons>
 
             <mat-menu #menu="matMenu" class="filter-menu">
               <form [formGroup]="filterForm" class="filter-form">
@@ -71,14 +52,14 @@
                   </mat-select>
                 </mat-form-field>
               </form>
-            </mat-menu>
+            </mat-menu> -->
           </div>
         </div>
 
         <div class="second-row">
           <button
             mat-icon-button
-            (click)="changeMonth('before')"
+            (click)="selectMonth('before')"
             [disabled]="searching"
           >
             <span class="material-symbols-outlined">chevron_left</span>
@@ -91,7 +72,7 @@
 
           <button
             mat-icon-button
-            (click)="changeMonth('next')"
+            (click)="selectMonth('next')"
             [disabled]="searching"
           >
             <span class="material-symbols-outlined">navigate_next</span>
@@ -100,8 +81,8 @@
       </header>
 
       <div class="releases-list">
-        @for (item of releases | async; track item.id) {
-        <div class="release" (click)="openDetails(item)">
+        @for (item of releases; track item.id) {
+        <div class="release">
           <div class="category">
             <span
               class="material-symbols-outlined"
@@ -176,34 +157,31 @@
       </div>
 
       <div class="totals">
-        <div class="row1">
-          <span>
-            {{ language === "pt-br" ? "Receitas:" : "Revenue:" }}
-            {{ currency }}{{ totals.revenues | customCurrency }}
-          </span>
+        <div class="item">
+          <span>{{ language === "pt-br" ? "FECHAMENTO" : "CLOSING" }}:</span>
 
-          <span>
-            {{ language === "pt-br" ? "Despesas:" : "Expenses:" }}
-            {{ currency }}{{ totals.expenses | customCurrency }}
-          </span>
-
-          <span>
-            {{ language === "pt-br" ? "Balanço:" : "Balance:" }}
-            {{ currency }}{{ totals.balance | customCurrency }}
+          <span class="value">
+            {{ getDateInfo("closing") }}
           </span>
         </div>
 
-        <div class="row2">
+        <div class="item">
           <span>
-            {{ language === "pt-br" ? "Saldo geral: " : "General balance: " }}
-            {{ currency }}{{ totals.generalBalance || 0 | customCurrency }}
+            {{ language === "pt-br" ? "VENCIMENTO" : "EXPIRATION" }}:
           </span>
 
+          <span class="value">
+            {{ getDateInfo("expiration") }}
+          </span>
+        </div>
+
+        <div class="item">
           <span>
-            {{
-              language === "pt-br" ? "Saldo previsto: " : "Expected balance: "
-            }}
-            {{ currency }}{{ totals.expectedBalance || 0 | customCurrency }}
+            {{ language === "pt-br" ? "VALOR DA FATURA" : "INVOICE AMOUNT" }}:
+          </span>
+
+          <span class="value" style="font-weight: bold">
+            {{ currency }}{{ 0 | customCurrency }}
           </span>
         </div>
       </div>

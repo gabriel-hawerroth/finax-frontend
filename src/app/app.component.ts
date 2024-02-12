@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { LoginService } from './services/login.service';
 import { Location } from '@angular/common';
+import { MobilePageComponent } from './main/mobile-page/mobile-page.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent],
+  imports: [CommonModule, RouterOutlet, SidebarComponent, MobilePageComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

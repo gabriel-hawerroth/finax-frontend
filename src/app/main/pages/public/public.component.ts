@@ -1,12 +1,14 @@
 import { Component, ElementRef, OnInit, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from '../../../services/login.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { UtilsService } from '../../../utils/utils.service';
 import moment from 'moment';
+import { PublicHeaderComponent } from '../../public-header/public-header.component';
+import { PublicFooterComponent } from '../../public-footer/public-footer.component';
 
 @Component({
   selector: 'app-public',
@@ -18,6 +20,8 @@ import moment from 'moment';
     MatSlideToggleModule,
     NgOptimizedImage,
     RouterModule,
+    PublicHeaderComponent,
+    PublicFooterComponent,
   ],
   templateUrl: './public.component.html',
   styleUrl: './public.component.scss',
@@ -26,15 +30,13 @@ export class PublicComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public loginService = inject(LoginService);
   public el = inject(ElementRef);
-  private _fb = inject(FormBuilder);
 
-  switchPlansForm!: FormGroup;
-  isPcScreen: boolean = this.utilsService.isPcScreen;
   showScrollTop: boolean = false;
 
+  switchPlansControl: FormControl = new FormControl(false);
+
   ngOnInit(): void {
-    this.buildForm();
-    if (this.isPcScreen && this.utilsService.isBrowser) this.showArrowUp();
+    this.showArrowUp();
 
     if (
       moment().isAfter(this.utilsService.getItemLocalStorage('tokenExpiration'))
@@ -43,13 +45,9 @@ export class PublicComponent implements OnInit {
     }
   }
 
-  buildForm() {
-    this.switchPlansForm = this._fb.group({
-      planSwitch: false,
-    });
-  }
-
   showArrowUp() {
+    if (!this.utilsService.isBrowser) return;
+
     window.onscroll = () => {
       this.showScrollTop = document.documentElement.scrollTop > 600;
     };
@@ -85,15 +83,5 @@ export class PublicComponent implements OnInit {
     ).clientHeight;
 
     return (67 / 100) * height + 1;
-  }
-
-  scrollTo(elementId: string) {
-    var target = document.getElementById(elementId);
-    if (target) {
-      window.scrollTo({
-        top: target.offsetTop,
-        behavior: 'smooth',
-      });
-    }
   }
 }

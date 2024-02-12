@@ -27,6 +27,7 @@ import { InterestCalculatorComponent } from './main/pages/interest-calculator/in
 import { CategorysComponent } from './main/pages/categories/categories.component';
 import { CreditCardsComponent } from './main/pages/credit-cards/credit-cards.component';
 import { CreditCardsFormComponent } from './main/pages/credit-cards/components/credit-cards-form/credit-cards-form.component';
+import { CreditCardInvoiceComponent } from './main/pages/credit-cards/components/credit-card-invoice/credit-card-invoice.component';
 
 export const routes: Routes = [
   { path: '', component: PublicComponent },
@@ -123,6 +124,11 @@ export const routes: Routes = [
   {
     path: 'cartoes-de-credito/:id',
     component: CreditCardsFormComponent,
+    canActivate: [BasicTierGuard],
+  },
+  {
+    path: 'cartoes-de-credito/fatura/:id',
+    component: CreditCardInvoiceComponent,
     canActivate: [BasicTierGuard],
   },
   {

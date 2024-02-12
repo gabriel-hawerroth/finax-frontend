@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  inject,
-} from '@angular/core';
-import { UtilsService } from '../../../../../utils/utils.service';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   MAT_DIALOG_DATA,
@@ -21,8 +14,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CashFlowService } from '../../../../../services/cash-flow.service';
-import { Category } from '../../../../../interfaces/Category';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import moment from 'moment';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,14 +24,17 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { LoginService } from '../../../../../services/login.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import {
   MatCheckboxChange,
   MatCheckboxModule,
 } from '@angular/material/checkbox';
+import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
+import { Category } from '../../../interfaces/Category';
+import { CashFlowService } from '../../../services/cash-flow.service';
+import { LoginService } from '../../../services/login.service';
+import { UtilsService } from '../../../utils/utils.service';
+import { ConfirmDuplicatedReleasesActionComponent } from '../../pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 
 @Component({
   selector: 'release-form-dialog',
@@ -64,7 +58,6 @@ import {
   ],
   templateUrl: './release-form-dialog.component.html',
   styleUrl: './release-form-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
@@ -266,7 +259,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
     this.saving = true;
     let showingMessage: boolean = false;
-    let requestError: boolean = false;
+    var requestError: boolean = false;
 
     setTimeout(() => {
       if (this.saving) {

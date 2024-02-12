@@ -1,0 +1,253 @@
+@import '../../../../../utils/colors.scss';
+
+::-webkit-scrollbar {
+    background-color: transparent !important;
+    width: 8px !important;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #7a7a7ad7 !important;
+    border-radius: 10px !important;
+}
+
+.simple-page {
+    overflow: hidden;
+    padding: 0 !important;
+
+    .content {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .releases-card {
+            width: 68%;
+            height: 97vh;
+            border-radius: .6rem;
+            display: flex;
+            flex-direction: column;
+
+            header {
+                display: flex;
+                flex-direction: column;
+
+                .first-row {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: .8rem 1.2rem;
+
+                    .left {
+                        display: flex;
+                        align-items: start;
+                        gap: 1.5rem;
+
+                        .title {
+                            h1 {
+                                font-size: 2.3rem;
+                            }
+
+                            .card {
+                                display: flex;
+                                align-items: center;
+                                gap: .8rem;
+
+                                img {
+                                    border-radius: 50%;
+                                }
+
+                                span {
+                                    font-size: 1.5rem;
+                                }
+                            }
+                        }
+
+                        #add-btn {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 2.3rem;
+                            height: 2.3rem;
+                            background-color: #099e26;
+
+                            .material-symbols-outlined {
+                                color: #fff;
+                            }
+                        }
+                    }
+
+                    .right {
+                        button {
+                            padding: .6rem 1rem;
+                            font-size: 1.1rem;
+                            color: #525252;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 1rem;
+                        }
+
+                        .filter-menu {
+                            padding: 1rem !important;
+
+                            .filter-form {
+                                padding: 1rem !important;
+                            }
+                        }
+                    }
+                }
+
+                .second-row {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 1rem;
+                    color: #464646;
+
+                    .tab {
+                        font-size: 1.3rem;
+                        text-transform: capitalize;
+                        width: 12rem;
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .releases-list {
+                flex: 1;
+                padding: 1rem;
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                overflow-y: scroll;
+
+                .release {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    padding: .8rem 0;
+                    border-radius: 5px;
+
+                    &:hover {
+                        background-color: #adffea25;
+                        cursor: pointer;
+                    }
+
+                    .category {
+                        width: 8%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .material-symbols-outlined {
+                            border-radius: 50%;
+                            padding: .5rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            color: #fff;
+                        }
+                    }
+
+                    .description {
+                        width: 38%;
+
+                        span {
+                            color: #777777;
+                            font-size: .9rem;
+                        }
+                    }
+
+                    .account {
+                        width: 22%;
+                        color: #777777;
+                    }
+
+                    .date {
+                        width: 11%;
+                        font-size: .8rem;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: end;
+                        color: #777777;
+                    }
+
+                    .amount {
+                        width: 15%;
+                        display: flex;
+                        justify-content: flex-end;
+                        padding-right: 1.2rem;
+                    }
+
+                    .situation {
+                        width: 6%;
+                        display: flex;
+                        justify-content: center;
+
+                        span {
+                            font-size: 1.5rem;
+                        }
+
+                        .done {
+                            color: green;
+                        }
+                    }
+                }
+            }
+
+            .totals {
+                display: flex;
+                justify-content: space-around;
+                border-top: 1px solid #00000032;
+                padding: 1.3rem 2rem;
+
+                .item {
+                    width: 31%;
+                    height: 7.3rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: .2rem;
+                    border: 1px solid #d6d6d6;
+                    border-radius: 3px;
+                    font-size: 1rem;
+
+                    .value {
+                        font-size: 1.3rem !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dark-page {
+    .content {
+        .releases-card {
+            header {
+                .first-row {
+
+                    .filter-menu,
+                    .mat-mdc-menu-content {
+                        background-color: $dark-bg !important;
+                    }
+                }
+
+                .second-row {
+                    .tab {
+                        color: $dark-font-color;
+                    }
+
+                    button {
+                        color: #fff;
+                    }
+                }
+            }
+
+            .totals {
+                border-top: 1px solid #ffffff32 !important;
+            }
+        }
+    }
+}

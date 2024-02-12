@@ -57,8 +57,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
-  cardId: number | null =
-    +this._activatedRoute.snapshot.paramMap.get('id')! || null;
+  cardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
 
   cardForm!: FormGroup;
 
