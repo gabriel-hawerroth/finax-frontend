@@ -9,7 +9,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HomeValues } from '../../../interfaces/Home';
 import { MonthlyCashFlow } from '../../../interfaces/CashFlow';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -33,36 +32,36 @@ export class HomeComponent implements OnInit {
   language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;
 
-  homeValues: BehaviorSubject<HomeValues> = new BehaviorSubject<HomeValues>({
-    generalBalance: 0,
-    monthlyFlow: {
+  homeValues: HomeValues = {
+    balances: {
+      generalBalance: 0,
       revenues: 0,
       expenses: 0,
     },
     accountsList: [],
     upcomingReleasesExpected: [],
-  });
+  };
 
   ngOnInit(): void {
     this._homeService.getHomeValues().then((response) => {
-      this.homeValues.next(response);
+      this.homeValues = response;
     });
   }
 
   getUpcomingReleases(type: 'R' | 'E'): MonthlyCashFlow[] {
     return this.utilsService.filterList(
-      this.homeValues.value.upcomingReleasesExpected,
+      this.homeValues.upcomingReleasesExpected,
       'type',
       type
     );
   }
 
   isntLastItemAccounts(id: number): boolean {
-    const index = this.homeValues.value.accountsList.findIndex(
+    const index = this.homeValues.accountsList.findIndex(
       (item) => item.id === id
     );
 
-    return index !== this.homeValues.value.accountsList.length - 1;
+    return index !== this.homeValues.accountsList.length - 1;
   }
 
   isntLastItem(id: number, type: 'R' | 'E'): boolean {

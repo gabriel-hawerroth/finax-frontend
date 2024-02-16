@@ -16,8 +16,7 @@
           {{ language === "pt-br" ? "Receita mensal" : "Monthly revenue" }}
 
           <span>
-            {{ currency
-            }}{{ homeValues.getValue().monthlyFlow.revenues | customCurrency }}
+            {{ currency }}{{ homeValues.balances.revenues | customCurrency }}
           </span>
         </div>
 
@@ -25,8 +24,7 @@
           {{ language === "pt-br" ? "Despesa mensal" : "Monthly expense" }}
 
           <span>
-            {{ currency
-            }}{{ homeValues.getValue().monthlyFlow.expenses | customCurrency }}
+            {{ currency }}{{ homeValues.balances.expenses | customCurrency }}
           </span>
         </div>
       </div>
@@ -45,15 +43,15 @@
             style="font-size: 2rem; font-weight: bold"
             [ngStyle]="{
               color:
-                homeValues.getValue().generalBalance > 0
+                homeValues.balances.generalBalance > 0
                   ? '#15e627'
-                  : (homeValues.getValue().generalBalance || 0) === 0
+                  : (homeValues.balances.generalBalance || 0) === 0
                   ? '#3d799c'
                   : 'red'
             }"
           >
             {{ currency
-            }}{{ homeValues.getValue().generalBalance || 0 | customCurrency }}
+            }}{{ homeValues.balances.generalBalance || 0 | customCurrency }}
           </span>
         </mat-card-header>
 
@@ -66,8 +64,7 @@
 
           @defer {
           <div class="list">
-            @for (account of homeValues.getValue().accountsList; track
-            account.id) {
+            @for (account of homeValues.accountsList; track account.id) {
             <div class="account">
               @if (account.image) {
               <img

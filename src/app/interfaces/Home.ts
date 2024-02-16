@@ -2,13 +2,13 @@ import { Account } from './Account';
 import { MonthlyCashFlow } from './CashFlow';
 
 export interface HomeValues {
-  generalBalance: number;
-  monthlyFlow: MonthlyFlow;
+  balances: HomeBalances;
   accountsList: Account[];
   upcomingReleasesExpected: MonthlyCashFlow[];
 }
 
-interface MonthlyFlow {
+interface HomeBalances {
+  generalBalance: number;
   revenues: number;
   expenses: number;
 }
