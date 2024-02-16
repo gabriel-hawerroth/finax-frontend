@@ -77,8 +77,6 @@ export class CreateAccountComponent implements OnInit {
       );
     }
 
-    return;
-
     this.showLoading = true;
 
     this._loginService

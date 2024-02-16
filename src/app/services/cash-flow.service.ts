@@ -16,9 +16,10 @@ export class CashFlowService {
     return lastValueFrom(this._http.get<CashFlow>(`${this.apiUrl}/${id}`));
   }
 
-  getMonthlyFlow(date: Date): Promise<MonthlyFlow> {
+  getMonthlyFlow(firstDt: Date, lastDt: Date): Promise<MonthlyFlow> {
     let params = new HttpParams();
-    params = params.append('date', date.toLocaleDateString());
+    params = params.append('firstDt', firstDt.toString());
+    params = params.append('lastDt', lastDt.toString());
 
     return lastValueFrom(
       this._http.get<MonthlyFlow>(this.apiUrl, { params: params })

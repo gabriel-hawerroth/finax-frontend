@@ -203,7 +203,7 @@ export class CategoryFormDialogComponent implements OnInit {
     'sports_martial_arts',
     'camping',
     'phishing',
-    'featured_seasonal_and_gifts',
+    'redeem',
     'devices',
     'security_key',
     'storage',

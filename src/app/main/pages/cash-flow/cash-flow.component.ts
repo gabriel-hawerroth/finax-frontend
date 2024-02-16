@@ -31,6 +31,7 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
 import { CreditCardService } from '../../../services/credit-card.service';
 import { CreditCard } from '../../../interfaces/CreditCard';
+import moment from 'moment';
 
 @Component({
   selector: 'app-cash-flow',
@@ -106,8 +107,12 @@ export class CashFlowComponent implements OnInit {
   getReleases() {
     this.searching = true;
 
+    const initialDt: Date = moment(this.selectedDate).startOf('month').toDate();
+
+    const finalDt: Date = moment(this.selectedDate).endOf('month').toDate();
+
     this._cashFlowService
-      .getMonthlyFlow(this.selectedDate)
+      .getMonthlyFlow(initialDt, finalDt)
       .then((response) => {
         this.releases.next(response.releases);
         this.totals = response.totals;
