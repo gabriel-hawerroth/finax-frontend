@@ -1,5 +1,10 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+} from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -32,6 +37,7 @@ export class BankAccountDetailsComponent {
   private _router = inject(Router);
   private _bottomSheetRef = inject(MatBottomSheetRef);
   private _dialog = inject(MatDialog);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -56,7 +62,9 @@ export class BankAccountDetailsComponent {
         .afterClosed()
     ).then((result: any) => {
       if (!result) return;
+
       this.account.balance = result;
+      this._changeDetectorRef.detectChanges();
     });
   }
 }

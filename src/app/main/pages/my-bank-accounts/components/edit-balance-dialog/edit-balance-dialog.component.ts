@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
@@ -47,6 +48,7 @@ export class EditBalanceDialogComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _accountService = inject(AccountService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -65,6 +67,7 @@ export class EditBalanceDialogComponent implements OnInit {
 
   save() {
     this.loading = true;
+    this._changeDetectorRef.detectChanges();
 
     this._accountService
       .adjustBalance(this.data.account.id, this.balanceForm.value.balance)
@@ -86,6 +89,7 @@ export class EditBalanceDialogComponent implements OnInit {
       })
       .finally(() => {
         this.loading = false;
+        this._changeDetectorRef.detectChanges();
       });
 
     this.balanceForm.markAsPristine();

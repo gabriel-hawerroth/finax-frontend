@@ -40,6 +40,7 @@
       [showSave]="true"
       [disableSave]="balanceForm.invalid || balanceForm.pristine || loading"
       [smallBtn]="true"
+      [showSaveLoading]="loading"
       (onSave)="save()"
     ></app-buttons>
   </div>

@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
@@ -43,9 +44,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class ChangePasswordDialogComponent implements OnInit {
   public utilsService = inject(UtilsService);
-  public dialogRef = inject(MatDialogRef<ChangePasswordDialogComponent>);
+  private _dialogRef = inject(MatDialogRef<ChangePasswordDialogComponent>);
   private _fb = inject(FormBuilder);
   private _userService = inject(UserService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   language: string = this.utilsService.getUserConfigs.language;
 
@@ -106,7 +108,7 @@ export class ChangePasswordDialogComponent implements OnInit {
             ? 'Senha alterada com sucesso'
             : 'Password changed sucessfully'
         );
-        this.dialogRef.close();
+        this._dialogRef.close();
 
         const savedLogin =
           this.utilsService.getItemLocalStorage('savedLoginFinax');
@@ -145,6 +147,7 @@ export class ChangePasswordDialogComponent implements OnInit {
       })
       .finally(() => {
         this.loading = false;
+        this._changeDetectorRef.detectChanges();
       });
   }
 }

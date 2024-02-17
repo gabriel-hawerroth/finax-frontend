@@ -26,13 +26,13 @@ export class UserService {
     );
   }
 
-  changeForgetedPassword(userId: number, newPassword: string): Promise<any> {
+  changeForgetedPassword(userId: number, newPassword: string): Promise<User> {
     let params = new HttpParams();
     params = params.append('userId', userId);
     params = params.append('newPassword', newPassword);
 
     return lastValueFrom(
-      this._http.put(`${this.apiUrl}/change-forgeted-password`, params)
+      this._http.put<User>(`${this.apiUrl}/change-forgeted-password`, params)
     );
   }
 
@@ -40,12 +40,12 @@ export class UserService {
     return lastValueFrom(this._http.put<User>(this.apiUrl, user));
   }
 
-  changeProfileImagem(file: File) {
+  changeProfileImagem(file: File): Promise<User> {
     const formData = new FormData();
     formData.append('file', file);
 
     return lastValueFrom(
-      this._http.put(`${this.apiUrl}/change-profile-image`, formData)
+      this._http.put<User>(`${this.apiUrl}/change-profile-image`, formData)
     );
   }
 
@@ -57,13 +57,13 @@ export class UserService {
     );
   }
 
-  changePassword(newPassword: string, currentPassword: string) {
+  changePassword(newPassword: string, currentPassword: string): Promise<User> {
     let params = new HttpParams();
     params = params.append('newPassword', newPassword);
     params = params.append('currentPassword', currentPassword);
 
     return lastValueFrom(
-      this._http.put(`${this.apiUrl}/change-password`, params)
+      this._http.put<User>(`${this.apiUrl}/change-password`, params)
     );
   }
 }

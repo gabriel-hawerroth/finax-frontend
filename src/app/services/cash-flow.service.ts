@@ -64,18 +64,24 @@ export class CashFlowService {
     );
   }
 
-  addAttachment(releaseId: number, file: File) {
+  addAttachment(releaseId: number, file: File): Promise<CashFlow> {
     const formData = new FormData();
     formData.append('file', file);
 
     return lastValueFrom(
-      this._http.put(`${this.apiUrl}/add-attachment/${releaseId}`, formData)
+      this._http.put<CashFlow>(
+        `${this.apiUrl}/add-attachment/${releaseId}`,
+        formData
+      )
     );
   }
 
-  removeAttachment(releaseId: number) {
+  removeAttachment(releaseId: number): Promise<CashFlow> {
     return lastValueFrom(
-      this._http.put(`${this.apiUrl}/remove-attachment/${releaseId}`, {})
+      this._http.put<CashFlow>(
+        `${this.apiUrl}/remove-attachment/${releaseId}`,
+        {}
+      )
     );
   }
 
