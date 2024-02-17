@@ -183,14 +183,16 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       });
 
     this.releaseForm.get('repeat')!.valueChanges.subscribe((value) => {
-      if (value === 'fixed') {
-        this.releaseForm.get('repeatFor')!.setValidators(Validators.required);
-        this.releaseForm.get('installmentsBy')!.clearValidators();
-      } else if (value === 'installments') {
-        this.releaseForm
-          .get('installmentsBy')!
-          .setValidators(Validators.required);
-        this.releaseForm.get('repeatFor')!.clearValidators();
+      switch (value) {
+        case 'fixed':
+          this.releaseForm.get('repeatFor')!.setValidators(Validators.required);
+          this.releaseForm.get('installmentsBy')!.clearValidators();
+          break;
+        case 'installments':
+          this.releaseForm
+            .get('installmentsBy')!
+            .setValidators(Validators.required);
+          this.releaseForm.get('repeatFor')!.clearValidators();
       }
     });
 
@@ -198,7 +200,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       this.onChangeFixedBy(value);
     });
 
-    this.releaseForm.get('accountId')!.setValue(this.data.accounts[0].id);
+    if (this.data.accounts.length > 0)
+      this.releaseForm.get('accountId')!.setValue(this.data.accounts[0].id);
   }
 
   async save() {

@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatSelectModule } from '@angular/material/select';
 import { AccountService } from '../../../../../services/account.service';
-import { Account } from '../../../../../interfaces/Account';
+import { Account, AccountBasicList } from '../../../../../interfaces/Account';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
@@ -63,8 +63,8 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
 
   saving: boolean = false;
 
-  accounsList: Account[] = [];
-  selectedAccount: Account | null = null;
+  accounsList: AccountBasicList[] = [];
+  selectedAccount: AccountBasicList | null = null;
 
   daysOfMonth: number[] = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -82,7 +82,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
       });
     }
 
-    this._accountService.getByUser().then((response) => {
+    this._accountService.getBasicList().then((response) => {
       this.accounsList = response;
 
       if (this.cardId && !this.selectedAccount) {

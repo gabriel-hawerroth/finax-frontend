@@ -8,7 +8,6 @@ export interface HomeValues {
 }
 
 interface HomeBalances {
-  generalBalance: number;
   revenues: number;
   expenses: number;
 }

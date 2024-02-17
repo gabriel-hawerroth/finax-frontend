@@ -13,10 +13,10 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Account } from '../../../../../interfaces/Account';
+import { AccountBasicList } from '../../../../../interfaces/Account';
 import { Category } from '../../../../../interfaces/Category';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { CreditCard } from '../../../../../interfaces/CreditCard';
+import { CardBasicList } from '../../../../../interfaces/CreditCard';
 
 @Component({
   selector: 'app-release-form',
@@ -38,17 +38,17 @@ import { CreditCard } from '../../../../../interfaces/CreditCard';
 })
 export class ReleaseFormComponent implements OnInit {
   @Input() form!: FormGroup;
-  @Input() accountsList: Account[] = [];
+  @Input() accountsList: AccountBasicList[] = [];
   @Input() categoriesList: Category[] = [];
-  @Input() creditCardsList: CreditCard[] = [];
+  @Input() creditCardsList: CardBasicList[] = [];
 
   public utilsService = inject(UtilsService);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
-  selectedAccount: Account | null = null;
-  selectedTargetAccount: Account | null = null;
+  selectedAccount: AccountBasicList | null = null;
+  selectedTargetAccount: AccountBasicList | null = null;
   selectedCategory: Category | null = null;
 
   ngOnInit(): void {

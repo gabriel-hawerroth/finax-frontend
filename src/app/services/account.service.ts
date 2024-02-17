@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { LoginService } from './login.service';
 import { lastValueFrom } from 'rxjs';
-import { Account } from '../interfaces/Account';
+import { Account, AccountBasicList } from '../interfaces/Account';
 import { GenericIdDs } from '../interfaces/Generic';
 
 @Injectable({
@@ -42,9 +42,9 @@ export class AccountService {
     );
   }
 
-  getBasicList(): Promise<GenericIdDs[]> {
+  getBasicList(): Promise<AccountBasicList[]> {
     return lastValueFrom(
-      this._http.get<GenericIdDs[]>(`${this.apiUrl}/basic-list`)
+      this._http.get<AccountBasicList[]>(`${this.apiUrl}/basic-list`)
     );
   }
 }

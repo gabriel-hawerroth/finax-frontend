@@ -25,13 +25,12 @@ import {
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
 import { ReleaseDetailsComponent } from './components/release-details/release-details.component';
-import { Account } from '../../../interfaces/Account';
+import { AccountBasicList } from '../../../interfaces/Account';
 import { AccountService } from '../../../services/account.service';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
 import { CreditCardService } from '../../../services/credit-card.service';
-import { CreditCard } from '../../../interfaces/CreditCard';
-import moment from 'moment';
+import { CardBasicList } from '../../../interfaces/CreditCard';
 
 @Component({
   selector: 'app-cash-flow',
@@ -87,9 +86,9 @@ export class CashFlowComponent implements OnInit {
     expectedBalance: 0,
   };
 
-  accounts: Account[] = [];
+  accounts: AccountBasicList[] = [];
   categories: Category[] = [];
-  creditCards: CreditCard[] = [];
+  creditCards: CardBasicList[] = [];
 
   ngOnInit(): void {
     this.buildForm();
@@ -107,12 +106,8 @@ export class CashFlowComponent implements OnInit {
   getReleases() {
     this.searching = true;
 
-    const initialDt: Date = moment(this.selectedDate).startOf('month').toDate();
-
-    const finalDt: Date = moment(this.selectedDate).endOf('month').toDate();
-
     this._cashFlowService
-      .getMonthlyFlow(initialDt, finalDt)
+      .getMonthlyFlow(this.selectedDate)
       .then((response) => {
         this.releases.next(response.releases);
         this.totals = response.totals;
@@ -130,15 +125,11 @@ export class CashFlowComponent implements OnInit {
   }
 
   async getValues() {
-    const [accounts, categories, creditCards] = await Promise.all([
-      this._accountService.getByUser(),
+    [this.accounts, this.categories, this.creditCards] = await Promise.all([
+      this._accountService.getBasicList(),
       this._categoryService.getByUser(),
-      this._creditCardService.getByUser(),
+      this._creditCardService.getBasicList(),
     ]);
-
-    this.accounts = this.utilsService.filterList(accounts, 'active', true);
-    this.categories = categories;
-    this.creditCards = creditCards;
   }
 
   get getSelectedMonth(): string {
@@ -182,7 +173,7 @@ export class CashFlowComponent implements OnInit {
     });
   }
 
-  addRelease(releaseType: string) {
+  addRelease(releaseType: 'E' | 'R' | 'T') {
     lastValueFrom(
       this._matDialog
         .open(ReleaseFormDialogComponent, {

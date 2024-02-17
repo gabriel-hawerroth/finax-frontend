@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { lastValueFrom } from 'rxjs';
-import { CreditCard, UserCreditCards } from '../interfaces/CreditCard';
+import {
+  CardBasicList,
+  CreditCard,
+  UserCreditCards,
+} from '../interfaces/CreditCard';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +28,11 @@ export class CreditCardService {
 
   save(card: CreditCard): Promise<CreditCard> {
     return lastValueFrom(this._http.post<CreditCard>(this.apiUrl, card));
+  }
+
+  getBasicList(): Promise<CardBasicList[]> {
+    return lastValueFrom(
+      this._http.get<CardBasicList[]>(`${this.apiUrl}/basic-list`)
+    );
   }
 }

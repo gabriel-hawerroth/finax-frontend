@@ -27,73 +27,91 @@ export class LoginService {
   async login(credentials: Credentials) {
     const language = this._utilsService.getUserConfigs.language;
 
-    await this.oauthLogin(credentials).then(async (response: any) => {
-      if (!response) {
-        this._utilsService.showSimpleMessage(
-          language === 'pt-br' ? 'Login inválido' : 'Invalid login'
-        );
-        return;
-      }
+    await this.oauthLogin(credentials)
+      .then(async (response: any) => {
+        if (!response) {
+          this._utilsService.showSimpleMessage(
+            language === 'pt-br' ? 'Login inválido' : 'Invalid login'
+          );
+          return;
+        }
 
-      this.setToken(response.access_token);
-      this._router.navigate(['home']);
+        this.setToken(response.access_token);
+        this._router.navigate(['home']);
 
-      await this._userService
-        .getByEmail(response.username)
-        .then((user: User) => {
-          if (!user) {
+        await this._userService
+          .getByEmail(response.username)
+          .then((user: User) => {
+            if (!user) {
+              this._utilsService.showSimpleMessage(
+                language === 'pt-br'
+                  ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
+                  : 'Error getting the user, please contact our support'
+              );
+              return;
+            }
+
+            this.updateLoggedUser(user);
+
+            this._utilsService.getUserConfigs;
+            this._userConfigsService
+              .getLoggedUserConfigs()
+              .then((response: UserConfigs) => {
+                this._utilsService.userConfigs.next(response);
+                this._utilsService.setItemLocalStorage(
+                  'savedUserConfigsFinax',
+                  JSON.stringify(response)
+                );
+              });
+
+            if (credentials.rememberMe) {
+              this._utilsService.setItemLocalStorage(
+                'savedLoginFinax',
+                btoa(JSON.stringify(credentials))
+              );
+            } else {
+              this._utilsService.removeItemLocalStorage('savedLoginFinax');
+            }
+
+            if (!credentials.changedPassword) {
+              this._utilsService.showSimpleMessage(
+                language === 'pt-br'
+                  ? 'Login realizado com sucesso'
+                  : 'Login successfully'
+              );
+            } else {
+              this._utilsService.showSimpleMessage(
+                language === 'pt-br'
+                  ? 'Senha alterada com sucesso'
+                  : 'Password changed successfully'
+              );
+            }
+          })
+          .catch(() => {
             this._utilsService.showSimpleMessage(
               language === 'pt-br'
-                ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
+                ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
                 : 'Error getting the user, please contact our support'
             );
-            return;
-          }
-
-          this.updateLoggedUser(user);
-
-          this._utilsService.getUserConfigs;
-          this._userConfigsService
-            .getLoggedUserConfigs()
-            .then((response: UserConfigs) => {
-              this._utilsService.userConfigs.next(response);
-              this._utilsService.setItemLocalStorage(
-                'savedUserConfigsFinax',
-                JSON.stringify(response)
-              );
-            });
-
-          if (credentials.rememberMe) {
-            this._utilsService.setItemLocalStorage(
-              'savedLoginFinax',
-              btoa(JSON.stringify(credentials))
-            );
-          } else {
-            this._utilsService.removeItemLocalStorage('savedLoginFinax');
-          }
-
-          if (!credentials.changedPassword) {
+          });
+      })
+      .catch((err) => {
+        switch (err.error.error_description) {
+          case 'Bad credentials':
             this._utilsService.showSimpleMessage(
-              language === 'pt-br'
-                ? 'Login realizado com sucesso'
-                : 'Login successfully'
+              this._utilsService.getUserConfigs.language === 'pt-br'
+                ? 'Login inválido'
+                : 'Invalid login'
             );
-          } else {
+            break;
+          case 'Inactive user':
             this._utilsService.showSimpleMessage(
-              language === 'pt-br'
-                ? 'Senha alterada com sucesso'
-                : 'Password changed successfully'
+              this._utilsService.getUserConfigs.language === 'pt-br'
+                ? 'Usuário inativo, verifique seu email'
+                : 'Inactive user, check your email'
             );
-          }
-        })
-        .catch(() => {
-          this._utilsService.showSimpleMessage(
-            language === 'pt-br'
-              ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
-              : 'Error getting the user, please contact our support'
-          );
-        });
-    });
+        }
+      });
   }
 
   oauthLogin(credentials: Credentials): Promise<any> {

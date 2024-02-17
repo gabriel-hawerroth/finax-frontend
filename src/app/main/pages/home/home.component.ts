@@ -1,4 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatCardModule } from '@angular/material/card';
@@ -23,18 +29,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public loginService = inject(LoginService);
   private _homeService = inject(HomeService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;
 
   homeValues: HomeValues = {
     balances: {
-      generalBalance: 0,
       revenues: 0,
       expenses: 0,
     },
@@ -42,9 +49,21 @@ export class HomeComponent implements OnInit {
     upcomingReleasesExpected: [],
   };
 
+  generalBalance: number = 0;
+
   ngOnInit(): void {
+    this.getValues();
+  }
+
+  getValues() {
     this._homeService.getHomeValues().then((response) => {
       this.homeValues = response;
+
+      response.accountsList.forEach((account) => {
+        this.generalBalance += account.balance;
+      });
+
+      this._changeDetectorRef.detectChanges();
     });
   }
 

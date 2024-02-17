@@ -47,22 +47,6 @@ export const authInterceptor: HttpInterceptorFn = (
             );
         }
 
-        switch (error.error.error_description) {
-          case 'Bad credentials':
-            utilsService.showSimpleMessage(
-              utilsService.getUserConfigs.language === 'pt-br'
-                ? 'Login inválido'
-                : 'Invalid login'
-            );
-            break;
-          case 'Inactive user':
-            utilsService.showSimpleMessage(
-              utilsService.getUserConfigs.language === 'pt-br'
-                ? 'Usuário inativo, verifique seu email'
-                : 'Inactive user, check your email'
-            );
-        }
-
         return throwError(() => error);
       })
     );

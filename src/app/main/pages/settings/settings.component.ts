@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
@@ -26,12 +33,14 @@ import { UtilsService } from '../../../utils/utils.service';
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _userConfigsService = inject(UserConfigsService);
   private _loginService = inject(LoginService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -69,6 +78,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .subscribe((value) => {
         this.language = value.language;
         this.utilsService.userConfigs.next(value);
+
+        this._changeDetectorRef.detectChanges();
       });
   }
 

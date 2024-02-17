@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
 import { Category } from '../../../interfaces/Category';
@@ -22,11 +28,13 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategorysComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _categoryService = inject(CategoryService);
   private _matDialog = inject(MatDialog);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   language = this.utilsService.getUserConfigs.language;
 
@@ -41,6 +49,7 @@ export class CategorysComponent implements OnInit {
       .getByUser()
       .then((response) => {
         this.categories = response;
+        this._changeDetectorRef.detectChanges();
       })
       .catch(() => {
         this.utilsService.showSimpleMessage(
@@ -64,9 +73,7 @@ export class CategorysComponent implements OnInit {
       '.delete-btn'
     );
 
-    if (isDeleteButtonClick) {
-      return;
-    }
+    if (isDeleteButtonClick) return;
 
     lastValueFrom(
       this._matDialog
@@ -88,6 +95,8 @@ export class CategorysComponent implements OnInit {
       );
 
       this.categories[index] = response;
+
+      this._changeDetectorRef.detectChanges();
     });
   }
 
@@ -108,6 +117,8 @@ export class CategorysComponent implements OnInit {
       if (!response) return;
 
       this.categories.push(response);
+
+      this._changeDetectorRef.detectChanges();
     });
   }
 

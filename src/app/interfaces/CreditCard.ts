@@ -23,3 +23,9 @@ export interface UserCreditCards {
   account_name: string;
   account_image: string;
 }
+
+export interface CardBasicList {
+  id: number;
+  name: string;
+  image: string;
+}

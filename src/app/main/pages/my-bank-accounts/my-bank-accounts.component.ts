@@ -1,4 +1,11 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Account } from '../../../interfaces/Account';
@@ -34,12 +41,14 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
   ],
   templateUrl: './my-bank-accounts.component.html',
   styleUrl: './my-bank-accounts.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyBankAccountsComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _accountService = inject(AccountService);
   private _bottomSheet = inject(MatBottomSheet);
   private _router = inject(Router);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -51,10 +60,7 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
   filteredRows: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>([]);
 
   ngOnInit(): void {
-    this._accountService.getByUser().then((result: any) => {
-      this.rows = result;
-      this.filterList();
-    });
+    this.getAccounts();
 
     this.situationFilter.setValue(true);
 
@@ -66,6 +72,14 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscribeAll.next('');
     this._unsubscribeAll.complete();
+  }
+
+  getAccounts() {
+    this._accountService.getByUser().then((result: any) => {
+      this.rows = result;
+      this.filterList();
+      this._changeDetectorRef.detectChanges();
+    });
   }
 
   filterList() {

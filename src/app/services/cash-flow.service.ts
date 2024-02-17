@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { CashFlow, MonthlyFlow } from '../interfaces/CashFlow';
 import { lastValueFrom } from 'rxjs';
+import moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +17,17 @@ export class CashFlowService {
     return lastValueFrom(this._http.get<CashFlow>(`${this.apiUrl}/${id}`));
   }
 
-  getMonthlyFlow(firstDt: Date, lastDt: Date): Promise<MonthlyFlow> {
-    let params = new HttpParams();
-    params = params.append('firstDt', firstDt.toString());
-    params = params.append('lastDt', lastDt.toString());
+  getMonthlyFlow(selectedDt: Date): Promise<MonthlyFlow> {
+    const firstDt = moment(selectedDt).startOf('month').toString();
+    const lastDt = moment(selectedDt).endOf('month').toString();
+    const firstDtCurrentMonth = moment(new Date()).startOf('month').toString();
 
-    return lastValueFrom(
-      this._http.get<MonthlyFlow>(this.apiUrl, { params: params })
-    );
+    let params = new HttpParams();
+    params = params.append('firstDt', firstDt);
+    params = params.append('lastDt', lastDt);
+    params = params.append('firstDtCurrentMonth', firstDtCurrentMonth);
+
+    return lastValueFrom(this._http.get<MonthlyFlow>(this.apiUrl, { params }));
   }
 
   addRelease(data: CashFlow, repeatFor: number): Promise<CashFlow> {

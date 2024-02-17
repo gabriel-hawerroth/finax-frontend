@@ -13,3 +13,9 @@ export interface Account {
   code: number;
   type: string;
 }
+
+export interface AccountBasicList {
+  id: number;
+  name: string;
+  image: string;
+}

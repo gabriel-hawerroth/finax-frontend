@@ -1,5 +1,12 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatCardModule } from '@angular/material/card';
 import { CreditCardService } from '../../../services/credit-card.service';
@@ -29,12 +36,14 @@ import { CreditCardDetailsComponent } from './components/credit-card-details/cre
   ],
   templateUrl: './credit-cards.component.html',
   styleUrl: './credit-cards.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardsComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _creditCardService = inject(CreditCardService);
   private _router = inject(Router);
   private _bottomSheet = inject(MatBottomSheet);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -47,15 +56,10 @@ export class CreditCardsComponent implements OnInit, OnDestroy {
     CreditCard[]
   >([]);
 
-  loading: boolean = true;
-
   ngOnInit(): void {
-    this.situationFilter.setValue(true);
+    this.getCards();
 
-    this._creditCardService.getByUser().then((response) => {
-      this.rows = response;
-      this.filterList();
-    });
+    this.situationFilter.setValue(true);
 
     this.situationFilter.valueChanges.subscribe(() => {
       this.filterList();
@@ -65,6 +69,13 @@ export class CreditCardsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscribeAll.next('');
     this._unsubscribeAll.complete();
+  }
+
+  getCards() {
+    this._creditCardService.getByUser().then((response) => {
+      this.rows = response;
+      this.filterList();
+    });
   }
 
   filterList() {
@@ -80,7 +91,7 @@ export class CreditCardsComponent implements OnInit, OnDestroy {
 
     this.filteredRows.next(rows);
 
-    this.loading = false;
+    this._changeDetectorRef.detectChanges();
   }
 
   onNew() {
