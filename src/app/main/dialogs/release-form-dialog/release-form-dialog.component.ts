@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -12,7 +13,6 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { MatTabsModule } from '@angular/material/tabs';
 import {
   FormBuilder,
   FormControl,
@@ -27,10 +27,8 @@ import { ReleaseFormComponent } from './components/release-form/release-form.com
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
   MatCheckboxChange,
   MatCheckboxModule,
@@ -48,17 +46,14 @@ import { ConfirmDuplicatedReleasesActionComponent } from '../../pages/cash-flow/
   imports: [
     CommonModule,
     MatDialogModule,
-    MatTabsModule,
     MatFormFieldModule,
     ReleaseFormComponent,
     ReactiveFormsModule,
     MatInputModule,
     MatDividerModule,
     MatTooltipModule,
-    MatRadioModule,
     MatSelectModule,
     NgxCurrencyDirective,
-    MatProgressSpinnerModule,
     ButtonsComponent,
     MatCheckboxModule,
   ],
@@ -74,6 +69,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   private _matDialog = inject(MatDialog);
   private _matDialogRef = inject(MatDialogRef);
   private _loginService = inject(LoginService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -127,7 +123,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       if (this.data.release.observation) {
         this.showObservation = true;
       }
-    } else if (this.data.releaseType === 'E' || this.data.releaseType === 'R') {
+    } else if (this.data.releaseType !== 'T') {
       const otherCategorieId: number = this.data.categories.find(
         (item: Category) =>
           item.name ===
@@ -168,6 +164,10 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     });
     this.releaseForm.markAllAsTouched();
 
+    this.formValidations();
+  }
+
+  formValidations() {
     if (this.data.releaseType === 'T') {
       this.releaseForm
         .get('targetAccountId')!
@@ -180,35 +180,34 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       .get('done')!
       .setValue(!moment(this.releaseForm.value.date).isAfter(new Date()));
 
-    this.releaseForm
-      .get('date')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.releaseForm
-          .get('done')!
-          .setValue(!moment(value).isAfter(new Date()));
-      });
-
-    this.releaseForm.get('repeat')!.valueChanges.subscribe((value) => {
-      switch (value) {
-        case 'fixed':
-          this.releaseForm.get('repeatFor')!.setValidators(Validators.required);
-          this.releaseForm.get('installmentsBy')!.clearValidators();
-          break;
-        case 'installments':
-          this.releaseForm
-            .get('installmentsBy')!
-            .setValidators(Validators.required);
-          this.releaseForm.get('repeatFor')!.clearValidators();
-      }
-    });
-
-    this.releaseForm.get('fixedBy')!.valueChanges.subscribe((value) => {
-      this.onChangeFixedBy(value);
-    });
-
     if (this.data.accounts.length > 0)
       this.releaseForm.get('accountId')!.setValue(this.data.accounts[0].id);
+
+    this.releaseForm
+      .get('repeat')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        switch (value) {
+          case 'fixed':
+            this.releaseForm
+              .get('repeatFor')!
+              .setValidators(Validators.required);
+            this.releaseForm.get('installmentsBy')!.clearValidators();
+            break;
+          case 'installments':
+            this.releaseForm
+              .get('installmentsBy')!
+              .setValidators(Validators.required);
+            this.releaseForm.get('repeatFor')!.clearValidators();
+        }
+      });
+
+    this.releaseForm
+      .get('fixedBy')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.onChangeFixedBy(value);
+      });
   }
 
   async save() {
@@ -270,6 +269,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     this.saving = true;
     let showingMessage: boolean = false;
     var requestError: boolean = false;
+    this._changeDetectorRef.detectChanges();
 
     setTimeout(() => {
       if (this.saving) {
@@ -323,6 +323,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           : 'Error saving the release'
       );
       this.saving = false;
+      this._changeDetectorRef.detectChanges();
       return;
     }
 
@@ -352,6 +353,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
     if (requestError) {
       this.saving = false;
+      this._changeDetectorRef.detectChanges();
       return;
     }
 
@@ -365,6 +367,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     this.saving = false;
 
     if (showingMessage) this.utilsService.dismissMessage();
+
+    this._changeDetectorRef.detectChanges();
   }
 
   onFileSelected(event: any) {

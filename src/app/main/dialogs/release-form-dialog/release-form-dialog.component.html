@@ -54,6 +54,7 @@
   <div class="content">
     <div class="form-buttons">
       <app-release-form
+        [releaseType]="data.releaseType"
         [form]="releaseForm"
         [accountsList]="data.accounts"
         [categoriesList]="data.categories"
@@ -262,7 +263,7 @@
                 thousands: '',
                 nullable: false,
                 min: 2,
-                max: 1000,
+                max: 365,
               }"
             />
           </mat-form-field>

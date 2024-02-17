@@ -39,8 +39,17 @@ export class LoginService {
         this.setToken(response.access_token);
         this._router.navigate(['home']);
 
-        await this._userService
-          .getByEmail(response.username)
+        let headers = new HttpHeaders();
+        headers = headers.append(
+          'Authorization',
+          `Bearer ${response.access_token}`
+        );
+
+        await lastValueFrom(
+          this._http.get<User>(`${environment.baseApiUrl}user/get-auth-user`, {
+            headers,
+          })
+        )
           .then((user: User) => {
             if (!user) {
               this._utilsService.showSimpleMessage(

@@ -17,15 +17,6 @@ export class UserService {
     return lastValueFrom(this._http.get<User>(`${this.apiUrl}/${userId}`));
   }
 
-  getByEmail(email: string): Promise<User> {
-    let params = new HttpParams();
-    params = params.append('email', email);
-
-    return lastValueFrom(
-      this._http.get<User>(`${this.apiUrl}/get-by-email`, { params })
-    );
-  }
-
   changeForgetedPassword(userId: number, newPassword: string): Promise<User> {
     let params = new HttpParams();
     params = params.append('userId', userId);

@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
@@ -17,6 +18,8 @@ import { AccountBasicList } from '../../../../../interfaces/Account';
 import { Category } from '../../../../../interfaces/Category';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CardBasicList } from '../../../../../interfaces/CreditCard';
+import { Subject, takeUntil } from 'rxjs';
+import moment from 'moment';
 
 @Component({
   selector: 'app-release-form',
@@ -36,13 +39,16 @@ import { CardBasicList } from '../../../../../interfaces/CreditCard';
   styleUrl: './release-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleaseFormComponent implements OnInit {
+export class ReleaseFormComponent implements OnInit, OnDestroy {
+  @Input() releaseType!: string;
   @Input() form!: FormGroup;
   @Input() accountsList: AccountBasicList[] = [];
   @Input() categoriesList: Category[] = [];
   @Input() creditCardsList: CardBasicList[] = [];
 
   public utilsService = inject(UtilsService);
+
+  private _unsubscribeAll: Subject<any> = new Subject();
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -52,38 +58,71 @@ export class ReleaseFormComponent implements OnInit {
   selectedCategory: Category | null = null;
 
   ngOnInit(): void {
-    this.form.get('accountId')!.valueChanges.subscribe((value) => {
-      this.selectedAccount = this.accountsList.find(
-        (item) => item.id === value
-      )!;
-    });
+    this.subscribeFormChanges();
 
-    this.form.get('targetAccountId')!.valueChanges.subscribe((value) => {
-      this.selectedTargetAccount = this.accountsList.find(
-        (item) => item.id === value
-      )!;
-    });
-
-    this.form.get('categoryId')!.valueChanges.subscribe((value) => {
-      this.selectedCategory = this.categoriesList.find(
-        (item) => item.id === value
-      )!;
-    });
-
-    const accountId = this.form.get('accountId')!.value;
-    const categoryId = this.form.get('categoryId')!.value;
-
+    const accountId = this.form.value.accountId;
     if (accountId) {
       this.selectedAccount = this.accountsList.find(
         (item) => item.id === accountId
       )!;
     }
 
+    const categoryId = this.form.value.categoryId;
     if (categoryId) {
       this.selectedCategory = this.categoriesList.find(
         (item) => item.id === categoryId
       )!;
     }
+
+    if (this.accountsList.length === 0 && this.creditCardsList.length === 0) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'Nenhuma conta ou cartão ativos'
+          : 'No active accounts or cards',
+        5000
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next('');
+    this._unsubscribeAll.complete();
+  }
+
+  subscribeFormChanges() {
+    this.form
+      .get('date')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.form.get('done')!.setValue(!moment(value).isAfter(new Date()));
+      });
+
+    this.form
+      .get('accountId')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.selectedAccount = this.accountsList.find(
+          (item) => item.id === value
+        )!;
+      });
+
+    this.form
+      .get('targetAccountId')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.selectedTargetAccount = this.accountsList.find(
+          (item) => item.id === value
+        )!;
+      });
+
+    this.form
+      .get('categoryId')!
+      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.selectedCategory = this.categoriesList.find(
+          (item) => item.id === value
+        )!;
+      });
   }
 
   get getCategories(): Category[] {

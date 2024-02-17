@@ -58,7 +58,7 @@
               <span>{{ account.name }}</span>
             </div>
           </mat-option>
-          } } @else {
+          } } @else { @if (accountsList.length !== 0) {
           <mat-optgroup [label]="language === 'pt-br' ? 'Contas' : 'Accounts'">
             @for (account of accountsList; track account.id) {
             <mat-option [value]="account.id" class="bank-account-item">
@@ -80,7 +80,7 @@
             </mat-option>
             }
           </mat-optgroup>
-
+          } @if (creditCardsList.length !== 0) {
           <mat-optgroup [label]="language === 'pt-br' ? 'Cartões' : 'Cards'">
             @for (creditCard of creditCardsList; track creditCard.id) {
             <mat-option [value]="creditCard.id" class="bank-account-item">
@@ -102,7 +102,7 @@
             </mat-option>
             }
           </mat-optgroup>
-          }
+          } }
         </mat-select>
       </mat-form-field>
 
