@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,12 +39,14 @@ import { RouterModule } from '@angular/router';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public loginService = inject(LoginService);
   private _fb = inject(FormBuilder);
   private _matDialog = inject(MatDialog);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   loginForm!: FormGroup;
   showLoading: boolean = false;
@@ -72,6 +80,7 @@ export class LoginComponent implements OnInit {
 
     this.loginService.login(credentials).finally(() => {
       this.showLoading = false;
+      this._changeDetectorRef.detectChanges();
     });
   }
 

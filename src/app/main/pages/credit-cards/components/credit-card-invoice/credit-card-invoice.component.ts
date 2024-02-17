@@ -1,9 +1,15 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { MatCardModule } from '@angular/material/card';
-import { Account } from '../../../../../interfaces/Account';
+import { AccountBasicList } from '../../../../../interfaces/Account';
 import { Category } from '../../../../../interfaces/Category';
 import { lastValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,6 +33,7 @@ import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dia
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardInvoiceComponent implements OnInit {
   public utilsService = inject(UtilsService);
@@ -35,6 +42,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   private _accountService = inject(AccountService);
   private _categoryService = inject(CategoryService);
   private _activatedRoute = inject(ActivatedRoute);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -48,7 +56,7 @@ export class CreditCardInvoiceComponent implements OnInit {
 
   searching: boolean = false;
 
-  accounts: Account[] = [];
+  accounts: AccountBasicList[] = [];
   categories: Category[] = [];
 
   ngOnInit(): void {
@@ -59,15 +67,13 @@ export class CreditCardInvoiceComponent implements OnInit {
   getReleases() {}
 
   async getValues() {
-    const [creditCard, accounts, categories] = await Promise.all([
+    [this.creditCard, this.accounts, this.categories] = await Promise.all([
       this._creditCardService.getById(this.creditCardId),
-      this._accountService.getByUser(),
+      this._accountService.getBasicList(),
       this._categoryService.getByUser(),
     ]);
 
-    this.creditCard = creditCard;
-    this.accounts = this.utilsService.filterList(accounts, 'active', true);
-    this.categories = categories;
+    this._changeDetectorRef.detectChanges();
   }
 
   get getSelectedMonth(): string {
@@ -78,20 +84,6 @@ export class CreditCardInvoiceComponent implements OnInit {
     const selectedYear = this.selectedDate.getFullYear().toString();
 
     return selectedYear !== this.currentYear ? selectedYear : '';
-  }
-
-  getDateTest(info: 'closing' | 'expiration'): string {
-    let dt: Date = this.selectedDate;
-    switch (info) {
-      case 'closing':
-        dt = new Date(dt.setDate(this.creditCard?.close_day || 1));
-        break;
-      case 'expiration':
-        dt = new Date(dt.setDate(this.creditCard?.expires_day || 1));
-        break;
-    }
-
-    return dt.toLocaleDateString();
   }
 
   getDateInfo(info: 'closing' | 'expiration'): string {

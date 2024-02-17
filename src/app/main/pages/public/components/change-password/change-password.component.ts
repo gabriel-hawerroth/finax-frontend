@@ -1,4 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   FormBuilder,
@@ -34,6 +40,7 @@ import { LoginService } from '../../../../../services/login.service';
   ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordComponent implements OnInit {
   public utilsService = inject(UtilsService);
@@ -42,6 +49,7 @@ export class ChangePasswordComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   private _router = inject(Router);
   private _loginService = inject(LoginService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   changePasswordForm!: FormGroup;
   showLoading: boolean = false;
@@ -139,6 +147,7 @@ export class ChangePasswordComponent implements OnInit {
       })
       .finally(() => {
         this.showLoading = false;
+        this._changeDetectorRef.detectChanges();
       });
   }
 }

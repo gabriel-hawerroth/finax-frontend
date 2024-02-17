@@ -11,7 +11,7 @@ import { FreeTierGuard } from './services/guards/free-tier.guard';
 import { SettingsComponent } from './main/pages/settings/settings.component';
 import { MyProfileComponent } from './main/pages/my-profile/my-profile.component';
 import { MyBankAccountsComponent } from './main/pages/my-bank-accounts/my-bank-accounts.component';
-import { BankAccountsEditComponent } from './main/pages/my-bank-accounts/components/bank-accounts-edit/bank-accounts-edit.component';
+import { BankAccountsFormComponent } from './main/pages/my-bank-accounts/components/bank-accounts-form/bank-accounts-form.component';
 import { CashFlowComponent } from './main/pages/cash-flow/cash-flow.component';
 import { InvestmentsComponent } from './main/pages/investments/investments.component';
 import { MarketIndicatorsComponent } from './main/pages/market-indicators/market-indicators.component';
@@ -113,7 +113,7 @@ export const routes: Routes = [
   },
   {
     path: 'contas-de-banco/:id',
-    component: BankAccountsEditComponent,
+    component: BankAccountsFormComponent,
     canActivate: [FreeTierGuard],
   },
   {

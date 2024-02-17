@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from '../../../services/login.service';
@@ -25,6 +31,7 @@ import { PublicFooterComponent } from '../../public-footer/public-footer.compone
   ],
   templateUrl: './public.component.html',
   styleUrl: './public.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicComponent implements OnInit {
   public utilsService = inject(UtilsService);
@@ -36,21 +43,11 @@ export class PublicComponent implements OnInit {
   switchPlansControl: FormControl = new FormControl(false);
 
   ngOnInit(): void {
-    this.showArrowUp();
-
     if (
       moment().isAfter(this.utilsService.getItemLocalStorage('tokenExpiration'))
     ) {
       this.loginService.logout(false);
     }
-  }
-
-  showArrowUp() {
-    if (!this.utilsService.isBrowser) return;
-
-    window.onscroll = () => {
-      this.showScrollTop = document.documentElement.scrollTop > 600;
-    };
   }
 
   get getWidth(): number {

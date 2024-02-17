@@ -156,12 +156,14 @@
                         font-size: .8rem;
                         display: flex;
                         flex-direction: column;
-                        align-items: end;
+                        align-items: center;
                         color: #777777;
                     }
 
                     .amount {
                         width: 15%;
+                        max-width: 15%;
+                        overflow-x: hidden;
                         display: flex;
                         justify-content: flex-end;
                         padding-right: 1.2rem;

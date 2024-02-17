@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import {
@@ -7,7 +13,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { User } from '../../../../../interfaces/User';
 import { LoginService } from '../../../../../services/login.service';
 import { UserService } from '../../../../../services/user.service';
 import { UtilsService } from '../../../../../utils/utils.service';
@@ -27,13 +32,13 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForgotPasswordComponent implements OnInit {
   public utilsService = inject(UtilsService);
-
   private _fb = inject(FormBuilder);
   private _loginService = inject(LoginService);
-  private _userService = inject(UserService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   forgotPasswordForm!: FormGroup;
   originalFormValue!: FormGroup;
@@ -78,6 +83,7 @@ export class ForgotPasswordComponent implements OnInit {
       })
       .finally(() => {
         this.showLoading = false;
+        this._changeDetectorRef.detectChanges();
       });
   }
 }

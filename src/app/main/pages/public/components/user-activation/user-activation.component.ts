@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
@@ -10,6 +15,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   imports: [CommonModule, NgOptimizedImage, MatButtonModule, RouterModule],
   templateUrl: './user-activation.component.html',
   styleUrl: './user-activation.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserActivationComponent implements OnInit {
   private _utilsService = inject(UtilsService);

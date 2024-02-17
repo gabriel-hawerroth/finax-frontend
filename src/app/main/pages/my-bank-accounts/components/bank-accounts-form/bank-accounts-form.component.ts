@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  OnDestroy,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
   FormBuilder,
@@ -38,10 +44,11 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
     MatSelectModule,
     ButtonsComponent,
   ],
-  templateUrl: './bank-accounts-edit.component.html',
-  styleUrl: './bank-accounts-edit.component.scss',
+  templateUrl: './bank-accounts-form.component.html',
+  styleUrl: './bank-accounts-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BankAccountsEditComponent implements OnInit, OnDestroy {
+export class BankAccountsFormComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   public location = inject(Location);
   private _activatedRoute = inject(ActivatedRoute);

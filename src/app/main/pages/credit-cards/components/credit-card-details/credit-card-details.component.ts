@@ -1,5 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   templateUrl: './credit-card-details.component.html',
   styleUrl: './credit-card-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardDetailsComponent {
   public utilsService = inject(UtilsService);

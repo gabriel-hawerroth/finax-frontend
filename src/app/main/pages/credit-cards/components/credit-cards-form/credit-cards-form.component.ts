@@ -1,5 +1,12 @@
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
-import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import {
   FormBuilder,
@@ -16,7 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatSelectModule } from '@angular/material/select';
 import { AccountService } from '../../../../../services/account.service';
-import { Account, AccountBasicList } from '../../../../../interfaces/Account';
+import { AccountBasicList } from '../../../../../interfaces/Account';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
@@ -40,6 +47,7 @@ import { LoginService } from '../../../../../services/login.service';
   ],
   templateUrl: './credit-cards-form.component.html',
   styleUrl: './credit-cards-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardsFormComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
@@ -51,6 +59,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   private _dialog = inject(MatDialog);
   private _accountService = inject(AccountService);
   private _loginService = inject(LoginService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -127,6 +136,15 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    if (this.cardForm.value.card_limit === 0) {
+      this.utilsService.showSimpleMessage(
+        this.language === 'pt-br'
+          ? 'O limite deve ser maior que zero'
+          : 'The limit must be greater than zero'
+      );
+      return;
+    }
+
     this.saving = true;
 
     this.cardForm.markAsPristine();
@@ -162,6 +180,8 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
 
       this.cardForm.get('image')!.setValue(value);
       this.cardForm.markAsDirty();
+
+      this._changeDetectorRef.detectChanges();
     });
   }
 }

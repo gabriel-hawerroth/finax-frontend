@@ -1,4 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
@@ -31,12 +37,14 @@ import { UtilsService } from '../../../../../utils/utils.service';
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAccountComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _router = inject(Router);
   private _loginService = inject(LoginService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   language: string = this.utilsService.getUserConfigs.language;
 
@@ -105,6 +113,9 @@ export class CreateAccountComponent implements OnInit {
               : 'Error creating user, please contact our support'
           );
         }
+      })
+      .finally(() => {
+        this._changeDetectorRef.detectChanges();
       });
   }
 }
