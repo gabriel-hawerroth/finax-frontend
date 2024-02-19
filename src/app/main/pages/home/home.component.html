@@ -7,13 +7,13 @@
   <mat-card class="top-card">
     <mat-card-content class="top-card-content">
       <h1>
-        {{ language === "pt-br" ? "Olá" : "Hello" }}
+        {{ "home.hello" | translate }}
         {{ loginService.getLoggedUser?.firstName }}!
       </h1>
 
       <div class="amounts">
         <div class="item revenue">
-          {{ language === "pt-br" ? "Receita mensal" : "Monthly revenue" }}
+          {{ "home.monthly-revenue" | translate }}
 
           <span>
             {{ currency }}{{ homeValues.balances.revenues | customCurrency }}
@@ -21,7 +21,7 @@
         </div>
 
         <div class="item expense">
-          {{ language === "pt-br" ? "Despesa mensal" : "Monthly expense" }}
+          {{ "home.monthly-expense" | translate }}
 
           <span>
             {{ currency }}{{ homeValues.balances.expenses | customCurrency }}
@@ -36,7 +36,7 @@
       <mat-card class="accounts">
         <mat-card-header>
           <h3 style="font-weight: 500">
-            {{ language === "pt-br" ? "Saldo geral" : "General balance" }}
+            {{ "home.general-balance" | translate }}
           </h3>
 
           <span
@@ -58,7 +58,7 @@
 
         <mat-card-content>
           <span class="my-accounts-title">
-            {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
+            {{ "home.my-accounts" | translate }}
           </span>
 
           @defer {
@@ -99,7 +99,7 @@
         <mat-card-header>
           <mat-card-title>
             <h3>
-              {{ language === "pt-br" ? "Contas a pagar" : "Accounts Payable" }}
+              {{ "home.accounts-payable" | translate }}
             </h3>
           </mat-card-title>
         </mat-card-header>
@@ -138,11 +138,7 @@
           } @empty {
           <div class="no-releases">
             <span>
-              {{
-                language === "pt-br"
-                  ? "Você não possui contas a pagar"
-                  : "You don't have any accounts payable"
-              }}
+              {{ "home.whitout-payble-accounts" | translate }}
             </span>
           </div>
           }
@@ -153,11 +149,7 @@
         <mat-card-header>
           <mat-card-title>
             <h3>
-              {{
-                language === "pt-br"
-                  ? "Contas a receber"
-                  : "Accounts Receivable"
-              }}
+              {{ "home.accounts-receivable" | translate }}
             </h3>
           </mat-card-title>
         </mat-card-header>
@@ -196,11 +188,7 @@
           } @empty {
           <div class="no-releases">
             <span>
-              {{
-                language === "pt-br"
-                  ? "Você não possui contas a receber"
-                  : "You don't have any accounts receivable"
-              }}
+              {{ "home.whitout-receivable-accounts" | translate }}
             </span>
           </div>
           }

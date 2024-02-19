@@ -5,7 +5,6 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
 import { isPlatformBrowser } from '@angular/common';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { User } from '../interfaces/User';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../main/dialogs/confirmation-dialog/confirmation-dialog.component';
 

@@ -31,6 +31,7 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
 import { CreditCardService } from '../../../services/credit-card.service';
 import { CardBasicList } from '../../../interfaces/CreditCard';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cash-flow',
@@ -48,6 +49,7 @@ import { CardBasicList } from '../../../interfaces/CreditCard';
     CustomCurrencyPipe,
     MatBottomSheetModule,
     ButtonsComponent,
+    TranslateModule,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -62,6 +64,7 @@ export class CashFlowComponent implements OnInit {
   private _accountService = inject(AccountService);
   private _categoryService = inject(CategoryService);
   private _creditCardService = inject(CreditCardService);
+  private _translate = inject(TranslateService);
 
   language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
@@ -91,6 +94,8 @@ export class CashFlowComponent implements OnInit {
   creditCards: CardBasicList[] = [];
 
   ngOnInit(): void {
+    this._translate.use(this.language);
+
     this.buildForm();
     this.getReleases();
 

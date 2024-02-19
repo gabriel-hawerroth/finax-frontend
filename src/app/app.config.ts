@@ -1,6 +1,12 @@
-import { ApplicationConfig, LOCALE_ID } from '@angular/core';
+import {
+  ApplicationConfig,
+  LOCALE_ID,
+  importProvidersFrom,
+  inject,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import {
+  HttpClient,
   provideHttpClient,
   withFetch,
   withInterceptors,
@@ -25,6 +31,8 @@ import {
   MomentDateAdapter,
 } from '@angular/material-moment-adapter';
 import localePt from '@angular/common/locales/pt';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const MY_FORMATS = {
   parse: {
@@ -39,6 +47,10 @@ export const MY_FORMATS = {
 };
 
 registerLocaleData(localePt, 'pt-BR');
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -71,5 +83,14 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    importProvidersFrom(
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+        },
+      })
+    ),
   ],
 };

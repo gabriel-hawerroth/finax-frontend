@@ -1,0 +1,14 @@
+{
+    "cash-flow-title": "Cash flow",
+    "home": {
+        "hello": "Hello ",
+        "general-balance": "General balance",
+        "monthly-revenue": "Monthly revenue",
+        "monthly-expense": "Monthly expense",
+        "my-accounts": "My accounts",
+        "accounts-payable": "Accounts payable",
+        "accounts-receivable": "Accounts receivable",
+        "whitout-payble-accounts": "You don't have any accounts payable",
+        "whitout-receivable-accounts": "You don't have any accounts receivable"
+    }
+}

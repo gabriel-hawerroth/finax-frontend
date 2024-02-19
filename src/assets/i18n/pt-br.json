@@ -1,0 +1,14 @@
+{
+    "cash-flow-title": "Fluxo de caixa",
+    "home": {
+        "hello": "Olá ",
+        "general-balance": "Saldo geral",
+        "monthly-revenue": "Receita mensal",
+        "monthly-expense": "Despesa mensal",
+        "my-accounts": "Minhas contas",
+        "accounts-payable": "Contas a pagar",
+        "accounts-receivable": "Contas a receber",
+        "whitout-payble-accounts": "Você não possui contas a pagar",
+        "whitout-receivable-accounts": "Você não possui contas a receber"
+    }
+}
