@@ -1,7 +1,31 @@
 {
-    "cash-flow-title": "Fluxo de caixa",
+    "generic": {
+        "from": "De",
+        "to": "para",
+        "new": "Nova",
+        "editing": "Editando",
+        "expense": "despesa",
+        "revenue": "receita",
+        "transfer": "transferência",
+        "observation": "Observação"
+    },
+    "actions": {
+        "save": "Salvar",
+        "edit": "Editar",
+        "exclude": "Excluir"
+    },
+    "sidebar": {
+        "home": "Início",
+        "cash-flow": "Fluxo de caixa",
+        "my-accounts": "Minhas contas",
+        "credit-cards": "Cartões de crédito",
+        "categories": "Categorias",
+        "my-profile": "Meu perfil",
+        "settings": "Configurações",
+        "logout": "Sair"
+    },
     "home": {
-        "hello": "Olá ",
+        "hello": "Olá",
         "general-balance": "Saldo geral",
         "monthly-revenue": "Receita mensal",
         "monthly-expense": "Despesa mensal",
@@ -10,5 +34,106 @@
         "accounts-receivable": "Contas a receber",
         "whitout-payble-accounts": "Você não possui contas a pagar",
         "whitout-receivable-accounts": "Você não possui contas a receber"
+    },
+    "cash-flow": {
+        "title": "Fluxo de caixa",
+        "revenues": "Receitas",
+        "expenses": "Despesas",
+        "balance": "Balanço",
+        "general-balance": "Saldo geral",
+        "expected-balance": "Saldo previsto",
+        "new-expense": "Nova despesa",
+        "new-revenue": "Nova receita",
+        "new-transfer": "Nova transferência",
+        "error-getting-releases": "Erro ao obter os lançamentos",
+        "transfer": "Transferência",
+        "others": "Outros",
+        "confirm-delete": "Deseja realmente excluir esse registro?",
+        "deleted-successfully": "Registro excluído com sucesso",
+        "delete-error": "Erro ao tentar excluir o registro",
+        "attachment-not-found": "Arquivo não encontrado"
+    },
+    "release-form": {
+        "description": "Descrição",
+        "account": "Conta",
+        "accounts": "Contas",
+        "card": "cartão",
+        "cards": "Cartões",
+        "value": "Valor",
+        "date": "Data",
+        "hour": "Hora",
+        "category": "Categoria",
+        "done": "Realizado",
+        "attachment": "Anexo",
+        "attachments": "Anexos",
+        "repeat": "Repetir",
+        "observation": "Observação",
+        "fixed-release": "É um lançamento fixo",
+        "installment-release": "É um lançamento parcelado",
+        "amount-greater-than-zero": "O valor deve ser maior que zero",
+        "not-possible-transfer-same-bank": "Não é possível realizar uma transferência para o mesmo banco",
+        "date-must-remain-the-same": "Para alterar outros lançamentos junto com este, a data deve permanecer igual",
+        "this-may-take-few-seconds": "Devido ao tamanho do anexo isto pode levar alguns segundos",
+        "error-saving-release": "Erro ao salvar o lançamento",
+        "error-saving-attachment": "Lançamento salvo com sucesso porém houve um erro ao salvar o anexo",
+        "error-excluding-attachment": "Lançamento salvo com sucesso porém houve um erro ao excluir o anexo",
+        "release-saved-successfully": "Lançamento salvo com sucesso",
+        "select-valid-file": "Por favor, selecione um arquivo válido (pdf, jpg, jpeg, png, jfif, webp).",
+        "file-too-large": "O arquivo selecionado é muito grande, o tamanho máximo permitido é 3MB.",
+        "in": "Em",
+        "for": "Por",
+        "origin-account": "Conta de origem",
+        "target-account": "Conta destino",
+        "no-active-accounts-or-cards": "Nenhuma conta ou cartão ativos",
+        "fixed-by-list": {
+            "daily": "Diário",
+            "weekly": "Semanal",
+            "monthly": "Mensal",
+            "bimonthly": "Bimestral",
+            "quarterly": "Trimestral",
+            "biannual": "Semestral",
+            "annual": "Anual"
+        },
+        "repeat-for-suffix": {
+            "daily": "dias",
+            "weekly": "semanas",
+            "monthly": "meses",
+            "bimonthly": "bimestres",
+            "quarterly": "trimestres",
+            "biannual": "semestres",
+            "annual": "anos"
+        }
+    },
+    "confirm-dialog": {
+        "title": "Confirmação",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+    },
+    "confirm-duplicated-releases": {
+        "title": "Esse lançamento se repete em outras datas",
+        "this-only": "apenas este",
+        "nexts": "este e os próximos",
+        "all": "todos"
+    },
+    "select-icon-dialog": {
+        "title": "Selecione um ícone"
+    },
+    "settings": {
+        "title": "Configurações",
+        "theme": "Tema",
+        "language": "Idioma",
+        "languages": {
+            "portuguese": "Português",
+            "english": "Inglês"
+        },
+        "currency": "Moeda",
+        "currencies": {
+            "R$": "Real brasileiro",
+            "$": "Dólar",
+            "€": "Euro",
+            "£": "Libra",
+            "¥": "Yuan"
+        },
+        "error-saving-settings": "Erro ao salvar as configurações"
     }
 }

@@ -30,7 +30,7 @@ export class LoginService {
     await this.oauthLogin(credentials)
       .then(async (response: any) => {
         if (!response) {
-          this._utilsService.showSimpleMessage(
+          this._utilsService.showMessage(
             language === 'pt-br' ? 'Login inválido' : 'Invalid login'
           );
           return;
@@ -52,7 +52,7 @@ export class LoginService {
         )
           .then((user: User) => {
             if (!user) {
-              this._utilsService.showSimpleMessage(
+              this._utilsService.showMessage(
                 language === 'pt-br'
                   ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
                   : 'Error getting the user, please contact our support'
@@ -66,7 +66,7 @@ export class LoginService {
             this._userConfigsService
               .getLoggedUserConfigs()
               .then((response: UserConfigs) => {
-                this._utilsService.userConfigs.next(response);
+                this._utilsService.setUserConfigs(response);
                 this._utilsService.setItemLocalStorage(
                   'savedUserConfigsFinax',
                   JSON.stringify(response)
@@ -83,13 +83,13 @@ export class LoginService {
             }
 
             if (!credentials.changedPassword) {
-              this._utilsService.showSimpleMessage(
+              this._utilsService.showMessage(
                 language === 'pt-br'
                   ? 'Login realizado com sucesso'
                   : 'Login successfully'
               );
             } else {
-              this._utilsService.showSimpleMessage(
+              this._utilsService.showMessage(
                 language === 'pt-br'
                   ? 'Senha alterada com sucesso'
                   : 'Password changed successfully'
@@ -97,7 +97,7 @@ export class LoginService {
             }
           })
           .catch(() => {
-            this._utilsService.showSimpleMessage(
+            this._utilsService.showMessage(
               language === 'pt-br'
                 ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
                 : 'Error getting the user, please contact our support'
@@ -107,14 +107,14 @@ export class LoginService {
       .catch((err) => {
         switch (err.error.error_description) {
           case 'Bad credentials':
-            this._utilsService.showSimpleMessage(
+            this._utilsService.showMessage(
               this._utilsService.getUserConfigs.language === 'pt-br'
                 ? 'Login inválido'
                 : 'Invalid login'
             );
             break;
           case 'Inactive user':
-            this._utilsService.showSimpleMessage(
+            this._utilsService.showMessage(
               this._utilsService.getUserConfigs.language === 'pt-br'
                 ? 'Usuário inativo, verifique seu email'
                 : 'Inactive user, check your email'
@@ -165,7 +165,7 @@ export class LoginService {
     this._utilsService.removeItemLocalStorage('tokenExpiration');
     this._router.navigate(['']);
     if (showMessage)
-      this._utilsService.showSimpleMessage(
+      this._utilsService.showMessage(
         this._utilsService.getUserConfigs.language === 'pt-br'
           ? 'Acesso expirado, por favor logue novamente'
           : 'Access expired, please log in again',

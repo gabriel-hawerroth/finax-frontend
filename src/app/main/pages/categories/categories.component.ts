@@ -52,7 +52,7 @@ export class CategorysComponent implements OnInit {
         this._changeDetectorRef.detectChanges();
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Erro ao obter as categorias'
             : 'Error getting the categories'
@@ -129,7 +129,7 @@ export class CategorysComponent implements OnInit {
       deletingCategorie?.name === 'Outras despesas' ||
       deletingCategorie?.name === 'Outras receitas'
     ) {
-      this.utilsService.showSimpleMessage(
+      this.utilsService.showMessage(
         this.language === 'pt-br'
           ? 'Não é possível excluir essa categoria'
           : "You can't delete this category"
@@ -149,7 +149,7 @@ export class CategorysComponent implements OnInit {
         this._categoryService
           .delete(id)
           .then(() => {
-            this.utilsService.showSimpleMessage(
+            this.utilsService.showMessage(
               this.language === 'pt-br'
                 ? 'Categoria excluída com sucesso'
                 : 'Category deleted successfully'
@@ -158,7 +158,7 @@ export class CategorysComponent implements OnInit {
             this.getCategories();
           })
           .catch(() => {
-            this.utilsService.showSimpleMessage(
+            this.utilsService.showMessage(
               this.language === 'pt-br'
                 ? 'Erro ao tentar excluir a categoria'
                 : 'Error trying to delete the category'

@@ -72,7 +72,7 @@ export class EditBalanceDialogComponent implements OnInit {
     this._accountService
       .adjustBalance(this.data.account.id, this.balanceForm.value.balance)
       .then((response) => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Saldo alterado com sucesso'
             : 'Balance changed successfully'
@@ -81,7 +81,7 @@ export class EditBalanceDialogComponent implements OnInit {
         this.dialogRef.close(response.balance);
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Erro ao alterar o saldo'
             : 'Error changing balance'

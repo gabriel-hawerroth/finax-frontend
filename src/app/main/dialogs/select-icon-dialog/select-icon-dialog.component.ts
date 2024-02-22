@@ -1,21 +1,24 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-select-icon-dialog',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [CommonModule, NgOptimizedImage, TranslateModule, MatDialogModule],
   templateUrl: './select-icon-dialog.component.html',
   styleUrl: './select-icon-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectIconDialogComponent {
   public utilsService = inject(UtilsService);
-  private dialogRef = inject(MatDialogRef);
+  private _translate = inject(TranslateService);
 
-  language: string = this.utilsService.getUserConfigs.language;
+  constructor() {
+    this._translate.use(this.utilsService.getUserConfigs.language);
+  }
 
   icons: string[] = [
     'agora.png',
@@ -100,8 +103,4 @@ export class SelectIconDialogComponent {
     'xp.png',
     'will-bank.png',
   ];
-
-  close(icon: string) {
-    this.dialogRef.close(icon);
-  }
 }

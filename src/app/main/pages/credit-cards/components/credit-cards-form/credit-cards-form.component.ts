@@ -137,7 +137,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
 
   save() {
     if (this.cardForm.value.card_limit === 0) {
-      this.utilsService.showSimpleMessage(
+      this.utilsService.showMessage(
         this.language === 'pt-br'
           ? 'O limite deve ser maior que zero'
           : 'The limit must be greater than zero'
@@ -153,7 +153,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
     this._creditCardService
       .save(data)
       .then(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Cartão de crédito salvo com sucesso'
             : 'Credit card saved successfully'
@@ -161,7 +161,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
         this._router.navigate(['cartoes-de-credito']);
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Erro ao salvar o cartão de crédito'
             : 'Error saving credit card'

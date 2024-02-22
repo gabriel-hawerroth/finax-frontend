@@ -11,13 +11,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { UserConfigs } from '../../../interfaces/UserConfigs';
 import { LoginService } from '../../../services/login.service';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
@@ -27,9 +27,9 @@ import { UtilsService } from '../../../utils/utils.service';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatDividerModule,
-    MatRadioModule,
     MatSelectModule,
     MatButtonToggleModule,
+    TranslateModule,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
@@ -41,17 +41,20 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private _userConfigsService = inject(UserConfigsService);
   private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _translate = inject(TranslateService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
   configsForm!: FormGroup;
   userConfigs!: UserConfigs;
 
-  language: string = this.utilsService.getUserConfigs.language;
+  theme: string = this.utilsService.getUserConfigs.theme;
 
   initError: boolean = false;
 
   ngOnInit(): void {
+    this._translate.use(this.utilsService.getUserConfigs.language);
+
     this.buidForm();
 
     this.getConfigs();
@@ -76,8 +79,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.configsForm.valueChanges
       .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
       .subscribe((value) => {
-        this.language = value.language;
-        this.utilsService.userConfigs.next(value);
+        this.theme = value.theme;
+        this.utilsService.setUserConfigs(value);
+        this._translate.use(value.language);
 
         this._changeDetectorRef.detectChanges();
       });
@@ -105,11 +109,11 @@ export class SettingsComponent implements OnInit, OnDestroy {
         }
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar as configuraçãoes'
-            : 'Error saving settings'
-        );
+        this.utilsService.showMessage('settings.error-saving-settings');
       });
+  }
+
+  get currenciesList(): string[] {
+    return ['R$', '$', '€', '£', '¥'];
   }
 }

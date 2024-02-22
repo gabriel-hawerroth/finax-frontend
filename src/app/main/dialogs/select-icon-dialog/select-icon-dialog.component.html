@@ -3,7 +3,7 @@
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
   <h2 mat-dialog-title class="title">
-    {{ language === "pt-br" ? "Selecione um ícone" : "Select an icon" }}
+    {{ "select-icon-dialog.title" | translate }}
   </h2>
 
   <div mat-dialog-content class="icons">
@@ -12,7 +12,7 @@
       [ngSrc]="'assets/banks/' + icon"
       width="65"
       height="65"
-      (click)="close(icon)"
+      [mat-dialog-close]="icon"
       alt="bank account image"
     />
     }

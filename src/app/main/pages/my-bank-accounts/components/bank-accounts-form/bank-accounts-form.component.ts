@@ -113,7 +113,7 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
     this._accountService
       .save(data)
       .then(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Conta salva com sucesso'
             : 'Account saved successfully'
@@ -121,7 +121,7 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
         this._router.navigate(['contas-de-banco']);
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Erro ao salvar a conta'
             : 'Error saving account'

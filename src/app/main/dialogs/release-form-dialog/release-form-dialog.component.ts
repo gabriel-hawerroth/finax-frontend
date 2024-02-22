@@ -39,6 +39,8 @@ import { CashFlowService } from '../../../services/cash-flow.service';
 import { LoginService } from '../../../services/login.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { ConfirmDuplicatedReleasesActionComponent } from '../../pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { GenericIdDs } from '../../../interfaces/Generic';
 
 @Component({
   selector: 'release-form-dialog',
@@ -56,6 +58,7 @@ import { ConfirmDuplicatedReleasesActionComponent } from '../../pages/cash-flow/
     NgxCurrencyDirective,
     ButtonsComponent,
     MatCheckboxModule,
+    TranslateModule,
   ],
   templateUrl: './release-form-dialog.component.html',
   styleUrl: './release-form-dialog.component.scss',
@@ -70,10 +73,9 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   private _matDialogRef = inject(MatDialogRef);
   private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _translate = inject(TranslateService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
-
-  language = this.utilsService.getUserConfigs.language;
 
   releaseForm!: FormGroup;
 
@@ -94,9 +96,13 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   fixedRepeat = new FormControl(false);
   installmenteRepeat = new FormControl(false);
 
-  repeatForSuffix: string = this.language === 'pt-br' ? 'meses' : 'months';
+  repeatForSuffix: string = this._translate.instant(
+    'release-form.repeat-for-suffix.monthly'
+  );
 
   ngOnInit(): void {
+    this._translate.use(this.utilsService.getUserConfigs.language);
+
     if (
       this.defaultDate.getMonth() === this.currentDate.getMonth() &&
       this.defaultDate.getFullYear() === this.currentDate.getFullYear()
@@ -212,20 +218,14 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
   async save() {
     if (this.releaseForm.value.amount === 0) {
-      this.utilsService.showSimpleMessage(
-        this.language === 'pt-br'
-          ? 'O valor deve ser maior que zero'
-          : 'The amount must be greater than zero'
-      );
+      this.utilsService.showMessage('release-form.amount-greater-than-zero');
       return;
     } else if (
       this.releaseForm.value.type === 'T' &&
       this.releaseForm.value.accountId == this.releaseForm.value.targetAccountId
     ) {
-      this.utilsService.showSimpleMessage(
-        this.language === 'pt-br'
-          ? 'Não é possível realizar uma transferência para o mesmo banco'
-          : 'It is not possible to make a transfer to the same bank'
+      this.utilsService.showMessage(
+        'release-form.not-possible-transfer-same-bank'
       );
       return;
     }
@@ -256,10 +256,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
         duplicatedReleaseAction !== 'just-this' &&
         this.releaseForm.get('date')!.dirty
       ) {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Para alterar outros lançamentos junto com este, a data deve permanecer igual'
-            : 'To change other releases along with this one, the date must remain the same',
+        this.utilsService.showMessage(
+          'release-form.date-must-remain-the-same',
           5000
         );
         return;
@@ -273,10 +271,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       if (this.saving) {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Devido ao tamanho do anexo isto pode levar alguns segundos'
-            : 'Due to the size of the attachment, this may take a few seconds',
+        this.utilsService.showMessage(
+          'release-form.this-may-take-few-seconds',
           6000
         );
         showingMessage = true;
@@ -298,11 +294,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
           release = response;
         })
         .catch(() => {
-          this.utilsService.showSimpleMessage(
-            this.language === 'pt-br'
-              ? 'Erro ao salvar o lançamento'
-              : 'Error saving the release'
-          );
           requestError = true;
         });
     } else {
@@ -317,34 +308,26 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
 
     if (requestError) {
-      this.utilsService.showSimpleMessage(
-        this.language === 'pt-br'
-          ? 'Erro ao salvar o lançamento'
-          : 'Error saving the release'
-      );
       this.saving = false;
       this._changeDetectorRef.detectChanges();
+      this.utilsService.showMessage('release-form.error-saving-release');
       return;
     }
 
     if (this.changedAttachment && this.selectedFile) {
       await this._cashFlowService
         .addAttachment(release.id, this.selectedFile!)
-        .catch((err) => {
-          this.utilsService.showSimpleMessage(
-            this.language === 'pt-br'
-              ? 'Lançamento salvo com sucesso porém houve um erro ao salvar o anexo'
-              : 'Launch saved successfully, but there was an error saving the attachment',
+        .catch(() => {
+          this.utilsService.showMessage(
+            'release-form.error-saving-attachment',
             6000
           );
           requestError = true;
         });
     } else if (this.removedFile) {
-      await this._cashFlowService.removeAttachment(release.id).catch((err) => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Lançamento salvo com sucesso porém houve um erro ao excluir o anexo'
-            : 'Launch saved successfully, but there was an error excluding the attachment',
+      await this._cashFlowService.removeAttachment(release.id).catch(() => {
+        this.utilsService.showMessage(
+          'release-form.error-excluding-attachment',
           6000
         );
         requestError = true;
@@ -357,11 +340,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.utilsService.showSimpleMessage(
-      this.language === 'pt-br'
-        ? 'Lançamento salvo com sucesso'
-        : 'Release saved successfully'
-    );
+    this.utilsService.showMessage('release-form.release-saved-successfully');
     this._matDialogRef.close(true);
 
     this.saving = false;
@@ -369,6 +348,28 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     if (showingMessage) this.utilsService.dismissMessage();
 
     this._changeDetectorRef.detectChanges();
+  }
+
+  get getDialogTitle(): string {
+    let title = '';
+    if (this.data.editing) title += this._translate.instant('generic.editing');
+    else title += this._translate.instant('generic.new');
+
+    title += ' ';
+
+    switch (this.data.releaseType) {
+      case 'E':
+        title += this._translate.instant('generic.expense');
+        break;
+      case 'R':
+        title += this._translate.instant('generic.revenue');
+        break;
+      case 'T':
+        title += this._translate.instant('generic.transfer');
+        break;
+    }
+
+    return title;
   }
 
   onFileSelected(event: any) {
@@ -379,21 +380,13 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     const fileExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'jfif', 'webp'];
     const extension = file.name.split('.').pop().toLowerCase();
     if (fileExtensions.indexOf(extension) === -1) {
-      alert(
-        this.language === 'pt-br'
-          ? 'Por favor, selecione um arquivo válido (pdf, jpg, jpeg, png, jfif, webp).'
-          : 'Please select a valid file (pdf, jpg, jpeg, png, jfif, webp).'
-      );
+      this.utilsService.showMessage('release-form.select-valid-file', 10000);
       return;
     }
 
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
-      alert(
-        this.language === 'pt-br'
-          ? 'O arquivo selecionado é muito grande. O tamanho máximo permitido é 3MB.'
-          : 'The selected file is too large. The maximum size allowed is 3MB.'
-      );
+      this.utilsService.showMessage('release-form.file-too-large', 8000);
       return;
     }
 
@@ -431,39 +424,69 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
   }
 
+  get getFixedByList(): GenericIdDs[] {
+    return [
+      {
+        id: 'daily',
+        ds: this._translate.instant('release-form.fixed-by-list.daily'),
+      },
+      {
+        id: 'weekly',
+        ds: this._translate.instant('release-form.fixed-by-list.weekly'),
+      },
+      {
+        id: 'monthly',
+        ds: this._translate.instant('release-form.fixed-by-list.monthly'),
+      },
+      {
+        id: 'bimonthly',
+        ds: this._translate.instant('release-form.fixed-by-list.bimonthly'),
+      },
+      {
+        id: 'quarterly',
+        ds: this._translate.instant('release-form.fixed-by-list.quarterly'),
+      },
+      {
+        id: 'biannual',
+        ds: this._translate.instant('release-form.fixed-by-list.biannual'),
+      },
+      {
+        id: 'annual',
+        ds: this._translate.instant('release-form.fixed-by-list.annual'),
+      },
+    ];
+  }
+
   onChangeFixedBy(value: string) {
+    let setValue = '';
+
     switch (value) {
       case 'daily':
-        this.releaseForm.get('repeatFor')!.setValue('365');
-        this.repeatForSuffix = this.language === 'pt-br' ? 'dias' : 'days';
+        setValue = '365';
         break;
       case 'weekly':
-        this.releaseForm.get('repeatFor')!.setValue('52');
-        this.repeatForSuffix = this.language === 'pt-br' ? 'semanas' : 'weeks';
+        setValue = '52';
         break;
       case 'monthly':
-        this.releaseForm.get('repeatFor')!.setValue('12');
-        this.repeatForSuffix = this.language === 'pt-br' ? 'meses' : 'months';
+        setValue = '12';
         break;
       case 'bimonthly':
-        this.releaseForm.get('repeatFor')!.setValue('12');
-        this.repeatForSuffix =
-          this.language === 'pt-br' ? 'bimestres' : 'bimesters';
+        setValue = '12';
         break;
       case 'quarterly':
-        this.releaseForm.get('repeatFor')!.setValue('8');
-        this.repeatForSuffix =
-          this.language === 'pt-br' ? 'trimestres' : 'quarters';
+        setValue = '8';
         break;
       case 'biannual':
-        this.releaseForm.get('repeatFor')!.setValue('6');
-        this.repeatForSuffix =
-          this.language === 'pt-br' ? 'semestres' : 'semesters';
+        setValue = '6';
         break;
       case 'annual':
-        this.releaseForm.get('repeatFor')!.setValue('5');
-        this.repeatForSuffix = this.language === 'pt-br' ? 'anos' : 'years';
+        setValue = '5';
         break;
     }
+
+    this.releaseForm.get('repeatFor')!.setValue(setValue);
+    this.repeatForSuffix = this._translate.instant(
+      `release-form.repeat-for-suffix.${value}`
+    );
   }
 }

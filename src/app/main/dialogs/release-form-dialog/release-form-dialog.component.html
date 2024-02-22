@@ -22,27 +22,7 @@
       class="save-btn"
     ></app-buttons>
 
-    @if (data.editing) {
-    <h2>
-      @switch (data.releaseType) { @case ("E") {
-      {{ language === "pt-br" ? "Editando despesa" : "Editing expense" }}
-      } @case ("R") {
-      {{ language === "pt-br" ? "Editando receita" : "Editing revenue" }}
-      } @case ("T") {
-      {{ language === "pt-br" ? "Editando transferência" : "Editing transfer" }}
-      } }
-    </h2>
-    } @else {
-    <h2>
-      @switch (data.releaseType) { @case ("E") {
-      {{ language === "pt-br" ? "Nova despesa" : "New expense" }}
-      } @case ("R") {
-      {{ language === "pt-br" ? "Nova receita" : "New revenue" }}
-      } @case ("T") {
-      {{ language === "pt-br" ? "Nova transferência" : "New transfer" }}
-      } }
-    </h2>
-    }
+    <h2>{{ getDialogTitle }}</h2>
 
     <app-buttons
       [showClose]="true"
@@ -90,7 +70,7 @@
           color: selectedFile ? '#fff' : '',
           border: selectedFile ? 'none' : '',
         }"
-          [matTooltip]="language === 'pt-br' ? 'Anexo' : 'Attachment'"
+          [matTooltip]="'release-form.attachment' | translate"
           matTooltipPosition="left"
         >
           <span class="material-symbols-outlined">attach_file_add</span>
@@ -105,7 +85,7 @@
           'color': showRepeat ? '#fff' : '',
           'border': showRepeat ? 'none' : '',
         }"
-          [matTooltip]="language === 'pt-br' ? 'Repetir' : 'Repeat'"
+          [matTooltip]="'release-form.repeat' | translate"
           matTooltipPosition="left"
         >
           <span class="material-symbols-outlined">repeat</span>
@@ -120,7 +100,7 @@
           'color': showObservation ? '#fff' : '',
           'border': showObservation ? 'none' : '',
         }"
-          [matTooltip]="language === 'pt-br' ? 'Observação' : 'Observation'"
+          [matTooltip]="'generic.observation' | translate"
           matTooltipPosition="left"
         >
           <span class="material-symbols-outlined">speaker_notes</span>
@@ -137,7 +117,7 @@
         @if (selectedFile) {
         <div class="selected-file">
           <div class="file-content">
-            <h3>{{ language === "pt-br" ? "Anexos" : "Attachments" }}</h3>
+            <h3>{{ "release-form.attachments" | translate }}</h3>
 
             <div class="file">
               <span>{{ selectedFile.name }}</span>
@@ -156,7 +136,7 @@
         <div class="observation">
           <mat-form-field appearance="outline" style="width: 80%">
             <mat-label>
-              {{ language === "pt-br" ? "Observação" : "Observation" }}
+              {{ "generic.observation" | translate }}
             </mat-label>
             <textarea
               matInput
@@ -187,22 +167,14 @@
             [formControl]="fixedRepeat"
             (change)="onChangeRepeat('fixed', $event)"
           >
-            {{
-              language === "pt-br"
-                ? "É um lançamento fixo"
-                : "It's a fixed release"
-            }}
+            {{ "release-form.fixed-release" | translate }}
           </mat-checkbox>
 
           <mat-checkbox
             [formControl]="installmenteRepeat"
             (change)="onChangeRepeat('installments', $event)"
           >
-            {{
-              language === "pt-br"
-                ? "É um lançamento parcelado"
-                : "It's a installment release"
-            }}
+            {{ "release-form.installment-release" | translate }}
           </mat-checkbox>
         </div>
 
@@ -220,34 +192,14 @@
           >
             <mat-label></mat-label>
             <mat-select formControlName="fixedBy">
-              <mat-option value="daily">
-                {{ language === "pt-br" ? "Diário" : "Daily" }}
-              </mat-option>
-              <mat-option value="weekly">
-                {{ language === "pt-br" ? "Semanal" : "Weekly" }}
-              </mat-option>
-              <mat-option value="monthly">
-                {{ language === "pt-br" ? "Mensal" : "Monthly" }}
-              </mat-option>
-              <mat-option value="bimonthly">
-                {{ language === "pt-br" ? "Bimestral" : "Bimonthly" }}
-              </mat-option>
-              <mat-option value="quarterly">
-                {{ language === "pt-br" ? "Trimestral" : "Quarterly" }}
-              </mat-option>
-              <mat-option value="biannual">
-                {{ language === "pt-br" ? "Semestral" : "Biannual" }}
-              </mat-option>
-              <mat-option value="annual">
-                {{ language === "pt-br" ? "Anual" : "Annual" }}
-              </mat-option>
+              @for (item of getFixedByList; track $index) {
+              <mat-option [value]="item.id">{{ item.ds }}</mat-option>
+              }
             </mat-select>
           </mat-form-field>
 
           <mat-form-field [hideRequiredMarker]="true">
-            <mat-label>
-              {{ language === "pt-br" ? "Por:" : "For:" }}
-            </mat-label>
+            <mat-label>{{ "release-form.for" | translate }}:</mat-label>
             <input
               matInput
               type="text"
@@ -276,9 +228,7 @@
             }"
             [hideRequiredMarker]="true"
           >
-            <mat-label>
-              {{ language === "pt-br" ? "Em:" : "In:" }}
-            </mat-label>
+            <mat-label>{{ "release-form.in" | translate }}:</mat-label>
             <input
               matInput
               type="text"
@@ -290,7 +240,7 @@
                 allowZero: false,
                 decimal: '',
                 precision: 0,
-                suffix: language === 'pt-br' ? ' meses' : ' months',
+                suffix: 'release-form.repeat-for-suffix.monthly' | translate,
                 thousands: '',
                 nullable: false,
                 min: 2,

@@ -15,6 +15,7 @@ import { lastValueFrom } from 'rxjs';
 import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { ConfirmationDialogComponent } from '../../../../dialogs/confirmation-dialog/confirmation-dialog.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-release-details',
@@ -25,6 +26,7 @@ import { ConfirmationDialogComponent } from '../../../../dialogs/confirmation-di
     MatButtonModule,
     MatProgressSpinnerModule,
     ButtonsComponent,
+    TranslateModule,
   ],
   templateUrl: './release-details.component.html',
   styleUrl: './release-details.component.scss',
@@ -36,8 +38,8 @@ export class ReleaseDetailsComponent {
   private _cashFlowService = inject(CashFlowService);
   private _bottomSheet = inject(MatBottomSheetRef);
   private _matDialog = inject(MatDialog);
+  private _translate = inject(TranslateService);
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   release: MonthlyCashFlow = this.data.cashFlow;
@@ -45,10 +47,14 @@ export class ReleaseDetailsComponent {
   confirmDelete: boolean = false;
   excluding: boolean = false;
 
+  constructor() {
+    this._translate.use(this.utilsService.getUserConfigs.language);
+  }
+
   downloadAttachment() {
     this._cashFlowService.getAttachment(this.release.id).then((response) => {
       if (response.size === 0) {
-        this.utilsService.showSimpleMessage('Erro no arquivo, FFFF');
+        this.utilsService.showMessage('cash-flow.attachment-not-found');
         return;
       }
 
@@ -115,10 +121,7 @@ export class ReleaseDetailsComponent {
         this._matDialog
           .open(ConfirmationDialogComponent, {
             data: {
-              message:
-                this.language === 'pt-br'
-                  ? 'Deseja realmente excluir esse registro?'
-                  : 'Do you really want to delete this record?',
+              message: this._translate.instant('cash-flow.confirm-delete'),
             },
             autoFocus: false,
           })
@@ -139,19 +142,15 @@ export class ReleaseDetailsComponent {
 
     this._cashFlowService
       .delete(this.release.id, duplicatedReleasesAction)
-      .then((response) => {
+      .then(() => {
         this._bottomSheet.dismiss('delete');
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Registro excluído com sucesso'
-            : 'Record deleted successfully'
+        this.utilsService.showMessage(
+          this._translate.instant('cash-flow.deleted-successfully')
         );
       })
-      .catch((err) => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao tentar excluir o registro'
-            : 'Error trying to delete the record'
+      .catch(() => {
+        this.utilsService.showMessage(
+          this._translate.instant('cash-flow.delete-error')
         );
       })
       .finally(() => {

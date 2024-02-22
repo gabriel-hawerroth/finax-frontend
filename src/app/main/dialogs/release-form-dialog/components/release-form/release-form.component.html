@@ -6,7 +6,7 @@
     <div class="row row1">
       <mat-form-field style="width: 75%" [hideRequiredMarker]="true">
         <mat-label>
-          {{ language === "pt-br" ? "Descrição" : "Description" }}
+          {{ "release-form.description" | translate }}
         </mat-label>
         <input
           matInput
@@ -24,11 +24,13 @@
       <mat-form-field style="width: 39%" [hideRequiredMarker]="true">
         @if (form.get('type')!.value === 'E') {
         <mat-label>
-          {{ language === "pt-br" ? "Conta/cartão" : "Account/card" }}
+          {{ "release-form.account" | translate }}/{{
+            "release-form.card" | translate
+          }}
         </mat-label>
         } @else {
         <mat-label>
-          {{ language === "pt-br" ? "Conta" : "Account" }}
+          {{ "release-form.account" | translate }}
         </mat-label>
         }
 
@@ -59,7 +61,7 @@
             </div>
           </mat-option>
           } } @else { @if (accountsList.length !== 0) {
-          <mat-optgroup [label]="language === 'pt-br' ? 'Contas' : 'Accounts'">
+          <mat-optgroup [label]="'release-form.accounts' | translate">
             @for (account of accountsList; track account.id) {
             <mat-option [value]="account.id" class="bank-account-item">
               <div class="account-opt">
@@ -81,7 +83,7 @@
             }
           </mat-optgroup>
           } @if (creditCardsList.length !== 0) {
-          <mat-optgroup [label]="language === 'pt-br' ? 'Cartões' : 'Cards'">
+          <mat-optgroup [label]="'release-form.cards' | translate">
             @for (creditCard of creditCardsList; track creditCard.id) {
             <mat-option [value]="creditCard.id" class="bank-account-item">
               <div class="account-opt">
@@ -122,7 +124,7 @@
 
       <mat-form-field style="width: 37%" [hideRequiredMarker]="true">
         <mat-label>
-          {{ language === "pt-br" ? "Valor" : "Value" }}
+          {{ "release-form.value" | translate }}
         </mat-label>
         <input
           matInput
@@ -136,7 +138,7 @@
       } @else {
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
-          {{ language === "pt-br" ? "Conta origem" : "Origin Account" }}
+          {{ "release-form.origin-account" | translate }}
         </mat-label>
         <mat-select formControlName="accountId">
           <mat-select-trigger>
@@ -183,7 +185,7 @@
 
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
-          {{ language === "pt-br" ? "Conta destino" : "Target Account" }}
+          {{ "release-form.target-account" | translate }}
         </mat-label>
         <mat-select formControlName="targetAccountId">
           <mat-select-trigger>
@@ -233,7 +235,7 @@
     <div class="row row3">
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
-          {{ language === "pt-br" ? "Data" : "Date" }}
+          {{ "release-form.date" | translate }}
         </mat-label>
         <input matInput [matDatepicker]="picker" formControlName="date" />
         <mat-datepicker-toggle
@@ -245,7 +247,7 @@
 
       <mat-form-field style="width: 38%">
         <mat-label>
-          {{ language === "pt-br" ? "Hora" : "Hour" }}
+          {{ "release-form.hour" | translate }}
         </mat-label>
         <input matInput type="time" formControlName="time" />
       </mat-form-field>
@@ -255,7 +257,7 @@
       @if (form.get('type')!.value !== 'T') {
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
-          {{ language === "pt-br" ? "Categoria" : "Category" }}
+          {{ "release-form.category" | translate }}
         </mat-label>
         <mat-select formControlName="categoryId">
           <mat-select-trigger>
@@ -299,7 +301,7 @@
       } @else {
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
-          {{ language === "pt-br" ? "Valor" : "Value" }}
+          {{ "release-form.value" | translate }}
         </mat-label>
         <input
           matInput
@@ -313,7 +315,7 @@
       }
 
       <mat-checkbox formControlName="done">
-        {{ language === "pt-br" ? "Realizado" : "Realized" }}
+        {{ "release-form.done" | translate }}
       </mat-checkbox>
     </div>
   </form>

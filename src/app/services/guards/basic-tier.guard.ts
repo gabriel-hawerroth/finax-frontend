@@ -18,7 +18,7 @@ export class BasicTierGuard implements CanActivate {
       if (this._loginService.getLoggedUser!.access !== 'free') return true;
       else {
         this._router.navigate(['home']);
-        this._utilsService.showSimpleMessage(
+        this._utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Você não tem permissão para acessar essa tela'
             : "You don't have permission to access this screen"

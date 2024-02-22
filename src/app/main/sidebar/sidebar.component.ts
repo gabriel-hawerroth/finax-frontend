@@ -12,24 +12,25 @@ import { UserService } from '../../services/user.service';
 import { UtilsService } from '../../utils/utils.service';
 import { RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgOptimizedImage],
+  imports: [CommonModule, RouterModule, NgOptimizedImage, TranslateModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  private _userService = inject(UserService);
   public loginService = inject(LoginService);
   public utilsService = inject(UtilsService);
+  private _userService = inject(UserService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _translate = inject(TranslateService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language: string = this.utilsService.getUserConfigs.language;
   userAccess: string = this.loginService.getLoggedUser?.access || '';
 
   reportsUl: boolean = true;
@@ -40,6 +41,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   darkThemeEnabled: boolean = false;
 
   ngOnInit(): void {
+    this._translate.use(this.utilsService.getUserConfigs.language);
+
     this.subscribeUserConfigs();
     this.getUserImage();
   }
@@ -50,12 +53,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   subscribeUserConfigs() {
-    this.utilsService.userConfigs
-      .asObservable()
+    this.utilsService
+      .subscribeUserConfigs()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
         this.darkThemeEnabled = value.theme === 'dark';
-        this.language = value.language;
+        this._translate.use(value.language);
 
         this._changeDetectorRef.detectChanges();
       });

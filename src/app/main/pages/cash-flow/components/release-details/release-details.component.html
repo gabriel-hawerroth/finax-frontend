@@ -18,7 +18,7 @@
           {{ release.description || release.categoryName }}
 
           @if (!release.description && !release.categoryName) {
-          {{ language === "pt-br" ? "Outros" : "Others" }}
+          {{ "cash-flow.others" | translate }}
           }
         </h2>
 
@@ -30,9 +30,7 @@
           {{
             release.description
               ? release.description
-              : language === "pt-br"
-              ? "Transferência"
-              : "Transfer"
+              : ("cash-flow.transfer" | translate)
           }}
         </h2>
 
@@ -62,7 +60,7 @@
       @if (release.observation) {
       <div class="observation">
         <span>
-          {{ language === "pt-br" ? "Observação:" : "Observation:" }}
+          {{ "generic.observation" | translate }}
         </span>
 
         <span>

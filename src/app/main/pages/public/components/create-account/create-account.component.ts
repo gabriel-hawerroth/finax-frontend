@@ -74,13 +74,13 @@ export class CreateAccountComponent implements OnInit {
 
   createUser() {
     if (this.userRegisterForm.get('password')!.invalid) {
-      this.utilsService.showSimpleMessage(
+      this.utilsService.showMessage(
         this.language === 'pt-br'
           ? 'A senha não cumpre os requisitos de segurança'
           : "Password doesn't meet security requirements"
       );
     } else if (this.userRegisterForm.invalid) {
-      this.utilsService.showSimpleMessage(
+      this.utilsService.showMessage(
         this.language === 'pt-br' ? 'Formulário inválido' : 'Invalid form'
       );
     }
@@ -91,7 +91,7 @@ export class CreateAccountComponent implements OnInit {
       .newUser(this.userRegisterForm.value)
       .then((result) => {
         this.showLoading = false;
-        this.utilsService.showSimpleMessageWithoutDuration(
+        this.utilsService.showMessageWithoutDuration(
           this.language === 'pt-br'
             ? `Conta criada com sucesso, um link de ativação foi enviado \n para o email: ${result.email}`
             : `Account created successfully, an activation link was sent to the email: ${result.email}`
@@ -101,13 +101,13 @@ export class CreateAccountComponent implements OnInit {
       .catch((error) => {
         this.showLoading = false;
         if (error.status == 406) {
-          this.utilsService.showSimpleMessage(
+          this.utilsService.showMessage(
             this.language === 'pt-br'
               ? 'Esse email já está cadastrado'
               : 'This email is already registered'
           );
         } else {
-          this.utilsService.showSimpleMessage(
+          this.utilsService.showMessage(
             this.language === 'pt-br'
               ? 'Erro ao criar o usuário, entre em contato com nosso suporte'
               : 'Error creating user, please contact our support'

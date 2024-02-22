@@ -1,7 +1,20 @@
 {
-    "cash-flow-title": "Cash flow",
+    "generic": {
+        "from": "From",
+        "to": "to"
+    },
+    "sidebar": {
+        "home": "Home",
+        "cash-flow": "Cash flow",
+        "my-accounts": "My accounts",
+        "credit-cards": "Credit cards",
+        "categories": "Categories",
+        "my-profile": "My profile",
+        "settings": "Settings",
+        "logout": "Logout"
+    },
     "home": {
-        "hello": "Hello ",
+        "hello": "Hello",
         "general-balance": "General balance",
         "monthly-revenue": "Monthly revenue",
         "monthly-expense": "Monthly expense",
@@ -10,5 +23,36 @@
         "accounts-receivable": "Accounts receivable",
         "whitout-payble-accounts": "You don't have any accounts payable",
         "whitout-receivable-accounts": "You don't have any accounts receivable"
+    },
+    "cash-flow": {
+        "title": "Cash flow",
+        "revenues": "Revenues",
+        "expenses": "Expenses",
+        "balance": "Balance",
+        "general-balance": "General balance",
+        "expected-balance": "Expected balance",
+        "new-expense": "New expense",
+        "new-revenue": "New revenue",
+        "new-transfer": "New transfer",
+        "error-getting-releases": "Error getting the releases",
+        "transfer": "Transfer"
+    },
+    "settings": {
+        "title": "Settings",
+        "theme": "Theme",
+        "language": "Language",
+        "languages": {
+            "portuguese": "Portuguese",
+            "english": "English"
+        },
+        "currency": "Currency",
+        "currencies": {
+            "R$": "Brazilian Real",
+            "$": "Dollar",
+            "€": "Euro",
+            "£": "Libra",
+            "¥": "Yuan"
+        },
+        "error-saving-settings": "Erro ao salvar as configurações"
     }
 }

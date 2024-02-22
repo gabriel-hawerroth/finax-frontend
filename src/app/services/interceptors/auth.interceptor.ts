@@ -40,7 +40,7 @@ export const authInterceptor: HttpInterceptorFn = (
             break;
           case 0:
             loginService.logout(false);
-            utilsService.showSimpleMessage(
+            utilsService.showMessage(
               utilsService.getUserConfigs.language === 'pt-br'
                 ? 'Atualização em andamento, tente novamente mais tarde'
                 : 'Update in progress, please try again later'

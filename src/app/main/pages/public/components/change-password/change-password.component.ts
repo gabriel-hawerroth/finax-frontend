@@ -87,7 +87,7 @@ export class ChangePasswordComponent implements OnInit {
 
   changePassword() {
     if (this.changePasswordForm.invalid) {
-      this.utilsService.showSimpleMessage(
+      this.utilsService.showMessage(
         this.language === 'pt-br'
           ? 'A senha não cumpre os requisitos de segurança'
           : "Password doesn't meet security requirements"
@@ -99,7 +99,7 @@ export class ChangePasswordComponent implements OnInit {
     const passwordConfirm = this.changePasswordForm.value.passwordConfirm;
 
     if (passwordConfirm !== newPassword) {
-      this.utilsService.showSimpleMessage(
+      this.utilsService.showMessage(
         this.language === 'pt-br'
           ? 'As senhas não coincidem'
           : "Passwords don't match"
@@ -121,7 +121,7 @@ export class ChangePasswordComponent implements OnInit {
           window.innerWidth < 870 &&
           window.innerHeight < 1230
         ) {
-          this.utilsService.showSimpleMessage(
+          this.utilsService.showMessage(
             this.language === 'pt-br'
               ? 'Senha alterada com sucesso'
               : 'Password changed sucessfully'
@@ -139,7 +139,7 @@ export class ChangePasswordComponent implements OnInit {
         }
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Erro ao alterar a senha, tente novamente mais tarde'
             : 'Error changing password, please try again later'

@@ -4,11 +4,7 @@
 >
   <div class="title">
     <h2>
-      {{
-        language === "pt-br"
-          ? "Esse lançamento se repete em outras datas"
-          : "This release is repeated on other dates"
-      }}
+      {{ "confirm-duplicated-releases.title" | translate }}
     </h2>
 
     <button mat-icon-button mat-dialog-close>
@@ -17,48 +13,40 @@
   </div>
 
   <div class="actions">
-    <button mat-stroked-button color="primary" (click)="close('just-this')">
-      <b>{{
-        (data.action === "edit"
-          ? language === "pt-br"
-            ? "Editar"
-            : "Edit"
-          : language === "pt-br"
-          ? "Excluir"
-          : "Exclude") +
-          " " +
-          (language === "pt-br" ? "apenas este" : "this only")
-      }}</b>
+    <button mat-stroked-button color="primary" mat-dialog-close="just-this">
+      <b>
+        @if (data.action === 'edit') {
+        {{ "actions.edit" | translate }}
+        } @else {
+        {{ "actions.exclude" | translate }}
+        }
+
+        {{ "confirm-duplicated-releases.this-only" | translate }}
+      </b>
     </button>
 
-    <button mat-stroked-button color="primary" (click)="close('nexts')">
-      <b>{{
-        (data.action === "edit"
-          ? language === "pt-br"
-            ? "Editar"
-            : "Edit"
-          : language === "pt-br"
-          ? "Excluir"
-          : "Exclude") +
-          " " +
-          (language === "pt-br"
-            ? "este e os próximos"
-            : "this and the next ones")
-      }}</b>
+    <button mat-stroked-button color="primary" mat-dialog-close="nexts">
+      <b>
+        @if (data.action === 'edit') {
+        {{ "actions.edit" | translate }}
+        } @else {
+        {{ "actions.exclude" | translate }}
+        }
+
+        {{ "confirm-duplicated-releases.nexts" | translate }}
+      </b>
     </button>
 
-    <button mat-stroked-button color="primary" (click)="close('all')">
-      <b>{{
-        (data.action === "edit"
-          ? language === "pt-br"
-            ? "Editar"
-            : "Edit"
-          : language === "pt-br"
-          ? "Excluir"
-          : "Exclude") +
-          " " +
-          (language === "pt-br" ? "todos" : "all")
-      }}</b>
+    <button mat-stroked-button color="primary" mat-dialog-close="all">
+      <b>
+        @if (data.action === 'edit') {
+        {{ "actions.edit" | translate }}
+        } @else {
+        {{ "actions.exclude" | translate }}
+        }
+
+        {{ "confirm-duplicated-releases.all" | translate }}
+      </b>
     </button>
   </div>
 </div>

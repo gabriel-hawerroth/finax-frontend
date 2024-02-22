@@ -20,6 +20,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
 import { CardBasicList } from '../../../../../interfaces/CreditCard';
 import { Subject, takeUntil } from 'rxjs';
 import moment from 'moment';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-release-form',
@@ -34,6 +35,7 @@ import moment from 'moment';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    TranslateModule,
   ],
   templateUrl: './release-form.component.html',
   styleUrl: './release-form.component.scss',
@@ -47,10 +49,10 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
   @Input() creditCardsList: CardBasicList[] = [];
 
   public utilsService = inject(UtilsService);
+  private _translate = inject(TranslateService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   selectedAccount: AccountBasicList | null = null;
@@ -58,6 +60,7 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
   selectedCategory: Category | null = null;
 
   ngOnInit(): void {
+    this._translate.use(this.utilsService.getUserConfigs.language);
     this.subscribeFormChanges();
 
     const accountId = this.form.value.accountId;
@@ -75,10 +78,8 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
     }
 
     if (this.accountsList.length === 0 && this.creditCardsList.length === 0) {
-      this.utilsService.showSimpleMessage(
-        this.language === 'pt-br'
-          ? 'Nenhuma conta ou cartão ativos'
-          : 'No active accounts or cards',
+      this.utilsService.showMessage(
+        'release-form.no-active-accounts-or-cards',
         5000
       );
     }

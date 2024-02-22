@@ -10,7 +10,7 @@
         <div class="first-row">
           <div class="left">
             <h1>
-              {{ "cash-flow-title" | translate }}
+              {{ "cash-flow.title" | translate }}
             </h1>
 
             <button
@@ -36,29 +36,27 @@
                 }"
               >
                 <span (click)="addRelease('E')">
-                  {{ language === "pt-br" ? "Nova despesa" : "New expense" }}
+                  {{ "cash-flow.new-expense" | translate }}
                 </span>
 
                 <span (click)="addRelease('R')">
-                  {{ language === "pt-br" ? "Nova receita" : "New revenue" }}
+                  {{ "cash-flow.new-revenue" | translate }}
                 </span>
 
                 <span (click)="addRelease('T')">
-                  {{
-                    language === "pt-br" ? "Nova transferência" : "New transfer"
-                  }}
+                  {{ "cash-flow.new-transfer" | translate }}
                 </span>
               </div>
             </mat-menu>
           </div>
 
-          <div class="right">
-            <!-- <app-buttons
+          <!-- <div class="right">
+            <app-buttons
               [mat-menu-trigger-for]="menu"
               [showGeneric]="true"
               [genericIcon]="'filter_alt'"
               [genericLabel]="language === 'pt-br' ? 'Filtrar' : 'Filter'"
-            ></app-buttons> -->
+            ></app-buttons>
 
             <mat-menu #menu="matMenu" class="filter-menu">
               <form [formGroup]="filterForm" class="filter-form">
@@ -72,7 +70,7 @@
                 </mat-form-field>
               </form>
             </mat-menu>
-          </div>
+          </div> -->
         </div>
 
         <div class="second-row">
@@ -119,29 +117,21 @@
               {{ item.description || item.categoryName }}
             </h3>
             } @else {
-            <div class="flex flex-column">
+            <div>
               <h3>
-                {{
-                  item.description
-                    ? item.description
-                    : language === "pt-br"
-                    ? "Transferência"
-                    : "Transfer"
-                }}
+                @if (item.description) {
+                {{ item.description }}
+                } @else {
+                {{ "cash-flow.transfer" | translate }}
+                }
               </h3>
-              @if (language === 'pt-br') {
+
               <span>
-                {{
-                  "De " + item.accountName + " para " + item.targetAccountName
-                }}
+                {{ "generic.from" | translate }}
+                {{ item.accountName }}
+                {{ "generic.to" | translate }}
+                {{ item.targetAccountName }}
               </span>
-              } @else {
-              <span>
-                {{
-                  "From " + item.accountName + " to " + item.targetAccountName
-                }}
-              </span>
-              }
             </div>
             }
           </div>
@@ -178,32 +168,30 @@
       <div class="totals">
         <div class="row1">
           <span>
-            {{ language === "pt-br" ? "Receitas:" : "Revenue:" }}
-            {{ currency }}{{ totals.revenues | customCurrency }}
+            {{ "cash-flow.revenues" | translate }}: {{ currency
+            }}{{ totals.revenues | customCurrency }}
           </span>
 
           <span>
-            {{ language === "pt-br" ? "Despesas:" : "Expenses:" }}
-            {{ currency }}{{ totals.expenses | customCurrency }}
+            {{ "cash-flow.expenses" | translate }}: {{ currency
+            }}{{ totals.expenses | customCurrency }}
           </span>
 
           <span>
-            {{ language === "pt-br" ? "Balanço:" : "Balance:" }}
-            {{ currency }}{{ totals.balance | customCurrency }}
+            {{ "cash-flow.balance" | translate }}: {{ currency
+            }}{{ totals.balance | customCurrency }}
           </span>
         </div>
 
         <div class="row2">
           <span>
-            {{ language === "pt-br" ? "Saldo geral: " : "General balance: " }}
-            {{ currency }}{{ totals.generalBalance || 0 | customCurrency }}
+            {{ "cash-flow.general-balance" | translate }}: {{ currency
+            }}{{ totals.generalBalance || 0 | customCurrency }}
           </span>
 
           <span>
-            {{
-              language === "pt-br" ? "Saldo previsto: " : "Expected balance: "
-            }}
-            {{ currency }}{{ totals.expectedBalance || 0 | customCurrency }}
+            {{ "cash-flow.expected-balance" | translate }}: {{ currency
+            }}{{ totals.expectedBalance || 0 | customCurrency }}
           </span>
         </div>
       </div>

@@ -27,7 +27,7 @@ export class UserActivationComponent implements OnInit {
       window.innerWidth <= 870 &&
       window.innerHeight <= 1230
     ) {
-      this._utilsService.showSimpleMessageWithoutDuration(
+      this._utilsService.showMessageWithoutDuration(
         'Conta ativada com sucesso'
       );
       this._router.navigate(['']);

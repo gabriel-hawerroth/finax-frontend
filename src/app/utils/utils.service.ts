@@ -1,12 +1,13 @@
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { UserConfigs } from '../interfaces/UserConfigs';
 import { isPlatformBrowser } from '@angular/common';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../main/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +15,7 @@ import { ConfirmationDialogComponent } from '../main/dialogs/confirmation-dialog
 export class UtilsService {
   private _snackBar = inject(MatSnackBar);
   private _dialog = inject(MatDialog);
+  private _translateService = inject(TranslateService);
 
   public isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   public isPcScreen = this.isBrowser
@@ -24,7 +26,7 @@ export class UtilsService {
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
     new BehaviorSubject<string | ArrayBuffer | null>('assets/user-image.webp');
 
-  public userConfigs: BehaviorSubject<UserConfigs> =
+  private userConfigs: BehaviorSubject<UserConfigs> =
     new BehaviorSubject<UserConfigs>(this.getUserConfigs);
   // user observables
 
@@ -48,6 +50,15 @@ export class UtilsService {
     };
   }
 
+  setUserConfigs(configs: UserConfigs) {
+    this.userConfigs.next(configs);
+    this._translateService.use(configs.language);
+  }
+
+  subscribeUserConfigs(): Observable<UserConfigs> {
+    return this.userConfigs.asObservable();
+  }
+
   getItemLocalStorage(item: string): string | null {
     return this.isBrowser ? localStorage.getItem(item) : null;
   }
@@ -60,13 +71,16 @@ export class UtilsService {
     if (this.isBrowser) localStorage.removeItem(item);
   }
 
-  showSimpleMessage(message: string, duration: number = 3000) {
+  showMessage(message: string, duration: number = 3000) {
+    message = this._translateService.instant(message);
+
     this._snackBar.open(message, '', {
       duration: duration,
     });
   }
 
-  showSimpleMessageWithoutDuration(message: string) {
+  showMessageWithoutDuration(message: string) {
+    message = this._translateService.instant(message);
     this._snackBar.open(message, 'OK');
   }
 

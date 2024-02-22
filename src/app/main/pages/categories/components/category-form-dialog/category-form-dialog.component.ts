@@ -103,14 +103,14 @@ export class CategoryFormDialogComponent implements OnInit {
       .then((response) => {
         this._dialogRef.close(response);
 
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Categoria salva com sucesso'
             : 'Category saved successfully'
         );
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Erro ao salvar a categoria'
             : 'Error saving category'

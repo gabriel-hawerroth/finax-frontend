@@ -66,7 +66,6 @@ export class CashFlowComponent implements OnInit {
   private _creditCardService = inject(CreditCardService);
   private _translate = inject(TranslateService);
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   filterForm!: FormGroup;
@@ -94,7 +93,7 @@ export class CashFlowComponent implements OnInit {
   creditCards: CardBasicList[] = [];
 
   ngOnInit(): void {
-    this._translate.use(this.language);
+    this._translate.use(this.utilsService.getUserConfigs.language);
 
     this.buildForm();
     this.getReleases();
@@ -118,11 +117,7 @@ export class CashFlowComponent implements OnInit {
         this.totals = response.totals;
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao obter os lançamentos'
-            : 'Error getting the releases'
-        );
+        this.utilsService.showMessage('cash-flow.error-getting-releases');
       })
       .finally(() => {
         this.searching = false;
@@ -138,7 +133,10 @@ export class CashFlowComponent implements OnInit {
   }
 
   get getSelectedMonth(): string {
-    return this.selectedDate.toLocaleString(this.language, { month: 'long' });
+    return this.selectedDate.toLocaleString(
+      this.utilsService.getUserConfigs.language,
+      { month: 'long' }
+    );
   }
 
   get getSelectedYear(): string {

@@ -89,7 +89,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     setTimeout(() => {
       if (this.saving && this.selectedProfileImage) {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
             : 'Due to the size of the image, this may take a few seconds',
@@ -114,7 +114,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           await this._userService
             .changeProfileImagem(this.selectedProfileImage!)
             .then(() => {
-              this.utilsService.showSimpleMessage(
+              this.utilsService.showMessage(
                 this.language === 'pt-br'
                   ? 'Perfil editado com sucesso'
                   : 'Profile edited sucessfully'
@@ -133,14 +133,14 @@ export class MyProfileComponent implements OnInit, OnDestroy {
               }
             })
             .catch(() => {
-              this.utilsService.showSimpleMessage(
+              this.utilsService.showMessage(
                 this.language === 'pt-br'
                   ? 'O perfil foi editado mas houve um erro ao salvar a nova foto de perfil'
                   : 'The profile was edited, but there was an error saving the new profile picture'
               );
             });
         } else {
-          this.utilsService.showSimpleMessage(
+          this.utilsService.showMessage(
             this.language === 'pt-br'
               ? 'Perfil editado com sucesso'
               : 'Profile edited sucessfully'
@@ -148,7 +148,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         }
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Erro ao salvar as alterações'
             : 'Error saving changes '

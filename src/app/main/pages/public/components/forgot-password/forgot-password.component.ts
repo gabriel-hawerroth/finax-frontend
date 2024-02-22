@@ -68,14 +68,14 @@ export class ForgotPasswordComponent implements OnInit {
       .then(() => {
         this.showLoading = false;
         this.forgotPasswordForm.reset(this.originalFormValue);
-        this.utilsService.showSimpleMessageWithoutDuration(
+        this.utilsService.showMessageWithoutDuration(
           this.language === 'pt-br'
             ? `O link de recuperação foi enviado para o email: ${email}`
             : `The recovery link has been sent to the email: ${email}`
         );
       })
       .catch(() => {
-        this.utilsService.showSimpleMessage(
+        this.utilsService.showMessage(
           this.language === 'pt-br'
             ? 'Esse usuário não existe'
             : "This user don't exist"

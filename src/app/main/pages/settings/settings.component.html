@@ -1,16 +1,16 @@
 <div
   [ngClass]="{
     'simple-page': true,
-    'dark-page': utilsService.userConfigs.getValue().theme === 'dark'
+    'dark-page': theme === 'dark'
   }"
 >
   <h1 class="page-title">
-    {{ language === "pt-br" ? "Configurações" : "Settings" }}
+    {{ "settings.title" | translate }}
   </h1>
 
   <form [formGroup]="configsForm" class="content">
     <div class="config theme">
-      <span>{{ language === "pt-br" ? "Tema" : "Theme" }}:</span>
+      <span>{{ "settings.theme" | translate }}:</span>
 
       <mat-button-toggle-group formControlName="theme">
         <mat-button-toggle value="light">
@@ -44,16 +44,16 @@
     <mat-divider></mat-divider>
 
     <div class="config">
-      <span>{{ language === "pt-br" ? "Idioma" : "Language" }}:</span>
+      <span>{{ "settings.language" | translate }}:</span>
       <div>
         <mat-form-field>
           <mat-select formControlName="language">
             <mat-option value="pt-br">
-              {{ language === "pt-br" ? "Português" : "Portuguese" }}
+              {{ "settings.languages.portuguese" | translate }}
             </mat-option>
 
             <mat-option value="en-us">
-              {{ language === "pt-br" ? "Inglês" : "English" }}
+              {{ "settings.languages.english" | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -63,15 +63,16 @@
     <mat-divider></mat-divider>
 
     <div class="config flex flex-column">
-      <span>{{ language === "pt-br" ? "Moeda" : "Currency" }}:</span>
+      <span>{{ "settings.currency" | translate }}:</span>
       <div>
         <mat-form-field>
           <mat-select formControlName="currency">
-            <mat-option value="R$">R$ Real brasileiro</mat-option>
-            <mat-option value="$">$ Dólar</mat-option>
-            <mat-option value="€">€ Euro</mat-option>
-            <mat-option value="£">£ Libra</mat-option>
-            <mat-option value="¥">¥ Yuan</mat-option>
+            @for (currency of currenciesList; track $index) {
+            <mat-option [value]="currency">
+              {{ currency }}
+              {{ "settings.currencies." + currency | translate }}
+            </mat-option>
+            }
           </mat-select>
         </mat-form-field>
       </div>

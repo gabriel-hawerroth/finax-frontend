@@ -1,4 +1,4 @@
 export interface GenericIdDs {
-  id: number;
+  id: number | string;
   ds: string;
 }
