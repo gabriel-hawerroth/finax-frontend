@@ -23,6 +23,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { CategoryService } from '../../../../../services/category.service';
 import { LoginService } from '../../../../../services/login.service';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-category-form-dialog',
@@ -35,6 +37,8 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
     MatInputModule,
     MatDividerModule,
     ButtonsComponent,
+    MatCheckboxModule,
+    TranslateModule,
   ],
   templateUrl: './category-form-dialog.component.html',
   styleUrl: './category-form-dialog.component.scss',
@@ -47,6 +51,7 @@ export class CategoryFormDialogComponent implements OnInit {
   private _categoryService = inject(CategoryService);
   private _dialogRef = inject(MatDialogRef);
   private _loginService = inject(LoginService);
+  private _translate = inject(TranslateService);
 
   language = this.utilsService.getUserConfigs.language;
 
@@ -57,6 +62,7 @@ export class CategoryFormDialogComponent implements OnInit {
   saving: boolean = false;
 
   ngOnInit(): void {
+    this._translate.use(this.utilsService.getUserConfigs.language);
     this.buildForm();
 
     if (this.data.category !== 'new')
@@ -80,6 +86,7 @@ export class CategoryFormDialogComponent implements OnInit {
       type: [this.data.type, Validators.required],
       userId: this._loginService.getLoggedUser!.id,
       active: true,
+      essential: false,
     });
 
     this.categoryForm.markAllAsTouched();

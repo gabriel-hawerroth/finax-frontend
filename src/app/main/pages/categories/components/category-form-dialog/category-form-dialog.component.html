@@ -47,6 +47,12 @@
             maxlength="40"
           />
         </mat-form-field>
+
+        @if (data.type === 'E') {
+        <mat-checkbox formControlName="essential">
+          {{ "categories.essential" | translate }}
+        </mat-checkbox>
+        }
       </div>
 
       <mat-divider></mat-divider>

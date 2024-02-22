@@ -135,5 +135,8 @@
             "¥": "Yuan"
         },
         "error-saving-settings": "Erro ao salvar as configurações"
+    },
+    "categories": {
+        "essential": "Essencial"
     }
 }

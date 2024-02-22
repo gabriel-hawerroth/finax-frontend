@@ -5,7 +5,7 @@ export interface User {
   firstName: string;
   lastName?: string;
   access: string;
-  activate: Boolean;
+  active: Boolean;
   canChangePassword: boolean;
   signature?: string;
   signatureExpiration?: Date;

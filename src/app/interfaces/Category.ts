@@ -5,4 +5,6 @@ export interface Category {
   color: string;
   icon: string;
   type: string;
+  active: boolean;
+  essential: boolean;
 }
