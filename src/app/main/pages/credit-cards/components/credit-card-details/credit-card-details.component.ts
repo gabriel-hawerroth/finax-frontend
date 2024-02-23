@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { UserCreditCards } from '../../../../../interfaces/CreditCard';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-credit-card-details',
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
     NgOptimizedImage,
     CustomCurrencyPipe,
     MatButtonModule,
+    TranslateModule,
   ],
   templateUrl: './credit-card-details.component.html',
   styleUrl: './credit-card-details.component.scss',
@@ -29,7 +31,6 @@ export class CreditCardDetailsComponent {
   private _router = inject(Router);
   private _bottomSheetRef = inject(MatBottomSheetRef);
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   card: UserCreditCards = this.data.card;

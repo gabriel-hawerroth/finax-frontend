@@ -7,7 +7,11 @@
         "expense": "despesa",
         "revenue": "receita",
         "transfer": "transferência",
-        "observation": "Observação"
+        "observation": "Observação",
+        "active": "Ativa",
+        "reports": "Relatórios",
+        "activeM": "Ativo",
+        "select-icon": "Selecione um ícone"
     },
     "actions": {
         "save": "Salvar",
@@ -118,6 +122,59 @@
     "select-icon-dialog": {
         "title": "Selecione um ícone"
     },
+    "filters": {
+        "filter-by": "Filtrar por",
+        "situation": "situação",
+        "all": "Todas",
+        "actives": "Ativas",
+        "inactives": "Inativas"
+    },
+    "my-accounts": {
+        "title": "Minhas contas",
+        "name": "Nome",
+        "account-type": "Tipo de conta",
+        "account-types": {
+            "checking": "Conta corrente",
+            "savings": "Conta poupança",
+            "salary": "Conta salário",
+            "legal": "Conta jurídica",
+            "brokerage": "Corretora"
+        },
+        "code": "Código",
+        "balance": "Balanço",
+        "minus-for-negative-more-for-positive": "Digite - para saldo negativo e + para positivo",
+        "account-number": "Nº da conta",
+        "agency": "Agência",
+        "account-with-investments": "Conta com investimentos",
+        "add-to-overall-balance": "Somar no saldo geral",
+        "saved-successfully": "Conta salva com sucesso",
+        "error-saving-account": "Erro ao salvar a conta",
+        "adjust-balance": "Ajustar saldo",
+        "see-releases": "Ver lançamentos",
+        "balance-changed-successfully": "Saldo alterado com sucesso",
+        "error-changing-balance": "Erro ao alterar o saldo"
+    },
+    "credit-cards": {
+        "title": "Cartões de crédito",
+        "limit": "Limite",
+        "standard-payment-account": "Conta de pagamento padrão",
+        "close-day": "Fecha dia",
+        "expires-day": "Vence dia",
+        "see-invoice": "Ver fatura",
+        "name": "Nome",
+        "limit-must-be-greater-than-zero": "O limite deve ser maior que zero",
+        "saved-successfully": "Cartão de crédito salvo com sucesso",
+        "error-saving-card": "Erro ao salvar o cartão de crédito"
+    },
+    "card-invoice": {
+        "title": "Fatura",
+        "closing": "FECHAMENTO",
+        "expiration": "VENCIMENTO",
+        "invoice-amount": "VALOR DA FATURA"
+    },
+    "categories": {
+        "essential": "Essencial"
+    },
     "settings": {
         "title": "Configurações",
         "theme": "Tema",
@@ -135,8 +192,5 @@
             "¥": "Yuan"
         },
         "error-saving-settings": "Erro ao salvar as configurações"
-    },
-    "categories": {
-        "essential": "Essencial"
     }
 }

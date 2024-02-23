@@ -40,9 +40,10 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  userForm!: FormGroup;
   language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;
+
+  userForm!: FormGroup;
 
   userPlanTitle: string = '';
   monthYear: string = '';

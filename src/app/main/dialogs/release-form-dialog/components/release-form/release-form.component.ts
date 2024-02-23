@@ -20,7 +20,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
 import { CardBasicList } from '../../../../../interfaces/CreditCard';
 import { Subject, takeUntil } from 'rxjs';
 import moment from 'moment';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-release-form',
@@ -49,7 +49,6 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
   @Input() creditCardsList: CardBasicList[] = [];
 
   public utilsService = inject(UtilsService);
-  private _translate = inject(TranslateService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -60,7 +59,6 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
   selectedCategory: Category | null = null;
 
   ngOnInit(): void {
-    this._translate.use(this.utilsService.getUserConfigs.language);
     this.subscribeFormChanges();
 
     const accountId = this.form.value.accountId;

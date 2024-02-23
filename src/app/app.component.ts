@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
@@ -13,12 +13,7 @@ import { MobilePageComponent } from './main/mobile-page/mobile-page.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public loginService = inject(LoginService);
   public location = inject(Location);
-
-  ngOnInit(): void {}
-
-  // @HostListener('window:beforeunload', ['$event'])
-  // beforeUnloadHandler($event: any) {}
 }

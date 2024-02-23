@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 import { lastValueFrom } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bank-account-details',
@@ -26,6 +27,7 @@ import { lastValueFrom } from 'rxjs';
     MatButtonModule,
     CustomCurrencyPipe,
     NgOptimizedImage,
+    TranslateModule,
   ],
   templateUrl: './bank-account-details.component.html',
   styleUrl: './bank-account-details.component.scss',

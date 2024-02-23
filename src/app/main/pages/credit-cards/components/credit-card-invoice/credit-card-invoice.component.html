@@ -11,7 +11,7 @@
           <div class="left">
             <div class="title">
               <h1>
-                {{ language === "pt-br" ? "Fatura" : "Invoice" }}
+                {{ "card-invoice.title" | translate }}
               </h1>
 
               <div class="card">
@@ -95,36 +95,9 @@
           </div>
 
           <div class="description">
-            @if (item.type !== 'T') {
             <h3>
               {{ item.description || item.categoryName }}
             </h3>
-            } @else {
-            <div class="flex flex-column">
-              <h3>
-                {{
-                  item.description
-                    ? item.description
-                    : language === "pt-br"
-                    ? "Transferência"
-                    : "Transfer"
-                }}
-              </h3>
-              @if (language === 'pt-br') {
-              <span>
-                {{
-                  "De " + item.accountName + " para " + item.targetAccountName
-                }}
-              </span>
-              } @else {
-              <span>
-                {{
-                  "From " + item.accountName + " to " + item.targetAccountName
-                }}
-              </span>
-              }
-            </div>
-            }
           </div>
 
           <div class="account">
@@ -158,7 +131,7 @@
 
       <div class="totals">
         <div class="item">
-          <span>{{ language === "pt-br" ? "FECHAMENTO" : "CLOSING" }}:</span>
+          <span>{{ "card-invoice.closing" | translate }}:</span>
 
           <span class="value">
             {{ getDateInfo("closing") }}
@@ -166,9 +139,7 @@
         </div>
 
         <div class="item">
-          <span>
-            {{ language === "pt-br" ? "VENCIMENTO" : "EXPIRATION" }}:
-          </span>
+          <span>{{ "card-invoice.expiration" | translate }}:</span>
 
           <span class="value">
             {{ getDateInfo("expiration") }}
@@ -176,9 +147,7 @@
         </div>
 
         <div class="item">
-          <span>
-            {{ language === "pt-br" ? "VALOR DA FATURA" : "INVOICE AMOUNT" }}:
-          </span>
+          <span>{{ "card-invoice.invoice-amount" | translate }}:</span>
 
           <span class="value" style="font-weight: bold">
             {{ currency }}{{ 0 | customCurrency }}

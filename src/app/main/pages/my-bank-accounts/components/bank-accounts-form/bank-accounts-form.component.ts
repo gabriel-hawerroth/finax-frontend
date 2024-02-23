@@ -27,6 +27,7 @@ import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bank-accounts-edit',
@@ -43,6 +44,7 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
     NgOptimizedImage,
     MatSelectModule,
     ButtonsComponent,
+    TranslateModule,
   ],
   templateUrl: './bank-accounts-form.component.html',
   styleUrl: './bank-accounts-form.component.scss',
@@ -59,7 +61,6 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   accountId: number | null =
@@ -113,19 +114,11 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
     this._accountService
       .save(data)
       .then(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Conta salva com sucesso'
-            : 'Account saved successfully'
-        );
+        this.utilsService.showMessage('my-accounts.saved-successfully');
         this._router.navigate(['contas-de-banco']);
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar a conta'
-            : 'Error saving account'
-        );
+        this.utilsService.showMessage('my-accounts.error-saving-account');
       })
       .finally(() => {
         this.saving = false;

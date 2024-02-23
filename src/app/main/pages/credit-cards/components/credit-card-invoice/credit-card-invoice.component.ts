@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CreditCard } from '../../../../../interfaces/CreditCard';
 import { ActivatedRoute } from '@angular/router';
 import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dialog/release-form-dialog.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -30,6 +31,7 @@ import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dia
     CustomCurrencyPipe,
     MatButtonModule,
     NgOptimizedImage,
+    TranslateModule,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
@@ -44,7 +46,6 @@ export class CreditCardInvoiceComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
@@ -77,7 +78,10 @@ export class CreditCardInvoiceComponent implements OnInit {
   }
 
   get getSelectedMonth(): string {
-    return this.selectedDate.toLocaleString(this.language, { month: 'long' });
+    return this.selectedDate.toLocaleString(
+      this.utilsService.getUserConfigs.language,
+      { month: 'long' }
+    );
   }
 
   get getSelectedYear(): string {

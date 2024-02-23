@@ -20,6 +20,7 @@ import { CreditCard } from '../../../interfaces/CreditCard';
 import { Subject } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-credit-cards',
@@ -33,6 +34,7 @@ import { CreditCardDetailsComponent } from './components/credit-card-details/cre
     NgOptimizedImage,
     RouterModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   templateUrl: './credit-cards.component.html',
   styleUrl: './credit-cards.component.scss',
@@ -46,8 +48,6 @@ export class CreditCardsComponent implements OnInit, OnDestroy {
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
-
-  language = this.utilsService.getUserConfigs.language;
 
   situationFilter = new FormControl();
 

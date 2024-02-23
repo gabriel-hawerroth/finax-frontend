@@ -27,7 +27,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _userService = inject(UserService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
-  private _translate = inject(TranslateService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -41,8 +40,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   darkThemeEnabled: boolean = false;
 
   ngOnInit(): void {
-    this._translate.use(this.utilsService.getUserConfigs.language);
-
     this.subscribeUserConfigs();
     this.getUserImage();
   }
@@ -58,8 +55,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
         this.darkThemeEnabled = value.theme === 'dark';
-        this._translate.use(value.language);
-
         this._changeDetectorRef.detectChanges();
       });
   }

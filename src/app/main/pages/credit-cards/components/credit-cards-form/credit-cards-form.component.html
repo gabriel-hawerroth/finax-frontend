@@ -5,7 +5,7 @@
   class="simple-page"
 >
   <h1 class="page-title">
-    {{ language === "pt-br" ? "Cartões de crédito" : "Credit cards" }}
+    {{ "credit-cards.title" | translate }}
   </h1>
 
   <div class="content">
@@ -26,7 +26,7 @@
         ></app-buttons>
 
         <mat-form-field [hideRequiredMarker]="true" style="width: 30%">
-          <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>
+          <mat-label>{{ "credit-cards.name" | translate }}</mat-label>
           <input
             type="text"
             matInput
@@ -45,7 +45,7 @@
           floatLabel="always"
           [hideRequiredMarker]="true"
         >
-          <mat-label>{{ language === "pt-br" ? "Limite" : "Limit" }}</mat-label>
+          <mat-label>{{ "credit-cards.limit" | translate }}</mat-label>
           <input
             type="text"
             matInput
@@ -57,18 +57,14 @@
         </mat-form-field>
 
         <mat-checkbox formControlName="active">
-          {{ language === "pt-br" ? "Ativo" : "Active" }}
+          {{ "generic.activeM" | translate }}
         </mat-checkbox>
       </div>
 
       <div class="second-row">
         <mat-form-field style="width: 28%" [hideRequiredMarker]="true">
           <mat-label>
-            {{
-              language === "pt-br"
-                ? "Conta de pagamento padrão"
-                : "Standard payment account"
-            }}
+            {{ "credit-cards.standard-payment-account" | translate }}
           </mat-label>
           <mat-select formControlName="standard_payment_account_id">
             <mat-select-trigger>
@@ -115,7 +111,7 @@
 
         <mat-form-field [hideRequiredMarker]="true">
           <mat-label>
-            {{ language === "pt-br" ? "Fecha dia" : "Close day" }}
+            {{ "credit-cards.close-day" | translate }}
           </mat-label>
           <mat-select formControlName="close_day">
             @for (day of daysOfMonth; track $index) {
@@ -126,7 +122,7 @@
 
         <mat-form-field [hideRequiredMarker]="true">
           <mat-label>
-            {{ language === "pt-br" ? "Expira dia" : "Expires day" }}
+            {{ "credit-cards.expires-day" | translate }}
           </mat-label>
           <mat-select formControlName="expires_day">
             @for (day of daysOfMonth; track $index) {
@@ -150,7 +146,7 @@
           />
           }
           <span id="text" (click)="selectIcon()">
-            {{ language === "pt-br" ? "Selecione um ícone" : "Select an icon" }}
+            {{ "generic.select-icon" | translate }}
           </span>
         </div>
       </div>

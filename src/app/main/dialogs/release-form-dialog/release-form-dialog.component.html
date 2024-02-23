@@ -67,8 +67,8 @@
           class="bottom-btn"
           [ngStyle]="{
           'background-color': selectedFile ? '#b6b6b673' : 'transparent',
-          color: selectedFile ? '#fff' : '',
-          border: selectedFile ? 'none' : '',
+          'color': selectedFile ? '#fff' : '',
+          'border-color': selectedFile ? 'transparent' : '',
         }"
           [matTooltip]="'release-form.attachment' | translate"
           matTooltipPosition="left"
@@ -83,7 +83,7 @@
           [ngStyle]="{
           'background-color': showRepeat ? '#b6b6b673' : 'transparent',
           'color': showRepeat ? '#fff' : '',
-          'border': showRepeat ? 'none' : '',
+          'border-color': showRepeat ? 'transparent' : '',
         }"
           [matTooltip]="'release-form.repeat' | translate"
           matTooltipPosition="left"
@@ -98,7 +98,7 @@
           [ngStyle]="{
           'background-color': showObservation ? '#b6b6b673' : 'transparent',
           'color': showObservation ? '#fff' : '',
-          'border': showObservation ? 'none' : '',
+          'border-color': showObservation ? 'transparent' : '',
         }"
           [matTooltip]="'generic.observation' | translate"
           matTooltipPosition="left"

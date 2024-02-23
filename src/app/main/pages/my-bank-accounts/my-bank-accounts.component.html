@@ -5,7 +5,7 @@
   class="simple-page"
 >
   <h1 class="page-title">
-    {{ language === "pt-br" ? "Minhas contas" : "My accounts" }}
+    {{ "my-accounts.title" | translate }}
   </h1>
 
   <div class="content">
@@ -13,22 +13,19 @@
       <div class="card-header">
         <mat-form-field>
           <mat-label>
-            {{
-              language === "pt-br"
-                ? "Filtrar por situação"
-                : "Filter by situation"
-            }}
+            {{ "filters.filter-by" | translate }}
+            {{ "filters.situation" | translate }}
           </mat-label>
 
           <mat-select [formControl]="situationFilter">
             <mat-option value="all">
-              {{ language === "pt-br" ? "Todas" : "All" }}
+              {{ "filters.all" | translate }}
             </mat-option>
             <mat-option [value]="true">
-              {{ language === "pt-br" ? "Ativas" : "Actives" }}
+              {{ "filters.actives" | translate }}
             </mat-option>
             <mat-option [value]="false">
-              {{ language === "pt-br" ? "Inativas" : "Inactives" }}
+              {{ "filters.inactives" | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -41,7 +38,7 @@
       </div>
 
       <div class="list">
-        @for (account of filteredRows.getValue(); track account.id) {
+        @for (account of filteredRows; track account.id) {
         <div class="account" (click)="openDetails(account)">
           @if (account.image) {
           <img

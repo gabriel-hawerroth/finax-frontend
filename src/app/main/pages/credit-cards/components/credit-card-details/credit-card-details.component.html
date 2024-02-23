@@ -17,7 +17,7 @@
       <h1 class="name">{{ card.name }}</h1>
 
       <div class="limit">
-        <span>{{ language === "pt-br" ? "Limite" : "Limit" }}:</span>
+        <span>{{ "credit-cards.limit" | translate }}:</span>
         <h1>{{ currency }}{{ card.card_limit | customCurrency }}</h1>
       </div>
     </div>
@@ -26,11 +26,7 @@
       <div class="left">
         <div class="standard_payment_account">
           <span>
-            {{
-              language === "pt-br"
-                ? "Conta de pagamento padrão:"
-                : "Standard payment account:"
-            }}
+            {{ "credit-cards.standard-payment-account" | translate }}:
           </span>
 
           <span class="account">
@@ -53,19 +49,19 @@
           } @else {
           <span class="material-symbols-outlined false">close</span>
           }
-          {{ language === "pt-br" ? "Ativo" : "Active" }}
+          {{ "generic.active" | translate }}
         </div>
       </div>
 
       <div class="right">
         <div class="item">
-          <span>{{ language === "pt-br" ? "Fecha dia" : "Close day" }}:</span>
+          <span>{{ "credit-cards.close-day" | translate }}:</span>
 
           <span>{{ card.close_day }}</span>
         </div>
 
         <div class="item">
-          <span>{{ language === "pt-br" ? "Vence dia" : "Expires day" }}:</span>
+          <span>{{ "credit-cards.expires-day" | translate }}:</span>
 
           <span>{{ card.expires_day }}</span>
         </div>
@@ -77,7 +73,7 @@
     <button mat-stroked-button class="large-btn" (click)="seeInvoice()">
       <div class="btn-content">
         <span class="material-symbols-outlined">sort</span>
-        {{ language === "pt-br" ? "Ver fatura" : "See invoice" }}
+        {{ "credit-cards.see-invoice" | translate }}
       </div>
     </button>
 
@@ -87,7 +83,7 @@
       (click)="edit()"
       style="padding: 1.3rem 1.6rem; font-size: 1.1rem !important"
     >
-      {{ language === "pt-br" ? "Editar" : "Edit" }}
+      {{ "actions.edit" | translate }}
     </button>
   </div>
 </div>

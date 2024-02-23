@@ -38,7 +38,6 @@ export class ReleaseDetailsComponent {
   private _cashFlowService = inject(CashFlowService);
   private _bottomSheet = inject(MatBottomSheetRef);
   private _matDialog = inject(MatDialog);
-  private _translate = inject(TranslateService);
 
   currency = this.utilsService.getUserConfigs.currency;
 
@@ -46,10 +45,6 @@ export class ReleaseDetailsComponent {
 
   confirmDelete: boolean = false;
   excluding: boolean = false;
-
-  constructor() {
-    this._translate.use(this.utilsService.getUserConfigs.language);
-  }
 
   downloadAttachment() {
     this._cashFlowService.getAttachment(this.release.id).then((response) => {
@@ -121,7 +116,7 @@ export class ReleaseDetailsComponent {
         this._matDialog
           .open(ConfirmationDialogComponent, {
             data: {
-              message: this._translate.instant('cash-flow.confirm-delete'),
+              message: 'cash-flow.confirm-delete',
             },
             autoFocus: false,
           })
@@ -144,14 +139,10 @@ export class ReleaseDetailsComponent {
       .delete(this.release.id, duplicatedReleasesAction)
       .then(() => {
         this._bottomSheet.dismiss('delete');
-        this.utilsService.showMessage(
-          this._translate.instant('cash-flow.deleted-successfully')
-        );
+        this.utilsService.showMessage('cash-flow.deleted-successfully');
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this._translate.instant('cash-flow.delete-error')
-        );
+        this.utilsService.showMessage('cash-flow.delete-error');
       })
       .finally(() => {
         this.confirmDelete = false;

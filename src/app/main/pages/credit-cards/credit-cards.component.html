@@ -5,7 +5,7 @@
   class="simple-page"
 >
   <h1 class="page-title">
-    {{ language === "pt-br" ? "Cartões de crédito" : "Credit cards" }}
+    {{ "credit-cards.title" | translate }}
   </h1>
 
   <div class="content">
@@ -13,29 +13,26 @@
       <div class="card-header">
         <mat-form-field>
           <mat-label>
-            {{
-              language === "pt-br"
-                ? "Filtrar por situação"
-                : "Filter by situation"
-            }}
+            {{ "filters.filter-by" | translate }}
+            {{ "filters.situation" | translate }}
           </mat-label>
 
           <mat-select [formControl]="situationFilter">
             <mat-option value="all">
-              {{ language === "pt-br" ? "Todos" : "All" }}
+              {{ "filters.all" | translate }}
             </mat-option>
             <mat-option [value]="true">
-              {{ language === "pt-br" ? "Ativos" : "Actives" }}
+              {{ "filters.actives" | translate }}
             </mat-option>
             <mat-option [value]="false">
-              {{ language === "pt-br" ? "Inativos" : "Inactives" }}
+              {{ "filters.inactives" | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <app-buttons
           [showNew]="true"
-          [ptBrLabelNew]="'Nova'"
+          [ptBrLabelNew]="'generic.new' | translate"
           (onNew)="onNew()"
         ></app-buttons>
       </div>

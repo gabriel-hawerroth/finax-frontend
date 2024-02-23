@@ -6,39 +6,39 @@
 >
   <div class="title">
     <h1>
-      {{ language === "pt-br" ? "Ajustar saldo" : "Adjuste balance" }}
+      {{ "my-accounts.adjust-balance" | translate }}
       {{ data.account.accountName }}
     </h1>
 
     <app-buttons [showClose]="true" mat-dialog-close></app-buttons>
   </div>
 
-  <form [formGroup]="balanceForm" class="content">
+  <div class="content">
     <mat-form-field
       floatLabel="always"
       style="width: 40%"
       [hideRequiredMarker]="true"
     >
-      <mat-label>{{ language === "pt-br" ? "Saldo" : "Balance" }}</mat-label>
+      <mat-label>{{ "my-accounts.balance" | translate }}</mat-label>
       <input
         matInput
         placeholder="0"
         currencyMask
         [options]="{ prefix: currency + ' ' }"
-        formControlName="balance"
+        [formControl]="balanceControl"
       />
-      <mat-hint class="text-600 w-full">{{
-        language === "pt-br"
-          ? "Digite - para saldo negativo e + para positivo"
-          : "Enter - for negative balance and + for positive"
-      }}</mat-hint>
+      <mat-hint>
+        {{ "my-accounts.minus-for-negative-more-for-positive" | translate }}
+      </mat-hint>
     </mat-form-field>
-  </form>
+  </div>
 
   <div class="actions">
     <app-buttons
       [showSave]="true"
-      [disableSave]="balanceForm.invalid || balanceForm.pristine || loading"
+      [disableSave]="
+        balanceControl.invalid || balanceControl.pristine || loading
+      "
       [smallBtn]="true"
       [showSaveLoading]="loading"
       (onSave)="save()"

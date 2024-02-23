@@ -29,6 +29,7 @@ import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { LoginService } from '../../../../../services/login.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-credit-cards-form',
@@ -44,6 +45,7 @@ import { LoginService } from '../../../../../services/login.service';
     MatSelectModule,
     NgOptimizedImage,
     MatCheckboxModule,
+    TranslateModule,
   ],
   templateUrl: './credit-cards-form.component.html',
   styleUrl: './credit-cards-form.component.scss',
@@ -63,7 +65,6 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   cardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
@@ -138,9 +139,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   save() {
     if (this.cardForm.value.card_limit === 0) {
       this.utilsService.showMessage(
-        this.language === 'pt-br'
-          ? 'O limite deve ser maior que zero'
-          : 'The limit must be greater than zero'
+        'credit-cards.limit-must-be-greater-than-zero'
       );
       return;
     }
@@ -153,19 +152,11 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
     this._creditCardService
       .save(data)
       .then(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Cartão de crédito salvo com sucesso'
-            : 'Credit card saved successfully'
-        );
+        this.utilsService.showMessage('credit-cards.saved-successfully');
         this._router.navigate(['cartoes-de-credito']);
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar o cartão de crédito'
-            : 'Error saving credit card'
-        );
+        this.utilsService.showMessage('credit-cards.error-saving-card');
       })
       .finally(() => {
         this.saving = false;

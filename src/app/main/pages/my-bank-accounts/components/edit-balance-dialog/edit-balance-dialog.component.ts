@@ -6,12 +6,7 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   MatDialogRef,
   MAT_DIALOG_DATA,
@@ -24,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-balance-dialog',
@@ -37,6 +33,7 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
     MatProgressSpinnerModule,
     MatDialogModule,
     ButtonsComponent,
+    TranslateModule,
   ],
   templateUrl: './edit-balance-dialog.component.html',
   styleUrl: './edit-balance-dialog.component.scss',
@@ -46,23 +43,16 @@ export class EditBalanceDialogComponent implements OnInit {
   public dialogRef = inject(MatDialogRef<EditBalanceDialogComponent>);
   public data = inject(MAT_DIALOG_DATA);
   public utilsService = inject(UtilsService);
-  private _fb = inject(FormBuilder);
   private _accountService = inject(AccountService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
-  balanceForm!: FormGroup;
+  balanceControl = new FormControl(this.data.account.balance || 0);
   loading: boolean = false;
 
   ngOnInit(): void {
-    this.balanceForm = this._fb.group({
-      balance: ['', Validators.required],
-    });
-
-    this.balanceForm.patchValue(this.data.account);
-    this.balanceForm.markAsTouched();
+    this.balanceControl.markAsTouched();
   }
 
   save() {
@@ -70,28 +60,22 @@ export class EditBalanceDialogComponent implements OnInit {
     this._changeDetectorRef.detectChanges();
 
     this._accountService
-      .adjustBalance(this.data.account.id, this.balanceForm.value.balance)
+      .adjustBalance(this.data.account.id, this.balanceControl.value)
       .then((response) => {
         this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Saldo alterado com sucesso'
-            : 'Balance changed successfully'
+          'my-accounts.balance-changed-successfully'
         );
 
         this.dialogRef.close(response.balance);
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao alterar o saldo'
-            : 'Error changing balance'
-        );
+        this.utilsService.showMessage('my-accounts.error-changing-balance');
       })
       .finally(() => {
         this.loading = false;
         this._changeDetectorRef.detectChanges();
       });
 
-    this.balanceForm.markAsPristine();
+    this.balanceControl.markAsPristine();
   }
 }

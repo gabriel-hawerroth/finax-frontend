@@ -7,11 +7,10 @@ import {
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../interfaces/Account';
 import { AccountService } from '../../../services/account.service';
 import { UtilsService } from '../../../utils/utils.service';
-import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -23,13 +22,13 @@ import {
 import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
 import { MatCardModule } from '@angular/material/card';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-bank-accounts',
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
     NgOptimizedImage,
     RouterModule,
     ReactiveFormsModule,
@@ -38,6 +37,7 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
     MatBottomSheetModule,
     MatCardModule,
     ButtonsComponent,
+    TranslateModule,
   ],
   templateUrl: './my-bank-accounts.component.html',
   styleUrl: './my-bank-accounts.component.scss',
@@ -52,21 +52,21 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language: string = this.utilsService.getUserConfigs.language;
-
   situationFilter = new FormControl();
 
   rows: Account[] = [];
-  filteredRows: BehaviorSubject<Account[]> = new BehaviorSubject<Account[]>([]);
+  filteredRows: Account[] = [];
 
   ngOnInit(): void {
     this.getAccounts();
 
     this.situationFilter.setValue(true);
 
-    this.situationFilter.valueChanges.subscribe(() => {
-      this.filterList();
-    });
+    this.situationFilter.valueChanges
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(() => {
+        this.filterList();
+      });
   }
 
   ngOnDestroy(): void {
@@ -85,7 +85,7 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
   filterList() {
     let rows = this.rows.slice();
 
-    if (this.situationFilter.value !== 'all') {
+    if (this.situationFilter.value != 'all') {
       rows = this.utilsService.filterList(
         rows,
         'active',
@@ -93,7 +93,7 @@ export class MyBankAccountsComponent implements OnInit, OnDestroy {
       );
     }
 
-    this.filteredRows.next(rows);
+    this.filteredRows = rows;
   }
 
   onNew() {

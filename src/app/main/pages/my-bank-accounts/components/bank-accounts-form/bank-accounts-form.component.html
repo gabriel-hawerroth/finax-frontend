@@ -5,7 +5,7 @@
   class="simple-page"
 >
   <h1 class="page-title">
-    {{ language === "pt-br" ? "Contas de banco" : "Bank accounts" }}
+    {{ "my-accounts.title" | translate }}
   </h1>
 
   <div class="content">
@@ -26,7 +26,7 @@
         ></app-buttons>
 
         <mat-form-field [hideRequiredMarker]="true" style="width: 30%">
-          <mat-label>{{ language === "pt-br" ? "Nome" : "Name" }}</mat-label>
+          <mat-label>{{ "my-accounts.name" | translate }}</mat-label>
           <input
             type="text"
             matInput
@@ -43,39 +43,40 @@
         <mat-form-field>
           <!-- The value of the options follows a pattern of two characters, the first is the first letter of the first acronym of the label, the second is the first letter of the second acronym of the label  -->
           <mat-label>
-            {{ language === "pt-br" ? "Tipo de conta" : "Account type" }}
+            {{ "my-accounts.account-type" | translate }}
           </mat-label>
           <mat-select formControlName="type">
             <mat-option value="CC">
-              {{ language === "pt-br" ? "Conta corrente" : "Checking account" }}
+              {{ "my-accounts.account-types.checking" | translate }}
             </mat-option>
 
             <mat-option value="SV">
-              {{ language === "pt-br" ? "Conta poupança" : "Savings account" }}
+              {{ "my-accounts.account-types.savings" | translate }}
             </mat-option>
 
             <mat-option value="SL">
-              {{ language === "pt-br" ? "Conta salário" : "Salary account" }}
+              {{ "my-accounts.account-types.salary" | translate }}
             </mat-option>
 
             <mat-option value="LG">
-              {{ language === "pt-br" ? "Conta jurídica" : "Legal account" }}
+              {{ "my-accounts.account-types.legal" | translate }}
             </mat-option>
 
             <mat-option value="BK">
-              {{ language === "pt-br" ? "Corretora" : "Brokerage" }}
+              {{ "my-accounts.account-types.brokerage" | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field style="width: 8.5rem">
-          <mat-label>{{ language === "pt-br" ? "Código" : "Code" }}</mat-label>
+          <mat-label>{{ "my-accounts.code" | translate }}</mat-label>
           <input
             matInput
             type="text"
             formControlName="code"
             currencyMask
             [options]="{
+              align: 'left',
               precision: 0,
               allowNegative: false,
               max: 999,
@@ -92,7 +93,7 @@
           [hideRequiredMarker]="true"
         >
           <mat-label>
-            {{ language === "pt-br" ? "Saldo" : "Balance" }}
+            {{ "my-accounts.balance" | translate }}
           </mat-label>
           <input
             matInput
@@ -104,18 +105,14 @@
             formControlName="balance"
             [readonly]="accountId !== null"
           />
-          <mat-hint class="text-600 w-full">
-            {{
-              language === "pt-br"
-                ? "Digite - para saldo negativo e + para positivo"
-                : "Enter - for negative balance and + for positive"
-            }}
+          <mat-hint>
+            {{ "my-accounts.minus-for-negative-more-for-positive" | translate }}
           </mat-hint>
         </mat-form-field>
 
         <mat-form-field style="width: 30%">
           <mat-label>
-            {{ language === "pt-br" ? "Nº da conta" : "Account number" }}
+            {{ "my-accounts.account-number" | translate }}
           </mat-label>
           <input
             matInput
@@ -127,7 +124,7 @@
 
         <mat-form-field style="width: 8.5rem">
           <mat-label>
-            {{ language === "pt-br" ? "Agência" : "Agency" }}
+            {{ "my-accounts.agency" | translate }}
           </mat-label>
           <input
             matInput
@@ -135,6 +132,7 @@
             formControlName="agency"
             currencyMask
             [options]="{
+              align: 'left',
               precision: 0,
               thousands: '',
               allowNegative: false,
@@ -148,27 +146,19 @@
       <div class="third-row">
         <div class="check-boxs">
           <mat-checkbox formControlName="investments">
-            {{
-              language === "pt-br"
-                ? "Conta com investimentos"
-                : "Account with investments"
-            }}
+            {{ "my-accounts.account-with-investments" | translate }}
           </mat-checkbox>
 
           <br />
 
           <mat-checkbox formControlName="addOverallBalance">
-            {{
-              language === "pt-br"
-                ? "Somar no saldo geral"
-                : "Add to the overall balance"
-            }}
+            {{ "my-accounts.add-to-overall-balance" | translate }}
           </mat-checkbox>
 
           <br />
 
           <mat-checkbox formControlName="active">
-            {{ language === "pt-br" ? "Ativo" : "Active" }}
+            {{ "generic.active" | translate }}
           </mat-checkbox>
         </div>
 
@@ -188,7 +178,7 @@
           />
           }
           <span id="text" (click)="selectIcon()">
-            {{ language === "pt-br" ? "Selecione um ícone" : "Select an icon" }}
+            {{ "generic.select-icon" | translate }}
           </span>
         </div>
       </div>

@@ -17,7 +17,7 @@ import { UserConfigs } from '../../../interfaces/UserConfigs';
 import { LoginService } from '../../../services/login.service';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings',
@@ -41,7 +41,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private _userConfigsService = inject(UserConfigsService);
   private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
-  private _translate = inject(TranslateService);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
@@ -53,8 +52,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   initError: boolean = false;
 
   ngOnInit(): void {
-    this._translate.use(this.utilsService.getUserConfigs.language);
-
     this.buidForm();
 
     this.getConfigs();
@@ -81,7 +78,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .subscribe((value) => {
         this.theme = value.theme;
         this.utilsService.setUserConfigs(value);
-        this._translate.use(value.language);
 
         this._changeDetectorRef.detectChanges();
       });

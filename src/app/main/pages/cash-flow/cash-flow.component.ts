@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
@@ -31,7 +32,7 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
 import { CreditCardService } from '../../../services/credit-card.service';
 import { CardBasicList } from '../../../interfaces/CreditCard';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cash-flow',
@@ -64,7 +65,7 @@ export class CashFlowComponent implements OnInit {
   private _accountService = inject(AccountService);
   private _categoryService = inject(CategoryService);
   private _creditCardService = inject(CreditCardService);
-  private _translate = inject(TranslateService);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   currency = this.utilsService.getUserConfigs.currency;
 
@@ -93,8 +94,6 @@ export class CashFlowComponent implements OnInit {
   creditCards: CardBasicList[] = [];
 
   ngOnInit(): void {
-    this._translate.use(this.utilsService.getUserConfigs.language);
-
     this.buildForm();
     this.getReleases();
 
@@ -121,6 +120,7 @@ export class CashFlowComponent implements OnInit {
       })
       .finally(() => {
         this.searching = false;
+        this._changeDetectorRef.detectChanges();
       });
   }
 

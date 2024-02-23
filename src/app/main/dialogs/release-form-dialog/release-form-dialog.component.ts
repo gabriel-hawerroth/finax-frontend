@@ -101,8 +101,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   );
 
   ngOnInit(): void {
-    this._translate.use(this.utilsService.getUserConfigs.language);
-
     if (
       this.defaultDate.getMonth() === this.currentDate.getMonth() &&
       this.defaultDate.getFullYear() === this.currentDate.getFullYear()

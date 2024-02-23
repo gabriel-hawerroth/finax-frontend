@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-select-icon-dialog',
@@ -14,11 +14,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class SelectIconDialogComponent {
   public utilsService = inject(UtilsService);
-  private _translate = inject(TranslateService);
-
-  constructor() {
-    this._translate.use(this.utilsService.getUserConfigs.language);
-  }
 
   icons: string[] = [
     'agora.png',

@@ -18,7 +18,7 @@
       <div class="balance">
         <h1>{{ currency }}{{ account.balance | customCurrency }}</h1>
         <span (click)="adjustBalance()">
-          {{ language === "pt-br" ? "Ajustar saldo" : "Adjust balance" }}
+          {{ "my-accounts.adjust-balance" | translate }}
         </span>
       </div>
     </div>
@@ -27,12 +27,12 @@
       <div class="left">
         @if (account.accountNumber) {
         <span>
-          {{ language === "pt-br" ? "Nº da conta: " : "Account number: " }}
+          {{ "my-accounts.account-number" | translate }}:
           {{ account.accountNumber }}
         </span>
         } @if (account.agency) {
         <span>
-          {{ language === "pt-br" ? "Agência: " : "Agency: " }}
+          {{ "my-accounts.agency" | translate }}:
           {{ account.agency }}
         </span>
         }
@@ -41,23 +41,23 @@
       <div class="right">
         @switch (account.type) { @case ("CC") {
         <span>
-          {{ language === "pt-br" ? "Conta corrente" : "Checking account" }}
+          {{ "my-accounts.account-types.checking" | translate }}
         </span>
         } @case ("SV") {
         <span>
-          {{ language === "pt-br" ? "Conta poupança" : "Savings account" }}
+          {{ "my-accounts.account-types.savings" | translate }}
         </span>
         } @case ("SL") {
         <span>
-          {{ language === "pt-br" ? "Conta salário" : "Salary account" }}
+          {{ "my-accounts.account-types.salary" | translate }}
         </span>
         } @case ("LG") {
         <span>
-          {{ language === "pt-br" ? "Conta jurídica" : "Legal account" }}
+          {{ "my-accounts.account-types.legal" | translate }}
         </span>
         } @case ("BK") {
         <span>
-          {{ language === "pt-br" ? "Corretora" : "Brokerage" }}
+          {{ "my-accounts.account-types.brokerage" | translate }}
         </span>
         } }
       </div>
@@ -73,11 +73,7 @@
         } @else {
         <span class="material-symbols-outlined false">close</span>
         }
-        {{
-          language === "pt-br"
-            ? "Conta com investimentos"
-            : "Account with investments"
-        }}
+        {{ "my-accounts.account-with-investments" | translate }}
       </span>
 
       <span class="item">
@@ -86,11 +82,7 @@
         } @else {
         <span class="material-symbols-outlined false">close</span>
         }
-        {{
-          language === "pt-br"
-            ? "Somar no saldo geral"
-            : "Add to the overall balance"
-        }}
+        {{ "my-accounts.add-to-overall-balance" | translate }}
       </span>
 
       <span class="item">
@@ -99,7 +91,7 @@
         } @else {
         <span class="material-symbols-outlined false">close</span>
         }
-        {{ language === "pt-br" ? "Ativo" : "Active" }}
+        {{ "generic.active" | translate }}
       </span>
     </div>
   </div>
@@ -108,14 +100,14 @@
     <button mat-stroked-button class="large-btn">
       <div class="btn-content">
         <span class="material-symbols-outlined">sort</span>
-        {{ language === "pt-br" ? "Ver lançamentos" : "See releases" }}
+        {{ "my-accounts.see-releases" | translate }}
       </div>
     </button>
 
     <button mat-stroked-button class="large-btn">
       <div class="btn-content">
         <span class="material-symbols-outlined">query_stats</span>
-        {{ language === "pt-br" ? "Relatórios" : "Reports" }}
+        {{ "generic.reports" | translate }}
       </div>
     </button>
 
@@ -125,7 +117,7 @@
       (click)="edit()"
       style="padding: 1.3rem 1.6rem; font-size: 1.1rem !important"
     >
-      {{ language === "pt-br" ? "Editar" : "Edit" }}
+      {{ "actions.edit" | translate }}
     </button>
   </div>
 </div>

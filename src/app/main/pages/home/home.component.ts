@@ -15,7 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HomeValues } from '../../../interfaces/Home';
 import { MonthlyCashFlow } from '../../../interfaces/CashFlow';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -38,9 +38,7 @@ export class HomeComponent implements OnInit {
   public loginService = inject(LoginService);
   private _homeService = inject(HomeService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
-  private _translate = inject(TranslateService);
 
-  language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;
 
   homeValues: HomeValues = {
@@ -55,8 +53,6 @@ export class HomeComponent implements OnInit {
   generalBalance: number = 0;
 
   ngOnInit(): void {
-    this._translate.use(this.language);
-
     this.getValues();
   }
 
