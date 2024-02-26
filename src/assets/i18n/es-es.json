@@ -1,0 +1,275 @@
+{
+    "generic": {
+        "from": "De",
+        "to": "a",
+        "new": "Nuevo",
+        "editing": "Editando",
+        "expense": "gasto",
+        "revenue": "ingreso",
+        "transfer": "transferencia",
+        "observation": "Observación",
+        "active": "Activa",
+        "reports": "Informes",
+        "activeM": "Activo",
+        "select-icon": "Selecciona un ícono",
+        "password-requirements": "La contraseña debe tener al menos 8 caracteres, 1 número, 1 letra mayúscula y 1 carácter especial",
+        "this-may-take-few-seconds": "Debido al tamaño del archivo, esto puede tardar algunos segundos",
+        "file-too-large": "El archivo seleccionado es demasiado grande, el tamaño máximo permitido es de 3MB.",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "description": "Descripción",
+        "password-doesn't-meet-security-requirements": "La contraseña no cumple con los requisitos de seguridad",
+        "invalid-form": "Formulario no válido"
+    },
+    "actions": {
+        "save": "Guardar",
+        "edit": "Editar",
+        "exclude": "Excluir"
+    },
+    "buttons": {
+        "new": "Nuevo",
+        "newM": "Nuevo",
+        "download-attachment": "Descargar adjunto",
+        "change-password": "Cambiar contraseña"
+    },
+    "login": {
+        "title": "Bienvenido de nuevo",
+        "remember-me": "Recuérdame",
+        "forgot-my-password": "Olvidé mi contraseña",
+        "login": "Iniciar sesión",
+        "don't-have-account": "¿No tienes una cuenta?",
+        "create-one": "¡Crea una!"
+    },
+    "forgot-password": {
+        "title": "Recuperación de contraseña",
+        "recovery": "Recuperar",
+        "sended-recovery-link": "El enlace de recuperación ha sido enviado al correo electrónico",
+        "user-doesn't-exist": "Este usuario no existe"
+    },
+    "create-account": {
+        "title": "Crea tu cuenta",
+        "first-name": "Nombre",
+        "last-name": "Apellido",
+        "create": "Crear cuenta",
+        "already-have-account": "¿Ya tienes una cuenta?",
+        "do-login": "¡Inicia sesión!",
+        "sended-activate-link": "Cuenta creada con éxito, se ha enviado un enlace de activación al correo electrónico",
+        "email-already-registered": "Este correo electrónico ya está registrado",
+        "error-creating-user": "Error al crear el usuario, contacta a nuestro soporte"
+    },
+    "change-password": {
+        "title": "Define tu nueva contraseña",
+        "new-password": "Nueva contraseña",
+        "confirm-password": "Confirma la nueva contraseña",
+        "change": "Cambiar",
+        "passwords-don't-match": "Las contraseñas no coinciden",
+        "changed-successfully": "Contraseña cambiada con éxito",
+        "error-changing": "Error al cambiar la contraseña, inténtalo de nuevo más tarde"
+    },
+    "user-activation": {
+        "title": "Cuenta activada con éxito",
+        "do-login": "Iniciar sesión"
+    },
+    "sidebar": {
+        "home": "Inicio",
+        "cash-flow": "Flujo de efectivo",
+        "my-accounts": "Mis cuentas",
+        "credit-cards": "Tarjetas de crédito",
+        "categories": "Categorías",
+        "my-profile": "Mi perfil",
+        "settings": "Configuraciones",
+        "logout": "Salir"
+    },
+    "home": {
+        "hello": "Hola",
+        "general-balance": "Saldo general",
+        "monthly-revenue": "Ingreso mensual",
+        "monthly-expense": "Gasto mensual",
+        "my-accounts": "Mis cuentas",
+        "accounts-payable": "Cuentas a pagar",
+        "accounts-receivable": "Cuentas a cobrar",
+        "whitout-payble-accounts": "No tienes cuentas a pagar",
+        "whitout-receivable-accounts": "No tienes cuentas a cobrar"
+    },
+    "cash-flow": {
+        "title": "Flujo de efectivo",
+        "revenues": "Ingresos",
+        "expenses": "Gastos",
+        "balance": "Balance",
+        "general-balance": "Saldo general",
+        "expected-balance": "Saldo previsto",
+        "new-expense": "Nuevo gasto",
+        "new-revenue": "Nuevo ingreso",
+        "new-transfer": "Nueva transferencia",
+        "error-getting-releases": "Error al obtener las transacciones",
+        "transfer": "Transferencia",
+        "others": "Otros",
+        "confirm-delete": "¿Realmente quieres eliminar este registro?",
+        "deleted-successfully": "Registro eliminado con éxito",
+        "delete-error": "Error al intentar eliminar el registro",
+        "attachment-not-found": "Adjunto no encontrado"
+    },
+    "release-form": {
+        "description": "Descripción",
+        "account": "Cuenta",
+        "accounts": "Cuentas",
+        "card": "tarjeta",
+        "cards": "Tarjetas",
+        "value": "Valor",
+        "date": "Fecha",
+        "hour": "Hora",
+        "category": "Categoría",
+        "done": "Realizado",
+        "attachment": "Adjunto",
+        "attachments": "Adjuntos",
+        "repeat": "Repetir",
+        "observation": "Observación",
+        "fixed-release": "Es una transacción fija",
+        "installment-release": "Es una transacción a plazos",
+        "amount-greater-than-zero": "El valor debe ser mayor que cero",
+        "not-possible-transfer-same-bank": "No es posible realizar una transferencia al mismo banco",
+        "date-must-remain-the-same": "Para cambiar otras transacciones junto con esta, la fecha debe permanecer igual",
+        "error-saving-release": "Error al guardar la transacción",
+        "error-saving-attachment": "Transacción guardada con éxito pero hubo un error al guardar el adjunto",
+        "error-excluding-attachment": "Transacción guardada con éxito pero hubo un error al eliminar el adjunto",
+        "release-saved-successfully": "Transacción guardada con éxito",
+        "select-valid-file": "Por favor, selecciona un archivo válido (pdf, jpg, jpeg, png, jfif, webp).",
+        "in": "En",
+        "for": "Por",
+        "origin-account": "Cuenta de origen",
+        "target-account": "Cuenta destino",
+        "no-active-accounts-or-cards": "No hay cuentas o tarjetas activas",
+        "fixed-by-list": {
+            "daily": "Diario",
+            "weekly": "Semanal",
+            "monthly": "Mensual",
+            "bimonthly": "Bimestral",
+            "quarterly": "Trimestral",
+            "biannual": "Semestral",
+            "annual": "Anual"
+        },
+        "repeat-for-suffix": {
+            "daily": "días",
+            "weekly": "semanas",
+            "monthly": "meses",
+            "bimonthly": "bimestres",
+            "quarterly": "trimestres",
+            "biannual": "semestres",
+            "annual": "años"
+        }
+    },
+    "confirm-dialog": {
+        "title": "Confirmación",
+        "confirm": "Confirmar",
+        "cancel": "Cancelar"
+    },
+    "confirm-duplicated-releases": {
+        "title": "Esta transacción se repite en otras fechas",
+        "this-only": "solo esta",
+        "nexts": "esta y las siguientes",
+        "all": "todas"
+    },
+    "select-icon-dialog": {
+        "title": "Selecciona un ícono"
+    },
+    "filters": {
+        "filter-by": "Filtrar por",
+        "situation": "situación",
+        "all": "Todas",
+        "actives": "Activas",
+        "inactives": "Inactivas"
+    },
+    "my-accounts": {
+        "title": "Mis cuentas",
+        "description": "Descripción",
+        "account-type": "Tipo de cuenta",
+        "account-types": {
+            "checking": "Cuenta corriente",
+            "savings": "Cuenta de ahorros",
+            "salary": "Cuenta de salario",
+            "legal": "Cuenta jurídica",
+            "brokerage": "Correduría"
+        },
+        "code": "Código",
+        "balance": "Balance",
+        "minus-for-negative-more-for-positive": "Ingresa - para saldo negativo y + para positivo",
+        "account-number": "Nº de cuenta",
+        "agency": "Agencia",
+        "account-with-investments": "Cuenta con inversiones",
+        "add-to-overall-balance": "Sumar al saldo general",
+        "saved-successfully": "Cuenta guardada con éxito",
+        "error-saving-account": "Error al guardar la cuenta",
+        "adjust-balance": "Ajustar balance",
+        "see-releases": "Ver transacciones",
+        "balance-changed-successfully": "Balance cambiado con éxito",
+        "error-changing-balance": "Error al cambiar el balance"
+    },
+    "credit-cards": {
+        "title": "Tarjetas de crédito",
+        "limit": "Límite",
+        "standard-payment-account": "Cuenta de pago estándar",
+        "close-day": "Día de cierre",
+        "expires-day": "Día de vencimiento",
+        "see-invoice": "Ver factura",
+        "description": "Descripción",
+        "limit-must-be-greater-than-zero": "El límite debe ser mayor que cero",
+        "saved-successfully": "Tarjeta de crédito guardada con éxito",
+        "error-saving-card": "Error al guardar la tarjeta de crédito"
+    },
+    "card-invoice": {
+        "title": "Factura",
+        "closing": "CIERRE",
+        "expiration": "VENCIMIENTO",
+        "invoice-amount": "MONTO DE LA FACTURA"
+    },
+    "categories": {
+        "title": "Categorías",
+        "essential": "Esencial",
+        "error-getting-categories": "Error al obtener las categorías",
+        "can't-delete-category": "No se puede eliminar esta categoría",
+        "confirm-delete": "¿Realmente quieres eliminar esta categoría?",
+        "saved-successfully": "Categoría guardada con éxito",
+        "error-saving": "Error al intentar guardar la categoría",
+        "deleted-successfully": "Categoría eliminada con éxito",
+        "error-deleting": "Error al intentar eliminar la categoría",
+        "new-category": "Nueva categoría",
+        "editing-category": "Editando categoría",
+        "description": "Descripción",
+        "choose-color": "Elige un color",
+        "choose-icon": "Elige un ícono"
+    },
+    "my-profile": {
+        "title": "Mi perfil",
+        "change-profile-picture": "Cambiar foto de perfil",
+        "first-name": "Nombre",
+        "last-name": "Apellido",
+        "early-access": "Acceso anticipado",
+        "monthly": "Mensual",
+        "switch-plan": "Cambiar de plan",
+        "cancel": "Cancelar",
+        "change-payment-method": "Cambiar método de pago",
+        "edited-successfully": "Perfil editado con éxito",
+        "edited-but-error-saving-picture": "El perfil se editó pero hubo un error al guardar la nueva foto de perfil",
+        "error-saving": "Error al guardar los cambios",
+        "select-valid-file": "Por favor, selecciona un archivo de imagen válido (jpg, jpeg, png, jfif, webp)."
+    },
+    "settings": {
+        "title": "Configuraciones",
+        "theme": "Tema",
+        "language": "Idioma",
+        "languages": {
+            "portuguese": "Portugués",
+            "english": "Inglés",
+            "spanish-spain": "Español (España)"
+        },
+        "currency": "Moneda",
+        "currencies": {
+            "R$": "Real brasileño",
+            "$": "Dólar",
+            "€": "Euro",
+            "£": "Libra",
+            "¥": "Yuan"
+        },
+        "error-saving-settings": "Error al guardar las configuraciones"
+    }
+}

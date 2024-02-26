@@ -259,7 +259,8 @@
         "language": "Language",
         "languages": {
             "portuguese": "Portuguese",
-            "english": "English"
+            "english": "English",
+            "spanish-spain": "Spanish (Spain)"
         },
         "currency": "Currency",
         "currencies": {
