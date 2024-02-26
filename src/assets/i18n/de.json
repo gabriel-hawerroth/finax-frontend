@@ -86,10 +86,10 @@
         "monthly-revenue": "Monatliche Einnahmen",
         "monthly-expense": "Monatliche Ausgaben",
         "my-accounts": "Meine Konten",
-        "accounts-payable": "Zahlungspflichtige Konten",
-        "accounts-receivable": "Zahlungsempfangskonten",
-        "whitout-payble-accounts": "Sie haben keine zahlungspflichtigen Konten",
-        "whitout-receivable-accounts": "Sie haben keine zahlungsempfangenen Konten"
+        "accounts-payable": "Verbindlichkeiten",
+        "accounts-receivable": "Forderungen",
+        "whitout-payble-accounts": "Sie haben keine Kreditorenbuchhaltung",
+        "whitout-receivable-accounts": "Sie haben keine Forderungen"
     },
     "cash-flow": {
         "title": "Kassenfluss",
