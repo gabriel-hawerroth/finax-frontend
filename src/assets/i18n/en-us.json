@@ -1,41 +1,257 @@
 {
     "generic": {
         "from": "From",
-        "to": "to"
+        "to": "To",
+        "new": "New",
+        "editing": "Editing",
+        "expense": "Expense",
+        "revenue": "Revenue",
+        "transfer": "Transfer",
+        "observation": "Observation",
+        "active": "Active",
+        "reports": "Reports",
+        "activeM": "Active",
+        "select-icon": "Select an icon",
+        "password-requirements": "Password must be at least 8 characters long, contain 1 number, 1 uppercase letter, and 1 special character",
+        "this-may-take-few-seconds": "Due to the file size, this may take a few seconds",
+        "file-too-large": "The selected file is too large, the maximum allowed size is 3MB.",
+        "email": "Email",
+        "password": "Password",
+        "description": "Description",
+        "password-doesn't-meet-security-requirements": "Password doesn't meet security requirements",
+        "invalid-form": "Invalid form"
+    },
+    "actions": {
+        "save": "Save",
+        "edit": "Edit",
+        "exclude": "Exclude"
+    },
+    "buttons": {
+        "new": "New",
+        "newM": "New",
+        "download-attachment": "Download attachment",
+        "change-password": "Change password"
+    },
+    "login": {
+        "title": "Welcome back",
+        "remember-me": "Remember me",
+        "forgot-my-password": "Forgot my password",
+        "login": "Login",
+        "don't-have-account": "Don't have an account?",
+        "create-one": "Create one!"
+    },
+    "forgot-password": {
+        "title": "Password recovery",
+        "recovery": "Recover",
+        "sended-recovery-link": "Recovery link sent to the email",
+        "user-doesn't-exist": "This user doesn't exist"
+    },
+    "create-account": {
+        "title": "Create your account",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "create": "Create account",
+        "already-have-account": "Already have an account?",
+        "do-login": "Do login!",
+        "sended-activate-link": "Account created successfully, an activation link has been sent to the email",
+        "email-already-registered": "This email is already registered",
+        "error-creating-user": "Error creating the user, contact our support"
+    },
+    "change-password": {
+        "title": "Set your new password",
+        "new-password": "New password",
+        "confirm-password": "Confirm new password",
+        "change": "Change",
+        "passwords-don't-match": "Passwords don't match",
+        "changed-successfully": "Password changed successfully",
+        "error-changing": "Error changing the password, please try again later"
+    },
+    "user-activation": {
+        "title": "Account activated successfully",
+        "do-login": "Do login"
     },
     "sidebar": {
         "home": "Home",
-        "cash-flow": "Cash flow",
-        "my-accounts": "My accounts",
-        "credit-cards": "Credit cards",
+        "cash-flow": "Cash Flow",
+        "my-accounts": "My Accounts",
+        "credit-cards": "Credit Cards",
         "categories": "Categories",
-        "my-profile": "My profile",
+        "my-profile": "My Profile",
         "settings": "Settings",
         "logout": "Logout"
     },
     "home": {
         "hello": "Hello",
-        "general-balance": "General balance",
-        "monthly-revenue": "Monthly revenue",
-        "monthly-expense": "Monthly expense",
-        "my-accounts": "My accounts",
-        "accounts-payable": "Accounts payable",
-        "accounts-receivable": "Accounts receivable",
+        "general-balance": "General Balance",
+        "monthly-revenue": "Monthly Revenue",
+        "monthly-expense": "Monthly Expense",
+        "my-accounts": "My Accounts",
+        "accounts-payable": "Accounts Payable",
+        "accounts-receivable": "Accounts Receivable",
         "whitout-payble-accounts": "You don't have any accounts payable",
         "whitout-receivable-accounts": "You don't have any accounts receivable"
     },
     "cash-flow": {
-        "title": "Cash flow",
+        "title": "Cash Flow",
         "revenues": "Revenues",
         "expenses": "Expenses",
         "balance": "Balance",
-        "general-balance": "General balance",
-        "expected-balance": "Expected balance",
-        "new-expense": "New expense",
-        "new-revenue": "New revenue",
-        "new-transfer": "New transfer",
-        "error-getting-releases": "Error getting the releases",
-        "transfer": "Transfer"
+        "general-balance": "General Balance",
+        "expected-balance": "Expected Balance",
+        "new-expense": "New Expense",
+        "new-revenue": "New Revenue",
+        "new-transfer": "New Transfer",
+        "error-getting-releases": "Error getting releases",
+        "transfer": "Transfer",
+        "others": "Others",
+        "confirm-delete": "Do you really want to delete this record?",
+        "deleted-successfully": "Record deleted successfully",
+        "delete-error": "Error trying to delete the record",
+        "attachment-not-found": "Attachment not found"
+    },
+    "release-form": {
+        "description": "Description",
+        "account": "Account",
+        "accounts": "Accounts",
+        "card": "Card",
+        "cards": "Cards",
+        "value": "Value",
+        "date": "Date",
+        "hour": "Hour",
+        "category": "Category",
+        "done": "Done",
+        "attachment": "Attachment",
+        "attachments": "Attachments",
+        "repeat": "Repeat",
+        "observation": "Observation",
+        "fixed-release": "Fixed Release",
+        "installment-release": "Installment Release",
+        "amount-greater-than-zero": "The value must be greater than zero",
+        "not-possible-transfer-same-bank": "Cannot transfer to the same bank",
+        "date-must-remain-the-same": "To change other releases along with this, the date must remain the same",
+        "error-saving-release": "Error saving the release",
+        "error-saving-attachment": "Release saved successfully but there was an error saving the attachment",
+        "error-excluding-attachment": "Release saved successfully but there was an error deleting the attachment",
+        "release-saved-successfully": "Release saved successfully",
+        "select-valid-file": "Please select a valid image file (pdf, jpg, jpeg, png, jfif, webp).",
+        "in": "In",
+        "for": "For",
+        "origin-account": "Origin Account",
+        "target-account": "Target Account",
+        "no-active-accounts-or-cards": "No active accounts or cards",
+        "fixed-by-list": {
+            "daily": "Daily",
+            "weekly": "Weekly",
+            "monthly": "Monthly",
+            "bimonthly": "Bimonthly",
+            "quarterly": "Quarterly",
+            "biannual": "Biannual",
+            "annual": "Annual"
+        },
+        "repeat-for-suffix": {
+            "daily": "days",
+            "weekly": "weeks",
+            "monthly": "months",
+            "bimonthly": "bimonths",
+            "quarterly": "quarters",
+            "biannual": "half-years",
+            "annual": "years"
+        }
+    },
+    "confirm-dialog": {
+        "title": "Confirmation",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+    },
+    "confirm-duplicated-releases": {
+        "title": "This release repeats on other dates",
+        "this-only": "only this",
+        "nexts": "this and the next ones",
+        "all": "all"
+    },
+    "select-icon-dialog": {
+        "title": "Select an icon"
+    },
+    "filters": {
+        "filter-by": "Filter by",
+        "situation": "situation",
+        "all": "All",
+        "actives": "Actives",
+        "inactives": "Inactives"
+    },
+    "my-accounts": {
+        "title": "My Accounts",
+        "description": "Description",
+        "account-type": "Account Type",
+        "account-types": {
+            "checking": "Checking Account",
+            "savings": "Savings Account",
+            "salary": "Salary Account",
+            "legal": "Legal Account",
+            "brokerage": "Brokerage"
+        },
+        "code": "Code",
+        "balance": "Balance",
+        "minus-for-negative-more-for-positive": "Type - for negative balance and + for positive",
+        "account-number": "Account Number",
+        "agency": "Agency",
+        "account-with-investments": "Account with Investments",
+        "add-to-overall-balance": "Add to overall balance",
+        "saved-successfully": "Account saved successfully",
+        "error-saving-account": "Error saving the account",
+        "adjust-balance": "Adjust balance",
+        "see-releases": "See releases",
+        "balance-changed-successfully": "Balance changed successfully",
+        "error-changing-balance": "Error changing the balance"
+    },
+    "credit-cards": {
+        "title": "Credit Cards",
+        "limit": "Limit",
+        "standard-payment-account": "Standard Payment Account",
+        "close-day": "Closing day",
+        "expires-day": "Expires day",
+        "see-invoice": "See invoice",
+        "description": "Description",
+        "limit-must-be-greater-than-zero": "Limit must be greater than zero",
+        "saved-successfully": "Credit card saved successfully",
+        "error-saving-card": "Error saving the credit card"
+    },
+    "card-invoice": {
+        "title": "Invoice",
+        "closing": "CLOSING",
+        "expiration": "EXPIRATION",
+        "invoice-amount": "INVOICE AMOUNT"
+    },
+    "categories": {
+        "title": "Categories",
+        "essential": "Essential",
+        "error-getting-categories": "Error getting categories",
+        "can't-delete-category": "Cannot delete this category",
+        "confirm-delete": "Do you really want to delete this category?",
+        "saved-successfully": "Category saved successfully",
+        "error-saving": "Error trying to save the category",
+        "deleted-successfully": "Category deleted successfully",
+        "error-deleting": "Error trying to delete the category",
+        "new-category": "New category",
+        "editing-category": "Editing category",
+        "description": "Description",
+        "choose-color": "Choose a color",
+        "choose-icon": "Choose an icon"
+    },
+    "my-profile": {
+        "title": "My Profile",
+        "change-profile-picture": "Change profile picture",
+        "first-name": "First Name",
+        "last-name": "Last Name",
+        "early-access": "Early Access",
+        "monthly": "Monthly",
+        "switch-plan": "Switch plan",
+        "cancel": "Cancel",
+        "change-payment-method": "Change payment method",
+        "edited-successfully": "Profile edited successfully",
+        "edited-but-error-saving-picture": "The profile was edited but there was an error saving the new profile picture",
+        "error-saving": "Error saving changes",
+        "select-valid-file": "Please select a valid image file (jpg, jpeg, png, jfif, webp)."
     },
     "settings": {
         "title": "Settings",
@@ -50,9 +266,9 @@
             "R$": "Brazilian Real",
             "$": "Dollar",
             "€": "Euro",
-            "£": "Libra",
+            "£": "Pound",
             "¥": "Yuan"
         },
-        "error-saving-settings": "Erro ao salvar as configurações"
+        "error-saving-settings": "Error saving settings"
     }
 }
