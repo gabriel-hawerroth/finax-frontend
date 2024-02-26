@@ -260,7 +260,8 @@
         "languages": {
             "portuguese": "Portugués",
             "english": "Inglés",
-            "spanish-spain": "Español (España)"
+            "spanish-spain": "Español",
+            "german": "Alemán"
         },
         "currency": "Moneda",
         "currencies": {
@@ -271,5 +272,14 @@
             "¥": "Yuan"
         },
         "error-saving-settings": "Error al guardar las configuraciones"
+    },
+    "change-password-dialog": {
+        "title": "Cambio de contraseña",
+        "current-password": "Contraseña actual",
+        "new-password": "Nueva contraseña",
+        "new-password-confirm": "Confirmar nueva contraseña",
+        "cannot-be-the-same-as-current": "La nueva contraseña no puede ser la misma que la contraseña actual",
+        "incorrect-current-password": "La contraseña actual es incorrecta",
+        "unexpected-error-updating-password": "Se ha producido un error inesperado al actualizar la contraseña"
     }
 }

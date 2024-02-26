@@ -28,9 +28,11 @@ import { CategorysComponent } from './main/pages/categories/categories.component
 import { CreditCardsComponent } from './main/pages/credit-cards/credit-cards.component';
 import { CreditCardsFormComponent } from './main/pages/credit-cards/components/credit-cards-form/credit-cards-form.component';
 import { CreditCardInvoiceComponent } from './main/pages/credit-cards/components/credit-card-invoice/credit-card-invoice.component';
+import { SystemErrorWarningComponent } from './utils/system-error-warning/system-error-warning.component';
 
 export const routes: Routes = [
   { path: '', component: PublicComponent },
+  { path: 'logIn', component: SystemErrorWarningComponent },
   {
     path: 'login',
     component: LoginComponent,

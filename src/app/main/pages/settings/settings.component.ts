@@ -18,6 +18,7 @@ import { LoginService } from '../../../services/login.service';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { GenericIdDs } from '../../../interfaces/Generic';
 
 @Component({
   selector: 'app-settings',
@@ -107,6 +108,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
       .catch(() => {
         this.utilsService.showMessage('settings.error-saving-settings');
       });
+  }
+
+  get languagesList(): GenericIdDs[] {
+    return [
+      { id: 'pt-br', ds: 'portuguese' },
+      { id: 'en-us', ds: 'english' },
+      { id: 'es-es', ds: 'spanish-spain' },
+      { id: 'de', ds: 'german' },
+    ];
   }
 
   get currenciesList(): string[] {

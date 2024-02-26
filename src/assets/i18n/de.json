@@ -1,0 +1,285 @@
+{
+    "generic": {
+        "from": "Von",
+        "to": "zu",
+        "new": "Neu",
+        "editing": "Bearbeitung",
+        "expense": "Ausgabe",
+        "revenue": "Einnahmen",
+        "transfer": "Überweisung",
+        "observation": "Beobachtung",
+        "active": "Aktiv",
+        "reports": "Berichte",
+        "activeM": "Aktiv",
+        "select-icon": "Wählen Sie ein Symbol",
+        "password-requirements": "Das Passwort muss mindestens 8 Zeichen, 1 Zahl, 1 Großbuchstaben und 1 Sonderzeichen enthalten",
+        "this-may-take-few-seconds": "Aufgrund der Dateigröße kann dies einige Sekunden dauern",
+        "file-too-large": "Die ausgewählte Datei ist zu groß. Die maximale Größe beträgt 3 MB.",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "description": "Beschreibung",
+        "password-doesn't-meet-security-requirements": "Das Passwort erfüllt nicht die Sicherheitsanforderungen",
+        "invalid-form": "Ungültiges Formular"
+    },
+    "actions": {
+        "save": "Speichern",
+        "edit": "Bearbeiten",
+        "exclude": "Ausschließen"
+    },
+    "buttons": {
+        "new": "Neu",
+        "newM": "Neu",
+        "download-attachment": "Anhang herunterladen",
+        "change-password": "Passwort ändern"
+    },
+    "login": {
+        "title": "Willkommen zurück",
+        "remember-me": "Erinnere dich an mich",
+        "forgot-my-password": "Ich habe mein Passwort vergessen",
+        "login": "Anmelden",
+        "don't-have-account": "Sie haben kein Konto?",
+        "create-one": "Ein Konto erstellen!"
+    },
+    "forgot-password": {
+        "title": "Passwortwiederherstellung",
+        "recovery": "Wiederherstellen",
+        "sended-recovery-link": "Der Wiederherstellungslink wurde an die E-Mail gesendet",
+        "user-doesn't-exist": "Dieser Benutzer existiert nicht"
+    },
+    "create-account": {
+        "title": "Erstelle dein Konto",
+        "first-name": "Vorname",
+        "last-name": "Nachname",
+        "create": "Konto erstellen",
+        "already-have-account": "Sie haben bereits ein Konto?",
+        "do-login": "Einloggen!",
+        "sended-activate-link": "Konto erfolgreich erstellt, ein Aktivierungslink wurde an die E-Mail gesendet",
+        "email-already-registered": "Diese E-Mail ist bereits registriert",
+        "error-creating-user": "Fehler beim Erstellen des Benutzers, kontaktieren Sie unseren Support"
+    },
+    "change-password": {
+        "title": "Setze dein neues Passwort",
+        "new-password": "Neues Passwort",
+        "confirm-password": "Bestätige das neue Passwort",
+        "change": "Ändern",
+        "passwords-don't-match": "Die Passwörter stimmen nicht überein",
+        "changed-successfully": "Passwort erfolgreich geändert",
+        "error-changing": "Fehler beim Ändern des Passworts, versuchen Sie es später erneut"
+    },
+    "user-activation": {
+        "title": "Konto erfolgreich aktiviert",
+        "do-login": "Einloggen"
+    },
+    "sidebar": {
+        "home": "Zuhause",
+        "cash-flow": "Kassenfluss",
+        "my-accounts": "Meine Konten",
+        "credit-cards": "Kreditkarten",
+        "categories": "Kategorien",
+        "my-profile": "Mein Profil",
+        "settings": "Einstellungen",
+        "logout": "Ausloggen"
+    },
+    "home": {
+        "hello": "Hallo",
+        "general-balance": "Gesamtbilanz",
+        "monthly-revenue": "Monatliche Einnahmen",
+        "monthly-expense": "Monatliche Ausgaben",
+        "my-accounts": "Meine Konten",
+        "accounts-payable": "Zahlungspflichtige Konten",
+        "accounts-receivable": "Zahlungsempfangskonten",
+        "whitout-payble-accounts": "Sie haben keine zahlungspflichtigen Konten",
+        "whitout-receivable-accounts": "Sie haben keine zahlungsempfangenen Konten"
+    },
+    "cash-flow": {
+        "title": "Kassenfluss",
+        "revenues": "Einnahmen",
+        "expenses": "Ausgaben",
+        "balance": "Gleichgewicht",
+        "general-balance": "Gesamtbilanz",
+        "expected-balance": "Erwartetes Gleichgewicht",
+        "new-expense": "Neue Ausgabe",
+        "new-revenue": "Neue Einnahme",
+        "new-transfer": "Neue Überweisung",
+        "error-getting-releases": "Fehler beim Abrufen der Veröffentlichungen",
+        "transfer": "Überweisung",
+        "others": "Andere",
+        "confirm-delete": "Möchten Sie diesen Datensatz wirklich löschen?",
+        "deleted-successfully": "Datensatz erfolgreich gelöscht",
+        "delete-error": "Fehler beim Versuch, den Datensatz zu löschen",
+        "attachment-not-found": "Anhang nicht gefunden"
+    },
+    "release-form": {
+        "description": "Beschreibung",
+        "account": "Konto",
+        "accounts": "Konten",
+        "card": "Karte",
+        "cards": "Karten",
+        "value": "Wert",
+        "date": "Datum",
+        "hour": "Stunde",
+        "category": "Kategorie",
+        "done": "Erledigt",
+        "attachment": "Anhang",
+        "attachments": "Anhänge",
+        "repeat": "Wiederholen",
+        "observation": "Beobachtung",
+        "fixed-release": "Es handelt sich um eine feste Veröffentlichung",
+        "installment-release": "Es handelt sich um eine ratenweise Veröffentlichung",
+        "amount-greater-than-zero": "Der Betrag muss größer als null sein",
+        "not-possible-transfer-same-bank": "Es ist nicht möglich, eine Überweisung zur gleichen Bank vorzunehmen",
+        "date-must-remain-the-same": "Um andere Veröffentlichungen neben dieser zu ändern, muss das Datum gleich bleiben",
+        "error-saving-release": "Fehler beim Speichern der Veröffentlichung",
+        "error-saving-attachment": "Veröffentlichung erfolgreich gespeichert, aber es gab einen Fehler beim Speichern des Anhangs",
+        "error-excluding-attachment": "Veröffentlichung erfolgreich gespeichert, aber es gab einen Fehler beim Löschen des Anhangs",
+        "release-saved-successfully": "Veröffentlichung erfolgreich gespeichert",
+        "select-valid-file": "Bitte wählen Sie eine gültige Datei aus (pdf, jpg, jpeg, png, jfif, webp).",
+        "in": "In",
+        "for": "Für",
+        "origin-account": "Ursprungskonto",
+        "target-account": "Zielkonto",
+        "no-active-accounts-or-cards": "Keine aktiven Konten oder Karten",
+        "fixed-by-list": {
+            "daily": "Täglich",
+            "weekly": "Wöchentlich",
+            "monthly": "Monatlich",
+            "bimonthly": "Zweimonatlich",
+            "quarterly": "Quartalsweise",
+            "biannual": "Halbjährlich",
+            "annual": "Jährlich"
+        },
+        "repeat-for-suffix": {
+            "daily": "Tage",
+            "weekly": "Wochen",
+            "monthly": "Monate",
+            "bimonthly": "Zweimonate",
+            "quarterly": "Quartale",
+            "biannual": "Halbjahre",
+            "annual": "Jahre"
+        }
+    },
+    "confirm-dialog": {
+        "title": "Bestätigung",
+        "confirm": "Bestätigen",
+        "cancel": "Abbrechen"
+    },
+    "confirm-duplicated-releases": {
+        "title": "Diese Veröffentlichung wiederholt sich an anderen Daten",
+        "this-only": "nur diese",
+        "nexts": "diese und die nächsten",
+        "all": "alle"
+    },
+    "select-icon-dialog": {
+        "title": "Symbol auswählen"
+    },
+    "filters": {
+        "filter-by": "Filtern nach",
+        "situation": "Situation",
+        "all": "Alle",
+        "actives": "Aktiv",
+        "inactives": "Inaktiv"
+    },
+    "my-accounts": {
+        "title": "Meine Konten",
+        "description": "Beschreibung",
+        "account-type": "Kontotyp",
+        "account-types": {
+            "checking": "Girokonto",
+            "savings": "Sparkonto",
+            "salary": "Gehaltskonto",
+            "legal": "Geschäftskonto",
+            "brokerage": "Maklerkonto"
+        },
+        "code": "Code",
+        "balance": "Bilanz",
+        "minus-for-negative-more-for-positive": "Geben Sie - für ein negatives Saldo und + für ein positives Saldo ein",
+        "account-number": "Kontonummer",
+        "agency": "Filiale",
+        "account-with-investments": "Konto mit Investitionen",
+        "add-to-overall-balance": "Zum Gesamtsaldo hinzufügen",
+        "saved-successfully": "Konto erfolgreich gespeichert",
+        "error-saving-account": "Fehler beim Speichern des Kontos",
+        "adjust-balance": "Saldo anpassen",
+        "see-releases": "Veröffentlichungen anzeigen",
+        "balance-changed-successfully": "Saldo erfolgreich geändert",
+        "error-changing-balance": "Fehler beim Ändern des Saldos"
+    },
+    "credit-cards": {
+        "title": "Kreditkarten",
+        "limit": "Limit",
+        "standard-payment-account": "Standardzahlungskonto",
+        "close-day": "Schließtag",
+        "expires-day": "Verfallsdatum",
+        "see-invoice": "Rechnung anzeigen",
+        "description": "Beschreibung",
+        "limit-must-be-greater-than-zero": "Das Limit muss größer als null sein",
+        "saved-successfully": "Kreditkarte erfolgreich gespeichert",
+        "error-saving-card": "Fehler beim Speichern der Kreditkarte"
+    },
+    "card-invoice": {
+        "title": "Rechnung",
+        "closing": "ABSCHLUSS",
+        "expiration": "VERFALL",
+        "invoice-amount": "RECHNUNGSBETRAG"
+    },
+    "categories": {
+        "title": "Kategorien",
+        "essential": "Essenziell",
+        "error-getting-categories": "Fehler beim Abrufen der Kategorien",
+        "can't-delete-category": "Diese Kategorie kann nicht gelöscht werden",
+        "confirm-delete": "Möchten Sie diese Kategorie wirklich löschen?",
+        "saved-successfully": "Kategorie erfolgreich gespeichert",
+        "error-saving": "Fehler beim Versuch, die Kategorie zu speichern",
+        "deleted-successfully": "Kategorie erfolgreich gelöscht",
+        "error-deleting": "Fehler beim Versuch, die Kategorie zu löschen",
+        "new-category": "Neue Kategorie",
+        "editing-category": "Bearbeitung der Kategorie",
+        "description": "Beschreibung",
+        "choose-color": "Farbe wählen",
+        "choose-icon": "Symbol wählen"
+    },
+    "my-profile": {
+        "title": "Mein Profil",
+        "change-profile-picture": "Profilbild ändern",
+        "first-name": "Vorname",
+        "last-name": "Nachname",
+        "early-access": "Frühzugriff",
+        "monthly": "Monatlich",
+        "switch-plan": "Plan wechseln",
+        "cancel": "Abbrechen",
+        "change-payment-method": "Zahlungsmethode ändern",
+        "edited-successfully": "Profil erfolgreich bearbeitet",
+        "edited-but-error-saving-picture": "Das Profil wurde bearbeitet, aber es gab einen Fehler beim Speichern des neuen Profilbilds",
+        "error-saving": "Fehler beim Speichern der Änderungen",
+        "select-valid-file": "Bitte wählen Sie eine gültige Bilddatei aus (jpg, jpeg, png, jfif, webp)."
+    },
+    "settings": {
+        "title": "Einstellungen",
+        "theme": "Thema",
+        "language": "Sprache",
+        "languages": {
+            "portuguese": "Portugiesisch",
+            "english": "Englisch",
+            "spanish-spain": "Spanisch",
+            "german": "Deutsch"
+        },
+        "currency": "Währung",
+        "currencies": {
+            "R$": "Brasilianischer Real",
+            "$": "Dollar",
+            "€": "Euro",
+            "£": "Pfund",
+            "¥": "Yuan"
+        },
+        "error-saving-settings": "Fehler beim Speichern der Einstellungen"
+    },
+    "change-password-dialog": {
+        "title": "Passwortänderung",
+        "current-password": "Aktuelles Passwort",
+        "new-password": "Neues Passwort",
+        "new-password-confirm": "Neues Passwort bestätigen",
+        "cannot-be-the-same-as-current": "Das neue Kennwort darf nicht mit dem aktuellen Kennwort identisch sein",
+        "incorrect-current-password": "Das aktuelle Passwort ist falsch",
+        "unexpected-error-updating-password": "Beim Aktualisieren des Kennworts ist ein unerwarteter Fehler aufgetreten"
+    }
+}

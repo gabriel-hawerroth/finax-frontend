@@ -24,6 +24,7 @@ import { Credentials } from '../../../interfaces/Credentials';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -37,6 +38,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    TranslateModule,
   ],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',
@@ -48,8 +50,6 @@ export class ChangePasswordDialogComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _userService = inject(UserService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
-
-  language: string = this.utilsService.getUserConfigs.language;
 
   changePasswordForm!: FormGroup;
 
@@ -71,6 +71,8 @@ export class ChangePasswordDialogComponent implements OnInit {
       ],
       newPasswordConfirm: ['', Validators.required],
     });
+
+    this.changePasswordForm.markAllAsTouched();
   }
 
   changePassword() {
@@ -81,19 +83,13 @@ export class ChangePasswordDialogComponent implements OnInit {
     };
 
     if (passwords.newPassword !== passwords.newPasswordConfirm) {
-      this.utilsService.showMessage(
-        this.language === 'pt-br'
-          ? 'As senhas não coincidem'
-          : "Passwords don't match"
-      );
+      this.utilsService.showMessage("change-password.passwords-don't-match");
       return;
     }
 
     if (passwords.currentPassword === passwords.newPassword) {
       this.utilsService.showMessage(
-        this.language === 'pt-br'
-          ? 'A nova senha não pode ser igual a senha atual'
-          : 'The new password cannot be the same as the current password'
+        'change-password-dialog.cannot-be-the-same-as-current'
       );
       return;
     }
@@ -103,11 +99,7 @@ export class ChangePasswordDialogComponent implements OnInit {
     this._userService
       .changePassword(passwords.newPassword, passwords.currentPassword)
       .then((user: any) => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Senha alterada com sucesso'
-            : 'Password changed sucessfully'
-        );
+        this.utilsService.showMessage('change-password.changed-successfully');
         this._dialogRef.close();
 
         const savedLogin =
@@ -133,15 +125,11 @@ export class ChangePasswordDialogComponent implements OnInit {
       .catch((err: HttpErrorResponse) => {
         if (err.status === 406) {
           this.utilsService.showMessage(
-            this.language === 'pt-br'
-              ? 'A senha atual está incorreta'
-              : 'The current password is incorrect'
+            'change-password-dialog.incorrect-current-password'
           );
         } else {
           this.utilsService.showMessage(
-            this.language === 'pt-br'
-              ? 'Houve um erro inesperado ao atualizar a senha'
-              : 'There was an unexpected error updating the password'
+            'change-password-dialog.unexpected-error-updating-password'
           );
         }
       })

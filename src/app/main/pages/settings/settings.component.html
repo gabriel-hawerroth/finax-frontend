@@ -48,17 +48,11 @@
       <div>
         <mat-form-field>
           <mat-select formControlName="language">
-            <mat-option value="pt-br">
-              {{ "settings.languages.portuguese" | translate }}
+            @for (language of languagesList; track $index) {
+            <mat-option [value]="language.id">
+              {{ "settings.languages." + language.ds | translate }}
             </mat-option>
-
-            <mat-option value="en-us">
-              {{ "settings.languages.english" | translate }}
-            </mat-option>
-
-            <mat-option value="es-es">
-              {{ "settings.languages.spanish-spain" | translate }}
-            </mat-option>
+            }
           </mat-select>
         </mat-form-field>
       </div>

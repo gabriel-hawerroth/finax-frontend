@@ -49,7 +49,7 @@ export const MY_FORMATS = {
 registerLocaleData(localePt, 'pt-BR');
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 export const appConfig: ApplicationConfig = {
