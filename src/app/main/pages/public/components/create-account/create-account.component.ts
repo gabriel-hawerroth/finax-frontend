@@ -20,6 +20,8 @@ import {
 } from '@angular/forms';
 import { LoginService } from '../../../../../services/login.service';
 import { UtilsService } from '../../../../../utils/utils.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-account',
@@ -34,6 +36,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
     MatButtonModule,
     RouterModule,
     NgOptimizedImage,
+    TranslateModule,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
@@ -45,8 +48,8 @@ export class CreateAccountComponent implements OnInit {
   private _router = inject(Router);
   private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
-
-  language: string = this.utilsService.getUserConfigs.language;
+  private _matSnackBar = inject(MatSnackBar);
+  private _translate = inject(TranslateService);
 
   userRegisterForm!: FormGroup;
   showLoading: boolean = false;
@@ -75,14 +78,12 @@ export class CreateAccountComponent implements OnInit {
   createUser() {
     if (this.userRegisterForm.get('password')!.invalid) {
       this.utilsService.showMessage(
-        this.language === 'pt-br'
-          ? 'A senha não cumpre os requisitos de segurança'
-          : "Password doesn't meet security requirements"
+        "generic.password-doesn't-meet-security-requirements"
       );
+      return;
     } else if (this.userRegisterForm.invalid) {
-      this.utilsService.showMessage(
-        this.language === 'pt-br' ? 'Formulário inválido' : 'Invalid form'
-      );
+      this.utilsService.showMessage('generic.invalid-form');
+      return;
     }
 
     this.showLoading = true;
@@ -91,10 +92,11 @@ export class CreateAccountComponent implements OnInit {
       .newUser(this.userRegisterForm.value)
       .then((result) => {
         this.showLoading = false;
-        this.utilsService.showMessageWithoutDuration(
-          this.language === 'pt-br'
-            ? `Conta criada com sucesso, um link de ativação foi enviado \n para o email: ${result.email}`
-            : `Account created successfully, an activation link was sent to the email: ${result.email}`
+        this._matSnackBar.open(
+          `${this._translate.instant('create-account.sended-activate-link')}: ${
+            result.email
+          }`,
+          'OK'
         );
         this._router.navigate(['login']);
       })
@@ -102,16 +104,10 @@ export class CreateAccountComponent implements OnInit {
         this.showLoading = false;
         if (error.status == 406) {
           this.utilsService.showMessage(
-            this.language === 'pt-br'
-              ? 'Esse email já está cadastrado'
-              : 'This email is already registered'
+            'create-account.email-already-registered'
           );
         } else {
-          this.utilsService.showMessage(
-            this.language === 'pt-br'
-              ? 'Erro ao criar o usuário, entre em contato com nosso suporte'
-              : 'Error creating user, please contact our support'
-          );
+          this.utilsService.showMessage('create-account.error-creating-user');
         }
       })
       .finally(() => {

@@ -5,11 +5,11 @@
   }"
 >
   <h1 class="page-title">
-    {{ language === "pt-br" ? "Meu perfil" : "My profile" }}
+    {{ "my-profile.title" | translate }}
   </h1>
 
   <div class="img-content">
-    <img [src]="profileImageSrc" alt="foto de perfil do usuário" />
+    <img [src]="profileImageSrc" alt="user profile image" />
 
     <input
       type="file"
@@ -20,11 +20,7 @@
     />
 
     <label for="fileInput">
-      {{
-        language === "pt-br"
-          ? "Alterar foto de perfil"
-          : "Change profile picture"
-      }}
+      {{ "my-profile.change-profile-picture" | translate }}
     </label>
   </div>
 
@@ -32,13 +28,13 @@
     <div class="form-box">
       <form [formGroup]="userForm">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>Email</mat-label>
+          <mat-label>{{ "generic.email" | translate }}</mat-label>
           <input type="text" matInput formControlName="email" readonly="true" />
         </mat-form-field>
 
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>
-            {{ language === "pt-br" ? "Nome" : "First name" }}
+            {{ "my-profile.first-name" | translate }}
           </mat-label>
           <input
             type="text"
@@ -50,7 +46,7 @@
 
         <mat-form-field style="width: 80%">
           <mat-label>
-            {{ language === "pt-br" ? "Sobrenome" : "Last name" }}
+            {{ "my-profile.last-name" | translate }}
           </mat-label>
           <input
             type="text"
@@ -81,13 +77,13 @@
       <div id="plan">
         <div class="title">
           <h2>
-            {{ language === "pt-br" ? "Acesso antecipado" : "Early Access" }}
+            {{ "my-profile.early-access" | translate }}
           </h2>
         </div>
 
         <div class="content">
           <span id="month-year">
-            {{ language === "pt-br" ? "Mensal" : "Monthly" }}
+            {{ "my-profile.monthly" | translate }}
           </span>
 
           <span id="plan-price">{{ currency }}0,00</span>
@@ -106,12 +102,12 @@
               <span class="material-symbols-outlined">
                 swap_horizontal_circle
               </span>
-              {{ language === "pt-br" ? "Trocar de plano" : "Switch plan" }}
+              {{ "my-profile.switch-plan" | translate }}
             </span>
           </button>
 
           <span id="cancel-signature">
-            <span>{{ language === "pt-br" ? "Cancelar" : "Cancel" }}</span>
+            <span>{{ "my-profile.cancel" | translate }}</span>
           </span>
         </div>
       </div>
@@ -119,11 +115,7 @@
       <button mat-button color="primary" id="change-payment-method">
         <span>
           <span class="material-symbols-outlined">credit_card</span>
-          {{
-            language === "pt-br"
-              ? "Alterar forma de pagamento"
-              : "Change payment method"
-          }}
+          {{ "my-profile.change-payment-method" | translate }}
         </span>
       </button>
     </div>

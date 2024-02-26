@@ -22,6 +22,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReleasedFeaturesDialogComponent } from '../../../../dialogs/released-features-dialog/released-features-dialog.component';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -36,6 +37,7 @@ import { RouterModule } from '@angular/router';
     NgOptimizedImage,
     MatCheckboxModule,
     RouterModule,
+    TranslateModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -50,8 +52,6 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
   showLoading: boolean = false;
-
-  language: string = this.utilsService.getUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();

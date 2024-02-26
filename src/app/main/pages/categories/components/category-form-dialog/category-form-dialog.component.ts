@@ -24,7 +24,7 @@ import { CategoryService } from '../../../../../services/category.service';
 import { LoginService } from '../../../../../services/login.service';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-category-form-dialog',
@@ -51,9 +51,6 @@ export class CategoryFormDialogComponent implements OnInit {
   private _categoryService = inject(CategoryService);
   private _dialogRef = inject(MatDialogRef);
   private _loginService = inject(LoginService);
-  private _translate = inject(TranslateService);
-
-  language = this.utilsService.getUserConfigs.language;
 
   categoryForm!: FormGroup;
 
@@ -62,7 +59,6 @@ export class CategoryFormDialogComponent implements OnInit {
   saving: boolean = false;
 
   ngOnInit(): void {
-    this._translate.use(this.utilsService.getUserConfigs.language);
     this.buildForm();
 
     if (this.data.category !== 'new')
@@ -110,18 +106,10 @@ export class CategoryFormDialogComponent implements OnInit {
       .then((response) => {
         this._dialogRef.close(response);
 
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Categoria salva com sucesso'
-            : 'Category saved successfully'
-        );
+        this.utilsService.showMessage('categories.saved-successfully');
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar a categoria'
-            : 'Error saving category'
-        );
+        this.utilsService.showMessage('categories.error-saving');
       })
       .finally(() => {
         this.saving = false;

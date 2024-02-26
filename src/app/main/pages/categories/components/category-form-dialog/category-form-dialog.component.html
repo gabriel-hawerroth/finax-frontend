@@ -3,18 +3,23 @@
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
   <div class="top">
-    @if (data.category === 'new') { @if (language === 'pt-br') {
-    <h1>Nova categoria de {{ data.type === "E" ? "despesa" : "receita" }}</h1>
-    } @else {
-    <h1>New {{ data.type === "E" ? "expense" : "revenue" }} category</h1>
-    } } @else { @if (language === 'pt-br') {
     <h1>
-      Editando categoria de
-      {{ data.type === "E" ? "despesa" : "receita" }}
+      {{
+        (data.category === "new"
+          ? "categories.new-category"
+          : "categories.editing-category"
+        ) | translate
+      }}
+      -
+      @switch (data.type) {
+        @case ('E') {
+          {{ "generic.expense" | translate }}
+        }
+        @case ('R') {
+          {{ "generic.revenue" | translate }}
+        }
+      }
     </h1>
-    } @else {
-    <h1>Editing {{ data.type === "E" ? "expense" : "revenue" }} category</h1>
-    } }
 
     <app-buttons
       [showClose]="true"
@@ -37,7 +42,7 @@
 
         <mat-form-field style="width: 50%" [hideRequiredMarker]="true">
           <mat-label>
-            {{ language === "pt-br" ? "Descrição" : "Description" }}
+            {{ "categories.description" | translate }}
           </mat-label>
           <input
             matInput
@@ -59,7 +64,7 @@
 
       <div class="row2">
         <span>
-          {{ language === "pt-br" ? "Escolha uma cor" : "Choose a color" }}
+          {{ "categories.choose-color" | translate }}
         </span>
 
         <div class="colors">
@@ -77,7 +82,7 @@
 
       <div class="row3">
         <span>
-          {{ language === "pt-br" ? "Escolha um ícone" : "Choose an icon" }}
+          {{ "categories.choose-icon" | translate }}
         </span>
 
         <div class="icons">

@@ -9,15 +9,17 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { LoginService } from '../../../../../services/login.service';
-import { UserService } from '../../../../../services/user.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-forgot-password',
@@ -29,6 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NgOptimizedImage,
     MatButtonModule,
     MatProgressSpinnerModule,
+    TranslateModule,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
@@ -39,47 +42,39 @@ export class ForgotPasswordComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _matSnackBar = inject(MatSnackBar);
+  private _translate = inject(TranslateService);
 
-  forgotPasswordForm!: FormGroup;
   originalFormValue!: FormGroup;
   showLoading: boolean = false;
 
-  language: string = this.utilsService.getUserConfigs.language;
+  emailControl: FormControl = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ]);
 
   ngOnInit(): void {
-    this.buildForm();
-  }
-
-  buildForm() {
-    this.forgotPasswordForm = this._fb.group({
-      email: ['', [Validators.required, Validators.email]],
-    });
-    this.originalFormValue = this.forgotPasswordForm;
-    this.forgotPasswordForm.markAllAsTouched();
+    this.emailControl.markAsTouched();
   }
 
   resetPassword() {
-    if (this.forgotPasswordForm.invalid) return;
     this.showLoading = true;
-    const email: string = this.forgotPasswordForm.value.email;
+    const email: string = this.emailControl.value;
 
     this._loginService
       .sendChangePasswordEmail(email)
       .then(() => {
         this.showLoading = false;
-        this.forgotPasswordForm.reset(this.originalFormValue);
-        this.utilsService.showMessageWithoutDuration(
-          this.language === 'pt-br'
-            ? `O link de recuperação foi enviado para o email: ${email}`
-            : `The recovery link has been sent to the email: ${email}`
+        this.emailControl.reset('');
+        this._matSnackBar.open(
+          `${this._translate.instant(
+            'forgot-password.sended-recovery-link'
+          )}: ${email}`,
+          'OK'
         );
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Esse usuário não existe'
-            : "This user don't exist"
-        );
+        this.utilsService.showMessage("forgot-password.user-doesn't-exist");
       })
       .finally(() => {
         this.showLoading = false;

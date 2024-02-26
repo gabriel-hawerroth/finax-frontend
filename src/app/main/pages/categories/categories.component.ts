@@ -15,6 +15,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
 import { lastValueFrom } from 'rxjs';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-categories',
@@ -25,6 +26,7 @@ import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
     MatCardModule,
     MatDialogModule,
     ButtonsComponent,
+    TranslateModule,
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
@@ -35,8 +37,6 @@ export class CategorysComponent implements OnInit {
   private _categoryService = inject(CategoryService);
   private _matDialog = inject(MatDialog);
   private _changeDetectorRef = inject(ChangeDetectorRef);
-
-  language = this.utilsService.getUserConfigs.language;
 
   categories: Category[] = [];
 
@@ -52,11 +52,7 @@ export class CategorysComponent implements OnInit {
         this._changeDetectorRef.detectChanges();
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao obter as categorias'
-            : 'Error getting the categories'
-        );
+        this.utilsService.showMessage('categories.error-getting-categories');
       });
   }
 
@@ -129,40 +125,24 @@ export class CategorysComponent implements OnInit {
       deletingCategorie?.name === 'Outras despesas' ||
       deletingCategorie?.name === 'Outras receitas'
     ) {
-      this.utilsService.showMessage(
-        this.language === 'pt-br'
-          ? 'Não é possível excluir essa categoria'
-          : "You can't delete this category"
-      );
+      this.utilsService.showMessage("categories.can't-delete-category");
       return;
     }
 
     this.utilsService
-      .showConfirmDialog(
-        this.language === 'pt-br'
-          ? 'Deseja realmente excluir essa categoria?'
-          : 'Do you really want to delete this category?'
-      )
+      .showConfirmDialog('categories.confirm-delete')
       .then((response) => {
         if (!response) return;
 
         this._categoryService
           .delete(id)
           .then(() => {
-            this.utilsService.showMessage(
-              this.language === 'pt-br'
-                ? 'Categoria excluída com sucesso'
-                : 'Category deleted successfully'
-            );
+            this.utilsService.showMessage('categories.deleted-successfully');
 
             this.getCategories();
           })
           .catch(() => {
-            this.utilsService.showMessage(
-              this.language === 'pt-br'
-                ? 'Erro ao tentar excluir a categoria'
-                : 'Error trying to delete the category'
-            );
+            this.utilsService.showMessage('categories.error-deleting');
           });
       });
   }

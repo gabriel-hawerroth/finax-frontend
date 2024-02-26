@@ -5,6 +5,7 @@ import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { LoginService } from './services/login.service';
 import { Location } from '@angular/common';
 import { MobilePageComponent } from './main/mobile-page/mobile-page.component';
+import { UtilsService } from './utils/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -16,4 +17,9 @@ import { MobilePageComponent } from './main/mobile-page/mobile-page.component';
 export class AppComponent {
   public loginService = inject(LoginService);
   public location = inject(Location);
+  private _utils = inject(UtilsService);
+
+  constructor() {
+    this._utils.setDefaultLanguage();
+  }
 }

@@ -10,7 +10,7 @@
       <span class="material-symbols-outlined">add</span>
       @if (isPcScreen) {
       <span>
-        {{ language === "pt-br" ? ptBrLabelNew : "New" }}
+        {{ (labelNewM ? "buttons.newM" : "buttons.new") | translate }}
       </span>
       }
     </div>
@@ -27,7 +27,7 @@
       @if (!showSaveLoading) {
       <span class="material-symbols-outlined">save</span>
       @if (isPcScreen) {
-      <span>{{ language === "pt-br" ? "Salvar" : "Save" }}</span>
+      <span>{{ "actions.save" | translate }}</span>
       } } @else {
       <mat-spinner [diameter]="30"></mat-spinner>
       }
@@ -44,7 +44,7 @@
       <span class="material-symbols-outlined">cloud_download</span>
       @if (isPcScreen) {
       <span>
-        {{ language === "pt-br" ? "Baixar anexo" : "Download attachment" }}
+        {{ "buttons.download-attachment" | translate }}
       </span>
       }
     </div>
@@ -60,7 +60,7 @@
     <div class="btn-content">
       <span class="material-symbols-outlined">edit</span>
       @if (isPcScreen) {
-      <span>{{ language === "pt-br" ? "Editar" : "Edit" }}</span>
+      <span>{{ "actions.edit" | translate }}</span>
       }
     </div>
   </button>
@@ -74,7 +74,7 @@
     <div class="btn-content">
       <span class="material-symbols-outlined">delete</span>
       @if (isPcScreen) {
-      <span>{{ language === "pt-br" ? "Excluir" : "Delete" }}</span>
+      <span>{{ "actions.exclue" | translate }}</span>
       }
     </div>
   </button>
@@ -88,9 +88,7 @@
     <div class="btn-content">
       <span class="material-symbols-outlined">vpn_key</span>
       @if (isPcScreen) {
-      <span>{{
-        language === "pt-br" ? "Alterar a senha" : "Change password"
-      }}</span>
+      <span>{{ "buttons.change-password" | translate }}</span>
       }
     </div>
   </button>

@@ -5,7 +5,7 @@
   }"
 >
   <h1 class="page-title">
-    {{ language === "pt-br" ? "Categorias" : "Categories" }}
+    {{ "categories.title" | translate }}
   </h1>
 
   <div class="content">
@@ -13,13 +13,12 @@
       <div class="categories">
         <div class="top">
           <h2>
-            {{ language === "pt-br" ? "Despesas" : "Expenses" }}
+            {{ "cash-flow.expenses" | translate }}
           </h2>
 
           <app-buttons
             [showNew]="true"
             [smallBtn]="true"
-            [ptBrLabelNew]="'Nova'"
             (onNew)="newCategory('E')"
           ></app-buttons>
         </div>
@@ -51,13 +50,12 @@
       <div class="categories">
         <div class="top">
           <h2>
-            {{ language === "pt-br" ? "Receitas" : "Revenues" }}
+            {{ "cash-flow.revenues" | translate }}
           </h2>
 
           <app-buttons
             [showNew]="true"
             [smallBtn]="true"
-            [ptBrLabelNew]="'Nova'"
             (onNew)="newCategory('R')"
           ></app-buttons>
         </div>

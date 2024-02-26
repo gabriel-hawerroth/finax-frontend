@@ -16,14 +16,14 @@
       />
 
       <h1>
-        {{ language === "pt-br" ? "Crie sua conta" : "Create your account" }}
+        {{ "create-account.title" | translate }}
       </h1>
     </div>
 
     <form [formGroup]="userRegisterForm">
       <div style="display: flex; justify-content: center">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>Email</mat-label>
+          <mat-label>{{ "generic.email" | translate }}</mat-label>
           <input
             type="text"
             matInput
@@ -38,7 +38,7 @@
       <div style="display: flex; justify-content: center; gap: 0.3rem">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>
-            {{ language === "pt-br" ? "Senha" : "Password" }}
+            {{ "generic.password" | translate }}
           </mat-label>
           <input
             type="password"
@@ -61,7 +61,7 @@
       <div style="display: flex; justify-content: center; gap: 0.9rem">
         <mat-form-field style="width: 32%" [hideRequiredMarker]="true">
           <mat-label>
-            {{ language === "pt-br" ? "Nome" : "First name" }}
+            {{ "create-account.first-name" | translate }}
           </mat-label>
           <input
             type="text"
@@ -72,9 +72,7 @@
         </mat-form-field>
 
         <mat-form-field style="width: 45%">
-          <mat-label>{{
-            language === "pt-br" ? "Sobrenome" : "Last name"
-          }}</mat-label>
+          <mat-label>{{ "create-account.last-name" | translate }}</mat-label>
           <input
             type="text"
             matInput
@@ -90,7 +88,7 @@
       <button mat-raised-button color="primary" (click)="createUser()">
         <span>
           <span class="material-symbols-outlined">person</span>
-          {{ language === "pt-br" ? "Criar conta" : "Create account" }}
+          {{ "create-account.create" | translate }}
         </span>
       </button>
       } @else {
@@ -100,16 +98,10 @@
   </div>
 
   <span class="opt-login-page">
-    <span
-      >{{
-        language === "pt-br"
-          ? "Já possui uma conta"
-          : "Already have an account"
-      }}?
-    </span>
+    <span>{{ "create-account.already-have-account" | translate }}</span>
 
     <span routerLink="/login" class="login-label">
-      {{ language === "pt-br" ? "Fazer login" : "Log in" }}!
+      {{ "create-account.do-login" | translate }}
     </span>
   </span>
 </div>

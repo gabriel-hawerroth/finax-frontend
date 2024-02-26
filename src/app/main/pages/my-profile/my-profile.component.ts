@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { Subject, takeUntil } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-profile',
@@ -27,6 +28,7 @@ import { Subject, takeUntil } from 'rxjs';
     MatButtonModule,
     MatInputModule,
     ButtonsComponent,
+    TranslateModule,
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
@@ -40,7 +42,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  language: string = this.utilsService.getUserConfigs.language;
   currency: string = this.utilsService.getUserConfigs.currency;
 
   userForm!: FormGroup;
@@ -91,9 +92,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       if (this.saving && this.selectedProfileImage) {
         this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Devido ao tamanho da imagem isto pode levar alguns segundos'
-            : 'Due to the size of the image, this may take a few seconds',
+          'generic.this-may-take-few-seconds',
           6000
         );
         showingMessage = true;
@@ -115,11 +114,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           await this._userService
             .changeProfileImagem(this.selectedProfileImage!)
             .then(() => {
-              this.utilsService.showMessage(
-                this.language === 'pt-br'
-                  ? 'Perfil editado com sucesso'
-                  : 'Profile edited sucessfully'
-              );
+              this.utilsService.showMessage('my-profile.edited-successfully');
               this.changedProfileImg = false;
 
               const file = new Blob([this.selectedProfileImage!], {
@@ -135,25 +130,15 @@ export class MyProfileComponent implements OnInit, OnDestroy {
             })
             .catch(() => {
               this.utilsService.showMessage(
-                this.language === 'pt-br'
-                  ? 'O perfil foi editado mas houve um erro ao salvar a nova foto de perfil'
-                  : 'The profile was edited, but there was an error saving the new profile picture'
+                'my-profile.edited-but-error-saving-picture'
               );
             });
         } else {
-          this.utilsService.showMessage(
-            this.language === 'pt-br'
-              ? 'Perfil editado com sucesso'
-              : 'Profile edited sucessfully'
-          );
+          this.utilsService.showMessage('my-profile.edited-successfully');
         }
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao salvar as alterações'
-            : 'Error saving changes '
-        );
+        this.utilsService.showMessage('my-profile.error-saving');
       })
       .finally(() => {
         this.userForm.markAsPristine();
@@ -171,21 +156,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       const imageExtensions = ['jpg', 'jpeg', 'png', 'jfif', 'webp'];
       const extension = file.name.split('.').pop().toLowerCase();
       if (imageExtensions.indexOf(extension) === -1) {
-        alert(
-          this.language === 'pt-br'
-            ? 'Por favor, selecione um arquivo de imagem válido (jpg, jpeg, png, jfif, webp).'
-            : 'Please select a valid image file (jpg, jpeg, png, jfif, webp).'
-        );
+        this.utilsService.showMessage('my-profile.select-valid-file', 10000);
         return;
       }
 
       const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
       if (file.size > maxSize) {
-        alert(
-          this.language === 'pt-br'
-            ? 'O arquivo selecionado é muito grande. O tamanho máximo permitido é 3MB.'
-            : 'The selected file is too large. The maximum size allowed is 3MB.'
-        );
+        this.utilsService.showMessage('generic.file-too-large', 8000);
         return;
       }
 

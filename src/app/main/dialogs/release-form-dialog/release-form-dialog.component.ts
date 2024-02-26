@@ -270,7 +270,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       if (this.saving) {
         this.utilsService.showMessage(
-          'release-form.this-may-take-few-seconds',
+          'generic.this-may-take-few-seconds',
           6000
         );
         showingMessage = true;
@@ -384,7 +384,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
-      this.utilsService.showMessage('release-form.file-too-large', 8000);
+      this.utilsService.showMessage('generic.file-too-large', 8000);
       return;
     }
 

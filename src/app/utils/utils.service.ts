@@ -50,6 +50,11 @@ export class UtilsService {
     };
   }
 
+  setDefaultLanguage() {
+    this._translateService.setDefaultLang(this.getUserConfigs.language);
+    this._translateService.use(this.getUserConfigs.language);
+  }
+
   setUserConfigs(configs: UserConfigs) {
     this.userConfigs.next(configs);
     this._translateService.use(configs.language);
@@ -95,9 +100,7 @@ export class UtilsService {
   }
 
   get passwordRequirementsText(): string {
-    return this.getUserConfigs.language === 'pt-br'
-      ? 'A senha deve conter pelo menos 8 caracteres, 1 número, 1 letra maiúscula e 1 caracter especial'
-      : 'The password must contain at least 8 characters, 1 number, 1 uppercase letter and 1 special character';
+    return this._translateService.instant('generic.password-requirements');
   }
 
   filterList(rows: any[], atributo: string, keyWord: any): any[] {

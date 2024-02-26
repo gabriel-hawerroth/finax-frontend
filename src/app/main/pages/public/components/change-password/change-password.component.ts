@@ -15,14 +15,15 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { User } from '../../../../../interfaces/User';
 import { UserService } from '../../../../../services/user.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { Credentials } from '../../../../../interfaces/Credentials';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { LoginService } from '../../../../../services/login.service';
 
 @Component({
@@ -37,6 +38,7 @@ import { LoginService } from '../../../../../services/login.service';
     MatTooltipModule,
     MatButtonModule,
     NgOptimizedImage,
+    TranslateModule,
   ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
@@ -54,8 +56,6 @@ export class ChangePasswordComponent implements OnInit {
   changePasswordForm!: FormGroup;
   showLoading: boolean = false;
   user!: User;
-
-  language: string = this.utilsService.getUserConfigs.language;
 
   ngOnInit(): void {
     this.buildForm();
@@ -88,9 +88,7 @@ export class ChangePasswordComponent implements OnInit {
   changePassword() {
     if (this.changePasswordForm.invalid) {
       this.utilsService.showMessage(
-        this.language === 'pt-br'
-          ? 'A senha não cumpre os requisitos de segurança'
-          : "Password doesn't meet security requirements"
+        "generic.password-doesn't-meet-security-requirements"
       );
       return;
     }
@@ -99,11 +97,7 @@ export class ChangePasswordComponent implements OnInit {
     const passwordConfirm = this.changePasswordForm.value.passwordConfirm;
 
     if (passwordConfirm !== newPassword) {
-      this.utilsService.showMessage(
-        this.language === 'pt-br'
-          ? 'As senhas não coincidem'
-          : "Passwords don't match"
-      );
+      this.utilsService.showMessage("change-password.passwords-don't-match");
       this.showLoading = false;
       return;
     }
@@ -121,11 +115,7 @@ export class ChangePasswordComponent implements OnInit {
           window.innerWidth < 870 &&
           window.innerHeight < 1230
         ) {
-          this.utilsService.showMessage(
-            this.language === 'pt-br'
-              ? 'Senha alterada com sucesso'
-              : 'Password changed sucessfully'
-          );
+          this.utilsService.showMessage('change-password.changed-successfully');
           this._router.navigate(['']);
         } else {
           const credentials: Credentials = {
@@ -139,11 +129,7 @@ export class ChangePasswordComponent implements OnInit {
         }
       })
       .catch(() => {
-        this.utilsService.showMessage(
-          this.language === 'pt-br'
-            ? 'Erro ao alterar a senha, tente novamente mais tarde'
-            : 'Error changing password, please try again later'
-        );
+        this.utilsService.showMessage('change-password.error-changing');
       })
       .finally(() => {
         this.showLoading = false;

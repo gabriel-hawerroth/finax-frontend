@@ -11,12 +11,64 @@
         "active": "Ativa",
         "reports": "Relatórios",
         "activeM": "Ativo",
-        "select-icon": "Selecione um ícone"
+        "select-icon": "Selecione um ícone",
+        "password-requirements": "A senha deve conter pelo menos 8 caracteres, 1 número, 1 letra maiúscula e 1 caracter especial",
+        "this-may-take-few-seconds": "Devido ao tamanho do arquivo isto pode levar alguns segundos",
+        "file-too-large": "O arquivo selecionado é muito grande, o tamanho máximo permitido é 3MB.",
+        "email": "Email",
+        "password": "Senha",
+        "description": "Descrição",
+        "password-doesn't-meet-security-requirements": "A senha não cumpre os requisitos de segurança",
+        "invalid-form": "Formulário inválido"
     },
     "actions": {
         "save": "Salvar",
         "edit": "Editar",
         "exclude": "Excluir"
+    },
+    "buttons": {
+        "new": "Nova",
+        "newM": "Novo",
+        "download-attachment": "Baixar anexo",
+        "change-password": "Alterar a senha"
+    },
+    "login": {
+        "title": "Bem vindo de volta",
+        "remember-me": "Lembrar de mim",
+        "forgot-my-password": "Esqueci minha senha",
+        "login": "Login",
+        "don't-have-account": "Não tem uma conta?",
+        "create-one": "Crie uma!"
+    },
+    "forgot-password": {
+        "title": "Recuperação de senha",
+        "recovery": "Recuperar",
+        "sended-recovery-link": "O link de recuperação foi enviado para o email",
+        "user-doesn't-exist": "Esse usuário não existe"
+    },
+    "create-account": {
+        "title": "Crie sua conta",
+        "first-name": "Nome",
+        "last-name": "Sobrenome",
+        "create": "Criar conta",
+        "already-have-account": "Já possui uma conta?",
+        "do-login": "Fazer login!",
+        "sended-activate-link": "Conta criada com sucesso, um link de ativação foi enviado \n para o email",
+        "email-already-registered": "Esse email já está cadastrado",
+        "error-creating-user": "Erro ao criar o usuário, entre em contato com nosso suporte"
+    },
+    "change-password": {
+        "title": "Defina sua nova senha",
+        "new-password": "Nova senha",
+        "confirm-password": "Confirme a nova senha",
+        "change": "Alterar",
+        "passwords-don't-match": "As senhas não coincidem",
+        "changed-successfully": "Senha alterada com sucesso",
+        "error-changing": "Erro ao alterar a senha, tente novamente mais tarde"
+    },
+    "user-activation": {
+        "title": "Conta ativada com sucesso",
+        "do-login": "Fazer login"
     },
     "sidebar": {
         "home": "Início",
@@ -77,13 +129,11 @@
         "amount-greater-than-zero": "O valor deve ser maior que zero",
         "not-possible-transfer-same-bank": "Não é possível realizar uma transferência para o mesmo banco",
         "date-must-remain-the-same": "Para alterar outros lançamentos junto com este, a data deve permanecer igual",
-        "this-may-take-few-seconds": "Devido ao tamanho do anexo isto pode levar alguns segundos",
         "error-saving-release": "Erro ao salvar o lançamento",
         "error-saving-attachment": "Lançamento salvo com sucesso porém houve um erro ao salvar o anexo",
         "error-excluding-attachment": "Lançamento salvo com sucesso porém houve um erro ao excluir o anexo",
         "release-saved-successfully": "Lançamento salvo com sucesso",
         "select-valid-file": "Por favor, selecione um arquivo válido (pdf, jpg, jpeg, png, jfif, webp).",
-        "file-too-large": "O arquivo selecionado é muito grande, o tamanho máximo permitido é 3MB.",
         "in": "Em",
         "for": "Por",
         "origin-account": "Conta de origem",
@@ -131,7 +181,7 @@
     },
     "my-accounts": {
         "title": "Minhas contas",
-        "name": "Nome",
+        "description": "Descrição",
         "account-type": "Tipo de conta",
         "account-types": {
             "checking": "Conta corrente",
@@ -161,7 +211,7 @@
         "close-day": "Fecha dia",
         "expires-day": "Vence dia",
         "see-invoice": "Ver fatura",
-        "name": "Nome",
+        "description": "Descrição",
         "limit-must-be-greater-than-zero": "O limite deve ser maior que zero",
         "saved-successfully": "Cartão de crédito salvo com sucesso",
         "error-saving-card": "Erro ao salvar o cartão de crédito"
@@ -173,7 +223,35 @@
         "invoice-amount": "VALOR DA FATURA"
     },
     "categories": {
-        "essential": "Essencial"
+        "title": "Categorias",
+        "essential": "Essencial",
+        "error-getting-categories": "Erro ao obter as categorias",
+        "can't-delete-category": "Não é possível excluir essa categoria",
+        "confirm-delete": "Deseja realmente excluir essa categoria?",
+        "saved-successfully": "Categoria salva com sucesso",
+        "error-saving": "Erro ao tentar salvar a categoria",
+        "deleted-successfully": "Categoria excluída com sucesso",
+        "error-deleting": "Erro ao tentar excluir a categoria",
+        "new-category": "Nova categoria",
+        "editing-category": "Editando categoria",
+        "description": "Descrição",
+        "choose-color": "Escolha uma cor",
+        "choose-icon": "Escolha um ícone"
+    },
+    "my-profile": {
+        "title": "Meu perfil",
+        "change-profile-picture": "Alterar foto de perfil",
+        "first-name": "Nome",
+        "last-name": "Sobrenome",
+        "early-access": "Acesso antecipado",
+        "monthly": "Mensal",
+        "switch-plan": "Trocar de plano",
+        "cancel": "Cancelar",
+        "change-payment-method": "Alterar forma de pagamento",
+        "edited-successfully": "Perfil editado com sucesso",
+        "edited-but-error-saving-picture": "O perfil foi editado mas houve um erro ao salvar a nova foto de perfil",
+        "error-saving": "Erro ao salvar as alterações",
+        "select-valid-file": "Por favor, selecione um arquivo de imagem válido (jpg, jpeg, png, jfif, webp)."
     },
     "settings": {
         "title": "Configurações",

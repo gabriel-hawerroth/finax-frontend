@@ -14,15 +14,13 @@
         alt="company logo"
       />
 
-      <h1>
-        {{ language === "pt-br" ? "Bem vindo de volta" : "Welcome back" }}
-      </h1>
+      <h1>{{ "login.title" | translate }}</h1>
     </div>
 
     <form [formGroup]="loginForm">
       <div style="display: flex; justify-content: center">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>Email</mat-label>
+          <mat-label>{{ "generic.email" | translate }}</mat-label>
           <input
             matInput
             formControlName="email"
@@ -35,7 +33,7 @@
       <div style="display: flex; justify-content: center">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>
-            {{ language === "pt-br" ? "Senha" : "Password" }}
+            {{ "generic.password" | translate }}
           </mat-label>
           <input
             matInput
@@ -49,15 +47,13 @@
       <div style="display: flex; justify-content: space-around; gap: 70px">
         <div style="gap: 15px">
           <mat-checkbox formControlName="rememberMe">
-            {{ language === "pt-br" ? "Lembrar de mim" : "Remember me" }}
+            {{ "login.remember-me" | translate }}
           </mat-checkbox>
         </div>
 
         <div>
           <span routerLink="/esqueci-minha-senha" id="forgot-password-label">
-            {{
-              language === "pt-br" ? "Esqueceu a senha" : "Forgot the password"
-            }}?
+            {{ "login.forgot-my-password" | translate }}
           </span>
         </div>
       </div>
@@ -68,7 +64,7 @@
       <button mat-raised-button color="primary" (click)="login()">
         <span>
           <span class="material-symbols-outlined">person</span>
-          Login
+          {{ "login.login" | translate }}
         </span>
       </button>
       } @else {
@@ -79,13 +75,11 @@
 
   <span class="opt-login-page">
     <span>
-      {{
-        language === "pt-br" ? "Não tem uma conta" : "Don't have an account"
-      }}?
+      {{ "login.don't-have-account" | translate }}
     </span>
 
     <span routerLink="/nova-conta" class="create-one-label">
-      {{ language === "pt-br" ? "Crie uma" : "Create one" }}!
+      {{ "login.create-one" | translate }}
     </span>
   </span>
 

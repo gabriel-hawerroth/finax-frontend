@@ -10,11 +10,17 @@ import { UtilsService } from '../utils.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-buttons',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    TranslateModule,
+  ],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,14 +59,13 @@ export class ButtonsComponent {
   @Input() smallBtn: boolean = false;
   @Input() bigBtn: boolean = false;
 
-  @Input() ptBrLabelNew: string = 'Novo';
+  @Input() labelNewM: boolean = false;
 
   @Input() genericIcon: string = '';
   @Input() genericLabel: string = '';
 
   private _utilsService = inject(UtilsService);
 
-  language = this._utilsService.getUserConfigs.language;
   isPcScreen = this._utilsService.isPcScreen;
 
   get getBtnSize(): number {
