@@ -8,18 +8,17 @@ import {
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LoginService } from '../../../../../services/login.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from '../../../../../services/login.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -39,7 +38,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ForgotPasswordComponent implements OnInit {
   public utilsService = inject(UtilsService);
-  private _fb = inject(FormBuilder);
   private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
   private _matSnackBar = inject(MatSnackBar);

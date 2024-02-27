@@ -8,6 +8,7 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../main/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root',
@@ -23,12 +24,22 @@ export class UtilsService {
     : false;
 
   // user observables
+  public userName: BehaviorSubject<string> = new BehaviorSubject<string>(
+    this.getLoggedUser?.firstName || ''
+  );
+
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
     new BehaviorSubject<string | ArrayBuffer | null>('assets/user-image.webp');
 
   private userConfigs: BehaviorSubject<UserConfigs> =
     new BehaviorSubject<UserConfigs>(this.getUserConfigs);
   // user observables
+
+  get getLoggedUser(): User | null {
+    return this.getItemLocalStorage('userFinax')
+      ? JSON.parse(atob(this.getItemLocalStorage('userFinax')!))
+      : null;
+  }
 
   get getUserConfigs(): UserConfigs {
     if (this.getItemLocalStorage('savedUserConfigsFinax')) {

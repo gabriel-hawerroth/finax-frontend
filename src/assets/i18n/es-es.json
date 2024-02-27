@@ -19,7 +19,9 @@
         "password": "Contraseña",
         "description": "Descripción",
         "password-doesn't-meet-security-requirements": "La contraseña no cumple con los requisitos de seguridad",
-        "invalid-form": "Formulario no válido"
+        "invalid-form": "Formulario no válido",
+        "without-permission": "No tiene permiso para acceder a esta pantalla",
+        "update-in-progress": "Actualización en curso, inténtelo de nuevo más tarde"
     },
     "actions": {
         "save": "Guardar",
@@ -38,7 +40,12 @@
         "forgot-my-password": "Olvidé mi contraseña",
         "login": "Iniciar sesión",
         "don't-have-account": "¿No tienes una cuenta?",
-        "create-one": "¡Crea una!"
+        "create-one": "¡Crea una!",
+        "invalid-login": "Inicio de sesión no válido",
+        "error-getting-user": "Error al obtener el usuario, póngase en contacto con nuestro soporte",
+        "login-successfully": "Inicie sesión con éxito",
+        "inactive-user": "Usuario inactivo, por favor revise su correo electrónico",
+        "access-expired": "Acceso caducado, vuelva a iniciar sesión"
     },
     "forgot-password": {
         "title": "Recuperación de contraseña",

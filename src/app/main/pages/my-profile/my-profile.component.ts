@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginService } from '../../../services/login.service';
 import { UserService } from '../../../services/user.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { ChangePasswordDialogComponent } from '../../dialogs/change-password-dialog/change-password-dialog.component';
@@ -17,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { Subject, takeUntil } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { User } from '../../../interfaces/User';
 
 @Component({
   selector: 'app-my-profile',
@@ -35,7 +35,6 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class MyProfileComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
-  public loginService = inject(LoginService);
   private _fb = inject(FormBuilder);
   private _userService = inject(UserService);
   private _matDialog = inject(MatDialog);
@@ -81,12 +80,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       lastName: '',
     });
 
-    this.userForm.patchValue(this.loginService.getLoggedUser!);
+    this.userForm.patchValue(this.utilsService.getLoggedUser!);
   }
 
   saveUser() {
     this.saving = true;
 
+    this.userForm.markAsPristine();
     let showingMessage: boolean = false;
 
     setTimeout(() => {
@@ -104,11 +104,12 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
     this._userService
       .saveUser(this.userForm.value)
-      .then(async (user: any) => {
+      .then(async (user: User) => {
         this.utilsService.setItemLocalStorage(
           'userFinax',
           btoa(JSON.stringify(user))
         );
+        this.utilsService.userName.next(user.firstName);
 
         if (this.changedProfileImg) {
           await this._userService
@@ -141,7 +142,6 @@ export class MyProfileComponent implements OnInit, OnDestroy {
         this.utilsService.showMessage('my-profile.error-saving');
       })
       .finally(() => {
-        this.userForm.markAsPristine();
         this.changedProfileImg = false;
         this.saving = false;
       });
@@ -180,7 +180,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   openChangePasswordDialog() {
     this._matDialog.open(ChangePasswordDialogComponent, {
       data: {
-        userId: this.loginService.getLoggedUser!.id,
+        userId: this.utilsService.getLoggedUser!.id,
       },
       disableClose: false,
       autoFocus: true,
@@ -189,48 +189,4 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   changePlan() {}
-
-  // getUserPlan() {
-  //   this.monthYear =
-  //     this.loginService.getLoggedUser!.signature === 'month'
-  //       ? 'Mensal'
-  //       : 'Anual';
-
-  //   if (this.monthYear === 'Anual') {
-  //     this.signatureExpiration =
-  //       this.loginService.getLoggedUser!.signatureExpiration!.toString();
-  //   }
-
-  //   switch (this.loginService.getUserAccess) {
-  //     case 'free':
-  //       this.userPlanTitle = 'Plano gratuito';
-  //       document.getElementById('month-year')!.style.display = 'none';
-  //       document.getElementById('signature-expiration')!.style.display = 'none';
-  //       document.getElementById('cancel-signature')!.style.display = 'none';
-  //       document.getElementById('change-payment-method')!.style.display =
-  //         'none';
-  //       this.planPrice = 'R$0,00';
-  //       break;
-  //     case 'basic':
-  //       this.userPlanTitle = 'Plano básico';
-  //       this.planPrice =
-  //         'R$' + (this.monthYear === 'Mensal' ? '11,90' : '94,80');
-  //       break;
-  //     case 'premium':
-  //       this.userPlanTitle = 'Plano premium';
-  //       this.planPrice =
-  //         'R$' + (this.monthYear === 'Mensal' ? '49,90' : '358,80');
-  //       break;
-  //     case 'adm':
-  //       this.userPlanTitle = 'Acesso adm';
-  //       document.getElementById('month-year')!.style.display = 'none';
-  //       document.getElementById('adm-plan')!.style.display = 'block';
-  //       document.getElementById('signature-expiration')!.style.display = 'none';
-  //       break;
-
-  //     default:
-  //       this.userPlanTitle = 'Erro ao obter o plano';
-  //       break;
-  //   }
-  // }
 }

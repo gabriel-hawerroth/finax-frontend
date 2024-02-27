@@ -8,13 +8,11 @@ import {
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatCardModule } from '@angular/material/card';
-import { LoginService } from '../../../services/login.service';
 import { HomeService } from '../../../services/home.service';
 import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
 import { MatDividerModule } from '@angular/material/divider';
 import { HomeValues } from '../../../interfaces/Home';
 import { MonthlyCashFlow } from '../../../interfaces/CashFlow';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -26,7 +24,6 @@ import { TranslateModule } from '@ngx-translate/core';
     CustomCurrencyPipe,
     MatDividerModule,
     NgOptimizedImage,
-    MatTooltipModule,
     TranslateModule,
   ],
   templateUrl: './home.component.html',
@@ -35,7 +32,6 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class HomeComponent implements OnInit {
   public utilsService = inject(UtilsService);
-  public loginService = inject(LoginService);
   private _homeService = inject(HomeService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 

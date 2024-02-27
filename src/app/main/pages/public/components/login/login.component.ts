@@ -17,12 +17,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LoginService } from '../../../../../services/login.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ReleasedFeaturesDialogComponent } from '../../../../dialogs/released-features-dialog/released-features-dialog.component';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { LoginService } from '../../../../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -81,15 +80,6 @@ export class LoginComponent implements OnInit {
     this.loginService.login(credentials).finally(() => {
       this.showLoading = false;
       this._changeDetectorRef.detectChanges();
-    });
-  }
-
-  openReleasedFeatures() {
-    this._matDialog.open(ReleasedFeaturesDialogComponent, {
-      width: '65%',
-      height: '55%',
-      autoFocus: false,
-      panelClass: 'released-features-dialog',
     });
   }
 }

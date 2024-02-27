@@ -19,7 +19,9 @@
         "password": "Passwort",
         "description": "Beschreibung",
         "password-doesn't-meet-security-requirements": "Das Passwort erfüllt nicht die Sicherheitsanforderungen",
-        "invalid-form": "Ungültiges Formular"
+        "invalid-form": "Ungültiges Formular",
+        "without-permission": "Sie haben keine Berechtigung für den Zugriff auf diesen Bildschirm",
+        "update-in-progress": "Update läuft, bitte versuchen Sie es später noch einmal"
     },
     "actions": {
         "save": "Speichern",
@@ -38,7 +40,12 @@
         "forgot-my-password": "Ich habe mein Passwort vergessen",
         "login": "Anmelden",
         "don't-have-account": "Sie haben kein Konto?",
-        "create-one": "Ein Konto erstellen!"
+        "create-one": "Ein Konto erstellen!",
+        "invalid-login": "Ungültige Anmeldung",
+        "error-getting-user": "Fehler beim Abrufen des Benutzers, wenden Sie sich bitte an unseren Support",
+        "login-successfully": "Erfolgreich anmelden",
+        "inactive-user": "Inaktiver Benutzer, bitte überprüfen Sie Ihre E-Mails",
+        "access-expired": "Zugang abgelaufen, bitte melden Sie sich erneut an"
     },
     "forgot-password": {
         "title": "Passwortwiederherstellung",

@@ -12,7 +12,5 @@ import { UtilsService } from '../../../utils/utils.service';
 export class NoticesCriptoComponent implements OnInit {
   public utilsService = inject(UtilsService);
 
-  language = this.utilsService.getUserConfigs.language;
-
   ngOnInit(): void {}
 }

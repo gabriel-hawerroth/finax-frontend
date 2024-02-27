@@ -38,14 +38,14 @@
               [mat-menu-trigger-for]="menu"
               [showGeneric]="true"
               [genericIcon]="'filter_alt'"
-              [genericLabel]="language === 'pt-br' ? 'Filtrar' : 'Filter'"
+              [genericLabel]="'Filtrar'"
             ></app-buttons>
 
             <mat-menu #menu="matMenu" class="filter-menu">
               <form [formGroup]="filterForm" class="filter-form">
                 <mat-form-field>
                   <mat-label>
-                    {{ language === "pt-br" ? "Conta" : "Account" }}
+                    Conta
                   </mat-label>
                   <mat-select formControlName="account">
                     <mat-option></mat-option>

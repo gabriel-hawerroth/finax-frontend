@@ -1,17 +1,16 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { LoginService } from './login.service';
 import { lastValueFrom } from 'rxjs';
 import { Account, AccountBasicList } from '../interfaces/Account';
-import { GenericIdDs } from '../interfaces/Generic';
+import { UtilsService } from '../utils/utils.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   private _http = inject(HttpClient);
-  private _loginService = inject(LoginService);
+  private _utilsService = inject(UtilsService);
 
   apiUrl = `${environment.baseApiUrl}accounts`;
 
@@ -26,7 +25,7 @@ export class AccountService {
   }
 
   save(data: Account): Promise<Account> {
-    data.userId = this._loginService.getLoggedUser!.id;
+    data.userId = this._utilsService.getLoggedUser!.id;
 
     return lastValueFrom(this._http.post<Account>(this.apiUrl, data));
   }

@@ -125,7 +125,7 @@
     >
       <img [src]="utilsService.userImage | async" alt="user profile image" />
 
-      <span>{{ loginService.getLoggedUser?.firstName }}</span>
+      <span>{{ utilsService.userName | async }}</span>
 
       <i class="material-symbols-outlined">
         {{ userActionsUl ? "expand_less" : "expand_more" }}

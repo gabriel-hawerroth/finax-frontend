@@ -9,7 +9,6 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -18,10 +17,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { LoginService } from '../../../../../services/login.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from '../../../../../services/login.service';
 
 @Component({
   selector: 'app-create-account',
@@ -31,7 +30,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     ReactiveFormsModule,
     MatInputModule,
     MatTooltipModule,
-    MatIconModule,
     MatProgressSpinnerModule,
     MatButtonModule,
     RouterModule,

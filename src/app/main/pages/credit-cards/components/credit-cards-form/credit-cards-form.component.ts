@@ -28,7 +28,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { CreditCardService } from '../../../../../services/credit-card.service';
-import { LoginService } from '../../../../../services/login.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -60,7 +59,6 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   private _router = inject(Router);
   private _dialog = inject(MatDialog);
   private _accountService = inject(AccountService);
-  private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
@@ -114,7 +112,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   buildForm() {
     this.cardForm = this._fb.group({
       id: null,
-      user_id: this._loginService.getLoggedUser!.id,
+      user_id: this.utilsService.getLoggedUser!.id,
       name: ['', Validators.required],
       card_limit: [0, Validators.required],
       close_day: [1, Validators.required],

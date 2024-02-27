@@ -21,7 +21,6 @@ import {
 } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { CategoryService } from '../../../../../services/category.service';
-import { LoginService } from '../../../../../services/login.service';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TranslateModule } from '@ngx-translate/core';
@@ -50,7 +49,6 @@ export class CategoryFormDialogComponent implements OnInit {
   private _fb = inject(FormBuilder);
   private _categoryService = inject(CategoryService);
   private _dialogRef = inject(MatDialogRef);
-  private _loginService = inject(LoginService);
 
   categoryForm!: FormGroup;
 
@@ -80,7 +78,7 @@ export class CategoryFormDialogComponent implements OnInit {
       color: ['', Validators.required],
       icon: ['', Validators.required],
       type: [this.data.type, Validators.required],
-      userId: this._loginService.getLoggedUser!.id,
+      userId: this.utilsService.getLoggedUser!.id,
       active: true,
       essential: false,
     });

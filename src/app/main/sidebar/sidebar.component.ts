@@ -7,12 +7,12 @@ import {
   inject,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
 import { UtilsService } from '../../utils/utils.service';
 import { RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
-  userAccess: string = this.loginService.getLoggedUser?.access || '';
+  userAccess: string = this.utilsService.getLoggedUser?.access || '';
 
   reportsUl: boolean = true;
   noticesUl: boolean = true;

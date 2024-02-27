@@ -36,7 +36,6 @@ import {
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { Category } from '../../../interfaces/Category';
 import { CashFlowService } from '../../../services/cash-flow.service';
-import { LoginService } from '../../../services/login.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { ConfirmDuplicatedReleasesActionComponent } from '../../pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -71,7 +70,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   private _cashFlowService = inject(CashFlowService);
   private _matDialog = inject(MatDialog);
   private _matDialogRef = inject(MatDialogRef);
-  private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
   private _translate = inject(TranslateService);
 
@@ -150,7 +148,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   buildForm() {
     this.releaseForm = this._fb.group({
       id: null,
-      userId: this._loginService.getLoggedUser!.id,
+      userId: this.utilsService.getLoggedUser!.id,
       description: '',
       accountId: [null, Validators.required],
       targetAccountId: [null],

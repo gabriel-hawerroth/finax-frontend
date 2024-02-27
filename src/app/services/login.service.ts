@@ -8,7 +8,6 @@ import { environment } from '../../environments/environment';
 import { UtilsService } from '../utils/utils.service';
 import { User } from '../interfaces/User';
 import { Credentials } from '../interfaces/Credentials';
-import { UserService } from './user.service';
 import { UserConfigsService } from './user-configs.service';
 import { UserConfigs } from '../interfaces/UserConfigs';
 
@@ -19,20 +18,15 @@ export class LoginService {
   private _http = inject(HttpClient);
   private _router = inject(Router);
   private _utilsService = inject(UtilsService);
-  private _userService = inject(UserService);
   private _userConfigsService = inject(UserConfigsService);
 
   apiUrl = `${environment.baseApiUrl}login`;
 
   async login(credentials: Credentials) {
-    const language = this._utilsService.getUserConfigs.language;
-
     await this.oauthLogin(credentials)
       .then(async (response: any) => {
         if (!response) {
-          this._utilsService.showMessage(
-            language === 'pt-br' ? 'Login inválido' : 'Invalid login'
-          );
+          this._utilsService.showMessage('login.invalid-login');
           return;
         }
 
@@ -52,11 +46,7 @@ export class LoginService {
         )
           .then((user: User) => {
             if (!user) {
-              this._utilsService.showMessage(
-                language === 'pt-br'
-                  ? 'Erro ao obter o usuário, entre em contato com nosso suporte'
-                  : 'Error getting the user, please contact our support'
-              );
+              this._utilsService.showMessage('login.error-getting-user');
               return;
             }
 
@@ -83,42 +73,24 @@ export class LoginService {
             }
 
             if (!credentials.changedPassword) {
-              this._utilsService.showMessage(
-                language === 'pt-br'
-                  ? 'Login realizado com sucesso'
-                  : 'Login successfully'
-              );
+              this._utilsService.showMessage('login.login-successfully');
             } else {
               this._utilsService.showMessage(
-                language === 'pt-br'
-                  ? 'Senha alterada com sucesso'
-                  : 'Password changed successfully'
+                'change-password.changed-successfully'
               );
             }
           })
           .catch(() => {
-            this._utilsService.showMessage(
-              language === 'pt-br'
-                ? 'Erro ao obter o usuário, entre em contato com o nosso suporte'
-                : 'Error getting the user, please contact our support'
-            );
+            this._utilsService.showMessage('login.error-getting-user');
           });
       })
       .catch((err) => {
         switch (err.error.error_description) {
           case 'Bad credentials':
-            this._utilsService.showMessage(
-              this._utilsService.getUserConfigs.language === 'pt-br'
-                ? 'Login inválido'
-                : 'Invalid login'
-            );
+            this._utilsService.showMessage('login.invalid-login');
             break;
           case 'Inactive user':
-            this._utilsService.showMessage(
-              this._utilsService.getUserConfigs.language === 'pt-br'
-                ? 'Usuário inativo, verifique seu email'
-                : 'Inactive user, check your email'
-            );
+            this._utilsService.showMessage('login.inactive-user');
         }
       });
   }
@@ -146,6 +118,7 @@ export class LoginService {
       'userFinax',
       btoa(JSON.stringify(user))
     );
+    this._utilsService.userName.next(user.firstName);
   }
 
   setToken(token: string) {
@@ -159,18 +132,13 @@ export class LoginService {
     );
   }
 
-  logout(showMessage: boolean = true) {
+  logout(showMessage: boolean) {
     this._utilsService.removeItemLocalStorage('userFinax');
     this._utilsService.removeItemLocalStorage('tokenFinax');
     this._utilsService.removeItemLocalStorage('tokenExpiration');
     this._router.navigate(['']);
     if (showMessage)
-      this._utilsService.showMessage(
-        this._utilsService.getUserConfigs.language === 'pt-br'
-          ? 'Acesso expirado, por favor logue novamente'
-          : 'Access expired, please log in again',
-        5000
-      );
+      this._utilsService.showMessage('login.access-expired', 5000);
   }
 
   newUser(user: User): Promise<User> {
@@ -186,12 +154,6 @@ export class LoginService {
     return lastValueFrom(
       this._http.post(`${this.apiUrl}/send-change-password-email`, params)
     );
-  }
-
-  get getLoggedUser(): User | null {
-    return this._utilsService.getItemLocalStorage('userFinax')
-      ? JSON.parse(atob(this._utilsService.getItemLocalStorage('userFinax')!))
-      : null;
   }
 
   get getUserToken(): string | null {

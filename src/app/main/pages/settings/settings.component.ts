@@ -14,7 +14,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { UserConfigs } from '../../../interfaces/UserConfigs';
-import { LoginService } from '../../../services/login.service';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -40,7 +39,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _userConfigsService = inject(UserConfigsService);
-  private _loginService = inject(LoginService);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
@@ -67,7 +65,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
   buidForm() {
     this.configsForm = this._fb.group({
       id: null,
-      userId: this._loginService.getLoggedUser!.id,
+      userId: this.utilsService.getLoggedUser!.id,
       theme: 'light',
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-br',

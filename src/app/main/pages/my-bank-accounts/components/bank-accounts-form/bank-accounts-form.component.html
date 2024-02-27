@@ -126,20 +126,7 @@
           <mat-label>
             {{ "my-accounts.agency" | translate }}
           </mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="agency"
-            currencyMask
-            [options]="{
-              align: 'left',
-              precision: 0,
-              thousands: '',
-              allowNegative: false,
-              max: 99999,
-              nullable: true
-            }"
-          />
+          <input matInput type="text" formControlName="agency" maxlength="5" />
         </mat-form-field>
       </div>
 

@@ -19,7 +19,9 @@
         "password": "Password",
         "description": "Description",
         "password-doesn't-meet-security-requirements": "Password doesn't meet security requirements",
-        "invalid-form": "Invalid form"
+        "invalid-form": "Invalid form",
+        "without-permission": "You don't have permission to access this screen",
+        "update-in-progress": "Update in progress, please try again later"
     },
     "actions": {
         "save": "Save",
@@ -38,7 +40,12 @@
         "forgot-my-password": "Forgot my password",
         "login": "Login",
         "don't-have-account": "Don't have an account?",
-        "create-one": "Create one!"
+        "create-one": "Create one!",
+        "invalid-login": "Invalid login",
+        "error-getting-user": "Error getting the user, please contact our support",
+        "login-successfully": "Login successfully",
+        "inactive-user": "Inactive user, please check your email",
+        "access-expired": "Access expired, please log in again"
     },
     "forgot-password": {
         "title": "Password recovery",

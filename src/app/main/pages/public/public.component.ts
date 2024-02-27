@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { LoginService } from '../../../services/login.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
@@ -15,6 +14,7 @@ import { UtilsService } from '../../../utils/utils.service';
 import moment from 'moment';
 import { PublicHeaderComponent } from '../../public-header/public-header.component';
 import { PublicFooterComponent } from '../../public-footer/public-footer.component';
+import { LoginService } from '../../../services/login.service';
 
 @Component({
   selector: 'app-public',

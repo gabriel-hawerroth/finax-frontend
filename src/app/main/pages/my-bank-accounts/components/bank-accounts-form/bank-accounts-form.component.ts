@@ -2,8 +2,8 @@ import {
   Component,
   inject,
   OnInit,
-  OnDestroy,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
@@ -12,18 +12,15 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Subject, takeUntil, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../../../../../services/account.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
@@ -36,13 +33,11 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatIconModule,
     MatInputModule,
-    NgxCurrencyDirective,
-    CustomCurrencyPipe,
     MatCheckboxModule,
-    NgOptimizedImage,
     MatSelectModule,
+    NgxCurrencyDirective,
+    NgOptimizedImage,
     ButtonsComponent,
     TranslateModule,
   ],
@@ -50,7 +45,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './bank-accounts-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BankAccountsFormComponent implements OnInit, OnDestroy {
+export class BankAccountsFormComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public location = inject(Location);
   private _activatedRoute = inject(ActivatedRoute);
@@ -58,8 +53,7 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
   private _fb = inject(FormBuilder);
   private _router = inject(Router);
   private _dialog = inject(MatDialog);
-
-  private _unsubscribeAll: Subject<any> = new Subject();
+  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   currency = this.utilsService.getUserConfigs.currency;
 
@@ -78,11 +72,6 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
         .getById(this.accountId)
         .then((response) => this.accountForm.patchValue(response));
     }
-  }
-
-  ngOnDestroy(): void {
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
   }
 
   buildForm() {
@@ -125,22 +114,6 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  changeBalance() {
-    this._dialog
-      .open(EditBalanceDialogComponent, {
-        data: {
-          account: this.accountForm.value,
-        },
-        panelClass: 'edit-balance-dialog',
-      })
-      .afterClosed()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((result: any) => {
-        if (!result) return;
-        this.accountForm.get('balance')!.setValue(result);
-      });
-  }
-
   selectIcon() {
     lastValueFrom(
       this._dialog.open(SelectIconDialogComponent).afterClosed()
@@ -149,6 +122,7 @@ export class BankAccountsFormComponent implements OnInit, OnDestroy {
 
       this.accountForm.get('image')!.setValue(value);
       this.accountForm.markAsDirty();
+      this._changeDetectorRef.detectChanges();
     });
   }
 }

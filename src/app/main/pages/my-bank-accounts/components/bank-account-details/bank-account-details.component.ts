@@ -40,8 +40,6 @@ export class BankAccountDetailsComponent {
   private _bottomSheetRef = inject(MatBottomSheetRef);
   private _dialog = inject(MatDialog);
   private _changeDetectorRef = inject(ChangeDetectorRef);
-
-  language = this.utilsService.getUserConfigs.language;
   currency = this.utilsService.getUserConfigs.currency;
 
   account: Account = this.data.account;
