@@ -41,70 +41,95 @@
             ></ng-container>
           </mat-select-trigger>
 
-          @if (form.value.type !== 'E') { @for (account of accountsList; track
-          account.id) {
-          <mat-option [value]="account.id" class="bank-account-item">
-            <div class="account-opt">
-              @if (account.image) {
-              <img
-                [ngSrc]="'assets/banks/' + account.image"
-                width="30"
-                height="30"
-                alt="bank account logo"
-              />
-              } @else {
-              <span class="material-symbols-outlined default-account-logo">
-                account_balance
-              </span>
-              }
-              <span>{{ account.name }}</span>
-            </div>
-          </mat-option>
-          } } @else { @if (accountsList.length !== 0) {
-          <mat-optgroup [label]="'release-form.accounts' | translate">
+          @if (form.value.type !== 'E') {
             @for (account of accountsList; track account.id) {
-            <mat-option [value]="account.id" class="bank-account-item">
-              <div class="account-opt">
-                @if (account.image) {
-                <img
-                  [ngSrc]="'assets/banks/' + account.image"
-                  width="30"
-                  height="30"
-                  alt="bank account logo"
-                />
-                } @else {
-                <span class="material-symbols-outlined default-account-logo">
-                  account_balance
-                </span>
-                }
-                <span>{{ account.name }}</span>
-              </div>
-            </mat-option>
+              <mat-option [value]="account.id" class="bank-account-item">
+                <div class="account-opt">
+                  @if (account.image) {
+                  <img
+                    [ngSrc]="'assets/banks/' + account.image"
+                    width="30"
+                    height="30"
+                    alt="bank account logo"
+                  />
+                  } @else {
+                  <span class="material-symbols-outlined default-account-logo">
+                    account_balance
+                  </span>
+                  }
+                  <span>{{ account.name }}</span>
+                </div>
+              </mat-option>
             }
-          </mat-optgroup>
-          } @if (creditCardsList.length !== 0) {
-          <mat-optgroup [label]="'release-form.cards' | translate">
-            @for (creditCard of creditCardsList; track creditCard.id) {
-            <mat-option [value]="creditCard.id" class="bank-account-item">
-              <div class="account-opt">
-                @if (creditCard.image) {
-                <img
-                  [ngSrc]="'assets/banks/' + creditCard.image"
-                  width="30"
-                  height="30"
-                  alt="bank credit card logo"
-                />
-                } @else {
-                <span class="material-symbols-outlined default-account-logo">
-                  account_balance
-                </span>
-                }
-                <span>{{ creditCard.name }}</span>
-              </div>
-            </mat-option>
+          } @else {
+            @if (selectedCreditCard) {
+              @for (card of creditCardsList; track card.id) {
+                <mat-option [value]="card.id">
+                  <div class="account-opt">
+                    @if (card.image) {
+                    <img
+                      [ngSrc]="'assets/banks/' + card.image"
+                      width="30"
+                      height="30"
+                      alt="bank account logo"
+                    />
+                    } @else {
+                    <span class="material-symbols-outlined default-account-logo">
+                      credit_card
+                    </span>
+                    }
+                    <span>{{ card.name }}</span>
+                  </div>
+                </mat-option>
+              }
+            } @else {
+              @if (accountsList.length !== 0) {
+                <mat-optgroup [label]="'release-form.accounts' | translate">
+                  @for (account of accountsList; track account.id) {
+                  <mat-option [value]="account.id" class="bank-account-item">
+                    <div class="account-opt">
+                      @if (account.image) {
+                      <img
+                        [ngSrc]="'assets/banks/' + account.image"
+                        width="30"
+                        height="30"
+                        alt="bank account logo"
+                      />
+                      } @else {
+                      <span class="material-symbols-outlined default-account-logo">
+                        account_balance
+                      </span>
+                      }
+                      <span>{{ account.name }}</span>
+                    </div>
+                  </mat-option>
+                  }
+                </mat-optgroup>
+              } @if (creditCardsList.length !== 0) {
+                <mat-optgroup [label]="'release-form.cards' | translate">
+                  @for (creditCard of creditCardsList; track creditCard.id) {
+                  <mat-option [value]="creditCard.id" class="bank-account-item">
+                    <div class="account-opt">
+                      @if (creditCard.image) {
+                      <img
+                        [ngSrc]="'assets/banks/' + creditCard.image"
+                        width="30"
+                        height="30"
+                        alt="bank credit card logo"
+                      />
+                      } @else {
+                      <span class="material-symbols-outlined default-account-logo">
+                        credit_card
+                      </span>
+                      }
+                      <span>{{ creditCard.name }}</span>
+                    </div>
+                  </mat-option>
+                  }
+                </mat-optgroup>
+              }
             }
-          </mat-optgroup>
-          } }
+          }
         </mat-select>
       </mat-form-field>
 

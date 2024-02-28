@@ -40,6 +40,9 @@ import { UtilsService } from '../../../utils/utils.service';
 import { ConfirmDuplicatedReleasesActionComponent } from '../../pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { GenericIdDs } from '../../../interfaces/Generic';
+import { CardBasicList } from '../../../interfaces/CreditCard';
+import { ReleasedOn } from '../../../enums/released-on';
+import { DuplicatedReleaseAction } from '../../../enums/duplicated-release-action';
 
 @Component({
   selector: 'release-form-dialog',
@@ -78,7 +81,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   releaseForm!: FormGroup;
 
   currentDate: Date = new Date();
-  defaultDate: Date = this.data.selectedDate;
 
   selectedFile: File | null = null;
   showRepeat: boolean = false;
@@ -98,16 +100,9 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     'release-form.repeat-for-suffix.monthly'
   );
 
-  ngOnInit(): void {
-    if (
-      this.defaultDate.getMonth() === this.currentDate.getMonth() &&
-      this.defaultDate.getFullYear() === this.currentDate.getFullYear()
-    ) {
-      this.defaultDate = this.currentDate;
-    } else {
-      this.defaultDate = new Date(this.defaultDate.setDate(1));
-    }
+  selectedCreditCard = this.data.creditCardId !== undefined;
 
+  ngOnInit(): void {
     this.buildForm();
 
     if (this.data.editing) {
@@ -156,7 +151,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       type: [this.data.releaseType, Validators.required],
       done: [true, Validators.required],
       categoryId: [null, Validators.required],
-      date: [this.defaultDate, Validators.required],
+      date: ['', Validators.required],
       time: '',
       observation: '',
       repeat: '',
@@ -170,6 +165,24 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
   }
 
   formValidations() {
+    if (this.data.creditCardId) {
+      this.releaseForm.get('accountId')!.setValue(this.data.creditCardId);
+    }
+
+    const selectedDate: Date = this.data.selectedDate;
+
+    const isSameMonth = selectedDate.getMonth() === this.currentDate.getMonth();
+    const isSameYear =
+      selectedDate.getFullYear() === this.currentDate.getFullYear();
+
+    if (isSameMonth && isSameYear) {
+      this.releaseForm.get('date')!.setValue(this.currentDate);
+    } else {
+      this.releaseForm
+        .get('date')!
+        .setValue(new Date(this.data.selectedDate.setDate(1)));
+    }
+
     if (this.data.releaseType === 'T') {
       this.releaseForm
         .get('targetAccountId')!
@@ -181,9 +194,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     this.releaseForm
       .get('done')!
       .setValue(!moment(this.releaseForm.value.date).isAfter(new Date()));
-
-    if (this.data.accounts.length > 0)
-      this.releaseForm.get('accountId')!.setValue(this.data.accounts[0].id);
 
     this.releaseForm
       .get('repeat')!
@@ -226,8 +236,9 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let release = this.releaseForm.value;
-    let duplicatedReleaseAction: string = '';
+    var release = this.releaseForm.value;
+    var duplicatedReleaseAction: DuplicatedReleaseAction =
+      DuplicatedReleaseAction.UNNECESSARY;
 
     if (release.id && this.data.release.isDuplicatedRelease) {
       await lastValueFrom(
@@ -240,16 +251,16 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
             panelClass: 'confirm-duplicated-releases-action',
           })
           .afterClosed()
-      ).then((response: 'just-this' | 'nexts' | 'all') => {
+      ).then((response: DuplicatedReleaseAction) => {
         if (!response) return;
 
         duplicatedReleaseAction = response;
       });
 
-      if (duplicatedReleaseAction === '') return;
+      if (!duplicatedReleaseAction) return;
 
       if (
-        duplicatedReleaseAction !== 'just-this' &&
+        !duplicatedReleaseAction.match(DuplicatedReleaseAction.JUST_THIS) &&
         this.releaseForm.get('date')!.dirty
       ) {
         this.utilsService.showMessage(
@@ -278,13 +289,23 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       }
     }, 8000);
 
+    const selectedAccount = this.data.accounts.find(
+      (item: CardBasicList) => item.id === release.accountId
+    );
+    const releasedOn: ReleasedOn = selectedAccount
+      ? ReleasedOn.ACCOUNT
+      : ReleasedOn.CREDIT_CARD;
+
+    if (release.repeat === '') release.fixedBy = '';
+
     if (!release.id) {
       await this._cashFlowService
         .addRelease(
           release,
           release.repeat === 'fixed'
             ? release.repeatFor
-            : release.installmentsBy
+            : release.installmentsBy,
+          releasedOn
         )
         .then((response) => {
           release = response;
@@ -294,7 +315,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
         });
     } else {
       await this._cashFlowService
-        .editRelease(release, duplicatedReleaseAction)
+        .editRelease(release, duplicatedReleaseAction, releasedOn)
         .then((response) => {
           release = response;
         })

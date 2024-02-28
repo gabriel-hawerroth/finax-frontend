@@ -47,6 +47,7 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
   @Input() accountsList: AccountBasicList[] = [];
   @Input() categoriesList: Category[] = [];
   @Input() creditCardsList: CardBasicList[] = [];
+  @Input() selectedCreditCard!: boolean;
 
   public utilsService = inject(UtilsService);
 
@@ -54,18 +55,17 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
 
   currency = this.utilsService.getUserConfigs.currency;
 
-  selectedAccount: AccountBasicList | null = null;
+  selectedAccount: any | null = null;
   selectedTargetAccount: AccountBasicList | null = null;
   selectedCategory: Category | null = null;
 
   ngOnInit(): void {
     this.subscribeFormChanges();
 
-    const accountId = this.form.value.accountId;
-    if (accountId) {
-      this.selectedAccount = this.accountsList.find(
-        (item) => item.id === accountId
-      )!;
+    if (this.selectedCreditCard) {
+      this.selectedAccount = this.creditCardsList.find(
+        (item) => item.id === this.form.value.accountId
+      );
     }
 
     const categoryId = this.form.value.categoryId;
@@ -81,6 +81,8 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
         5000
       );
     }
+
+    this.form.get('accountId')!.setValue(this.form.get('accountId')!.value);
   }
 
   ngOnDestroy(): void {
@@ -100,9 +102,13 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
       .get('accountId')!
       .valueChanges.pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
-        this.selectedAccount = this.accountsList.find(
-          (item) => item.id === value
-        )!;
+        const selectedAccount: AccountBasicList | undefined =
+          this.accountsList.find((item) => item.id === value);
+
+        const selectedCard: CardBasicList | undefined =
+          this.creditCardsList.find((item) => item.id === value);
+
+        this.selectedAccount = selectedAccount ? selectedAccount : selectedCard;
       });
 
     this.form

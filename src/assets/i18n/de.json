@@ -133,7 +133,7 @@
         "observation": "Beobachtung",
         "fixed-release": "Es handelt sich um eine feste Veröffentlichung",
         "installment-release": "Es handelt sich um eine ratenweise Veröffentlichung",
-        "amount-greater-than-zero": "Der Betrag muss größer als null sein",
+        "amount-greater-than-zero": "Der Wert darf nicht null sein",
         "not-possible-transfer-same-bank": "Es ist nicht möglich, eine Überweisung zur gleichen Bank vorzunehmen",
         "date-must-remain-the-same": "Um andere Veröffentlichungen neben dieser zu ändern, muss das Datum gleich bleiben",
         "error-saving-release": "Fehler beim Speichern der Veröffentlichung",

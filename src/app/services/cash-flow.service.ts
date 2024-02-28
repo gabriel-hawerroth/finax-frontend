@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { CashFlow, MonthlyFlow } from '../interfaces/CashFlow';
 import { lastValueFrom } from 'rxjs';
 import moment from 'moment';
+import { ReleasedOn } from '../enums/released-on';
+import { DuplicatedReleaseAction } from '../enums/duplicated-release-action';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +14,6 @@ export class CashFlowService {
   private _http = inject(HttpClient);
 
   private apiUrl = `${environment.baseApiUrl}cash-flow`;
-
-  getById(id: number): Promise<CashFlow> {
-    return lastValueFrom(this._http.get<CashFlow>(`${this.apiUrl}/${id}`));
-  }
 
   getMonthlyFlow(selectedDt: Date): Promise<MonthlyFlow> {
     const firstDt = moment(selectedDt).startOf('month').toString();
@@ -30,10 +28,14 @@ export class CashFlowService {
     return lastValueFrom(this._http.get<MonthlyFlow>(this.apiUrl, { params }));
   }
 
-  addRelease(data: CashFlow, repeatFor: number): Promise<CashFlow> {
+  addRelease(
+    data: CashFlow,
+    repeatFor: number,
+    releasedOn: ReleasedOn
+  ): Promise<CashFlow> {
     let params = new HttpParams();
     params = params.append('repeatFor', repeatFor);
-    params = params.append('releasedOn', 'account');
+    params = params.append('releasedOn', releasedOn);
 
     return lastValueFrom(
       this._http.post<CashFlow>(this.apiUrl, data, { params })
@@ -42,10 +44,12 @@ export class CashFlowService {
 
   editRelease(
     data: CashFlow,
-    duplicatedReleaseAction: string
+    duplicatedReleaseAction: DuplicatedReleaseAction,
+    releasedOn: ReleasedOn
   ): Promise<CashFlow> {
     let params = new HttpParams();
     params = params.append('duplicatedReleaseAction', duplicatedReleaseAction);
+    params = params.append('releasedOn', releasedOn);
 
     return lastValueFrom(
       this._http.put<CashFlow>(this.apiUrl, data, { params })

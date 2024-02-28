@@ -9,18 +9,20 @@ import {
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { MatCardModule } from '@angular/material/card';
-import { AccountBasicList } from '../../../../../interfaces/Account';
 import { Category } from '../../../../../interfaces/Category';
 import { lastValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { AccountService } from '../../../../../services/account.service';
 import { CategoryService } from '../../../../../services/category.service';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
-import { CreditCard } from '../../../../../interfaces/CreditCard';
+import {
+  CardBasicList,
+  CreditCard,
+} from '../../../../../interfaces/CreditCard';
 import { ActivatedRoute } from '@angular/router';
 import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dialog/release-form-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MonthlyCashFlow } from '../../../../../interfaces/CashFlow';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -41,7 +43,6 @@ export class CreditCardInvoiceComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _creditCardService = inject(CreditCardService);
   private _matDialog = inject(MatDialog);
-  private _accountService = inject(AccountService);
   private _categoryService = inject(CategoryService);
   private _activatedRoute = inject(ActivatedRoute);
   private _changeDetectorRef = inject(ChangeDetectorRef);
@@ -50,15 +51,15 @@ export class CreditCardInvoiceComponent implements OnInit {
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
   creditCard: CreditCard | null = null;
-  releases: any[] = [];
+  releases: MonthlyCashFlow[] = [];
 
   selectedDate: Date = new Date();
   currentYear: string = this.selectedDate.getFullYear().toString();
 
   searching: boolean = false;
 
-  accounts: AccountBasicList[] = [];
   categories: Category[] = [];
+  creditCards: CardBasicList[] = [];
 
   ngOnInit(): void {
     this.getReleases();
@@ -68,10 +69,10 @@ export class CreditCardInvoiceComponent implements OnInit {
   getReleases() {}
 
   async getValues() {
-    [this.creditCard, this.accounts, this.categories] = await Promise.all([
+    [this.creditCard, this.categories, this.creditCards] = await Promise.all([
       this._creditCardService.getById(this.creditCardId),
-      this._accountService.getBasicList(),
       this._categoryService.getByUser(),
+      this._creditCardService.getByUser(),
     ]);
 
     this._changeDetectorRef.detectChanges();
@@ -125,11 +126,13 @@ export class CreditCardInvoiceComponent implements OnInit {
       this._matDialog
         .open(ReleaseFormDialogComponent, {
           data: {
-            accounts: this.accounts,
+            accounts: [],
             categories: this.categories,
+            creditCards: [this.creditCard],
             editing: false,
             releaseType: 'E',
             selectedDate: this.selectedDate,
+            creditCardId: this.creditCardId,
           },
           panelClass: 'new-release-cash-flow-dialog',
           autoFocus: false,

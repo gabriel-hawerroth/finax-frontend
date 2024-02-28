@@ -198,7 +198,7 @@
             "brokerage": "Corretora"
         },
         "code": "Código",
-        "balance": "Balanço",
+        "balance": "Saldo",
         "minus-for-negative-more-for-positive": "Digite - para saldo negativo e + para positivo",
         "account-number": "Nº da conta",
         "agency": "Agência",

@@ -16,6 +16,7 @@ import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { ConfirmationDialogComponent } from '../../../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { DuplicatedReleaseAction } from '../../../../../enums/duplicated-release-action';
 
 @Component({
   selector: 'app-release-details',
@@ -91,7 +92,8 @@ export class ReleaseDetailsComponent {
   }
 
   async delete() {
-    let duplicatedReleasesAction: string = '';
+    let duplicatedReleasesAction: DuplicatedReleaseAction =
+      DuplicatedReleaseAction.UNNECESSARY;
     let confirmedDelete: boolean = false;
 
     if (this.release.isDuplicatedRelease) {
@@ -105,7 +107,7 @@ export class ReleaseDetailsComponent {
             panelClass: 'confirm-duplicated-releases-action',
           })
           .afterClosed()
-      ).then((response: 'just-this' | 'nexts' | 'all') => {
+      ).then((response: DuplicatedReleaseAction) => {
         if (!response) return;
 
         duplicatedReleasesAction = response;
@@ -128,7 +130,10 @@ export class ReleaseDetailsComponent {
       });
     }
 
-    if (this.release.isDuplicatedRelease && duplicatedReleasesAction === '')
+    if (
+      this.release.isDuplicatedRelease &&
+      duplicatedReleasesAction === DuplicatedReleaseAction.UNNECESSARY
+    )
       return;
     else if (!confirmedDelete) return;
 

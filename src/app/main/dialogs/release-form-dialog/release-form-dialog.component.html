@@ -39,6 +39,7 @@
         [accountsList]="data.accounts"
         [categoriesList]="data.categories"
         [creditCardsList]="data.creditCards"
+        [selectedCreditCard]="selectedCreditCard"
         style="flex: 1"
       ></app-release-form>
 
@@ -240,7 +241,7 @@
                 allowZero: false,
                 decimal: '',
                 precision: 0,
-                suffix: 'release-form.repeat-for-suffix.monthly' | translate,
+                suffix: ' ' + ('release-form.repeat-for-suffix.monthly' | translate),
                 thousands: '',
                 nullable: false,
                 min: 2,
