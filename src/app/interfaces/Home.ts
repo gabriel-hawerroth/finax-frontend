@@ -1,10 +1,10 @@
-import { Account } from './Account';
-import { MonthlyCashFlow } from './CashFlow';
+import { Account } from './account';
+import { MonthlyRelease } from './cash-flow';
 
 export interface HomeValues {
   balances: HomeBalances;
   accountsList: Account[];
-  upcomingReleasesExpected: MonthlyCashFlow[];
+  upcomingReleasesExpected: MonthlyRelease[];
 }
 
 interface HomeBalances {

@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { CreditCard } from '../../../interfaces/CreditCard';
+import { CreditCard } from '../../../interfaces/credit-card';
 import { Subject } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';

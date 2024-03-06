@@ -2,13 +2,14 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
-import { UserConfigs } from '../interfaces/UserConfigs';
+import { UserConfigs } from '../interfaces/user-configs';
 import { isPlatformBrowser } from '@angular/common';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../main/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
-import { User } from '../interfaces/User';
+import { User } from '../interfaces/user';
+import { ReleasesViewMode } from '../enums/releases-view-mode';
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +59,7 @@ export class UtilsService {
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-br',
       currency: 'R$',
+      releasesViewMode: ReleasesViewMode.releases,
     };
   }
 

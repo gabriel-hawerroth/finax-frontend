@@ -1,0 +1,20 @@
+<form [formGroup]="userForm">
+  <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
+    <mat-label>{{ "generic.email" | translate }}</mat-label>
+    <input type="text" matInput formControlName="email" readonly="true" />
+  </mat-form-field>
+
+  <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
+    <mat-label>
+      {{ "my-profile.first-name" | translate }}
+    </mat-label>
+    <input type="text" matInput formControlName="firstName" maxlength="30" />
+  </mat-form-field>
+
+  <mat-form-field style="width: 80%">
+    <mat-label>
+      {{ "my-profile.last-name" | translate }}
+    </mat-label>
+    <input type="text" matInput formControlName="lastName" maxlength="90" />
+  </mat-form-field>
+</form>

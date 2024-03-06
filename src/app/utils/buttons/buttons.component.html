@@ -93,7 +93,12 @@
     </div>
   </button>
   } @if (showGeneric) {
-  <button mat-stroked-button (click)="onGeneric.emit()">
+  <button
+    mat-stroked-button
+    [disabled]="disableGeneric"
+    (click)="onGeneric.emit()"
+    [ngStyle]="{ padding: getBtnSize + 'rem', color: genericColor }"
+  >
     <div class="btn-content">
       <span class="material-symbols-outlined">{{ genericIcon }}</span>
       @if (isPcScreen) {

@@ -5,4 +5,5 @@ export interface UserConfigs {
   addingMaterialGoodsToPatrimony: boolean;
   language: string;
   currency: string;
+  releasesViewMode: string;
 }

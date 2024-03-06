@@ -9,7 +9,7 @@
   </h1>
 
   <div class="img-content">
-    <img [src]="profileImageSrc" alt="user profile image" />
+    <img [src]="profileImageSrc()" alt="user profile image" />
 
     <input
       type="file"
@@ -26,36 +26,7 @@
 
   <div class="content">
     <div class="form-box">
-      <form [formGroup]="userForm">
-        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>{{ "generic.email" | translate }}</mat-label>
-          <input type="text" matInput formControlName="email" readonly="true" />
-        </mat-form-field>
-
-        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "my-profile.first-name" | translate }}
-          </mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="firstName"
-            maxlength="30"
-          />
-        </mat-form-field>
-
-        <mat-form-field style="width: 80%">
-          <mat-label>
-            {{ "my-profile.last-name" | translate }}
-          </mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="lastName"
-            maxlength="90"
-          />
-        </mat-form-field>
-      </form>
+      <app-my-profile-form [userForm]="userForm"></app-my-profile-form>
 
       <div class="buttons">
         <app-buttons
@@ -64,9 +35,9 @@
           [disableSave]="
             (userForm.pristine && !changedProfileImg) ||
             userForm.invalid ||
-            saving
+            saving()
           "
-          [showSaveLoading]="saving"
+          [showSaveLoading]="saving()"
           (onSave)="saveUser()"
           (onChangePassword)="openChangePasswordDialog()"
         ></app-buttons>

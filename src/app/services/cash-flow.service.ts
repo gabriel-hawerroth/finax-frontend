@@ -1,11 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { CashFlow, MonthlyFlow } from '../interfaces/CashFlow';
+import { CashFlow, MonthlyFlow } from '../interfaces/cash-flow';
 import { lastValueFrom } from 'rxjs';
 import moment from 'moment';
 import { ReleasedOn } from '../enums/released-on';
 import { DuplicatedReleaseAction } from '../enums/duplicated-release-action';
+import { ReleasesViewMode } from '../enums/releases-view-mode';
 
 @Injectable({
   providedIn: 'root',
@@ -15,15 +16,29 @@ export class CashFlowService {
 
   private apiUrl = `${environment.baseApiUrl}cash-flow`;
 
-  getMonthlyFlow(selectedDt: Date): Promise<MonthlyFlow> {
+  getMonthlyFlow(
+    selectedDt: Date,
+    viewMode: ReleasesViewMode
+  ): Promise<MonthlyFlow> {
     const firstDt = moment(selectedDt).startOf('month').toString();
     const lastDt = moment(selectedDt).endOf('month').toString();
     const firstDtCurrentMonth = moment(new Date()).startOf('month').toString();
+    const firstDtInvoice = moment(selectedDt)
+      .add(-1, 'month')
+      .startOf('month')
+      .toString();
+    const lastDtInvoice = moment(selectedDt)
+      .add(-1, 'month')
+      .endOf('month')
+      .toString();
 
     let params = new HttpParams();
     params = params.append('firstDt', firstDt);
     params = params.append('lastDt', lastDt);
     params = params.append('firstDtCurrentMonth', firstDtCurrentMonth);
+    params = params.append('viewMode', viewMode);
+    params = params.append('firstDtInvoice', firstDtInvoice);
+    params = params.append('lastDtInvoice', lastDtInvoice);
 
     return lastValueFrom(this._http.get<MonthlyFlow>(this.apiUrl, { params }));
   }

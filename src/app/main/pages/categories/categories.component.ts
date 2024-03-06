@@ -7,26 +7,23 @@ import {
   inject,
 } from '@angular/core';
 import { UtilsService } from '../../../utils/utils.service';
-import { MatButtonModule } from '@angular/material/button';
-import { Category } from '../../../interfaces/Category';
+import { Category } from '../../../interfaces/category';
 import { CategoryService } from '../../../services/category.service';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
 import { lastValueFrom } from 'rxjs';
-import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { CategoriesListComponent } from './components/categories-list/categories-list.component';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
     MatCardModule,
-    MatDialogModule,
-    ButtonsComponent,
     TranslateModule,
+    CategoriesListComponent,
   ],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
@@ -38,7 +35,7 @@ export class CategorysComponent implements OnInit {
   private _matDialog = inject(MatDialog);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  categories: Category[] = [];
+  private categories: Category[] = [];
 
   ngOnInit(): void {
     this.getCategories();
@@ -64,19 +61,40 @@ export class CategorysComponent implements OnInit {
     return this.utilsService.filterList(this.categories, 'type', 'R');
   }
 
-  editCategory(event: Event, category: Category) {
-    const isDeleteButtonClick = (event.target as HTMLElement).closest(
+  newCategory(event: 'E' | 'R') {
+    lastValueFrom(
+      this._matDialog
+        .open(CategoryFormDialogComponent, {
+          data: {
+            category: 'new',
+            type: event,
+          },
+          width: '40%',
+          autoFocus: false,
+          maxHeight: '95vh',
+        })
+        .afterClosed()
+    ).then((response) => {
+      if (!response) return;
+
+      this.categories.push(response);
+
+      this._changeDetectorRef.detectChanges();
+    });
+  }
+
+  editCategory(event: any) {
+    const clickedOnDeleteBtn = (event[0].target as HTMLElement).closest(
       '.delete-btn'
     );
-
-    if (isDeleteButtonClick) return;
+    if (clickedOnDeleteBtn) return;
 
     lastValueFrom(
       this._matDialog
         .open(CategoryFormDialogComponent, {
           data: {
-            category: category,
-            type: category.type,
+            category: event[1],
+            type: event[1].type,
           },
           width: '40%',
           autoFocus: false,
@@ -91,28 +109,6 @@ export class CategorysComponent implements OnInit {
       );
 
       this.categories[index] = response;
-
-      this._changeDetectorRef.detectChanges();
-    });
-  }
-
-  newCategory(type: 'E' | 'R') {
-    lastValueFrom(
-      this._matDialog
-        .open(CategoryFormDialogComponent, {
-          data: {
-            category: 'new',
-            type: type,
-          },
-          width: '40%',
-          autoFocus: false,
-          maxHeight: '95vh',
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (!response) return;
-
-      this.categories.push(response);
 
       this._changeDetectorRef.detectChanges();
     });

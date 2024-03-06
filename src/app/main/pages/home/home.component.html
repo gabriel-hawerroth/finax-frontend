@@ -16,7 +16,7 @@
           {{ "home.monthly-revenue" | translate }}
 
           <span>
-            {{ currency }}{{ homeValues.balances.revenues | customCurrency }}
+            {{ currency }}{{ homeValues().balances.revenues | customCurrency }}
           </span>
         </div>
 
@@ -24,7 +24,7 @@
           {{ "home.monthly-expense" | translate }}
 
           <span>
-            {{ currency }}{{ homeValues.balances.expenses | customCurrency }}
+            {{ currency }}{{ homeValues().balances.expenses | customCurrency }}
           </span>
         </div>
       </div>
@@ -63,7 +63,7 @@
 
           @defer {
           <div class="list">
-            @for (account of homeValues.accountsList; track account.id) {
+            @for (account of homeValues().accountsList; track account.id) {
             <div class="account">
               @if (account.image) {
               <img

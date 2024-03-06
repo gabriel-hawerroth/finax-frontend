@@ -5,7 +5,6 @@ import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { MonthlyCashFlow } from '../../../../../interfaces/CashFlow';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -15,8 +14,10 @@ import { lastValueFrom } from 'rxjs';
 import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { ConfirmationDialogComponent } from '../../../../dialogs/confirmation-dialog/confirmation-dialog.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { DuplicatedReleaseAction } from '../../../../../enums/duplicated-release-action';
+import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-release-details',
@@ -39,10 +40,11 @@ export class ReleaseDetailsComponent {
   private _cashFlowService = inject(CashFlowService);
   private _bottomSheet = inject(MatBottomSheetRef);
   private _matDialog = inject(MatDialog);
+  private _router = inject(Router);
 
   currency = this.utilsService.getUserConfigs.currency;
 
-  release: MonthlyCashFlow = this.data.cashFlow;
+  release: MonthlyRelease = this.data.cashFlow;
 
   confirmDelete: boolean = false;
   excluding: boolean = false;
@@ -153,5 +155,12 @@ export class ReleaseDetailsComponent {
         this.confirmDelete = false;
         this.excluding = false;
       });
+  }
+
+  seeInvoice() {
+    this._bottomSheet.dismiss();
+    this._router.navigate([
+      `cartoes-de-credito/fatura/${this.release.accountId}`,
+    ]);
   }
 }

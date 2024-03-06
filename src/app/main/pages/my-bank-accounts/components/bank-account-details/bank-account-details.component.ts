@@ -10,7 +10,7 @@ import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { Account } from '../../../../../interfaces/Account';
+import { Account } from '../../../../../interfaces/account';
 import { MatButtonModule } from '@angular/material/button';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { Router } from '@angular/router';

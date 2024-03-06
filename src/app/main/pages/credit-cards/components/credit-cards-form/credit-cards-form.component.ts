@@ -23,12 +23,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatSelectModule } from '@angular/material/select';
 import { AccountService } from '../../../../../services/account.service';
-import { AccountBasicList } from '../../../../../interfaces/Account';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { AccountBasicList } from '../../../../../interfaces/account';
 
 @Component({
   selector: 'app-credit-cards-form',
@@ -105,8 +105,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
   }
 
   buildForm() {

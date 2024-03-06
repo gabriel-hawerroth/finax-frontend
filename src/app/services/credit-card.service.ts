@@ -6,7 +6,7 @@ import {
   CardBasicList,
   CreditCard,
   UserCreditCards,
-} from '../interfaces/CreditCard';
+} from '../interfaces/credit-card';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +34,9 @@ export class CreditCardService {
     return lastValueFrom(
       this._http.get<CardBasicList[]>(`${this.apiUrl}/basic-list`)
     );
+  }
+
+  getInvoiceAndReleases(): Promise<any> {
+    return lastValueFrom(this._http.get(`${this.apiUrl}/invoice-and-releases`));
   }
 }

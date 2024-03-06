@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { User } from '../interfaces/User';
+import { User } from '../interfaces/user';
 
 @Injectable({
   providedIn: 'root',

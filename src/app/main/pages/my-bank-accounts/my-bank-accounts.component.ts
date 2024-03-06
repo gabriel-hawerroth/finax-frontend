@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Subject, takeUntil } from 'rxjs';
-import { Account } from '../../../interfaces/Account';
+import { Account } from '../../../interfaces/account';
 import { AccountService } from '../../../services/account.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { Router, RouterModule } from '@angular/router';

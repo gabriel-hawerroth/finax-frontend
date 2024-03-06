@@ -6,10 +6,10 @@ import moment from 'moment';
 
 import { environment } from '../../environments/environment';
 import { UtilsService } from '../utils/utils.service';
-import { User } from '../interfaces/User';
-import { Credentials } from '../interfaces/Credentials';
+import { User } from '../interfaces/user';
+import { Credentials } from '../interfaces/credentials';
 import { UserConfigsService } from './user-configs.service';
-import { UserConfigs } from '../interfaces/UserConfigs';
+import { UserConfigs } from '../interfaces/user-configs';
 
 @Injectable({
   providedIn: 'root',
@@ -133,10 +133,13 @@ export class LoginService {
   }
 
   logout(showMessage: boolean) {
+    this._router.navigate(['']);
+
     this._utilsService.removeItemLocalStorage('userFinax');
     this._utilsService.removeItemLocalStorage('tokenFinax');
     this._utilsService.removeItemLocalStorage('tokenExpiration');
-    this._router.navigate(['']);
+    this._utilsService.removeItemLocalStorage('selectedMonthCashFlow');
+
     if (showMessage)
       this._utilsService.showMessage('login.access-expired', 5000);
   }

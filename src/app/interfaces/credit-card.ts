@@ -1,3 +1,6 @@
+import { Invoice } from './Invoice';
+import { MonthlyRelease } from './cash-flow';
+
 export interface CreditCard {
   id: number;
   user_id: number;
@@ -28,4 +31,9 @@ export interface CardBasicList {
   id: number;
   name: string;
   image: string;
+}
+
+export interface InvoiceAndReleases {
+  invoice: Invoice;
+  releases: MonthlyRelease;
 }

@@ -114,7 +114,12 @@
         "confirm-delete": "Do you really want to delete this record?",
         "deleted-successfully": "Record deleted successfully",
         "delete-error": "Error trying to delete the record",
-        "attachment-not-found": "Attachment not found"
+        "attachment-not-found": "Attachment not found",
+        "view-mode": {
+            "title": "Preview Mode",
+            "invoices-opt": "Unified Invoice",
+            "releases-opt": "Releases"
+        }
     },
     "release-form": {
         "description": "Description",

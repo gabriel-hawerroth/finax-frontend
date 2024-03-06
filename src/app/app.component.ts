@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
@@ -13,6 +13,7 @@ import { LoginService } from './services/login.service';
   imports: [CommonModule, RouterOutlet, SidebarComponent, MobilePageComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   public loginService = inject(LoginService);

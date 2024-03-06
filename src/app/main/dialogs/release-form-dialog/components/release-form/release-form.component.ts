@@ -14,13 +14,13 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AccountBasicList } from '../../../../../interfaces/Account';
-import { Category } from '../../../../../interfaces/Category';
+import { Category } from '../../../../../interfaces/category';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { CardBasicList } from '../../../../../interfaces/CreditCard';
+import { CardBasicList } from '../../../../../interfaces/credit-card';
 import { Subject, takeUntil } from 'rxjs';
 import moment from 'moment';
 import { TranslateModule } from '@ngx-translate/core';
+import { AccountBasicList } from '../../../../../interfaces/account';
 
 @Component({
   selector: 'app-release-form',

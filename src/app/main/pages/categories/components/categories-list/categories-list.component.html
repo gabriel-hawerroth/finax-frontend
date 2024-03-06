@@ -1,0 +1,40 @@
+<div class="categories">
+  <div class="top">
+    <h2>
+      @if (categoryType === 'E') {
+      {{ "cash-flow.expenses" | translate }}
+      } @else {
+      {{ "cash-flow.revenues" | translate }}
+      }
+    </h2>
+
+    <app-buttons
+      [showNew]="true"
+      [smallBtn]="true"
+      (onNew)="onNew.emit(categoryType)"
+    ></app-buttons>
+  </div>
+
+  <div class="list">
+    @for (categorie of categories; track categorie.id) {
+    <div class="item" (click)="onEdit.emit([$event, categorie])">
+      <span
+        class="material-symbols-outlined"
+        [ngStyle]="{ 'background-color': categorie.color }"
+      >
+        {{ categorie.icon }}
+      </span>
+
+      <span>{{ categorie.name }}</span>
+
+      <button
+        mat-icon-button
+        class="delete-btn"
+        (click)="onDelete.emit(categorie.id!)"
+      >
+        <span class="material-symbols-outlined">delete</span>
+      </button>
+    </div>
+    }
+  </div>
+</div>

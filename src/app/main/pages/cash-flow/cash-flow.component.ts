@@ -1,38 +1,36 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatTabsModule } from '@angular/material/tabs';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MonthlyCashFlow, MonthlyBalance } from '../../../interfaces/CashFlow';
+import { MatDialog } from '@angular/material/dialog';
+import { MonthlyBalance, MonthlyRelease } from '../../../interfaces/cash-flow';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
-import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import { Category } from '../../../interfaces/Category';
+import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { CategoryService } from '../../../services/category.service';
-import {
-  MatBottomSheet,
-  MatBottomSheetModule,
-} from '@angular/material/bottom-sheet';
-import { ReleaseDetailsComponent } from './components/release-details/release-details.component';
-import { AccountBasicList } from '../../../interfaces/Account';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { AccountBasicList } from '../../../interfaces/account';
 import { AccountService } from '../../../services/account.service';
-import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
 import { CreditCardService } from '../../../services/credit-card.service';
-import { CardBasicList } from '../../../interfaces/CreditCard';
+import { CardBasicList } from '../../../interfaces/credit-card';
 import { TranslateModule } from '@ngx-translate/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { Category } from '../../../interfaces/category';
+import { UserConfigsService } from '../../../services/user-configs.service';
+import { ReleasesListComponent } from './components/releases-list/releases-list.component';
+import { ReleasesMonthPipe } from '../../../utils/releases-month.pipe';
 
 @Component({
   selector: 'app-cash-flow',
@@ -42,44 +40,37 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     MatMenuModule,
     MatButtonModule,
-    MatTabsModule,
     MatCardModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatDialogModule,
     CustomCurrencyPipe,
     MatBottomSheetModule,
-    ButtonsComponent,
     TranslateModule,
+    MatButtonToggleModule,
+    ReleasesListComponent,
+    ReleasesMonthPipe,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CashFlowComponent implements OnInit {
+export class CashFlowComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
-  private _fb = inject(FormBuilder);
   private _matDialog = inject(MatDialog);
-  private _bottomSheet = inject(MatBottomSheet);
   private _cashFlowService = inject(CashFlowService);
   private _accountService = inject(AccountService);
   private _categoryService = inject(CategoryService);
   private _creditCardService = inject(CreditCardService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _userConfigsService = inject(UserConfigsService);
+
+  private readonly _unsubscribeAll: Subject<void> = new Subject();
+
+  private readonly currentDate: Date = new Date();
 
   currency = this.utilsService.getUserConfigs.currency;
 
-  filterForm!: FormGroup;
+  releases: WritableSignal<MonthlyRelease[]> = signal([]);
+  searching: WritableSignal<boolean> = signal(false);
 
-  releases: BehaviorSubject<MonthlyCashFlow[]> = new BehaviorSubject<
-    MonthlyCashFlow[]
-  >([]);
-
-  selectedDate: Date = new Date(new Date().setDate(15));
-
-  currentYear: string = this.selectedDate.getFullYear().toString();
-
-  searching: boolean = false;
+  selectedDate: Date = new Date(this.currentDate.setDate(15));
 
   totals: MonthlyBalance = {
     revenues: 0,
@@ -93,34 +84,62 @@ export class CashFlowComponent implements OnInit {
   categories: Category[] = [];
   creditCards: CardBasicList[] = [];
 
+  viewModeCtrl: FormControl = new FormControl<string>(
+    this.utilsService.getUserConfigs.releasesViewMode
+  );
+
   ngOnInit(): void {
-    this.buildForm();
+    this.getValues();
+
+    const savedMonth = this.utilsService.getItemLocalStorage(
+      'selectedMonthCashFlow'
+    );
+
+    if (savedMonth) {
+      this.selectedDate = new Date(savedMonth);
+    } else {
+      this.utilsService.setItemLocalStorage(
+        'selectedMonthCashFlow',
+        this.selectedDate.toString()
+      );
+    }
+
     this.getReleases();
 
-    this.getValues();
+    this.viewModeCtrl.valueChanges
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(() => {
+        this.getReleases();
+      });
   }
 
-  buildForm() {
-    this.filterForm = this._fb.group({
-      account: '',
-    });
+  ngOnDestroy(): void {
+    this._unsubscribeAll.unsubscribe();
+
+    const configs = this.utilsService.getUserConfigs;
+    configs.releasesViewMode = this.viewModeCtrl.value;
+    this._userConfigsService.save(configs);
+
+    this.utilsService.setItemLocalStorage(
+      'selectedMonthCashFlow',
+      this.selectedDate.toString()
+    );
   }
 
   getReleases() {
-    this.searching = true;
+    this.searching.set(true);
 
     this._cashFlowService
-      .getMonthlyFlow(this.selectedDate)
+      .getMonthlyFlow(this.selectedDate, this.viewModeCtrl.value)
       .then((response) => {
-        this.releases.next(response.releases);
+        this.releases.set(response.releases);
         this.totals = response.totals;
       })
       .catch(() => {
         this.utilsService.showMessage('cash-flow.error-getting-releases');
       })
       .finally(() => {
-        this.searching = false;
-        this._changeDetectorRef.detectChanges();
+        this.searching.set(false);
       });
   }
 
@@ -132,48 +151,16 @@ export class CashFlowComponent implements OnInit {
     ]);
   }
 
-  get getSelectedMonth(): string {
-    return this.selectedDate.toLocaleString(
-      this.utilsService.getUserConfigs.language,
-      { month: 'long' }
-    );
-  }
-
-  get getSelectedYear(): string {
-    const selectedYear = this.selectedDate.getFullYear().toString();
-
-    return selectedYear !== this.currentYear ? selectedYear : '';
-  }
-
   changeMonth(direction: 'before' | 'next'): void {
-    switch (direction) {
-      case 'before':
-        this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
-        break;
-      case 'next':
-        this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
-        break;
-    }
+    this.selectedDate = new Date(
+      this.selectedDate.setMonth(
+        direction === 'before'
+          ? this.selectedDate.getMonth() - 1
+          : this.selectedDate.getMonth() + 1
+      )
+    );
 
     this.getReleases();
-  }
-
-  openDetails(cashFlow: MonthlyCashFlow) {
-    lastValueFrom(
-      this._bottomSheet
-        .open(ReleaseDetailsComponent, {
-          data: {
-            cashFlow: cashFlow,
-          },
-          panelClass: 'release-details',
-        })
-        .afterDismissed()
-    ).then((response) => {
-      if (!response) return;
-
-      if (response === 'edit') this.editRelease(cashFlow);
-      else if (response === 'delete') this.getReleases();
-    });
   }
 
   addRelease(releaseType: 'E' | 'R' | 'T') {
@@ -187,30 +174,6 @@ export class CashFlowComponent implements OnInit {
             editing: false,
             releaseType: releaseType,
             selectedDate: this.selectedDate,
-          },
-          panelClass: 'new-release-cash-flow-dialog',
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (!response) return;
-
-      this.getReleases();
-    });
-  }
-
-  editRelease(release: MonthlyCashFlow) {
-    lastValueFrom(
-      this._matDialog
-        .open(ReleaseFormDialogComponent, {
-          data: {
-            accounts: this.accounts,
-            categories: this.categories,
-            creditCards: this.creditCards,
-            editing: true,
-            releaseType: release.type,
-            selectedDate: this.selectedDate,
-            release: release,
           },
           panelClass: 'new-release-cash-flow-dialog',
           autoFocus: false,

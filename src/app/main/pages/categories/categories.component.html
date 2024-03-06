@@ -10,79 +10,23 @@
 
   <div class="content">
     <mat-card class="card">
-      <div class="categories">
-        <div class="top">
-          <h2>
-            {{ "cash-flow.expenses" | translate }}
-          </h2>
+      <app-categories-list
+        [categories]="getExpenseCategories"
+        [categoryType]="'E'"
+        (onNew)="newCategory($event)"
+        (onEdit)="editCategory($event)"
+        (onDelete)="delete($event)"
+        class="categories"
+      ></app-categories-list>
 
-          <app-buttons
-            [showNew]="true"
-            [smallBtn]="true"
-            (onNew)="newCategory('E')"
-          ></app-buttons>
-        </div>
-
-        <div class="list">
-          @for (item of getExpenseCategories; track item.id) {
-          <div class="item" (click)="editCategory($event, item)">
-            <span
-              class="material-symbols-outlined"
-              [ngStyle]="{ 'background-color': item.color }"
-            >
-              {{ item.icon }}
-            </span>
-
-            <span>{{ item.name }}</span>
-
-            <button
-              mat-icon-button
-              class="delete-btn"
-              (click)="delete(item.id!)"
-            >
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </div>
-          }
-        </div>
-      </div>
-
-      <div class="categories">
-        <div class="top">
-          <h2>
-            {{ "cash-flow.revenues" | translate }}
-          </h2>
-
-          <app-buttons
-            [showNew]="true"
-            [smallBtn]="true"
-            (onNew)="newCategory('R')"
-          ></app-buttons>
-        </div>
-
-        <div class="list">
-          @for (item of getRevenueCategories; track item.id) {
-          <div class="item" (click)="editCategory($event, item)">
-            <span
-              class="material-symbols-outlined"
-              [ngStyle]="{ 'background-color': item.color }"
-            >
-              {{ item.icon }}
-            </span>
-
-            <span>{{ item.name }}</span>
-
-            <button
-              mat-icon-button
-              class="delete-btn"
-              (click)="delete(item.id!)"
-            >
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-          </div>
-          }
-        </div>
-      </div>
+      <app-categories-list
+        [categories]="getRevenueCategories"
+        [categoryType]="'R'"
+        (onNew)="newCategory($event)"
+        (onEdit)="editCategory($event)"
+        (onDelete)="delete($event)"
+        class="categories"
+      ></app-categories-list>
     </mat-card>
   </div>
 </div>

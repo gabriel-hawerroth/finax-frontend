@@ -88,14 +88,19 @@
     <div class="row3">
       <app-buttons
         [showDownload]="release.attachmentName !== null"
-        [showEdit]="true"
-        [showDelete]="true"
+        [showEdit]="release.type !== 'I'"
+        [showDelete]="release.type !== 'I'"
         [bigBtn]="true"
         [disableEdit]="release.categoryId === 21"
         [disableDelete]="release.categoryId === 21"
+        [showGeneric]="release.type === 'I'"
+        [genericIcon]="'sort'"
+        [genericLabel]="'credit-cards.see-invoice' | translate"
+        [genericColor]="'#585858'"
         (onDownload)="downloadAttachment()"
         (onEdit)="edit()"
         (onDelete)="delete()"
+        (onGeneric)="seeInvoice()"
       ></app-buttons>
     </div>
   </div>

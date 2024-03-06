@@ -202,6 +202,10 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 0 !important;
 }
 
+.mat-mdc-menu-panel {
+  max-width: 100% !important;
+}
+
 // END ANGULAR FIX ***********
 
 .simple-page {

@@ -114,7 +114,12 @@
         "confirm-delete": "Möchten Sie diesen Datensatz wirklich löschen?",
         "deleted-successfully": "Datensatz erfolgreich gelöscht",
         "delete-error": "Fehler beim Versuch, den Datensatz zu löschen",
-        "attachment-not-found": "Anhang nicht gefunden"
+        "attachment-not-found": "Anhang nicht gefunden",
+        "view-mode": {
+            "title": "Vorschau-Modus",
+            "invoices-opt": "Einheitliche Rechnung",
+            "releases-opt": "Auslösungen"
+        }
     },
     "release-form": {
         "description": "Beschreibung",

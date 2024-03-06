@@ -20,10 +20,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { User } from '../../../../../interfaces/User';
+import { User } from '../../../../../interfaces/user';
 import { UserService } from '../../../../../services/user.service';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { Credentials } from '../../../../../interfaces/Credentials';
+import { Credentials } from '../../../../../interfaces/credentials';
 import { LoginService } from '../../../../../services/login.service';
 
 @Component({

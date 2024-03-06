@@ -13,11 +13,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { UserConfigs } from '../../../interfaces/UserConfigs';
+import { UserConfigs } from '../../../interfaces/user-configs';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { TranslateModule } from '@ngx-translate/core';
-import { GenericIdDs } from '../../../interfaces/Generic';
+import { GenericIdDs } from '../../../interfaces/generic';
 
 @Component({
   selector: 'app-settings',
@@ -70,6 +70,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-br',
       currency: 'R$',
+      releasesViewMode: '',
     });
 
     this.configsForm.valueChanges

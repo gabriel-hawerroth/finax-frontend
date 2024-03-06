@@ -6,7 +6,7 @@ import {
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
-import { UserCreditCards } from '../../../../../interfaces/CreditCard';
+import { UserCreditCards } from '../../../../../interfaces/credit-card';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';

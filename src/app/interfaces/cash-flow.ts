@@ -17,11 +17,11 @@ export interface CashFlow {
 }
 
 export interface MonthlyFlow {
-  releases: MonthlyCashFlow[];
+  releases: MonthlyRelease[];
   totals: MonthlyBalance;
 }
 
-export interface MonthlyCashFlow {
+export interface MonthlyRelease {
   id: number;
   userId: number;
   description: string;
@@ -42,6 +42,7 @@ export interface MonthlyCashFlow {
   attachmentName?: string;
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;
+  isCreditCardRelease: boolean;
 }
 
 export interface MonthlyBalance {

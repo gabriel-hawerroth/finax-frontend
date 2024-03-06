@@ -1,15 +1,16 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { MatCardModule } from '@angular/material/card';
-import { Category } from '../../../../../interfaces/Category';
+import { Category } from '../../../../../interfaces/category';
 import { lastValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CategoryService } from '../../../../../services/category.service';
@@ -18,11 +19,13 @@ import { MatButtonModule } from '@angular/material/button';
 import {
   CardBasicList,
   CreditCard,
-} from '../../../../../interfaces/CreditCard';
+} from '../../../../../interfaces/credit-card';
 import { ActivatedRoute } from '@angular/router';
 import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dialog/release-form-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { MonthlyCashFlow } from '../../../../../interfaces/CashFlow';
+import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
+import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
+import { AccountBasicList } from '../../../../../interfaces/account';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -34,6 +37,7 @@ import { MonthlyCashFlow } from '../../../../../interfaces/CashFlow';
     MatButtonModule,
     NgOptimizedImage,
     TranslateModule,
+    ReleasesListComponent,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
@@ -45,37 +49,37 @@ export class CreditCardInvoiceComponent implements OnInit {
   private _matDialog = inject(MatDialog);
   private _categoryService = inject(CategoryService);
   private _activatedRoute = inject(ActivatedRoute);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   currency = this.utilsService.getUserConfigs.currency;
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
-  creditCard: CreditCard | null = null;
-  releases: MonthlyCashFlow[] = [];
+  creditCard: WritableSignal<CreditCard | null> = signal(null);
+  releases: WritableSignal<MonthlyRelease[]> = signal([]);
 
   selectedDate: Date = new Date();
   currentYear: string = this.selectedDate.getFullYear().toString();
 
-  searching: boolean = false;
+  searching: WritableSignal<boolean> = signal(false);
 
   categories: Category[] = [];
+  accounts: AccountBasicList[] = [];
   creditCards: CardBasicList[] = [];
 
   ngOnInit(): void {
-    this.getReleases();
+    this.getInvoiceAndReleases();
     this.getValues();
   }
 
-  getReleases() {}
+  getInvoiceAndReleases() {}
 
   async getValues() {
-    [this.creditCard, this.categories, this.creditCards] = await Promise.all([
-      this._creditCardService.getById(this.creditCardId),
-      this._categoryService.getByUser(),
-      this._creditCardService.getByUser(),
-    ]);
+    this._creditCardService
+      .getById(this.creditCardId)
+      .then((response) => this.creditCard.set(response));
 
-    this._changeDetectorRef.detectChanges();
+    this._categoryService
+      .getByUser()
+      .then((response) => (this.categories = response));
   }
 
   get getSelectedMonth(): string {
@@ -95,10 +99,11 @@ export class CreditCardInvoiceComponent implements OnInit {
     let day = '';
     switch (info) {
       case 'closing':
-        day = this.creditCard?.close_day.toString().padStart(2, '0') || '00';
+        day = this.creditCard()?.close_day.toString().padStart(2, '0') || '00';
         break;
       case 'expiration':
-        day = this.creditCard?.expires_day.toString().padStart(2, '0') || '00';
+        day =
+          this.creditCard()?.expires_day.toString().padStart(2, '0') || '00';
         break;
     }
 
@@ -118,7 +123,7 @@ export class CreditCardInvoiceComponent implements OnInit {
     }
 
     this.selectedDate.setDate(15);
-    this.getReleases();
+    this.getInvoiceAndReleases();
   }
 
   addRelease() {
@@ -141,7 +146,7 @@ export class CreditCardInvoiceComponent implements OnInit {
     ).then((response) => {
       if (!response) return;
 
-      this.getReleases();
+      this.getInvoiceAndReleases();
     });
   }
 }

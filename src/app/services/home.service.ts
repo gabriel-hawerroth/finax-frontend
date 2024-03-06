@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { lastValueFrom } from 'rxjs';
-import { HomeValues } from '../interfaces/Home';
+import { HomeValues } from '../interfaces/home';
 import moment from 'moment';
 
 @Injectable({

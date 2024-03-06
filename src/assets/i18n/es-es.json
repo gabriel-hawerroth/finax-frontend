@@ -114,7 +114,12 @@
         "confirm-delete": "¿Realmente quieres eliminar este registro?",
         "deleted-successfully": "Registro eliminado con éxito",
         "delete-error": "Error al intentar eliminar el registro",
-        "attachment-not-found": "Adjunto no encontrado"
+        "attachment-not-found": "Adjunto no encontrado",
+        "view-mode": {
+            "title": "Modo de vista previa",
+            "invoices-opt": "Factura unificada",
+            "releases-opt": "Libera"
+        }
     },
     "release-form": {
         "description": "Descripción",

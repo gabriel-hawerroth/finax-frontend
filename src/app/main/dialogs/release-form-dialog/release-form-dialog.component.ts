@@ -34,13 +34,13 @@ import {
   MatCheckboxModule,
 } from '@angular/material/checkbox';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
-import { Category } from '../../../interfaces/Category';
+import { Category } from '../../../interfaces/category';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { ConfirmDuplicatedReleasesActionComponent } from '../../pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { GenericIdDs } from '../../../interfaces/Generic';
-import { CardBasicList } from '../../../interfaces/CreditCard';
+import { GenericIdDs } from '../../../interfaces/generic';
+import { CardBasicList } from '../../../interfaces/credit-card';
 import { ReleasedOn } from '../../../enums/released-on';
 import { DuplicatedReleaseAction } from '../../../enums/duplicated-release-action';
 
@@ -272,22 +272,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
 
     this.saving = true;
-    let showingMessage: boolean = false;
     var requestError: boolean = false;
     this._changeDetectorRef.detectChanges();
-
-    setTimeout(() => {
-      if (this.saving) {
-        this.utilsService.showMessage(
-          'generic.this-may-take-few-seconds',
-          6000
-        );
-        showingMessage = true;
-        setTimeout(() => {
-          showingMessage = false;
-        }, 6000);
-      }
-    }, 8000);
 
     const selectedAccount = this.data.accounts.find(
       (item: CardBasicList) => item.id === release.accountId
@@ -332,6 +318,13 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
 
     if (this.changedAttachment && this.selectedFile) {
+      if (this.selectedFile.size > 1.5 * 1024 * 1024) {
+        this.utilsService.showMessage(
+          'generic.this-may-take-few-seconds',
+          6000
+        );
+      }
+
       await this._cashFlowService
         .addAttachment(release.id, this.selectedFile!)
         .catch(() => {
@@ -361,8 +354,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     this._matDialogRef.close(true);
 
     this.saving = false;
-
-    if (showingMessage) this.utilsService.dismissMessage();
 
     this._changeDetectorRef.detectChanges();
   }

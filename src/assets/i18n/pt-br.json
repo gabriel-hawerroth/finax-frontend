@@ -114,7 +114,12 @@
         "confirm-delete": "Deseja realmente excluir esse registro?",
         "deleted-successfully": "Registro excluído com sucesso",
         "delete-error": "Erro ao tentar excluir o registro",
-        "attachment-not-found": "Arquivo não encontrado"
+        "attachment-not-found": "Arquivo não encontrado",
+        "view-mode": {
+            "title": "Modo de visualização",
+            "invoices-opt": "Fatura unificada",
+            "releases-opt": "Lançamentos"
+        }
     },
     "release-form": {
         "description": "Descrição",

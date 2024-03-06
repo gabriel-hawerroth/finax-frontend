@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { UserConfigs } from '../interfaces/UserConfigs';
+import { UserConfigs } from '../interfaces/user-configs';
 import { UtilsService } from '../utils/utils.service';
 
 @Injectable({

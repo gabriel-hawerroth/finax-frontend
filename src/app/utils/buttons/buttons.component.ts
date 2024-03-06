@@ -63,6 +63,7 @@ export class ButtonsComponent {
 
   @Input() genericIcon: string = '';
   @Input() genericLabel: string = '';
+  @Input() genericColor: string = '';
 
   private _utilsService = inject(UtilsService);
 

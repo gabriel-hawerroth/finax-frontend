@@ -1,37 +1,38 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../../services/user.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { ChangePasswordDialogComponent } from '../../dialogs/change-password-dialog/change-password-dialog.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { Subject, takeUntil } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
-import { User } from '../../../interfaces/User';
+import { User } from '../../../interfaces/user';
+import { MyProfileFormComponent } from './components/my-profile-form/my-profile-form.component';
 
 @Component({
   selector: 'app-my-profile',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
     MatButtonModule,
-    MatInputModule,
     ButtonsComponent,
     TranslateModule,
+    MyProfileFormComponent,
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyProfileComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
@@ -50,12 +51,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   planPrice: string = '';
   signatureExpiration: string = '';
 
-  profileImageSrc: string | ArrayBuffer | null =
-    this.utilsService.userImage.getValue();
+  profileImageSrc: WritableSignal<string | ArrayBuffer | null> = signal('');
   changedProfileImg: boolean = false;
   selectedProfileImage: File | null = null;
 
-  saving: boolean = false;
+  saving: WritableSignal<boolean> = signal(false);
 
   ngOnInit(): void {
     this.buildForm();
@@ -64,12 +64,11 @@ export class MyProfileComponent implements OnInit, OnDestroy {
     this.utilsService.userImage
       .asObservable()
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => (this.profileImageSrc = value));
+      .subscribe((value) => this.profileImageSrc.set(value));
   }
 
   ngOnDestroy(): void {
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
   }
 
   buildForm() {
@@ -84,13 +83,13 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   saveUser() {
-    this.saving = true;
+    this.saving.set(true);
 
     this.userForm.markAsPristine();
     let showingMessage: boolean = false;
 
     setTimeout(() => {
-      if (this.saving && this.selectedProfileImage) {
+      if (this.saving() && this.selectedProfileImage) {
         this.utilsService.showMessage(
           'generic.this-may-take-few-seconds',
           6000
@@ -143,7 +142,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       })
       .finally(() => {
         this.changedProfileImg = false;
-        this.saving = false;
+        this.saving.set(false);
       });
 
     if (showingMessage) this.utilsService.dismissMessage();
@@ -172,7 +171,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e: any) => {
-        this.profileImageSrc = e.target.result;
+        this.profileImageSrc.set(e.target.result);
       };
     }
   }

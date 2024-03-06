@@ -3,7 +3,9 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +22,7 @@ import {
 
 import { UtilsService } from '../../../utils/utils.service';
 import { UserService } from '../../../services/user.service';
-import { Credentials } from '../../../interfaces/Credentials';
+import { Credentials } from '../../../interfaces/credentials';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -53,7 +55,7 @@ export class ChangePasswordDialogComponent implements OnInit {
 
   changePasswordForm!: FormGroup;
 
-  loading: boolean = false;
+  loading: WritableSignal<boolean> = signal(false);
 
   ngOnInit(): void {
     this.buildForm();
@@ -94,7 +96,7 @@ export class ChangePasswordDialogComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
+    this.loading.set(true);
 
     this._userService
       .changePassword(passwords.newPassword, passwords.currentPassword)
@@ -134,8 +136,7 @@ export class ChangePasswordDialogComponent implements OnInit {
         }
       })
       .finally(() => {
-        this.loading = false;
-        this._changeDetectorRef.detectChanges();
+        this.loading.set(false);
       });
   }
 }
