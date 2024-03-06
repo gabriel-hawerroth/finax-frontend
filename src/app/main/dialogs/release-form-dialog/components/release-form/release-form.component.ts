@@ -55,7 +55,7 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
 
   currency = this.utilsService.getUserConfigs.currency;
 
-  selectedAccount: any | null = null;
+  selectedAccount: AccountBasicList | CardBasicList | null = null;
   selectedTargetAccount: AccountBasicList | null = null;
   selectedCategory: Category | null = null;
 
@@ -65,7 +65,7 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
     if (this.selectedCreditCard) {
       this.selectedAccount = this.creditCardsList.find(
         (item) => item.id === this.form.value.accountId
-      );
+      )!;
     }
 
     const categoryId = this.form.value.categoryId;
@@ -82,12 +82,11 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
       );
     }
 
-    this.form.get('accountId')!.setValue(this.form.get('accountId')!.value);
+    this.form.get('accountId')!.updateValueAndValidity();
   }
 
   ngOnDestroy(): void {
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
   }
 
   subscribeFormChanges() {
@@ -108,7 +107,9 @@ export class ReleaseFormComponent implements OnInit, OnDestroy {
         const selectedCard: CardBasicList | undefined =
           this.creditCardsList.find((item) => item.id === value);
 
-        this.selectedAccount = selectedAccount ? selectedAccount : selectedCard;
+        this.selectedAccount = selectedAccount
+          ? selectedAccount
+          : selectedCard!;
       });
 
     this.form

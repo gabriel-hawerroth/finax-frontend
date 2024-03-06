@@ -159,6 +159,7 @@ export class CashFlowComponent implements OnInit, OnDestroy {
           : this.selectedDate.getMonth() + 1
       )
     );
+    this.selectedDate.setDate(15);
 
     this.getReleases();
   }

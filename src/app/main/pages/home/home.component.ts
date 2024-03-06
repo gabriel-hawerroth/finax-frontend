@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   WritableSignal,
   inject,
@@ -15,6 +16,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HomeValues } from '../../../interfaces/home';
 import { TranslateModule } from '@ngx-translate/core';
 import { MonthlyRelease } from '../../../interfaces/cash-flow';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -31,10 +33,15 @@ import { MonthlyRelease } from '../../../interfaces/cash-flow';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _homeService = inject(HomeService);
 
+  private readonly _unsubscribeAll: Subject<void> = new Subject();
+
+  theme: WritableSignal<string> = signal(
+    this.utilsService.getUserConfigs.theme
+  );
   currency: string = this.utilsService.getUserConfigs.currency;
 
   homeValues: WritableSignal<HomeValues> = signal({
@@ -50,6 +57,17 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getValues();
+
+    this.utilsService
+      .subscribeUserConfigs()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((configs) => {
+        this.theme.set(configs.theme);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.unsubscribe();
   }
 
   getValues() {

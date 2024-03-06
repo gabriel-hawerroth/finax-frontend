@@ -26,6 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { AccountBasicList } from '../../../../../interfaces/account';
+import { ReleasesMonthPipe } from '../../../../../utils/releases-month.pipe';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -38,6 +39,7 @@ import { AccountBasicList } from '../../../../../interfaces/account';
     NgOptimizedImage,
     TranslateModule,
     ReleasesListComponent,
+    ReleasesMonthPipe,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
@@ -82,19 +84,6 @@ export class CreditCardInvoiceComponent implements OnInit {
       .then((response) => (this.categories = response));
   }
 
-  get getSelectedMonth(): string {
-    return this.selectedDate.toLocaleString(
-      this.utilsService.getUserConfigs.language,
-      { month: 'long' }
-    );
-  }
-
-  get getSelectedYear(): string {
-    const selectedYear = this.selectedDate.getFullYear().toString();
-
-    return selectedYear !== this.currentYear ? selectedYear : '';
-  }
-
   getDateInfo(info: 'closing' | 'expiration'): string {
     let day = '';
     switch (info) {
@@ -115,14 +104,16 @@ export class CreditCardInvoiceComponent implements OnInit {
     return `${day}/${month}/${year}`;
   }
 
-  selectMonth(direction: 'before' | 'next'): void {
-    if (direction === 'before') {
-      this.selectedDate.setMonth(this.selectedDate.getMonth() - 1);
-    } else {
-      this.selectedDate.setMonth(this.selectedDate.getMonth() + 1);
-    }
-
+  changeMonth(direction: 'before' | 'next'): void {
+    this.selectedDate = new Date(
+      this.selectedDate.setMonth(
+        direction === 'before'
+          ? this.selectedDate.getMonth() - 1
+          : this.selectedDate.getMonth() + 1
+      )
+    );
     this.selectedDate.setDate(15);
+
     this.getInvoiceAndReleases();
   }
 
@@ -133,7 +124,7 @@ export class CreditCardInvoiceComponent implements OnInit {
           data: {
             accounts: [],
             categories: this.categories,
-            creditCards: [this.creditCard],
+            creditCards: [this.creditCard()],
             editing: false,
             releaseType: 'E',
             selectedDate: this.selectedDate,

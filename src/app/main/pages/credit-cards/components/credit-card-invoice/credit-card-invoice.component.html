@@ -39,20 +39,19 @@
         <div class="second-row">
           <button
             mat-icon-button
-            (click)="selectMonth('before')"
+            (click)="changeMonth('before')"
             [disabled]="searching()"
           >
             <span class="material-symbols-outlined">chevron_left</span>
           </button>
 
           <div class="tab">
-            {{ getSelectedMonth }}
-            {{ getSelectedYear }}
+            {{ selectedDate | releasesMonth }}
           </div>
 
           <button
             mat-icon-button
-            (click)="selectMonth('next')"
+            (click)="changeMonth('next')"
             [disabled]="searching()"
           >
             <span class="material-symbols-outlined">navigate_next</span>
