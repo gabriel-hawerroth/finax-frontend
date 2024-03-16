@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -37,16 +37,15 @@ import { LoginService } from '../../../../../services/login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ForgotPasswordComponent implements OnInit {
-  public utilsService = inject(UtilsService);
-  private _loginService = inject(LoginService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
-  private _matSnackBar = inject(MatSnackBar);
-  private _translate = inject(TranslateService);
+  public readonly utilsService = inject(UtilsService);
+  private readonly _loginService = inject(LoginService);
+  private readonly _matSnackBar = inject(MatSnackBar);
+  private readonly _translate = inject(TranslateService);
 
-  originalFormValue!: FormGroup;
-  showLoading: boolean = false;
+  public originalFormValue!: FormGroup;
+  public showLoading = signal(false);
 
-  emailControl: FormControl = new FormControl('', [
+  public emailControl: FormControl = new FormControl('', [
     Validators.required,
     Validators.email,
   ]);
@@ -56,13 +55,12 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   resetPassword() {
-    this.showLoading = true;
+    this.showLoading.set(true);
     const email: string = this.emailControl.value;
 
     this._loginService
       .sendChangePasswordEmail(email)
       .then(() => {
-        this.showLoading = false;
         this.emailControl.reset('');
         this._matSnackBar.open(
           `${this._translate.instant(
@@ -74,9 +72,6 @@ export class ForgotPasswordComponent implements OnInit {
       .catch(() => {
         this.utilsService.showMessage("forgot-password.user-doesn't-exist");
       })
-      .finally(() => {
-        this.showLoading = false;
-        this._changeDetectorRef.detectChanges();
-      });
+      .finally(() => this.showLoading.set(false));
   }
 }

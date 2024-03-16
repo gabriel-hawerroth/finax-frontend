@@ -9,9 +9,9 @@ import { User } from '../interfaces/user';
   providedIn: 'root',
 })
 export class UserService {
-  private _http = inject(HttpClient);
+  private readonly _http = inject(HttpClient);
 
-  apiUrl = `${environment.baseApiUrl}user`;
+  private readonly apiUrl = `${environment.baseApiUrl}user`;
 
   getById(userId: number): Promise<User> {
     return lastValueFrom(this._http.get<User>(`${this.apiUrl}/${userId}`));

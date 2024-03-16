@@ -1,10 +1,11 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -39,14 +40,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _userConfigsService = inject(UserConfigsService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   private _unsubscribeAll: Subject<any> = new Subject();
 
   configsForm!: FormGroup;
   userConfigs!: UserConfigs;
 
-  theme: string = this.utilsService.getUserConfigs.theme;
+  theme: WritableSignal<string> = signal(
+    this.utilsService.getUserConfigs.theme
+  );
 
   initError: boolean = false;
 
@@ -58,8 +60,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.saveConfigs();
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
   }
 
   buidForm() {
@@ -76,10 +77,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.configsForm.valueChanges
       .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
       .subscribe((value) => {
-        this.theme = value.theme;
+        this.theme.set(value.theme);
         this.utilsService.setUserConfigs(value);
-
-        this._changeDetectorRef.detectChanges();
       });
   }
 

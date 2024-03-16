@@ -10,10 +10,10 @@ import { UtilsService } from '../utils/utils.service';
   providedIn: 'root',
 })
 export class UserConfigsService {
-  private _http = inject(HttpClient);
-  private _utilsService = inject(UtilsService);
+  private readonly _http = inject(HttpClient);
+  private readonly _utilsService = inject(UtilsService);
 
-  apiUrl = `${environment.baseApiUrl}user-configs`;
+  private readonly apiUrl = `${environment.baseApiUrl}user-configs`;
 
   getLoggedUserConfigs(): Promise<UserConfigs> {
     return lastValueFrom(

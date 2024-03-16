@@ -1,3 +1,7 @@
+import { AccountBasicList } from './account';
+import { Category } from './category';
+import { CardBasicList } from './credit-card';
+
 export interface CashFlow {
   id?: number;
   userId: number;
@@ -18,7 +22,7 @@ export interface CashFlow {
 
 export interface MonthlyFlow {
   releases: MonthlyRelease[];
-  totals: MonthlyBalance;
+  expectedBalance: number;
 }
 
 export interface MonthlyRelease {
@@ -43,12 +47,17 @@ export interface MonthlyRelease {
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;
   isCreditCardRelease: boolean;
+  creditCardImg: string;
 }
 
 export interface MonthlyBalance {
   revenues: number;
   expenses: number;
-  balance: number;
   generalBalance: number;
-  expectedBalance: number;
+}
+
+export interface CashFlowValues {
+  accountsList: AccountBasicList[];
+  categoriesList: Category[];
+  creditCardsList: CardBasicList[];
 }

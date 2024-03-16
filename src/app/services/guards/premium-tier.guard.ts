@@ -1,30 +1,32 @@
-import { Injectable, inject } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { UtilsService } from '../../utils/utils.service';
 import { LoginService } from '../login.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class PremiumTierGuard implements CanActivate {
-  private _loginService = inject(LoginService);
-  private _router = inject(Router);
-  private _utilsService = inject(UtilsService);
-
-  canActivate() {
-    if (this._loginService.logged) {
-      if (
-        this._utilsService.getLoggedUser!.access === 'premium' ||
-        this._utilsService.getLoggedUser!.access === 'adm'
-      )
-        return true;
-      else {
-        this._router.navigate(['home']);
-        this._utilsService.showMessage('generic.without-permission');
-        return false;
-      }
+export const PremiumTierGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  loginService = inject(LoginService),
+  utilsService = inject(UtilsService),
+  router = inject(Router)
+) => {
+  if (loginService.logged) {
+    if (
+      utilsService.getLoggedUser!.access === 'premium' ||
+      utilsService.getLoggedUser!.access === 'adm'
+    )
+      return true;
+    else {
+      router.navigate(['home']);
+      utilsService.showMessage('generic.without-permission');
+      return false;
     }
-    this._router.navigate(['']);
-    return false;
   }
-}
+  router.navigate(['']);
+  return false;
+};

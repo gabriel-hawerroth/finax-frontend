@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -44,20 +44,18 @@ export class EditBalanceDialogComponent implements OnInit {
   public data = inject(MAT_DIALOG_DATA);
   public utilsService = inject(UtilsService);
   private _accountService = inject(AccountService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
 
   currency = this.utilsService.getUserConfigs.currency;
 
   balanceControl = new FormControl(this.data.account.balance || 0);
-  loading: boolean = false;
+  loading = signal(false);
 
   ngOnInit(): void {
     this.balanceControl.markAsTouched();
   }
 
   save() {
-    this.loading = true;
-    this._changeDetectorRef.detectChanges();
+    this.loading.set(true);
 
     this._accountService
       .adjustBalance(this.data.account.id, this.balanceControl.value)
@@ -72,8 +70,7 @@ export class EditBalanceDialogComponent implements OnInit {
         this.utilsService.showMessage('my-accounts.error-changing-balance');
       })
       .finally(() => {
-        this.loading = false;
-        this._changeDetectorRef.detectChanges();
+        this.loading.set(false);
       });
 
     this.balanceControl.markAsPristine();

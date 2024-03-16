@@ -25,8 +25,8 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserActivationComponent implements OnInit {
-  private _utilsService = inject(UtilsService);
-  private _router = inject(Router);
+  private readonly _utilsService = inject(UtilsService);
+  private readonly _router = inject(Router);
 
   ngOnInit(): void {
     if (

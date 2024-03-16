@@ -105,9 +105,11 @@
             formControlName="balance"
             [readonly]="accountId !== null"
           />
+          @if (!accountId) {
           <mat-hint>
             {{ "my-accounts.minus-for-negative-more-for-positive" | translate }}
           </mat-hint>
+          }
         </mat-form-field>
 
         <mat-form-field style="width: 30%">

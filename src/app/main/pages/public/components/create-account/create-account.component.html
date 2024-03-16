@@ -84,15 +84,15 @@
     </form>
 
     <div class="bottom">
-      @if (!showLoading) {
+      @if (showLoading()) {
+      <mat-spinner [diameter]="40"></mat-spinner>
+      } @else {
       <button mat-raised-button color="primary" (click)="createUser()">
         <span>
           <span class="material-symbols-outlined">person</span>
           {{ "create-account.create" | translate }}
         </span>
       </button>
-      } @else {
-      <mat-spinner [diameter]="40"></mat-spinner>
       }
     </div>
   </div>

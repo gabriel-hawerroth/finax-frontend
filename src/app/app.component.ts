@@ -16,9 +16,9 @@ import { LoginService } from './services/login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  public loginService = inject(LoginService);
-  public location = inject(Location);
-  private _utils = inject(UtilsService);
+  public readonly loginService = inject(LoginService);
+  public readonly location = inject(Location);
+  private readonly _utils = inject(UtilsService);
 
   constructor() {
     this._utils.setDefaultLanguage();

@@ -2,7 +2,7 @@
   class="release-form"
   [ngClass]="{ 'dark-page': utilsService.getUserConfigs.theme === 'dark' }"
 >
-  <form [formGroup]="form">
+  <form [formGroup]="form()">
     <div class="row row1">
       <mat-form-field style="width: 75%" [hideRequiredMarker]="true">
         <mat-label>
@@ -20,240 +20,243 @@
     </div>
 
     <div class="row row2">
-      @if (form.value.type !== 'T') {
-        <mat-form-field style="width: 39%" [hideRequiredMarker]="true">
-          @if (form.get('type')!.value === 'E') {
-          <mat-label>
-            {{ "release-form.account" | translate }}/{{
-              "release-form.card" | translate
-            }}
-          </mat-label>
-          } @else {
-          <mat-label>
-            {{ "release-form.account" | translate }}
-          </mat-label>
-          }
+      @if (form().value.type !== 'T') {
+      <mat-form-field style="width: 39%" [hideRequiredMarker]="true">
+        @if (form().value.type === 'E') {
+        <mat-label>
+          {{ "release-form.account" | translate }}/{{
+            "release-form.card" | translate
+          }}
+        </mat-label>
+        } @else {
+        <mat-label>
+          {{ "release-form.account" | translate }}
+        </mat-label>
+        }
 
-          <mat-select formControlName="accountId">
-            <mat-select-trigger>
-              <ng-container
-                *ngTemplateOutlet="selectedAccountTemplate"
-              ></ng-container>
-            </mat-select-trigger>
+        <mat-select
+          formControlName="accountId"
+          (valueChange)="accountChanges($event)"
+        >
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="selectedAccountTemplate"
+            ></ng-container>
+          </mat-select-trigger>
 
-            @if (form.value.type !== 'E') {
-              @for (account of accountsList; track account.id) {
-                <mat-option [value]="account.id" class="bank-account-item">
-                  <div class="account-opt">
-                    @if (account.image) {
-                    <img
-                      [ngSrc]="'assets/banks/' + account.image"
-                      width="30"
-                      height="30"
-                      alt="bank account logo"
-                    />
-                    } @else {
-                    <span class="material-symbols-outlined default-account-logo">
-                      account_balance
-                    </span>
-                    }
-                    <span>{{ account.name }}</span>
-                  </div>
-                </mat-option>
-              }
-            } @else {
-              @if (selectedCreditCard) {
-                @for (card of creditCardsList; track card.id) {
-                  <mat-option [value]="card.id">
-                    <div class="account-opt">
-                      @if (card.image) {
-                      <img
-                        [ngSrc]="'assets/banks/' + card.image"
-                        width="30"
-                        height="30"
-                        alt="bank account logo"
-                      />
-                      } @else {
-                      <span class="material-symbols-outlined default-account-logo">
-                        credit_card
-                      </span>
-                      }
-                      <span>{{ card.name }}</span>
-                    </div>
-                  </mat-option>
-                }
+          @if (form().value.type !== 'E') { @for (account of accountsList();
+          track account.id) {
+          <mat-option [value]="account.id" class="bank-account-item">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="'assets/banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
               } @else {
-                @if (accountsList.length !== 0) {
-                  <mat-optgroup [label]="'release-form.accounts' | translate">
-                    @for (account of accountsList; track account.id) {
-                    <mat-option [value]="account.id" class="bank-account-item">
-                      <div class="account-opt">
-                        @if (account.image) {
-                        <img
-                          [ngSrc]="'assets/banks/' + account.image"
-                          width="30"
-                          height="30"
-                          alt="bank account logo"
-                        />
-                        } @else {
-                        <span class="material-symbols-outlined default-account-logo">
-                          account_balance
-                        </span>
-                        }
-                        <span>{{ account.name }}</span>
-                      </div>
-                    </mat-option>
-                    }
-                  </mat-optgroup>
-                } @if (creditCardsList.length !== 0) {
-                  <mat-optgroup [label]="'release-form.cards' | translate">
-                    @for (creditCard of creditCardsList; track creditCard.id) {
-                    <mat-option [value]="creditCard.id" class="bank-account-item">
-                      <div class="account-opt">
-                        @if (creditCard.image) {
-                        <img
-                          [ngSrc]="'assets/banks/' + creditCard.image"
-                          width="30"
-                          height="30"
-                          alt="bank credit card logo"
-                        />
-                        } @else {
-                        <span class="material-symbols-outlined default-account-logo">
-                          credit_card
-                        </span>
-                        }
-                        <span>{{ creditCard.name }}</span>
-                      </div>
-                    </mat-option>
-                    }
-                  </mat-optgroup>
-                }
+              <span class="material-symbols-outlined default-account-logo">
+                account_balance
+              </span>
               }
+              <span>{{ account.name }}</span>
+            </div>
+          </mat-option>
+          } } @else { @if (selectedCreditCard()) { @for (card of
+          creditCardsList(); track card.id) {
+          <mat-option [value]="card.id">
+            <div class="account-opt">
+              @if (card.image) {
+              <img
+                [ngSrc]="'assets/banks/' + card.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                credit_card
+              </span>
+              }
+              <span>{{ card.name }}</span>
+            </div>
+          </mat-option>
+          } } @else { @if (accountsList().length !== 0) {
+          <mat-optgroup [label]="'release-form.accounts' | translate">
+            @for (account of accountsList(); track account.id) {
+            <mat-option [value]="account.id" class="bank-account-item">
+              <div class="account-opt">
+                @if (account.image) {
+                <img
+                  [ngSrc]="'assets/banks/' + account.image"
+                  width="30"
+                  height="30"
+                  alt="bank account logo"
+                />
+                } @else {
+                <span class="material-symbols-outlined default-account-logo">
+                  account_balance
+                </span>
+                }
+                <span>{{ account.name }}</span>
+              </div>
+            </mat-option>
             }
-          </mat-select>
-        </mat-form-field>
-
-        <ng-template #selectedAccountTemplate>
-          <div class="selected-account">
-            @if (selectedAccount && selectedAccount.image) {
-            <img
-              [ngSrc]="'assets/banks/' + selectedAccount.image"
-              width="20"
-              height="20"
-              alt="bank account logo"
-            />
+          </mat-optgroup>
+          } @if (creditCardsList().length !== 0) {
+          <mat-optgroup [label]="'release-form.cards' | translate">
+            @for (creditCard of creditCardsList(); track creditCard.id) {
+            <mat-option [value]="creditCard.id" class="bank-account-item">
+              <div class="account-opt">
+                @if (creditCard.image) {
+                <img
+                  [ngSrc]="'assets/banks/' + creditCard.image"
+                  width="30"
+                  height="30"
+                  alt="bank credit card logo"
+                />
+                } @else {
+                <span class="material-symbols-outlined default-account-logo">
+                  credit_card
+                </span>
+                }
+                <span>{{ creditCard.name }}</span>
+              </div>
+            </mat-option>
             }
-            <span>{{ selectedAccount?.name }}</span>
-          </div>
-        </ng-template>
+          </mat-optgroup>
+          } } }
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field style="width: 37%" [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "release-form.value" | translate }}
-          </mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="amount"
-            placeholder="0"
-            currencyMask
-            [options]="{ prefix: currency + ' ', allowNegative: false }"
+      <ng-template #selectedAccountTemplate>
+        <div class="selected-account">
+          @if (selectedAccount && selectedAccount.image) {
+          <img
+            [ngSrc]="'assets/banks/' + selectedAccount.image"
+            width="20"
+            height="20"
+            alt="bank account logo"
           />
-        </mat-form-field>
+          }
+          <span>{{ selectedAccount?.name }}</span>
+        </div>
+      </ng-template>
+
+      <mat-form-field style="width: 37%" [hideRequiredMarker]="true">
+        <mat-label>
+          {{ "release-form.value" | translate }}
+        </mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="amount"
+          placeholder="0"
+          currencyMask
+          [options]="{ prefix: currency + ' ', allowNegative: false }"
+        />
+      </mat-form-field>
       } @else {
-        <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "release-form.origin-account" | translate }}
-          </mat-label>
-          <mat-select formControlName="accountId">
-            <mat-select-trigger>
-              <ng-container
-                *ngTemplateOutlet="leavedAccountTemplate"
-              ></ng-container>
-            </mat-select-trigger>
+      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+        <mat-label>
+          {{ "release-form.origin-account" | translate }}
+        </mat-label>
+        <mat-select
+          formControlName="accountId"
+          (valueChange)="accountChanges($event)"
+        >
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="leavedAccountTemplate"
+            ></ng-container>
+          </mat-select-trigger>
 
-            @for (account of accountsList; track account.id) {
-            <mat-option [value]="account.id" class="bank-account-item">
-              <div class="account-opt">
-                @if (account.image) {
-                <img
-                  [ngSrc]="'assets/banks/' + account.image"
-                  width="30"
-                  height="30"
-                  alt="bank account logo"
-                />
-                } @else {
-                <span class="material-symbols-outlined default-account-logo">
-                  account_balance
-                </span>
-                }
-                <span>{{ account.name }}</span>
-              </div>
-            </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+          @for (account of accountsList(); track account.id) {
+          <mat-option [value]="account.id" class="bank-account-item">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="'assets/banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                account_balance
+              </span>
+              }
+              <span>{{ account.name }}</span>
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-        <ng-template #leavedAccountTemplate>
-          <div class="selected-account">
-            @if (selectedAccount && selectedAccount.image) {
-            <img
-              [ngSrc]="'assets/banks/' + selectedAccount.image"
-              width="20"
-              height="20"
-              alt="bank account logo"
-            />
-            }
-            <span>{{ selectedAccount?.name }}</span>
-          </div>
-        </ng-template>
+      <ng-template #leavedAccountTemplate>
+        <div class="selected-account">
+          @if (selectedAccount && selectedAccount.image) {
+          <img
+            [ngSrc]="'assets/banks/' + selectedAccount.image"
+            width="20"
+            height="20"
+            alt="bank account logo"
+          />
+          }
+          <span>{{ selectedAccount?.name }}</span>
+        </div>
+      </ng-template>
 
-        <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "release-form.target-account" | translate }}
-          </mat-label>
-          <mat-select formControlName="targetAccountId">
-            <mat-select-trigger>
-              <ng-container
-                *ngTemplateOutlet="enteredAccountTemplate"
-              ></ng-container>
-            </mat-select-trigger>
+      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+        <mat-label>
+          {{ "release-form.target-account" | translate }}
+        </mat-label>
+        <mat-select
+          formControlName="targetAccountId"
+          (valueChange)="targetAccountChanges($event)"
+        >
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="enteredAccountTemplate"
+            ></ng-container>
+          </mat-select-trigger>
 
-            @for (account of accountsList; track account.id) {
-            <mat-option [value]="account.id" class="bank-account-item">
-              <div class="account-opt">
-                @if (account.image) {
-                <img
-                  [ngSrc]="'assets/banks/' + account.image"
-                  width="30"
-                  height="30"
-                  alt="bank account logo"
-                />
-                } @else {
-                <span class="material-symbols-outlined default-account-logo">
-                  account_balance
-                </span>
-                }
-                <span>{{ account.name }}</span>
-              </div>
-            </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+          @for (account of accountsList(); track account.id) {
+          <mat-option [value]="account.id" class="bank-account-item">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="'assets/banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                account_balance
+              </span>
+              }
+              <span>{{ account.name }}</span>
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
-        <ng-template #enteredAccountTemplate>
-          <div class="selected-account">
-            @if (selectedTargetAccount && selectedTargetAccount.image) {
-            <img
-              [ngSrc]="'assets/banks/' + selectedTargetAccount.image"
-              width="20"
-              height="20"
-              alt="bank account logo"
-            />
-            }
-            <span>{{ selectedTargetAccount?.name }}</span>
-          </div>
-        </ng-template>
+      <ng-template #enteredAccountTemplate>
+        <div class="selected-account">
+          @if (selectedTargetAccount && selectedTargetAccount.image) {
+          <img
+            [ngSrc]="'assets/banks/' + selectedTargetAccount.image"
+            width="20"
+            height="20"
+            alt="bank account logo"
+          />
+          }
+          <span>{{ selectedTargetAccount?.name }}</span>
+        </div>
+      </ng-template>
       }
     </div>
 
@@ -262,7 +265,12 @@
         <mat-label>
           {{ "release-form.date" | translate }}
         </mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          (dateChange)="dateChanges($event)"
+        />
         <mat-datepicker-toggle
           matIconSuffix
           [for]="picker"
@@ -279,19 +287,22 @@
     </div>
 
     <div class="row row4">
-      @if (form.get('type')!.value !== 'T') {
+      @if (form().value.type !== 'T') {
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.category" | translate }}
         </mat-label>
-        <mat-select formControlName="categoryId">
+        <mat-select
+          formControlName="categoryId"
+          (valueChange)="categoryChanges($event)"
+        >
           <mat-select-trigger>
             <ng-container
               *ngTemplateOutlet="selectedCategoryTemplate"
             ></ng-container>
           </mat-select-trigger>
 
-          @for (item of getCategories; track item.id) {
+          @for (item of filteredCategories; track item.id) {
           <mat-option [value]="item.id">
             <div class="category-opt">
               @if (item.icon) {

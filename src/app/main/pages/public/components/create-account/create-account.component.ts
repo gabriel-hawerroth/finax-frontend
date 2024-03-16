@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -41,16 +41,15 @@ import { LoginService } from '../../../../../services/login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateAccountComponent implements OnInit {
-  public utilsService = inject(UtilsService);
-  private _fb = inject(FormBuilder);
-  private _router = inject(Router);
-  private _loginService = inject(LoginService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
-  private _matSnackBar = inject(MatSnackBar);
-  private _translate = inject(TranslateService);
+  public readonly utilsService = inject(UtilsService);
+  private readonly _fb = inject(FormBuilder);
+  private readonly _router = inject(Router);
+  private readonly _loginService = inject(LoginService);
+  private readonly _matSnackBar = inject(MatSnackBar);
+  private readonly _translate = inject(TranslateService);
 
-  userRegisterForm!: FormGroup;
-  showLoading: boolean = false;
+  public userRegisterForm!: FormGroup;
+  public showLoading = signal(false);
 
   ngOnInit(): void {
     this.buildForm();
@@ -84,12 +83,11 @@ export class CreateAccountComponent implements OnInit {
       return;
     }
 
-    this.showLoading = true;
+    this.showLoading.set(true);
 
     this._loginService
       .newUser(this.userRegisterForm.value)
       .then((result) => {
-        this.showLoading = false;
         this._matSnackBar.open(
           `${this._translate.instant('create-account.sended-activate-link')}: ${
             result.email
@@ -99,7 +97,6 @@ export class CreateAccountComponent implements OnInit {
         this._router.navigate(['login']);
       })
       .catch((error) => {
-        this.showLoading = false;
         if (error.status == 406) {
           this.utilsService.showMessage(
             'create-account.email-already-registered'
@@ -108,8 +105,6 @@ export class CreateAccountComponent implements OnInit {
           this.utilsService.showMessage('create-account.error-creating-user');
         }
       })
-      .finally(() => {
-        this._changeDetectorRef.detectChanges();
-      });
+      .finally(() => this.showLoading.set(false));
   }
 }

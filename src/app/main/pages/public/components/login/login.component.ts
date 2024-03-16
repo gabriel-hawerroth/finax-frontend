@@ -1,14 +1,13 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
@@ -18,7 +17,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginService } from '../../../../../services/login.service';
@@ -31,7 +29,6 @@ import { LoginService } from '../../../../../services/login.service';
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
     MatProgressSpinnerModule,
     NgOptimizedImage,
     MatCheckboxModule,
@@ -43,14 +40,12 @@ import { LoginService } from '../../../../../services/login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  public utilsService = inject(UtilsService);
-  public loginService = inject(LoginService);
-  private _fb = inject(FormBuilder);
-  private _matDialog = inject(MatDialog);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
+  public readonly utilsService = inject(UtilsService);
+  public readonly loginService = inject(LoginService);
+  private readonly _fb = inject(FormBuilder);
 
-  loginForm!: FormGroup;
-  showLoading: boolean = false;
+  public loginForm!: FormGroup;
+  public showLoading = signal(false);
 
   ngOnInit(): void {
     this.buildForm();
@@ -75,11 +70,10 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) return;
 
     const credentials = this.loginForm.value;
-    this.showLoading = true;
+    this.showLoading.set(true);
 
-    this.loginService.login(credentials).finally(() => {
-      this.showLoading = false;
-      this._changeDetectorRef.detectChanges();
-    });
+    this.loginService
+      .login(credentials)
+      .finally(() => this.showLoading.set(false));
   }
 }

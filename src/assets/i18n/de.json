@@ -145,7 +145,6 @@
         "error-saving-attachment": "Veröffentlichung erfolgreich gespeichert, aber es gab einen Fehler beim Speichern des Anhangs",
         "error-excluding-attachment": "Veröffentlichung erfolgreich gespeichert, aber es gab einen Fehler beim Löschen des Anhangs",
         "release-saved-successfully": "Veröffentlichung erfolgreich gespeichert",
-        "select-valid-file": "Bitte wählen Sie eine gültige Datei aus (pdf, jpg, jpeg, png, jfif, webp).",
         "in": "In",
         "for": "Für",
         "origin-account": "Ursprungskonto",
@@ -228,11 +227,23 @@
         "saved-successfully": "Kreditkarte erfolgreich gespeichert",
         "error-saving-card": "Fehler beim Speichern der Kreditkarte"
     },
-    "card-invoice": {
+    "invoice": {
         "title": "Rechnung",
         "closing": "ABSCHLUSS",
         "expiration": "VERFALL",
-        "invoice-amount": "RECHNUNGSBETRAG"
+        "amount": "RECHNUNGSBETRAG",
+        "pay": "Bezahlen",
+        "payment": {
+            "title": "Rechnung bezahlen",
+            "amount": "Wert",
+            "date": "Datum",
+            "account": "Konto",
+            "add-attachment": "+ datei anhängen",
+            "hour": "Stunde",
+            "attachment": "Anhang",
+            "saved-successfully": "Zahlung erfolgreich gespeichert",
+            "error-saving": "Fehler beim Speichern der Zahlung"
+        }
     },
     "categories": {
         "title": "Kategorien",
@@ -262,8 +273,7 @@
         "change-payment-method": "Zahlungsmethode ändern",
         "edited-successfully": "Profil erfolgreich bearbeitet",
         "edited-but-error-saving-picture": "Das Profil wurde bearbeitet, aber es gab einen Fehler beim Speichern des neuen Profilbilds",
-        "error-saving": "Fehler beim Speichern der Änderungen",
-        "select-valid-file": "Bitte wählen Sie eine gültige Bilddatei aus (jpg, jpeg, png, jfif, webp)."
+        "error-saving": "Fehler beim Speichern der Änderungen"
     },
     "settings": {
         "title": "Einstellungen",

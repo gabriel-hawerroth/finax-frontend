@@ -9,10 +9,10 @@ import { UtilsService } from '../utils/utils.service';
   providedIn: 'root',
 })
 export class AccountService {
-  private _http = inject(HttpClient);
-  private _utilsService = inject(UtilsService);
+  private readonly _http = inject(HttpClient);
+  private readonly _utilsService = inject(UtilsService);
 
-  apiUrl = `${environment.baseApiUrl}accounts`;
+  private readonly apiUrl = `${environment.baseApiUrl}accounts`;
 
   getByUser(): Promise<Account[]> {
     return lastValueFrom(

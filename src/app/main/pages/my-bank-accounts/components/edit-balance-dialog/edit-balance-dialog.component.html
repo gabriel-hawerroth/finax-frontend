@@ -37,10 +37,10 @@
     <app-buttons
       [showSave]="true"
       [disableSave]="
-        balanceControl.invalid || balanceControl.pristine || loading
+        balanceControl.invalid || balanceControl.pristine || loading()
       "
       [smallBtn]="true"
-      [showSaveLoading]="loading"
+      [showSaveLoading]="loading()"
       (onSave)="save()"
     ></app-buttons>
   </div>

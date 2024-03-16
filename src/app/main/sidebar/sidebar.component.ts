@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { UserService } from '../../services/user.service';
@@ -26,9 +26,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public loginService = inject(LoginService);
   public utilsService = inject(UtilsService);
   private _userService = inject(UserService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  private _unsubscribeAll: Subject<any> = new Subject();
+  private _unsubscribeAll: Subject<void> = new Subject();
 
   userAccess: string = this.utilsService.getLoggedUser?.access || '';
 
@@ -37,7 +36,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   moreUl: boolean = true;
   userActionsUl: boolean = true;
 
-  darkThemeEnabled: boolean = false;
+  darkThemeEnabled = signal(false);
 
   ngOnInit(): void {
     this.subscribeUserConfigs();
@@ -45,8 +44,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
   }
 
   subscribeUserConfigs() {
@@ -54,8 +52,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .subscribeUserConfigs()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
-        this.darkThemeEnabled = value.theme === 'dark';
-        this._changeDetectorRef.detectChanges();
+        this.darkThemeEnabled.set(value.theme === 'dark');
       });
   }
 

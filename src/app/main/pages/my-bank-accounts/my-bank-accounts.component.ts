@@ -2,12 +2,11 @@ import {
   Component,
   inject,
   OnInit,
-  OnDestroy,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
+  WritableSignal,
+  signal,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../interfaces/account';
 import { AccountService } from '../../../services/account.service';
 import { UtilsService } from '../../../utils/utils.service';
@@ -43,57 +42,36 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './my-bank-accounts.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyBankAccountsComponent implements OnInit, OnDestroy {
+export class MyBankAccountsComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _accountService = inject(AccountService);
   private _bottomSheet = inject(MatBottomSheet);
   private _router = inject(Router);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  private _unsubscribeAll: Subject<any> = new Subject();
-
-  situationFilter = new FormControl();
+  situationFilter = new FormControl(true);
 
   rows: Account[] = [];
-  filteredRows: Account[] = [];
+  filteredRows: WritableSignal<Account[]> = signal([]);
 
   ngOnInit(): void {
     this.getAccounts();
-
-    this.situationFilter.setValue(true);
-
-    this.situationFilter.valueChanges
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(() => {
-        this.filterList();
-      });
-  }
-
-  ngOnDestroy(): void {
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
   }
 
   getAccounts() {
     this._accountService.getByUser().then((result: any) => {
       this.rows = result;
-      this.filterList();
-      this._changeDetectorRef.detectChanges();
+      this.filterList(this.situationFilter.value!);
     });
   }
 
-  filterList() {
+  filterList(newValue: 'all' | boolean) {
     let rows = this.rows.slice();
 
-    if (this.situationFilter.value != 'all') {
-      rows = this.utilsService.filterList(
-        rows,
-        'active',
-        this.situationFilter.value
-      );
+    if (newValue != 'all') {
+      rows = this.utilsService.filterList(rows, 'active', newValue);
     }
 
-    this.filteredRows = rows;
+    this.filteredRows.set(rows);
   }
 
   onNew() {

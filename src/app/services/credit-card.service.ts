@@ -12,9 +12,9 @@ import {
   providedIn: 'root',
 })
 export class CreditCardService {
-  private _http = inject(HttpClient);
+  private readonly _http = inject(HttpClient);
 
-  private apiUrl = `${environment.baseApiUrl}credit-card`;
+  private readonly apiUrl = `${environment.baseApiUrl}credit-card`;
 
   getByUser(): Promise<UserCreditCards[]> {
     return lastValueFrom(
@@ -34,9 +34,5 @@ export class CreditCardService {
     return lastValueFrom(
       this._http.get<CardBasicList[]>(`${this.apiUrl}/basic-list`)
     );
-  }
-
-  getInvoiceAndReleases(): Promise<any> {
-    return lastValueFrom(this._http.get(`${this.apiUrl}/invoice-and-releases`));
   }
 }

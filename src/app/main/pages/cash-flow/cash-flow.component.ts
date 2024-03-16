@@ -4,6 +4,7 @@ import {
   OnDestroy,
   OnInit,
   WritableSignal,
+  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -14,16 +15,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MonthlyBalance, MonthlyRelease } from '../../../interfaces/cash-flow';
+import {
+  MonthlyBalance,
+  MonthlyFlow,
+  MonthlyRelease,
+} from '../../../interfaces/cash-flow';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
-import { CategoryService } from '../../../services/category.service';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { AccountBasicList } from '../../../interfaces/account';
-import { AccountService } from '../../../services/account.service';
 import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
-import { CreditCardService } from '../../../services/credit-card.service';
 import { CardBasicList } from '../../../interfaces/credit-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -56,29 +58,20 @@ export class CashFlowComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _matDialog = inject(MatDialog);
   private _cashFlowService = inject(CashFlowService);
-  private _accountService = inject(AccountService);
-  private _categoryService = inject(CategoryService);
-  private _creditCardService = inject(CreditCardService);
   private _userConfigsService = inject(UserConfigsService);
 
   private readonly _unsubscribeAll: Subject<void> = new Subject();
 
+  public readonly currency = this.utilsService.getUserConfigs.currency;
   private readonly currentDate: Date = new Date();
 
-  currency = this.utilsService.getUserConfigs.currency;
-
-  releases: WritableSignal<MonthlyRelease[]> = signal([]);
-  searching: WritableSignal<boolean> = signal(false);
-
-  selectedDate: Date = new Date(this.currentDate.setDate(15));
-
-  totals: MonthlyBalance = {
-    revenues: 0,
-    expenses: 0,
-    balance: 0,
-    generalBalance: 0,
+  monthlyValues = signal<MonthlyFlow>({
+    releases: [],
     expectedBalance: 0,
-  };
+  });
+
+  searching: WritableSignal<boolean> = signal(false);
+  selectedDate: Date = new Date(this.currentDate.setDate(15));
 
   accounts: AccountBasicList[] = [];
   categories: Category[] = [];
@@ -87,6 +80,10 @@ export class CashFlowComponent implements OnInit, OnDestroy {
   viewModeCtrl: FormControl = new FormControl<string>(
     this.utilsService.getUserConfigs.releasesViewMode
   );
+
+  totals = computed(() => {
+    return this.calculateValues(this.monthlyValues());
+  });
 
   ngOnInit(): void {
     this.getValues();
@@ -132,8 +129,7 @@ export class CashFlowComponent implements OnInit, OnDestroy {
     this._cashFlowService
       .getMonthlyFlow(this.selectedDate, this.viewModeCtrl.value)
       .then((response) => {
-        this.releases.set(response.releases);
-        this.totals = response.totals;
+        this.monthlyValues.set(response);
       })
       .catch(() => {
         this.utilsService.showMessage('cash-flow.error-getting-releases');
@@ -143,12 +139,12 @@ export class CashFlowComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getValues() {
-    [this.accounts, this.categories, this.creditCards] = await Promise.all([
-      this._accountService.getBasicList(),
-      this._categoryService.getByUser(),
-      this._creditCardService.getBasicList(),
-    ]);
+  getValues() {
+    this._cashFlowService.getValues().then((response) => {
+      this.accounts = response.accountsList;
+      this.categories = response.categoriesList;
+      this.creditCards = response.creditCardsList;
+    });
   }
 
   changeMonth(direction: 'before' | 'next'): void {
@@ -185,5 +181,37 @@ export class CashFlowComponent implements OnInit, OnDestroy {
 
       this.getReleases();
     });
+  }
+
+  calculateValues(monthlyFlow: MonthlyFlow) {
+    const doneReleases = this.utilsService.filterList(
+      monthlyFlow.releases,
+      'done',
+      true
+    );
+
+    const revenues =
+      this.utilsService
+        .filterList(doneReleases, 'type', 'R')
+        .reduce((count, item) => count + item.amount, 0) || 0;
+
+    let expensesList = this.utilsService.filterList(doneReleases, 'type', 'E');
+
+    expensesList.concat(
+      this.utilsService.filterList(doneReleases, 'type', 'I')
+    );
+
+    const expenses =
+      expensesList.reduce((count, item) => count + item.amount, 0) || 0;
+
+    return {
+      revenues,
+      expenses,
+      balance: revenues - expenses,
+      generalBalance: this.accounts.reduce(
+        (count, item) => count + item.balance,
+        0
+      ),
+    };
   }
 }

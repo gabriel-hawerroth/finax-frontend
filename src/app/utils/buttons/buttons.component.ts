@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
   inject,
+  input,
 } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { CommonModule } from '@angular/common';
@@ -26,24 +26,6 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonsComponent {
-  @Input() showNew: boolean = false;
-  @Input() showSave: boolean = false;
-  @Input() showDelete: boolean = false;
-  @Input() showEdit: boolean = false;
-  @Input() showDownload: boolean = false;
-  @Input() showClose: boolean = false;
-  @Input() showGoBack: boolean = false;
-  @Input() showChangePassword: boolean = false;
-  @Input() showGeneric: boolean = false;
-
-  @Input() disableNew: boolean = false;
-  @Input() disableSave: boolean = false;
-  @Input() disableDelete: boolean = false;
-  @Input() disableEdit: boolean = false;
-  @Input() disableDownload: boolean = false;
-  @Input() disableChangePassword: boolean = false;
-  @Input() disableGeneric: boolean = false;
-
   @Output() onNew = new EventEmitter();
   @Output() onSave = new EventEmitter();
   @Output() onDelete = new EventEmitter();
@@ -54,28 +36,43 @@ export class ButtonsComponent {
   @Output() onChangePassword = new EventEmitter();
   @Output() onGeneric = new EventEmitter();
 
-  @Input() showSaveLoading: boolean = false;
+  public readonly showNew = input<boolean>(false);
+  public readonly showSave = input<boolean>(false);
+  public readonly showDelete = input<boolean>(false);
+  public readonly showEdit = input<boolean>(false);
+  public readonly showDownload = input<boolean>(false);
+  public readonly showClose = input<boolean>(false);
+  public readonly showGoBack = input<boolean>(false);
+  public readonly showChangePassword = input<boolean>(false);
+  public readonly showGeneric = input<boolean>(false);
 
-  @Input() smallBtn: boolean = false;
-  @Input() bigBtn: boolean = false;
+  public readonly disableNew = input<boolean>(false);
+  public readonly disableSave = input<boolean>(false);
+  public readonly disableDelete = input<boolean>(false);
+  public readonly disableEdit = input<boolean>(false);
+  public readonly disableDownload = input<boolean>(false);
+  public readonly disableChangePassword = input<boolean>(false);
+  public readonly disableGeneric = input<boolean>(false);
 
-  @Input() labelNewM: boolean = false;
+  public readonly showSaveLoading = input<boolean>(false);
 
-  @Input() genericIcon: string = '';
-  @Input() genericLabel: string = '';
-  @Input() genericColor: string = '';
+  public readonly smallBtn = input<boolean>(false);
+  public readonly bigBtn = input<boolean>(false);
 
-  private _utilsService = inject(UtilsService);
+  public readonly labelNewM = input<boolean>(false);
 
-  isPcScreen = this._utilsService.isPcScreen;
+  public readonly genericIcon = input<string>('');
+  public readonly genericLabel = input<string>('');
+  public readonly genericColor = input<string>('');
+
+  private readonly _utilsService = inject(UtilsService);
+
+  public readonly isPcScreen = this._utilsService.isPcScreen;
 
   get getBtnSize(): number {
-    if (this.smallBtn && this.bigBtn) {
-      return 1.6;
-    }
-
-    if (this.smallBtn) return 1.3;
-    else if (this.bigBtn) return 1.9;
+    if (this.smallBtn() && this.bigBtn()) return 1.6;
+    else if (this.smallBtn()) return 1.3;
+    else if (this.bigBtn()) return 1.9;
 
     return 1.6;
   }

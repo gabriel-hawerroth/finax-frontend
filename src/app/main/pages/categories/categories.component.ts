@@ -5,6 +5,7 @@ import {
   Component,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { UtilsService } from '../../../utils/utils.service';
 import { Category } from '../../../interfaces/category';
@@ -35,7 +36,9 @@ export class CategorysComponent implements OnInit {
   private _matDialog = inject(MatDialog);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  private categories: Category[] = [];
+  categories = signal<Category[]>([]);
+  expenseCategories = signal<Category[]>([]);
+  revenueCategories = signal<Category[]>([]);
 
   ngOnInit(): void {
     this.getCategories();
@@ -45,20 +48,17 @@ export class CategorysComponent implements OnInit {
     this._categoryService
       .getByUser()
       .then((response) => {
-        this.categories = response;
-        this._changeDetectorRef.detectChanges();
+        this.categories.set(response);
+        this.expenseCategories.set(
+          this.utilsService.filterList(this.categories(), 'type', 'E')
+        );
+        this.revenueCategories.set(
+          this.utilsService.filterList(this.categories(), 'type', 'R')
+        );
       })
       .catch(() => {
         this.utilsService.showMessage('categories.error-getting-categories');
       });
-  }
-
-  get getExpenseCategories(): Category[] {
-    return this.utilsService.filterList(this.categories, 'type', 'E');
-  }
-
-  get getRevenueCategories(): Category[] {
-    return this.utilsService.filterList(this.categories, 'type', 'R');
   }
 
   newCategory(event: 'E' | 'R') {
@@ -77,7 +77,19 @@ export class CategorysComponent implements OnInit {
     ).then((response) => {
       if (!response) return;
 
-      this.categories.push(response);
+      this.categories.update((value) => {
+        value.push(response);
+        return value;
+      });
+      if (response.type === 'E') {
+        this.expenseCategories.set(
+          this.utilsService.filterList(this.categories(), 'type', 'E')
+        );
+      } else {
+        this.revenueCategories.set(
+          this.utilsService.filterList(this.categories(), 'type', 'R')
+        );
+      }
 
       this._changeDetectorRef.detectChanges();
     });
@@ -104,18 +116,29 @@ export class CategorysComponent implements OnInit {
     ).then((response) => {
       if (!response) return;
 
-      const index: number = this.categories.findIndex(
-        (item) => item.id === response.id
-      );
+      const value = this.categories();
+      const index: number = value.findIndex((item) => item.id === response.id);
 
-      this.categories[index] = response;
+      value[index] = response;
 
-      this._changeDetectorRef.detectChanges();
+      this.categories.set(value);
+
+      if (response.type === 'E') {
+        this.expenseCategories.set(
+          this.utilsService.filterList(this.categories(), 'type', 'E')
+        );
+      } else {
+        this.revenueCategories.set(
+          this.utilsService.filterList(this.categories(), 'type', 'R')
+        );
+      }
+
+      // this._changeDetectorRef.detectChanges();
     });
   }
 
   delete(id: number) {
-    const deletingCategorie = this.categories.find((item) => item.id === id);
+    const deletingCategorie = this.categories().find((item) => item.id === id);
 
     if (
       deletingCategorie?.name === 'Outras despesas' ||

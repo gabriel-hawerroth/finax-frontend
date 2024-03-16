@@ -1,19 +1,21 @@
-import { Injectable, inject } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { LoginService } from '../login.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class UnauthenticatedUserGuard implements CanActivate {
-  private _loginService = inject(LoginService);
-  private _router = inject(Router);
-
-  canActivate() {
-    if (this._loginService.logged) {
-      this._router.navigate(['home']);
-      return false;
-    }
-    return true;
+export const UnauthenticatedUserGuard: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
+  loginService = inject(LoginService),
+  router = inject(Router)
+) => {
+  if (loginService.logged) {
+    router.navigate(['home']);
+    return false;
   }
-}
+  return true;
+};

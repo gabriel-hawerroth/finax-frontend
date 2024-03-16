@@ -1,11 +1,11 @@
 import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  OnDestroy,
   OnInit,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
 import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import {
@@ -24,7 +24,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatSelectModule } from '@angular/material/select';
 import { AccountService } from '../../../../../services/account.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { TranslateModule } from '@ngx-translate/core';
@@ -50,7 +50,7 @@ import { AccountBasicList } from '../../../../../interfaces/account';
   styleUrl: './credit-cards-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardsFormComponent implements OnInit, OnDestroy {
+export class CreditCardsFormComponent implements OnInit {
   public utilsService = inject(UtilsService);
   public location = inject(Location);
   private _creditCardService = inject(CreditCardService);
@@ -59,9 +59,6 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
   private _router = inject(Router);
   private _dialog = inject(MatDialog);
   private _accountService = inject(AccountService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
-
-  private _unsubscribeAll: Subject<any> = new Subject();
 
   currency = this.utilsService.getUserConfigs.currency;
 
@@ -79,6 +76,7 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
     22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
   ];
 
+  selectedIcon: WritableSignal<string | null> = signal(null);
   changedIcon: boolean = false;
 
   ngOnInit(): void {
@@ -87,6 +85,10 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
     if (this.cardId) {
       this._creditCardService.getById(this.cardId).then((response) => {
         this.cardForm.patchValue(response);
+
+        if (response.image) {
+          this.selectedIcon.set(response.image);
+        }
       });
     }
 
@@ -94,18 +96,15 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
       this.accounsList = response;
 
       if (this.cardId && !this.selectedAccount) {
-        const standardPaymentAccount = this.cardForm.get(
-          'standard_payment_account_id'
-        )!.value;
+        const standardPaymentAccount =
+          this.cardForm.value.standard_payment_account_id;
+
         this.cardForm
           .get('standard_payment_account_id')!
           .setValue(standardPaymentAccount);
+        this.paymentAccountChanges(standardPaymentAccount);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this._unsubscribeAll.unsubscribe();
   }
 
   buildForm() {
@@ -122,15 +121,6 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
     });
 
     this.cardForm.markAllAsTouched();
-
-    this.cardForm
-      .get('standard_payment_account_id')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.selectedAccount = this.accounsList.find(
-          (item) => item.id === value
-        )!;
-      });
   }
 
   save() {
@@ -166,10 +156,14 @@ export class CreditCardsFormComponent implements OnInit, OnDestroy {
     ).then((value) => {
       if (!value) return;
 
+      this.selectedIcon.set(value);
       this.cardForm.get('image')!.setValue(value);
       this.cardForm.markAsDirty();
-
-      this._changeDetectorRef.detectChanges();
     });
+  }
+
+  paymentAccountChanges(value: number) {
+    console.log('accountsList:', this.accounsList);
+    this.selectedAccount = this.accounsList.find((item) => item.id === value)!;
   }
 }

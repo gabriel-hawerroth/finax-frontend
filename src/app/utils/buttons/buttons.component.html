@@ -1,8 +1,8 @@
 <div class="form-buttons">
-  @if (showNew) {
+  @if (showNew()) {
   <button
     mat-stroked-button
-    [disabled]="disableNew"
+    [disabled]="disableNew()"
     (click)="onNew.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
   >
@@ -10,21 +10,21 @@
       <span class="material-symbols-outlined">add</span>
       @if (isPcScreen) {
       <span>
-        {{ (labelNewM ? "buttons.newM" : "buttons.new") | translate }}
+        {{ (labelNewM() ? "buttons.newM" : "buttons.new") | translate }}
       </span>
       }
     </div>
   </button>
-  } @if (showSave) {
+  } @if (showSave()) {
   <button
     mat-stroked-button
-    [disabled]="disableSave"
+    [disabled]="disableSave()"
     (click)="onSave.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
     color="primary"
   >
     <div class="btn-content">
-      @if (!showSaveLoading) {
+      @if (!showSaveLoading()) {
       <span class="material-symbols-outlined">save</span>
       @if (isPcScreen) {
       <span>{{ "actions.save" | translate }}</span>
@@ -33,10 +33,10 @@
       }
     </div>
   </button>
-  } @if (showDownload) {
+  } @if (showDownload()) {
   <button
     mat-stroked-button
-    [disabled]="disableDownload"
+    [disabled]="disableDownload()"
     (click)="onDownload.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
   >
@@ -49,10 +49,10 @@
       }
     </div>
   </button>
-  } @if (showEdit) {
+  } @if (showEdit()) {
   <button
     mat-stroked-button
-    [disabled]="disableEdit"
+    [disabled]="disableEdit()"
     (click)="onEdit.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
     color="primary"
@@ -64,10 +64,10 @@
       }
     </div>
   </button>
-  } @if (showDelete) {
+  } @if (showDelete()) {
   <button
     mat-stroked-button
-    [disabled]="disableDelete"
+    [disabled]="disableDelete()"
     (click)="onDelete.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem', color: 'red' }"
   >
@@ -78,10 +78,10 @@
       }
     </div>
   </button>
-  } @if (showChangePassword) {
+  } @if (showChangePassword()) {
   <button
     mat-stroked-button
-    [disabled]="disableChangePassword"
+    [disabled]="disableChangePassword()"
     (click)="onChangePassword.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
   >
@@ -92,27 +92,27 @@
       }
     </div>
   </button>
-  } @if (showGeneric) {
+  } @if (showGeneric()) {
   <button
     mat-stroked-button
-    [disabled]="disableGeneric"
+    [disabled]="disableGeneric()"
     (click)="onGeneric.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem', color: genericColor }"
+    [ngStyle]="{ padding: getBtnSize + 'rem', color: genericColor() }"
   >
     <div class="btn-content">
-      <span class="material-symbols-outlined">{{ genericIcon }}</span>
+      <span class="material-symbols-outlined">{{ genericIcon() }}</span>
       @if (isPcScreen) {
       <span>
-        {{ genericLabel }}
+        {{ genericLabel() }}
       </span>
       }
     </div>
   </button>
-  } @if (showClose) {
+  } @if (showClose()) {
   <button mat-icon-button (click)="onClose.emit()">
     <span class="material-symbols-outlined">close</span>
   </button>
-  } @if (showGoBack) {
+  } @if (showGoBack()) {
   <button mat-icon-button (click)="onGoBack.emit()">
     <span class="material-symbols-outlined">arrow_back</span>
   </button>

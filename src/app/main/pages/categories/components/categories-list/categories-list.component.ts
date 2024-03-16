@@ -2,8 +2,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
+  input,
 } from '@angular/core';
 import { Category } from '../../../../../interfaces/category';
 import { CommonModule } from '@angular/common';
@@ -20,8 +20,8 @@ import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriesListComponent {
-  @Input() categories!: Category[];
-  @Input() categoryType!: 'E' | 'R';
+  categories = input.required<Category[]>();
+  categoryType = input.required<'E' | 'R'>();
 
   @Output() onNew = new EventEmitter<'E' | 'R'>();
   @Output() onEdit = new EventEmitter<any[]>();

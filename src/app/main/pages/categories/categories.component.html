@@ -11,7 +11,7 @@
   <div class="content">
     <mat-card class="card">
       <app-categories-list
-        [categories]="getExpenseCategories"
+        [categories]="expenseCategories()"
         [categoryType]="'E'"
         (onNew)="newCategory($event)"
         (onEdit)="editCategory($event)"
@@ -20,7 +20,7 @@
       ></app-categories-list>
 
       <app-categories-list
-        [categories]="getRevenueCategories"
+        [categories]="revenueCategories()"
         [categoryType]="'R'"
         (onNew)="newCategory($event)"
         (onEdit)="editCategory($event)"

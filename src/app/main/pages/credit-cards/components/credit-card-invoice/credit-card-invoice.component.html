@@ -11,7 +11,7 @@
           <div class="left">
             <div class="title">
               <h1>
-                {{ "card-invoice.title" | translate }}
+                {{ "invoice.title" | translate }}
               </h1>
 
               <div class="card">
@@ -33,7 +33,24 @@
             </button>
           </div>
 
-          <div class="right"></div>
+          <div class="right">
+            @if (monthValues().invoice &&
+            monthValues().invoice.payment_account_id) {
+            <h2>
+              Fatura paga:
+              {{ monthValues().invoice.payment_date | date : "dd/MM/yyyy" }}
+            </h2>
+            } @else if (invoiceValues().value > 0) {
+            <button
+              mat-stroked-button
+              color="primary"
+              id="pay-btn"
+              (click)="payInvoice()"
+            >
+              <span>{{ "invoice.pay" | translate }}</span>
+            </button>
+            }
+          </div>
         </div>
 
         <div class="second-row">
@@ -60,37 +77,37 @@
       </header>
 
       <app-releases-list
-        [releases]="releases"
+        [releases]="monthValues().releases"
         [accounts]="accounts"
         [categories]="categories"
         [creditCards]="creditCards"
         [selectedDate]="selectedDate"
-        (updateList)="getInvoiceAndReleases()"
+        (updateList)="getMonthValues()"
         id="releases-list"
       ></app-releases-list>
 
       <div class="totals">
         <div class="item">
-          <span>{{ "card-invoice.closing" | translate }}:</span>
+          <span>{{ "invoice.closing" | translate }}:</span>
 
           <span class="value">
-            {{ getDateInfo("closing") }}
+            {{ invoiceValues().closeDay }}
           </span>
         </div>
 
         <div class="item">
-          <span>{{ "card-invoice.expiration" | translate }}:</span>
+          <span>{{ "invoice.expiration" | translate }}:</span>
 
           <span class="value">
-            {{ getDateInfo("expiration") }}
+            {{ invoiceValues().expireDay }}
           </span>
         </div>
 
         <div class="item">
-          <span>{{ "card-invoice.invoice-amount" | translate }}:</span>
+          <span>{{ "invoice.amount" | translate }}:</span>
 
           <span class="value" style="font-weight: bold">
-            {{ currency }}{{ 0 | customCurrency }}
+            {{ currency }}{{ invoiceValues().value | customCurrency }}
           </span>
         </div>
       </div>

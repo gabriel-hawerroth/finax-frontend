@@ -2,10 +2,9 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
-  OnDestroy,
   OnInit,
   inject,
+  input,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -17,8 +16,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Category } from '../../../../../interfaces/category';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
-import { Subject, takeUntil } from 'rxjs';
-import moment from 'moment';
 import { TranslateModule } from '@ngx-translate/core';
 import { AccountBasicList } from '../../../../../interfaces/account';
 
@@ -41,101 +38,83 @@ import { AccountBasicList } from '../../../../../interfaces/account';
   styleUrl: './release-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleaseFormComponent implements OnInit, OnDestroy {
-  @Input() releaseType!: string;
-  @Input() form!: FormGroup;
-  @Input() accountsList: AccountBasicList[] = [];
-  @Input() categoriesList: Category[] = [];
-  @Input() creditCardsList: CardBasicList[] = [];
-  @Input() selectedCreditCard!: boolean;
+export class ReleaseFormComponent implements OnInit {
+  public form = input.required<FormGroup>();
+  public accountsList = input.required<AccountBasicList[]>();
+  public categoriesList = input.required<Category[]>();
+  public creditCardsList = input.required<CardBasicList[]>();
+  public selectedCreditCard = input.required<boolean>();
 
-  public utilsService = inject(UtilsService);
+  public readonly utilsService = inject(UtilsService);
 
-  private _unsubscribeAll: Subject<any> = new Subject();
+  public currency = this.utilsService.getUserConfigs.currency;
 
-  currency = this.utilsService.getUserConfigs.currency;
+  private currentDt: Date = new Date();
 
-  selectedAccount: AccountBasicList | CardBasicList | null = null;
-  selectedTargetAccount: AccountBasicList | null = null;
-  selectedCategory: Category | null = null;
+  public filteredCategories: Category[] = [];
+
+  public selectedAccount: AccountBasicList | CardBasicList | null = null;
+  public selectedTargetAccount: AccountBasicList | null = null;
+  public selectedCategory: Category | null = null;
 
   ngOnInit(): void {
-    this.subscribeFormChanges();
-
-    if (this.selectedCreditCard) {
-      this.selectedAccount = this.creditCardsList.find(
-        (item) => item.id === this.form.value.accountId
+    if (this.selectedCreditCard()) {
+      this.selectedAccount = this.creditCardsList().find(
+        (item) => item.id === this.form().value.accountId
       )!;
     }
 
-    const categoryId = this.form.value.categoryId;
+    const categoryId = this.form().value.categoryId;
     if (categoryId) {
-      this.selectedCategory = this.categoriesList.find(
+      this.selectedCategory = this.categoriesList().find(
         (item) => item.id === categoryId
       )!;
     }
 
-    if (this.accountsList.length === 0 && this.creditCardsList.length === 0) {
+    if (
+      this.accountsList().length === 0 &&
+      this.creditCardsList().length === 0
+    ) {
       this.utilsService.showMessage(
         'release-form.no-active-accounts-or-cards',
         5000
       );
     }
 
-    this.form.get('accountId')!.updateValueAndValidity();
-  }
+    this.form().get('accountId')!.updateValueAndValidity();
+    this.accountChanges(this.form().value.accountId);
 
-  ngOnDestroy(): void {
-    this._unsubscribeAll.unsubscribe();
-  }
-
-  subscribeFormChanges() {
-    this.form
-      .get('date')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.form.get('done')!.setValue(!moment(value).isAfter(new Date()));
-      });
-
-    this.form
-      .get('accountId')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        const selectedAccount: AccountBasicList | undefined =
-          this.accountsList.find((item) => item.id === value);
-
-        const selectedCard: CardBasicList | undefined =
-          this.creditCardsList.find((item) => item.id === value);
-
-        this.selectedAccount = selectedAccount
-          ? selectedAccount
-          : selectedCard!;
-      });
-
-    this.form
-      .get('targetAccountId')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.selectedTargetAccount = this.accountsList.find(
-          (item) => item.id === value
-        )!;
-      });
-
-    this.form
-      .get('categoryId')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.selectedCategory = this.categoriesList.find(
-          (item) => item.id === value
-        )!;
-      });
-  }
-
-  get getCategories(): Category[] {
-    return this.utilsService.filterList(
-      this.categoriesList,
+    this.filteredCategories = this.utilsService.filterList(
+      this.categoriesList(),
       'type',
-      this.form.get('type')!.value
+      this.form().value.type
     );
+  }
+
+  dateChanges(value: any) {
+    this.form().get('done')!.setValue(!value.value.isAfter(this.currentDt));
+  }
+
+  accountChanges(value: number) {
+    const selectedAccount: AccountBasicList | undefined =
+      this.accountsList().find((item) => item.id === value);
+
+    const selectedCard: CardBasicList | undefined = this.creditCardsList().find(
+      (item) => item.id === value
+    );
+
+    this.selectedAccount = selectedAccount ? selectedAccount : selectedCard!;
+  }
+
+  targetAccountChanges(value: number) {
+    this.selectedTargetAccount = this.accountsList().find(
+      (item) => item.id === value
+    )!;
+  }
+
+  categoryChanges(value: number) {
+    this.selectedCategory = this.categoriesList().find(
+      (item) => item.id === value
+    )!;
   }
 }

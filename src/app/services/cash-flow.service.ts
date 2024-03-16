@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { CashFlow, MonthlyFlow } from '../interfaces/cash-flow';
+import { CashFlow, CashFlowValues, MonthlyFlow } from '../interfaces/cash-flow';
 import { lastValueFrom } from 'rxjs';
 import moment from 'moment';
 import { ReleasedOn } from '../enums/released-on';
@@ -12,9 +12,9 @@ import { ReleasesViewMode } from '../enums/releases-view-mode';
   providedIn: 'root',
 })
 export class CashFlowService {
-  private _http = inject(HttpClient);
+  private readonly _http = inject(HttpClient);
 
-  private apiUrl = `${environment.baseApiUrl}cash-flow`;
+  private readonly apiUrl = `${environment.baseApiUrl}cash-flow`;
 
   getMonthlyFlow(
     selectedDt: Date,
@@ -41,6 +41,12 @@ export class CashFlowService {
     params = params.append('lastDtInvoice', lastDtInvoice);
 
     return lastValueFrom(this._http.get<MonthlyFlow>(this.apiUrl, { params }));
+  }
+
+  getValues(): Promise<CashFlowValues> {
+    return lastValueFrom(
+      this._http.get<CashFlowValues>(`${this.apiUrl}/get-values`)
+    );
   }
 
   addRelease(
@@ -97,9 +103,8 @@ export class CashFlowService {
 
   removeAttachment(releaseId: number): Promise<CashFlow> {
     return lastValueFrom(
-      this._http.put<CashFlow>(
-        `${this.apiUrl}/remove-attachment/${releaseId}`,
-        {}
+      this._http.delete<CashFlow>(
+        `${this.apiUrl}/remove-attachment/${releaseId}`
       )
     );
   }

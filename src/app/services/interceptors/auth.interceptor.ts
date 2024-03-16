@@ -16,7 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (
   const apiUrl: Array<string> = environment.baseApiUrl.split('/');
 
   if (requestUrl[2] === apiUrl[2]) {
-    let token: string | null = loginService.getUserToken;
+    const token: string | null = loginService.getUserToken;
 
     if (token) {
       request = request.clone({

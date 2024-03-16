@@ -77,21 +77,9 @@
 
                     .right {
                         button {
-                            padding: .6rem 1rem;
+                            padding: 1.5rem 1.7rem;
                             font-size: 1.1rem;
-                            color: #525252;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            gap: 1rem;
-                        }
-
-                        .filter-menu {
-                            padding: 1rem !important;
-
-                            .filter-form {
-                                padding: 1rem !important;
-                            }
+                            border-radius: 2.5rem;
                         }
                     }
                 }
@@ -115,6 +103,7 @@
 
             #releases-list {
                 flex: 1;
+                overflow-y: scroll;
             }
 
             .totals {

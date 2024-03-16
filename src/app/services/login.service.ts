@@ -15,12 +15,12 @@ import { UserConfigs } from '../interfaces/user-configs';
   providedIn: 'root',
 })
 export class LoginService {
-  private _http = inject(HttpClient);
-  private _router = inject(Router);
-  private _utilsService = inject(UtilsService);
-  private _userConfigsService = inject(UserConfigsService);
+  private readonly _http = inject(HttpClient);
+  private readonly _router = inject(Router);
+  private readonly _utilsService = inject(UtilsService);
+  private readonly _userConfigsService = inject(UserConfigsService);
 
-  apiUrl = `${environment.baseApiUrl}login`;
+  private readonly apiUrl = `${environment.baseApiUrl}login`;
 
   async login(credentials: Credentials) {
     await this.oauthLogin(credentials)

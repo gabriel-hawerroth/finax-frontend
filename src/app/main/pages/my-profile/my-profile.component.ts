@@ -150,30 +150,22 @@ export class MyProfileComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+    if (file) return;
 
-    if (file) {
-      const imageExtensions = ['jpg', 'jpeg', 'png', 'jfif', 'webp'];
-      const extension = file.name.split('.').pop().toLowerCase();
-      if (imageExtensions.indexOf(extension) === -1) {
-        this.utilsService.showMessage('my-profile.select-valid-file', 10000);
-        return;
-      }
-
-      const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
-      if (file.size > maxSize) {
-        this.utilsService.showMessage('generic.file-too-large', 8000);
-        return;
-      }
-
-      this.changedProfileImg = true;
-      this.selectedProfileImage = file;
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e: any) => {
-        this.profileImageSrc.set(e.target.result);
-      };
+    const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
+    if (file.size > maxSize) {
+      this.utilsService.showMessage('generic.file-too-large', 8000);
+      return;
     }
+
+    this.changedProfileImg = true;
+    this.selectedProfileImage = file;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (e: any) => {
+      this.profileImageSrc.set(e.target.result);
+    };
   }
 
   openChangePasswordDialog() {

@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  OnDestroy,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -20,7 +19,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import moment from 'moment';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReleaseFormComponent } from './components/release-form/release-form.component';
@@ -66,41 +65,39 @@ import { DuplicatedReleaseAction } from '../../../enums/duplicated-release-actio
   styleUrl: './release-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
-  public utilsService = inject(UtilsService);
-  public data = inject(MAT_DIALOG_DATA);
-  private _fb = inject(FormBuilder);
-  private _cashFlowService = inject(CashFlowService);
-  private _matDialog = inject(MatDialog);
-  private _matDialogRef = inject(MatDialogRef);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
-  private _translate = inject(TranslateService);
+export class ReleaseFormDialogComponent implements OnInit {
+  public readonly utilsService = inject(UtilsService);
+  public readonly data = inject(MAT_DIALOG_DATA);
+  private readonly _fb = inject(FormBuilder);
+  private readonly _cashFlowService = inject(CashFlowService);
+  private readonly _matDialog = inject(MatDialog);
+  private readonly _matDialogRef = inject(MatDialogRef);
+  private readonly _translate = inject(TranslateService);
 
-  private _unsubscribeAll: Subject<any> = new Subject();
+  public releaseForm!: FormGroup;
 
-  releaseForm!: FormGroup;
+  private currentDate: Date = new Date();
 
-  currentDate: Date = new Date();
+  public selectedFile: File | null = null;
+  public showRepeat: boolean = false;
+  public showObservation: boolean = false;
 
-  selectedFile: File | null = null;
-  showRepeat: boolean = false;
-  showObservation: boolean = false;
+  public changedAttachment: boolean = false;
+  private removedFile: boolean = false;
 
-  changedAttachment: boolean = false;
-  removedFile: boolean = false;
+  public smallScreen: boolean =
+    window.innerHeight < 800 && window.innerWidth < 1400;
 
-  smallScreen: boolean = window.innerHeight < 800 && window.innerWidth < 1400;
+  public saving = signal(false);
 
-  saving: boolean = false;
+  public fixedRepeat = new FormControl(false);
+  public installmenteRepeat = new FormControl(false);
 
-  fixedRepeat = new FormControl(false);
-  installmenteRepeat = new FormControl(false);
-
-  repeatForSuffix: string = this._translate.instant(
+  public repeatForSuffix: string = this._translate.instant(
     'release-form.repeat-for-suffix.monthly'
   );
 
-  selectedCreditCard = this.data.creditCardId !== undefined;
+  public selectedCreditCard = this.data.creditCardId !== undefined;
 
   ngOnInit(): void {
     this.buildForm();
@@ -135,10 +132,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this._unsubscribeAll.unsubscribe();
-  }
-
   buildForm() {
     this.releaseForm = this._fb.group({
       id: null,
@@ -168,13 +161,12 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       this.releaseForm.get('accountId')!.setValue(this.data.creditCardId);
     }
 
-    const selectedDate: Date = this.data.selectedDate;
+    const selectedDt: Date = this.data.selectedDate;
 
-    const isSameMonth = selectedDate.getMonth() === this.currentDate.getMonth();
-    const isSameYear =
-      selectedDate.getFullYear() === this.currentDate.getFullYear();
+    const selectedMonth: string = `${selectedDt.getMonth()}/${selectedDt.getFullYear()}`;
+    const currentMonth: string = `${this.currentDate.getMonth()}/${this.currentDate.getFullYear()}`;
 
-    if (isSameMonth && isSameYear) {
+    if (selectedMonth === currentMonth) {
       this.releaseForm.get('date')!.setValue(this.currentDate);
     } else {
       this.releaseForm
@@ -193,32 +185,6 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     this.releaseForm
       .get('done')!
       .setValue(!moment(this.releaseForm.value.date).isAfter(new Date()));
-
-    this.releaseForm
-      .get('repeat')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        switch (value) {
-          case 'fixed':
-            this.releaseForm
-              .get('repeatFor')!
-              .setValidators(Validators.required);
-            this.releaseForm.get('installmentsBy')!.clearValidators();
-            break;
-          case 'installments':
-            this.releaseForm
-              .get('installmentsBy')!
-              .setValidators(Validators.required);
-            this.releaseForm.get('repeatFor')!.clearValidators();
-        }
-      });
-
-    this.releaseForm
-      .get('fixedBy')!
-      .valueChanges.pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.onChangeFixedBy(value);
-      });
   }
 
   async save() {
@@ -270,9 +236,8 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.saving = true;
+    this.saving.set(true);
     var requestError: boolean = false;
-    this._changeDetectorRef.detectChanges();
 
     const selectedAccount = this.data.accounts.find(
       (item: CardBasicList) => item.id === release.accountId
@@ -310,8 +275,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
 
     if (requestError) {
-      this.saving = false;
-      this._changeDetectorRef.detectChanges();
+      this.saving.set(false);
       this.utilsService.showMessage('release-form.error-saving-release');
       return;
     }
@@ -344,17 +308,14 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     }
 
     if (requestError) {
-      this.saving = false;
-      this._changeDetectorRef.detectChanges();
+      this.saving.set(false);
       return;
     }
 
     this.utilsService.showMessage('release-form.release-saved-successfully');
     this._matDialogRef.close(true);
 
-    this.saving = false;
-
-    this._changeDetectorRef.detectChanges();
+    this.saving.set(false);
   }
 
   get getDialogTitle(): string {
@@ -381,15 +342,7 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-
     if (!file) return;
-
-    const fileExtensions = ['pdf', 'jpg', 'jpeg', 'png', 'jfif', 'webp'];
-    const extension = file.name.split('.').pop().toLowerCase();
-    if (fileExtensions.indexOf(extension) === -1) {
-      this.utilsService.showMessage('release-form.select-valid-file', 10000);
-      return;
-    }
 
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
@@ -424,9 +377,15 @@ export class ReleaseFormDialogComponent implements OnInit, OnDestroy {
     switch (action) {
       case 'fixed':
         this.installmenteRepeat.setValue(false);
+        this.releaseForm.get('repeatFor')!.setValidators(Validators.required);
+        this.releaseForm.get('installmentsBy')!.clearValidators();
         break;
       case 'installments':
         this.fixedRepeat.setValue(false);
+        this.releaseForm
+          .get('installmentsBy')!
+          .setValidators(Validators.required);
+        this.releaseForm.get('repeatFor')!.clearValidators();
         break;
     }
   }

@@ -48,7 +48,8 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/assets"
+              "src/assets",
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.scss"
@@ -128,5 +129,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "52632006-ee29-4d9a-9bd0-c1fdad5ef944"
   }
 }

@@ -8,9 +8,9 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoryService {
-  private _http = inject(HttpClient);
+  private readonly _http = inject(HttpClient);
 
-  private apiUrl = `${environment.baseApiUrl}category`;
+  private readonly apiUrl = `${environment.baseApiUrl}category`;
 
   getById(id: number): Promise<Category> {
     return lastValueFrom(this._http.get<Category>(`${this.apiUrl}/${id}`));

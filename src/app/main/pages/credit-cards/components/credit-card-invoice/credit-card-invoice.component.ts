@@ -3,17 +3,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
+  Signal,
   WritableSignal,
+  computed,
   inject,
   signal,
 } from '@angular/core';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { CreditCardService } from '../../../../../services/credit-card.service';
 import { MatCardModule } from '@angular/material/card';
 import { Category } from '../../../../../interfaces/category';
 import { lastValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryService } from '../../../../../services/category.service';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -23,10 +23,14 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dialog/release-form-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { AccountBasicList } from '../../../../../interfaces/account';
 import { ReleasesMonthPipe } from '../../../../../utils/releases-month.pipe';
+import { Invoice, InvoiceMonthValues } from '../../../../../interfaces/invoice';
+import { InvoiceService } from '../../../../../services/invoice.service';
+import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
+import moment from 'moment';
+import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -47,64 +51,73 @@ import { ReleasesMonthPipe } from '../../../../../utils/releases-month.pipe';
 })
 export class CreditCardInvoiceComponent implements OnInit {
   public utilsService = inject(UtilsService);
-  private _creditCardService = inject(CreditCardService);
   private _matDialog = inject(MatDialog);
-  private _categoryService = inject(CategoryService);
   private _activatedRoute = inject(ActivatedRoute);
+  private _invoiceService = inject(InvoiceService);
 
   currency = this.utilsService.getUserConfigs.currency;
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
-  creditCard: WritableSignal<CreditCard | null> = signal(null);
-  releases: WritableSignal<MonthlyRelease[]> = signal([]);
+  creditCard = signal<CreditCard | null>(null);
 
-  selectedDate: Date = new Date();
+  monthValues = signal<InvoiceMonthValues>({
+    invoice: <Invoice>{},
+    invoicePayments: [],
+    releases: [],
+  });
+
+  selectedDate = new Date(new Date().setDate(15));
   currentYear: string = this.selectedDate.getFullYear().toString();
 
-  searching: WritableSignal<boolean> = signal(false);
+  searching = signal(false);
 
-  categories: Category[] = [];
   accounts: AccountBasicList[] = [];
+  categories: Category[] = [];
   creditCards: CardBasicList[] = [];
 
+  invoiceValues = computed(() => {
+    const closeDay = this.formatDay(this.creditCard()?.close_day);
+    const expireDay = this.formatDay(this.creditCard()?.expires_day);
+    const month = this.formatDay(this.selectedDate.getMonth() + 1);
+    const year = this.selectedDate.getFullYear();
+
+    const releases: MonthlyRelease[] = this.utilsService.filterList(
+      this.monthValues().releases,
+      'done',
+      true
+    );
+
+    return {
+      closeDay: `${closeDay}/${month}/${year}`,
+      expireDay: `${expireDay}/${month}/${year}`,
+      value: releases.reduce((count, item) => count + item.amount, 0),
+    };
+  });
+
   ngOnInit(): void {
-    this.getInvoiceAndReleases();
+    this.getMonthValues();
     this.getValues();
   }
 
-  getInvoiceAndReleases() {}
+  getMonthValues() {
+    const month = this.formatDay(this.selectedDate.getMonth() + 1);
+    const monthYear = `${month}/${this.selectedDate.getFullYear()}`;
 
-  async getValues() {
-    this._creditCardService
-      .getById(this.creditCardId)
-      .then((response) => this.creditCard.set(response));
-
-    this._categoryService
-      .getByUser()
-      .then((response) => (this.categories = response));
+    this._invoiceService
+      .getMonthValues(this.creditCardId, monthYear)
+      .then((response) => this.monthValues.set(response));
   }
 
-  getDateInfo(info: 'closing' | 'expiration'): string {
-    let day = '';
-    switch (info) {
-      case 'closing':
-        day = this.creditCard()?.close_day.toString().padStart(2, '0') || '00';
-        break;
-      case 'expiration':
-        day =
-          this.creditCard()?.expires_day.toString().padStart(2, '0') || '00';
-        break;
-    }
-
-    const month = (this.selectedDate.getMonth() + 1)
-      .toString()
-      .padStart(2, '0');
-    const year = this.selectedDate.getFullYear();
-
-    return `${day}/${month}/${year}`;
+  getValues() {
+    this._invoiceService.getValues(this.creditCardId).then((response) => {
+      this.creditCard.set(response.creditCard);
+      this.accounts = response.accountsList;
+      this.categories = response.categoriesList;
+      this.creditCards = response.creditCardsList;
+    });
   }
 
-  changeMonth(direction: 'before' | 'next'): void {
+  changeMonth(direction: 'before' | 'next') {
     this.selectedDate = new Date(
       this.selectedDate.setMonth(
         direction === 'before'
@@ -112,9 +125,8 @@ export class CreditCardInvoiceComponent implements OnInit {
           : this.selectedDate.getMonth() + 1
       )
     );
-    this.selectedDate.setDate(15);
 
-    this.getInvoiceAndReleases();
+    this.getMonthValues();
   }
 
   addRelease() {
@@ -137,7 +149,24 @@ export class CreditCardInvoiceComponent implements OnInit {
     ).then((response) => {
       if (!response) return;
 
-      this.getInvoiceAndReleases();
+      this.getMonthValues();
     });
+  }
+
+  payInvoice() {
+    this._matDialog.open(InvoicePaymentDialogComponent, {
+      panelClass: 'invoice-payment-dialog',
+      autoFocus: false,
+      data: {
+        invoice: this.monthValues().invoice,
+        invoiceAmount: this.invoiceValues().value,
+        accounts: this.accounts,
+        defaultPaymmentAccount: this.creditCard()!.standard_payment_account_id,
+      },
+    });
+  }
+
+  formatDay(day: number | undefined) {
+    return (day || 1).toString().padStart(2, '0');
   }
 }

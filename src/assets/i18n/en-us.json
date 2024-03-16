@@ -145,7 +145,6 @@
         "error-saving-attachment": "Release saved successfully but there was an error saving the attachment",
         "error-excluding-attachment": "Release saved successfully but there was an error deleting the attachment",
         "release-saved-successfully": "Release saved successfully",
-        "select-valid-file": "Please select a valid image file (pdf, jpg, jpeg, png, jfif, webp).",
         "in": "In",
         "for": "For",
         "origin-account": "Origin Account",
@@ -228,11 +227,23 @@
         "saved-successfully": "Credit card saved successfully",
         "error-saving-card": "Error saving the credit card"
     },
-    "card-invoice": {
+    "invoice": {
         "title": "Invoice",
         "closing": "CLOSING",
         "expiration": "EXPIRATION",
-        "invoice-amount": "INVOICE AMOUNT"
+        "amount": "INVOICE AMOUNT",
+        "pay": "Pay",
+        "payment": {
+            "title": "Pay invoice",
+            "amount": "Value",
+            "date": "Date",
+            "account": "Account",
+            "add-attachment": "+ attach file",
+            "hour": "Hour",
+            "attachment": "Attachment",
+            "saved-successfully": "Payment saved successfully",
+            "error-saving": "Error saving payment"
+        }
     },
     "categories": {
         "title": "Categories",
@@ -262,8 +273,7 @@
         "change-payment-method": "Change payment method",
         "edited-successfully": "Profile edited successfully",
         "edited-but-error-saving-picture": "The profile was edited but there was an error saving the new profile picture",
-        "error-saving": "Error saving changes",
-        "select-valid-file": "Please select a valid image file (jpg, jpeg, png, jfif, webp)."
+        "error-saving": "Error saving changes"
     },
     "settings": {
         "title": "Settings",

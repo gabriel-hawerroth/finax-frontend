@@ -1,11 +1,11 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  OnDestroy,
   OnInit,
+  WritableSignal,
   inject,
+  signal,
 } from '@angular/core';
 import { UtilsService } from '../../../utils/utils.service';
 import { MatCardModule } from '@angular/material/card';
@@ -15,9 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { CreditCard } from '../../../interfaces/credit-card';
-import { Subject } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -40,58 +38,36 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './credit-cards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardsComponent implements OnInit, OnDestroy {
+export class CreditCardsComponent implements OnInit {
   public utilsService = inject(UtilsService);
   private _creditCardService = inject(CreditCardService);
   private _router = inject(Router);
   private _bottomSheet = inject(MatBottomSheet);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  private _unsubscribeAll: Subject<any> = new Subject();
-
-  situationFilter = new FormControl();
+  situationFilter = new FormControl(true);
 
   rows: CreditCard[] = [];
-  filteredRows: BehaviorSubject<CreditCard[]> = new BehaviorSubject<
-    CreditCard[]
-  >([]);
+  filteredRows: WritableSignal<CreditCard[]> = signal([]);
 
   ngOnInit(): void {
     this.getCards();
-
-    this.situationFilter.setValue(true);
-
-    this.situationFilter.valueChanges.subscribe(() => {
-      this.filterList();
-    });
-  }
-
-  ngOnDestroy(): void {
-    this._unsubscribeAll.next('');
-    this._unsubscribeAll.complete();
   }
 
   getCards() {
     this._creditCardService.getByUser().then((response) => {
       this.rows = response;
-      this.filterList();
+      this.filterList(this.situationFilter.value!);
     });
   }
 
-  filterList() {
+  filterList(value: 'all' | boolean) {
     let rows = this.rows.slice();
 
-    if (this.situationFilter.value !== 'all') {
-      rows = this.utilsService.filterList(
-        rows,
-        'active',
-        this.situationFilter.value
-      );
+    if (value !== 'all') {
+      rows = this.utilsService.filterList(rows, 'active', value);
     }
 
-    this.filteredRows.next(rows);
-
-    this._changeDetectorRef.detectChanges();
+    this.filteredRows.set(rows);
   }
 
   onNew() {

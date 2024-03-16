@@ -2,10 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
-  WritableSignal,
   inject,
+  input,
 } from '@angular/core';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { lastValueFrom } from 'rxjs';
@@ -16,29 +15,34 @@ import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dia
 import { AccountBasicList } from '../../../../../interfaces/account';
 import { Category } from '../../../../../interfaces/category';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 
 @Component({
   selector: 'app-releases-list',
   standalone: true,
-  imports: [CommonModule, TranslateModule, CustomCurrencyPipe],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    CustomCurrencyPipe,
+    NgOptimizedImage,
+  ],
   templateUrl: './releases-list.component.html',
   styleUrl: './releases-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleasesListComponent {
-  @Input() releases!: WritableSignal<MonthlyRelease[]>;
-  @Input() accounts!: AccountBasicList[];
-  @Input() categories!: Category[];
-  @Input() creditCards!: CardBasicList[];
-  @Input() selectedDate!: Date;
-
   @Output() updateList = new EventEmitter();
 
-  private _bottomSheet = inject(MatBottomSheet);
-  private _matDialog = inject(MatDialog);
+  public releases = input.required<MonthlyRelease[]>();
+  public accounts = input.required<AccountBasicList[]>();
+  public categories = input.required<Category[]>();
+  public creditCards = input.required<CardBasicList[]>();
+  public selectedDate = input.required<Date>();
+
+  private readonly _bottomSheet = inject(MatBottomSheet);
+  private readonly _matDialog = inject(MatDialog);
 
   openDetails(cashFlow: MonthlyRelease) {
     lastValueFrom(
@@ -63,12 +67,12 @@ export class ReleasesListComponent {
       this._matDialog
         .open(ReleaseFormDialogComponent, {
           data: {
-            accounts: this.accounts,
-            categories: this.categories,
-            creditCards: this.creditCards,
+            accounts: this.accounts(),
+            categories: this.categories(),
+            creditCards: this.creditCards(),
             editing: true,
             releaseType: release.type,
-            selectedDate: this.selectedDate,
+            selectedDate: this.selectedDate(),
             release: release,
           },
           panelClass: 'new-release-cash-flow-dialog',

@@ -145,7 +145,6 @@
         "error-saving-attachment": "Lançamento salvo com sucesso porém houve um erro ao salvar o anexo",
         "error-excluding-attachment": "Lançamento salvo com sucesso porém houve um erro ao excluir o anexo",
         "release-saved-successfully": "Lançamento salvo com sucesso",
-        "select-valid-file": "Por favor, selecione um arquivo válido (pdf, jpg, jpeg, png, jfif, webp).",
         "in": "Em",
         "for": "Por",
         "origin-account": "Conta de origem",
@@ -228,11 +227,23 @@
         "saved-successfully": "Cartão de crédito salvo com sucesso",
         "error-saving-card": "Erro ao salvar o cartão de crédito"
     },
-    "card-invoice": {
+    "invoice": {
         "title": "Fatura",
         "closing": "FECHAMENTO",
         "expiration": "VENCIMENTO",
-        "invoice-amount": "VALOR DA FATURA"
+        "amount": "VALOR DA FATURA",
+        "pay": "Pagar",
+        "payment": {
+            "title": "Pagar fatura",
+            "amount": "Valor",
+            "date": "Data",
+            "account": "Conta",
+            "add-attachment": "+ anexar arquivo",
+            "hour": "Hora",
+            "attachment": "Anexo",
+            "saved-successfully": "Pagamento salvo com sucesso",
+            "error-saving": "Erro ao salvar o pagamento"
+        }
     },
     "categories": {
         "title": "Categorias",
@@ -262,8 +273,7 @@
         "change-payment-method": "Alterar forma de pagamento",
         "edited-successfully": "Perfil editado com sucesso",
         "edited-but-error-saving-picture": "O perfil foi editado mas houve um erro ao salvar a nova foto de perfil",
-        "error-saving": "Erro ao salvar as alterações",
-        "select-valid-file": "Por favor, selecione um arquivo de imagem válido (jpg, jpeg, png, jfif, webp)."
+        "error-saving": "Erro ao salvar as alterações"
     },
     "settings": {
         "title": "Configurações",

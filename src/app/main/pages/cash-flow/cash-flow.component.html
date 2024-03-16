@@ -105,7 +105,7 @@
       </header>
 
       <app-releases-list
-        [releases]="releases"
+        [releases]="monthlyValues().releases"
         [accounts]="accounts"
         [categories]="categories"
         [creditCards]="creditCards"
@@ -118,17 +118,17 @@
         <div class="row1">
           <span>
             {{ "cash-flow.revenues" | translate }}: {{ currency
-            }}{{ totals.revenues | customCurrency }}
+            }}{{ totals().revenues | customCurrency }}
           </span>
 
           <span>
             {{ "cash-flow.expenses" | translate }}: {{ currency
-            }}{{ totals.expenses | customCurrency }}
+            }}{{ totals().expenses | customCurrency }}
           </span>
 
           <span>
             {{ "cash-flow.balance" | translate }}: {{ currency
-            }}{{ totals.balance | customCurrency }}
+            }}{{ totals().balance | customCurrency }}
           </span>
         </div>
 
@@ -136,12 +136,12 @@
         <div class="row2">
           <span>
             {{ "cash-flow.general-balance" | translate }}: {{ currency
-            }}{{ totals.generalBalance || 0 | customCurrency }}
+            }}{{ totals().generalBalance || 0 | customCurrency }}
           </span>
 
           <span>
             {{ "cash-flow.expected-balance" | translate }}: {{ currency
-            }}{{ totals.expectedBalance || 0 | customCurrency }}
+            }}{{ monthlyValues().expectedBalance | customCurrency }}
           </span>
         </div>
         }

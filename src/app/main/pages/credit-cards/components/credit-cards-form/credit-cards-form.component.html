@@ -66,7 +66,10 @@
           <mat-label>
             {{ "credit-cards.standard-payment-account" | translate }}
           </mat-label>
-          <mat-select formControlName="standard_payment_account_id">
+          <mat-select
+            formControlName="standard_payment_account_id"
+            (valueChange)="paymentAccountChanges($event)"
+          >
             <mat-select-trigger>
               <ng-container
                 *ngTemplateOutlet="selectedAccountTemplate"
@@ -132,13 +135,13 @@
         </mat-form-field>
 
         <div id="img-div">
-          @if (!cardForm.value.image) {
+          @if (!selectedIcon()) {
           <span class="material-symbols-outlined" (click)="selectIcon()">
             credit_card
           </span>
           } @else {
           <img
-            [ngSrc]="'assets/banks/' + cardForm.value.image"
+            [ngSrc]="'assets/banks/' + selectedIcon()"
             width="70"
             height="70"
             (click)="selectIcon()"

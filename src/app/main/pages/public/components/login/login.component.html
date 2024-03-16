@@ -60,15 +60,15 @@
     </form>
 
     <div class="bottom" style="display: flex; justify-content: center">
-      @if (!showLoading) {
+      @if (showLoading()) {
+      <mat-spinner [diameter]="40"></mat-spinner>
+      } @else {
       <button mat-raised-button color="primary" (click)="login()">
         <span>
           <span class="material-symbols-outlined">person</span>
           {{ "login.login" | translate }}
         </span>
       </button>
-      } @else {
-      <mat-spinner [diameter]="40"></mat-spinner>
       }
     </div>
   </div>

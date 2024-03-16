@@ -9,9 +9,9 @@ import moment from 'moment';
   providedIn: 'root',
 })
 export class HomeService {
-  private _http = inject(HttpClient);
+  private readonly _http = inject(HttpClient);
 
-  private apiUrl = `${environment.baseApiUrl}home`;
+  private readonly apiUrl = `${environment.baseApiUrl}home`;
 
   getHomeValues(): Promise<HomeValues> {
     const firstDt: string = moment(new Date()).startOf('month').toString();
@@ -22,7 +22,7 @@ export class HomeService {
     params = params.append('lastDt', lastDt);
 
     return lastValueFrom(
-      this._http.get<HomeValues>(`${this.apiUrl}/get-home-values`, { params })
+      this._http.get<HomeValues>(`${this.apiUrl}/get-values`, { params })
     );
   }
 }

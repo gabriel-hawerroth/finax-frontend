@@ -1,6 +1,6 @@
 <div
   id="sidebar"
-  [ngStyle]="{ backgroundColor: darkThemeEnabled ? '#212121' : '#fafafa' }"
+  [ngStyle]="{ backgroundColor: darkThemeEnabled() ? '#212121' : '#fafafa' }"
 >
   <div class="sidebar-title">
     <img
@@ -18,7 +18,7 @@
         routerLink="/home"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">home</i>
@@ -29,7 +29,7 @@
         routerLink="/fluxo-de-caixa"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">wallet</i>
@@ -42,7 +42,7 @@
         routerLink="/contas-de-banco"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">account_balance</i>
@@ -55,7 +55,7 @@
         routerLink="/cartoes-de-credito"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">credit_card</i>
@@ -68,7 +68,7 @@
         routerLink="/categorias"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">sell</i>
@@ -85,7 +85,7 @@
         routerLink="/meu-perfil"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">account_circle</i>
@@ -96,7 +96,7 @@
         routerLink="/configuracoes"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">settings</i>
@@ -107,7 +107,7 @@
         (click)="logout()"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled
+          'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
         <i class="material-symbols-outlined">logout</i>
@@ -120,7 +120,7 @@
       [ngClass]="{
         'nav-ul-item': true,
         'user-item': true,
-        'nav-ul-item-dark': darkThemeEnabled
+        'nav-ul-item-dark': darkThemeEnabled()
       }"
     >
       <img [src]="utilsService.userImage | async" alt="user profile image" />

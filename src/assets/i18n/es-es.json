@@ -145,7 +145,6 @@
         "error-saving-attachment": "Transacción guardada con éxito pero hubo un error al guardar el adjunto",
         "error-excluding-attachment": "Transacción guardada con éxito pero hubo un error al eliminar el adjunto",
         "release-saved-successfully": "Transacción guardada con éxito",
-        "select-valid-file": "Por favor, selecciona un archivo válido (pdf, jpg, jpeg, png, jfif, webp).",
         "in": "En",
         "for": "Por",
         "origin-account": "Cuenta de origen",
@@ -228,11 +227,23 @@
         "saved-successfully": "Tarjeta de crédito guardada con éxito",
         "error-saving-card": "Error al guardar la tarjeta de crédito"
     },
-    "card-invoice": {
+    "invoice": {
         "title": "Factura",
         "closing": "CIERRE",
         "expiration": "VENCIMIENTO",
-        "invoice-amount": "MONTO DE LA FACTURA"
+        "amount": "MONTO DE LA FACTURA",
+        "pay": "Pagar",
+        "payment": {
+            "title": "Pagar factura",
+            "amount": "Valor",
+            "date": "Fecha",
+            "account": "Cuenta",
+            "add-attachment": "+ adjuntar archivo",
+            "hour": "Hora",
+            "attachment": "Archivo adjunto",
+            "saved-successfully": "Pago ahorrado con éxito",
+            "error-saving": "Error al guardar el pago"
+        }
     },
     "categories": {
         "title": "Categorías",
@@ -262,8 +273,7 @@
         "change-payment-method": "Cambiar método de pago",
         "edited-successfully": "Perfil editado con éxito",
         "edited-but-error-saving-picture": "El perfil se editó pero hubo un error al guardar la nueva foto de perfil",
-        "error-saving": "Error al guardar los cambios",
-        "select-valid-file": "Por favor, selecciona un archivo de imagen válido (jpg, jpeg, png, jfif, webp)."
+        "error-saving": "Error al guardar los cambios"
     },
     "settings": {
         "title": "Configuraciones",

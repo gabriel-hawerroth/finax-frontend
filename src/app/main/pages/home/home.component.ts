@@ -74,9 +74,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this._homeService.getHomeValues().then((response: HomeValues) => {
       this.homeValues.set(response);
 
-      response.accountsList.forEach((account) => {
-        this.generalBalance += account.balance;
-      });
+      this.generalBalance = response.accountsList.reduce(
+        (count, item) => count + item.balance,
+        0
+      );
     });
   }
 

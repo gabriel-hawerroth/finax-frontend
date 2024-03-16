@@ -34,9 +34,9 @@ import { LoginService } from '../../../services/login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicComponent implements OnInit {
-  public utilsService = inject(UtilsService);
-  public loginService = inject(LoginService);
-  public el = inject(ElementRef);
+  private readonly _utilsService = inject(UtilsService);
+  private readonly _loginService = inject(LoginService);
+  private readonly _el = inject(ElementRef);
 
   showScrollTop: boolean = false;
 
@@ -44,14 +44,16 @@ export class PublicComponent implements OnInit {
 
   ngOnInit(): void {
     if (
-      moment().isAfter(this.utilsService.getItemLocalStorage('tokenExpiration'))
+      moment().isAfter(
+        this._utilsService.getItemLocalStorage('tokenExpiration')
+      )
     ) {
-      this.loginService.logout(false);
+      this._loginService.logout(false);
     }
   }
 
   get getWidth(): number {
-    const width = +this.el.nativeElement.querySelector(
+    const width = +this._el.nativeElement.querySelector(
       '[id="fs-img-container"]'
     ).clientWidth;
 
@@ -59,7 +61,7 @@ export class PublicComponent implements OnInit {
   }
 
   get getHeight(): number {
-    const height = +this.el.nativeElement.querySelector(
+    const height = +this._el.nativeElement.querySelector(
       '[id="fs-img-container"]'
     ).clientHeight;
 
@@ -67,7 +69,7 @@ export class PublicComponent implements OnInit {
   }
 
   get getSecondWidth(): number {
-    const width = +this.el.nativeElement.querySelector(
+    const width = +this._el.nativeElement.querySelector(
       '[id="ss-img-container"]'
     ).clientWidth;
 
@@ -75,7 +77,7 @@ export class PublicComponent implements OnInit {
   }
 
   get getSecondHeight(): number {
-    const height = +this.el.nativeElement.querySelector(
+    const height = +this._el.nativeElement.querySelector(
       '[id="ss-img-container"]'
     ).clientHeight;
 

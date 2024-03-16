@@ -2,6 +2,14 @@
   @for (item of releases(); track item.id) {
   <div class="release" (click)="openDetails(item)">
     <div class="category">
+      @if (item.type === 'I') {
+      <img
+        [ngSrc]="'assets/banks/' + item.creditCardImg"
+        style="border-radius: 50%"
+        width="40"
+        height="40"
+      />
+      } @else {
       <span
         class="material-symbols-outlined"
         [ngStyle]="{
@@ -10,13 +18,14 @@
       >
         {{ item.categoryIcon || "list" }}
       </span>
+      }
     </div>
 
     <div class="description">
       @if (item.type !== 'T') {
       <h3 class="h3">
         @if (item.type === 'I') {
-        {{ "card-invoice.title" | translate }}
+        {{ "invoice.title" | translate }}
         } @if (item.isCreditCardRelease) {
         <span class="material-symbols-outlined">credit_card</span>
         }

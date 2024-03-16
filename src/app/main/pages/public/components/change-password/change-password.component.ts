@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
@@ -45,17 +45,16 @@ import { LoginService } from '../../../../../services/login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordComponent implements OnInit {
-  public utilsService = inject(UtilsService);
-  private _fb = inject(FormBuilder);
-  private _userService = inject(UserService);
-  private _activatedRoute = inject(ActivatedRoute);
-  private _router = inject(Router);
-  private _loginService = inject(LoginService);
-  private _changeDetectorRef = inject(ChangeDetectorRef);
+  public readonly utilsService = inject(UtilsService);
+  private readonly _fb = inject(FormBuilder);
+  private readonly _userService = inject(UserService);
+  private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _router = inject(Router);
+  private readonly _loginService = inject(LoginService);
 
-  changePasswordForm!: FormGroup;
-  showLoading: boolean = false;
-  user!: User;
+  private user!: User;
+  public changePasswordForm!: FormGroup;
+  public showLoading = signal(false);
 
   ngOnInit(): void {
     this.buildForm();
@@ -67,9 +66,7 @@ export class ChangePasswordComponent implements OnInit {
           this._router.navigate(['']);
         } else this.user = user;
       })
-      .catch(() => {
-        this._router.navigate(['']);
-      });
+      .catch(() => this._router.navigate(['']));
   }
 
   buildForm() {
@@ -98,11 +95,10 @@ export class ChangePasswordComponent implements OnInit {
 
     if (passwordConfirm !== newPassword) {
       this.utilsService.showMessage("change-password.passwords-don't-match");
-      this.showLoading = false;
       return;
     }
 
-    this.showLoading = true;
+    this.showLoading.set(true);
 
     this._userService
       .changeForgetedPassword(this.user.id!, newPassword)
@@ -128,12 +124,9 @@ export class ChangePasswordComponent implements OnInit {
           this._loginService.login(credentials);
         }
       })
-      .catch(() => {
-        this.utilsService.showMessage('change-password.error-changing');
-      })
-      .finally(() => {
-        this.showLoading = false;
-        this._changeDetectorRef.detectChanges();
-      });
+      .catch(() =>
+        this.utilsService.showMessage('change-password.error-changing')
+      )
+      .finally(() => this.showLoading.set(false));
   }
 }

@@ -1,7 +1,7 @@
 <div class="simple-page login">
   <div class="login-box">
     <div class="top">
-      <img src="assets/money-coin.svg" width="50" height="50" />
+      <img ngSrc="assets/money-coin.svg" width="50" height="50" />
 
       <h1>FINAX</h1>
     </div>
@@ -17,7 +17,7 @@
 
     <div class="footer">
       <span>Previsão de retorno:</span>
-      <span>26/02/2024 23:00</span>
+      <span>{{ expectedReturnDate | date : "dd/MM/yyyy HH" }}h</span>
     </div>
   </div>
 

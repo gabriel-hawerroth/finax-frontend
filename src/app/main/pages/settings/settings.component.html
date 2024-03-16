@@ -1,7 +1,7 @@
 <div
   [ngClass]="{
     'simple-page': true,
-    'dark-page': theme === 'dark'
+    'dark-page': theme() === 'dark'
   }"
 >
   <h1 class="page-title">
@@ -12,7 +12,10 @@
     <div class="config theme">
       <span>{{ "settings.theme" | translate }}:</span>
 
-      <mat-button-toggle-group formControlName="theme">
+      <mat-button-toggle-group
+        formControlName="theme"
+        hideSingleSelectionIndicator="true"
+      >
         <mat-button-toggle value="light">
           <i class="material-symbols-outlined">light_mode</i>
         </mat-button-toggle>
