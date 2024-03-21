@@ -1,9 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
   input,
+  output,
 } from '@angular/core';
 import { Category } from '../../../../../interfaces/category';
 import { CommonModule } from '@angular/common';
@@ -23,7 +22,7 @@ export class CategoriesListComponent {
   categories = input.required<Category[]>();
   categoryType = input.required<'E' | 'R'>();
 
-  @Output() onNew = new EventEmitter<'E' | 'R'>();
-  @Output() onEdit = new EventEmitter<any[]>();
-  @Output() onDelete = new EventEmitter<number>();
+  onNew = output<'E' | 'R'>();
+  onEdit = output<any[]>();
+  onDelete = output<number>();
 }

@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
   inject,
   input,
+  output,
 } from '@angular/core';
 import { UtilsService } from '../utils.service';
 import { CommonModule } from '@angular/common';
@@ -26,15 +25,15 @@ import { TranslateModule } from '@ngx-translate/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonsComponent {
-  @Output() onNew = new EventEmitter();
-  @Output() onSave = new EventEmitter();
-  @Output() onDelete = new EventEmitter();
-  @Output() onEdit = new EventEmitter();
-  @Output() onDownload = new EventEmitter();
-  @Output() onClose = new EventEmitter();
-  @Output() onGoBack = new EventEmitter();
-  @Output() onChangePassword = new EventEmitter();
-  @Output() onGeneric = new EventEmitter();
+  public readonly onNew = output<void>();
+  public readonly onSave = output<void>();
+  public readonly onDelete = output<void>();
+  public readonly onEdit = output<void>();
+  public readonly onDownload = output<void>();
+  public readonly onClose = output<void>();
+  public readonly onGoBack = output<void>();
+  public readonly onChangePassword = output<void>();
+  public readonly onGeneric = output<void>();
 
   public readonly showNew = input<boolean>(false);
   public readonly showSave = input<boolean>(false);

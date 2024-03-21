@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
   inject,
   input,
+  output,
 } from '@angular/core';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { lastValueFrom } from 'rxjs';
@@ -33,7 +32,7 @@ import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleasesListComponent {
-  @Output() updateList = new EventEmitter();
+  private updateList = output<void>();
 
   public releases = input.required<MonthlyRelease[]>();
   public accounts = input.required<AccountBasicList[]>();
@@ -58,7 +57,7 @@ export class ReleasesListComponent {
       if (!response) return;
 
       if (response === 'edit') this.editRelease(cashFlow);
-      else if (response === 'delete') this.updateList.emit('');
+      else if (response === 'delete') this.updateList.emit();
     });
   }
 
@@ -82,7 +81,7 @@ export class ReleasesListComponent {
     ).then((response) => {
       if (!response) return;
 
-      this.updateList.emit('');
+      this.updateList.emit();
     });
   }
 }
