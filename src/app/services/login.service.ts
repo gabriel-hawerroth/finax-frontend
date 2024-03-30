@@ -10,6 +10,7 @@ import { User } from '../interfaces/user';
 import { Credentials } from '../interfaces/credentials';
 import { UserConfigsService } from './user-configs.service';
 import { UserConfigs } from '../interfaces/user-configs';
+import { AuthResponse } from '../interfaces/auth-response';
 
 @Injectable({
   providedIn: 'root',
@@ -24,20 +25,17 @@ export class LoginService {
 
   async login(credentials: Credentials) {
     await this.oauthLogin(credentials)
-      .then(async (response: any) => {
+      .then(async (response) => {
         if (!response) {
           this._utilsService.showMessage('login.invalid-login');
           return;
         }
 
-        this.setToken(response.access_token);
+        this.setToken(response.token);
         this._router.navigate(['home']);
 
         let headers = new HttpHeaders();
-        headers = headers.append(
-          'Authorization',
-          `Bearer ${response.access_token}`
-        );
+        headers = headers.append('Authorization', `Bearer ${response.token}`);
 
         await lastValueFrom(
           this._http.get<User>(`${environment.baseApiUrl}user/get-auth-user`, {
@@ -95,21 +93,17 @@ export class LoginService {
       });
   }
 
-  oauthLogin(credentials: Credentials): Promise<any> {
-    const basicAuth = 'client-id:secret-id';
-    let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Basic ' + btoa(basicAuth));
-
-    let params = new HttpParams();
-    params = params.append('grant_type', 'password');
-    params = params.append('username', credentials.email);
-    params = params.append('password', credentials.password);
+  oauthLogin(credentials: Credentials): Promise<AuthResponse> {
+    const authDTO = {
+      login: credentials.email,
+      password: credentials.password,
+    };
 
     return lastValueFrom(
-      this._http.get(`${environment.baseApiUrl}oauth/token`, {
-        headers: headers,
-        params: params,
-      })
+      this._http.post<AuthResponse>(
+        `${environment.baseApiUrl}auth/login`,
+        authDTO
+      )
     );
   }
 
