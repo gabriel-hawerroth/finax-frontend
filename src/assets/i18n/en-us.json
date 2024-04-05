@@ -12,7 +12,7 @@
         "reports": "Reports",
         "activeM": "Active",
         "select-icon": "Select an icon",
-        "password-requirements": "Password must be at least 8 characters long, contain 1 number, 1 uppercase letter, and 1 special character",
+        "password-requirements": "Password must be at least 8 characters long, contain one number, one uppercase letter, and one special character",
         "this-may-take-few-seconds": "Due to the file size, this may take a few seconds",
         "file-too-large": "The selected file is too large, the maximum allowed size is 3MB.",
         "email": "Email",
@@ -95,8 +95,12 @@
         "my-accounts": "My Accounts",
         "accounts-payable": "Accounts Payable",
         "accounts-receivable": "Accounts Receivable",
+        "empty-accounts-list": "No account registered",
+        "register-one": "Register one",
         "whitout-payble-accounts": "You don't have any accounts payable",
-        "whitout-receivable-accounts": "You don't have any accounts receivable"
+        "whitout-receivable-accounts": "You don't have any accounts receivable",
+        "spend-by-category": "Spending by category",
+        "no-expense-current-month": "No expenses made in the current month"
     },
     "cash-flow": {
         "title": "Cash Flow",

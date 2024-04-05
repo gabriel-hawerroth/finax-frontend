@@ -31,169 +31,27 @@
     </mat-card-content>
   </mat-card>
 
-  <div class="row">
-    <div class="left">
-      <mat-card class="accounts">
-        <mat-card-header>
-          <h3 style="font-weight: 500">
-            {{ "home.general-balance" | translate }}
-          </h3>
+  <div class="content">
+    <div class="left-column">
+      <app-home-accounts-list-widget
+        [accountsList]="homeValues().accountsList"
+        [generalBalance]="generalBalance"
+        [currency]="currency"
+      ></app-home-accounts-list-widget>
 
-          <span
-            style="font-size: 2rem; font-weight: bold"
-            [ngStyle]="{
-              color:
-                generalBalance === 0
-                  ? '#3d799c'
-                  : generalBalance > 0
-                  ? '#15e627'
-                  : 'red'
-            }"
-          >
-            {{ currency }}{{ generalBalance | customCurrency }}
-          </span>
-        </mat-card-header>
-
-        <mat-divider></mat-divider>
-
-        <mat-card-content>
-          <span class="my-accounts-title">
-            {{ "home.my-accounts" | translate }}
-          </span>
-
-          @defer {
-          <div class="list">
-            @for (account of homeValues().accountsList; track account.id) {
-            <div class="account">
-              @if (account.image) {
-              <img
-                [ngSrc]="'assets/banks/' + account.image"
-                width="55"
-                height="55"
-                alt="account logo"
-              />
-              } @else {
-              <span class="material-symbols-outlined default-bank-account">
-                account_balance
-              </span>
-              }
-
-              <b>{{ account.name }}</b>
-
-              <span class="account-balance">
-                {{ currency }}{{ account.balance | customCurrency }}
-              </span>
-            </div>
-
-            @if (isntLastItemAccounts(account.id!)) {
-            <mat-divider></mat-divider>
-            } }
-          </div>
-          }
-        </mat-card-content>
-      </mat-card>
+      <app-home-spend-by-category-widget></app-home-spend-by-category-widget>
     </div>
 
-    <div class="right">
-      <mat-card class="upcoming-releases-expected">
-        <mat-card-header>
-          <mat-card-title>
-            <h3>
-              {{ "home.accounts-payable" | translate }}
-            </h3>
-          </mat-card-title>
-        </mat-card-header>
+    <div class="right-column">
+      <app-home-payable-accounts-widget
+        [releasesList]="getUpcomingReleases('E')"
+        [currency]="currency"
+      ></app-home-payable-accounts-widget>
 
-        <mat-card-content>
-          @for (item of getUpcomingReleases('E'); track item.id) {
-          <div class="release">
-            <span
-              class="material-symbols-outlined"
-              [ngStyle]="{ 'background-color': item.categoryColor }"
-            >
-              {{ item.categoryIcon }}
-            </span>
-
-            <div class="title-account">
-              <span class="release-title">
-                {{ item.description || item.categoryName }}
-              </span>
-
-              <span class="release-account">{{ item.accountName }}</span>
-            </div>
-
-            <span class="date">{{ item.date | date : "dd/MM/yyyy" }}</span>
-
-            <span class="amount">
-              {{ currency }}{{ item.amount | customCurrency }}
-            </span>
-          </div>
-
-          @if (isntLastItem(item.id, 'E')) {
-          <mat-divider></mat-divider>
-          }
-
-          <span></span>
-
-          } @empty {
-          <div class="no-releases">
-            <span>
-              {{ "home.whitout-payble-accounts" | translate }}
-            </span>
-          </div>
-          }
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="upcoming-releases-expected">
-        <mat-card-header>
-          <mat-card-title>
-            <h3>
-              {{ "home.accounts-receivable" | translate }}
-            </h3>
-          </mat-card-title>
-        </mat-card-header>
-
-        <mat-card-content>
-          @for (item of getUpcomingReleases('R'); track item.id) {
-          <div class="release">
-            <span
-              class="material-symbols-outlined"
-              [ngStyle]="{ 'background-color': item.categoryColor }"
-            >
-              {{ item.categoryIcon }}
-            </span>
-
-            <div class="title-account">
-              <span class="release-title">
-                {{ item.description || item.categoryName }}
-              </span>
-
-              <span class="release-account">{{ item.accountName }}</span>
-            </div>
-
-            <span class="date">{{ item.date | date : "dd/MM/yyyy" }}</span>
-
-            <span class="amount">
-              {{ currency }}{{ item.amount | customCurrency }}
-            </span>
-          </div>
-
-          @if (isntLastItem(item.id, 'R')) {
-          <mat-divider></mat-divider>
-          }
-
-          <span></span>
-
-          } @empty {
-          <div class="no-releases">
-            <span>
-              {{ "home.whitout-receivable-accounts" | translate }}
-            </span>
-          </div>
-          }
-        </mat-card-content>
-      </mat-card>
+      <app-home-receivable-accounts-widget
+        [releasesList]="getUpcomingReleases('R')"
+        [currency]="currency"
+      ></app-home-receivable-accounts-widget>
     </div>
   </div>
 </div>

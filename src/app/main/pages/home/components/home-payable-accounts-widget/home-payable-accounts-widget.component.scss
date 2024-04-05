@@ -1,0 +1,65 @@
+.card {
+    padding-bottom: 1rem;
+
+    mat-card-header {
+        margin-bottom: .8rem;
+    }
+
+    mat-card-content {
+        padding: 0 1rem !important;
+        max-height: 30vh;
+        overflow-y: scroll;
+
+        .release {
+            padding: .7rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+
+            .material-symbols-outlined {
+                width: 2.5rem;
+                height: 2.5rem;
+                color: #fff;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .title-account {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .release-title {
+                    font-size: 1.1rem;
+                }
+
+                .release-account {
+                    font-size: .9rem;
+                    color: #616161;
+                }
+            }
+
+            .date {
+                width: 20%;
+                color: #616161;
+            }
+
+            .amount {
+                width: 18%;
+                color: #616161;
+                display: flex;
+                justify-content: end;
+            }
+        }
+
+        .no-releases {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #818181;
+            padding: 2rem 0;
+        }
+    }
+}

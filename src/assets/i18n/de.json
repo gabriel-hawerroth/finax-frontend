@@ -12,7 +12,7 @@
         "reports": "Berichte",
         "activeM": "Aktiv",
         "select-icon": "Wählen Sie ein Symbol",
-        "password-requirements": "Das Passwort muss mindestens 8 Zeichen, 1 Zahl, 1 Großbuchstaben und 1 Sonderzeichen enthalten",
+        "password-requirements": "Das Passwort muss mindestens 8 Zeichen, ein Zahl, ein Großbuchstaben und ein Sonderzeichen enthalten",
         "this-may-take-few-seconds": "Aufgrund der Dateigröße kann dies einige Sekunden dauern",
         "file-too-large": "Die ausgewählte Datei ist zu groß. Die maximale Größe beträgt 3 MB.",
         "email": "E-Mail",
@@ -95,8 +95,12 @@
         "my-accounts": "Meine Konten",
         "accounts-payable": "Verbindlichkeiten",
         "accounts-receivable": "Forderungen",
+        "empty-accounts-list": "Kein Konto registriert",
+        "register-one": "Registrieren Sie eine",
         "whitout-payble-accounts": "Sie haben keine Kreditorenbuchhaltung",
-        "whitout-receivable-accounts": "Sie haben keine Forderungen"
+        "whitout-receivable-accounts": "Sie haben keine Forderungen",
+        "spend-by-category": "Ausgaben nach Kategorie",
+        "no-expense-current-month": "Keine Ausgaben im laufenden Monat getätigt"
     },
     "cash-flow": {
         "title": "Kassenfluss",

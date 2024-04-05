@@ -12,7 +12,7 @@
         "reports": "Relatórios",
         "activeM": "Ativo",
         "select-icon": "Selecione um ícone",
-        "password-requirements": "A senha deve conter pelo menos 8 caracteres, 1 número, 1 letra maiúscula e 1 caracter especial",
+        "password-requirements": "A senha deve conter pelo menos 8 caracteres, um número, uma letra maiúscula e um caracter especial",
         "this-may-take-few-seconds": "Devido ao tamanho do arquivo isto pode levar alguns segundos",
         "file-too-large": "O arquivo selecionado é muito grande, o tamanho máximo permitido é 3MB.",
         "email": "Email",
@@ -95,8 +95,12 @@
         "my-accounts": "Minhas contas",
         "accounts-payable": "Contas a pagar",
         "accounts-receivable": "Contas a receber",
+        "empty-accounts-list": "Nenhuma conta cadastrada",
+        "register-one": "Cadastre uma",
         "whitout-payble-accounts": "Você não possui contas a pagar",
-        "whitout-receivable-accounts": "Você não possui contas a receber"
+        "whitout-receivable-accounts": "Você não possui contas a receber",
+        "spend-by-category": "Gastos por categoria",
+        "no-expense-current-month": "Nenhum gasto realizado no mês atual"
     },
     "cash-flow": {
         "title": "Fluxo de caixa",

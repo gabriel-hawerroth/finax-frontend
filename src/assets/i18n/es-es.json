@@ -12,7 +12,7 @@
         "reports": "Informes",
         "activeM": "Activo",
         "select-icon": "Selecciona un ícono",
-        "password-requirements": "La contraseña debe tener al menos 8 caracteres, 1 número, 1 letra mayúscula y 1 carácter especial",
+        "password-requirements": "La contraseña debe tener al menos 8 caracteres, un número, una letra mayúscula y un carácter especial",
         "this-may-take-few-seconds": "Debido al tamaño del archivo, esto puede tardar algunos segundos",
         "file-too-large": "El archivo seleccionado es demasiado grande, el tamaño máximo permitido es de 3MB.",
         "email": "Correo electrónico",
@@ -95,8 +95,12 @@
         "my-accounts": "Mis cuentas",
         "accounts-payable": "Cuentas a pagar",
         "accounts-receivable": "Cuentas a cobrar",
+        "empty-accounts-list": "No hay ninguna cuenta registrada",
+        "register-one": "Registre una",
         "whitout-payble-accounts": "No tienes cuentas a pagar",
-        "whitout-receivable-accounts": "No tienes cuentas a cobrar"
+        "whitout-receivable-accounts": "No tienes cuentas a cobrar",
+        "spend-by-category": "Gasto por categoría",
+        "no-expense-current-month": "No se han realizado gastos en el mes en curso"
     },
     "cash-flow": {
         "title": "Flujo de efectivo",

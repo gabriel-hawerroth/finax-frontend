@@ -1,0 +1,51 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>
+        {{ "home.spend-by-category" | translate }}
+      </h3>
+
+      <span id="period">
+        {{ firstDt | date : "dd/MM/yyyy" }} a
+        {{ lastDt | date : "dd/MM/yyyy" }}
+      </span>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    @if (spendsByCategory().length > 0) {
+    <div class="left">
+      @for (item of spendsByCategory(); track $index) {
+      <div class="category">
+        <span
+          class="material-symbols-outlined"
+          [ngStyle]="{ 'background-color': item.category.color }"
+        >
+          {{ item.category.icon }}
+        </span>
+
+        <span id="category-name">{{ item.category.name }}</span>
+
+        <span id="percent">{{ item.percent | customCurrency }}%</span>
+      </div>
+
+      @if (isntLastItem($index)) {
+      <mat-divider></mat-divider>
+      } }
+    </div>
+
+    <div class="right">
+      <p-chart
+        id="chart"
+        type="pie"
+        [data]="data"
+        [options]="options"
+      ></p-chart>
+    </div>
+    } @else {
+    <div class="no-expenses">
+      <span>{{ "home.no-expense-current-month" | translate }}</span>
+    </div>
+    }
+  </mat-card-content>
+</mat-card>

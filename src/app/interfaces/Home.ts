@@ -1,5 +1,6 @@
 import { Account } from './account';
 import { MonthlyRelease } from './cash-flow';
+import { Category } from './category';
 
 export interface HomeValues {
   balances: HomeBalances;
@@ -10,4 +11,10 @@ export interface HomeValues {
 interface HomeBalances {
   revenues: number;
   expenses: number;
+}
+
+export interface SpendByCategory {
+  category: Category;
+  percent: number;
+  value: number;
 }

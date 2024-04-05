@@ -60,7 +60,7 @@ export class CashFlowComponent implements OnInit, OnDestroy {
   private _cashFlowService = inject(CashFlowService);
   private _userConfigsService = inject(UserConfigsService);
 
-  private readonly _unsubscribeAll: Subject<void> = new Subject();
+  private _unsubscribeAll: Subject<void> = new Subject();
 
   public readonly currency = this.utilsService.getUserConfigs.currency;
   private readonly currentDate: Date = new Date();
@@ -77,9 +77,7 @@ export class CashFlowComponent implements OnInit, OnDestroy {
   categories: Category[] = [];
   creditCards: CardBasicList[] = [];
 
-  viewModeCtrl: FormControl = new FormControl<string>(
-    this.utilsService.getUserConfigs.releasesViewMode
-  );
+  viewModeCtrl: FormControl = new FormControl<string>('releases');
 
   totals = computed(() => {
     return this.calculateValues(this.monthlyValues());

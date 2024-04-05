@@ -1,0 +1,47 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>
+        {{ "home.accounts-payable" | translate }}
+      </h3>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    @for (item of releasesList(); track item.id) {
+    <div class="release">
+      <span
+        class="material-symbols-outlined"
+        [ngStyle]="{ 'background-color': item.categoryColor }"
+      >
+        {{ item.categoryIcon }}
+      </span>
+
+      <div class="title-account">
+        <span class="release-title">
+          {{ item.description || item.categoryName }}
+        </span>
+
+        <span class="release-account">{{ item.accountName }}</span>
+      </div>
+
+      <span class="date">{{ item.date | date : "dd/MM/yyyy" }}</span>
+
+      <span class="amount">
+        {{ currency() }}{{ item.amount | customCurrency }}
+      </span>
+    </div>
+
+    @if (isntLastItem(item.id)) {
+    <mat-divider></mat-divider>
+    } } @empty {
+    <div class="no-releases">
+      @defer (on timer(100ms)) {
+      <span>
+        {{ "home.whitout-payble-accounts" | translate }}
+      </span>
+      }
+    </div>
+    }
+  </mat-card-content>
+</mat-card>
