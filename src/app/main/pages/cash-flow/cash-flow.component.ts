@@ -15,24 +15,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  MonthlyBalance,
-  MonthlyFlow,
-  MonthlyRelease,
-} from '../../../interfaces/cash-flow';
+import { MonthlyFlow } from '../../../interfaces/cash-flow';
 import { CashFlowService } from '../../../services/cash-flow.service';
-import { CustomCurrencyPipe } from '../../../utils/customCurrencyPipe';
 import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { AccountBasicList } from '../../../interfaces/account';
-import { ReleaseFormDialogComponent } from '../../dialogs/release-form-dialog/release-form-dialog.component';
 import { CardBasicList } from '../../../interfaces/credit-card';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { Category } from '../../../interfaces/category';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { ReleasesListComponent } from './components/releases-list/releases-list.component';
-import { ReleasesMonthPipe } from '../../../utils/releases-month.pipe';
+import { ReleaseFormDialogComponent } from '../../../shared/components/release-form-dialog/release-form-dialog.component';
+import { CustomCurrencyPipe } from '../../../shared/pipes/custom-currency.pipe';
+import { ReleasesMonthPipe } from '../../../shared/pipes/releases-month.pipe';
 
 @Component({
   selector: 'app-cash-flow',

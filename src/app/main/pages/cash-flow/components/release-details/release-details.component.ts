@@ -5,19 +5,19 @@ import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { MatDialog } from '@angular/material/dialog';
 import { lastValueFrom } from 'rxjs';
 import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
-import { ConfirmationDialogComponent } from '../../../../dialogs/confirmation-dialog/confirmation-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { DuplicatedReleaseAction } from '../../../../../enums/duplicated-release-action';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { Router } from '@angular/router';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { ConfirmationDialogComponent } from '../../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 
 @Component({
   selector: 'app-release-details',

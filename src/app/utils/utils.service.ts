@@ -6,10 +6,10 @@ import { UserConfigs } from '../interfaces/user-configs';
 import { isPlatformBrowser } from '@angular/common';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../main/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
 import { User } from '../interfaces/user';
 import { ReleasesViewMode } from '../enums/releases-view-mode';
+import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +30,9 @@ export class UtilsService {
   );
 
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
-    new BehaviorSubject<string | ArrayBuffer | null>('assets/user-image.webp');
+    new BehaviorSubject<string | ArrayBuffer | null>(
+      'assets/imgs/user-image.webp'
+    );
 
   private userConfigs: BehaviorSubject<UserConfigs> =
     new BehaviorSubject<UserConfigs>(this.getUserConfigs);

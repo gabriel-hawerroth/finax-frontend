@@ -23,8 +23,8 @@ $finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primar
 // that you are using.
 @include mat.all-component-themes($finax-front-theme);
 
-@import 'app/app.component.scss';
-@import 'app/utils/colors.scss';
+@import './app/app.component.scss';
+@import './app/shared/styles/colors.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
@@ -60,10 +60,6 @@ $finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primar
   body {
     font-size: 15px !important;
   }
-
-  // .mat-mdc-dialog-container {
-  //   transform: scale(0.9) !important;
-  // }
 }
 
 @media screen and (max-width: 1400px) and (max-height: 650px) {
@@ -109,7 +105,6 @@ body {
   font-size: 16px;
   user-select: none;
   color: rgba(0, 0, 0, 0.856);
-  // font-family: 'Times New Roman', Times, serif;
   font-family: "Nunito", "Dosis", "Mallanna", system-ui, -apple-system, Roboto, sans-serif;
 }
 

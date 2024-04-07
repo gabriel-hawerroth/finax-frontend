@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UtilsService } from '../../../utils/utils.service';
 
@@ -8,6 +13,7 @@ import { UtilsService } from '../../../utils/utils.service';
   imports: [CommonModule],
   templateUrl: './spending-goals.component.html',
   styleUrl: './spending-goals.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SpendingGoalsComponent implements OnInit {
   public utilsService = inject(UtilsService);

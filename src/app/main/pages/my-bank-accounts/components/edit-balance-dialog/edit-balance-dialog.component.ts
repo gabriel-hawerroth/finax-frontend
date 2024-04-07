@@ -18,8 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-edit-balance-dialog',

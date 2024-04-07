@@ -8,7 +8,7 @@ import { Category } from '../../../../../interfaces/category';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-categories-list',

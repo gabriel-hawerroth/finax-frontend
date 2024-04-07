@@ -21,9 +21,9 @@ import {
 } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { CategoryService } from '../../../../../services/category.service';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-category-form-dialog',

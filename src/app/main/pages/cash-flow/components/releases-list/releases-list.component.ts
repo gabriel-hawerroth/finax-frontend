@@ -10,13 +10,13 @@ import { lastValueFrom } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ReleaseDetailsComponent } from '../release-details/release-details.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dialog/release-form-dialog.component';
 import { AccountBasicList } from '../../../../../interfaces/account';
 import { Category } from '../../../../../interfaces/category';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
+import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 
 @Component({
   selector: 'app-releases-list',
@@ -32,7 +32,7 @@ import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleasesListComponent {
-  private updateList = output<void>();
+  public updateList = output<void>();
 
   public releases = input.required<MonthlyRelease[]>();
   public accounts = input.required<AccountBasicList[]>();

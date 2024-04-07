@@ -12,12 +12,12 @@ import {
 } from '@angular/material/bottom-sheet';
 import { Account } from '../../../../../interfaces/account';
 import { MatButtonModule } from '@angular/material/button';
-import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 import { lastValueFrom } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 
 @Component({
   selector: 'app-bank-account-details',

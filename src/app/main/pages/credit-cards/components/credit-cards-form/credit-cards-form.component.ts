@@ -7,7 +7,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import {
   FormBuilder,
   FormGroup,
@@ -25,10 +24,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { AccountService } from '../../../../../services/account.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { lastValueFrom } from 'rxjs';
-import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { AccountBasicList } from '../../../../../interfaces/account';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 
 @Component({
   selector: 'app-credit-cards-form',

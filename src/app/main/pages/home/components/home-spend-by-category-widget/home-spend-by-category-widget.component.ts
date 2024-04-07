@@ -4,18 +4,17 @@ import {
   Component,
   OnInit,
   inject,
-  input,
   signal,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { SpendByCategory } from '../../../../../interfaces/home';
-import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatDividerModule } from '@angular/material/divider';
 import { ChartModule } from 'primeng/chart';
 import { ChartData, ChartOptions } from 'chart.js';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { HomeService } from '../../../../../services/home.service';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 
 @Component({
   selector: 'app-home-spend-by-category-widget',

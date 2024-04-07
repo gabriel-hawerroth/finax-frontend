@@ -11,10 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { UtilsService } from '../../../utils/utils.service';
-import moment from 'moment';
-import { PublicHeaderComponent } from '../../public-header/public-header.component';
-import { PublicFooterComponent } from '../../public-footer/public-footer.component';
 import { LoginService } from '../../../services/login.service';
+import { PublicFooterComponent } from './components/public-footer/public-footer.component';
+import { PublicHeaderComponent } from './components/public-header/public-header.component';
+import moment from 'moment';
 
 @Component({
   selector: 'app-public',

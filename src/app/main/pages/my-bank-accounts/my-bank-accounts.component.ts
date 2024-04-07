@@ -20,8 +20,8 @@ import {
 } from '@angular/material/bottom-sheet';
 import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
 import { MatCardModule } from '@angular/material/card';
-import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-my-bank-accounts',

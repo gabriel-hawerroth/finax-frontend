@@ -3,8 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  Signal,
-  WritableSignal,
   computed,
   inject,
   signal,
@@ -14,23 +12,22 @@ import { MatCardModule } from '@angular/material/card';
 import { Category } from '../../../../../interfaces/category';
 import { lastValueFrom } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CustomCurrencyPipe } from '../../../../../utils/customCurrencyPipe';
 import { MatButtonModule } from '@angular/material/button';
 import {
   CardBasicList,
   CreditCard,
 } from '../../../../../interfaces/credit-card';
 import { ActivatedRoute } from '@angular/router';
-import { ReleaseFormDialogComponent } from '../../../../dialogs/release-form-dialog/release-form-dialog.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { AccountBasicList } from '../../../../../interfaces/account';
-import { ReleasesMonthPipe } from '../../../../../utils/releases-month.pipe';
 import { Invoice, InvoiceMonthValues } from '../../../../../interfaces/invoice';
 import { InvoiceService } from '../../../../../services/invoice.service';
 import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
-import moment from 'moment';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
+import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 
 @Component({
   selector: 'app-credit-card-invoice',

@@ -1,4 +1,4 @@
-@import '../../../utils/colors.scss';
+@import '../../../shared/styles/colors.scss';
 
 ::-webkit-scrollbar {
     background-color: transparent !important;
@@ -69,7 +69,8 @@
             border-radius: .5rem;
         }
 
-        .left-column, .right-column {
+        .left-column,
+        .right-column {
             width: 50%;
             display: flex;
             flex-direction: column;

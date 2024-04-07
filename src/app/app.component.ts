@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { Location } from '@angular/common';
-import { MobilePageComponent } from './main/mobile-page/mobile-page.component';
 import { UtilsService } from './utils/utils.service';
 import { LoginService } from './services/login.service';
+import { MobilePageComponent } from './main/pages/mobile-page/mobile-page.component';
 
 @Component({
   selector: 'app-root',

@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,6 +26,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Invoice, InvoicePaymentSave } from '../../../../../interfaces/invoice';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InvoiceService } from '../../../../../services/invoice.service';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-invoice-payment-dialog',

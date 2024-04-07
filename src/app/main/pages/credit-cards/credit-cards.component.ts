@@ -10,7 +10,6 @@ import {
 import { UtilsService } from '../../../utils/utils.service';
 import { MatCardModule } from '@angular/material/card';
 import { CreditCardService } from '../../../services/credit-card.service';
-import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
@@ -19,6 +18,7 @@ import { CreditCard } from '../../../interfaces/credit-card';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-credit-cards',

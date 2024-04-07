@@ -21,10 +21,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { SelectIconDialogComponent } from '../../../../dialogs/select-icon-dialog/select-icon-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
-import { ButtonsComponent } from '../../../../../utils/buttons/buttons.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 
 @Component({
   selector: 'app-bank-accounts-edit',

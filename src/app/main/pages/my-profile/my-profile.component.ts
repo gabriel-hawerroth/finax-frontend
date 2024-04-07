@@ -12,13 +12,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../../services/user.service';
 import { UtilsService } from '../../../utils/utils.service';
-import { ChangePasswordDialogComponent } from '../../dialogs/change-password-dialog/change-password-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
-import { ButtonsComponent } from '../../../utils/buttons/buttons.component';
 import { Subject, takeUntil } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { User } from '../../../interfaces/user';
 import { MyProfileFormComponent } from './components/my-profile-form/my-profile-form.component';
+import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
+import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
 
 @Component({
   selector: 'app-my-profile',
