@@ -11,7 +11,7 @@
     @for (item of releasesList(); track item.id) {
     <div class="release">
       <span
-        class="material-symbols-outlined"
+        class="material-symbols-outlined category-icon"
         [ngStyle]="{ 'background-color': item.categoryColor }"
       >
         {{ item.categoryIcon }}
@@ -22,7 +22,12 @@
           {{ item.description || item.categoryName }}
         </span>
 
-        <span class="release-account">{{ item.accountName }}</span>
+        <div class="release-account">
+          @if (item.isCreditCardRelease) {
+          <span class="material-symbols-outlined card-icon">credit_card</span>
+          }
+          <span id="account">{{ item.accountName }}</span>
+        </div>
       </div>
 
       <span class="date">{{ item.date | date : "dd/MM/yyyy" }}</span>

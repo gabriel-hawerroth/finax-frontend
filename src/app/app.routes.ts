@@ -1,24 +1,24 @@
 import { Routes } from '@angular/router';
 import { PublicComponent } from './main/pages/public/public.component';
-import { UnauthenticatedUserGuard } from './services/guards/unauthenticated-user.guard';
 import { CreateAccountComponent } from './main/pages/public/components/create-account/create-account.component';
 import { ChangePasswordComponent } from './main/pages/public/components/change-password/change-password.component';
 import { LoginComponent } from './main/pages/public/components/login/login.component';
 import { ForgotPasswordComponent } from './main/pages/public/components/forgot-password/forgot-password.component';
 import { UserActivationComponent } from './main/pages/public/components/user-activation/user-activation.component';
 import { HomeComponent } from './main/pages/home/home.component';
-import { FreeTierGuard } from './services/guards/free-tier.guard';
 import { SettingsComponent } from './main/pages/settings/settings.component';
 import { MyProfileComponent } from './main/pages/my-profile/my-profile.component';
 import { MyBankAccountsComponent } from './main/pages/my-bank-accounts/my-bank-accounts.component';
 import { BankAccountsFormComponent } from './main/pages/my-bank-accounts/components/bank-accounts-form/bank-accounts-form.component';
 import { CashFlowComponent } from './main/pages/cash-flow/cash-flow.component';
-import { BasicTierGuard } from './services/guards/basic-tier.guard';
 import { CategorysComponent } from './main/pages/categories/categories.component';
 import { CreditCardsComponent } from './main/pages/credit-cards/credit-cards.component';
 import { CreditCardsFormComponent } from './main/pages/credit-cards/components/credit-cards-form/credit-cards-form.component';
 import { CreditCardInvoiceComponent } from './main/pages/credit-cards/components/credit-card-invoice/credit-card-invoice.component';
 import { SystemErrorWarningComponent } from './shared/components/system-error-warning/system-error-warning.component';
+import { BasicTierGuard } from './shared/guards/basic-tier.guard';
+import { FreeTierGuard } from './shared/guards/free-tier.guard';
+import { UnauthenticatedUserGuard } from './shared/guards/unauthenticated-user.guard';
 
 export const routes: Routes = [
   { path: '', component: PublicComponent },

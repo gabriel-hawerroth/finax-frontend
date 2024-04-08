@@ -100,7 +100,10 @@
         "whitout-payble-accounts": "Sie haben keine Kreditorenbuchhaltung",
         "whitout-receivable-accounts": "Sie haben keine Forderungen",
         "spend-by-category": "Ausgaben nach Kategorie",
-        "no-expense-current-month": "Keine Ausgaben im laufenden Monat getätigt"
+        "no-expense-current-month": "Keine Ausgaben im laufenden Monat getätigt",
+        "financial-balance": "Finanzielles Gleichgewicht",
+        "essential-expenses": "Wesentliche Ausgaben",
+        "non-essential-expenses": "Nicht unbedingt notwendige Ausgaben"
     },
     "cash-flow": {
         "title": "Kassenfluss",

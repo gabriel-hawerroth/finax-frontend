@@ -7,10 +7,10 @@ import moment from 'moment';
 import { environment } from '../../environments/environment';
 import { UtilsService } from '../utils/utils.service';
 import { User } from '../interfaces/user';
-import { Credentials } from '../interfaces/credentials';
 import { UserConfigsService } from './user-configs.service';
 import { UserConfigs } from '../interfaces/user-configs';
 import { AuthResponse } from '../interfaces/auth-response';
+import { Credentials } from '../interfaces/credentials';
 
 @Injectable({
   providedIn: 'root',

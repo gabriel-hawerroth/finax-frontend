@@ -73,10 +73,20 @@ export class CreditCardInvoiceComponent implements OnInit {
   creditCards: CardBasicList[] = [];
 
   invoiceValues = computed(() => {
-    const closeDay = this.formatDay(this.creditCard()?.close_day);
-    const expireDay = this.formatDay(this.creditCard()?.expires_day);
-    const month = this.formatDay(this.selectedDate.getMonth() + 1);
-    const year = this.selectedDate.getFullYear();
+    const creditCard = this.creditCard();
+    const selectedDate = this.selectedDate;
+
+    const closeDay = this.formatDay(creditCard?.close_day);
+    const expireDay = this.formatDay(creditCard?.expires_day);
+    const month = this.formatDay(selectedDate.getMonth() + 1);
+    const year = selectedDate.getFullYear();
+
+    const closeDayDate = this.verificarETratarData(
+      new Date(`${year}-${selectedDate.getMonth()}-${closeDay}`)
+    );
+    const expireDayDate = this.verificarETratarData(
+      new Date(`${year}-${selectedDate.getMonth()}-${expireDay}`)
+    );
 
     const releases: MonthlyRelease[] = this.utilsService.filterList(
       this.monthValues().releases,
@@ -85,8 +95,8 @@ export class CreditCardInvoiceComponent implements OnInit {
     );
 
     return {
-      closeDay: `${closeDay}/${month}/${year}`,
-      expireDay: `${expireDay}/${month}/${year}`,
+      closeDay: `${this.formatDay(closeDayDate.getDate())}/${month}/${year}`,
+      expireDay: `${this.formatDay(expireDayDate.getDate())}/${month}/${year}`,
       value: releases.reduce((count, item) => count + item.amount, 0),
     };
   });
@@ -163,7 +173,19 @@ export class CreditCardInvoiceComponent implements OnInit {
     });
   }
 
-  formatDay(day: number | undefined) {
+  verificarETratarData(data: Date): Date {
+    if (isNaN(data.getTime())) {
+      // Se não for válida, ajustar para o dia 1 do próximo mês
+      const proximoMes = data.getMonth() + 1;
+      const proximoAno =
+        proximoMes === 12 ? data.getFullYear() + 1 : data.getFullYear();
+      const primeiroDiaDoProximoMes = new Date(proximoAno, proximoMes % 12, 1);
+      return primeiroDiaDoProximoMes;
+    }
+    return data;
+  }
+
+  formatDay(day: number | undefined): string {
     return (day || 1).toString().padStart(2, '0');
   }
 }

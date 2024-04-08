@@ -3,7 +3,11 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { lastValueFrom } from 'rxjs';
 import moment from 'moment';
-import { HomeValues, SpendByCategory } from '../interfaces/home';
+import {
+  EssentialExpenses,
+  HomeValues,
+  SpendByCategory,
+} from '../interfaces/home';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +44,25 @@ export class HomeService {
     return lastValueFrom(
       this._http.get<SpendByCategory[]>(
         `${this.apiUrl}/get-spends-by-category`,
+        { params }
+      )
+    );
+  }
+
+  getEssentialsExpenses(): Promise<EssentialExpenses> {
+    const currentDt = new Date();
+    const firstDt = new Date(currentDt.setDate(1));
+    const lastDt = new Date(
+      new Date(currentDt.setMonth(currentDt.getMonth() + 1)).setDate(1 - 1)
+    ).toString();
+
+    let params = new HttpParams();
+    params = params.append('firstDt', firstDt.toString());
+    params = params.append('lastDt', lastDt);
+
+    return lastValueFrom(
+      this._http.get<EssentialExpenses>(
+        `${this.apiUrl}/get-essential-expenses`,
         { params }
       )
     );

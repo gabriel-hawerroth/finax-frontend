@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { UtilsService } from '../../utils/utils.service';
-import { LoginService } from '../login.service';
+import { LoginService } from '../../services/login.service';
 
 export const authInterceptor: HttpInterceptorFn = (
   request,

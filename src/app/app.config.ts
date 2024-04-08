@@ -20,7 +20,6 @@ import {
   MAT_DATE_LOCALE,
 } from '@angular/material/core';
 import { provideNgxMask } from 'ngx-mask';
-import { authInterceptor } from './services/interceptors/auth.interceptor';
 import {
   NgxCurrencyInputMode,
   provideEnvironmentNgxCurrency,
@@ -32,6 +31,7 @@ import {
 import localePt from '@angular/common/locales/pt';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { authInterceptor } from './shared/interceptors/auth.interceptor';
 
 export const MY_FORMATS = {
   parse: {

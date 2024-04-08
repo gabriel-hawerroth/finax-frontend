@@ -1,3 +1,5 @@
+@import '../../../../../shared/styles/colors.scss';
+
 .card {
     padding-bottom: 1rem;
 
@@ -14,9 +16,8 @@
             padding: .7rem;
             display: flex;
             align-items: center;
-            gap: 1.5rem;
 
-            .material-symbols-outlined {
+            .category-icon {
                 width: 2.5rem;
                 height: 2.5rem;
                 color: #fff;
@@ -24,6 +25,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                margin-right: 1.5rem;
             }
 
             .title-account {
@@ -36,8 +38,18 @@
                 }
 
                 .release-account {
-                    font-size: .9rem;
-                    color: #616161;
+                    display: flex;
+                    align-items: center;
+
+                    .card-icon {
+                        color: $primary-font-color;
+                        margin-right: .5rem;
+                    }
+
+                    #account {
+                        font-size: .9rem;
+                        color: #616161;
+                    }
                 }
             }
 

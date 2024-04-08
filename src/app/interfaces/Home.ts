@@ -18,3 +18,8 @@ export interface SpendByCategory {
   percent: number;
   value: number;
 }
+
+export interface EssentialExpenses {
+  essentials: number;
+  notEssentials: number;
+}

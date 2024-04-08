@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { UtilsService } from '../../utils/utils.service';
-import { LoginService } from '../login.service';
+import { LoginService } from '../../services/login.service';
 
 export const AdmTierGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

@@ -100,7 +100,10 @@
         "whitout-payble-accounts": "Você não possui contas a pagar",
         "whitout-receivable-accounts": "Você não possui contas a receber",
         "spend-by-category": "Gastos por categoria",
-        "no-expense-current-month": "Nenhum gasto realizado no mês atual"
+        "no-expense-current-month": "Nenhum gasto realizado no mês atual",
+        "financial-balance": "Equilíbrio financeiro",
+        "essential-expenses": "Gastos essenciais",
+        "non-essential-expenses": "Gastos não essenciais"
     },
     "cash-flow": {
         "title": "Fluxo de caixa",
