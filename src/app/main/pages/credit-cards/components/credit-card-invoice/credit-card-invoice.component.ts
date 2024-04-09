@@ -7,27 +7,27 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { UtilsService } from '../../../../../utils/utils.service';
-import { MatCardModule } from '@angular/material/card';
-import { Category } from '../../../../../interfaces/category';
-import { lastValueFrom } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { isValid, parse } from 'date-fns';
+import { lastValueFrom } from 'rxjs';
+import { AccountBasicList } from '../../../../../interfaces/account';
+import { Category } from '../../../../../interfaces/category';
 import {
   CardBasicList,
   CreditCard,
 } from '../../../../../interfaces/credit-card';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
-import { AccountBasicList } from '../../../../../interfaces/account';
 import { Invoice, InvoiceMonthValues } from '../../../../../interfaces/invoice';
 import { InvoiceService } from '../../../../../services/invoice.service';
-import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
-import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
+import { UtilsService } from '../../../../../utils/utils.service';
+import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
+import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -74,30 +74,23 @@ export class CreditCardInvoiceComponent implements OnInit {
 
   invoiceValues = computed(() => {
     const creditCard = this.creditCard();
-    const selectedDate = this.selectedDate;
 
     const closeDay = this.formatDay(creditCard?.close_day);
     const expireDay = this.formatDay(creditCard?.expires_day);
-    const month = this.formatDay(selectedDate.getMonth() + 1);
-    const year = selectedDate.getFullYear();
+    const month = this.formatDay(this.selectedDate.getMonth() + 1);
+    const year = this.selectedDate.getFullYear();
 
-    const closeDayDate = this.verificarETratarData(
-      new Date(`${year}-${selectedDate.getMonth()}-${closeDay}`)
-    );
-    const expireDayDate = this.verificarETratarData(
-      new Date(`${year}-${selectedDate.getMonth()}-${expireDay}`)
-    );
+    const close = this.validityDate(`${year}-${month}-${closeDay}`);
+    const expire = this.validityDate(`${year}-${month}-${expireDay}`);
 
-    const releases: MonthlyRelease[] = this.utilsService.filterList(
-      this.monthValues().releases,
-      'done',
-      true
-    );
+    const value: number = this.utilsService
+      .filterList(this.monthValues().releases, 'done', true)
+      .reduce((count, item) => count + item.amount, 0);
 
     return {
-      closeDay: `${this.formatDay(closeDayDate.getDate())}/${month}/${year}`,
-      expireDay: `${this.formatDay(expireDayDate.getDate())}/${month}/${year}`,
-      value: releases.reduce((count, item) => count + item.amount, 0),
+      close,
+      expire,
+      value,
     };
   });
 
@@ -118,6 +111,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   getValues() {
     this._invoiceService.getValues(this.creditCardId).then((response) => {
       this.creditCard.set(response.creditCard);
+      this.invoiceValues;
       this.accounts = response.accountsList;
       this.categories = response.categoriesList;
       this.creditCards = response.creditCardsList;
@@ -173,16 +167,15 @@ export class CreditCardInvoiceComponent implements OnInit {
     });
   }
 
-  verificarETratarData(data: Date): Date {
-    if (isNaN(data.getTime())) {
-      // Se não for válida, ajustar para o dia 1 do próximo mês
-      const proximoMes = data.getMonth() + 1;
-      const proximoAno =
-        proximoMes === 12 ? data.getFullYear() + 1 : data.getFullYear();
-      const primeiroDiaDoProximoMes = new Date(proximoAno, proximoMes % 12, 1);
-      return primeiroDiaDoProximoMes;
+  validityDate(stringDt: string): string {
+    const date = parse(stringDt, 'yyyy-MM-dd', new Date());
+    const dtParts = stringDt.split('-');
+
+    if (!isValid(date)) {
+      return `01/${this.formatDay(Number(dtParts[1]) + 1)}/${dtParts[0]}`;
     }
-    return data;
+
+    return `${dtParts[2]}/${dtParts[1]}/${dtParts[0]}`;
   }
 
   formatDay(day: number | undefined): string {
