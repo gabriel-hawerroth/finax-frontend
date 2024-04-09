@@ -10,7 +10,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
-import moment from 'moment';
+import { isAfter } from 'date-fns';
 import { LoginService } from '../../../services/login.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { PublicFooterComponent } from './components/public-footer/public-footer.component';
@@ -44,8 +44,9 @@ export class PublicComponent implements OnInit {
 
   ngOnInit(): void {
     if (
-      moment().isAfter(
-        this._utilsService.getItemLocalStorage('tokenExpiration')
+      isAfter(
+        new Date(),
+        this._utilsService.getItemLocalStorage('tokenExpiration') || new Date()
       )
     ) {
       this._loginService.logout(false);

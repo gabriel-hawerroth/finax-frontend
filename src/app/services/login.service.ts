@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import moment from 'moment';
+import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthResponse } from '../interfaces/auth-response';
@@ -121,7 +121,7 @@ export class LoginService {
     );
     this._utilsService.setItemLocalStorage(
       'tokenExpiration',
-      moment().add(1, 'hour').toDate().toString()
+      addHours(new Date(), 2).toString()
     );
   }
 

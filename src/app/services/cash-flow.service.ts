@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import moment from 'moment';
+import { addMonths, endOfMonth, startOfMonth } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { DuplicatedReleaseAction } from '../enums/duplicated-release-action';
@@ -20,17 +20,12 @@ export class CashFlowService {
     selectedDt: Date,
     viewMode: ReleasesViewMode
   ): Promise<MonthlyFlow> {
-    const firstDt = moment(selectedDt).startOf('month').toString();
-    const lastDt = moment(selectedDt).endOf('month').toString();
-    const firstDtCurrentMonth = moment(new Date()).startOf('month').toString();
-    const firstDtInvoice = moment(selectedDt)
-      .add(-1, 'month')
-      .startOf('month')
-      .toString();
-    const lastDtInvoice = moment(selectedDt)
-      .add(-1, 'month')
-      .endOf('month')
-      .toString();
+    const firstDt = startOfMonth(selectedDt).toString();
+    const lastDt = endOfMonth(selectedDt).toString();
+    const firstDtCurrentMonth = startOfMonth(new Date()).toString();
+
+    const firstDtInvoice = startOfMonth(addMonths(selectedDt, -1)).toString();
+    const lastDtInvoice = endOfMonth(addMonths(selectedDt, -1)).toString();
 
     let params = new HttpParams();
     params = params.append('firstDt', firstDt);

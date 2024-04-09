@@ -29,7 +29,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import moment from 'moment';
+import { isAfter } from 'date-fns';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
 import { DuplicatedReleaseAction } from '../../../enums/duplicated-release-action';
@@ -184,7 +184,7 @@ export class ReleaseFormDialogComponent implements OnInit {
 
     this.releaseForm
       .get('done')!
-      .setValue(!moment(this.releaseForm.value.date).isAfter(new Date()));
+      .setValue(!isAfter(new Date(), this.releaseForm.value.data));
   }
 
   async save() {

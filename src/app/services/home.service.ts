@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import moment from 'moment';
+import { endOfMonth, startOfMonth } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import {
@@ -18,8 +18,8 @@ export class HomeService {
   private readonly apiUrl = `${environment.baseApiUrl}home`;
 
   getHomeValues(): Promise<HomeValues> {
-    const firstDt: string = moment(new Date()).startOf('month').toString();
-    const lastDt: string = moment(new Date()).endOf('month').toString();
+    const firstDt: string = startOfMonth(new Date()).toString();
+    const lastDt: string = endOfMonth(new Date()).toString();
 
     let params = new HttpParams();
     params = params.append('firstDt', firstDt);
