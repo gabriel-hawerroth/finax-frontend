@@ -1,3 +1,4 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,20 +6,19 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { MatInputModule } from '@angular/material/input';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UtilsService } from '../../../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../../services/login.service';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-forgot-password',

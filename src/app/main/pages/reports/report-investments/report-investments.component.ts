@@ -1,10 +1,10 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { UtilsService } from '../../../../utils/utils.service';
 
 @Component({

@@ -1,30 +1,30 @@
+import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
-  Component,
-  inject,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  Component,
+  OnInit,
+  inject,
 } from '@angular/core';
-import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { lastValueFrom } from 'rxjs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService } from '../../../../../services/account.service';
-import { UtilsService } from '../../../../../utils/utils.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NgxCurrencyDirective } from 'ngx-currency';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { lastValueFrom } from 'rxjs';
+import { AccountService } from '../../../../../services/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-bank-accounts-edit',

@@ -5,8 +5,8 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { UtilsService } from '../../utils/utils.service';
 import { LoginService } from '../../services/login.service';
+import { UtilsService } from '../../utils/utils.service';
 
 export const PremiumTierGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,

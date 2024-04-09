@@ -1,13 +1,13 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   input,
   output,
 } from '@angular/core';
-import { Category } from '../../../../../interfaces/category';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
+import { Category } from '../../../../../interfaces/category';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({

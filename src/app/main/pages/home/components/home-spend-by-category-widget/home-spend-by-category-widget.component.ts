@@ -7,14 +7,14 @@ import {
   signal,
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { TranslateModule } from '@ngx-translate/core';
-import { SpendByCategory } from '../../../../../interfaces/home';
 import { MatDividerModule } from '@angular/material/divider';
-import { ChartModule } from 'primeng/chart';
+import { TranslateModule } from '@ngx-translate/core';
 import { ChartData, ChartOptions } from 'chart.js';
-import { UtilsService } from '../../../../../utils/utils.service';
+import { ChartModule } from 'primeng/chart';
+import { SpendByCategory } from '../../../../../interfaces/home';
 import { HomeService } from '../../../../../services/home.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-home-spend-by-category-widget',

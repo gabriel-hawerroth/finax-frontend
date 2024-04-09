@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { TranslateModule } from '@ngx-translate/core';
 import { MatDividerModule } from '@angular/material/divider';
+import { TranslateModule } from '@ngx-translate/core';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 

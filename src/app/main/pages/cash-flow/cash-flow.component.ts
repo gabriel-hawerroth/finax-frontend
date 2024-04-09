@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,27 +9,26 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UtilsService } from '../../../utils/utils.service';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { MonthlyFlow } from '../../../interfaces/cash-flow';
-import { CashFlowService } from '../../../services/cash-flow.service';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { AccountBasicList } from '../../../interfaces/account';
-import { CardBasicList } from '../../../interfaces/credit-card';
+import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { AccountBasicList } from '../../../interfaces/account';
+import { MonthlyFlow } from '../../../interfaces/cash-flow';
 import { Category } from '../../../interfaces/category';
+import { CardBasicList } from '../../../interfaces/credit-card';
+import { CashFlowService } from '../../../services/cash-flow.service';
 import { UserConfigsService } from '../../../services/user-configs.service';
-import { ReleasesListComponent } from './components/releases-list/releases-list.component';
 import { ReleaseFormDialogComponent } from '../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../shared/pipes/releases-month.pipe';
+import { UtilsService } from '../../../utils/utils.service';
+import { ReleasesListComponent } from './components/releases-list/releases-list.component';
 
 @Component({
   selector: 'app-cash-flow',

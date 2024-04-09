@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,21 +6,20 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatDialogRef,
   MAT_DIALOG_DATA,
   MatDialogModule,
+  MatDialogRef,
 } from '@angular/material/dialog';
-import { AccountService } from '../../../../../services/account.service';
-import { UtilsService } from '../../../../../utils/utils.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NgxCurrencyDirective } from 'ngx-currency';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { AccountService } from '../../../../../services/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-edit-balance-dialog',

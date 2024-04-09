@@ -2,11 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
-import {
-  InvoiceMonthValues,
-  InvoicePaymentSave,
-  InvoiceValues,
-} from '../interfaces/invoice';
+import { InvoiceMonthValues, InvoiceValues } from '../interfaces/invoice';
 import { InvoicePayment } from '../interfaces/invoice-payment';
 
 @Injectable({

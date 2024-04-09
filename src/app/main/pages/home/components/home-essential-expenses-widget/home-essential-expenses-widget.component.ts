@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { HomeService } from '../../../../../services/home.service';
-import { EssentialExpenses } from '../../../../../interfaces/home';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MeterGroupModule, MeterItem } from 'primeng/metergroup';
+import { EssentialExpenses } from '../../../../../interfaces/home';
+import { HomeService } from '../../../../../services/home.service';
 
 @Component({
   selector: 'app-home-essential-expenses-widget',

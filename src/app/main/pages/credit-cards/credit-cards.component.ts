@@ -7,18 +7,18 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { UtilsService } from '../../../utils/utils.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatCardModule } from '@angular/material/card';
-import { CreditCardService } from '../../../services/credit-card.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CreditCard } from '../../../interfaces/credit-card';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { CreditCard } from '../../../interfaces/credit-card';
+import { CreditCardService } from '../../../services/credit-card.service';
 import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
+import { UtilsService } from '../../../utils/utils.service';
+import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
 
 @Component({
   selector: 'app-credit-cards',

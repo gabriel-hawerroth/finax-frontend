@@ -1,16 +1,15 @@
-import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { lastValueFrom } from 'rxjs';
 import moment from 'moment';
-
+import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { UtilsService } from '../utils/utils.service';
-import { User } from '../interfaces/user';
-import { UserConfigsService } from './user-configs.service';
-import { UserConfigs } from '../interfaces/user-configs';
 import { AuthResponse } from '../interfaces/auth-response';
 import { Credentials } from '../interfaces/credentials';
+import { User } from '../interfaces/user';
+import { UserConfigs } from '../interfaces/user-configs';
+import { UtilsService } from '../utils/utils.service';
+import { UserConfigsService } from './user-configs.service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,18 +8,17 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { UserService } from '../../../services/user.service';
-import { UtilsService } from '../../../utils/utils.service';
 import { MatButtonModule } from '@angular/material/button';
-import { Subject, takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../../interfaces/user';
-import { MyProfileFormComponent } from './components/my-profile-form/my-profile-form.component';
+import { UserService } from '../../../services/user.service';
 import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
+import { UtilsService } from '../../../utils/utils.service';
 import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
+import { MyProfileFormComponent } from './components/my-profile-form/my-profile-form.component';
 
 @Component({
   selector: 'app-my-profile',

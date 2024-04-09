@@ -1,3 +1,4 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,16 +6,15 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
-import { UtilsService } from '../../../utils/utils.service';
+import moment from 'moment';
 import { LoginService } from '../../../services/login.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { PublicFooterComponent } from './components/public-footer/public-footer.component';
 import { PublicHeaderComponent } from './components/public-header/public-header.component';
-import moment from 'moment';
 
 @Component({
   selector: 'app-public',

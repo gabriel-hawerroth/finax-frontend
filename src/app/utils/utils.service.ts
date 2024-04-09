@@ -1,14 +1,13 @@
-import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
-import { UserConfigs } from '../interfaces/user-configs';
 import { isPlatformBrowser } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { User } from '../interfaces/user';
+import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { ReleasesViewMode } from '../enums/releases-view-mode';
+import { User } from '../interfaces/user';
+import { UserConfigs } from '../interfaces/user-configs';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
 
 @Injectable({

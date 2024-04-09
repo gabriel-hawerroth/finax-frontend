@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,13 +6,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
 import {
   FormBuilder,
   FormControl,
@@ -19,29 +13,35 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { lastValueFrom } from 'rxjs';
-import moment from 'moment';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReleaseFormComponent } from './components/release-form/release-form.component';
-import { MatInputModule } from '@angular/material/input';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxCurrencyDirective } from 'ngx-currency';
 import {
   MatCheckboxChange,
   MatCheckboxModule,
 } from '@angular/material/checkbox';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import moment from 'moment';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { lastValueFrom } from 'rxjs';
+import { DuplicatedReleaseAction } from '../../../enums/duplicated-release-action';
+import { ReleasedOn } from '../../../enums/released-on';
 import { Category } from '../../../interfaces/category';
+import { CardBasicList } from '../../../interfaces/credit-card';
+import { GenericIdDs } from '../../../interfaces/generic';
+import { ConfirmDuplicatedReleasesActionComponent } from '../../../main/pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { UtilsService } from '../../../utils/utils.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { GenericIdDs } from '../../../interfaces/generic';
-import { CardBasicList } from '../../../interfaces/credit-card';
-import { ReleasedOn } from '../../../enums/released-on';
-import { DuplicatedReleaseAction } from '../../../enums/duplicated-release-action';
-import { ConfirmDuplicatedReleasesActionComponent } from '../../../main/pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ButtonsComponent } from '../buttons/buttons.component';
+import { ReleaseFormComponent } from './components/release-form/release-form.component';
 
 @Component({
   selector: 'release-form-dialog',

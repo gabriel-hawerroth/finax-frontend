@@ -1,23 +1,23 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { UtilsService } from '../../../../../utils/utils.service';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { MatDialog } from '@angular/material/dialog';
-import { lastValueFrom } from 'rxjs';
-import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 import { DuplicatedReleaseAction } from '../../../../../enums/duplicated-release-action';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
-import { Router } from '@angular/router';
+import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ConfirmationDialogComponent } from '../../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { UtilsService } from '../../../../../utils/utils.service';
+import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 
 @Component({
   selector: 'app-release-details',

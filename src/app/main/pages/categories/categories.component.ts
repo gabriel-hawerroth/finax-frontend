@@ -7,15 +7,15 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { UtilsService } from '../../../utils/utils.service';
-import { Category } from '../../../interfaces/category';
-import { CategoryService } from '../../../services/category.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
-import { lastValueFrom } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
+import { Category } from '../../../interfaces/category';
+import { CategoryService } from '../../../services/category.service';
+import { UtilsService } from '../../../utils/utils.service';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
+import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
 
 @Component({
   selector: 'app-categories',

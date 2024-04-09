@@ -1,3 +1,4 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,22 +6,21 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
-import { MatInputModule } from '@angular/material/input';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatButtonModule } from '@angular/material/button';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UtilsService } from '../../../../../utils/utils.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../../services/login.service';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-create-account',

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,18 +8,17 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Subject, debounceTime, takeUntil } from 'rxjs';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { TranslateModule } from '@ngx-translate/core';
+import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { GenericIdDs } from '../../../interfaces/generic';
 import { UserConfigs } from '../../../interfaces/user-configs';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
-import { TranslateModule } from '@ngx-translate/core';
-import { GenericIdDs } from '../../../interfaces/generic';
 
 @Component({
   selector: 'app-settings',

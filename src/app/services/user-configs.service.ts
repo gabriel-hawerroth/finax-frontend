@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
-
 import { environment } from '../../environments/environment';
 import { UserConfigs } from '../interfaces/user-configs';
 import { UtilsService } from '../utils/utils.service';

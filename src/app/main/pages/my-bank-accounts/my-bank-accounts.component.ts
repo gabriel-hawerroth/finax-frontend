@@ -1,27 +1,27 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
-  Component,
-  inject,
-  OnInit,
   ChangeDetectionStrategy,
+  Component,
+  OnInit,
   WritableSignal,
+  inject,
   signal,
 } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Account } from '../../../interfaces/account';
-import { AccountService } from '../../../services/account.service';
-import { UtilsService } from '../../../utils/utils.service';
-import { Router, RouterModule } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {
   MatBottomSheet,
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
-import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { Account } from '../../../interfaces/account';
+import { AccountService } from '../../../services/account.service';
 import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
+import { UtilsService } from '../../../utils/utils.service';
+import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
 
 @Component({
   selector: 'app-my-bank-accounts',

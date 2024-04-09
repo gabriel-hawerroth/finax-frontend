@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { UtilsService } from '../../../utils/utils.service';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
   selector: 'app-select-icon-dialog',

@@ -13,22 +13,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UtilsService } from '../../../../../utils/utils.service';
-import { MatDialog } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { NgxCurrencyDirective } from 'ngx-currency';
-import { MatSelectModule } from '@angular/material/select';
-import { AccountService } from '../../../../../services/account.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { lastValueFrom } from 'rxjs';
-import { CreditCardService } from '../../../../../services/credit-card.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../interfaces/account';
+import { AccountService } from '../../../../../services/account.service';
+import { CreditCardService } from '../../../../../services/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-credit-cards-form',

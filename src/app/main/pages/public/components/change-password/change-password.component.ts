@@ -1,3 +1,4 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,25 +6,24 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { Credentials } from '../../../../../interfaces/credentials';
 import { User } from '../../../../../interfaces/user';
+import { LoginService } from '../../../../../services/login.service';
 import { UserService } from '../../../../../services/user.service';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { Credentials } from '../../../../../interfaces/credentials';
-import { LoginService } from '../../../../../services/login.service';
 
 @Component({
   selector: 'app-change-password',

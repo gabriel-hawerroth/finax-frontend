@@ -1,3 +1,4 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,18 +6,17 @@ import {
   input,
   output,
 } from '@angular/core';
-import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
-import { lastValueFrom } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { ReleaseDetailsComponent } from '../release-details/release-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../interfaces/account';
+import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { Category } from '../../../../../interfaces/category';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ReleaseDetailsComponent } from '../release-details/release-details.component';
 
 @Component({
   selector: 'app-releases-list',

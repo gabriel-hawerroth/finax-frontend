@@ -1,15 +1,15 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { UtilsService } from '../../../../../utils/utils.service';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { Router } from '@angular/router';
-import { UserCreditCards } from '../../../../../interfaces/credit-card';
 import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { UserCreditCards } from '../../../../../interfaces/credit-card';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-credit-card-details',

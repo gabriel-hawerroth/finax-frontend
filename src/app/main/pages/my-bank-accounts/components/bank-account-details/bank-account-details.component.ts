@@ -5,19 +5,19 @@ import {
   Component,
   inject,
 } from '@angular/core';
-import { UtilsService } from '../../../../../utils/utils.service';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { Account } from '../../../../../interfaces/account';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
-import { lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { lastValueFrom } from 'rxjs';
+import { Account } from '../../../../../interfaces/account';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { UtilsService } from '../../../../../utils/utils.service';
+import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 
 @Component({
   selector: 'app-bank-account-details',

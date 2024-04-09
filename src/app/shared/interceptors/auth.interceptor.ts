@@ -1,10 +1,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
-import { UtilsService } from '../../utils/utils.service';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 import { LoginService } from '../../services/login.service';
+import { UtilsService } from '../../utils/utils.service';
 
 export const authInterceptor: HttpInterceptorFn = (
   request,

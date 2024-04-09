@@ -1,11 +1,10 @@
+import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from './main/sidebar/sidebar.component';
-import { Location } from '@angular/common';
-import { UtilsService } from './utils/utils.service';
-import { LoginService } from './services/login.service';
 import { MobilePageComponent } from './main/pages/mobile-page/mobile-page.component';
+import { SidebarComponent } from './main/sidebar/sidebar.component';
+import { LoginService } from './services/login.service';
+import { UtilsService } from './utils/utils.service';
 
 @Component({
   selector: 'app-root',

@@ -1,3 +1,4 @@
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,13 +7,12 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
+import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
 import { UtilsService } from '../../utils/utils.service';
-import { RouterModule } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { TranslateModule } from '@ngx-translate/core';
-import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-sidebar',

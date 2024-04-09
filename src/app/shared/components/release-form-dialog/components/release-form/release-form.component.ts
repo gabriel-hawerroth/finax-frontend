@@ -7,17 +7,17 @@ import {
   input,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { NgxCurrencyDirective } from 'ngx-currency';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Category } from '../../../../../interfaces/category';
-import { UtilsService } from '../../../../../utils/utils.service';
-import { CardBasicList } from '../../../../../interfaces/credit-card';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxCurrencyDirective } from 'ngx-currency';
 import { AccountBasicList } from '../../../../../interfaces/account';
+import { Category } from '../../../../../interfaces/category';
+import { CardBasicList } from '../../../../../interfaces/credit-card';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-release-form',

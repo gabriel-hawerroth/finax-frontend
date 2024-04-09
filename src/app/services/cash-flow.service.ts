@@ -1,12 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { environment } from '../../environments/environment';
-import { CashFlow, CashFlowValues, MonthlyFlow } from '../interfaces/cash-flow';
-import { lastValueFrom } from 'rxjs';
 import moment from 'moment';
-import { ReleasedOn } from '../enums/released-on';
+import { lastValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { DuplicatedReleaseAction } from '../enums/duplicated-release-action';
+import { ReleasedOn } from '../enums/released-on';
 import { ReleasesViewMode } from '../enums/releases-view-mode';
+import { CashFlow, CashFlowValues, MonthlyFlow } from '../interfaces/cash-flow';
 
 @Injectable({
   providedIn: 'root',

@@ -3,30 +3,29 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnInit,
-  WritableSignal,
   inject,
   signal,
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { UtilsService } from '../../../../../utils/utils.service';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { NgxCurrencyDirective } from 'ngx-currency';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { AccountBasicList } from '../../../../../interfaces/account';
-import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Invoice, InvoicePaymentSave } from '../../../../../interfaces/invoice';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { AccountBasicList } from '../../../../../interfaces/account';
+import { Invoice, InvoicePaymentSave } from '../../../../../interfaces/invoice';
 import { InvoiceService } from '../../../../../services/invoice.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-invoice-payment-dialog',

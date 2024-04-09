@@ -6,24 +6,24 @@ import {
   inject,
 } from '@angular/core';
 import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { UtilsService } from '../../../../../utils/utils.service';
-import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatDividerModule } from '@angular/material/divider';
-import { CategoryService } from '../../../../../services/category.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
+import { CategoryService } from '../../../../../services/category.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
   selector: 'app-category-form-dialog',
