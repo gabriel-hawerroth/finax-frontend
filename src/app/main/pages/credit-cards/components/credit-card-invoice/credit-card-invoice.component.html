@@ -34,11 +34,14 @@
           </div>
 
           <div class="right">
-            @if (monthValues().invoice &&
-            monthValues().invoice.payment_account_id) {
+            @if (monthValues().invoice && monthValues().invoicePayments.length
+            != 0) {
             <h2>
               Fatura paga:
-              {{ monthValues().invoice.payment_date | date : "dd/MM/yyyy" }}
+              {{
+                monthValues().invoicePayments[0].paymentDate
+                  | date : "dd/MM/yyyy"
+              }}
             </h2>
             } @else if (invoiceValues().value > 0) {
             <button
@@ -63,7 +66,7 @@
           </button>
 
           <div class="tab">
-            {{ selectedDate | releasesMonth }}
+            {{ selectedDate() | releasesMonth }}
           </div>
 
           <button
@@ -81,7 +84,7 @@
         [accounts]="accounts"
         [categories]="categories"
         [creditCards]="creditCards"
-        [selectedDate]="selectedDate"
+        [selectedDate]="selectedDate()"
         (updateList)="getMonthValues()"
         id="releases-list"
       ></app-releases-list>

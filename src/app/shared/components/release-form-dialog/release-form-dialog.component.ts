@@ -236,8 +236,8 @@ export class ReleaseFormDialogComponent implements OnInit {
       }
     }
 
-    this.saving.set(true);
     var requestError: boolean = false;
+    this.saving.set(true);
 
     const selectedAccount = this.data.accounts.find(
       (item: CardBasicList) => item.id === release.accountId
@@ -247,6 +247,11 @@ export class ReleaseFormDialogComponent implements OnInit {
       : ReleasedOn.CREDIT_CARD;
 
     if (release.repeat === '') release.fixedBy = '';
+
+    if (releasedOn == ReleasedOn.CREDIT_CARD) {
+      release.credit_card_id = release.accountId;
+      release.accountId = null;
+    }
 
     if (!release.id) {
       await this._cashFlowService

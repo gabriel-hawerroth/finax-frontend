@@ -18,6 +18,9 @@ export interface CashFlow {
   attachment?: File;
   attachmentName?: string;
   duplicatedReleaseId?: number;
+  repeat?: string;
+  fixedBy?: string;
+  credit_card_id?: number;
 }
 
 export interface MonthlyFlow {
@@ -31,6 +34,9 @@ export interface MonthlyRelease {
   description: string;
   accountId: number;
   accountName: string;
+  cardId: number;
+  cardName: string;
+  cardImg: string;
   amount: number;
   type: string;
   done: boolean;
@@ -46,8 +52,6 @@ export interface MonthlyRelease {
   attachmentName?: string;
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;
-  isCreditCardRelease: boolean;
-  creditCardImg: string;
 }
 
 export interface MonthlyBalance {

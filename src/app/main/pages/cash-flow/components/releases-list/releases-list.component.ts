@@ -32,16 +32,15 @@ import { ReleaseDetailsComponent } from '../release-details/release-details.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleasesListComponent {
-  public updateList = output<void>();
-
   public releases = input.required<MonthlyRelease[]>();
   public accounts = input.required<AccountBasicList[]>();
   public categories = input.required<Category[]>();
   public creditCards = input.required<CardBasicList[]>();
   public selectedDate = input.required<Date>();
+  public updateList = output<void>();
 
-  private readonly _bottomSheet = inject(MatBottomSheet);
-  private readonly _matDialog = inject(MatDialog);
+  private _bottomSheet = inject(MatBottomSheet);
+  private _matDialog = inject(MatDialog);
 
   openDetails(cashFlow: MonthlyRelease) {
     lastValueFrom(

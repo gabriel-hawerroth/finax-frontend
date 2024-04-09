@@ -4,7 +4,7 @@
     <div class="category">
       @if (item.type === 'I') {
       <img
-        [ngSrc]="'assets/imgs/banks/' + item.creditCardImg"
+        [ngSrc]="'assets/imgs/banks/' + item.cardImg"
         style="border-radius: 50%"
         width="40"
         height="40"
@@ -16,7 +16,7 @@
           'background-color': item.categoryColor || '#AFAFAF'
         }"
       >
-        {{ item.categoryIcon || "list" }}
+        {{ item.categoryIcon || "swap_horiz" }}
       </span>
       }
     </div>
@@ -26,7 +26,7 @@
       <h3 class="h3">
         @if (item.type === 'I') {
         {{ "invoice.title" | translate }}
-        } @if (item.isCreditCardRelease) {
+        } @if (item.cardId) {
         <span class="material-symbols-outlined">credit_card</span>
         }
 
@@ -53,7 +53,7 @@
     </div>
 
     <div class="account">
-      <span>{{ item.accountName }}</span>
+      <span>{{ item.accountName || item.cardName }}</span>
     </div>
 
     <div class="date">

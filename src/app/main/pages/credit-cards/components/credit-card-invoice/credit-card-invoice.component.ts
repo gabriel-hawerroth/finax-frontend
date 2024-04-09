@@ -12,7 +12,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { isValid, parse } from 'date-fns';
+import {
+  addDays,
+  addMonths,
+  format,
+  isBefore,
+  isValid,
+  parse,
+  toDate,
+} from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../interfaces/account';
 import { Category } from '../../../../../interfaces/category';
@@ -63,8 +71,8 @@ export class CreditCardInvoiceComponent implements OnInit {
     releases: [],
   });
 
-  selectedDate = new Date(new Date().setDate(15));
-  currentYear: string = this.selectedDate.getFullYear().toString();
+  selectedDate = signal(new Date(new Date().setDate(15)));
+  currentYear: string = this.selectedDate().getFullYear().toString();
 
   searching = signal(false);
 
@@ -77,19 +85,23 @@ export class CreditCardInvoiceComponent implements OnInit {
 
     const closeDay = this.formatDay(creditCard?.close_day);
     const expireDay = this.formatDay(creditCard?.expires_day);
-    const month = this.formatDay(this.selectedDate.getMonth() + 1);
-    const year = this.selectedDate.getFullYear();
+    const month = this.formatDay(this.selectedDate().getMonth() + 1);
+    const year = this.selectedDate().getFullYear();
 
     const close = this.validityDate(`${year}-${month}-${closeDay}`);
-    const expire = this.validityDate(`${year}-${month}-${expireDay}`);
+    let expire = this.validityDate(`${year}-${month}-${expireDay}`);
+
+    if (isBefore(expire, close)) {
+      expire = addMonths(expire, 1);
+    }
 
     const value: number = this.utilsService
       .filterList(this.monthValues().releases, 'done', true)
       .reduce((count, item) => count + item.amount, 0);
 
     return {
-      close,
-      expire,
+      close: close.toLocaleDateString(),
+      expire: expire.toLocaleDateString(),
       value,
     };
   });
@@ -100,8 +112,10 @@ export class CreditCardInvoiceComponent implements OnInit {
   }
 
   getMonthValues() {
-    const month = this.formatDay(this.selectedDate.getMonth() + 1);
-    const monthYear = `${month}/${this.selectedDate.getFullYear()}`;
+    const month = this.formatDay(this.selectedDate().getMonth() + 1);
+    const monthYear = `${month}/${this.selectedDate().getFullYear()}`;
+
+    console.log('monthYear:', monthYear);
 
     this._invoiceService
       .getMonthValues(this.creditCardId, monthYear)
@@ -119,13 +133,13 @@ export class CreditCardInvoiceComponent implements OnInit {
   }
 
   changeMonth(direction: 'before' | 'next') {
-    this.selectedDate = new Date(
-      this.selectedDate.setMonth(
-        direction === 'before'
-          ? this.selectedDate.getMonth() - 1
-          : this.selectedDate.getMonth() + 1
-      )
-    );
+    this.selectedDate.update((value) => {
+      return new Date(
+        value.setMonth(
+          direction === 'before' ? value.getMonth() - 1 : value.getMonth() + 1
+        )
+      );
+    });
 
     this.getMonthValues();
   }
@@ -167,15 +181,18 @@ export class CreditCardInvoiceComponent implements OnInit {
     });
   }
 
-  validityDate(stringDt: string): string {
+  validityDate(stringDt: string): Date {
     const date = parse(stringDt, 'yyyy-MM-dd', new Date());
     const dtParts = stringDt.split('-');
 
     if (!isValid(date)) {
-      return `01/${this.formatDay(Number(dtParts[1]) + 1)}/${dtParts[0]}`;
+      return addDays(
+        toDate(`${dtParts[0]}-${this.formatDay(Number(dtParts[1]) + 1)}-01`),
+        1
+      );
     }
 
-    return `${dtParts[2]}/${dtParts[1]}/${dtParts[0]}`;
+    return date;
   }
 
   formatDay(day: number | undefined): string {

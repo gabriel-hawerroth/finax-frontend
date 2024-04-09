@@ -23,7 +23,7 @@
         </span>
 
         <div class="release-account">
-          @if (item.isCreditCardRelease) {
+          @if (item.cardId) {
           <span class="material-symbols-outlined card-icon">credit_card</span>
           }
           <span id="account">{{ item.accountName }}</span>
