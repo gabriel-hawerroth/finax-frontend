@@ -4,15 +4,7 @@ import { Category } from './category';
 import { CardBasicList, CreditCard } from './credit-card';
 import { InvoicePayment } from './invoice-payment';
 
-export interface Invoice {
-  id: number;
-  user_id: number;
-  credit_card_id: number;
-  month_year: string;
-}
-
 export interface InvoiceMonthValues {
-  invoice: Invoice;
   invoicePayments: InvoicePayment[];
   releases: MonthlyRelease[];
 }
@@ -22,9 +14,4 @@ export interface InvoiceValues {
   accountsList: AccountBasicList[];
   categoriesList: Category[];
   creditCardsList: CardBasicList[];
-}
-
-export interface InvoicePaymentSave {
-  payment: InvoicePayment;
-  attachment?: File;
 }

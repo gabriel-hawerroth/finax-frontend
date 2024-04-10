@@ -22,7 +22,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { AccountBasicList } from '../../../../../interfaces/account';
-import { Invoice, InvoicePaymentSave } from '../../../../../interfaces/invoice';
 import { InvoiceService } from '../../../../../services/invoice.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { UtilsService } from '../../../../../utils/utils.service';
@@ -59,7 +58,6 @@ export class InvoicePaymentDialogComponent implements OnInit {
 
   public currency = this.utilsService.getUserConfigs.currency;
 
-  private invoice: Invoice = this.data.invoice;
   private invoiceAmount: number = this.data.invoiceAmount || 0;
   public accounts: AccountBasicList[] = this.data.accounts || [];
   private defaultPaymmentAccount: number =
@@ -75,28 +73,24 @@ export class InvoicePaymentDialogComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
 
-    this.form.get('paymentAccountId')!.setValue(this.defaultPaymmentAccount);
+    this.form.get('payment_account_id')!.setValue(this.defaultPaymmentAccount);
     this.paymentAccountChanges(this.defaultPaymmentAccount);
   }
 
   buildForm() {
     this.form = this._fb.group({
       id: null,
-      invoiceId: this.invoice.id,
-      paymentAccountId: null,
-      paymentAmount: this.invoiceAmount,
-      paymentDate: new Date(),
-      paymentHour: '',
+      credit_card_id: null,
+      invoice_month_year: '',
+      payment_account_id: null,
+      payment_amount: this.invoiceAmount,
+      payment_date: new Date(),
+      payment_hour: '',
     });
   }
 
   save() {
     this.saving.set(true);
-
-    const paymentDTO: InvoicePaymentSave = {
-      payment: this.form.getRawValue(),
-      attachment: this.selectedFile || undefined,
-    };
 
     if (this.selectedFile && this.selectedFile.size > 1.5 * 1024 * 1024) {
       this.utilsService.showMessage('generic.this-may-take-few-seconds', 6000);

@@ -15,10 +15,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   addDays,
   addMonths,
-  format,
+  endOfDay,
   isBefore,
   isValid,
   parse,
+  startOfDay,
   toDate,
 } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
@@ -28,7 +29,7 @@ import {
   CardBasicList,
   CreditCard,
 } from '../../../../../interfaces/credit-card';
-import { Invoice, InvoiceMonthValues } from '../../../../../interfaces/invoice';
+import { InvoiceMonthValues } from '../../../../../interfaces/invoice';
 import { InvoiceService } from '../../../../../services/invoice.service';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
@@ -66,7 +67,6 @@ export class CreditCardInvoiceComponent implements OnInit {
   creditCard = signal<CreditCard | null>(null);
 
   monthValues = signal<InvoiceMonthValues>({
-    invoice: <Invoice>{},
     invoicePayments: [],
     releases: [],
   });
@@ -115,10 +115,28 @@ export class CreditCardInvoiceComponent implements OnInit {
     const month = this.formatDay(this.selectedDate().getMonth() + 1);
     const monthYear = `${month}/${this.selectedDate().getFullYear()}`;
 
-    console.log('monthYear:', monthYear);
+    const lastDt = endOfDay(
+      addDays(
+        new Date(this.invoiceValues().close.split('/').reverse().join('-')),
+        1
+      )
+    );
+
+    let firstDt = addMonths(lastDt, -1);
+
+    if (
+      this.selectedDate().getMonth() !== 0 &&
+      this.selectedDate().getMonth() !== firstDt.getMonth()
+    ) {
+      firstDt = addDays(firstDt, 2);
+    } else if (this.selectedDate().getMonth() === 0) {
+      firstDt = addDays(firstDt, 1);
+    }
+
+    firstDt = startOfDay(firstDt);
 
     this._invoiceService
-      .getMonthValues(this.creditCardId, monthYear)
+      .getMonthValues(this.creditCardId, monthYear, firstDt, lastDt)
       .then((response) => this.monthValues.set(response));
   }
 
@@ -154,7 +172,7 @@ export class CreditCardInvoiceComponent implements OnInit {
             creditCards: [this.creditCard()],
             editing: false,
             releaseType: 'E',
-            selectedDate: this.selectedDate,
+            selectedDate: this.selectedDate(),
             creditCardId: this.creditCardId,
           },
           panelClass: 'new-release-cash-flow-dialog',
@@ -173,7 +191,6 @@ export class CreditCardInvoiceComponent implements OnInit {
       panelClass: 'invoice-payment-dialog',
       autoFocus: false,
       data: {
-        invoice: this.monthValues().invoice,
         invoiceAmount: this.invoiceValues().value,
         accounts: this.accounts,
         defaultPaymmentAccount: this.creditCard()!.standard_payment_account_id,

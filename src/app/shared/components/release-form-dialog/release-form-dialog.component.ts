@@ -105,6 +105,9 @@ export class ReleaseFormDialogComponent implements OnInit {
     if (this.data.editing) {
       this.releaseForm.patchValue(this.data.release);
 
+      const cardId = this.data.release.cardId;
+      if (cardId) this.releaseForm.get('accountId')!.setValue(cardId);
+
       if (this.data.release.attachmentName) {
         const blob = new Blob([this.data.release.attachment], {
           type: 'application/octet-stream',
@@ -150,6 +153,7 @@ export class ReleaseFormDialogComponent implements OnInit {
       fixedBy: 'monthly',
       repeatFor: '12',
       installmentsBy: '2',
+      cardId: null,
     });
     this.releaseForm.markAllAsTouched();
 
