@@ -10,7 +10,6 @@ export interface InvoiceMonthValues {
 }
 
 export interface InvoiceValues {
-  creditCard: CreditCard;
   accountsList: AccountBasicList[];
   categoriesList: Category[];
   creditCardsList: CardBasicList[];

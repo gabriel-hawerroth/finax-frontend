@@ -32,12 +32,9 @@ export class InvoiceService {
     );
   }
 
-  getValues(creditCardId: number): Promise<InvoiceValues> {
-    let params = new HttpParams();
-    params = params.append('creditCardId', creditCardId);
-
+  getValues(): Promise<InvoiceValues> {
     return lastValueFrom(
-      this._http.get<InvoiceValues>(`${this.apiUrl}/get-values`, { params })
+      this._http.get<InvoiceValues>(`${this.apiUrl}/get-values`)
     );
   }
 

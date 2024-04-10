@@ -37,6 +37,7 @@ import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pi
 import { UtilsService } from '../../../../../utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
+import { CreditCardService } from '../../../../../services/credit-card.service';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -60,6 +61,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   private _matDialog = inject(MatDialog);
   private _activatedRoute = inject(ActivatedRoute);
   private _invoiceService = inject(InvoiceService);
+  private _creditCardService = inject(CreditCardService);
 
   currency = this.utilsService.getUserConfigs.currency;
 
@@ -107,8 +109,12 @@ export class CreditCardInvoiceComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.getMonthValues();
     this.getValues();
+
+    this._creditCardService.getById(this.creditCardId).then((response) => {
+      this.creditCard.set(response);
+      this.getMonthValues();
+    });
   }
 
   getMonthValues() {
@@ -141,9 +147,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   }
 
   getValues() {
-    this._invoiceService.getValues(this.creditCardId).then((response) => {
-      this.creditCard.set(response.creditCard);
-      this.invoiceValues;
+    this._invoiceService.getValues().then((response) => {
       this.accounts = response.accountsList;
       this.categories = response.categoriesList;
       this.creditCards = response.creditCardsList;
@@ -152,11 +156,7 @@ export class CreditCardInvoiceComponent implements OnInit {
 
   changeMonth(direction: 'before' | 'next') {
     this.selectedDate.update((value) => {
-      return new Date(
-        value.setMonth(
-          direction === 'before' ? value.getMonth() - 1 : value.getMonth() + 1
-        )
-      );
+      return addMonths(value, direction === 'before' ? -1 : 1);
     });
 
     this.getMonthValues();
