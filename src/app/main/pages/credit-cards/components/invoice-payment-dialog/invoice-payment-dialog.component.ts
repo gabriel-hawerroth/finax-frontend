@@ -58,7 +58,6 @@ export class InvoicePaymentDialogComponent implements OnInit {
 
   public currency = this.utilsService.getUserConfigs.currency;
 
-  private invoiceAmount: number = this.data.invoiceAmount || 0;
   public accounts: AccountBasicList[] = this.data.accounts || [];
   private defaultPaymmentAccount: number =
     this.data.defaultPaymmentAccount || null;
@@ -80,10 +79,10 @@ export class InvoicePaymentDialogComponent implements OnInit {
   buildForm() {
     this.form = this._fb.group({
       id: null,
-      credit_card_id: null,
-      invoice_month_year: '',
+      credit_card_id: this.data.creditCardId,
+      invoice_month_year: this.data.monthYear,
       payment_account_id: null,
-      payment_amount: this.invoiceAmount,
+      payment_amount: this.data.defaultPaymentAmount,
       payment_date: new Date(),
       payment_hour: '',
     });
@@ -101,7 +100,7 @@ export class InvoicePaymentDialogComponent implements OnInit {
       .then(async (reponse) => {
         if (this.selectedFile) {
           await this._invoiceService.saveAttachment(
-            reponse.id,
+            reponse.id!,
             this.selectedFile
           );
         }

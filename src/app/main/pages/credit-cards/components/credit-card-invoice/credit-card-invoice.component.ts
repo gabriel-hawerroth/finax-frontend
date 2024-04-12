@@ -16,6 +16,7 @@ import {
   addDays,
   addMonths,
   endOfDay,
+  format,
   isBefore,
   isValid,
   parse,
@@ -118,8 +119,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   }
 
   getMonthValues() {
-    const month = this.formatDay(this.selectedDate().getMonth() + 1);
-    const monthYear = `${month}/${this.selectedDate().getFullYear()}`;
+    const monthYear = format(this.selectedDate(), 'MM/yyyy');
 
     const lastDt = endOfDay(
       addDays(
@@ -191,9 +191,16 @@ export class CreditCardInvoiceComponent implements OnInit {
       panelClass: 'invoice-payment-dialog',
       autoFocus: false,
       data: {
-        invoiceAmount: this.invoiceValues().value,
         accounts: this.accounts,
+        creditCardId: this.creditCardId,
         defaultPaymmentAccount: this.creditCard()!.standard_payment_account_id,
+        defaultPaymentAmount:
+          this.invoiceValues().value -
+          this.monthValues().invoicePayments.reduce(
+            (amount, item) => (amount += item.payment_amount),
+            0
+          ),
+        monthYear: format(this.selectedDate(), 'MM/yyyy'),
       },
     });
   }
