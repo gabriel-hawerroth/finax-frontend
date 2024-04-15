@@ -249,7 +249,8 @@
             "hour": "Stunde",
             "attachment": "Anhang",
             "saved-successfully": "Zahlung erfolgreich gespeichert",
-            "error-saving": "Fehler beim Speichern der Zahlung"
+            "error-saving": "Fehler beim Speichern der Zahlung",
+            "invalid-amount": "Der Betrag der Zahlungen muss gleich oder kleiner als der Rechnungsbetrag sein"
         }
     },
     "categories": {

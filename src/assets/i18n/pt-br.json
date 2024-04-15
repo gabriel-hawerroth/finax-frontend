@@ -249,7 +249,8 @@
             "hour": "Hora",
             "attachment": "Anexo",
             "saved-successfully": "Pagamento salvo com sucesso",
-            "error-saving": "Erro ao salvar o pagamento"
+            "error-saving": "Erro ao salvar o pagamento",
+            "invalid-amount": "O valor dos pagamentos deve ser igual ou menor ao valor da fatura"
         }
     },
     "categories": {

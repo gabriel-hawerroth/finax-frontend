@@ -249,7 +249,8 @@
             "hour": "Hour",
             "attachment": "Attachment",
             "saved-successfully": "Payment saved successfully",
-            "error-saving": "Error saving payment"
+            "error-saving": "Error saving payment",
+            "invalid-amount": "The amount of payments must be equal to or less than the amount of the invoice"
         }
     },
     "categories": {

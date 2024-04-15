@@ -249,7 +249,8 @@
             "hour": "Hora",
             "attachment": "Archivo adjunto",
             "saved-successfully": "Pago ahorrado con éxito",
-            "error-saving": "Error al guardar el pago"
+            "error-saving": "Error al guardar el pago",
+            "invalid-amount": "El importe de los pagos debe ser igual o inferior al importe de la factura"
         }
     },
     "categories": {

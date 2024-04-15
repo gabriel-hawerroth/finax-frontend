@@ -10,7 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   addDays,
@@ -31,6 +31,7 @@ import {
   CreditCard,
 } from '../../../../../interfaces/credit-card';
 import { InvoiceMonthValues } from '../../../../../interfaces/invoice';
+import { CreditCardService } from '../../../../../services/credit-card.service';
 import { InvoiceService } from '../../../../../services/invoice.service';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
@@ -38,7 +39,6 @@ import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pi
 import { UtilsService } from '../../../../../utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
-import { CreditCardService } from '../../../../../services/credit-card.service';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -52,6 +52,7 @@ import { CreditCardService } from '../../../../../services/credit-card.service';
     TranslateModule,
     ReleasesListComponent,
     ReleasesMonthPipe,
+    RouterModule,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
@@ -84,15 +85,8 @@ export class CreditCardInvoiceComponent implements OnInit {
   creditCards: CardBasicList[] = [];
 
   invoiceValues = computed(() => {
-    const creditCard = this.creditCard();
-
-    const closeDay = this.formatDay(creditCard?.close_day);
-    const expireDay = this.formatDay(creditCard?.expires_day);
-    const month = this.formatDay(this.selectedDate().getMonth() + 1);
-    const year = this.selectedDate().getFullYear();
-
-    const close = this.validityDate(`${year}-${month}-${closeDay}`);
-    let expire = this.validityDate(`${year}-${month}-${expireDay}`);
+    const close = this.parseDateWithFallback(this.getCloseDtString);
+    let expire = this.parseDateWithFallback(this.getExpireDtString);
 
     if (isBefore(expire, close)) {
       expire = addMonths(expire, 1);
@@ -103,8 +97,8 @@ export class CreditCardInvoiceComponent implements OnInit {
       .reduce((count, item) => count + item.amount, 0);
 
     return {
-      close: close.toLocaleDateString(),
-      expire: expire.toLocaleDateString(),
+      close,
+      expire,
       value,
     };
   });
@@ -121,25 +115,9 @@ export class CreditCardInvoiceComponent implements OnInit {
   getMonthValues() {
     const monthYear = format(this.selectedDate(), 'MM/yyyy');
 
-    const lastDt = endOfDay(
-      addDays(
-        new Date(this.invoiceValues().close.split('/').reverse().join('-')),
-        1
-      )
-    );
+    const lastDt = endOfDay(this.invoiceValues().close);
 
-    let firstDt = addMonths(lastDt, -1);
-
-    if (
-      this.selectedDate().getMonth() !== 0 &&
-      this.selectedDate().getMonth() !== firstDt.getMonth()
-    ) {
-      firstDt = addDays(firstDt, 2);
-    } else if (this.selectedDate().getMonth() === 0) {
-      firstDt = addDays(firstDt, 1);
-    }
-
-    firstDt = startOfDay(firstDt);
+    let firstDt = this.getFirstDtInvoice;
 
     this._invoiceService
       .getMonthValues(this.creditCardId, monthYear, firstDt, lastDt)
@@ -205,11 +183,12 @@ export class CreditCardInvoiceComponent implements OnInit {
     });
   }
 
-  validityDate(stringDt: string): Date {
+  parseDateWithFallback(stringDt: string): Date {
     const date = parse(stringDt, 'yyyy-MM-dd', new Date());
-    const dtParts = stringDt.split('-');
 
     if (!isValid(date)) {
+      const dtParts = stringDt.split('-');
+
       return addDays(
         toDate(`${dtParts[0]}-${this.formatDay(Number(dtParts[1]) + 1)}-01`),
         1
@@ -217,6 +196,30 @@ export class CreditCardInvoiceComponent implements OnInit {
     }
 
     return date;
+  }
+
+  get getFirstDtInvoice(): Date {
+    let close = this.getCloseDtString.split('-');
+
+    if (this.selectedDate().getMonth() === 0) {
+      close[1] = '12';
+    } else {
+      close[1] = this.formatDay(Number(close[1]) - 1);
+    }
+
+    return addDays(this.parseDateWithFallback(close.join('-')), 1);
+  }
+
+  get getCloseDtString(): string {
+    return `${this.selectedDate().getFullYear()}-${this.formatDay(
+      this.selectedDate().getMonth() + 1
+    )}-${this.formatDay(this.creditCard()?.close_day)}`;
+  }
+
+  get getExpireDtString(): string {
+    return `${this.selectedDate().getFullYear()}-${this.formatDay(
+      this.selectedDate().getMonth() + 1
+    )}-${this.formatDay(this.creditCard()?.expires_day)}`;
   }
 
   formatDay(day: number | undefined): string {

@@ -14,7 +14,10 @@
                 {{ "invoice.title" | translate }}
               </h1>
 
-              <div class="card">
+              <div
+                class="card"
+                [routerLink]="'/cartoes-de-credito/' + creditCardId"
+              >
                 @if (creditCard()?.image) {
                 <img
                   [ngSrc]="'assets/imgs/banks/' + creditCard()!.image"
@@ -93,7 +96,7 @@
           <span>{{ "invoice.closing" | translate }}:</span>
 
           <span class="value">
-            {{ invoiceValues().close }}
+            {{ invoiceValues().close | date : "dd/MM/yyyy" }}
           </span>
         </div>
 
@@ -101,7 +104,7 @@
           <span>{{ "invoice.expiration" | translate }}:</span>
 
           <span class="value">
-            {{ invoiceValues().expire }}
+            {{ invoiceValues().expire | date : "dd/MM/yyyy" }}
           </span>
         </div>
 

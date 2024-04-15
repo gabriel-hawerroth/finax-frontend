@@ -89,6 +89,11 @@ export class InvoicePaymentDialogComponent implements OnInit {
   }
 
   save() {
+    if (this.form.value.payment_amount > this.data.defaultPaymentAmount) {
+      this.utilsService.showMessage('invoice.payment.invalid-amount', 5000);
+      return;
+    }
+
     this.saving.set(true);
 
     if (this.selectedFile && this.selectedFile.size > 1.5 * 1024 * 1024) {

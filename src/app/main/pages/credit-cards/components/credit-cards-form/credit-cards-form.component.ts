@@ -62,7 +62,8 @@ export class CreditCardsFormComponent implements OnInit {
 
   currency = this.utilsService.getUserConfigs.currency;
 
-  cardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
+  cardId: number | null =
+    +this._activatedRoute.snapshot.paramMap.get('id')! || null;
 
   cardForm!: FormGroup;
 
@@ -85,6 +86,7 @@ export class CreditCardsFormComponent implements OnInit {
     if (this.cardId) {
       this._creditCardService.getById(this.cardId).then((response) => {
         this.cardForm.patchValue(response);
+        this.paymentAccountChanges(response.standard_payment_account_id);
 
         if (response.image) {
           this.selectedIcon.set(response.image);
@@ -163,7 +165,6 @@ export class CreditCardsFormComponent implements OnInit {
   }
 
   paymentAccountChanges(value: number) {
-    console.log('accountsList:', this.accounsList);
     this.selectedAccount = this.accounsList.find((item) => item.id === value)!;
   }
 }

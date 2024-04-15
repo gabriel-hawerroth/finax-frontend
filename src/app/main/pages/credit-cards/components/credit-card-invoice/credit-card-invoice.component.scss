@@ -50,6 +50,13 @@
                                 display: flex;
                                 align-items: center;
                                 gap: .8rem;
+                                cursor: pointer;
+                                padding: .3rem .7rem;
+                                border-radius: 4px;
+
+                                &:hover {
+                                    background-color: #e2e2e236 !important;
+                                }
 
                                 img {
                                     border-radius: 50%;
