@@ -44,22 +44,25 @@ export class InvoiceService {
     );
   }
 
-  saveAttachment(invoiceId: number, attachment: File): Promise<InvoicePayment> {
+  saveAttachment(
+    invoicePaymentId: number,
+    attachment: File
+  ): Promise<InvoicePayment> {
     const formData = new FormData();
     formData.append('attachment', attachment);
 
     return lastValueFrom(
       this._http.put<InvoicePayment>(
-        `${this.apiUrl}/save-attachment/${invoiceId}`,
+        `${this.apiUrl}/save-attachment/${invoicePaymentId}`,
         formData
       )
     );
   }
 
-  removeAttachment(invoiceId: number): Promise<InvoicePayment> {
+  removeAttachment(invoicePaymentId: number): Promise<InvoicePayment> {
     return lastValueFrom(
       this._http.delete<InvoicePayment>(
-        `${this.apiUrl}/remove-attachment/${invoiceId}`
+        `${this.apiUrl}/remove-attachment/${invoicePaymentId}`
       )
     );
   }

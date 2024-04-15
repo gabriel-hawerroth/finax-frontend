@@ -165,21 +165,30 @@ export class CreditCardInvoiceComponent implements OnInit {
   }
 
   payInvoice() {
-    this._matDialog.open(InvoicePaymentDialogComponent, {
-      panelClass: 'invoice-payment-dialog',
-      autoFocus: false,
-      data: {
-        accounts: this.accounts,
-        creditCardId: this.creditCardId,
-        defaultPaymmentAccount: this.creditCard()!.standard_payment_account_id,
-        defaultPaymentAmount:
-          this.invoiceValues().value -
-          this.monthValues().invoicePayments.reduce(
-            (amount, item) => (amount += item.payment_amount),
-            0
-          ),
-        monthYear: format(this.selectedDate(), 'MM/yyyy'),
-      },
+    lastValueFrom(
+      this._matDialog
+        .open(InvoicePaymentDialogComponent, {
+          panelClass: 'invoice-payment-dialog',
+          autoFocus: false,
+          data: {
+            accounts: this.accounts,
+            creditCardId: this.creditCardId,
+            defaultPaymmentAccount:
+              this.creditCard()!.standard_payment_account_id,
+            defaultPaymentAmount:
+              this.invoiceValues().value -
+              this.monthValues().invoicePayments.reduce(
+                (amount, item) => (amount += item.payment_amount),
+                0
+              ),
+            monthYear: format(this.selectedDate(), 'MM/yyyy'),
+          },
+        })
+        .afterClosed()
+    ).then((response) => {
+      if (response === true) {
+        this.getMonthValues();
+      }
     });
   }
 
