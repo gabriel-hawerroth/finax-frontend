@@ -20,7 +20,6 @@ import {
   isBefore,
   isValid,
   parse,
-  startOfDay,
   toDate,
 } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
@@ -31,6 +30,7 @@ import {
   CreditCard,
 } from '../../../../../interfaces/credit-card';
 import { InvoiceMonthValues } from '../../../../../interfaces/invoice';
+import { InvoicePaymentPerson } from '../../../../../interfaces/invoice-payment';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { InvoiceService } from '../../../../../services/invoice.service';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
@@ -39,6 +39,7 @@ import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pi
 import { UtilsService } from '../../../../../utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
+import { InvoicePaymentsCardComponent } from './components/invoice-payments-card/invoice-payments-card.component';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -53,6 +54,7 @@ import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice
     ReleasesListComponent,
     ReleasesMonthPipe,
     RouterModule,
+    InvoicePaymentsCardComponent,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
@@ -164,7 +166,7 @@ export class CreditCardInvoiceComponent implements OnInit {
     });
   }
 
-  payInvoice() {
+  payInvoice(invoicePayment?: InvoicePaymentPerson) {
     lastValueFrom(
       this._matDialog
         .open(InvoicePaymentDialogComponent, {
@@ -182,6 +184,8 @@ export class CreditCardInvoiceComponent implements OnInit {
                 0
               ),
             monthYear: format(this.selectedDate(), 'MM/yyyy'),
+            payment: invoicePayment,
+            expireDate: this.invoiceValues().expire,
           },
         })
         .afterClosed()

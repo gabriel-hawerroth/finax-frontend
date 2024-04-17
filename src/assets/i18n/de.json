@@ -21,7 +21,8 @@
         "password-doesn't-meet-security-requirements": "Das Passwort erfüllt nicht die Sicherheitsanforderungen",
         "invalid-form": "Ungültiges Formular",
         "without-permission": "Sie haben keine Berechtigung für den Zugriff auf diesen Bildschirm",
-        "update-in-progress": "Update läuft, bitte versuchen Sie es später noch einmal"
+        "update-in-progress": "Update läuft, bitte versuchen Sie es später noch einmal",
+        "attachment-not-found": "Anhang nicht gefunden"
     },
     "actions": {
         "save": "Speichern",
@@ -121,7 +122,6 @@
         "confirm-delete": "Möchten Sie diesen Datensatz wirklich löschen?",
         "deleted-successfully": "Datensatz erfolgreich gelöscht",
         "delete-error": "Fehler beim Versuch, den Datensatz zu löschen",
-        "attachment-not-found": "Anhang nicht gefunden",
         "view-mode": {
             "title": "Vorschau-Modus",
             "invoices-opt": "Einheitliche Rechnung",
@@ -250,7 +250,22 @@
             "attachment": "Anhang",
             "saved-successfully": "Zahlung erfolgreich gespeichert",
             "error-saving": "Fehler beim Speichern der Zahlung",
-            "invalid-amount": "Der Betrag der Zahlungen muss gleich oder kleiner als der Rechnungsbetrag sein"
+            "invalid-amount": "Der Betrag der Zahlungen muss gleich oder kleiner als der Rechnungsbetrag sein",
+            "error-deleting-attachment": "Die Zahlung wurde gespeichert, aber beim Versuch, den Anhang zu löschen, ist ein Fehler aufgetreten",
+            "error-saving-attachment": "Die Zahlung wurde gespeichert, aber beim Versuch, den Anhang zu speichern, ist ein Fehler aufgetreten"
+        },
+        "payments-card": {
+            "title": "Zahlungen",
+            "total-paid": "INSGESAMT GEZAHLT",
+            "date": "DATUM",
+            "amount": "WERT",
+            "account": "KONTO",
+            "actions": "AKTIONEN",
+            "remaining-value": "RESTBETRAG",
+            "pay-remaining": "VERBLEIBENDE LÖHNE",
+            "confirm-delete": "Möchten Sie diese Zahlung wirklich löschen?",
+            "deleted-successfully": "Zahlung erfolgreich gelöscht",
+            "error-deleting": "Fehler beim Löschen der Zahlung"
         }
     },
     "categories": {

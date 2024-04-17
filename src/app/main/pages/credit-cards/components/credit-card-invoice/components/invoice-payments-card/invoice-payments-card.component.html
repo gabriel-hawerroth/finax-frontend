@@ -1,0 +1,121 @@
+<div class="payments-card">
+  <div class="title">
+    <h3>{{ "invoice.payments-card.title" | translate }}</h3>
+
+    @if (totalValue() < invoiceValue()) {
+    <button
+      mat-raised-button
+      color="primary"
+      id="pay-remaining-btn"
+      (click)="editPayment.emit(undefined)"
+    >
+      <span id="pay-remaining-label">
+        {{ "invoice.payments-card.pay-remaining" | translate }}
+      </span>
+    </button>
+    }
+  </div>
+
+  <div class="content">
+    <div class="payments">
+      <div class="labels">
+        <span class="date">
+          {{ "invoice.payments-card.date" | translate }}
+        </span>
+
+        <span class="amount">
+          {{ "invoice.payments-card.amount" | translate }}
+        </span>
+
+        <span class="account">
+          {{ "invoice.payments-card.account" | translate }}
+        </span>
+
+        <span class="actions">
+          {{ "invoice.payments-card.actions" | translate }}
+        </span>
+      </div>
+
+      @for (payment of payments(); track payment.id) {
+      <div class="payment">
+        <div class="date">
+          <span>{{ payment.payment_date | date : "dd/MM/yy" }}</span>
+
+          @if (payment.payment_hour !== '') {
+          <span id="hour">{{ payment.payment_hour }}</span>
+          }
+        </div>
+
+        <span class="amount">
+          {{ currency }}{{ payment.payment_amount | customCurrency }}
+        </span>
+
+        <div class="account">
+          <img
+            [ngSrc]="'assets/imgs/banks/' + payment.payment_account_image"
+            width="25"
+            height="25"
+            alt="payment account image"
+          />
+          <span>{{ payment.payment_account_name }}</span>
+        </div>
+
+        <div class="actions">
+          @if (payment.attachment_name) {
+          <button
+            mat-icon-button
+            (click)="downloadAttachment(payment.id)"
+            [matTooltip]="'buttons.download-attachment' | translate"
+            matTooltipShowDelay="250"
+          >
+            <span class="material-symbols-outlined">cloud_download</span>
+          </button>
+          }
+
+          <button
+            mat-icon-button
+            (click)="editPayment.emit(payment)"
+            [matTooltip]="'actions.edit' | translate"
+            matTooltipShowDelay="250"
+          >
+            <span class="material-symbols-outlined">edit</span>
+          </button>
+
+          <button
+            mat-icon-button
+            (click)="deletePayment(payment.id)"
+            [matTooltip]="'actions.exclude' | translate"
+            matTooltipShowDelay="250"
+          >
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+
+    <div class="values">
+      <div class="total">
+        <span id="label">
+          {{ "invoice.payments-card.total-paid" | translate }}
+        </span>
+
+        <span id="value">
+          {{ currency }}{{ totalValue() | customCurrency }}
+        </span>
+      </div>
+
+      @if (totalValue() < invoiceValue()) {
+      <div class="remaining">
+        <span id="label">
+          {{ "invoice.payments-card.remaining-value" | translate }}
+        </span>
+
+        <span id="value">
+          {{ currency }}{{ invoiceValue() - totalValue() | customCurrency }}
+        </span>
+      </div>
+      }
+    </div>
+  </div>
+</div>

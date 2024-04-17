@@ -52,7 +52,7 @@ export class ReleaseDetailsComponent {
   downloadAttachment() {
     this._cashFlowService.getAttachment(this.release.id).then((response) => {
       if (response.size === 0) {
-        this.utilsService.showMessage('cash-flow.attachment-not-found');
+        this.utilsService.showMessage('generic.attachment-not-found');
         return;
       }
 

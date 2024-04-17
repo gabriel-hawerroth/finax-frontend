@@ -1,11 +1,11 @@
 import { AccountBasicList } from './account';
 import { MonthlyRelease } from './cash-flow';
 import { Category } from './category';
-import { CardBasicList, CreditCard } from './credit-card';
-import { InvoicePayment } from './invoice-payment';
+import { CardBasicList } from './credit-card';
+import { InvoicePaymentPerson } from './invoice-payment';
 
 export interface InvoiceMonthValues {
-  invoicePayments: InvoicePayment[];
+  invoicePayments: InvoicePaymentPerson[];
   releases: MonthlyRelease[];
 }
 

@@ -56,24 +56,43 @@ export class InvoicePaymentDialogComponent implements OnInit {
   private readonly _invoiceService = inject(InvoiceService);
   private readonly _dialogRef = inject(MatDialogRef);
 
-  public currency = this.utilsService.getUserConfigs.currency;
+  currency = this.utilsService.getUserConfigs.currency;
 
-  public accounts: AccountBasicList[] = this.data.accounts || [];
+  accounts: AccountBasicList[] = this.data.accounts || [];
   private defaultPaymmentAccount: number =
     this.data.defaultPaymmentAccount || null;
 
-  public form!: FormGroup;
+  form!: FormGroup;
 
-  public selectedAccount: AccountBasicList | null = null;
-  public selectedFile: File | null = null;
+  selectedAccount: AccountBasicList | null = null;
+  selectedFile: File | null = null;
 
-  public saving = signal(false);
+  saving = signal(false);
+
+  changedAttachment = false;
+  removedFile = false;
 
   ngOnInit(): void {
     this.buildForm();
 
-    this.form.get('payment_account_id')!.setValue(this.defaultPaymmentAccount);
-    this.paymentAccountChanges(this.defaultPaymmentAccount);
+    if (this.data.payment) {
+      this.form.patchValue(this.data.payment);
+      this.paymentAccountChanges(this.form.value.payment_account_id);
+
+      if (this.data.payment.attachment_name) {
+        this.selectedFile = new File(
+          [new Blob()],
+          this.data.payment.attachment_name
+        );
+      }
+    } else {
+      this.form
+        .get('payment_account_id')!
+        .setValue(this.defaultPaymmentAccount);
+      this.paymentAccountChanges(this.defaultPaymmentAccount);
+
+      this.form.get('payment_date')!.setValue(this.data.expireDate);
+    }
   }
 
   buildForm() {
@@ -89,10 +108,10 @@ export class InvoicePaymentDialogComponent implements OnInit {
   }
 
   save() {
-    if (this.form.value.payment_amount > this.data.defaultPaymentAmount) {
-      this.utilsService.showMessage('invoice.payment.invalid-amount', 5000);
-      return;
-    }
+    // if (this.form.value.payment_amount > this.data.defaultPaymentAmount) {
+    //   this.utilsService.showMessage('invoice.payment.invalid-amount', 5000);
+    //   return;
+    // }
 
     this.saving.set(true);
 
@@ -102,15 +121,32 @@ export class InvoicePaymentDialogComponent implements OnInit {
 
     this._invoiceService
       .savePayment(this.form.getRawValue())
-      .then(async (reponse) => {
-        if (this.selectedFile) {
-          await this._invoiceService.saveAttachment(
-            reponse.id!,
-            this.selectedFile
+      .then(async (response) => {
+        let error = false;
+        if (this.changedAttachment && this.selectedFile) {
+          await this._invoiceService
+            .saveAttachment(response.id!, this.selectedFile)
+            .catch(() => (error = true));
+        } else if (this.removedFile) {
+          await this._invoiceService
+            .removeAttachment(response.id!)
+            .catch(() => (error = true));
+        }
+
+        if (!error) {
+          this.utilsService.showMessage('invoice.payment.saved-successfully');
+        } else if (this.removedFile) {
+          this.utilsService.showMessage(
+            'invoice.payment.error-deleting-attachment',
+            6000
+          );
+        } else {
+          this.utilsService.showMessage(
+            'invoice.payment.error-saving-attachment',
+            6000
           );
         }
 
-        this.utilsService.showMessage('invoice.payment.saved-successfully');
         this._dialogRef.close(true);
       })
       .catch(() =>
@@ -134,12 +170,18 @@ export class InvoicePaymentDialogComponent implements OnInit {
     }
 
     this.selectedFile = file;
+    this.changedAttachment = true;
   }
 
   removeFile() {
     this.selectedFile = null;
+    this.form.markAsDirty();
 
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.value = '';
+
+    if (this.data.payment.attachment_name) {
+      this.removedFile = true;
+    }
   }
 }

@@ -38,13 +38,13 @@
 
           <div class="right">
             @if (monthValues().invoicePayments.length != 0) {
-            <h2>
-              Fatura paga:
-              {{
-                monthValues().invoicePayments[0].payment_date
-                  | date : "dd/MM/yyyy"
-              }}
-            </h2>
+            <app-invoice-payments-card
+              id="payments-card"
+              [payments]="monthValues().invoicePayments"
+              [invoiceValue]="invoiceValues().value"
+              (updateValues)="getMonthValues()"
+              (editPayment)="payInvoice($event)"
+            ></app-invoice-payments-card>
             } @else if (invoiceValues().value > 0) {
             <button
               mat-stroked-button

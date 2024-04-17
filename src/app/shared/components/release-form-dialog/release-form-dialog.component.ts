@@ -109,12 +109,10 @@ export class ReleaseFormDialogComponent implements OnInit {
       if (cardId) this.releaseForm.get('accountId')!.setValue(cardId);
 
       if (this.data.release.attachmentName) {
-        const blob = new Blob([this.data.release.attachment], {
-          type: 'application/octet-stream',
-        });
-
-        const file = new File([blob], this.data.release.attachmentName);
-        this.selectedFile = file;
+        this.selectedFile = new File(
+          [new Blob()],
+          this.data.release.attachmentName
+        );
       }
 
       if (this.data.release.observation) {

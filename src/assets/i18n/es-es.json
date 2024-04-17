@@ -21,7 +21,8 @@
         "password-doesn't-meet-security-requirements": "La contraseña no cumple con los requisitos de seguridad",
         "invalid-form": "Formulario no válido",
         "without-permission": "No tiene permiso para acceder a esta pantalla",
-        "update-in-progress": "Actualización en curso, inténtelo de nuevo más tarde"
+        "update-in-progress": "Actualización en curso, inténtelo de nuevo más tarde",
+        "attachment-not-found": "Adjunto no encontrado"
     },
     "actions": {
         "save": "Guardar",
@@ -121,7 +122,6 @@
         "confirm-delete": "¿Realmente quieres eliminar este registro?",
         "deleted-successfully": "Registro eliminado con éxito",
         "delete-error": "Error al intentar eliminar el registro",
-        "attachment-not-found": "Adjunto no encontrado",
         "view-mode": {
             "title": "Modo de vista previa",
             "invoices-opt": "Factura unificada",
@@ -250,7 +250,22 @@
             "attachment": "Archivo adjunto",
             "saved-successfully": "Pago ahorrado con éxito",
             "error-saving": "Error al guardar el pago",
-            "invalid-amount": "El importe de los pagos debe ser igual o inferior al importe de la factura"
+            "invalid-amount": "El importe de los pagos debe ser igual o inferior al importe de la factura",
+            "error-deleting-attachment": "El pago se guardó, pero hubo un error al intentar eliminar el archivo adjunto",
+            "error-saving-attachment": "Se guardó el pago, pero se produjo un error al intentar guardar el archivo adjunto"
+        },
+        "payments-card": {
+            "title": "Pagos",
+            "total-paid": "TOTAL PAGADO",
+            "date": "FECHA",
+            "amount": "VALOR",
+            "account": "CUENTA",
+            "actions": "ACCIONES",
+            "remaining-value": "CANTIDAD RESTANTE",
+            "pay-remaining": "PAGA RESTANTE",
+            "confirm-delete": "¿Realmente quieres eliminar ese pago?",
+            "deleted-successfully": "Pago eliminado con éxito",
+            "error-deleting": "Error al intentar eliminar el pago"
         }
     },
     "categories": {

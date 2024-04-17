@@ -1,0 +1,217 @@
+@import '../../../../../../../shared/styles/colors.scss';
+
+$font-color: #727272;
+
+@media screen and (max-width: 1300px) {
+
+    .labels,
+    .payment {
+
+        .date,
+        .amount,
+        .account,
+        .actions {
+            transform: scale(0.9);
+        }
+    }
+
+    .values {
+
+        .total,
+        .remaining {
+            transform: scale(0.9);
+        }
+    }
+
+    .payment {
+        .account {
+            img {
+                width: 22px !important;
+                height: 22px !important;
+            }
+        }
+
+        .actions {
+            .mat-mdc-icon-button {
+                width: 27px !important;
+                height: 27px !important;
+
+                .material-symbols-outlined {
+                    transform: scale(0.7) !important;
+                }
+            }
+        }
+    }
+}
+
+.payments-card {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid $default-border-color;
+    border-radius: 4px;
+
+    ::-webkit-scrollbar {
+        background-color: transparent !important;
+        width: 4px !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #b9b9b9d7 !important;
+        border-radius: 12px !important;
+    }
+
+    .title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $default-border-color;
+        color: #fff;
+
+        #pay-remaining-btn {
+            height: fit-content !important;
+            border-radius: 1.5rem;
+            position: absolute;
+            right: 2.5rem;
+            margin-bottom: 2px;
+
+            #pay-remaining-label {
+                font-size: .6rem;
+            }
+        }
+    }
+
+    .content {
+        display: flex;
+        height: 100%;
+        max-height: 100%;
+        overflow-y: hidden;
+
+        .payments {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 0 .4rem;
+            overflow-y: scroll;
+
+            :last-child {
+                border-bottom: none !important;
+            }
+
+            .labels,
+            .payment {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                border-bottom: 1px solid #d1d1d1b7;
+
+                .date,
+                .amount,
+                .account,
+                .actions {
+                    width: 25%;
+                    display: flex;
+                    justify-content: start;
+                    align-items: center;
+                    overflow-x: hidden;
+                }
+            }
+
+            .labels {
+                font-size: .73rem;
+                padding: .22rem 0 .16rem 0;
+                color: $font-color;
+
+                .actions {
+                    justify-content: center;
+                }
+            }
+
+            .payment {
+                height: 100%;
+                min-height: 50%;
+
+                .date {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: start;
+
+                    #hour {
+                        font-size: .85rem;
+                    }
+                }
+
+                .account {
+                    display: flex;
+                    align-items: center;
+                    gap: .3rem;
+
+                    img {
+                        border-radius: 50%;
+                    }
+                }
+
+                .actions {
+                    margin-left: auto;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 2%;
+                    justify-content: end !important;
+                    overflow-y: hidden;
+
+                    .mat-mdc-icon-button {
+                        width: 32px;
+                        height: 32px;
+                        display: flex !important;
+                        justify-content: center !important;
+                        align-items: center !important;
+                        padding: 0 !important;
+
+                        .material-symbols-outlined {
+                            transform: scale(0.8);
+                            color: #727272;
+                        }
+
+                        .mat-mdc-button-touch-target {
+                            width: 100% !important;
+                            height: 100% !important;
+                            max-width: 100% !important;
+                            max-height: 100% !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .values {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-left: 1px solid #d1d1d1b7;
+            overflow-y: hidden;
+
+            .total,
+            .remaining {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                #label {
+                    font-size: .7rem;
+                    color: $font-color;
+                }
+
+                #value {
+                    font-size: 1rem;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

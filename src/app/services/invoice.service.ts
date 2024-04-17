@@ -44,6 +44,14 @@ export class InvoiceService {
     );
   }
 
+  deletePayment(invoicePaymentId: number): Promise<void> {
+    return lastValueFrom(
+      this._http.delete<void>(
+        `${this.apiUrl}/delete-payment/${invoicePaymentId}`
+      )
+    );
+  }
+
   saveAttachment(
     invoicePaymentId: number,
     attachment: File
@@ -53,7 +61,7 @@ export class InvoiceService {
 
     return lastValueFrom(
       this._http.put<InvoicePayment>(
-        `${this.apiUrl}/save-attachment/${invoicePaymentId}`,
+        `${this.apiUrl}/save-payment-attachment/${invoicePaymentId}`,
         formData
       )
     );
@@ -62,7 +70,18 @@ export class InvoiceService {
   removeAttachment(invoicePaymentId: number): Promise<InvoicePayment> {
     return lastValueFrom(
       this._http.delete<InvoicePayment>(
-        `${this.apiUrl}/remove-attachment/${invoicePaymentId}`
+        `${this.apiUrl}/remove-payment-attachment/${invoicePaymentId}`
+      )
+    );
+  }
+
+  getPaymentAttachment(invoicePaymentId: number): Promise<Blob> {
+    return lastValueFrom(
+      this._http.get<Blob>(
+        `${this.apiUrl}/get-payment-attachment/${invoicePaymentId}`,
+        {
+          responseType: 'blob' as 'json',
+        }
       )
     );
   }

@@ -21,7 +21,8 @@
         "password-doesn't-meet-security-requirements": "Password doesn't meet security requirements",
         "invalid-form": "Invalid form",
         "without-permission": "You don't have permission to access this screen",
-        "update-in-progress": "Update in progress, please try again later"
+        "update-in-progress": "Update in progress, please try again later",
+        "attachment-not-found": "Attachment not found"
     },
     "actions": {
         "save": "Save",
@@ -121,7 +122,6 @@
         "confirm-delete": "Do you really want to delete this record?",
         "deleted-successfully": "Record deleted successfully",
         "delete-error": "Error trying to delete the record",
-        "attachment-not-found": "Attachment not found",
         "view-mode": {
             "title": "Preview Mode",
             "invoices-opt": "Unified Invoice",
@@ -250,7 +250,22 @@
             "attachment": "Attachment",
             "saved-successfully": "Payment saved successfully",
             "error-saving": "Error saving payment",
-            "invalid-amount": "The amount of payments must be equal to or less than the amount of the invoice"
+            "invalid-amount": "The amount of payments must be equal to or less than the amount of the invoice",
+            "error-deleting-attachment": "The payment was saved, but there was an error when trying to delete the attachment",
+            "error-saving-attachment": "The payment was saved, but there was an error trying to save the attachment"
+        },
+        "payments-card": {
+            "title": "Payments",
+            "total-paid": "TOTAL PAID",
+            "date": "DATE",
+            "amount": "VALUE",
+            "account": "ACCOUNT",
+            "actions": "ACTIONS",
+            "remaining-value": "REMAINING VALUE",
+            "pay-remaining": "PAY REMAINING",
+            "confirm-delete": "Do you really want to delete that payment?",
+            "deleted-successfully": "Payment Deleted Successfully",
+            "error-deleting": "Error trying to delete payment"
         }
     },
     "categories": {

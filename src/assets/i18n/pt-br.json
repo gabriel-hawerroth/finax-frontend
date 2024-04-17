@@ -21,7 +21,8 @@
         "password-doesn't-meet-security-requirements": "A senha não cumpre os requisitos de segurança",
         "invalid-form": "Formulário inválido",
         "without-permission": "Você não tem permissão para acessar essa tela",
-        "update-in-progress": "Atualização em andamento, tente novamente mais tarde"
+        "update-in-progress": "Atualização em andamento, tente novamente mais tarde",
+        "attachment-not-found": "Arquivo não encontrado"
     },
     "actions": {
         "save": "Salvar",
@@ -121,7 +122,6 @@
         "confirm-delete": "Deseja realmente excluir esse registro?",
         "deleted-successfully": "Registro excluído com sucesso",
         "delete-error": "Erro ao tentar excluir o registro",
-        "attachment-not-found": "Arquivo não encontrado",
         "view-mode": {
             "title": "Modo de visualização",
             "invoices-opt": "Fatura unificada",
@@ -250,7 +250,22 @@
             "attachment": "Anexo",
             "saved-successfully": "Pagamento salvo com sucesso",
             "error-saving": "Erro ao salvar o pagamento",
-            "invalid-amount": "O valor dos pagamentos deve ser igual ou menor ao valor da fatura"
+            "invalid-amount": "O valor dos pagamentos deve ser igual ou menor ao valor da fatura",
+            "error-deleting-attachment": "O pagamento foi salvo porém houve um erro ao tentar excluir o anexo",
+            "error-saving-attachment": "O pagamento foi salvo porém houve um erro ao tentar salvar o anexo"
+        },
+        "payments-card": {
+            "title": "Pagamentos",
+            "total-paid": "TOTAL PAGO",
+            "date": "DATA",
+            "amount": "VALOR",
+            "account": "CONTA",
+            "actions": "AÇÕES",
+            "remaining-value": "VALOR RESTANTE",
+            "pay-remaining": "PAGAR RESTANTE",
+            "confirm-delete": "Deseja realmente excluir esse pagamento?",
+            "deleted-successfully": "Pagamento excluído com sucesso",
+            "error-deleting": "Erro ao tentar excluir o pagamento"
         }
     },
     "categories": {
