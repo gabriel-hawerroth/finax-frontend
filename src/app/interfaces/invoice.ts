@@ -7,6 +7,7 @@ import { InvoicePaymentPerson } from './invoice-payment';
 export interface InvoiceMonthValues {
   invoicePayments: InvoicePaymentPerson[];
   releases: MonthlyRelease[];
+  previousBalance: number;
 }
 
 export interface InvoiceValues {

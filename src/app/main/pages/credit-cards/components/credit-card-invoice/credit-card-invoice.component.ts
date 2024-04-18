@@ -75,6 +75,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   monthValues = signal<InvoiceMonthValues>({
     invoicePayments: [],
     releases: [],
+    previousBalance: 0,
   });
 
   selectedDate = signal(new Date(new Date().setDate(15)));
@@ -94,9 +95,11 @@ export class CreditCardInvoiceComponent implements OnInit {
       expire = addMonths(expire, 1);
     }
 
-    const value: number = this.utilsService
-      .filterList(this.monthValues().releases, 'done', true)
-      .reduce((count, item) => count + item.amount, 0);
+    const value: number =
+      this.utilsService
+        .filterList(this.monthValues().releases, 'done', true)
+        .reduce((count, item) => count + item.amount, 0) +
+      this.monthValues().previousBalance;
 
     return {
       close,
