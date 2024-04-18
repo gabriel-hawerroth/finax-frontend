@@ -1,4 +1,4 @@
-<div class="releases-list">
+<div class="releases-list" [class]="utilsService.getUserConfigs.theme">
   @for (item of releases(); track item.id) {
   <div class="release" (click)="openDetails(item)">
     <div class="category">

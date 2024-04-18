@@ -93,3 +93,13 @@
         }
     }
 }
+
+.dark {
+    .release {
+
+        .account,
+        .date {
+            color: $dark-font-color !important;
+        }
+    }
+}

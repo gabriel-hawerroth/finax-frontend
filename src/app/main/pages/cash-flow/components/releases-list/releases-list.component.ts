@@ -16,6 +16,7 @@ import { Category } from '../../../../../interfaces/category';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { UtilsService } from '../../../../../utils/utils.service';
 import { ReleaseDetailsComponent } from '../release-details/release-details.component';
 
 @Component({
@@ -39,6 +40,7 @@ export class ReleasesListComponent {
   public selectedDate = input.required<Date>();
   public updateList = output<void>();
 
+  public utilsService = inject(UtilsService);
   private _bottomSheet = inject(MatBottomSheet);
   private _matDialog = inject(MatDialog);
 

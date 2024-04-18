@@ -1,4 +1,7 @@
-<div class="payments-card">
+<div
+  class="payments-card"
+  [ngClass]="{ dark: utilsService.getUserConfigs.theme === 'dark' }"
+>
   <div class="title">
     <h3>{{ "invoice.payments-card.title" | translate }}</h3>
 
@@ -96,22 +99,22 @@
 
     <div class="values">
       <div class="total">
-        <span id="label">
+        <span class="label">
           {{ "invoice.payments-card.total-paid" | translate }}
         </span>
 
-        <span id="value">
+        <span class="value">
           {{ currency }}{{ totalValue() | customCurrency }}
         </span>
       </div>
 
       @if (totalValue() < invoiceValue()) {
       <div class="remaining">
-        <span id="label">
+        <span class="label">
           {{ "invoice.payments-card.remaining-value" | translate }}
         </span>
 
-        <span id="value">
+        <span class="value">
           {{ currency }}{{ invoiceValue() - totalValue() | customCurrency }}
         </span>
       </div>

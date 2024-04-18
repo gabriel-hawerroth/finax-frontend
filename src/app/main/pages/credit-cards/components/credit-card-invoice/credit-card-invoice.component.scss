@@ -207,7 +207,11 @@
             }
 
             .totals {
-                border-top: 1px solid #ffffff32 !important;
+                border-top-color: #ffffff32 !important;
+
+                .item {
+                    border-color: #ffffff32 !important;
+                }
             }
         }
     }
