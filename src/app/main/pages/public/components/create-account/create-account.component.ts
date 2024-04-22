@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LoginService } from '../../../../../services/login.service';
+import { AuthService } from '../../../../../services/auth.service';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -44,9 +44,9 @@ export class CreateAccountComponent implements OnInit {
   public readonly utilsService = inject(UtilsService);
   private readonly _fb = inject(FormBuilder);
   private readonly _router = inject(Router);
-  private readonly _loginService = inject(LoginService);
   private readonly _matSnackBar = inject(MatSnackBar);
   private readonly _translate = inject(TranslateService);
+  private readonly _authService = inject(AuthService);
 
   public userRegisterForm!: FormGroup;
   public showLoading = signal(false);
@@ -85,8 +85,8 @@ export class CreateAccountComponent implements OnInit {
 
     this.showLoading.set(true);
 
-    this._loginService
-      .newUser(this.userRegisterForm.value)
+    this._authService
+      .registerNewUser(this.userRegisterForm.value)
       .then((result) => {
         this._matSnackBar.open(
           `${this._translate.instant('create-account.sended-activate-link')}: ${

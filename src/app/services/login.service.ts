@@ -10,6 +10,7 @@ import { User } from '../interfaces/user';
 import { UserConfigs } from '../interfaces/user-configs';
 import { UtilsService } from '../utils/utils.service';
 import { UserConfigsService } from './user-configs.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +20,13 @@ export class LoginService {
   private readonly _router = inject(Router);
   private readonly _utilsService = inject(UtilsService);
   private readonly _userConfigsService = inject(UserConfigsService);
+  private readonly _authService = inject(AuthService);
 
   private readonly apiUrl = `${environment.baseApiUrl}login`;
 
   async login(credentials: Credentials) {
-    await this.oauthLogin(credentials)
+    await this._authService
+      .doLogin(credentials)
       .then(async (response) => {
         if (!response) {
           this._utilsService.showMessage('login.invalid-login');
@@ -92,20 +95,6 @@ export class LoginService {
       });
   }
 
-  oauthLogin(credentials: Credentials): Promise<AuthResponse> {
-    const authDTO = {
-      login: credentials.email,
-      password: credentials.password,
-    };
-
-    return lastValueFrom(
-      this._http.post<AuthResponse>(
-        `${environment.baseApiUrl}auth/login`,
-        authDTO
-      )
-    );
-  }
-
   updateLoggedUser(user: User) {
     this._utilsService.setItemLocalStorage(
       'userFinax',
@@ -135,12 +124,6 @@ export class LoginService {
 
     if (showMessage)
       this._utilsService.showMessage('login.access-expired', 5000);
-  }
-
-  newUser(user: User): Promise<User> {
-    return lastValueFrom(
-      this._http.post<User>(`${this.apiUrl}/new-user`, user)
-    );
   }
 
   sendChangePasswordEmail(email: string): Promise<any> {
