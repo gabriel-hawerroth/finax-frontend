@@ -34,9 +34,6 @@ export const authInterceptor: HttpInterceptorFn = (
           case 401:
             loginService.logout(true);
             break;
-          case 403:
-            loginService.logout(true);
-            break;
           case 0:
             loginService.logout(false);
             utilsService.showMessage('generic.update-in-progress');

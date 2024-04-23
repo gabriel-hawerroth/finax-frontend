@@ -86,11 +86,12 @@ export class LoginService {
       })
       .catch((err) => {
         switch (err.error.error_description) {
-          case 'Bad credentials':
-            this._utilsService.showMessage('login.invalid-login');
-            break;
           case 'Inactive user':
             this._utilsService.showMessage('login.inactive-user');
+            break;
+          default:
+            this._utilsService.showMessage('login.invalid-login');
+            break;
         }
       });
   }
