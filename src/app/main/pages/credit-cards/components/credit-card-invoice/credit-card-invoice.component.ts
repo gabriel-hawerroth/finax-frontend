@@ -95,11 +95,12 @@ export class CreditCardInvoiceComponent implements OnInit {
       expire = addMonths(expire, 1);
     }
 
-    const value: number =
+    const value: number = this.utilsService.limitTwoDecimals(
       this.utilsService
         .filterList(this.monthValues().releases, 'done', true)
         .reduce((count, item) => count + item.amount, 0) +
-      this.monthValues().previousBalance;
+        this.monthValues().previousBalance
+    );
 
     return {
       close,

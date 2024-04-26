@@ -42,10 +42,15 @@ export class InvoicePaymentsCardComponent {
   currency = this.utilsService.getUserConfigs.currency;
 
   totalValue = computed(() => {
-    return this.payments().reduce(
+    const response = this.payments().reduce(
       (count, item) => (count += item.payment_amount),
       0
     );
+    // console.log(this.invoiceValue());
+    // console.log(response);
+    // console.log(this.invoiceValue() - response);
+
+    return response;
   });
 
   deletePayment(invoicePaymentId: number) {

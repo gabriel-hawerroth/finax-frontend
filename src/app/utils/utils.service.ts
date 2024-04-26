@@ -222,4 +222,8 @@ export class UtilsService {
         .afterClosed()
     );
   }
+
+  limitTwoDecimals(n: number) {
+    return Math.round(n * 100) / 100;
+  }
 }
