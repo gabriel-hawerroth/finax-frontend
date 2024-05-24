@@ -108,16 +108,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
       });
   }
 
-  get languagesList(): GenericIdDs[] {
-    return [
-      { id: 'pt-br', ds: 'portuguese' },
-      { id: 'en-us', ds: 'english' },
-      { id: 'es-es', ds: 'spanish-spain' },
-      { id: 'de', ds: 'german' },
-    ];
-  }
+  languagesList: GenericIdDs[] = [
+    { id: 'pt-br', ds: 'portuguese' },
+    { id: 'en-us', ds: 'english' },
+    { id: 'es-es', ds: 'spanish-spain' },
+    { id: 'de', ds: 'german' },
+  ];
 
-  get currenciesList(): string[] {
-    return ['R$', '$', '€', '£', '¥'];
-  }
+  currenciesList: string[] = ['R$', '$', '€', '£', '¥'];
 }

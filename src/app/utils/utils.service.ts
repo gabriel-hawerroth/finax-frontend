@@ -18,10 +18,16 @@ export class UtilsService {
   private _dialog = inject(MatDialog);
   private _translateService = inject(TranslateService);
 
-  public isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-  public isPcScreen = this.isBrowser
-    ? window.innerWidth > 1000 && window.innerHeight > 520
-    : false;
+  public isBrowser: boolean;
+  public isPcScreen: boolean;
+
+  constructor() {
+    this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
+    this.isPcScreen = this.isBrowser
+      ? window.innerWidth > 1000 && window.innerHeight > 520
+      : false;
+  }
 
   // user observables
   public userName: BehaviorSubject<string> = new BehaviorSubject<string>(
