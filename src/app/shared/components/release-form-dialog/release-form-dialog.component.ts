@@ -30,6 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { isAfter } from 'date-fns';
+import moment from 'moment';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
 import { DuplicatedReleaseAction } from '../../../enums/duplicated-release-action';
@@ -104,6 +105,9 @@ export class ReleaseFormDialogComponent implements OnInit {
 
     if (this.data.editing) {
       this.releaseForm.patchValue(this.data.release);
+      this.releaseForm
+        .get('date')!
+        .setValue(moment(this.releaseForm.value.date).toISOString());
 
       const cardId = this.data.release.cardId;
       if (cardId) this.releaseForm.get('accountId')!.setValue(cardId);

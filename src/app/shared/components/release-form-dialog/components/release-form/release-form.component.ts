@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -30,7 +29,6 @@ import { UtilsService } from '../../../../../utils/utils.service';
     NgOptimizedImage,
     NgxCurrencyDirective,
     MatDatepickerModule,
-    MatNativeDateModule,
     MatCheckboxModule,
     TranslateModule,
   ],

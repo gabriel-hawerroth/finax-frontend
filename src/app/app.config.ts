@@ -6,19 +6,11 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import {
-  ApplicationConfig,
-  LOCALE_ID,
-  importProvidersFrom,
-} from '@angular/core';
-import {
-  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
-  MomentDateAdapter,
-} from '@angular/material-moment-adapter';
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
+  provideNativeDateAdapter,
 } from '@angular/material/core';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -58,6 +50,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideNgxMask(),
+    provideNativeDateAdapter(),
     provideEnvironmentNgxCurrency({
       align: 'right',
       allowNegative: true,
@@ -72,16 +65,6 @@ export const appConfig: ApplicationConfig = {
       max: 9999999999999.99,
       inputMode: NgxCurrencyInputMode.Financial,
     }),
-    DatePipe,
-    {
-      provide: DateAdapter,
-      useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE],
-    },
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-br' },
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {
@@ -91,5 +74,8 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
+    DatePipe,
   ],
 };
