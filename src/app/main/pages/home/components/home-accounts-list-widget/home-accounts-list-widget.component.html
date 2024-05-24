@@ -26,7 +26,6 @@
       {{ "home.my-accounts" | translate }}
     </span>
 
-    @defer {
     <div class="list">
       @for (account of accountsList(); track account.id) {
       <div class="account">
@@ -70,6 +69,5 @@
       </div>
       }
     </div>
-    }
   </mat-card-content>
 </mat-card>
