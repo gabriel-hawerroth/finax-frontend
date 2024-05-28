@@ -1,5 +1,5 @@
 export const environment = {
   mode: 'production',
   production: true,
-  baseApiUrl: 'https://api.hawetec.com.br/',
+  baseApiUrl: 'https://apifinax.hawetec.com.br/',
 };
