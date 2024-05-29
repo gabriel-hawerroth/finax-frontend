@@ -8,6 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -27,6 +28,8 @@ import { UtilsService } from '../../../../../utils/utils.service';
 export class UserActivationComponent implements OnInit {
   private readonly _utilsService = inject(UtilsService);
   private readonly _router = inject(Router);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   ngOnInit(): void {
     if (

@@ -17,6 +17,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CreditCard } from '../../../interfaces/credit-card';
 import { CreditCardService } from '../../../services/credit-card.service';
 import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
+import { cloudFireCdnImgsLink } from '../../../utils/constants';
 import { UtilsService } from '../../../utils/utils.service';
 import { CreditCardDetailsComponent } from './components/credit-card-details/credit-card-details.component';
 
@@ -43,6 +44,8 @@ export class CreditCardsComponent implements OnInit {
   private _creditCardService = inject(CreditCardService);
   private _router = inject(Router);
   private _bottomSheet = inject(MatBottomSheet);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   situationFilter = new FormControl(true);
 

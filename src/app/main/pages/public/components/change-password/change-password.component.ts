@@ -23,6 +23,7 @@ import { Credentials } from '../../../../../interfaces/credentials';
 import { User } from '../../../../../interfaces/user';
 import { LoginService } from '../../../../../services/login.service';
 import { UserService } from '../../../../../services/user.service';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -50,6 +51,8 @@ export class ChangePasswordComponent implements OnInit {
   private readonly _activatedRoute = inject(ActivatedRoute);
   private readonly _router = inject(Router);
   private readonly _loginService = inject(LoginService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   private user!: User;
   public changePasswordForm!: FormGroup;

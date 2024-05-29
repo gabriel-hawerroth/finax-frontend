@@ -20,6 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../interfaces/account';
 import { AccountService } from '../../../services/account.service';
 import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
+import { cloudFireCdnImgsLink } from '../../../utils/constants';
 import { UtilsService } from '../../../utils/utils.service';
 import { BankAccountDetailsComponent } from './components/bank-account-details/bank-account-details.component';
 
@@ -47,6 +48,8 @@ export class MyBankAccountsComponent implements OnInit {
   private _accountService = inject(AccountService);
   private _bottomSheet = inject(MatBottomSheet);
   private _router = inject(Router);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   situationFilter = new FormControl(true);
 

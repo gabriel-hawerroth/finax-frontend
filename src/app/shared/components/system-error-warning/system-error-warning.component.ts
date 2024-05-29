@@ -1,6 +1,7 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { cloudFireCdnImgsLink } from '../../../utils/constants';
 
 @Component({
   selector: 'app-system-error-warning',
@@ -11,6 +12,8 @@ import { RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SystemErrorWarningComponent {
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+
   private readonly currentDt = new Date();
 
   public readonly expectedReturnDate = new Date(

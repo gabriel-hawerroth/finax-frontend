@@ -24,6 +24,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { AccountBasicList } from '../../../../../interfaces/account';
 import { InvoiceService } from '../../../../../services/invoice.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -55,6 +56,8 @@ export class InvoicePaymentDialogComponent implements OnInit {
   private readonly _fb = inject(FormBuilder);
   private readonly _invoiceService = inject(InvoiceService);
   private readonly _dialogRef = inject(MatDialogRef);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   currency = this.utilsService.getUserConfigs.currency;
 

@@ -47,7 +47,7 @@
             <div class="account-opt">
               @if (account.image) {
               <img
-                [ngSrc]="'assets/imgs/banks/' + account.image"
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
                 width="30"
                 height="30"
                 alt="bank account logo"
@@ -68,7 +68,10 @@
         <div class="selected-account">
           @if (selectedAccount && selectedAccount.image) {
           <img
-            [ngSrc]="'assets/imgs/banks/' + selectedAccount.image"
+            [ngSrc]="
+              'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
+              selectedAccount.image
+            "
             width="20"
             height="20"
             alt="bank account logo"

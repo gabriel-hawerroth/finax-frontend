@@ -16,6 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../interfaces/account';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
 
@@ -40,6 +41,9 @@ export class BankAccountDetailsComponent {
   private _bottomSheetRef = inject(MatBottomSheetRef);
   private _dialog = inject(MatDialog);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+
   currency = this.utilsService.getUserConfigs.currency;
 
   account: Account = this.data.account;

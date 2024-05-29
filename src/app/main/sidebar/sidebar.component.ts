@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
+import { cloudFireCdnImgsLink } from '../../utils/constants';
 import { UtilsService } from '../../utils/utils.service';
 
 @Component({
@@ -26,6 +27,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public loginService = inject(LoginService);
   public utilsService = inject(UtilsService);
   private _userService = inject(UserService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   private _unsubscribeAll: Subject<void> = new Subject();
 

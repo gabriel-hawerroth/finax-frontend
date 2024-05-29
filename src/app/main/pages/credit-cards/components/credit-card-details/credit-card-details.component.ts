@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserCreditCards } from '../../../../../interfaces/credit-card';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -30,6 +31,8 @@ export class CreditCardDetailsComponent {
   public data = inject(MAT_BOTTOM_SHEET_DATA);
   private _router = inject(Router);
   private _bottomSheetRef = inject(MatBottomSheetRef);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   currency = this.utilsService.getUserConfigs.currency;
 

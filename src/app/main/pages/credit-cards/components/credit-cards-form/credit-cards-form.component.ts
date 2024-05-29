@@ -28,6 +28,7 @@ import { AccountService } from '../../../../../services/account.service';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -59,6 +60,8 @@ export class CreditCardsFormComponent implements OnInit {
   private _router = inject(Router);
   private _dialog = inject(MatDialog);
   private _accountService = inject(AccountService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   currency = this.utilsService.getUserConfigs.currency;
 

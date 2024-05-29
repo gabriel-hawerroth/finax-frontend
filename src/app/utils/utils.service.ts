@@ -9,6 +9,7 @@ import { ReleasesViewMode } from '../enums/releases-view-mode';
 import { User } from '../interfaces/user';
 import { UserConfigs } from '../interfaces/user-configs';
 import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { cloudFireCdnLink } from './constants';
 
 @Injectable({
   providedIn: 'root',
@@ -36,7 +37,7 @@ export class UtilsService {
 
   public userImage: BehaviorSubject<string | ArrayBuffer | null> =
     new BehaviorSubject<string | ArrayBuffer | null>(
-      'assets/imgs/user-image.webp'
+      cloudFireCdnLink + '/imgs/user-image.webp'
     );
 
   private userConfigs: BehaviorSubject<UserConfigs> =

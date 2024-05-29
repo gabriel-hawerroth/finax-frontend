@@ -13,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InvoicePaymentPerson } from '../../../../../../../interfaces/invoice-payment';
 import { InvoiceService } from '../../../../../../../services/invoice.service';
 import { CustomCurrencyPipe } from '../../../../../../../shared/pipes/custom-currency.pipe';
+import { cloudFireCdnImgsLink } from '../../../../../../../utils/constants';
 import { UtilsService } from '../../../../../../../utils/utils.service';
 
 @Component({
@@ -31,13 +32,15 @@ import { UtilsService } from '../../../../../../../utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoicePaymentsCardComponent {
+  public editPayment = output<InvoicePaymentPerson | undefined>();
+  public updateValues = output<void>();
   public payments = input.required<InvoicePaymentPerson[]>();
   public invoiceValue = input.required<number>();
-  public updateValues = output<void>();
-  public editPayment = output<InvoicePaymentPerson | undefined>();
 
   public readonly utilsService = inject(UtilsService);
   private readonly _invoiceService = inject(InvoiceService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   currency = this.utilsService.getUserConfigs.currency;
 

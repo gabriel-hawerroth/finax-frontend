@@ -36,6 +36,7 @@ import { InvoiceService } from '../../../../../services/invoice.service';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
@@ -66,6 +67,8 @@ export class CreditCardInvoiceComponent implements OnInit {
   private _activatedRoute = inject(ActivatedRoute);
   private _invoiceService = inject(InvoiceService);
   private _creditCardService = inject(CreditCardService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   currency = this.utilsService.getUserConfigs.currency;
 

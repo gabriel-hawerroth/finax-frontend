@@ -20,6 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../../../services/auth.service';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -47,6 +48,8 @@ export class CreateAccountComponent implements OnInit {
   private readonly _matSnackBar = inject(MatSnackBar);
   private readonly _translate = inject(TranslateService);
   private readonly _authService = inject(AuthService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   public userRegisterForm!: FormGroup;
   public showLoading = signal(false);

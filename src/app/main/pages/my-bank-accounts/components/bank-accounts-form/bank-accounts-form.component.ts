@@ -24,6 +24,7 @@ import { lastValueFrom } from 'rxjs';
 import { AccountService } from '../../../../../services/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -54,6 +55,8 @@ export class BankAccountsFormComponent implements OnInit {
   private _router = inject(Router);
   private _dialog = inject(MatDialog);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   currency = this.utilsService.getUserConfigs.currency;
 

@@ -2,8 +2,8 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   OnInit,
+  inject,
   signal,
 } from '@angular/core';
 import {
@@ -19,6 +19,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginService } from '../../../../../services/login.service';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -43,6 +44,8 @@ export class LoginComponent implements OnInit {
   public readonly utilsService = inject(UtilsService);
   public readonly loginService = inject(LoginService);
   private readonly _fb = inject(FormBuilder);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   public loginForm!: FormGroup;
   public showLoading = signal(false);

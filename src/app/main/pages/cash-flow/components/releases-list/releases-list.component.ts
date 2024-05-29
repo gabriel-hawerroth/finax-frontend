@@ -16,6 +16,7 @@ import { Category } from '../../../../../interfaces/category';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
 import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { ReleaseDetailsComponent } from '../release-details/release-details.component';
 
@@ -43,6 +44,8 @@ export class ReleasesListComponent {
   public utilsService = inject(UtilsService);
   private _bottomSheet = inject(MatBottomSheet);
   private _matDialog = inject(MatDialog);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   openDetails(cashFlow: MonthlyRelease) {
     lastValueFrom(

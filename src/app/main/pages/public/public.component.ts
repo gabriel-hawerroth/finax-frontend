@@ -12,6 +12,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { isAfter } from 'date-fns';
 import { LoginService } from '../../../services/login.service';
+import { cloudFireCdnImgsLink } from '../../../utils/constants';
 import { UtilsService } from '../../../utils/utils.service';
 import { PublicFooterComponent } from './components/public-footer/public-footer.component';
 import { PublicHeaderComponent } from './components/public-header/public-header.component';
@@ -37,6 +38,8 @@ export class PublicComponent implements OnInit {
   private readonly _utilsService = inject(UtilsService);
   private readonly _loginService = inject(LoginService);
   private readonly _el = inject(ElementRef);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   showScrollTop: boolean = false;
 

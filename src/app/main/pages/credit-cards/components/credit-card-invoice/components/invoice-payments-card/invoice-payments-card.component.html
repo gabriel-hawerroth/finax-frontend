@@ -55,7 +55,9 @@
 
         <div class="account">
           <img
-            [ngSrc]="'assets/imgs/banks/' + payment.payment_account_image"
+            [ngSrc]="
+              cloudFireCdnImgsLink + 'banks/' + payment.payment_account_image
+            "
             width="25"
             height="25"
             alt="payment account image"

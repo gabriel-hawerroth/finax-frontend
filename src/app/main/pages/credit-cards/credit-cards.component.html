@@ -46,7 +46,7 @@
         <div class="account" (click)="openDetails(account)">
           @if (account.image) {
           <img
-            [ngSrc]="'assets/imgs/banks/' + account.image"
+            [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
             width="60"
             height="60"
             alt="account logo"

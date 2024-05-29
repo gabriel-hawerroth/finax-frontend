@@ -50,7 +50,7 @@
             <div class="account-opt">
               @if (account.image) {
               <img
-                [ngSrc]="'assets/imgs/banks/' + account.image"
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
                 width="30"
                 height="30"
                 alt="bank account logo"
@@ -69,7 +69,7 @@
             <div class="account-opt">
               @if (card.image) {
               <img
-                [ngSrc]="'assets/imgs/banks/' + card.image"
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.image"
                 width="30"
                 height="30"
                 alt="bank account logo"
@@ -89,7 +89,7 @@
               <div class="account-opt">
                 @if (account.image) {
                 <img
-                  [ngSrc]="'assets/imgs/banks/' + account.image"
+                  [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
                   width="30"
                   height="30"
                   alt="bank account logo"
@@ -111,7 +111,7 @@
               <div class="account-opt">
                 @if (creditCard.image) {
                 <img
-                  [ngSrc]="'assets/imgs/banks/' + creditCard.image"
+                  [ngSrc]="cloudFireCdnImgsLink + 'banks/' + creditCard.image"
                   width="30"
                   height="30"
                   alt="bank credit card logo"
@@ -134,7 +134,7 @@
         <div class="selected-account">
           @if (selectedAccount && selectedAccount.image) {
           <img
-            [ngSrc]="'assets/imgs/banks/' + selectedAccount.image"
+            [ngSrc]="cloudFireCdnImgsLink + 'banks/' + selectedAccount.image"
             width="20"
             height="20"
             alt="bank account logo"
@@ -177,7 +177,7 @@
             <div class="account-opt">
               @if (account.image) {
               <img
-                [ngSrc]="'assets/imgs/banks/' + account.image"
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
                 width="30"
                 height="30"
                 alt="bank account logo"
@@ -198,7 +198,7 @@
         <div class="selected-account">
           @if (selectedAccount && selectedAccount.image) {
           <img
-            [ngSrc]="'assets/imgs/banks/' + selectedAccount.image"
+            [ngSrc]="cloudFireCdnImgsLink + 'banks/' + selectedAccount.image"
             width="20"
             height="20"
             alt="bank account logo"
@@ -227,7 +227,7 @@
             <div class="account-opt">
               @if (account.image) {
               <img
-                [ngSrc]="'assets/imgs/banks/' + account.image"
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
                 width="30"
                 height="30"
                 alt="bank account logo"
@@ -248,7 +248,9 @@
         <div class="selected-account">
           @if (selectedTargetAccount && selectedTargetAccount.image) {
           <img
-            [ngSrc]="'assets/imgs/banks/' + selectedTargetAccount.image"
+            [ngSrc]="
+              cloudFireCdnImgsLink + 'banks/' + selectedTargetAccount.image
+            "
             width="20"
             height="20"
             alt="bank account logo"

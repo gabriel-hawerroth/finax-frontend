@@ -16,6 +16,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { AccountBasicList } from '../../../../../interfaces/account';
 import { Category } from '../../../../../interfaces/category';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -44,6 +45,8 @@ export class ReleaseFormComponent implements OnInit {
   public selectedCreditCard = input.required<boolean>();
 
   public readonly utilsService = inject(UtilsService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   public currency = this.utilsService.getUserConfigs.currency;
 

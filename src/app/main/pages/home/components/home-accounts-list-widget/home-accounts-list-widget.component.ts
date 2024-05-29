@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../interfaces/account';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 
 @Component({
   selector: 'app-home-accounts-list-widget',
@@ -29,6 +30,8 @@ export class HomeAccountsListWidget {
   accountsList = input.required<Account[]>();
   generalBalance = input.required<number>();
   currency = input.required<string>();
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   isntLastItemAccounts(id: number): boolean {
     const index = this.accountsList().findIndex((item) => item.id === id);

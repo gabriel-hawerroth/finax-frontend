@@ -34,7 +34,7 @@
       <div class="right-side" id="fs-img-container">
         @defer {
         <img
-          ngSrc="assets/imgs/img-first-section.svg"
+          [ngSrc]="cloudFireCdnImgsLink + 'img-first-section.svg'"
           [width]="getWidth"
           [height]="getHeight"
           alt="fantasy image"
@@ -51,7 +51,7 @@
   <div class="public-section" #secondSection id="reset-the-possible">
     <div class="left" id="ss-img-container">
       <img
-        ngSrc="assets/imgs/img-section2.webp"
+        [ngSrc]="cloudFireCdnImgsLink + 'img-section2.webp'"
         [width]="getSecondWidth"
         [height]="getSecondHeight"
         alt="fantasy image"

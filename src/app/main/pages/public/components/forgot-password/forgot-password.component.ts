@@ -2,8 +2,8 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   OnInit,
+  inject,
   signal,
 } from '@angular/core';
 import {
@@ -18,6 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../../services/login.service';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
 @Component({
@@ -41,6 +42,8 @@ export class ForgotPasswordComponent implements OnInit {
   private readonly _loginService = inject(LoginService);
   private readonly _matSnackBar = inject(MatSnackBar);
   private readonly _translate = inject(TranslateService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   public originalFormValue!: FormGroup;
   public showLoading = signal(false);

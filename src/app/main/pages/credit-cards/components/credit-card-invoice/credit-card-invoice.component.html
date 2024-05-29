@@ -20,7 +20,9 @@
               >
                 @if (creditCard()?.image) {
                 <img
-                  [ngSrc]="'assets/imgs/banks/' + creditCard()!.image"
+                  [ngSrc]="
+                    cloudFireCdnImgsLink + 'banks/' + creditCard()!.image
+                  "
                   width="40"
                   height="40"
                   alt="credit card logo"

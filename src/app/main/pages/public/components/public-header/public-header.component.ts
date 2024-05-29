@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { LoginService } from '../../../../../services/login.service';
+import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 
 @Component({
   selector: 'app-public-header',
@@ -14,4 +15,6 @@ import { LoginService } from '../../../../../services/login.service';
 })
 export class PublicHeaderComponent {
   public loginService = inject(LoginService);
+
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 }
