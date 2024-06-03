@@ -53,7 +53,7 @@ export class UserService {
     );
   }
 
-  changeProfileImagem(file: File): Promise<User> {
+  changeProfileImage(file: File): Promise<User> {
     const formData = new FormData();
     formData.append('file', file);
 

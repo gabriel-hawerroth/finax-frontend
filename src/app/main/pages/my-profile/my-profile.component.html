@@ -9,7 +9,12 @@
   </h1>
 
   <div class="img-content">
-    <img [src]="profileImageSrc()" alt="user profile image" />
+    <img
+      [ngSrc]="profileImageSrc()"
+      width="136"
+      height="136"
+      alt="user profile image"
+    />
 
     <input
       type="file"

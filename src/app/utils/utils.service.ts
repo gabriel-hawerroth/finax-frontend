@@ -34,10 +34,9 @@ export class UtilsService {
 
   public readonly username = new BehaviorSubject<string>('');
 
-  public readonly userImage: BehaviorSubject<string | ArrayBuffer | null> =
-    new BehaviorSubject<string | ArrayBuffer | null>(
-      cloudFireCdnLink + '/imgs/user-image.webp'
-    );
+  public readonly userImage = new BehaviorSubject<string | ArrayBuffer>(
+    cloudFireCdnLink + '/imgs/user-image.webp'
+  );
 
   private readonly userConfigs: BehaviorSubject<UserConfigs> =
     new BehaviorSubject<UserConfigs>(this.getUserConfigs);

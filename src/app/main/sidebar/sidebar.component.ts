@@ -64,7 +64,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       if (response.size !== 0) {
         const reader = new FileReader();
         reader.onload = () => {
-          this.utilsService.userImage.next(reader.result);
+          this.utilsService.userImage.next(reader.result!);
         };
         reader.readAsDataURL(response);
       }

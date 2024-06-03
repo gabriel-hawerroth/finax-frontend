@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   OnDestroy,
   OnInit,
-  signal,
   WritableSignal,
+  inject,
+  signal,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +29,7 @@ import { MyProfileFormComponent } from './components/my-profile-form/my-profile-
     ButtonsComponent,
     TranslateModule,
     MyProfileFormComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
@@ -51,7 +52,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
   planPrice: string = '';
   signatureExpiration: string = '';
 
-  profileImageSrc: WritableSignal<string | ArrayBuffer | null> = signal('');
+  profileImageSrc = signal<string | ArrayBuffer>('');
   changedProfileImg: boolean = false;
   selectedProfileImage: File | null = null;
 
@@ -112,7 +113,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
 
         if (this.changedProfileImg) {
           await this._userService
-            .changeProfileImagem(this.selectedProfileImage!)
+            .changeProfileImage(this.selectedProfileImage!)
             .then(() => {
               this.utilsService.showMessage('my-profile.edited-successfully');
               this.changedProfileImg = false;
@@ -123,7 +124,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
               if (file.size !== 0) {
                 const reader = new FileReader();
                 reader.onload = () => {
-                  this.utilsService.userImage.next(reader.result);
+                  this.utilsService.userImage.next(reader.result!);
                 };
                 reader.readAsDataURL(file);
               }
@@ -150,7 +151,9 @@ export class MyProfilePage implements OnInit, OnDestroy {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-    if (file) return;
+    if (!file) return;
+
+    console.log(file);
 
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
@@ -163,8 +166,8 @@ export class MyProfilePage implements OnInit, OnDestroy {
 
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = (e: any) => {
-      this.profileImageSrc.set(e.target.result);
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      this.profileImageSrc.set(e.target!.result!);
     };
   }
 
