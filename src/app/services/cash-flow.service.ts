@@ -89,7 +89,7 @@ export class CashFlowService {
     formData.append('file', file);
 
     return lastValueFrom(
-      this._http.put<CashFlow>(
+      this._http.patch<CashFlow>(
         `${this.apiUrl}/add-attachment/${releaseId}`,
         formData
       )
@@ -98,8 +98,9 @@ export class CashFlowService {
 
   removeAttachment(releaseId: number): Promise<CashFlow> {
     return lastValueFrom(
-      this._http.delete<CashFlow>(
-        `${this.apiUrl}/remove-attachment/${releaseId}`
+      this._http.patch<CashFlow>(
+        `${this.apiUrl}/remove-attachment/${releaseId}`,
+        null
       )
     );
   }

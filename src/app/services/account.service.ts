@@ -24,6 +24,12 @@ export class AccountService {
     return lastValueFrom(this._http.get<Account>(`${this.apiUrl}/${id}`));
   }
 
+  getBasicList(): Promise<AccountBasicList[]> {
+    return lastValueFrom(
+      this._http.get<AccountBasicList[]>(`${this.apiUrl}/basic-list`)
+    );
+  }
+
   save(data: Account): Promise<Account> {
     data.userId = this._utilsService.getLoggedUser!.id;
 
@@ -35,15 +41,13 @@ export class AccountService {
     params = params.append('newBalance', newBalance);
 
     return lastValueFrom(
-      this._http.get<Account>(`${this.apiUrl}/adjust-balance/${accountId}`, {
-        params,
-      })
-    );
-  }
-
-  getBasicList(): Promise<AccountBasicList[]> {
-    return lastValueFrom(
-      this._http.get<AccountBasicList[]>(`${this.apiUrl}/basic-list`)
+      this._http.post<Account>(
+        `${this.apiUrl}/adjust-balance/${accountId}`,
+        null,
+        {
+          params,
+        }
+      )
     );
   }
 }

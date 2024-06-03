@@ -87,7 +87,6 @@ export class CreateAccountPage implements OnInit {
     }
 
     this.showLoading.set(true);
-
     this._authService
       .registerNewUser(this.userRegisterForm.value)
       .then((result) => {
@@ -100,7 +99,7 @@ export class CreateAccountPage implements OnInit {
         this._router.navigate(['login']);
       })
       .catch((error) => {
-        if (error.status == 406) {
+        if (error.error.error_description === 'this email is already in use') {
           this.utilsService.showMessage(
             'create-account.email-already-registered'
           );

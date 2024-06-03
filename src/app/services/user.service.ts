@@ -27,33 +27,18 @@ export class UserService {
     return lastValueFrom(this._http.get<User>(`${this.apiUrl}/${userId}`));
   }
 
+  saveUser(user: User): Promise<User> {
+    return lastValueFrom(this._http.put<User>(this.apiUrl, user));
+  }
+
   changeForgetedPassword(userId: number, newPassword: string): Promise<User> {
     let params = new HttpParams();
     params = params.append('userId', userId);
     params = params.append('newPassword', newPassword);
 
     return lastValueFrom(
-      this._http.put<User>(`${this.apiUrl}/change-forgeted-password`, params)
-    );
-  }
-
-  saveUser(user: User): Promise<User> {
-    return lastValueFrom(this._http.put<User>(this.apiUrl, user));
-  }
-
-  changeProfileImagem(file: File): Promise<User> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    return lastValueFrom(
-      this._http.put<User>(`${this.apiUrl}/change-profile-image`, formData)
-    );
-  }
-
-  getUserImage(): Promise<Blob> {
-    return lastValueFrom(
-      this._http.get<Blob>(`${this.apiUrl}/get-user-image`, {
-        responseType: 'blob' as 'json',
+      this._http.patch<User>(`${this.apiUrl}/change-forgeted-password`, null, {
+        params,
       })
     );
   }
@@ -64,7 +49,24 @@ export class UserService {
     params = params.append('currentPassword', currentPassword);
 
     return lastValueFrom(
-      this._http.put<User>(`${this.apiUrl}/change-password`, params)
+      this._http.patch<User>(`${this.apiUrl}/change-password`, null, { params })
+    );
+  }
+
+  changeProfileImagem(file: File): Promise<User> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return lastValueFrom(
+      this._http.patch<User>(`${this.apiUrl}/change-profile-image`, formData)
+    );
+  }
+
+  getUserImage(): Promise<Blob> {
+    return lastValueFrom(
+      this._http.get<Blob>(`${this.apiUrl}/get-user-image`, {
+        responseType: 'blob' as 'json',
+      })
     );
   }
 }
