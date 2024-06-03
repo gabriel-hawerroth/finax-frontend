@@ -24,7 +24,7 @@ import { Category } from '../../../interfaces/category';
 import { CardBasicList } from '../../../interfaces/credit-card';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { UserConfigsService } from '../../../services/user-configs.service';
-import { ReleaseFormDialogComponent } from '../../../shared/components/release-form-dialog/release-form-dialog.component';
+import { ReleaseFormDialog } from '../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../utils/utils.service';
@@ -50,7 +50,7 @@ import { ReleasesListComponent } from './components/releases-list/releases-list.
   styleUrl: './cash-flow.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CashFlowComponent implements OnInit, OnDestroy {
+export class CashFlowPage implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _matDialog = inject(MatDialog);
   private _cashFlowService = inject(CashFlowService);
@@ -157,7 +157,7 @@ export class CashFlowComponent implements OnInit, OnDestroy {
   addRelease(releaseType: 'E' | 'R' | 'T') {
     lastValueFrom(
       this._matDialog
-        .open(ReleaseFormDialogComponent, {
+        .open(ReleaseFormDialog, {
           data: {
             accounts: this.accounts,
             categories: this.categories,

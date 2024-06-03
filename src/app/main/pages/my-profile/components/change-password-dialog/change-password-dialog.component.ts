@@ -44,9 +44,9 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './change-password-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangePasswordDialogComponent implements OnInit {
+export class ChangePasswordDialog implements OnInit {
   public utilsService = inject(UtilsService);
-  private _dialogRef = inject(MatDialogRef<ChangePasswordDialogComponent>);
+  private _dialogRef = inject(MatDialogRef<ChangePasswordDialog>);
   private _fb = inject(FormBuilder);
   private _userService = inject(UserService);
   private _changeDetectorRef = inject(ChangeDetectorRef);

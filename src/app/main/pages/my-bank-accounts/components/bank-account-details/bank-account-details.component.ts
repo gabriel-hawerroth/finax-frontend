@@ -18,7 +18,7 @@ import { Account } from '../../../../../interfaces/account';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { EditBalanceDialogComponent } from '../edit-balance-dialog/edit-balance-dialog.component';
+import { EditBalanceDialog } from '../edit-balance-dialog/edit-balance-dialog.component';
 
 @Component({
   selector: 'app-bank-account-details',
@@ -56,7 +56,7 @@ export class BankAccountDetailsComponent {
   adjustBalance() {
     lastValueFrom(
       this._dialog
-        .open(EditBalanceDialogComponent, {
+        .open(EditBalanceDialog, {
           data: {
             account: this.account,
           },

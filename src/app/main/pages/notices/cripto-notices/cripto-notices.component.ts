@@ -8,14 +8,14 @@ import {
 import { UtilsService } from '../../../../utils/utils.service';
 
 @Component({
-  selector: 'app-notices-international',
+  selector: 'app-cripto-notices',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './notices-international.component.html',
-  styleUrl: './notices-international.component.scss',
+  templateUrl: './cripto-notices.component.html',
+  styleUrl: './cripto-notices.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoticesInternationalComponent implements OnInit {
+export class CriptoNoticesPage implements OnInit {
   public utilsService = inject(UtilsService);
 
   ngOnInit(): void {}

@@ -13,7 +13,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './confirm-duplicated-releases-action.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConfirmDuplicatedReleasesActionComponent {
+export class ConfirmDuplicatedReleasesActionDialog {
   public utilsService = inject(UtilsService);
   public data = inject(MAT_DIALOG_DATA);
 }

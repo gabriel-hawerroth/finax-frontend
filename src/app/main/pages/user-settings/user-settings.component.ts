@@ -21,7 +21,7 @@ import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
 
 @Component({
-  selector: 'app-settings',
+  selector: 'app-user-settings',
   standalone: true,
   imports: [
     CommonModule,
@@ -32,11 +32,11 @@ import { UtilsService } from '../../../utils/utils.service';
     MatButtonToggleModule,
     TranslateModule,
   ],
-  templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss',
+  templateUrl: './user-settings.component.html',
+  styleUrl: './user-settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class UserSettingsPage implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _userConfigsService = inject(UserConfigsService);

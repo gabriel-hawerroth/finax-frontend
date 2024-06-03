@@ -15,7 +15,7 @@ import { Category } from '../../../interfaces/category';
 import { CategoryService } from '../../../services/category.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { CategoriesListComponent } from './components/categories-list/categories-list.component';
-import { CategoryFormDialogComponent } from './components/category-form-dialog/category-form-dialog.component';
+import { CategoryFormDialog } from './components/category-form-dialog/category-form-dialog.component';
 
 @Component({
   selector: 'app-categories',
@@ -30,7 +30,7 @@ import { CategoryFormDialogComponent } from './components/category-form-dialog/c
   styleUrl: './categories.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategorysComponent implements OnInit {
+export class CategoriesPage implements OnInit {
   public utilsService = inject(UtilsService);
   private _categoryService = inject(CategoryService);
   private _matDialog = inject(MatDialog);
@@ -64,7 +64,7 @@ export class CategorysComponent implements OnInit {
   newCategory(event: 'E' | 'R') {
     lastValueFrom(
       this._matDialog
-        .open(CategoryFormDialogComponent, {
+        .open(CategoryFormDialog, {
           data: {
             category: 'new',
             type: event,
@@ -103,7 +103,7 @@ export class CategorysComponent implements OnInit {
 
     lastValueFrom(
       this._matDialog
-        .open(CategoryFormDialogComponent, {
+        .open(CategoryFormDialog, {
           data: {
             category: event[1],
             type: event[1].type,

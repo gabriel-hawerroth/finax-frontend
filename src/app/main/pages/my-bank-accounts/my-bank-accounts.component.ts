@@ -43,7 +43,7 @@ import { BankAccountDetailsComponent } from './components/bank-account-details/b
   styleUrl: './my-bank-accounts.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyBankAccountsComponent implements OnInit {
+export class MyBankAccountsPage implements OnInit {
   public utilsService = inject(UtilsService);
   private _accountService = inject(AccountService);
   private _bottomSheet = inject(MatBottomSheet);

@@ -14,10 +14,10 @@ import { DuplicatedReleaseAction } from '../../../../../enums/duplicated-release
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { CashFlowService } from '../../../../../services/cash-flow.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { ConfirmationDialogComponent } from '../../../../../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmDialog } from '../../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { UtilsService } from '../../../../../utils/utils.service';
-import { ConfirmDuplicatedReleasesActionComponent } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { ConfirmDuplicatedReleasesActionDialog } from '../confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 
 @Component({
   selector: 'app-release-details',
@@ -101,7 +101,7 @@ export class ReleaseDetailsComponent {
     if (this.release.isDuplicatedRelease) {
       await lastValueFrom(
         this._matDialog
-          .open(ConfirmDuplicatedReleasesActionComponent, {
+          .open(ConfirmDuplicatedReleasesActionDialog, {
             data: {
               action: 'delete',
             },
@@ -118,7 +118,7 @@ export class ReleaseDetailsComponent {
     } else {
       await lastValueFrom(
         this._matDialog
-          .open(ConfirmationDialogComponent, {
+          .open(ConfirmDialog, {
             data: {
               message: 'cash-flow.confirm-delete',
             },

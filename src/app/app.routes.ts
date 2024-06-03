@@ -1,61 +1,61 @@
 import { Routes } from '@angular/router';
-import { CashFlowComponent } from './main/pages/cash-flow/cash-flow.component';
-import { CategorysComponent } from './main/pages/categories/categories.component';
-import { CreditCardInvoiceComponent } from './main/pages/credit-cards/components/credit-card-invoice/credit-card-invoice.component';
-import { CreditCardsFormComponent } from './main/pages/credit-cards/components/credit-cards-form/credit-cards-form.component';
-import { CreditCardsComponent } from './main/pages/credit-cards/credit-cards.component';
-import { HomeComponent } from './main/pages/home/home.component';
-import { BankAccountsFormComponent } from './main/pages/my-bank-accounts/components/bank-accounts-form/bank-accounts-form.component';
-import { MyBankAccountsComponent } from './main/pages/my-bank-accounts/my-bank-accounts.component';
-import { MyProfileComponent } from './main/pages/my-profile/my-profile.component';
-import { ChangePasswordComponent } from './main/pages/public/components/change-password/change-password.component';
-import { CreateAccountComponent } from './main/pages/public/components/create-account/create-account.component';
-import { ForgotPasswordComponent } from './main/pages/public/components/forgot-password/forgot-password.component';
-import { LoginComponent } from './main/pages/public/components/login/login.component';
-import { UserActivationComponent } from './main/pages/public/components/user-activation/user-activation.component';
-import { PublicComponent } from './main/pages/public/public.component';
-import { SettingsComponent } from './main/pages/settings/settings.component';
-import { SystemErrorWarningComponent } from './shared/components/system-error-warning/system-error-warning.component';
+import { CashFlowPage } from './main/pages/cash-flow/cash-flow.component';
+import { CategoriesPage } from './main/pages/categories/categories.component';
+import { CreditCardInvoicePage } from './main/pages/credit-cards/components/credit-card-invoice/credit-card-invoice.component';
+import { CreditCardsFormPage } from './main/pages/credit-cards/components/credit-cards-form/credit-cards-form.component';
+import { CreditCardsPage } from './main/pages/credit-cards/credit-cards.component';
+import { HomePage } from './main/pages/home/home.component';
+import { BankAccountsFormPage } from './main/pages/my-bank-accounts/components/bank-accounts-form/bank-accounts-form.component';
+import { MyBankAccountsPage } from './main/pages/my-bank-accounts/my-bank-accounts.component';
+import { MyProfilePage } from './main/pages/my-profile/my-profile.component';
+import { ChangePasswordPage } from './main/pages/public/components/change-password/change-password.component';
+import { CreateAccountPage } from './main/pages/public/components/create-account/create-account.component';
+import { ForgotPasswordPage } from './main/pages/public/components/forgot-password/forgot-password.component';
+import { LoginPage } from './main/pages/public/components/login/login.component';
+import { UserActivationPage } from './main/pages/public/components/user-activation/user-activation.component';
+import { PublicPage } from './main/pages/public/public.component';
+import { UserSettingsPage } from './main/pages/user-settings/user-settings.component';
+import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
 import { BasicTierGuard } from './shared/guards/basic-tier.guard';
 import { FreeTierGuard } from './shared/guards/free-tier.guard';
 import { UnauthenticatedUserGuard } from './shared/guards/unauthenticated-user.guard';
 
 export const routes: Routes = [
-  { path: '', component: PublicComponent },
-  { path: 'fora-do-ar', component: SystemErrorWarningComponent },
+  { path: '', component: PublicPage },
+  { path: 'fora-do-ar', component: SystemErrorWarningPage },
   {
     path: 'login',
-    component: LoginComponent,
+    component: LoginPage,
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'nova-conta',
-    component: CreateAccountComponent,
+    component: CreateAccountPage,
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'ativacao-da-conta',
-    component: UserActivationComponent,
+    component: UserActivationPage,
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'esqueci-minha-senha',
-    component: ForgotPasswordComponent,
+    component: ForgotPasswordPage,
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'recuperacao-da-senha/:userId',
-    component: ChangePasswordComponent,
+    component: ChangePasswordPage,
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'home',
-    component: HomeComponent,
+    component: HomePage,
     canActivate: [FreeTierGuard],
   },
   {
     path: 'fluxo-de-caixa',
-    component: CashFlowComponent,
+    component: CashFlowPage,
     canActivate: [FreeTierGuard],
   },
   // {
@@ -100,32 +100,32 @@ export const routes: Routes = [
   // },
   {
     path: 'contas-de-banco',
-    component: MyBankAccountsComponent,
+    component: MyBankAccountsPage,
     canActivate: [FreeTierGuard],
   },
   {
     path: 'contas-de-banco/:id',
-    component: BankAccountsFormComponent,
+    component: BankAccountsFormPage,
     canActivate: [FreeTierGuard],
   },
   {
     path: 'cartoes-de-credito',
-    component: CreditCardsComponent,
+    component: CreditCardsPage,
     canActivate: [BasicTierGuard],
   },
   {
     path: 'cartoes-de-credito/:id',
-    component: CreditCardsFormComponent,
+    component: CreditCardsFormPage,
     canActivate: [BasicTierGuard],
   },
   {
     path: 'cartoes-de-credito/fatura/:id',
-    component: CreditCardInvoiceComponent,
+    component: CreditCardInvoicePage,
     canActivate: [BasicTierGuard],
   },
   {
     path: 'categorias',
-    component: CategorysComponent,
+    component: CategoriesPage,
     canActivate: [FreeTierGuard],
   },
   // {
@@ -135,12 +135,12 @@ export const routes: Routes = [
   // },
   {
     path: 'meu-perfil',
-    component: MyProfileComponent,
+    component: MyProfilePage,
     canActivate: [FreeTierGuard],
   },
   {
     path: 'configuracoes',
-    component: SettingsComponent,
+    component: UserSettingsPage,
     canActivate: [FreeTierGuard],
   },
 ];

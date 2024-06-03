@@ -33,13 +33,13 @@ import { InvoiceMonthValues } from '../../../../../interfaces/invoice';
 import { InvoicePaymentPerson } from '../../../../../interfaces/invoice-payment';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { InvoiceService } from '../../../../../services/invoice.service';
-import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
+import { ReleaseFormDialog } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
-import { InvoicePaymentDialogComponent } from '../invoice-payment-dialog/invoice-payment-dialog.component';
+import { InvoicePaymentDialog } from '../invoice-payment-dialog/invoice-payment-dialog.component';
 import { InvoicePaymentsCardComponent } from './components/invoice-payments-card/invoice-payments-card.component';
 
 @Component({
@@ -61,7 +61,7 @@ import { InvoicePaymentsCardComponent } from './components/invoice-payments-card
   styleUrl: './credit-card-invoice.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardInvoiceComponent implements OnInit {
+export class CreditCardInvoicePage implements OnInit {
   public utilsService = inject(UtilsService);
   private _matDialog = inject(MatDialog);
   private _activatedRoute = inject(ActivatedRoute);
@@ -152,7 +152,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   addRelease() {
     lastValueFrom(
       this._matDialog
-        .open(ReleaseFormDialogComponent, {
+        .open(ReleaseFormDialog, {
           data: {
             accounts: [],
             categories: this.categories,
@@ -176,7 +176,7 @@ export class CreditCardInvoiceComponent implements OnInit {
   payInvoice(invoicePayment?: InvoicePaymentPerson) {
     lastValueFrom(
       this._matDialog
-        .open(InvoicePaymentDialogComponent, {
+        .open(InvoicePaymentDialog, {
           panelClass: 'invoice-payment-dialog',
           autoFocus: false,
           data: {

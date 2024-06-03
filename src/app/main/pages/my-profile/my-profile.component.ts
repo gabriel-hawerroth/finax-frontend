@@ -17,7 +17,7 @@ import { User } from '../../../interfaces/user';
 import { UserService } from '../../../services/user.service';
 import { ButtonsComponent } from '../../../shared/components/buttons/buttons.component';
 import { UtilsService } from '../../../utils/utils.service';
-import { ChangePasswordDialogComponent } from './components/change-password-dialog/change-password-dialog.component';
+import { ChangePasswordDialog } from './components/change-password-dialog/change-password-dialog.component';
 import { MyProfileFormComponent } from './components/my-profile-form/my-profile-form.component';
 
 @Component({
@@ -34,7 +34,7 @@ import { MyProfileFormComponent } from './components/my-profile-form/my-profile-
   styleUrl: './my-profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyProfileComponent implements OnInit, OnDestroy {
+export class MyProfilePage implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);
   private _userService = inject(UserService);
@@ -169,7 +169,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
   }
 
   openChangePasswordDialog() {
-    this._matDialog.open(ChangePasswordDialogComponent, {
+    this._matDialog.open(ChangePasswordDialog, {
       data: {
         userId: this.utilsService.getLoggedUser!.id,
       },

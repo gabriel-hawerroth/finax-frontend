@@ -41,7 +41,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './create-account.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateAccountComponent implements OnInit {
+export class CreateAccountPage implements OnInit {
   public readonly utilsService = inject(UtilsService);
   private readonly _fb = inject(FormBuilder);
   private readonly _router = inject(Router);

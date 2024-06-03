@@ -39,8 +39,8 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './edit-balance-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditBalanceDialogComponent implements OnInit {
-  public dialogRef = inject(MatDialogRef<EditBalanceDialogComponent>);
+export class EditBalanceDialog implements OnInit {
+  public dialogRef = inject(MatDialogRef<EditBalanceDialog>);
   public data = inject(MAT_DIALOG_DATA);
   public utilsService = inject(UtilsService);
   private _accountService = inject(AccountService);

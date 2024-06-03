@@ -10,4 +10,4 @@ import { PublicHeaderComponent } from '../public/components/public-header/public
   styleUrl: './mobile-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MobilePageComponent {}
+export class MobilePage {}

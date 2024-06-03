@@ -13,7 +13,7 @@ import { UtilsService } from '../../../utils/utils.service';
   styleUrl: './select-icon-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectIconDialogComponent {
+export class SelectIconDialog {
   public utilsService = inject(UtilsService);
 
   cloudFireCdnImgsLink = cloudFireCdnImgsLink;

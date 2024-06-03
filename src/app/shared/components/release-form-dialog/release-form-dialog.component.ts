@@ -38,7 +38,7 @@ import { ReleasedOn } from '../../../enums/released-on';
 import { Category } from '../../../interfaces/category';
 import { CardBasicList } from '../../../interfaces/credit-card';
 import { GenericIdDs } from '../../../interfaces/generic';
-import { ConfirmDuplicatedReleasesActionComponent } from '../../../main/pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { ConfirmDuplicatedReleasesActionDialog } from '../../../main/pages/cash-flow/components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { CashFlowService } from '../../../services/cash-flow.service';
 import { UtilsService } from '../../../utils/utils.service';
 import { ButtonsComponent } from '../buttons/buttons.component';
@@ -66,7 +66,7 @@ import { ReleaseFormComponent } from './components/release-form/release-form.com
   styleUrl: './release-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleaseFormDialogComponent implements OnInit {
+export class ReleaseFormDialog implements OnInit {
   public readonly utilsService = inject(UtilsService);
   public readonly data = inject(MAT_DIALOG_DATA);
   private readonly _fb = inject(FormBuilder);
@@ -214,7 +214,7 @@ export class ReleaseFormDialogComponent implements OnInit {
     if (release.id && this.data.release.isDuplicatedRelease) {
       await lastValueFrom(
         this._matDialog
-          .open(ConfirmDuplicatedReleasesActionComponent, {
+          .open(ConfirmDuplicatedReleasesActionDialog, {
             data: {
               action: 'edit',
             },

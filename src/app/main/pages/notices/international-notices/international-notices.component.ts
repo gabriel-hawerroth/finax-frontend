@@ -8,14 +8,14 @@ import {
 import { UtilsService } from '../../../../utils/utils.service';
 
 @Component({
-  selector: 'app-report-cash-flow',
+  selector: 'app-international-notices',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './report-cash-flow.component.html',
-  styleUrl: './report-cash-flow.component.scss',
+  templateUrl: './international-notices.component.html',
+  styleUrl: './international-notices.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReportCashFlowComponent implements OnInit {
+export class InternationalNoticesPage implements OnInit {
   public utilsService = inject(UtilsService);
 
   ngOnInit(): void {}

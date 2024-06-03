@@ -34,7 +34,7 @@ import { PublicHeaderComponent } from './components/public-header/public-header.
   styleUrl: './public.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicComponent implements OnInit {
+export class PublicPage implements OnInit {
   private readonly _utilsService = inject(UtilsService);
   private readonly _loginService = inject(LoginService);
   private readonly _el = inject(ElementRef);

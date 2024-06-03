@@ -37,7 +37,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './forgot-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordPage implements OnInit {
   public readonly utilsService = inject(UtilsService);
   private readonly _loginService = inject(LoginService);
   private readonly _matSnackBar = inject(MatSnackBar);

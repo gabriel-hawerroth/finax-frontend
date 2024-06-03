@@ -50,7 +50,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './invoice-payment-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoicePaymentDialogComponent implements OnInit {
+export class InvoicePaymentDialog implements OnInit {
   public readonly data = inject(MAT_DIALOG_DATA);
   public readonly utilsService = inject(UtilsService);
   private readonly _fb = inject(FormBuilder);

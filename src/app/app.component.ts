@@ -1,7 +1,7 @@
 import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MobilePageComponent } from './main/pages/mobile-page/mobile-page.component';
+import { MobilePage } from './main/pages/mobile-page/mobile-page.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { LoginService } from './services/login.service';
 import { UtilsService } from './utils/utils.service';
@@ -9,7 +9,7 @@ import { UtilsService } from './utils/utils.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent, MobilePageComponent],
+  imports: [CommonModule, RouterOutlet, SidebarComponent, MobilePage],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

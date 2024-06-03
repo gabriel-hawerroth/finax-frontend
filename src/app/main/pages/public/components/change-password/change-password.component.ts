@@ -44,7 +44,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './change-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChangePasswordComponent implements OnInit {
+export class ChangePasswordPage implements OnInit {
   public readonly utilsService = inject(UtilsService);
   private readonly _fb = inject(FormBuilder);
   private readonly _userService = inject(UserService);

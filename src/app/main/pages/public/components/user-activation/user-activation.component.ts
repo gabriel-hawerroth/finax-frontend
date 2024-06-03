@@ -25,7 +25,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './user-activation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserActivationComponent implements OnInit {
+export class UserActivationPage implements OnInit {
   private readonly _utilsService = inject(UtilsService);
   private readonly _router = inject(Router);
 

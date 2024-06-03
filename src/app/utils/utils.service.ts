@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { ReleasesViewMode } from '../enums/releases-view-mode';
 import { User } from '../interfaces/user';
 import { UserConfigs } from '../interfaces/user-configs';
-import { ConfirmationDialogComponent } from '../shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmDialog } from '../shared/components/confirm-dialog/confirm-dialog.component';
 import { cloudFireCdnLink } from './constants';
 
 @Injectable({
@@ -227,7 +227,7 @@ export class UtilsService {
   showConfirmDialog(message: string): Promise<boolean> {
     return lastValueFrom(
       this._dialog
-        .open(ConfirmationDialogComponent, {
+        .open(ConfirmDialog, {
           data: {
             message,
           },

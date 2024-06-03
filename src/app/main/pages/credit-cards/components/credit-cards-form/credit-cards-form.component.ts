@@ -27,7 +27,7 @@ import { AccountBasicList } from '../../../../../interfaces/account';
 import { AccountService } from '../../../../../services/account.service';
 import { CreditCardService } from '../../../../../services/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
@@ -51,7 +51,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './credit-cards-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardsFormComponent implements OnInit {
+export class CreditCardsFormPage implements OnInit {
   public utilsService = inject(UtilsService);
   public location = inject(Location);
   private _creditCardService = inject(CreditCardService);
@@ -156,15 +156,15 @@ export class CreditCardsFormComponent implements OnInit {
   }
 
   selectIcon() {
-    lastValueFrom(
-      this._dialog.open(SelectIconDialogComponent).afterClosed()
-    ).then((value) => {
-      if (!value) return;
+    lastValueFrom(this._dialog.open(SelectIconDialog).afterClosed()).then(
+      (value) => {
+        if (!value) return;
 
-      this.selectedIcon.set(value);
-      this.cardForm.get('image')!.setValue(value);
-      this.cardForm.markAsDirty();
-    });
+        this.selectedIcon.set(value);
+        this.cardForm.get('image')!.setValue(value);
+        this.cardForm.markAsDirty();
+      }
+    );
   }
 
   paymentAccountChanges(value: number) {

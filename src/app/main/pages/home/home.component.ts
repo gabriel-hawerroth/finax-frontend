@@ -41,7 +41,7 @@ import { HomeSpendByCategoryWidget } from './components/home-spend-by-category-w
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomePage implements OnInit, OnDestroy {
   public readonly utilsService = inject(UtilsService);
   private readonly _homeService = inject(HomeService);
 

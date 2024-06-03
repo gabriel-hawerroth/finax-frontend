@@ -11,7 +11,7 @@ import { cloudFireCdnImgsLink } from '../../../utils/constants';
   styleUrl: './system-error-warning.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SystemErrorWarningComponent {
+export class SystemErrorWarningPage {
   cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   private readonly currentDt = new Date();

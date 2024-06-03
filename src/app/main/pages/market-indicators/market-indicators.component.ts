@@ -15,7 +15,7 @@ import { UtilsService } from '../../../utils/utils.service';
   styleUrl: './market-indicators.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MarketIndicatorsComponent implements OnInit {
+export class MarketIndicatorsPage implements OnInit {
   public utilsService = inject(UtilsService);
 
   ngOnInit(): void {}

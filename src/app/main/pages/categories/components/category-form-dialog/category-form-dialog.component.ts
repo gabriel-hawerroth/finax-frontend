@@ -43,7 +43,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './category-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoryFormDialogComponent implements OnInit {
+export class CategoryFormDialog implements OnInit {
   public data = inject(MAT_DIALOG_DATA);
   public utilsService = inject(UtilsService);
   private _fb = inject(FormBuilder);

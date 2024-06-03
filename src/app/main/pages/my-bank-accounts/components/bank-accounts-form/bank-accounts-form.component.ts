@@ -23,7 +23,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
 import { AccountService } from '../../../../../services/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { SelectIconDialogComponent } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
 
@@ -46,7 +46,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './bank-accounts-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BankAccountsFormComponent implements OnInit {
+export class BankAccountsFormPage implements OnInit {
   public utilsService = inject(UtilsService);
   public location = inject(Location);
   private _activatedRoute = inject(ActivatedRoute);
@@ -118,14 +118,14 @@ export class BankAccountsFormComponent implements OnInit {
   }
 
   selectIcon() {
-    lastValueFrom(
-      this._dialog.open(SelectIconDialogComponent).afterClosed()
-    ).then((value) => {
-      if (!value) return;
+    lastValueFrom(this._dialog.open(SelectIconDialog).afterClosed()).then(
+      (value) => {
+        if (!value) return;
 
-      this.accountForm.get('image')!.setValue(value);
-      this.accountForm.markAsDirty();
-      this._changeDetectorRef.detectChanges();
-    });
+        this.accountForm.get('image')!.setValue(value);
+        this.accountForm.markAsDirty();
+        this._changeDetectorRef.detectChanges();
+      }
+    );
   }
 }

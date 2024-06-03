@@ -39,7 +39,7 @@ import { CreditCardDetailsComponent } from './components/credit-card-details/cre
   styleUrl: './credit-cards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardsComponent implements OnInit {
+export class CreditCardsPage implements OnInit {
   public utilsService = inject(UtilsService);
   private _creditCardService = inject(CreditCardService);
   private _router = inject(Router);

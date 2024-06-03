@@ -40,7 +40,7 @@ import { UtilsService } from '../../../../../utils/utils.service';
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnInit {
+export class LoginPage implements OnInit {
   public readonly utilsService = inject(UtilsService);
   public readonly loginService = inject(LoginService);
   private readonly _fb = inject(FormBuilder);

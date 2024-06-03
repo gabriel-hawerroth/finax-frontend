@@ -14,7 +14,7 @@ import { AccountBasicList } from '../../../../../interfaces/account';
 import { MonthlyRelease } from '../../../../../interfaces/cash-flow';
 import { Category } from '../../../../../interfaces/category';
 import { CardBasicList } from '../../../../../interfaces/credit-card';
-import { ReleaseFormDialogComponent } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
+import { ReleaseFormDialog } from '../../../../../shared/components/release-form-dialog/release-form-dialog.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../utils/constants';
 import { UtilsService } from '../../../../../utils/utils.service';
@@ -68,7 +68,7 @@ export class ReleasesListComponent {
   editRelease(release: MonthlyRelease) {
     lastValueFrom(
       this._matDialog
-        .open(ReleaseFormDialogComponent, {
+        .open(ReleaseFormDialog, {
           data: {
             accounts: this.accounts(),
             categories: this.categories(),

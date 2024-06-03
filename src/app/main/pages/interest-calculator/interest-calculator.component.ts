@@ -15,7 +15,7 @@ import { UtilsService } from '../../../utils/utils.service';
   styleUrl: './interest-calculator.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InterestCalculatorComponent implements OnInit {
+export class InterestCalculatorPage implements OnInit {
   public utilsService = inject(UtilsService);
 
   ngOnInit(): void {}
