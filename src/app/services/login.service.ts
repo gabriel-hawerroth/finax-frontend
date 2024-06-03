@@ -1,16 +1,16 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { AuthResponse } from '../interfaces/auth-response';
 import { Credentials } from '../interfaces/credentials';
 import { User } from '../interfaces/user';
 import { UserConfigs } from '../interfaces/user-configs';
 import { UtilsService } from '../utils/utils.service';
-import { UserConfigsService } from './user-configs.service';
 import { AuthService } from './auth.service';
+import { UserConfigsService } from './user-configs.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,7 @@ export class LoginService {
   private readonly _utilsService = inject(UtilsService);
   private readonly _userConfigsService = inject(UserConfigsService);
   private readonly _authService = inject(AuthService);
+  private readonly _userService = inject(UserService);
 
   private readonly apiUrl = `${environment.baseApiUrl}login`;
 
@@ -34,16 +35,9 @@ export class LoginService {
         }
 
         this.setToken(response.token);
-        this._router.navigate(['home']);
 
-        let headers = new HttpHeaders();
-        headers = headers.append('Authorization', `Bearer ${response.token}`);
-
-        await lastValueFrom(
-          this._http.get<User>(`${environment.baseApiUrl}user/get-auth-user`, {
-            headers,
-          })
-        )
+        await this._userService
+          .getTokenUser(response.token)
           .then((user: User) => {
             if (!user) {
               this._utilsService.showMessage('login.error-getting-user');
@@ -79,6 +73,8 @@ export class LoginService {
                 'change-password.changed-successfully'
               );
             }
+
+            this._router.navigate(['home']);
           })
           .catch(() => {
             this._utilsService.showMessage('login.error-getting-user');
@@ -97,6 +93,9 @@ export class LoginService {
   }
 
   updateLoggedUser(user: User) {
+    user.password = '';
+    user.profileImage = undefined;
+
     this._utilsService.setItemLocalStorage(
       'userFinax',
       btoa(JSON.stringify(user))

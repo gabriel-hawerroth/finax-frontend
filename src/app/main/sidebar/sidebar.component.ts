@@ -28,10 +28,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public utilsService = inject(UtilsService);
   private _userService = inject(UserService);
 
-  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
   private _unsubscribeAll: Subject<void> = new Subject();
 
+  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+
+  username = this.utilsService.getLoggedUser?.firstName;
   userAccess: string = this.utilsService.getLoggedUser?.access || '';
 
   reportsUl: boolean = true;

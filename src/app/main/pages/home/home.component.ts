@@ -42,10 +42,12 @@ import { HomeSpendByCategoryWidget } from './components/home-spend-by-category-w
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public utilsService = inject(UtilsService);
-  private _homeService = inject(HomeService);
+  public readonly utilsService = inject(UtilsService);
+  private readonly _homeService = inject(HomeService);
 
   private readonly _unsubscribeAll: Subject<void> = new Subject();
+
+  username = this.utilsService.getLoggedUser?.firstName;
 
   theme: WritableSignal<string> = signal(
     this.utilsService.getUserConfigs.theme

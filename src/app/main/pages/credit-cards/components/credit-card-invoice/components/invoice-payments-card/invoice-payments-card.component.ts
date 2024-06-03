@@ -49,9 +49,6 @@ export class InvoicePaymentsCardComponent {
       (count, item) => (count += item.payment_amount),
       0
     );
-    // console.log(this.invoiceValue());
-    // console.log(response);
-    // console.log(this.invoiceValue() - response);
 
     return response;
   });

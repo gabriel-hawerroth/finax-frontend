@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -11,6 +11,17 @@ export class UserService {
   private readonly _http = inject(HttpClient);
 
   private readonly apiUrl = `${environment.baseApiUrl}user`;
+
+  getTokenUser(token: string): Promise<User> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', `Bearer ${token}`);
+
+    return lastValueFrom(
+      this._http.get<User>(`${environment.baseApiUrl}user/get-auth-user`, {
+        headers,
+      })
+    );
+  }
 
   getById(userId: number): Promise<User> {
     return lastValueFrom(this._http.get<User>(`${this.apiUrl}/${userId}`));
