@@ -44,7 +44,7 @@ export class LoginService {
               return;
             }
 
-            this.updateLoggedUser(user);
+            this._utilsService.updateLoggedUser(user);
 
             this._utilsService.getUserConfigs;
             this._userConfigsService
@@ -90,17 +90,6 @@ export class LoginService {
             break;
         }
       });
-  }
-
-  updateLoggedUser(user: User) {
-    user.password = '';
-    user.profileImage = undefined;
-
-    this._utilsService.setItemLocalStorage(
-      'userFinax',
-      btoa(JSON.stringify(user))
-    );
-    this._utilsService.userName.next(user.firstName);
   }
 
   setToken(token: string) {

@@ -47,8 +47,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private readonly _unsubscribeAll: Subject<void> = new Subject();
 
-  username = this.utilsService.getLoggedUser?.firstName;
-
   theme: WritableSignal<string> = signal(
     this.utilsService.getUserConfigs.theme
   );

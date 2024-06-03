@@ -28,19 +28,18 @@ export class UtilsService {
     this.isPcScreen = this.isBrowser
       ? window.innerWidth > 1000 && window.innerHeight > 520
       : false;
+
+    this.username.next(this.getLoggedUser?.firstName || '');
   }
 
-  // user observables
-  public userName: BehaviorSubject<string> = new BehaviorSubject<string>(
-    this.getLoggedUser?.firstName || ''
-  );
+  public readonly username = new BehaviorSubject<string>('');
 
-  public userImage: BehaviorSubject<string | ArrayBuffer | null> =
+  public readonly userImage: BehaviorSubject<string | ArrayBuffer | null> =
     new BehaviorSubject<string | ArrayBuffer | null>(
       cloudFireCdnLink + '/imgs/user-image.webp'
     );
 
-  private userConfigs: BehaviorSubject<UserConfigs> =
+  private readonly userConfigs: BehaviorSubject<UserConfigs> =
     new BehaviorSubject<UserConfigs>(this.getUserConfigs);
   // user observables
 
@@ -48,6 +47,14 @@ export class UtilsService {
     return this.getItemLocalStorage('userFinax')
       ? JSON.parse(atob(this.getItemLocalStorage('userFinax')!))
       : null;
+  }
+
+  updateLoggedUser(user: User) {
+    user.password = '';
+    user.profileImage = undefined;
+
+    this.setItemLocalStorage('userFinax', btoa(JSON.stringify(user)));
+    this.username.next(user.firstName);
   }
 
   get getUserConfigs(): UserConfigs {

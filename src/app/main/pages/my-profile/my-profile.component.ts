@@ -108,7 +108,7 @@ export class MyProfileComponent implements OnInit, OnDestroy {
           'userFinax',
           btoa(JSON.stringify(user))
         );
-        this.utilsService.userName.next(user.firstName);
+        this.utilsService.updateLoggedUser(user);
 
         if (this.changedProfileImg) {
           await this._userService

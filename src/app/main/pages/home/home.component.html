@@ -8,7 +8,7 @@
     <mat-card-content class="top-card-content">
       <h1>
         {{ "home.hello" | translate }}
-        {{ username }}!
+        {{ utilsService.username | async }}!
       </h1>
 
       <div class="amounts">

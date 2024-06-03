@@ -32,7 +32,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
-  username = this.utilsService.getLoggedUser?.firstName;
   userAccess: string = this.utilsService.getLoggedUser?.access || '';
 
   reportsUl: boolean = true;
