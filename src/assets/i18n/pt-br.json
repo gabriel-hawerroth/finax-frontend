@@ -89,7 +89,7 @@
         "logout": "Sair"
     },
     "home": {
-        "hello": "Olá",
+        "hello": "Olá {{username}}!",
         "general-balance": "Saldo geral",
         "monthly-revenue": "Receita mensal",
         "monthly-expense": "Despesa mensal",

@@ -89,7 +89,7 @@
         "logout": "Logout"
     },
     "home": {
-        "hello": "Hello",
+        "hello": "Hello {{username}}!",
         "general-balance": "General Balance",
         "monthly-revenue": "Monthly Revenue",
         "monthly-expense": "Monthly Expense",

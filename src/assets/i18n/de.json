@@ -89,7 +89,7 @@
         "logout": "Ausloggen"
     },
     "home": {
-        "hello": "Hallo",
+        "hello": "Hallo {{username}}!",
         "general-balance": "Gesamtbilanz",
         "monthly-revenue": "Monatliche Einnahmen",
         "monthly-expense": "Monatliche Ausgaben",

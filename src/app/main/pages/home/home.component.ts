@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { MonthlyRelease } from '../../../interfaces/cash-flow';
 import { HomeValues } from '../../../interfaces/home';
@@ -44,8 +44,13 @@ import { HomeSpendByCategoryWidget } from './components/home-spend-by-category-w
 export class HomePage implements OnInit, OnDestroy {
   public readonly utilsService = inject(UtilsService);
   private readonly _homeService = inject(HomeService);
+  private readonly _translateService = inject(TranslateService);
 
   private readonly _unsubscribeAll: Subject<void> = new Subject();
+
+  title = this._translateService.instant('home.hello', {
+    username: this.utilsService.username.value,
+  });
 
   theme: WritableSignal<string> = signal(
     this.utilsService.getUserConfigs.theme

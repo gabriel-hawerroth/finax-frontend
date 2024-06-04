@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -29,7 +29,6 @@ import { MyProfileFormComponent } from './components/my-profile-form/my-profile-
     ButtonsComponent,
     TranslateModule,
     MyProfileFormComponent,
-    NgOptimizedImage,
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
