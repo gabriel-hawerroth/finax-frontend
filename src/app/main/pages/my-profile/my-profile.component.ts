@@ -152,8 +152,6 @@ export class MyProfilePage implements OnInit, OnDestroy {
     const file = event.target.files[0];
     if (!file) return;
 
-    console.log(file);
-
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
       this.utilsService.showMessage('generic.file-too-large', 8000);

@@ -80,7 +80,7 @@
   </div>
 
   <div class="user-options">
-    <ul [ngClass]="{ 'nav-ul': true, hidden: userActionsUl }">
+    <ul [ngClass]="{ 'nav-ul': true, hidden: !userActionsUl }">
       <li
         routerLink="/meu-perfil"
         [ngClass]="{
@@ -128,7 +128,7 @@
       <span>{{ utilsService.username | async }}</span>
 
       <i class="material-symbols-outlined">
-        {{ userActionsUl ? "expand_less" : "expand_more" }}
+        {{ userActionsUl ? "expand_more" : "expand_less" }}
       </i>
     </li>
   </div>

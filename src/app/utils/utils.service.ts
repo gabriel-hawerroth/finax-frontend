@@ -71,7 +71,7 @@ export class UtilsService {
       userId: 0,
       theme: 'light',
       addingMaterialGoodsToPatrimony: false,
-      language: 'pt-br',
+      language: 'pt-BR',
       currency: 'R$',
       releasesViewMode: ReleasesViewMode.releases,
     };
@@ -120,10 +120,8 @@ export class UtilsService {
     this._snackBar.dismiss();
   }
 
-  passwordValidator() {
-    const regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[A-Z]).{8,}$/;
-
-    return regex;
+  passwordValidator(): RegExp {
+    return /^(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*\d)(?=.*[A-Z]).{8,}$/;
   }
 
   get passwordRequirementsText(): string {

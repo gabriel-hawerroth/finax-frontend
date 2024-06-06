@@ -4,7 +4,6 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  WritableSignal,
   inject,
   signal,
 } from '@angular/core';
@@ -15,7 +14,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
-import { GenericIdDs } from '../../../interfaces/generic';
 import { UserConfigs } from '../../../interfaces/user-configs';
 import { UserConfigsService } from '../../../services/user-configs.service';
 import { UtilsService } from '../../../utils/utils.service';
@@ -37,24 +35,21 @@ import { UtilsService } from '../../../utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserSettingsPage implements OnInit, OnDestroy {
-  public utilsService = inject(UtilsService);
-  private _fb = inject(FormBuilder);
-  private _userConfigsService = inject(UserConfigsService);
+  public readonly utilsService = inject(UtilsService);
+  private readonly _fb = inject(FormBuilder);
+  private readonly _userConfigsService = inject(UserConfigsService);
 
-  private _unsubscribeAll: Subject<any> = new Subject();
+  private readonly _unsubscribeAll = new Subject<any>();
 
   configsForm!: FormGroup;
   userConfigs!: UserConfigs;
 
-  theme: WritableSignal<string> = signal(
-    this.utilsService.getUserConfigs.theme
-  );
+  theme = signal<string>(this.utilsService.getUserConfigs.theme);
 
   initError: boolean = false;
 
   ngOnInit(): void {
     this.buidForm();
-
     this.getConfigs();
   }
 
@@ -69,7 +64,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
       userId: this.utilsService.getLoggedUser!.id,
       theme: 'light',
       addingMaterialGoodsToPatrimony: false,
-      language: 'pt-br',
+      language: 'pt-BR',
       currency: 'R$',
       releasesViewMode: '',
     });
@@ -108,12 +103,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
       });
   }
 
-  languagesList: GenericIdDs[] = [
-    { id: 'pt-br', ds: 'portuguese' },
-    { id: 'en-us', ds: 'english' },
-    { id: 'es-es', ds: 'spanish-spain' },
-    { id: 'de', ds: 'german' },
-  ];
+  languagesList: string[] = ['pt-BR', 'en-US', 'es-CO', 'de-DE'];
 
   currenciesList: string[] = ['R$', '$', '€', '£', '¥'];
 }

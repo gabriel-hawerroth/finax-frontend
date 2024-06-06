@@ -50,8 +50,8 @@
         <mat-form-field>
           <mat-select formControlName="language">
             @for (language of languagesList; track $index) {
-            <mat-option [value]="language.id">
-              {{ "settings.languages." + language.ds | translate }}
+            <mat-option [value]="language">
+              {{ "settings.languages." + language | translate }}
             </mat-option>
             }
           </mat-select>

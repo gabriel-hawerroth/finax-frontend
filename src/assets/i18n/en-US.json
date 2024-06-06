@@ -303,10 +303,10 @@
         "theme": "Theme",
         "language": "Language",
         "languages": {
-            "portuguese": "Portuguese",
-            "english": "English",
-            "spanish-spain": "Spanish",
-            "german": "German"
+            "pt-BR": "Portuguese",
+            "en-US": "English",
+            "en-CO": "Spanish",
+            "de-DE": "German"
         },
         "currency": "Currency",
         "currencies": {

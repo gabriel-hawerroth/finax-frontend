@@ -20,6 +20,8 @@ export class AppComponent {
   private readonly _utils = inject(UtilsService);
 
   constructor() {
+    this._utils.removeItemLocalStorage('savedUserConfigsFinax');
+
     this._utils.setDefaultLanguage();
   }
 }

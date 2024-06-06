@@ -34,10 +34,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   userAccess: string = this.utilsService.getLoggedUser?.access || '';
 
-  reportsUl: boolean = true;
-  noticesUl: boolean = true;
-  moreUl: boolean = true;
-  userActionsUl: boolean = true;
+  reportsUl: boolean = false;
+  noticesUl: boolean = false;
+  moreUl: boolean = false;
+  userActionsUl: boolean = false;
 
   darkThemeEnabled = signal(false);
 
