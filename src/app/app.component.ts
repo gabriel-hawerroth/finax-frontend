@@ -1,10 +1,10 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MobilePage } from './main/pages/mobile-page/mobile-page.component';
+import { LoginService } from './core/entities/auth/login.service';
+import { MobilePage } from './main/features/mobile-page/views/principal/mobile-page.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
-import { LoginService } from './services/login.service';
-import { UtilsService } from './utils/utils.service';
+import { UtilsService } from './shared/utils/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +15,11 @@ import { UtilsService } from './utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  public readonly loginService = inject(LoginService);
-  public readonly location = inject(Location);
-  private readonly _utils = inject(UtilsService);
-
-  constructor() {
+  constructor(
+    public readonly loginService: LoginService,
+    public readonly location: Location,
+    private readonly _utils: UtilsService
+  ) {
     this._utils.removeItemLocalStorage('savedUserConfigsFinax');
 
     this._utils.setDefaultLanguage();

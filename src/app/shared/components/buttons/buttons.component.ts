@@ -2,14 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   input,
   output,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
-import { UtilsService } from '../../../utils/utils.service';
+import { UtilsService } from '../../utils/utils.service';
 
 @Component({
   selector: 'app-buttons',
@@ -25,6 +24,8 @@ import { UtilsService } from '../../../utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonsComponent {
+  constructor(private readonly _utils: UtilsService) {}
+
   public readonly onNew = output<void>();
   public readonly onSave = output<void>();
   public readonly onDelete = output<void>();
@@ -64,9 +65,7 @@ export class ButtonsComponent {
   public readonly genericLabel = input<string>('');
   public readonly genericColor = input<string>('');
 
-  private readonly _utilsService = inject(UtilsService);
-
-  public readonly isPcScreen = this._utilsService.isPcScreen;
+  public readonly isPcScreen = this._utils.isPcScreen;
 
   get getBtnSize(): number {
     if (this.smallBtn() && this.bigBtn()) return 1.6;

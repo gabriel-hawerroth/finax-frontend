@@ -1,0 +1,73 @@
+<div
+  [ngClass]="{
+    'dark-page': utils.getUserConfigs.theme === 'dark'
+  }"
+  class="simple-page"
+>
+  <h1 class="page-title">
+    {{ "credit-cards.title" | translate }}
+  </h1>
+
+  <div class="content">
+    <mat-card class="card">
+      <div class="card-header">
+        <mat-form-field>
+          <mat-label>
+            {{ "filters.filter-by" | translate }}
+            {{ "filters.situation" | translate }}
+          </mat-label>
+
+          <mat-select
+            [formControl]="situationFilter"
+            (valueChange)="filterList($event)"
+          >
+            <mat-option value="all">
+              {{ "filters.all" | translate }}
+            </mat-option>
+            <mat-option [value]="true">
+              {{ "filters.actives" | translate }}
+            </mat-option>
+            <mat-option [value]="false">
+              {{ "filters.inactives" | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <app-buttons
+          [showNew]="true"
+          [labelNewM]="true"
+          (onNew)="onNew()"
+        ></app-buttons>
+      </div>
+
+      @defer {
+      <div class="list">
+        @for (account of filteredRows(); track account.id) {
+        <div class="account" (click)="openDetails(account)">
+          @if (account.image) {
+          <img
+            [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+            width="60"
+            height="60"
+            alt="account logo"
+          />
+          } @else {
+          <span class="material-symbols-outlined default-bank-account">
+            credit_card
+          </span>
+          }
+
+          <span>
+            <b>{{ account.name }}</b>
+          </span>
+
+          <span class="material-symbols-outlined navigate-icon">
+            navigate_next
+          </span>
+        </div>
+        }
+      </div>
+      }
+    </mat-card>
+  </div>
+</div>

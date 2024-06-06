@@ -1,0 +1,123 @@
+<div
+  [ngClass]="{
+    'simple-page': true,
+    'dark-page': utils.getUserConfigs.theme === 'dark'
+  }"
+>
+  <div class="content">
+    <mat-card class="card releases-card">
+      <header>
+        <div class="first-row">
+          <div class="left">
+            <div class="title">
+              <h1>
+                {{ "invoice.title" | translate }}
+              </h1>
+
+              <div
+                class="card"
+                [routerLink]="'/cartoes-de-credito/' + creditCardId"
+              >
+                @if (creditCard()?.image) {
+                <img
+                  [ngSrc]="
+                    cloudFireCdnImgsLink + 'banks/' + creditCard()!.image
+                  "
+                  width="40"
+                  height="40"
+                  alt="credit card logo"
+                />
+                }
+
+                <span>{{ creditCard()?.name }}</span>
+              </div>
+            </div>
+
+            <button mat-icon-button id="add-btn" (click)="addRelease()">
+              <span class="material-symbols-outlined">add</span>
+            </button>
+          </div>
+
+          <div class="right">
+            @if (monthValues().invoicePayments.length != 0) {
+            <app-invoice-payments-card
+              id="payments-card"
+              [payments]="monthValues().invoicePayments"
+              [invoiceValue]="invoiceValues().value"
+              (updateValues)="getMonthValues()"
+              (editPayment)="payInvoice($event)"
+            ></app-invoice-payments-card>
+            } @else if (invoiceValues().value > 0) {
+            <button
+              mat-stroked-button
+              color="primary"
+              id="pay-btn"
+              (click)="payInvoice()"
+            >
+              <span>{{ "invoice.pay" | translate }}</span>
+            </button>
+            }
+          </div>
+        </div>
+
+        <div class="second-row">
+          <button
+            mat-icon-button
+            (click)="changeMonth('before')"
+            [disabled]="searching()"
+          >
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+
+          <div class="tab">
+            {{ selectedDate() | releasesMonth }}
+          </div>
+
+          <button
+            mat-icon-button
+            (click)="changeMonth('next')"
+            [disabled]="searching()"
+          >
+            <span class="material-symbols-outlined">navigate_next</span>
+          </button>
+        </div>
+      </header>
+
+      <app-releases-list
+        [releases]="monthValues().releases"
+        [accounts]="accounts"
+        [categories]="categories"
+        [creditCards]="creditCards"
+        [selectedDate]="selectedDate()"
+        (updateList)="getMonthValues()"
+        id="releases-list"
+      ></app-releases-list>
+
+      <div class="totals">
+        <div class="item">
+          <span>{{ "invoice.closing" | translate }}:</span>
+
+          <span class="value">
+            {{ invoiceValues().close | date : "dd/MM/yyyy" }}
+          </span>
+        </div>
+
+        <div class="item">
+          <span>{{ "invoice.expiration" | translate }}:</span>
+
+          <span class="value">
+            {{ invoiceValues().expire | date : "dd/MM/yyyy" }}
+          </span>
+        </div>
+
+        <div class="item">
+          <span>{{ "invoice.amount" | translate }}:</span>
+
+          <span class="value" style="font-weight: bold">
+            {{ currency }}{{ invoiceValues().value | customCurrency }}
+          </span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

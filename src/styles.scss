@@ -24,7 +24,7 @@ $finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primar
 @include mat.all-component-themes($finax-front-theme);
 
 @import './app/app.component.scss';
-@import './app/shared/styles/colors.scss';
+@import 'colors.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 

@@ -1,0 +1,52 @@
+<div
+  class="confirm-duplicated-releases-action"
+  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
+>
+  <div class="title">
+    <h2>
+      {{ "confirm-duplicated-releases.title" | translate }}
+    </h2>
+
+    <button mat-icon-button mat-dialog-close>
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button color="primary" mat-dialog-close="JUST_THIS">
+      <b>
+        @if (data.action === 'edit') {
+        {{ "actions.edit" | translate }}
+        } @else {
+        {{ "actions.exclude" | translate }}
+        }
+
+        {{ "confirm-duplicated-releases.this-only" | translate }}
+      </b>
+    </button>
+
+    <button mat-stroked-button color="primary" mat-dialog-close="NEXTS">
+      <b>
+        @if (data.action === 'edit') {
+        {{ "actions.edit" | translate }}
+        } @else {
+        {{ "actions.exclude" | translate }}
+        }
+
+        {{ "confirm-duplicated-releases.nexts" | translate }}
+      </b>
+    </button>
+
+    <button mat-stroked-button color="primary" mat-dialog-close="ALL">
+      <b>
+        @if (data.action === 'edit') {
+        {{ "actions.edit" | translate }}
+        } @else {
+        {{ "actions.exclude" | translate }}
+        }
+
+        {{ "confirm-duplicated-releases.all" | translate }}
+      </b>
+    </button>
+  </div>
+</div>

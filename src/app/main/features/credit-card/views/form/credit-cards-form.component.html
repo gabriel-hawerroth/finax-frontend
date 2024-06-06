@@ -1,0 +1,166 @@
+<div
+  [ngClass]="{
+    'dark-page': utils.getUserConfigs.theme === 'dark'
+  }"
+  class="simple-page"
+>
+  <h1 class="page-title">
+    {{ "credit-cards.title" | translate }}
+  </h1>
+
+  <div class="content">
+    <mat-card class="card" [formGroup]="cardForm">
+      <div style="display: flex; justify-content: end">
+        <app-buttons
+          [showSave]="true"
+          [disableSave]="cardForm.invalid || cardForm.pristine || saving"
+          [showSaveLoading]="saving"
+          (onSave)="save()"
+        ></app-buttons>
+      </div>
+
+      <div class="first-row">
+        <app-buttons
+          [showGoBack]="true"
+          (onGoBack)="location.back()"
+        ></app-buttons>
+
+        <mat-form-field [hideRequiredMarker]="true" style="width: 30%">
+          <mat-label>{{ "credit-cards.description" | translate }}</mat-label>
+          <input
+            type="text"
+            matInput
+            #accountName
+            maxlength="40"
+            formControlName="name"
+            autofocus
+          />
+          <mat-hint align="end">
+            {{ accountName.value.length }}/{{ accountName.maxLength }}
+          </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field
+          style="width: 20%"
+          floatLabel="always"
+          [hideRequiredMarker]="true"
+        >
+          <mat-label>{{ "credit-cards.limit" | translate }}</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="card_limit"
+            currencyMask
+            [options]="{ prefix: currency + ' ' }"
+            placeholder="0"
+          />
+        </mat-form-field>
+
+        <mat-checkbox formControlName="active">
+          {{ "generic.activeM" | translate }}
+        </mat-checkbox>
+      </div>
+
+      <div class="second-row">
+        <mat-form-field style="width: 28%" [hideRequiredMarker]="true">
+          <mat-label>
+            {{ "credit-cards.standard-payment-account" | translate }}
+          </mat-label>
+          <mat-select
+            formControlName="standard_payment_account_id"
+            (valueChange)="paymentAccountChanges($event)"
+          >
+            <mat-select-trigger>
+              <ng-container
+                *ngTemplateOutlet="selectedAccountTemplate"
+              ></ng-container>
+            </mat-select-trigger>
+
+            <ng-template #selectedAccountTemplate>
+              <div class="selected-account">
+                @if (selectedAccount && selectedAccount.image) {
+                <img
+                  [ngSrc]="
+                    cloudFireCdnImgsLink + 'banks/' + selectedAccount.image
+                  "
+                  width="20"
+                  height="20"
+                  alt="bank account logo"
+                />
+                }
+                <span>{{ selectedAccount?.name }}</span>
+              </div>
+            </ng-template>
+
+            @for (account of accounsList; track account.id) {
+            <mat-option [value]="account.id" class="bank-account-item">
+              <div class="account-opt">
+                @if (account.image) {
+                <img
+                  [ngSrc]="
+                    'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
+                    account.image
+                  "
+                  width="30"
+                  height="30"
+                  alt="bank account logo"
+                />
+                } @else {
+                <span class="material-symbols-outlined default-account-logo">
+                  account_balance
+                </span>
+                }
+                <span>{{ account.name }}</span>
+              </div>
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field [hideRequiredMarker]="true">
+          <mat-label>
+            {{ "credit-cards.close-day" | translate }}
+          </mat-label>
+          <mat-select formControlName="close_day">
+            @for (day of daysOfMonth; track $index) {
+            <mat-option [value]="day">{{ day }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field [hideRequiredMarker]="true">
+          <mat-label>
+            {{ "credit-cards.expires-day" | translate }}
+          </mat-label>
+          <mat-select formControlName="expires_day">
+            @for (day of daysOfMonth; track $index) {
+            <mat-option [value]="day">{{ day }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <div id="img-div">
+          @if (!selectedIcon()) {
+          <span class="material-symbols-outlined" (click)="selectIcon()">
+            credit_card
+          </span>
+          } @else {
+          <img
+            [ngSrc]="
+              'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
+              selectedIcon()
+            "
+            width="70"
+            height="70"
+            (click)="selectIcon()"
+            alt="credit card image"
+          />
+          }
+          <span id="text" (click)="selectIcon()">
+            {{ "generic.select-icon" | translate }}
+          </span>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

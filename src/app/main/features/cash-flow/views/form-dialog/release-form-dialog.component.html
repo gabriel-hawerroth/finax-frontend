@@ -1,0 +1,262 @@
+<div
+  class="new-release-cash-flow-dialog"
+  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
+>
+  <div
+    class="top"
+    [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2.7rem' : '1.5rem' }"
+  >
+    <app-buttons
+      [showSave]="true"
+      [disableSave]="
+        (data.editing && releaseForm.pristine && !changedAttachment) ||
+        releaseForm.invalid ||
+        (releaseForm.value.repeat === 'fixed' &&
+          !releaseForm.value.repeatFor) ||
+        (releaseForm.value.repeat === 'installments' &&
+          !releaseForm.value.installmentsBy) ||
+        saving()
+      "
+      [showSaveLoading]="saving()"
+      (onSave)="save()"
+      class="save-btn"
+    ></app-buttons>
+
+    <h2>{{ getDialogTitle }}</h2>
+
+    <app-buttons
+      [showClose]="true"
+      mat-dialog-close
+      class="close-btn"
+    ></app-buttons>
+  </div>
+
+  <div class="content">
+    <div class="form-buttons">
+      <app-release-form
+        [form]="releaseForm"
+        [accountsList]="data.accounts"
+        [categoriesList]="data.categories"
+        [creditCardsList]="data.creditCards"
+        [selectedCreditCard]="selectedCreditCard"
+        style="flex: 1"
+      ></app-release-form>
+
+      <div
+        class="buttons"
+        [ngStyle]="{
+          'margin-top':
+            showRepeat || showObservation
+              ? smallScreen
+                ? '0'
+                : '2rem'
+              : smallScreen
+              ? '0'
+              : '.8rem'
+        }"
+      >
+        <input
+          type="file"
+          id="fileInput"
+          (change)="onFileSelected($event)"
+          style="display: none"
+          accept=".pdf,.jpg,.jpeg,.png,.jfif,.webp"
+        />
+
+        <label
+          for="fileInput"
+          class="bottom-btn"
+          [ngStyle]="{
+          'background-color': selectedFile ? '#b6b6b673' : 'transparent',
+          'color': selectedFile ? '#fff' : '',
+          'border-color': selectedFile ? 'transparent' : '',
+        }"
+          [matTooltip]="'release-form.attachment' | translate"
+          matTooltipPosition="left"
+        >
+          <span class="material-symbols-outlined">attach_file_add</span>
+        </label>
+
+        @if (!releaseForm.value.id) {
+        <label
+          class="bottom-btn"
+          (click)="showRepeat = !showRepeat"
+          [ngStyle]="{
+          'background-color': showRepeat ? '#b6b6b673' : 'transparent',
+          'color': showRepeat ? '#fff' : '',
+          'border-color': showRepeat ? 'transparent' : '',
+        }"
+          [matTooltip]="'release-form.repeat' | translate"
+          matTooltipPosition="left"
+        >
+          <span class="material-symbols-outlined">repeat</span>
+        </label>
+        }
+
+        <label
+          class="bottom-btn"
+          (click)="showObservation = !showObservation"
+          [ngStyle]="{
+          'background-color': showObservation ? '#b6b6b673' : 'transparent',
+          'color': showObservation ? '#fff' : '',
+          'border-color': showObservation ? 'transparent' : '',
+        }"
+          [matTooltip]="'generic.observation' | translate"
+          matTooltipPosition="left"
+        >
+          <span class="material-symbols-outlined">speaker_notes</span>
+        </label>
+      </div>
+    </div>
+
+    @if (selectedFile || showRepeat || showObservation) {
+    <mat-divider></mat-divider>
+
+    <form [formGroup]="releaseForm" class="extras">
+      @if (selectedFile || showObservation) {
+      <div class="file-obs" [ngStyle]="{ width: showRepeat ? '50%' : '100%' }">
+        @if (selectedFile) {
+        <div class="selected-file">
+          <div class="file-content">
+            <h3>{{ "release-form.attachments" | translate }}</h3>
+
+            <div class="file">
+              <span>{{ selectedFile.name }}</span>
+
+              <app-buttons
+                [showClose]="true"
+                (onClose)="removeFile()"
+                class="remove-file-btn"
+              ></app-buttons>
+            </div>
+          </div>
+        </div>
+        } @if (selectedFile && showObservation) {
+        <mat-divider></mat-divider>
+        } @if (showObservation) {
+        <div class="observation">
+          <mat-form-field appearance="outline" style="width: 80%">
+            <mat-label>
+              {{ "generic.observation" | translate }}
+            </mat-label>
+            <textarea
+              matInput
+              formControlName="observation"
+              maxlength="100"
+            ></textarea>
+          </mat-form-field>
+        </div>
+        }
+      </div>
+      } @if (showRepeat) {
+      <div
+        class="repeat"
+        [ngStyle]="{
+          width: selectedFile || showObservation ? '50%' : '100%',
+          'border-left':
+            selectedFile || showObservation ? '1px solid #d1d1d1' : 'none'
+        }"
+      >
+        <div
+          class="choices"
+          [ngStyle]="{
+            'flex-direction': selectedFile || showObservation ? 'column' : 'row',
+            gap: selectedFile || showObservation ? '0' : '4rem',
+          }"
+        >
+          <mat-checkbox
+            [formControl]="fixedRepeat"
+            (change)="onChangeRepeat('fixed', $event)"
+          >
+            {{ "release-form.fixed-release" | translate }}
+          </mat-checkbox>
+
+          <mat-checkbox
+            [formControl]="installmenteRepeat"
+            (change)="onChangeRepeat('installments', $event)"
+          >
+            {{ "release-form.installment-release" | translate }}
+          </mat-checkbox>
+        </div>
+
+        @if (releaseForm.value.repeat === 'fixed') {
+        <div
+          class="fixed-release"
+          [ngStyle]="{
+            'flex-direction': selectedFile || showObservation ? 'column' : 'row'
+          }"
+        >
+          <mat-form-field
+            [ngStyle]="{
+              width: selectedFile || showObservation ? '50%' : '30%'
+            }"
+          >
+            <mat-label></mat-label>
+            <mat-select
+              formControlName="fixedBy"
+              (valueChange)="onChangeFixedBy($event)"
+            >
+              @for (item of getFixedByList; track $index) {
+              <mat-option [value]="item.id">{{ item.ds }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field [hideRequiredMarker]="true">
+            <mat-label>{{ "release-form.for" | translate }}:</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="repeatFor"
+              currencyMask
+              [options]="{
+                prefix: '',
+                allowNegative: false,
+                allowZero: false,
+                decimal: '',
+                precision: 0,
+                suffix: ' ' + repeatForSuffix,
+                thousands: '',
+                nullable: false,
+                min: 2,
+                max: 365,
+              }"
+            />
+          </mat-form-field>
+        </div>
+        } @else if (releaseForm.value.repeat === 'installments') {
+        <div class="installments-release">
+          <mat-form-field
+            [ngStyle]="{
+              width: selectedFile || showObservation ? '40%' : '20%'
+            }"
+            [hideRequiredMarker]="true"
+          >
+            <mat-label>{{ "release-form.in" | translate }}:</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="installmentsBy"
+              currencyMask
+              [options]="{
+                prefix: '',
+                allowNegative: false,
+                allowZero: false,
+                decimal: '',
+                precision: 0,
+                suffix: ' ' + ('release-form.repeat-for-suffix.monthly' | translate),
+                thousands: '',
+                nullable: false,
+                min: 2,
+                max: 48,
+              }"
+            />
+          </mat-form-field>
+        </div>
+        }
+      </div>
+      }
+    </form>
+    }
+  </div>
+</div>

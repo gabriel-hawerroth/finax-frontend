@@ -1,0 +1,54 @@
+@import 'colors.scss';
+
+$footer-height: 5.8rem;
+
+@media screen and (max-width: 600px) {
+    .public-footer {
+        .right {
+            display: none !important;
+        }
+    }
+}
+
+.public-footer {
+    height: 5.8rem;
+    display: flex;
+    background-color: $primary-bg;
+    box-shadow: 0 1px 5px #0000007c;
+
+    .left {
+        flex: 1;
+        height: 100%;
+        padding-left: 3em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    }
+
+    .right {
+        width: 50%;
+        height: 100%;
+        padding-right: 5rem;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 1.4rem;
+
+        a {
+            width: 2.3rem;
+            height: 2.3rem;
+            display: grid;
+            place-items: center;
+        }
+    }
+
+    svg {
+        fill: #000;
+    }
+}

@@ -1,20 +1,19 @@
-import { Pipe, PipeTransform, inject } from '@angular/core';
-import { UtilsService } from '../../utils/utils.service';
+import { Pipe, PipeTransform } from '@angular/core';
+import { UtilsService } from '../utils/utils.service';
 
 @Pipe({
   name: 'releasesMonth',
   standalone: true,
 })
 export class ReleasesMonthPipe implements PipeTransform {
-  private _utilsService = inject(UtilsService);
+  private readonly currentYear = new Date().getFullYear().toString();
 
-  private currentYear = new Date().getFullYear().toString();
+  constructor(private _utils: UtilsService) {}
 
   transform(date: Date): string {
-    const month = date.toLocaleString(
-      this._utilsService.getUserConfigs.language,
-      { month: 'long' }
-    );
+    const month = date.toLocaleString(this._utils.getUserConfigs.language, {
+      month: 'long',
+    });
 
     const year = date.getFullYear().toString();
 

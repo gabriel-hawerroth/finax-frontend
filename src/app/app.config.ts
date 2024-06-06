@@ -23,7 +23,7 @@ import {
 } from 'ngx-currency';
 import { provideNgxMask } from 'ngx-mask';
 import { routes } from './app.routes';
-import { authInterceptor } from './shared/interceptors/auth.interceptor';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const MY_FORMATS = {
   parse: {

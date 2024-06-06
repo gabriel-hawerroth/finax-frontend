@@ -4,16 +4,15 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  inject,
   signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
-import { LoginService } from '../../services/login.service';
-import { UserService } from '../../services/user.service';
-import { cloudFireCdnImgsLink } from '../../utils/constants';
-import { UtilsService } from '../../utils/utils.service';
+import { LoginService } from '../../core/entities/auth/login.service';
+import { UserService } from '../../core/entities/user/user.service';
+import { cloudFireCdnImgsLink } from '../../shared/utils/constants';
+import { UtilsService } from '../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,15 +23,11 @@ import { UtilsService } from '../../utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit, OnDestroy {
-  public loginService = inject(LoginService);
-  public utilsService = inject(UtilsService);
-  private _userService = inject(UserService);
+  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
-  private _unsubscribeAll: Subject<void> = new Subject();
+  private readonly _unsubscribeAll = new Subject<void>();
 
-  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
-  userAccess: string = this.utilsService.getLoggedUser?.access || '';
+  userAccess: string = this.utils.getLoggedUser?.access || '';
 
   reportsUl: boolean = false;
   noticesUl: boolean = false;
@@ -41,18 +36,25 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   darkThemeEnabled = signal(false);
 
+  constructor(
+    public readonly loginService: LoginService,
+    public readonly utils: UtilsService,
+    private readonly _userService: UserService
+  ) {}
+
   ngOnInit(): void {
     this.subscribeUserConfigs();
     this.getUserImage();
   }
 
   ngOnDestroy(): void {
+    this._unsubscribeAll.complete();
     this._unsubscribeAll.unsubscribe();
   }
 
   subscribeUserConfigs() {
-    this.utilsService
-      .subscribeUserConfigs()
+    this.utils
+      .getUserConfigsObservable()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
         this.darkThemeEnabled.set(value.theme === 'dark');
@@ -64,7 +66,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       if (response.size !== 0) {
         const reader = new FileReader();
         reader.onload = () => {
-          this.utilsService.userImage.next(reader.result!);
+          this.utils.userImage.next(reader.result!);
         };
         reader.readAsDataURL(response);
       }

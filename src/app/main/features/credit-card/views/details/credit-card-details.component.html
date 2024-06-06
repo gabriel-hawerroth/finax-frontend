@@ -1,0 +1,92 @@
+<div
+  class="credit-card-details"
+  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
+>
+  @if (card.image) {
+  <img
+    id="card-logo"
+    [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.image"
+    width="80"
+    height="80"
+    alt="credit card logo"
+  />
+  }
+
+  <div class="content">
+    <div class="row1">
+      <h1 class="name">{{ card.name }}</h1>
+
+      <div class="limit">
+        <span>{{ "credit-cards.limit" | translate }}:</span>
+        <h1>{{ currency }}{{ card.card_limit | customCurrency }}</h1>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="left">
+        <div class="standard_payment_account">
+          <span>
+            {{ "credit-cards.standard-payment-account" | translate }}:
+          </span>
+
+          <span class="account">
+            @if (card.account_image) {
+            <img
+              [ngSrc]="
+                'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
+                card.account_image
+              "
+              width="27"
+              height="27"
+              alt="standard payment account logo"
+            />
+            }
+
+            {{ card.account_name }}
+          </span>
+        </div>
+
+        <div class="active">
+          @if (card.active) {
+          <span class="material-symbols-outlined true">check</span>
+          } @else {
+          <span class="material-symbols-outlined false">close</span>
+          }
+          {{ "generic.active" | translate }}
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="item">
+          <span>{{ "credit-cards.close-day" | translate }}:</span>
+
+          <span>{{ card.close_day }}</span>
+        </div>
+
+        <div class="item">
+          <span>{{ "credit-cards.expires-day" | translate }}:</span>
+
+          <span>{{ card.expires_day }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button mat-stroked-button class="large-btn" (click)="seeInvoice()">
+      <div class="btn-content">
+        <span class="material-symbols-outlined">sort</span>
+        {{ "credit-cards.see-invoice" | translate }}
+      </div>
+    </button>
+
+    <button
+      mat-button
+      color="primary"
+      (click)="edit()"
+      style="padding: 1.3rem 1.6rem; font-size: 1.1rem !important"
+    >
+      {{ "actions.edit" | translate }}
+    </button>
+  </div>
+</div>

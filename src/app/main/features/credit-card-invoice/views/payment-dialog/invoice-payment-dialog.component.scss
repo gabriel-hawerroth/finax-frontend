@@ -1,0 +1,92 @@
+@import 'colors.scss';
+
+.invoice-payment-dialog {
+    padding: 1.6rem 2.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+
+        mat-form-field {
+            width: 15vw !important;
+        }
+
+        .row1,
+        .row2 {
+            display: flex;
+            gap: 3.4rem;
+            align-items: center;
+        }
+
+        .row1 {
+            margin-bottom: 1.2rem;
+
+            .selected-account {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+
+                img {
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        .row2 {
+            margin-bottom: .9rem;
+        }
+
+        .row3 {
+            #add-attachment-label {
+                color: $primary-font-color;
+                cursor: pointer;
+            }
+
+            #selected-file {
+                display: flex;
+                flex-direction: column;
+                gap: .6rem;
+
+                .file {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: start;
+                }
+            }
+        }
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            padding: 1.5rem 2.1rem;
+        }
+    }
+}
+
+.dark-page {
+    .content {
+        .row1 {
+            .selected-account {
+                color: $dark-font-color;
+            }
+        }
+
+        .row3 {
+            #add-attachment-label {
+                color: $dark-font-color;
+            }
+        }
+    }
+}

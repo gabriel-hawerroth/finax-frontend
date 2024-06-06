@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { UtilsService } from '../../../utils/utils.service';
+import { ConfirmDialogData } from '../../../core/entities/generic';
+import { UtilsService } from '../../utils/utils.service';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -14,6 +15,8 @@ import { UtilsService } from '../../../utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmDialog {
-  public utilsService = inject(UtilsService);
-  public data = inject(MAT_DIALOG_DATA);
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
+    public readonly utils: UtilsService
+  ) {}
 }

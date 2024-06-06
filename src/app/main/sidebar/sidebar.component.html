@@ -123,9 +123,9 @@
         'nav-ul-item-dark': darkThemeEnabled()
       }"
     >
-      <img [src]="utilsService.userImage | async" alt="user profile image" />
+      <img [src]="utils.userImage | async" alt="user profile image" />
 
-      <span>{{ utilsService.username | async }}</span>
+      <span>{{ utils.username | async }}</span>
 
       <i class="material-symbols-outlined">
         {{ userActionsUl ? "expand_more" : "expand_less" }}
