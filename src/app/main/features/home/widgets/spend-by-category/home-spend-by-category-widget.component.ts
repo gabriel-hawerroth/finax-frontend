@@ -83,9 +83,6 @@ export class HomeSpendByCategoryWidget implements OnInit {
           },
         },
       };
-
-      console.log(this.data);
-      console.log(this.options);
     });
   }
 
