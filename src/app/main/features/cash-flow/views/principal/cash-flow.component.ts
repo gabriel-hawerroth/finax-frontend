@@ -110,9 +110,9 @@ export class CashFlowPage implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
     this._unsubscribeAll.unsubscribe();
 
-    const configs = this.utils.getUserConfigs;
-    configs.releasesViewMode = this.viewModeCtrl.value;
-    this._userConfigsService.save(configs);
+    // const configs = this.utils.getUserConfigs;
+    // configs.releasesViewMode = this.viewModeCtrl.value;
+    // this._userConfigsService.save(configs);
 
     this.utils.setItemLocalStorage(
       'selectedMonthCashFlow',

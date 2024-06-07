@@ -21,8 +21,8 @@ export class CashFlowService {
     selectedDt: Date,
     viewMode: ReleasesViewMode
   ): Promise<MonthlyFlow> {
-    const firstDt = startOfMonth(selectedDt).toString();
-    const lastDt = endOfMonth(selectedDt).toString();
+    const firstDt = startOfMonth(selectedDt).toLocaleDateString();
+    const lastDt = endOfMonth(selectedDt).toLocaleDateString();
     const firstDtCurrentMonth = startOfMonth(new Date()).toString();
 
     const firstDtInvoice = startOfMonth(addMonths(selectedDt, -1)).toString();

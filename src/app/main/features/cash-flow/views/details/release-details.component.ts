@@ -121,7 +121,7 @@ export class ReleaseDetailsComponent {
         confirmedDelete = true;
       });
     } else {
-      this.utils
+      await this.utils
         .showConfirmDialog('cash-flow.confirm-delete')
         .then((response) => {
           if (!response) return;
