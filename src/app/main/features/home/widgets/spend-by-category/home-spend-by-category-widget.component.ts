@@ -14,7 +14,6 @@ import { ChartModule } from 'primeng/chart';
 import { SpendByCategory } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-home-spend-by-category-widget',
@@ -48,10 +47,7 @@ export class HomeSpendByCategoryWidget implements OnInit {
   data!: ChartData;
   options!: ChartOptions;
 
-  constructor(
-    private _homeService: HomeService,
-    private _utils: UtilsService
-  ) {}
+  constructor(private _homeService: HomeService) {}
 
   ngOnInit(): void {
     this._homeService.getSpendsByCategory().then((response) => {
@@ -81,12 +77,15 @@ export class HomeSpendByCategoryWidget implements OnInit {
           tooltip: {
             callbacks: {
               label: (data) => {
-                return ` ${this.currency}${data.formattedValue}`;
+                return ` ${this.currency()}${data.formattedValue}`;
               },
             },
           },
         },
       };
+
+      console.log(this.data);
+      console.log(this.options);
     });
   }
 
