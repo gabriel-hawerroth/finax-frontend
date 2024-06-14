@@ -8,6 +8,7 @@ import { ReleasedOn } from '../../enums/released-on';
 import { ReleasesViewMode } from '../../enums/releases-view-mode';
 import { CashFlow } from './cash-flow';
 import { CashFlowValues, MonthlyFlow } from './cash-flow-dto';
+import { cloudFireCdnLink } from '../../../shared/utils/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -110,6 +111,14 @@ export class CashFlowService {
     return lastValueFrom(
       this._http.get<Blob>(`${this.apiUrl}/get-attachment/${releaseId}`, {
         responseType: 'blob' as 'json',
+      })
+    );
+  }
+
+  getAttachmentTeste(fileName: string): Promise<Blob> {
+    return lastValueFrom(
+      this._http.get(`${cloudFireCdnLink}/${fileName}`, {
+        responseType: 'blob',
       })
     );
   }

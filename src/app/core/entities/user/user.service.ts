@@ -62,10 +62,10 @@ export class UserService {
     );
   }
 
-  getUserImage(): Promise<Blob> {
+  getUserImage(): Promise<string> {
     return lastValueFrom(
-      this._http.get<Blob>(`${this.apiUrl}/get-user-image`, {
-        responseType: 'blob' as 'json',
+      this._http.get(`${this.apiUrl}/get-user-image`, {
+        responseType: 'text'
       })
     );
   }

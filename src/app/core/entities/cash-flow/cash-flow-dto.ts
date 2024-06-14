@@ -29,6 +29,7 @@ export interface MonthlyRelease {
   date: Date;
   time: string;
   observation: string;
+  attachment?: string;
   attachmentName?: string;
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;

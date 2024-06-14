@@ -9,5 +9,5 @@ export interface User {
   canChangePassword: boolean;
   signature?: string;
   signatureExpiration?: Date;
-  profileImage?: Blob;
+  profileImage?: string;
 }

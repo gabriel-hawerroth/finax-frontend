@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,6 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../../../../core/entities/user/user';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { cloudFireCdnLink } from '../../../../../shared/utils/constants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';
 import { MyProfileFormComponent } from '../../components/my-profile-form/my-profile-form.component';
@@ -27,6 +28,7 @@ import { MyProfileFormComponent } from '../../components/my-profile-form/my-prof
     ButtonsComponent,
     TranslateModule,
     MyProfileFormComponent,
+    NgOptimizedImage
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
@@ -44,7 +46,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
   planPrice: string = '';
   signatureExpiration: string = '';
 
-  profileImageSrc = signal<string | ArrayBuffer>('');
+  profileImageSrc = signal<string | ArrayBuffer>(this.utils.userImage.value);
   changedProfileImg: boolean = false;
   selectedProfileImage: File | null = null;
 
@@ -108,20 +110,11 @@ export class MyProfilePage implements OnInit, OnDestroy {
         if (this.changedProfileImg) {
           await this._userService
             .changeProfileImage(this.selectedProfileImage!)
-            .then(() => {
+            .then((user) => {
               this.utils.showMessage('my-profile.edited-successfully');
               this.changedProfileImg = false;
-
-              const file = new Blob([this.selectedProfileImage!], {
-                type: 'application/json',
-              });
-              if (file.size !== 0) {
-                const reader = new FileReader();
-                reader.onload = () => {
-                  this.utils.userImage.next(reader.result!);
-                };
-                reader.readAsDataURL(file);
-              }
+              
+              this.utils.userImage.next(`${cloudFireCdnLink}/${user.profileImage}`);
             })
             .catch(() => {
               this.utils.showMessage(

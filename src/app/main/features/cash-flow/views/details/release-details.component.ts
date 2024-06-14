@@ -56,6 +56,8 @@ export class ReleaseDetailsComponent {
 
   downloadAttachment() {
     this._cashFlowService.getAttachment(this.release.id).then((response) => {
+      console.log(response);
+      
       if (response.size === 0) {
         this.utils.showMessage('generic.attachment-not-found');
         return;
@@ -74,24 +76,6 @@ export class ReleaseDetailsComponent {
       document.body.removeChild(anchor);
       URL.revokeObjectURL(blobUrl);
     });
-  }
-
-  getMimeTypeFromExtension(filename: string): string {
-    const ext = filename.split('.').pop()!.toLowerCase();
-    switch (ext) {
-      case 'pdf':
-        return 'application/pdf';
-      case 'jpg':
-      case 'jpeg':
-      case 'jfif':
-        return 'image/jpeg';
-      case 'png':
-        return 'image/png';
-      case 'webp':
-        return 'image/webp';
-      default:
-        return 'application/octet-stream';
-    }
   }
 
   edit() {
