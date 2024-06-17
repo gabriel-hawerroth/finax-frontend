@@ -56,8 +56,6 @@ export class ReleaseDetailsComponent {
 
   downloadAttachment() {
     this._cashFlowService.getAttachment(this.release.id).then((response) => {
-      console.log(response);
-      
       if (response.size === 0) {
         this.utils.showMessage('generic.attachment-not-found');
         return;

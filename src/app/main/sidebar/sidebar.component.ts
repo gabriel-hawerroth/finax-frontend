@@ -11,7 +11,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { LoginService } from '../../core/entities/auth/login.service';
 import { UserService } from '../../core/entities/user/user.service';
-import { cloudFireCdnImgsLink, cloudFireCdnLink } from '../../shared/utils/constants';
+import {
+  cloudFireCdnImgsLink,
+  cloudFireCdnLink,
+} from '../../shared/utils/constants';
 import { UtilsService } from '../../shared/utils/utils.service';
 
 @Component({
@@ -63,7 +66,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   getUserImage() {
     this._userService.getUserImage().then((response) => {
-      this.utils.userImage.next(`${cloudFireCdnLink}/${response}`);
+      if (response)
+        this.utils.userImage.next(`${cloudFireCdnLink}/${response}`);
     });
   }
 
