@@ -30,7 +30,7 @@
     "express": "^4.19.2",
     "ngx-currency": "^17.0.0",
     "ngx-mask": "^17.0.8",
-    "primeng": "^17.17.0",
+    "primeng": "^17.18.1",
     "rxjs": "^7.8.1",
     "zone.js": "^0.14.7"
   },
@@ -39,7 +39,7 @@
     "@angular/cli": "^17.3.8",
     "@angular/compiler-cli": "^17.3.11",
     "@types/express": "^4.17.21",
-    "@types/node": "^20.14.2",
+    "@types/node": "^20.14.8",
     "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   }
