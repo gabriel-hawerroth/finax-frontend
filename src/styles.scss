@@ -1,27 +1,23 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$finax-front-primary: mat.define-palette(mat.$green-palette, 900);
-$finax-front-accent: mat.define-palette(mat.$light-green-palette, 900);
-$finax-front-warn: mat.define-palette(mat.$green-palette, 900);
+$theme: mat.define-theme(( //
+      color: ( //
+        theme-type: light,
+        primary: mat.$cyan-palette,
+      ),
+      typography: ( //
+        brand-family: 'Roboto',
+        bold-weight: 900,
+      ),
+      density: (scale: -1),
+    ));
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$finax-front-theme: mat.define-light-theme((color: (primary: $finax-front-primary,
-        accent: $finax-front-accent,
-        warn: $finax-front-warn,
-      )));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($finax-front-theme);
+html {
+  @include mat.core-theme($theme);
+  @include mat.all-component-themes($theme);
+}
 
 @import './app/app.component.scss';
 @import 'colors.scss';

@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginService } from './core/entities/auth/login.service';
 import { MobilePage } from './main/features/mobile-page/views/principal/mobile-page.component';
