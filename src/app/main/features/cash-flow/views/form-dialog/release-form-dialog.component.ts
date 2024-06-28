@@ -35,7 +35,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
 import {
   ConfirmDuplicatedReleasesActionDialogData,
-  RelaseFormDialogData,
+  ReleaseFormDialogData,
 } from '../../../../../core/entities/cash-flow/cash-flow-dto';
 import { CashFlowService } from '../../../../../core/entities/cash-flow/cash-flow.service';
 import { Category } from '../../../../../core/entities/category/category';
@@ -97,7 +97,7 @@ export class ReleaseFormDialog implements OnInit {
   selectedCreditCard = this.data.creditCardId !== undefined;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: RelaseFormDialogData,
+    @Inject(MAT_DIALOG_DATA) public data: ReleaseFormDialogData,
     public readonly utils: UtilsService,
     private readonly _matDialogRef: MatDialogRef<ReleaseFormDialog>,
     private readonly _translate: TranslateService,
@@ -163,7 +163,6 @@ export class ReleaseFormDialog implements OnInit {
       installmentsBy: '2',
       cardId: null,
     });
-    this.releaseForm.markAllAsTouched();
 
     this.formValidations();
   }

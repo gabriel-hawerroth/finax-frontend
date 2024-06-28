@@ -47,7 +47,7 @@ export interface CashFlowValues {
   creditCardsList: CardBasicList[];
 }
 
-export interface RelaseFormDialogData {
+export interface ReleaseFormDialogData {
   accounts: AccountBasicList[];
   categories: Category[];
   creditCards: CardBasicList[];

@@ -19,7 +19,7 @@ import { Subject, lastValueFrom, takeUntil } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
 import {
   MonthlyFlow,
-  RelaseFormDialogData,
+  ReleaseFormDialogData,
 } from '../../../../../core/entities/cash-flow/cash-flow-dto';
 import { CashFlowService } from '../../../../../core/entities/cash-flow/cash-flow.service';
 import { Category } from '../../../../../core/entities/category/category';
@@ -79,8 +79,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
   constructor(
     public readonly utils: UtilsService,
     private readonly _matDialog: MatDialog,
-    private readonly _cashFlowService: CashFlowService,
-    private readonly _userConfigsService: UserConfigsService
+    private readonly _cashFlowService: CashFlowService
   ) {}
 
   ngOnInit(): void {
@@ -158,26 +157,20 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   addRelease(releaseType: 'E' | 'R' | 'T') {
-    lastValueFrom(
-      this._matDialog
-        .open(ReleaseFormDialog, {
-          data: <RelaseFormDialogData>{
-            accounts: this.accounts,
-            categories: this.categories,
-            creditCards: this.creditCards,
-            editing: false,
-            releaseType: releaseType,
-            selectedDate: this.selectedDate,
-          },
-          panelClass: 'new-release-cash-flow-dialog',
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (!response) return;
+    this.utils
+      .openReleaseFormDialog(<ReleaseFormDialogData>{
+        accounts: this.accounts,
+        categories: this.categories,
+        creditCards: this.creditCards,
+        editing: false,
+        releaseType: releaseType,
+        selectedDate: this.selectedDate,
+      })
+      .then((response) => {
+        if (!response) return;
 
-      this.getReleases();
-    });
+        this.getReleases();
+      });
   }
 
   calculateValues(monthlyFlow: MonthlyFlow) {

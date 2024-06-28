@@ -12,7 +12,7 @@ import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
 import {
   MonthlyRelease,
-  RelaseFormDialogData,
+  ReleaseFormDialogData,
   ReleaseDetailsData,
 } from '../../../../../core/entities/cash-flow/cash-flow-dto';
 import { Category } from '../../../../../core/entities/category/category';
@@ -74,7 +74,7 @@ export class ReleasesListComponent {
     lastValueFrom(
       this._matDialog
         .open(ReleaseFormDialog, {
-          data: <RelaseFormDialogData>{
+          data: <ReleaseFormDialogData>{
             accounts: this.accounts(),
             categories: this.categories(),
             creditCards: this.creditCards(),

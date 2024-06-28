@@ -24,7 +24,7 @@ import {
 } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
-import { RelaseFormDialogData } from '../../../../../core/entities/cash-flow/cash-flow-dto';
+import { ReleaseFormDialogData } from '../../../../../core/entities/cash-flow/cash-flow-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
@@ -162,27 +162,21 @@ export class CreditCardInvoicePage implements OnInit {
   }
 
   addRelease() {
-    lastValueFrom(
-      this._matDialog
-        .open(ReleaseFormDialog, {
-          data: <RelaseFormDialogData>{
-            accounts: [],
-            categories: this.categories,
-            creditCards: [this.creditCard()],
-            editing: false,
-            releaseType: 'E',
-            selectedDate: this.selectedDate(),
-            creditCardId: this.creditCardId,
-          },
-          panelClass: 'new-release-cash-flow-dialog',
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (!response) return;
+    this.utils
+      .openReleaseFormDialog(<ReleaseFormDialogData>{
+        accounts: [],
+        categories: this.categories,
+        creditCards: [this.creditCard()],
+        editing: false,
+        releaseType: 'E',
+        selectedDate: this.selectedDate(),
+        creditCardId: this.creditCardId,
+      })
+      .then((response) => {
+        if (!response) return;
 
-      this.getMonthValues();
-    });
+        this.getMonthValues();
+      });
   }
 
   payInvoice(invoicePayment?: InvoicePaymentPerson) {

@@ -21,7 +21,7 @@
 
     <div class="row row2">
       @if (form().value.type !== 'T') {
-      <mat-form-field style="width: 39%" [hideRequiredMarker]="true">
+      <mat-form-field style="width: 39%">
         @if (form().value.type === 'E') {
         <mat-label>
           {{ "release-form.account" | translate }}/{{

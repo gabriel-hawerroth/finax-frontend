@@ -11,6 +11,9 @@ import { User } from '../../core/entities/user/user';
 import { ReleasesViewMode } from '../../core/enums/releases-view-mode';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
 import { cloudFireCdnLink } from './constants';
+import { ReleaseFormDialog } from '../../main/features/cash-flow/views/form-dialog/release-form-dialog.component';
+import { ReleaseFormDialogData } from '../../core/entities/cash-flow/cash-flow-dto';
+import { ResponsiveService } from './responsive.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +24,9 @@ export class UtilsService {
 
   constructor(
     private readonly _snackBar: MatSnackBar,
-    private readonly _dialog: MatDialog,
-    private readonly _translateService: TranslateService
+    private readonly _matDialog: MatDialog,
+    private readonly _translateService: TranslateService,
+    private readonly _responsiveService: ResponsiveService
   ) {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -224,7 +228,7 @@ export class UtilsService {
 
   showConfirmDialog(message: string): Promise<boolean> {
     return lastValueFrom(
-      this._dialog
+      this._matDialog
         .open(ConfirmDialog, {
           data: <ConfirmDialogData>{
             message,
@@ -237,5 +241,18 @@ export class UtilsService {
 
   limitTwoDecimals(n: number) {
     return Math.round(n * 100) / 100;
+  }
+
+  openReleaseFormDialog(data: ReleaseFormDialogData): Promise<boolean> {
+    return lastValueFrom(
+      this._matDialog
+        .open(ReleaseFormDialog, {
+          data,
+          panelClass: 'new-release-cash-flow-dialog',
+          autoFocus: false,
+          minWidth: this._responsiveService.veryLargeWith() ? '47vw' : '55vw',
+        })
+        .afterClosed()
+    );
   }
 }
