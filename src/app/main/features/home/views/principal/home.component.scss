@@ -19,7 +19,7 @@
 
     .top-card {
         width: 90%;
-        border-radius: .5rem;
+        background-color: $primary-card-bg !important;
 
         .top-card-content {
             display: flex;
@@ -85,6 +85,8 @@
     }
 
     .top-card {
+        background-color: $dark-card-bg !important;
+
         .top-card-content {
             .amounts {
                 .item {

@@ -101,6 +101,9 @@ body {
   font-size: 16px;
   user-select: none;
   color: rgba(0, 0, 0, 0.856);
+}
+
+* {
   font-family: "Nunito", "Dosis", "Mallanna", system-ui, -apple-system, Roboto, sans-serif;
 }
 
@@ -203,6 +206,20 @@ input[type="number"]::-webkit-outer-spin-button {
 .mat-mdc-icon-button .mat-mdc-button-touch-target {
   width: 100% !important;
   height: 100% !important;
+}
+
+mat-card-title {
+  h3 {
+    font-size: 1.17rem !important;
+  }
+}
+
+.mat-divider {
+  border-top-color: $primary-divider-color !important;
+}
+
+.mat-mdc-dialog-surface {
+  background-color: $primary-card-bg !important;
 }
 
 // END ANGULAR FIX ***********
@@ -314,6 +331,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .mat-datepicker-toggle-default-icon {
     color: #dddddd !important;
+  }
+
+  .mat-divider {
+    border-top-color: $dark-divider-color !important;
   }
 }
 
