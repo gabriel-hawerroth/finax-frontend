@@ -94,8 +94,6 @@ export class BankAccountsFormPage implements OnInit {
       archived: false,
       image: '',
     });
-
-    this.accountForm.markAllAsTouched();
   }
 
   save() {

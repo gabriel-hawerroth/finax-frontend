@@ -125,8 +125,6 @@ export class CreditCardsFormPage implements OnInit {
       standard_payment_account_id: [null, Validators.required],
       active: true,
     });
-
-    this.cardForm.markAllAsTouched();
   }
 
   save() {

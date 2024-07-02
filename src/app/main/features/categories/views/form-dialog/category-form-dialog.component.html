@@ -36,7 +36,7 @@
           {{ categoryForm.value.icon }}
         </span>
 
-        <mat-form-field style="width: 50%" [hideRequiredMarker]="true">
+        <mat-form-field style="width: 50%">
           <mat-label>
             {{ "categories.description" | translate }}
           </mat-label>
@@ -59,9 +59,7 @@
       <mat-divider></mat-divider>
 
       <div class="row2">
-        <span>
-          {{ "categories.choose-color" | translate }}
-        </span>
+        <span>{{ "categories.choose-color" | translate }} *</span>
 
         <div class="colors">
           @for (item of colors; track $index) {
@@ -77,9 +75,7 @@
       <mat-divider></mat-divider>
 
       <div class="row3">
-        <span>
-          {{ "categories.choose-icon" | translate }}
-        </span>
+        <span>{{ "categories.choose-icon" | translate }} *</span>
 
         <div class="icons">
           @for (item of icons; track $index) {

@@ -1,8 +1,8 @@
 .confirm-dialog {
     display: flex;
     flex-direction: column;
-    overflow: hidden !important;
-    max-width: 40vw;
+    overflow: hidden;
+    padding: .7rem;
 
     .title {
         padding: .8rem;
@@ -30,7 +30,7 @@
 
         button {
             padding: 1.4rem;
-            margin-right: 1.2rem;
+            margin-right: 1rem;
         }
     }
 }

@@ -1,7 +1,7 @@
 <div class="form-buttons">
   @if (showNew()) {
   <button
-    mat-stroked-button
+    mat-raised-button
     [disabled]="disableNew()"
     (click)="onNew.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
@@ -17,7 +17,7 @@
   </button>
   } @if (showSave()) {
   <button
-    mat-stroked-button
+    mat-raised-button
     [disabled]="disableSave()"
     (click)="onSave.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
@@ -35,7 +35,7 @@
   </button>
   } @if (showDownload()) {
   <button
-    mat-stroked-button
+    mat-raised-button
     [disabled]="disableDownload()"
     (click)="onDownload.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
@@ -51,7 +51,7 @@
   </button>
   } @if (showEdit()) {
   <button
-    mat-stroked-button
+    mat-raised-button
     [disabled]="disableEdit()"
     (click)="onEdit.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
@@ -66,7 +66,7 @@
   </button>
   } @if (showDelete()) {
   <button
-    mat-stroked-button
+    mat-raised-button
     [disabled]="disableDelete()"
     (click)="onDelete.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem', color: 'red' }"
@@ -80,7 +80,7 @@
   </button>
   } @if (showChangePassword()) {
   <button
-    mat-stroked-button
+    mat-raised-button
     [disabled]="disableChangePassword()"
     (click)="onChangePassword.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem' }"
@@ -94,7 +94,7 @@
   </button>
   } @if (showGeneric()) {
   <button
-    mat-stroked-button
+    mat-raised-button
     [disabled]="disableGeneric()"
     (click)="onGeneric.emit()"
     [ngStyle]="{ padding: getBtnSize + 'rem', color: genericColor() }"

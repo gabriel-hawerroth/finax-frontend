@@ -28,7 +28,7 @@ import { MyProfileFormComponent } from '../../components/my-profile-form/my-prof
     ButtonsComponent,
     TranslateModule,
     MyProfileFormComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
   ],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
@@ -113,8 +113,10 @@ export class MyProfilePage implements OnInit, OnDestroy {
             .then((user) => {
               this.utils.showMessage('my-profile.edited-successfully');
               this.changedProfileImg = false;
-              
-              this.utils.userImage.next(`${cloudFireCdnLink}/${user.profileImage}`);
+
+              this.utils.userImage.next(
+                `${cloudFireCdnLink}/${user.profileImage}`
+              );
             })
             .catch(() => {
               this.utils.showMessage(
@@ -163,7 +165,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
       },
       disableClose: false,
       autoFocus: true,
-      width: '39%',
+      minWidth: '39vw',
     });
   }
 

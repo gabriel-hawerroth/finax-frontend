@@ -30,7 +30,6 @@
             formControlName="email"
             maxlength="40"
             autocomplete="off"
-            autofocus
           />
         </mat-form-field>
       </div>
@@ -87,7 +86,7 @@
       @if (showLoading()) {
       <mat-spinner [diameter]="40" color="primary"></mat-spinner>
       } @else {
-      <button mat-raised-button color="primary" (click)="createUser()">
+      <button mat-flat-button color="primary" (click)="createUser()">
         <span>
           <span class="material-symbols-outlined">person</span>
           {{ "create-account.create" | translate }}

@@ -12,8 +12,8 @@ import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
 import {
   MonthlyRelease,
-  ReleaseFormDialogData,
   ReleaseDetailsData,
+  ReleaseFormDialogData,
 } from '../../../../../core/entities/cash-flow/cash-flow-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
@@ -21,7 +21,6 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleaseDetailsComponent } from '../../views/details/release-details.component';
-import { ReleaseFormDialog } from '../../views/form-dialog/release-form-dialog.component';
 
 @Component({
   selector: 'app-releases-list',
@@ -71,26 +70,20 @@ export class ReleasesListComponent {
   }
 
   editRelease(release: MonthlyRelease) {
-    lastValueFrom(
-      this._matDialog
-        .open(ReleaseFormDialog, {
-          data: <ReleaseFormDialogData>{
-            accounts: this.accounts(),
-            categories: this.categories(),
-            creditCards: this.creditCards(),
-            editing: true,
-            releaseType: release.type,
-            selectedDate: this.selectedDate(),
-            release: release,
-          },
-          panelClass: 'new-release-cash-flow-dialog',
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (!response) return;
+    this.utils
+      .openReleaseFormDialog(<ReleaseFormDialogData>{
+        accounts: this.accounts(),
+        categories: this.categories(),
+        creditCards: this.creditCards(),
+        editing: true,
+        releaseType: release.type,
+        selectedDate: this.selectedDate(),
+        release: release,
+      })
+      .then((response) => {
+        if (!response) return;
 
-      this.updateList.emit();
-    });
+        this.updateList.emit();
+      });
   }
 }

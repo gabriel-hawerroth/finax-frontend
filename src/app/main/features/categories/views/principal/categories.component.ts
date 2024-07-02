@@ -67,19 +67,10 @@ export class CategoriesPage implements OnInit {
   }
 
   newCategory(event: 'E' | 'R') {
-    lastValueFrom(
-      this._matDialog
-        .open(CategoryFormDialog, {
-          data: <CategoryFormDialogData>{
-            category: 'new',
-            type: event,
-          },
-          width: '40%',
-          autoFocus: false,
-          maxHeight: '95vh',
-        })
-        .afterClosed()
-    ).then((response) => {
+    this.openCategoryFormDialog(<CategoryFormDialogData>{
+      category: 'new',
+      type: event,
+    }).then((response) => {
       if (!response) return;
 
       this.categories.update((value) => {
@@ -106,19 +97,10 @@ export class CategoriesPage implements OnInit {
     );
     if (clickedOnDeleteBtn) return;
 
-    lastValueFrom(
-      this._matDialog
-        .open(CategoryFormDialog, {
-          data: <CategoryFormDialogData>{
-            category: event.category,
-            type: event.category.type,
-          },
-          width: '40%',
-          autoFocus: false,
-          maxHeight: '95vh',
-        })
-        .afterClosed()
-    ).then((response) => {
+    this.openCategoryFormDialog(<CategoryFormDialogData>{
+      category: event.category,
+      type: event.category.type,
+    }).then((response) => {
       if (!response) return;
 
       const value = this.categories();
@@ -137,8 +119,6 @@ export class CategoriesPage implements OnInit {
           this.utils.filterList(this.categories(), 'type', 'R')
         );
       }
-
-      // this._changeDetectorRef.detectChanges();
     });
   }
 
@@ -169,5 +149,20 @@ export class CategoriesPage implements OnInit {
             this.utils.showMessage('categories.error-deleting');
           });
       });
+  }
+
+  openCategoryFormDialog(data: CategoryFormDialogData): Promise<any> {
+    return lastValueFrom(
+      this._matDialog
+        .open(CategoryFormDialog, {
+          data,
+          panelClass: 'category-form-dialog',
+          minWidth: '40vw',
+          width: '40vw',
+          maxHeight: '95vh',
+          autoFocus: false,
+        })
+        .afterClosed()
+    );
   }
 }

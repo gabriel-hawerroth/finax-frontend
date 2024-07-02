@@ -5,14 +5,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
+import { ReleaseFormDialogData } from '../../core/entities/cash-flow/cash-flow-dto';
 import { ConfirmDialogData } from '../../core/entities/generic';
 import { UserConfigs } from '../../core/entities/user-configs/user-configs';
 import { User } from '../../core/entities/user/user';
 import { ReleasesViewMode } from '../../core/enums/releases-view-mode';
+import { ReleaseFormDialog } from '../../main/features/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
 import { cloudFireCdnLink } from './constants';
-import { ReleaseFormDialog } from '../../main/features/cash-flow/views/form-dialog/release-form-dialog.component';
-import { ReleaseFormDialogData } from '../../core/entities/cash-flow/cash-flow-dto';
 import { ResponsiveService } from './responsive.service';
 
 @Injectable({
@@ -233,6 +233,7 @@ export class UtilsService {
           data: <ConfirmDialogData>{
             message,
           },
+          panelClass: 'confirm-dialog',
           autoFocus: false,
         })
         .afterClosed()

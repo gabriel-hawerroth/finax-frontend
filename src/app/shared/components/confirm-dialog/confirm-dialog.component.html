@@ -14,11 +14,11 @@
 
   <div class="buttons">
     <button mat-button mat-dialog-close>
-      {{ "confirm-dialog.cancel" | translate }}
+      <h3>{{ "confirm-dialog.cancel" | translate }}</h3>
     </button>
 
-    <button mat-raised-button color="primary" [mat-dialog-close]="true">
-      {{ "confirm-dialog.confirm" | translate }}
+    <button mat-flat-button color="primary" [mat-dialog-close]="true">
+      <h3>{{ "confirm-dialog.confirm" | translate }}</h3>
     </button>
   </div>
 </div>

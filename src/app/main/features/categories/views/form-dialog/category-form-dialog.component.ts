@@ -86,8 +86,6 @@ export class CategoryFormDialog implements OnInit {
       active: true,
       essential: false,
     });
-
-    this.categoryForm.markAllAsTouched();
   }
 
   pickColor(color: string) {

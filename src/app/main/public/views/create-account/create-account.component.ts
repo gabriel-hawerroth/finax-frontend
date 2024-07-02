@@ -72,17 +72,17 @@ export class CreateAccountPage implements OnInit {
       firstName: ['', Validators.required],
       lastName: '',
     });
-
-    this.userRegisterForm.markAllAsTouched();
   }
 
   createUser() {
     if (this.userRegisterForm.get('password')!.invalid) {
+      this.userRegisterForm.controls['password'].markAsTouched();
       this.utils.showMessage(
         "generic.password-doesn't-meet-security-requirements"
       );
       return;
     } else if (this.userRegisterForm.invalid) {
+      this.userRegisterForm.markAllAsTouched();
       this.utils.showMessage('generic.invalid-form');
       return;
     }

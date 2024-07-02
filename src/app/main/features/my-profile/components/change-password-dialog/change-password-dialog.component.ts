@@ -69,8 +69,6 @@ export class ChangePasswordDialog implements OnInit {
       ],
       newPasswordConfirm: ['', Validators.required],
     });
-
-    this.changePasswordForm.markAllAsTouched();
   }
 
   changePassword() {

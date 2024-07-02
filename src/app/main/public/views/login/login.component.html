@@ -45,17 +45,17 @@
       </div>
 
       <div style="display: flex; justify-content: space-around; gap: 70px">
-        <div style="gap: 15px">
-          <mat-checkbox formControlName="rememberMe">
-            {{ "login.remember-me" | translate }}
-          </mat-checkbox>
-        </div>
+        <mat-checkbox formControlName="rememberMe">
+          {{ "login.remember-me" | translate }}
+        </mat-checkbox>
 
-        <div>
-          <span routerLink="/esqueci-minha-senha" id="forgot-password-label">
-            {{ "login.forgot-my-password" | translate }}
-          </span>
-        </div>
+        <span
+          routerLink="/esqueci-minha-senha"
+          id="forgot-password-label"
+          color="primary"
+        >
+          {{ "login.forgot-my-password" | translate }}
+        </span>
       </div>
     </form>
 
@@ -63,7 +63,7 @@
       @if (showLoading()) {
       <mat-spinner [diameter]="40"></mat-spinner>
       } @else {
-      <button mat-raised-button color="primary" (click)="login()">
+      <button mat-flat-button color="primary" (click)="login()">
         <span>
           <span class="material-symbols-outlined">person</span>
           {{ "login.login" | translate }}
