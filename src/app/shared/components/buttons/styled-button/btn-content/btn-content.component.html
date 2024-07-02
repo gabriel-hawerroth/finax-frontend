@@ -1,0 +1,10 @@
+<div class="btn-content">
+  <span class="material-symbols-outlined">
+    {{ icon() }}
+  </span>
+  @if (isPcScreen && label()) {
+  <span>
+    {{ label() | translate }}
+  </span>
+  }
+</div>

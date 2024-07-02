@@ -19,7 +19,7 @@ import { Account } from '../../../../../core/entities/account/account';
 import { BankAccountDetailsData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { BankAccountDetailsComponent } from '../details/bank-account-details.component';
 

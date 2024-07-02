@@ -14,8 +14,9 @@ import { UserService } from '../../core/entities/user/user.service';
 import {
   cloudFireCdnImgsLink,
   cloudFireCdnLink,
-} from '../../shared/utils/constants';
+} from '../../shared/utils/constant-utils';
 import { UtilsService } from '../../shared/utils/utils.service';
+import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -42,17 +43,29 @@ export class SidebarComponent implements OnInit, OnDestroy {
   constructor(
     public readonly loginService: LoginService,
     public readonly utils: UtilsService,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private readonly _userConfigsService: UserConfigsService
   ) {}
 
   ngOnInit(): void {
-    this.subscribeUserConfigs();
+    this.getUserConfigs();
     this.getUserImage();
+    this.subscribeUserConfigs();
   }
 
   ngOnDestroy(): void {
     this._unsubscribeAll.complete();
     this._unsubscribeAll.unsubscribe();
+  }
+
+  getUserConfigs() {
+    this._userConfigsService.getLoggedUserConfigs().then((response) => {
+      this.utils.setUserConfigs(response);
+      this.utils.setItemLocalStorage(
+        'savedUserConfigsFinax',
+        JSON.stringify(response)
+      );
+    });
   }
 
   subscribeUserConfigs() {

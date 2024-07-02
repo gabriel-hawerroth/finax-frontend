@@ -19,7 +19,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({

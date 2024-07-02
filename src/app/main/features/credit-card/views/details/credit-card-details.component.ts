@@ -12,7 +12,7 @@ import {
   UserCreditCard,
 } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({

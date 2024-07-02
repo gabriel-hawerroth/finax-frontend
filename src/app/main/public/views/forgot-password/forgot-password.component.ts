@@ -17,7 +17,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
@@ -56,7 +56,6 @@ export class ForgotPasswordPage implements OnInit {
       Validators.required,
       Validators.email,
     ]);
-    this.emailControl.markAsTouched();
   }
 
   resetPassword() {

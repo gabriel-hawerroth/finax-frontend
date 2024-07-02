@@ -1,0 +1,108 @@
+@switch (btnStyle()) {
+<!---->
+@case (getBtnStyle('basic')) {
+<button
+  mat-button
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="label()" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('raised')) {
+<button
+  mat-raised-button
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="label()" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('stroked')) {
+<button
+  mat-stroked-button
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="label()" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('flat')) {
+<button
+  mat-flat-button
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="label()" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('icon')) {
+<button
+  mat-icon-button
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="''" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('fab')) {
+<button
+  mat-fab
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="''" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('mini-fab')) {
+<button
+  mat-mini-fab
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="''" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('extended-fab')) {
+<button
+  mat-fab
+  extended
+  [disabled]="disabled()"
+  [ngStyle]="{
+    padding: btnSize() + 'rem',
+    color: color() ? color() : ''
+  }"
+  (click)="onClick.emit()"
+>
+  <btn-content [label]="label()" [icon]="icon()"></btn-content>
+</button>
+}<!---->
+}

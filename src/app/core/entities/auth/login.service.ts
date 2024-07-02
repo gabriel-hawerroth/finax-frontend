@@ -48,7 +48,6 @@ export class LoginService {
 
             this._utils.updateLoggedUser(user);
 
-            this._utils.getUserConfigs;
             this._userConfigsService
               .getLoggedUserConfigs()
               .then((response: UserConfigs) => {
@@ -74,7 +73,7 @@ export class LoginService {
               this._utils.showMessage('change-password.changed-successfully');
             }
 
-            this._router.navigate(['home']);
+            this._router.navigateByUrl('home');
           })
           .catch(() => {
             this._utils.showMessage('login.error-getting-user');

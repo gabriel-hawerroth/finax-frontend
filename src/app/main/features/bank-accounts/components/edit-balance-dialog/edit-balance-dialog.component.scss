@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    width: 32rem;
+    min-width: 32rem;
     height: 17rem;
 
     .title {
@@ -12,6 +12,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        h1 {
+            max-width: 82%;
+            overflow-x: hidden;
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+        }
 
         app-buttons {
             position: absolute;

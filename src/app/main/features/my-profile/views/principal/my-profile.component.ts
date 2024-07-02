@@ -14,7 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../../../../core/entities/user/user';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { cloudFireCdnLink } from '../../../../../shared/utils/constants';
+import { cloudFireCdnLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';
 import { MyProfileFormComponent } from '../../components/my-profile-form/my-profile-form.component';

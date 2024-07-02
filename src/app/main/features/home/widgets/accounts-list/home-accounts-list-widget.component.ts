@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 
 @Component({
   selector: 'app-home-accounts-list-widget',

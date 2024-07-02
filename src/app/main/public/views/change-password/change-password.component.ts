@@ -22,7 +22,7 @@ import { Credentials } from '../../../../core/entities/auth/credentials';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { User } from '../../../../core/entities/user/user';
 import { UserService } from '../../../../core/entities/user/user.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({

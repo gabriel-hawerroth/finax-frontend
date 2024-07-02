@@ -8,7 +8,7 @@ import { ReleasedOn } from '../../enums/released-on';
 import { ReleasesViewMode } from '../../enums/releases-view-mode';
 import { CashFlow } from './cash-flow';
 import { CashFlowValues, MonthlyFlow } from './cash-flow-dto';
-import { cloudFireCdnLink } from '../../../shared/utils/constants';
+import { cloudFireCdnLink } from '../../../shared/utils/constant-utils';
 
 @Injectable({
   providedIn: 'root',

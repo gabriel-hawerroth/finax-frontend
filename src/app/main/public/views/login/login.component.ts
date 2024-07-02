@@ -18,7 +18,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
@@ -56,8 +56,6 @@ export class LoginPage implements OnInit {
 
     const savedLogin = this.utils.getItemLocalStorage('savedLoginFinax');
     if (savedLogin) this.loginForm.patchValue(JSON.parse(atob(savedLogin!)));
-
-    this.loginForm.markAllAsTouched();
   }
 
   buildForm() {
@@ -66,8 +64,6 @@ export class LoginPage implements OnInit {
       password: ['', Validators.required],
       rememberMe: false,
     });
-
-    this.loginForm.markAllAsTouched();
   }
 
   login() {

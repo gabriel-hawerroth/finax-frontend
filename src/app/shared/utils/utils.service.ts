@@ -12,7 +12,7 @@ import { User } from '../../core/entities/user/user';
 import { ReleasesViewMode } from '../../core/enums/releases-view-mode';
 import { ReleaseFormDialog } from '../../main/features/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
-import { cloudFireCdnLink } from './constants';
+import { cloudFireCdnLink } from './constant-utils';
 import { ResponsiveService } from './responsive.service';
 
 @Injectable({

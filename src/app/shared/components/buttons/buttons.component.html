@@ -1,120 +1,102 @@
 <div class="form-buttons">
   @if (showNew()) {
-  <button
-    mat-raised-button
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [label]="labelNewM() ? 'buttons.newM' : 'buttons.new'"
+    icon="add"
     [disabled]="disableNew()"
-    (click)="onNew.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem' }"
-  >
-    <div class="btn-content">
-      <span class="material-symbols-outlined">add</span>
-      @if (isPcScreen) {
-      <span>
-        {{ (labelNewM() ? "buttons.newM" : "buttons.new") | translate }}
-      </span>
-      }
-    </div>
-  </button>
+    [btnSize]="getBtnSize"
+    (onClick)="onNew.emit()"
+  ></styled-button>
+  <!---->
   } @if (showSave()) {
-  <button
-    mat-raised-button
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    label="actions.save"
+    icon="save"
     [disabled]="disableSave()"
-    (click)="onSave.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem' }"
-    color="primary"
-  >
-    <div class="btn-content">
-      @if (!showSaveLoading()) {
-      <span class="material-symbols-outlined">save</span>
-      @if (isPcScreen) {
-      <span>{{ "actions.save" | translate }}</span>
-      } } @else {
-      <mat-spinner [diameter]="30"></mat-spinner>
-      }
-    </div>
-  </button>
+    [btnSize]="getBtnSize"
+    (onClick)="onSave.emit()"
+  ></styled-button>
+  <!---->
   } @if (showDownload()) {
-  <button
-    mat-raised-button
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    label="buttons.download-attachment"
+    icon="cloud_download"
     [disabled]="disableDownload()"
-    (click)="onDownload.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem' }"
-  >
-    <div class="btn-content" style="color: #4d4d4d">
-      <span class="material-symbols-outlined">cloud_download</span>
-      @if (isPcScreen) {
-      <span>
-        {{ "buttons.download-attachment" | translate }}
-      </span>
-      }
-    </div>
-  </button>
+    [btnSize]="getBtnSize"
+    (onClick)="onDownload.emit()"
+  ></styled-button>
+  <!---->
   } @if (showEdit()) {
-  <button
-    mat-raised-button
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    label="actions.edit"
+    icon="edit"
     [disabled]="disableEdit()"
-    (click)="onEdit.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem' }"
-    color="primary"
-  >
-    <div class="btn-content">
-      <span class="material-symbols-outlined">edit</span>
-      @if (isPcScreen) {
-      <span>{{ "actions.edit" | translate }}</span>
-      }
-    </div>
-  </button>
+    [btnSize]="getBtnSize"
+    (onClick)="onEdit.emit()"
+  ></styled-button>
+  <!---->
   } @if (showDelete()) {
-  <button
-    mat-raised-button
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    label="actions.exclude"
+    icon="delete"
     [disabled]="disableDelete()"
-    (click)="onDelete.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem', color: 'red' }"
-  >
-    <div class="btn-content">
-      <span class="material-symbols-outlined">delete</span>
-      @if (isPcScreen) {
-      <span>{{ "actions.exclude" | translate }}</span>
-      }
-    </div>
-  </button>
+    [btnSize]="getBtnSize"
+    [color]="'red'"
+    (onClick)="onDelete.emit()"
+  ></styled-button>
+  <!---->
   } @if (showChangePassword()) {
-  <button
-    mat-raised-button
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    label="buttons.change-password"
+    icon="vpn_key"
     [disabled]="disableChangePassword()"
-    (click)="onChangePassword.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem' }"
-  >
-    <div class="btn-content">
-      <span class="material-symbols-outlined">vpn_key</span>
-      @if (isPcScreen) {
-      <span>{{ "buttons.change-password" | translate }}</span>
-      }
-    </div>
-  </button>
+    [btnSize]="getBtnSize"
+    (onClick)="onChangePassword.emit()"
+  ></styled-button>
+  <!---->
   } @if (showGeneric()) {
-  <button
-    mat-raised-button
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [label]="genericLabel()"
+    [icon]="genericIcon()"
     [disabled]="disableGeneric()"
-    (click)="onGeneric.emit()"
-    [ngStyle]="{ padding: getBtnSize + 'rem', color: genericColor() }"
-  >
-    <div class="btn-content">
-      <span class="material-symbols-outlined">{{ genericIcon() }}</span>
-      @if (isPcScreen) {
-      <span>
-        {{ genericLabel() }}
-      </span>
-      }
-    </div>
-  </button>
+    [btnSize]="getBtnSize"
+    [color]="genericColor()"
+    (onClick)="onGeneric.emit()"
+  ></styled-button>
+  <!---->
   } @if (showClose()) {
-  <button mat-icon-button (click)="onClose.emit()">
-    <span class="material-symbols-outlined">close</span>
-  </button>
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle('icon')"
+    label=""
+    icon="close"
+    [disabled]="false"
+    (onClick)="onClose.emit()"
+  ></styled-button>
+  <!---->
   } @if (showGoBack()) {
-  <button mat-icon-button (click)="onGoBack.emit()">
-    <span class="material-symbols-outlined">arrow_back</span>
-  </button>
+  <!---->
+  <styled-button
+    [btnStyle]="getBtnStyle('icon')"
+    label=""
+    icon="arrow_back"
+    [disabled]="false"
+    (onClick)="onGoBack.emit()"
+  ></styled-button>
+  <!---->
   }
 </div>

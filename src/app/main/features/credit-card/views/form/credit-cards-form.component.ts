@@ -27,7 +27,7 @@ import { AccountService } from '../../../../../core/entities/account/account.ser
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({

@@ -20,7 +20,7 @@ import {
   EditBalanceDialogData,
 } from '../../../../../core/entities/account/account-dto';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constants';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-balance-dialog.component';
 

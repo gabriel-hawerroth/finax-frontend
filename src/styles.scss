@@ -254,8 +254,34 @@ mat-card-title {
     }
   }
 
-  .btn-content {
-    color: #fff !important;
+  .mdc-button {
+    background-color: #6e6e6e1f !important;
+
+    .btn-content {
+      color: $dark-font-color !important;
+
+      .material-symbols-outlined {
+        color: $dark-font-color !important;
+      }
+    }
+
+    span {
+      color: $dark-font-color !important;
+    }
+
+    &:disabled {
+      .btn-content {
+        color: $disabled-font-color !important;
+
+        .material-symbols-outlined {
+          color: $disabled-font-color !important;
+        }
+      }
+
+      span {
+        color: $disabled-font-color !important;
+      }
+    }
   }
 
   .mat-bottom-sheet-container {
@@ -280,15 +306,6 @@ mat-card-title {
 
   .mat-mdc-input-element {
     color: #e6e6e6 !important;
-  }
-
-  .mdc-button {
-    color: #e6e6e6;
-
-    span {
-      transition-duration: 1s;
-      color: #e6e6e6 !important;
-    }
   }
 
   .mat-mdc-form-field {
