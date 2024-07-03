@@ -14,7 +14,7 @@
         <app-buttons
           [showSave]="true"
           [disableSave]="accountForm.invalid || accountForm.pristine || saving"
-          [showSaveLoading]="saving"
+          [showLoading]="saving"
           (onSave)="save()"
         ></app-buttons>
       </div>

@@ -56,7 +56,7 @@ export class ButtonsComponent {
   readonly disableChangePassword = input<boolean>(false);
   readonly disableGeneric = input<boolean>(false);
 
-  readonly showSaveLoading = input<boolean>(false);
+  readonly showLoading = input<boolean>(false);
 
   readonly smallBtn = input<boolean>(false);
   readonly bigBtn = input<boolean>(false);

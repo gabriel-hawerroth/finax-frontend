@@ -18,6 +18,7 @@
     icon="save"
     [disabled]="disableSave()"
     [btnSize]="getBtnSize"
+    [loading]="showLoading()"
     (onClick)="onSave.emit()"
   ></styled-button>
   <!---->
@@ -29,6 +30,7 @@
     icon="cloud_download"
     [disabled]="disableDownload()"
     [btnSize]="getBtnSize"
+    [loading]="showLoading()"
     (onClick)="onDownload.emit()"
   ></styled-button>
   <!---->
@@ -51,6 +53,7 @@
     icon="delete"
     [disabled]="disableDelete()"
     [btnSize]="getBtnSize"
+    [loading]="showLoading()"
     [color]="'red'"
     (onClick)="onDelete.emit()"
   ></styled-button>
@@ -74,6 +77,7 @@
     [icon]="genericIcon()"
     [disabled]="disableGeneric()"
     [btnSize]="getBtnSize"
+    [loading]="showLoading()"
     [color]="genericColor()"
     (onClick)="onGeneric.emit()"
   ></styled-button>

@@ -93,7 +93,7 @@
         [disableSave]="
           categoryForm.invalid || categoryForm.pristine || saving()
         "
-        [showSaveLoading]="saving()"
+        [showLoading]="saving()"
         (onSave)="save()"
       ></app-buttons>
     </div>

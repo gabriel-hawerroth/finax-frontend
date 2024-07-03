@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BtnContentComponent } from './btn-content/btn-content.component';
 import { getBtnStyle } from '../../../utils/constant-utils';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'styled-button',
@@ -19,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
     TranslateModule,
     BtnContentComponent,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './styled-button.component.html',
   styleUrl: './styled-button.component.scss',
@@ -33,6 +35,7 @@ export class StyledButtonComponent {
   disabled = input.required<boolean>();
   btnSize = input<number>();
   color = input<string>();
+  loading = input<boolean>();
 
   getBtnStyle = getBtnStyle;
 }

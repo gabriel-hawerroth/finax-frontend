@@ -43,7 +43,7 @@
             userForm.invalid ||
             saving()
           "
-          [showSaveLoading]="saving()"
+          [showLoading]="saving()"
           (onSave)="saveUser()"
           (onChangePassword)="openChangePasswordDialog()"
         ></app-buttons>

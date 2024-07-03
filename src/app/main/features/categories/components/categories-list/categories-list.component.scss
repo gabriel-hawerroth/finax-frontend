@@ -24,7 +24,6 @@
     .list {
         display: flex;
         flex-direction: column;
-        gap: .5rem;
         overflow-y: scroll;
         flex: 1;
 
@@ -38,15 +37,12 @@
 
             .material-symbols-outlined {
                 border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
                 padding: .7rem;
                 color: #fff;
             }
 
             &:hover {
-                box-shadow: 0 2px 4px #d4d4d4;
+                box-shadow: 0 0 4px #d4d4d4;
                 cursor: pointer;
 
                 .delete-btn {

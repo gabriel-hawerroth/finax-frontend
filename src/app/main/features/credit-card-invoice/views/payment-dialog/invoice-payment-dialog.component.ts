@@ -46,6 +46,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgOptimizedImage,
     MatButtonModule,
     MatProgressSpinnerModule,
+    ButtonsComponent,
   ],
   templateUrl: './invoice-payment-dialog.component.html',
   styleUrl: './invoice-payment-dialog.component.scss',

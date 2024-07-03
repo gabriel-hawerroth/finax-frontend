@@ -144,12 +144,11 @@
   </form>
 
   <div class="actions">
-    @if (saving()) {
-    <mat-spinner color="primary" [diameter]="48"></mat-spinner>
-    } @else {
-    <button mat-raised-button color="primary" (click)="save()">
-      {{ "invoice.pay" | translate }}
-    </button>
-    }
+    <app-buttons
+      [showGeneric]="true"
+      [showLoading]="saving()"
+      genericLabel="invoice.pay"
+      (onGeneric)="save()"
+    ></app-buttons>
   </div>
 </div>

@@ -120,6 +120,12 @@ app-root {
     'opsz' 24
 }
 
+.material-symbols-outlined {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -250,19 +256,15 @@ mat-card-title {
   .content {
     .card {
       background-color: $dark-card-bg !important;
-      color: #fff !important;
+      color: $dark-font-color !important;
     }
   }
 
-  .mdc-button {
-    background-color: #6e6e6e1f !important;
+  .mdc-button,
+  .mdc-icon-button {
 
     .btn-content {
       color: $dark-font-color !important;
-
-      .material-symbols-outlined {
-        color: $dark-font-color !important;
-      }
     }
 
     span {
@@ -272,10 +274,6 @@ mat-card-title {
     &:disabled {
       .btn-content {
         color: $disabled-font-color !important;
-
-        .material-symbols-outlined {
-          color: $disabled-font-color !important;
-        }
       }
 
       span {
