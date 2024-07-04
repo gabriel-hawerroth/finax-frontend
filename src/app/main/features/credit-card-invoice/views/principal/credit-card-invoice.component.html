@@ -48,14 +48,12 @@
               (editPayment)="payInvoice($event)"
             ></app-invoice-payments-card>
             } @else if (invoiceValues().value > 0) {
-            <button
-              mat-stroked-button
-              color="primary"
+            <app-buttons
               id="pay-btn"
-              (click)="payInvoice()"
-            >
-              <span>{{ "invoice.pay" | translate }}</span>
-            </button>
+              [showGeneric]="true"
+              genericLabel="invoice.pay"
+              (onGeneric)="payInvoice()"
+            ></app-buttons>
             }
           </div>
         </div>

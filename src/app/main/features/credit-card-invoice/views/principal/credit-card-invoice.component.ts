@@ -43,9 +43,9 @@ import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pi
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
-import { ReleaseFormDialog } from '../../../cash-flow/views/form-dialog/release-form-dialog.component';
 import { InvoicePaymentsCardComponent } from '../../components/payments-card/invoice-payments-card.component';
 import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.component';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -61,6 +61,7 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
     ReleasesMonthPipe,
     RouterModule,
     InvoicePaymentsCardComponent,
+    ButtonsComponent,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
