@@ -1,5 +1,10 @@
 import { DatePipe, registerLocaleData } from '@angular/common';
-import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import {
+  HttpClient,
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
@@ -7,7 +12,10 @@ import {
   MAT_DATE_LOCALE,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { provideClientHydration } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withI18nSupport,
+} from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -41,7 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideClientHydration(),
+    provideClientHydration(withI18nSupport()),
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideNgxMask(),
