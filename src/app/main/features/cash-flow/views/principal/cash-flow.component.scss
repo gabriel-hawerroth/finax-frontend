@@ -20,12 +20,11 @@
         justify-content: start;
         align-items: center;
 
-        .releases-card {
+        .card {
             background-color: #fff;
             width: 60%;
             min-height: 95vh;
             max-height: 95vh;
-            border-radius: .6rem;
             display: flex;
             flex-direction: column;
             position: absolute;
