@@ -1,23 +1,21 @@
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   input,
   output,
 } from '@angular/core';
-import { ButtonStyle } from '../../../../core/enums/button-style';
-import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
-import { BtnContentComponent } from './btn-content/btn-content.component';
-import { getBtnStyle } from '../../../utils/constant-utils';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ButtonType } from '../../../../core/enums/button-style';
+import { getBtnStyle } from '../../../utils/constant-utils';
+import { BtnContentComponent } from './btn-content/btn-content.component';
 
 @Component({
   selector: 'styled-button',
   standalone: true,
   imports: [
     CommonModule,
-    TranslateModule,
     BtnContentComponent,
     MatButtonModule,
     MatProgressSpinnerModule,
@@ -27,15 +25,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StyledButtonComponent {
+  getBtnStyle = getBtnStyle;
+
   onClick = output<void>();
-  btnStyle = input.required<ButtonStyle>();
+  btnType = input.required<ButtonType>();
 
   label = input.required<string>();
   icon = input.required<string>();
-  disabled = input.required<boolean>();
-  btnSize = input<number>();
-  color = input<string>();
+  disabled = input<boolean>();
   loading = input<boolean>();
-
-  getBtnStyle = getBtnStyle;
+  btnStyle = input<{}>();
+  contentStyle = input<{}>();
 }

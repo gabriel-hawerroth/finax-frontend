@@ -2,32 +2,26 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   input,
   output,
   signal,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TranslateModule } from '@ngx-translate/core';
+import { getBtnStyle } from '../../utils/constant-utils';
 import { UtilsService } from '../../utils/utils.service';
 import { StyledButtonComponent } from './styled-button/styled-button.component';
-import { getBtnStyle } from '../../utils/constant-utils';
 
 @Component({
   selector: 'app-buttons',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    TranslateModule,
-    StyledButtonComponent,
-  ],
+  imports: [CommonModule, StyledButtonComponent],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonsComponent {
+  getBtnStyle = getBtnStyle;
+
   readonly onNew = output<void>();
   readonly onSave = output<void>();
   readonly onDelete = output<void>();
@@ -58,31 +52,21 @@ export class ButtonsComponent {
 
   readonly showLoading = input<boolean>(false);
 
-  readonly smallBtn = input<boolean>(false);
-  readonly bigBtn = input<boolean>(false);
-
   readonly labelNewM = input<boolean>(false);
 
   readonly genericIcon = input<string>('');
   readonly genericLabel = input<string>('');
-  readonly genericColor = input<string>('');
 
-  readonly isPcScreen = this._utils.isPcScreen;
+  readonly btnStyle = input<{}>();
+  readonly contentStyle = input<{}>();
 
   readonly darkThemeEnabled = signal(false);
 
-  getBtnStyle = getBtnStyle;
-
-  constructor(private readonly _utils: UtilsService) {
-    _utils.getUserConfigsObservable().subscribe((configs) => {
-      this.darkThemeEnabled.set(configs.theme === 'dark');
-    });
-  }
-
-  get getBtnSize(): number {
-    if (this.smallBtn() && !this.bigBtn()) return 1.3;
-    else if (this.bigBtn() && !this.smallBtn()) return 1.9;
-
-    return 1.6;
+  constructor() {
+    inject(UtilsService)
+      .getUserConfigsObservable()
+      .subscribe((configs) => {
+        this.darkThemeEnabled.set(configs.theme === 'dark');
+      });
   }
 }

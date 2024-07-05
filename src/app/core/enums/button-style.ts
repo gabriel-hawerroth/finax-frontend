@@ -1,4 +1,4 @@
-export enum ButtonStyle {
+export enum ButtonType {
   BASIC,
   RAISED,
   STROKED,

@@ -1,8 +1,9 @@
-<div class="btn-content">
+<div class="btn-content" [ngStyle]="contentStyle()">
+  @if (icon()) {
   <span class="material-symbols-outlined">
     {{ icon() }}
   </span>
-  @if (isPcScreen && label()) {
+  } @if (isPcScreen && label()) {
   <span>
     {{ label() | translate }}
   </span>

@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UtilsService } from '../../../../utils/utils.service';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { UtilsService } from '../../../../utils/utils.service';
 
 @Component({
   selector: 'btn-content',
@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class BtnContentComponent {
   label = input.required<string>();
   icon = input.required<string>();
+  contentStyle = input<any>();
 
   readonly isPcScreen = this._utils.isPcScreen;
 

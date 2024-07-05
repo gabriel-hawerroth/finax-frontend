@@ -2,103 +2,110 @@
   @if (showNew()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
     [label]="labelNewM() ? 'buttons.newM' : 'buttons.new'"
     icon="add"
     [disabled]="disableNew()"
-    [btnSize]="getBtnSize"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
     (onClick)="onNew.emit()"
   ></styled-button>
   <!---->
   } @if (showSave()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
     label="actions.save"
     icon="save"
     [disabled]="disableSave()"
-    [btnSize]="getBtnSize"
     [loading]="showLoading()"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
     (onClick)="onSave.emit()"
   ></styled-button>
   <!---->
   } @if (showDownload()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
     label="buttons.download-attachment"
     icon="cloud_download"
     [disabled]="disableDownload()"
-    [btnSize]="getBtnSize"
     [loading]="showLoading()"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="{ color: '#585858' }"
     (onClick)="onDownload.emit()"
   ></styled-button>
   <!---->
   } @if (showEdit()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
     label="actions.edit"
     icon="edit"
     [disabled]="disableEdit()"
-    [btnSize]="getBtnSize"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
     (onClick)="onEdit.emit()"
   ></styled-button>
   <!---->
   } @if (showDelete()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
     label="actions.exclude"
     icon="delete"
     [disabled]="disableDelete()"
-    [btnSize]="getBtnSize"
     [loading]="showLoading()"
-    [color]="'red'"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="{ color: 'red' }"
     (onClick)="onDelete.emit()"
   ></styled-button>
   <!---->
   } @if (showChangePassword()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
     label="buttons.change-password"
     icon="vpn_key"
     [disabled]="disableChangePassword()"
-    [btnSize]="getBtnSize"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
     (onClick)="onChangePassword.emit()"
   ></styled-button>
   <!---->
   } @if (showGeneric()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
     [label]="genericLabel()"
     [icon]="genericIcon()"
     [disabled]="disableGeneric()"
-    [btnSize]="getBtnSize"
     [loading]="showLoading()"
-    [color]="genericColor()"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
     (onClick)="onGeneric.emit()"
   ></styled-button>
   <!---->
   } @if (showClose()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle('icon')"
+    [btnType]="getBtnStyle('icon')"
     label=""
     icon="close"
-    [disabled]="false"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
     (onClick)="onClose.emit()"
   ></styled-button>
   <!---->
   } @if (showGoBack()) {
   <!---->
   <styled-button
-    [btnStyle]="getBtnStyle('icon')"
+    [btnType]="getBtnStyle('icon')"
     label=""
     icon="arrow_back"
-    [disabled]="false"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
     (onClick)="onGoBack.emit()"
   ></styled-button>
   <!---->

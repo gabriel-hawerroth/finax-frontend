@@ -11,6 +11,9 @@ import {
   CreditCardDetailsData,
   UserCreditCard,
 } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { ButtonType } from '../../../../../core/enums/button-style';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { StyledButtonComponent } from '../../../../../shared/components/buttons/styled-button/styled-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -24,6 +27,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     CustomCurrencyPipe,
     MatButtonModule,
     TranslateModule,
+    ButtonsComponent,
+    StyledButtonComponent,
   ],
   templateUrl: './credit-card-details.component.html',
   styleUrl: './credit-card-details.component.scss',
@@ -51,5 +56,13 @@ export class CreditCardDetailsComponent {
   seeInvoice() {
     this._bottomSheetRef.dismiss();
     this._router.navigate([`cartoes-de-credito/fatura/${this.card.id}`]);
+  }
+
+  get getBtnStyle() {
+    return ButtonType.BASIC;
+  }
+
+  get getBtnStyle2() {
+    return ButtonType.STROKED;
   }
 }

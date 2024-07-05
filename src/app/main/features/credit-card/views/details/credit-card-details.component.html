@@ -73,20 +73,21 @@
   </div>
 
   <div class="actions">
-    <button mat-stroked-button class="large-btn" (click)="seeInvoice()">
-      <div class="btn-content">
-        <span class="material-symbols-outlined">sort</span>
-        {{ "credit-cards.see-invoice" | translate }}
-      </div>
-    </button>
+    <styled-button
+      [btnType]="getBtnStyle2"
+      label="credit-cards.see-invoice"
+      icon="sort"
+      [contentStyle]="{ color: '#585858' }"
+      (onClick)="seeInvoice()"
+    ></styled-button>
 
-    <button
-      mat-button
-      color="primary"
-      (click)="edit()"
-      style="padding: 1.3rem 1.6rem; font-size: 1.1rem !important"
-    >
-      {{ "actions.edit" | translate }}
-    </button>
+    <styled-button
+      [btnType]="getBtnStyle"
+      label="actions.edit"
+      icon=""
+      (onClick)="edit()"
+      [btnStyle]="{ padding: '1.3rem 1.6rem !important' }"
+      [contentStyle]="{ 'font-size': '1.1rem' }"
+    ></styled-button>
   </div>
 </div>
