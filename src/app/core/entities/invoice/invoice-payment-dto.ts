@@ -3,7 +3,7 @@ import { AccountBasicList } from '../account/account-dto';
 export interface InvoicePaymentPerson {
   id: number;
   credit_card_id: number;
-  invoice_month_year: string;
+  month_year: string;
   payment_account_id: number;
   payment_account_name: string;
   payment_account_image: string;

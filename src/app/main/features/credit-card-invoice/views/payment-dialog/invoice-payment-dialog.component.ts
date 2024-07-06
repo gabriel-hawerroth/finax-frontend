@@ -106,7 +106,7 @@ export class InvoicePaymentDialog implements OnInit {
     this.form = this._fb.group({
       id: null,
       credit_card_id: this.data.creditCardId,
-      invoice_month_year: this.data.monthYear,
+      month_year: this.data.monthYear,
       payment_account_id: null,
       payment_amount: this.data.defaultPaymentAmount,
       payment_date: new Date(),
