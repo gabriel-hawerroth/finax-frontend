@@ -58,13 +58,12 @@
           {{ "home.empty-accounts-list" | translate }}
         </span>
 
-        <button
-          mat-raised-button
-          color="primary"
+        <app-buttons
+          [showGeneric]="true"
+          genericLabel="home.register-one"
+          genericIcon=""
           routerLink="/contas-de-banco/nova"
-        >
-          {{ "home.register-one" | translate }}
-        </button>
+        ></app-buttons>
         }
       </div>
       }
