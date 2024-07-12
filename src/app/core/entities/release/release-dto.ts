@@ -1,4 +1,4 @@
-import { ReleaseType } from '../../enums/release-type';
+import { ReleaseType } from '../../enums/release-enums';
 import { AccountBasicList } from '../account/account-dto';
 import { Category } from '../category/category';
 import { CardBasicList } from '../credit-card/credit-card-dto';

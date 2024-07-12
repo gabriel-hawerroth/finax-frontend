@@ -27,7 +27,7 @@ import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
-  selector: 'app-bank-accounts-edit',
+  selector: 'app-accounts-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -41,8 +41,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     ButtonsComponent,
     TranslateModule,
   ],
-  templateUrl: './bank-accounts-form.component.html',
-  styleUrl: './bank-accounts-form.component.scss',
+  templateUrl: './accounts-form.component.html',
+  styleUrl: './accounts-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BankAccountsFormPage implements OnInit {
@@ -106,7 +106,7 @@ export class BankAccountsFormPage implements OnInit {
       .save(data)
       .then(() => {
         this.utils.showMessage('my-accounts.saved-successfully');
-        this._router.navigate(['contas-de-banco']);
+        this._router.navigate(['contas']);
       })
       .catch(() => {
         this.utils.showMessage('my-accounts.error-saving-account');

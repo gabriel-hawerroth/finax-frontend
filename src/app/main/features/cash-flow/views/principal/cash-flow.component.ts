@@ -20,8 +20,8 @@ import { AccountBasicList } from '../../../../../core/entities/account/account-d
 import {
   MonthlyFlow,
   ReleaseFormDialogData,
-} from '../../../../../core/entities/cash-flow/cash-flow-dto';
-import { CashFlowService } from '../../../../../core/entities/cash-flow/cash-flow.service';
+} from '../../../../../core/entities/release/release-dto';
+import { ReleaseService } from '../../../../../core/entities/release/release.service';
 import { Category } from '../../../../../core/entities/category/category';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { UserConfigsService } from '../../../../../core/entities/user-configs/user-configs.service';
@@ -79,7 +79,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
   constructor(
     public readonly utils: UtilsService,
     private readonly _matDialog: MatDialog,
-    private readonly _cashFlowService: CashFlowService
+    private readonly _cashFlowService: ReleaseService
   ) {}
 
   ngOnInit(): void {

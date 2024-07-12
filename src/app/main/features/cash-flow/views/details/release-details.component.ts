@@ -14,8 +14,8 @@ import {
   ConfirmDuplicatedReleasesActionDialogData,
   MonthlyRelease,
   ReleaseDetailsData,
-} from '../../../../../core/entities/cash-flow/cash-flow-dto';
-import { CashFlowService } from '../../../../../core/entities/cash-flow/cash-flow.service';
+} from '../../../../../core/entities/release/release-dto';
+import { ReleaseService } from '../../../../../core/entities/release/release.service';
 import { DuplicatedReleaseAction } from '../../../../../core/enums/duplicated-release-action';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
@@ -51,7 +51,7 @@ export class ReleaseDetailsComponent {
     private readonly _bottomSheet: MatBottomSheetRef,
     private readonly _matDialog: MatDialog,
     private readonly _router: Router,
-    private readonly _cashFlowService: CashFlowService
+    private readonly _cashFlowService: ReleaseService
   ) {}
 
   downloadAttachment() {

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConfirmDuplicatedReleasesActionDialogData } from '../../../../../core/entities/cash-flow/cash-flow-dto';
+import { ConfirmDuplicatedReleasesActionDialogData } from '../../../../../core/entities/release/release-dto';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({

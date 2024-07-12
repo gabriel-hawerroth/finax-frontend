@@ -203,7 +203,7 @@
         "account-type": "Tipo de cuenta",
         "account-types": {
             "checking": "Cuenta corriente",
-            "savings": "Cuenta de ahorros",
+            "saving": "Cuenta de ahorros",
             "salary": "Cuenta de salario",
             "legal": "Cuenta jurídica",
             "brokerage": "Correduría"

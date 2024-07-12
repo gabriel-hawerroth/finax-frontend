@@ -10,7 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
-import { MonthlyRelease } from '../../../../../core/entities/cash-flow/cash-flow-dto';
+import { MonthlyRelease } from '../../../../../core/entities/release/release-dto';
 import { HomeValues } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';

@@ -1,5 +1,5 @@
 import { AccountBasicList } from '../account/account-dto';
-import { MonthlyRelease } from '../cash-flow/cash-flow-dto';
+import { MonthlyRelease } from '../release/release-dto';
 import { Category } from '../category/category';
 import { CardBasicList } from '../credit-card/credit-card-dto';
 import { InvoicePaymentPerson } from './invoice-payment-dto';

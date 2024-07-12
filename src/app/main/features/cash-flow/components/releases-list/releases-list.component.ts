@@ -14,7 +14,7 @@ import {
   MonthlyRelease,
   ReleaseDetailsData,
   ReleaseFormDialogData,
-} from '../../../../../core/entities/cash-flow/cash-flow-dto';
+} from '../../../../../core/entities/release/release-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';

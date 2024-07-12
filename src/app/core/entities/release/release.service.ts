@@ -5,14 +5,14 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { DuplicatedReleaseAction } from '../../enums/duplicated-release-action';
 import { ReleasedOn } from '../../enums/released-on';
-import { CashFlow } from './cash-flow';
-import { CashFlowValues, MonthlyFlow } from './cash-flow-dto';
+import { Release } from './release';
+import { CashFlowValues, MonthlyFlow } from './release-dto';
 import { cloudFireCdnLink } from '../../../shared/utils/constant-utils';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CashFlowService {
+export class ReleaseService {
   private readonly apiUrl = `${environment.baseApiUrl}cash-flow`;
 
   constructor(private readonly _http: HttpClient) {}
@@ -35,30 +35,30 @@ export class CashFlowService {
   }
 
   addRelease(
-    data: CashFlow,
+    data: Release,
     repeatFor: number,
     releasedOn: ReleasedOn
-  ): Promise<CashFlow> {
+  ): Promise<Release> {
     let params = new HttpParams();
     params = params.append('repeatFor', repeatFor);
     params = params.append('releasedOn', releasedOn);
 
     return lastValueFrom(
-      this._http.post<CashFlow>(this.apiUrl, data, { params })
+      this._http.post<Release>(this.apiUrl, data, { params })
     );
   }
 
   editRelease(
-    data: CashFlow,
+    data: Release,
     duplicatedReleaseAction: DuplicatedReleaseAction,
     releasedOn: ReleasedOn
-  ): Promise<CashFlow> {
+  ): Promise<Release> {
     let params = new HttpParams();
     params = params.append('duplicatedReleaseAction', duplicatedReleaseAction);
     params = params.append('releasedOn', releasedOn);
 
     return lastValueFrom(
-      this._http.put<CashFlow>(this.apiUrl, data, { params })
+      this._http.put<Release>(this.apiUrl, data, { params })
     );
   }
 
@@ -74,21 +74,21 @@ export class CashFlowService {
     );
   }
 
-  addAttachment(releaseId: number, file: File): Promise<CashFlow> {
+  addAttachment(releaseId: number, file: File): Promise<Release> {
     const formData = new FormData();
     formData.append('file', file);
 
     return lastValueFrom(
-      this._http.patch<CashFlow>(
+      this._http.patch<Release>(
         `${this.apiUrl}/add-attachment/${releaseId}`,
         formData
       )
     );
   }
 
-  removeAttachment(releaseId: number): Promise<CashFlow> {
+  removeAttachment(releaseId: number): Promise<Release> {
     return lastValueFrom(
-      this._http.patch<CashFlow>(
+      this._http.patch<Release>(
         `${this.apiUrl}/remove-attachment/${releaseId}`,
         null
       )

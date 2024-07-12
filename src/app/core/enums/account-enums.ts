@@ -1,7 +1,7 @@
 export enum AccountType {
-  CHECKING,
-  SAVING,
-  SALARY,
-  LEGAL,
-  BROKERAGE,
+  CHECKING = 'CHECKING',
+  SAVING = 'SAVING',
+  SALARY = 'SALARY',
+  LEGAL = 'LEGAL',
+  BROKERAGE = 'BROKERAGE',
 }

@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
-import { ReleaseFormDialogData } from '../../core/entities/cash-flow/cash-flow-dto';
+import { ReleaseFormDialogData } from '../../core/entities/release/release-dto';
 import { ConfirmDialogData } from '../../core/entities/generic';
 import { UserConfigs } from '../../core/entities/user-configs/user-configs';
 import { User } from '../../core/entities/user/user';

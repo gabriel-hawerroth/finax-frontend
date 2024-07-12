@@ -203,7 +203,7 @@
         "account-type": "Account Type",
         "account-types": {
             "checking": "Checking Account",
-            "savings": "Savings Account",
+            "saving": "Savings Account",
             "salary": "Salary Account",
             "legal": "Legal Account",
             "brokerage": "Brokerage"

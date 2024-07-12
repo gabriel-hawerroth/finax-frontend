@@ -1,4 +1,4 @@
-export interface CashFlow {
+export interface Release {
   id?: number;
   userId: number;
   description?: string;
@@ -16,5 +16,5 @@ export interface CashFlow {
   duplicatedReleaseId?: number;
   repeat?: string;
   fixedBy?: string;
-  credit_card_id?: number;
+  creditCardId?: number;
 }

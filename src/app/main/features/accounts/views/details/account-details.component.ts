@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { defer, lastValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import {
   BankAccountDetailsData,
@@ -25,7 +25,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-balance-dialog.component';
 
 @Component({
-  selector: 'app-bank-account-details',
+  selector: 'app-account-details',
   standalone: true,
   imports: [
     CommonModule,
@@ -34,8 +34,8 @@ import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-bal
     NgOptimizedImage,
     TranslateModule,
   ],
-  templateUrl: './bank-account-details.component.html',
-  styleUrl: './bank-account-details.component.scss',
+  templateUrl: './account-details.component.html',
+  styleUrl: './account-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BankAccountDetailsComponent {
@@ -56,7 +56,7 @@ export class BankAccountDetailsComponent {
 
   edit() {
     this._bottomSheetRef.dismiss();
-    this._router.navigate([`contas-de-banco/${this.account.id}`]);
+    this._router.navigate([`contas/${this.account.id}`]);
   }
 
   adjustBalance() {
@@ -78,10 +78,9 @@ export class BankAccountDetailsComponent {
     });
   }
 
-  get translateAccountType(): string {
-    switch (this.account.type) {
-      default:
-        return '';
-    }
+  get getAccountType(): string {
+    let type = 'my-accounts.account-types.';
+    type += this.account.type.toString().toLowerCase();
+    return type;
   }
 }

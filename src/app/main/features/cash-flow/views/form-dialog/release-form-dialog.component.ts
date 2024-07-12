@@ -36,18 +36,21 @@ import { lastValueFrom } from 'rxjs';
 import {
   ConfirmDuplicatedReleasesActionDialogData,
   ReleaseFormDialogData,
-} from '../../../../../core/entities/cash-flow/cash-flow-dto';
-import { CashFlowService } from '../../../../../core/entities/cash-flow/cash-flow.service';
+} from '../../../../../core/entities/release/release-dto';
+import { ReleaseService } from '../../../../../core/entities/release/release.service';
 import { Category } from '../../../../../core/entities/category/category';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { GenericIdDs } from '../../../../../core/entities/generic';
 import { DuplicatedReleaseAction } from '../../../../../core/enums/duplicated-release-action';
-import { ReleaseType } from '../../../../../core/enums/release-type';
 import { ReleasedOn } from '../../../../../core/enums/released-on';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
+import {
+  ReleaseFixedBy,
+  ReleaseType,
+} from '../../../../../core/enums/release-enums';
 
 @Component({
   selector: 'release-form-dialog',
@@ -103,7 +106,7 @@ export class ReleaseFormDialog implements OnInit {
     private readonly _translate: TranslateService,
     private readonly _matDialog: MatDialog,
     private readonly _fb: FormBuilder,
-    private readonly _cashFlowService: CashFlowService
+    private readonly _cashFlowService: ReleaseService
   ) {}
 
   ngOnInit(): void {
@@ -157,7 +160,7 @@ export class ReleaseFormDialog implements OnInit {
       date: ['', Validators.required],
       time: '',
       observation: '',
-      repeat: '',
+      repeat: null,
       fixedBy: 'monthly',
       repeatFor: '12',
       installmentsBy: '2',
@@ -252,7 +255,7 @@ export class ReleaseFormDialog implements OnInit {
       ? ReleasedOn.ACCOUNT
       : ReleasedOn.CREDIT_CARD;
 
-    if (release.repeat === '') release.fixedBy = '';
+    if (!release.repeat) release.fixedBy = '';
 
     if (releasedOn == ReleasedOn.CREDIT_CARD) {
       release.credit_card_id = release.accountId;
@@ -395,64 +398,64 @@ export class ReleaseFormDialog implements OnInit {
   get getFixedByList(): GenericIdDs[] {
     return [
       {
-        id: 'daily',
+        id: ReleaseFixedBy.DAILY,
         ds: this._translate.instant('release-form.fixed-by-list.daily'),
       },
       {
-        id: 'weekly',
+        id: ReleaseFixedBy.WEEKLY,
         ds: this._translate.instant('release-form.fixed-by-list.weekly'),
       },
       {
-        id: 'monthly',
+        id: ReleaseFixedBy.MONTHLY,
         ds: this._translate.instant('release-form.fixed-by-list.monthly'),
       },
       {
-        id: 'bimonthly',
+        id: ReleaseFixedBy.BIMONTHLY,
         ds: this._translate.instant('release-form.fixed-by-list.bimonthly'),
       },
       {
-        id: 'quarterly',
+        id: ReleaseFixedBy.QUARTERLY,
         ds: this._translate.instant('release-form.fixed-by-list.quarterly'),
       },
       {
-        id: 'biannual',
+        id: ReleaseFixedBy.BIANNUAL,
         ds: this._translate.instant('release-form.fixed-by-list.biannual'),
       },
       {
-        id: 'annual',
+        id: ReleaseFixedBy.ANNUAL,
         ds: this._translate.instant('release-form.fixed-by-list.annual'),
       },
     ];
   }
 
-  onChangeFixedBy(value: string) {
-    let setValue = '';
+  onChangeFixedBy(value: ReleaseFixedBy) {
+    let fixedBy = '';
 
     switch (value) {
-      case 'daily':
-        setValue = '365';
+      case ReleaseFixedBy.DAILY:
+        fixedBy = '365';
         break;
-      case 'weekly':
-        setValue = '52';
+      case ReleaseFixedBy.WEEKLY:
+        fixedBy = '52';
         break;
-      case 'monthly':
-        setValue = '12';
+      case ReleaseFixedBy.MONTHLY:
+        fixedBy = '12';
         break;
-      case 'bimonthly':
-        setValue = '12';
+      case ReleaseFixedBy.BIMONTHLY:
+        fixedBy = '12';
         break;
-      case 'quarterly':
-        setValue = '8';
+      case ReleaseFixedBy.QUARTERLY:
+        fixedBy = '8';
         break;
-      case 'biannual':
-        setValue = '6';
+      case ReleaseFixedBy.BIANNUAL:
+        fixedBy = '6';
         break;
-      case 'annual':
-        setValue = '5';
+      case ReleaseFixedBy.ANNUAL:
+        fixedBy = '5';
         break;
     }
 
-    this.releaseForm.get('repeatFor')!.setValue(setValue);
+    this.releaseForm.get('repeatFor')!.setValue(fixedBy);
     this.repeatForSuffix = this._translate.instant(
       `release-form.repeat-for-suffix.${value}`
     );

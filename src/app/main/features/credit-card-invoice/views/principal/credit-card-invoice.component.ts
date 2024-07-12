@@ -24,7 +24,7 @@ import {
 } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
-import { ReleaseFormDialogData } from '../../../../../core/entities/cash-flow/cash-flow-dto';
+import { ReleaseFormDialogData } from '../../../../../core/entities/release/release-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';

@@ -1,11 +1,11 @@
 export enum UserAccess {
-  FREE,
-  BASIC,
-  PREMIUM,
-  ADM,
+  FREE = 'FREE',
+  BASIC = 'BASIC',
+  PREMIUM = 'PREMIUM',
+  ADM = 'ADM',
 }
 
 export enum UserSignature {
-  MONTH,
-  YEAR,
+  MONTH = 'MONTH',
+  YEAR = 'YEAR',
 }

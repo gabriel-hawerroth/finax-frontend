@@ -21,10 +21,10 @@ import { AccountService } from '../../../../../core/entities/account/account.ser
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { BankAccountDetailsComponent } from '../details/bank-account-details.component';
+import { BankAccountDetailsComponent } from '../details/account-details.component';
 
 @Component({
-  selector: 'app-bank-accounts',
+  selector: 'app-accounts',
   standalone: true,
   imports: [
     CommonModule,
@@ -38,8 +38,8 @@ import { BankAccountDetailsComponent } from '../details/bank-account-details.com
     ButtonsComponent,
     TranslateModule,
   ],
-  templateUrl: './bank-accounts.component.html',
-  styleUrl: './bank-accounts.component.scss',
+  templateUrl: './accounts.component.html',
+  styleUrl: './accounts.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyBankAccountsPage implements OnInit {
@@ -79,7 +79,7 @@ export class MyBankAccountsPage implements OnInit {
   }
 
   onNew() {
-    this._router.navigate(['contas-de-banco/novo']);
+    this._router.navigate(['contas/novo']);
   }
 
   openDetails(account: Account) {
@@ -87,7 +87,7 @@ export class MyBankAccountsPage implements OnInit {
       data: <BankAccountDetailsData>{
         account: account,
       },
-      panelClass: 'bank-account-details',
+      panelClass: 'account-details',
     });
   }
 }

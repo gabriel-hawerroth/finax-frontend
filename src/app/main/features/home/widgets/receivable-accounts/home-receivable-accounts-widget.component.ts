@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule } from '@ngx-translate/core';
-import { MonthlyRelease } from '../../../../../core/entities/cash-flow/cash-flow-dto';
+import { MonthlyRelease } from '../../../../../core/entities/release/release-dto';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 
 @Component({

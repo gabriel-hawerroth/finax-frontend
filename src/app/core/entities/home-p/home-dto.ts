@@ -1,5 +1,5 @@
 import { Account } from '../account/account';
-import { MonthlyRelease } from '../cash-flow/cash-flow-dto';
+import { MonthlyRelease } from '../release/release-dto';
 import { Category } from '../category/category';
 
 export interface HomeValues {
