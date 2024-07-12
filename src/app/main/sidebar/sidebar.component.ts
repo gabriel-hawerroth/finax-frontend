@@ -17,6 +17,7 @@ import {
 } from '../../shared/utils/constant-utils';
 import { UtilsService } from '../../shared/utils/utils.service';
 import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
+import { UserAccess } from '../../core/enums/user-enums';
 
 @Component({
   selector: 'app-sidebar',
@@ -31,7 +32,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   private readonly _unsubscribeAll = new Subject<void>();
 
-  userAccess: string = this.utils.getLoggedUser?.access || '';
+  userAccess: UserAccess | null = this.utils.getLoggedUser?.access || null;
 
   reportsUl: boolean = false;
   noticesUl: boolean = false;

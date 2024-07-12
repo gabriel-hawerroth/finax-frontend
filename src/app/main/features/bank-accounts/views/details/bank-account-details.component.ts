@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
+import { defer, lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import {
   BankAccountDetailsData,
@@ -76,5 +76,12 @@ export class BankAccountDetailsComponent {
       this.account.balance = result;
       this._changeDetectorRef.detectChanges();
     });
+  }
+
+  get translateAccountType(): string {
+    switch (this.account.type) {
+      default:
+        return '';
+    }
   }
 }

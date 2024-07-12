@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { UtilsService } from '../../shared/utils/utils.service';
 import { LoginService } from '../entities/auth/login.service';
+import { UserAccess } from '../enums/user-enums';
 
 export const PremiumTierGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -17,8 +18,8 @@ export const PremiumTierGuard: CanActivateFn = (
 ) => {
   if (loginService.logged) {
     if (
-      utilsService.getLoggedUser!.access === 'premium' ||
-      utilsService.getLoggedUser!.access === 'adm'
+      utilsService.getLoggedUser!.access === UserAccess.PREMIUM ||
+      utilsService.getLoggedUser!.access === UserAccess.ADM
     )
       return true;
     else {

@@ -1,3 +1,5 @@
+import { AccountType } from '../../enums/account-enums';
+
 export interface Account {
   id?: number;
   userId: number;
@@ -11,5 +13,5 @@ export interface Account {
   accountNumber: string;
   agency: number;
   code: number;
-  type: string;
+  type: AccountType;
 }

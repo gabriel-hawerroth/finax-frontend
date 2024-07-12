@@ -1,11 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { addMonths, endOfMonth, startOfMonth } from 'date-fns';
+import { endOfMonth, startOfMonth } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { DuplicatedReleaseAction } from '../../enums/duplicated-release-action';
 import { ReleasedOn } from '../../enums/released-on';
-import { ReleasesViewMode } from '../../enums/releases-view-mode';
 import { CashFlow } from './cash-flow';
 import { CashFlowValues, MonthlyFlow } from './cash-flow-dto';
 import { cloudFireCdnLink } from '../../../shared/utils/constant-utils';
@@ -18,24 +17,13 @@ export class CashFlowService {
 
   constructor(private readonly _http: HttpClient) {}
 
-  getMonthlyFlow(
-    selectedDt: Date,
-    viewMode: ReleasesViewMode
-  ): Promise<MonthlyFlow> {
+  getMonthlyFlow(selectedDt: Date): Promise<MonthlyFlow> {
     const firstDt = startOfMonth(selectedDt).toLocaleDateString();
     const lastDt = endOfMonth(selectedDt).toLocaleDateString();
-    const firstDtCurrentMonth = startOfMonth(new Date()).toString();
-
-    const firstDtInvoice = startOfMonth(addMonths(selectedDt, -1)).toString();
-    const lastDtInvoice = endOfMonth(addMonths(selectedDt, -1)).toString();
 
     let params = new HttpParams();
     params = params.append('firstDt', firstDt);
     params = params.append('lastDt', lastDt);
-    params = params.append('firstDtCurrentMonth', firstDtCurrentMonth);
-    params = params.append('viewMode', viewMode);
-    params = params.append('firstDtInvoice', firstDtInvoice);
-    params = params.append('lastDtInvoice', lastDtInvoice);
 
     return lastValueFrom(this._http.get<MonthlyFlow>(this.apiUrl, { params }));
   }

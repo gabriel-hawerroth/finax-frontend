@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 import { UtilsService } from '../../shared/utils/utils.service';
 import { LoginService } from '../entities/auth/login.service';
+import { UserAccess } from '../enums/user-enums';
 
 export const AdmTierGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -16,7 +17,7 @@ export const AdmTierGuard: CanActivateFn = (
   router = inject(Router)
 ) => {
   if (loginService.logged) {
-    if (utilsService.getLoggedUser?.access === 'adm') return true;
+    if (utilsService.getLoggedUser?.access === UserAccess.ADM) return true;
     else {
       router.navigate(['home']);
       utilsService.showMessage('generic.without-permission');

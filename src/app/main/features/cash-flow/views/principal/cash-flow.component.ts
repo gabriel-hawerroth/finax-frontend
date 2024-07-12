@@ -123,7 +123,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     this.searching.set(true);
 
     this._cashFlowService
-      .getMonthlyFlow(this.selectedDate, this.viewModeCtrl.value)
+      .getMonthlyFlow(this.selectedDate)
       .then((response) => {
         this.monthlyValues.set(response);
       })

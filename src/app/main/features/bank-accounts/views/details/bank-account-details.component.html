@@ -39,27 +39,9 @@
       </div>
 
       <div class="right">
-        @switch (account.type) { @case ("CC") {
         <span>
-          {{ "my-accounts.account-types.checking" | translate }}
+          {{ translateAccountType | translate }}
         </span>
-        } @case ("SV") {
-        <span>
-          {{ "my-accounts.account-types.savings" | translate }}
-        </span>
-        } @case ("SL") {
-        <span>
-          {{ "my-accounts.account-types.salary" | translate }}
-        </span>
-        } @case ("LG") {
-        <span>
-          {{ "my-accounts.account-types.legal" | translate }}
-        </span>
-        } @case ("BK") {
-        <span>
-          {{ "my-accounts.account-types.brokerage" | translate }}
-        </span>
-        } }
       </div>
     </div>
 
