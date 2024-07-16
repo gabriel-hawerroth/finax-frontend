@@ -26,14 +26,14 @@
             allowNegative: false,
             min: 0,
           }"
-          formControlName="payment_amount"
+          formControlName="paymentAmount"
         />
       </mat-form-field>
 
       <mat-form-field style="width: 50%">
         <mat-label>{{ "invoice.payment.account" | translate }}</mat-label>
         <mat-select
-          formControlName="payment_account_id"
+          formControlName="paymentAccountId"
           (valueChange)="paymentAccountChanges($event)"
         >
           <mat-select-trigger>
@@ -89,7 +89,7 @@
           type="text"
           matInput
           [matDatepicker]="picker"
-          formControlName="payment_date"
+          formControlName="paymentDate"
         />
         <mat-datepicker-toggle
           matIconSuffix
@@ -100,7 +100,7 @@
 
       <mat-form-field style="width: 50%">
         <mat-label>{{ "invoice.payment.hour" | translate }}</mat-label>
-        <input type="time" matInput formControlName="payment_hour" />
+        <input type="time" matInput formControlName="paymentHour" />
       </mat-form-field>
     </div>
 

@@ -2,15 +2,15 @@ import { AccountBasicList } from '../account/account-dto';
 
 export interface InvoicePaymentPerson {
   id: number;
-  credit_card_id: number;
-  month_year: string;
-  payment_account_id: number;
-  payment_account_name: string;
-  payment_account_image: string;
-  payment_amount: number;
-  payment_date: Date;
-  payment_hour: string;
-  attachment_name?: string;
+  creditCardId: number;
+  monthYear: string;
+  paymentAccountId: number;
+  paymentAccountName: string;
+  paymentAccountImage: string;
+  paymentAmount: number;
+  paymentDate: Date;
+  paymentHour: string;
+  attachmentName?: string;
 }
 
 export interface InvoicePaymentDialogData {

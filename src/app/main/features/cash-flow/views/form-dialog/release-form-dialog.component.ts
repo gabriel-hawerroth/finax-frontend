@@ -51,6 +51,7 @@ import {
   ReleaseFixedBy,
   ReleaseType,
 } from '../../../../../core/enums/release-enums';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'release-form-dialog',
@@ -58,9 +59,9 @@ import {
   imports: [
     CommonModule,
     MatDialogModule,
-    MatFormFieldModule,
     ReleaseFormComponent,
     ReactiveFormsModule,
+    MatFormFieldModule,
     MatInputModule,
     MatDividerModule,
     MatTooltipModule,
@@ -69,6 +70,7 @@ import {
     ButtonsComponent,
     MatCheckboxModule,
     TranslateModule,
+    MatButtonModule,
   ],
   templateUrl: './release-form-dialog.component.html',
   styleUrl: './release-form-dialog.component.scss',

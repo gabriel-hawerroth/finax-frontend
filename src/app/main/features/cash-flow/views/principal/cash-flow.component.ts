@@ -12,10 +12,10 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, lastValueFrom, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
 import {
   MonthlyFlow,
@@ -24,12 +24,10 @@ import {
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
 import { Category } from '../../../../../core/entities/category/category';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
-import { UserConfigsService } from '../../../../../core/entities/user-configs/user-configs.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../components/releases-list/releases-list.component';
-import { ReleaseFormDialog } from '../form-dialog/release-form-dialog.component';
 
 @Component({
   selector: 'app-cash-flow',
@@ -46,6 +44,7 @@ import { ReleaseFormDialog } from '../form-dialog/release-form-dialog.component'
     MatButtonToggleModule,
     ReleasesListComponent,
     ReleasesMonthPipe,
+    MatDialogModule,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -157,6 +156,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   addRelease(releaseType: 'E' | 'R' | 'T') {
+    console.log('entrou aqui:', releaseType);
+
     this.utils
       .openReleaseFormDialog(<ReleaseFormDialogData>{
         accounts: this.accounts,

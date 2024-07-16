@@ -1,15 +1,15 @@
 export interface UserCreditCard {
   id: number;
-  user_id: number;
+  userId: number;
   name: string;
-  card_limit: number;
-  close_day: number;
-  expires_day: number;
+  cardLimit: number;
+  closeDay: number;
+  expiresDay: number;
   image: string;
-  standard_payment_account_id: number;
+  standardPaymentAccountId: number;
   active: boolean;
-  account_name: string;
-  account_image: string;
+  accountName: string;
+  accountImage: string;
 }
 
 export interface CardBasicList {

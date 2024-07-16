@@ -42,31 +42,31 @@
       @for (payment of payments(); track payment.id) {
       <div class="payment">
         <div class="date">
-          <span>{{ payment.payment_date | date : "dd/MM/yy" }}</span>
+          <span>{{ payment.paymentDate | date : "dd/MM/yy" }}</span>
 
-          @if (payment.payment_hour !== '') {
-          <span id="hour">{{ payment.payment_hour }}</span>
+          @if (payment.paymentHour !== '') {
+          <span id="hour">{{ payment.paymentHour }}</span>
           }
         </div>
 
         <span class="amount">
-          {{ currency }}{{ payment.payment_amount | customCurrency }}
+          {{ currency }}{{ payment.paymentAmount | customCurrency }}
         </span>
 
         <div class="account">
           <img
             [ngSrc]="
-              cloudFireCdnImgsLink + 'banks/' + payment.payment_account_image
+              cloudFireCdnImgsLink + 'banks/' + payment.paymentAccountImage
             "
             width="25"
             height="25"
             alt="payment account image"
           />
-          <span>{{ payment.payment_account_name }}</span>
+          <span>{{ payment.paymentAccountName }}</span>
         </div>
 
         <div class="actions">
-          @if (payment.attachment_name) {
+          @if (payment.attachmentName) {
           <button
             mat-icon-button
             (click)="downloadAttachment(payment.id)"

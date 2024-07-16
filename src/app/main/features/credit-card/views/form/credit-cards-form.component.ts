@@ -60,7 +60,7 @@ export class CreditCardsFormPage implements OnInit {
 
   cardForm!: FormGroup;
 
-  saving: boolean = false;
+  saving = signal(false);
 
   accounsList: AccountBasicList[] = [];
   selectedAccount: AccountBasicList | null = null;
@@ -90,7 +90,7 @@ export class CreditCardsFormPage implements OnInit {
     if (this.cardId) {
       this._creditCardService.getById(this.cardId).then((response) => {
         this.cardForm.patchValue(response);
-        this.paymentAccountChanges(response.standard_payment_account_id);
+        this.paymentAccountChanges(response.standardPaymentAccountId);
 
         if (response.image) {
           this.selectedIcon.set(response.image);
@@ -103,10 +103,10 @@ export class CreditCardsFormPage implements OnInit {
 
       if (this.cardId && !this.selectedAccount) {
         const standardPaymentAccount =
-          this.cardForm.value.standard_payment_account_id;
+          this.cardForm.value.standardPaymentAccountId;
 
         this.cardForm
-          .get('standard_payment_account_id')!
+          .get('standardPaymentAccountId')!
           .setValue(standardPaymentAccount);
         this.paymentAccountChanges(standardPaymentAccount);
       }
@@ -116,24 +116,24 @@ export class CreditCardsFormPage implements OnInit {
   buildForm() {
     this.cardForm = this._fb.group({
       id: null,
-      user_id: this.utils.getLoggedUser!.id,
+      userId: this.utils.getLoggedUser!.id,
       name: ['', Validators.required],
-      card_limit: [0, Validators.required],
-      close_day: [1, Validators.required],
-      expires_day: [1, Validators.required],
+      cardLimit: [0, Validators.required],
+      closeDay: [1, Validators.required],
+      expiresDay: [1, Validators.required],
       image: null,
-      standard_payment_account_id: [null, Validators.required],
+      standardPaymentAccountId: [null, Validators.required],
       active: true,
     });
   }
 
   save() {
-    if (this.cardForm.value.card_limit === 0) {
+    if (this.cardForm.value.cardLimit === 0) {
       this.utils.showMessage('credit-cards.limit-must-be-greater-than-zero');
       return;
     }
 
-    this.saving = true;
+    this.saving.set(true);
 
     this.cardForm.markAsPristine();
     const data = this.cardForm.value;
@@ -148,7 +148,7 @@ export class CreditCardsFormPage implements OnInit {
         this.utils.showMessage('credit-cards.error-saving-card');
       })
       .finally(() => {
-        this.saving = false;
+        this.saving.set(false);
       });
   }
 

@@ -42,7 +42,7 @@ export class InvoicePaymentsCardComponent {
 
   totalValue = computed(() => {
     const response = this.payments().reduce(
-      (count, item) => (count += item.payment_amount),
+      (count, item) => (count += item.paymentAmount),
       0
     );
 
@@ -93,7 +93,7 @@ export class InvoicePaymentsCardComponent {
         anchor.href = blobUrl;
         anchor.download =
           this.payments().find((item) => item.id === invoicePaymentId)
-            ?.attachment_name || '';
+            ?.attachmentName || '';
         document.body.appendChild(anchor);
         anchor.click();
         document.body.removeChild(anchor);

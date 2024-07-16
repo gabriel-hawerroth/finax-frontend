@@ -189,12 +189,11 @@ export class CreditCardInvoicePage implements OnInit {
           data: <InvoicePaymentDialogData>{
             accounts: this.accounts,
             creditCardId: this.creditCardId,
-            defaultPaymmentAccount:
-              this.creditCard()!.standard_payment_account_id,
+            defaultPaymmentAccount: this.creditCard()!.standardPaymentAccountId,
             defaultPaymentAmount:
               this.invoiceValues().value -
               this.monthValues().invoicePayments.reduce(
-                (amount, item) => (amount += item.payment_amount),
+                (amount, item) => (amount += item.paymentAmount),
                 0
               ),
             monthYear: format(this.selectedDate(), 'MM/yyyy'),
@@ -240,13 +239,13 @@ export class CreditCardInvoicePage implements OnInit {
   get getCloseDtString(): string {
     return `${this.selectedDate().getFullYear()}-${this.formatDay(
       this.selectedDate().getMonth() + 1
-    )}-${this.formatDay(this.creditCard()?.close_day)}`;
+    )}-${this.formatDay(this.creditCard()?.closeDay)}`;
   }
 
   get getExpireDtString(): string {
     return `${this.selectedDate().getFullYear()}-${this.formatDay(
       this.selectedDate().getMonth() + 1
-    )}-${this.formatDay(this.creditCard()?.expires_day)}`;
+    )}-${this.formatDay(this.creditCard()?.expiresDay)}`;
   }
 
   formatDay(day: number | undefined): string {

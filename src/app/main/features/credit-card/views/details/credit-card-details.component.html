@@ -18,7 +18,7 @@
 
       <div class="limit">
         <span>{{ "credit-cards.limit" | translate }}:</span>
-        <h1>{{ currency }}{{ card.card_limit | customCurrency }}</h1>
+        <h1>{{ currency }}{{ card.cardLimit | customCurrency }}</h1>
       </div>
     </div>
 
@@ -30,11 +30,11 @@
           </span>
 
           <span class="account">
-            @if (card.account_image) {
+            @if (card.accountImage) {
             <img
               [ngSrc]="
                 'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
-                card.account_image
+                card.accountImage
               "
               width="27"
               height="27"
@@ -42,7 +42,7 @@
             />
             }
 
-            {{ card.account_name }}
+            {{ card.accountName }}
           </span>
         </div>
 
@@ -60,13 +60,13 @@
         <div class="item">
           <span>{{ "credit-cards.close-day" | translate }}:</span>
 
-          <span>{{ card.close_day }}</span>
+          <span>{{ card.closeDay }}</span>
         </div>
 
         <div class="item">
           <span>{{ "credit-cards.expires-day" | translate }}:</span>
 
-          <span>{{ card.expires_day }}</span>
+          <span>{{ card.expiresDay }}</span>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@
     class="top"
     [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2.7rem' : '1.5rem' }"
   >
-    <app-buttons
+    <!-- <app-buttons
       [showSave]="true"
       [disableSave]="
         (data.editing && releaseForm.pristine && !changedAttachment) ||
@@ -20,15 +20,15 @@
       [showLoading]="saving()"
       (onSave)="save()"
       class="save-btn"
-    ></app-buttons>
+    ></app-buttons> -->
 
     <h2>{{ getDialogTitle }}</h2>
 
-    <app-buttons
+    <!-- <app-buttons
       [showClose]="true"
       mat-dialog-close
       class="close-btn"
-    ></app-buttons>
+    ></app-buttons> -->
   </div>
 
   <div class="content">
@@ -123,11 +123,7 @@
             <div class="file">
               <span>{{ selectedFile.name }}</span>
 
-              <app-buttons
-                [showClose]="true"
-                (onClose)="removeFile()"
-                class="remove-file-btn"
-              ></app-buttons>
+              <app-buttons class="remove-file-btn"></app-buttons>
             </div>
           </div>
         </div>

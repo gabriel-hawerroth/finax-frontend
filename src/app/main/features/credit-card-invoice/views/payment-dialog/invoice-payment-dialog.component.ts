@@ -84,38 +84,36 @@ export class InvoicePaymentDialog implements OnInit {
 
     if (this.data.payment) {
       this.form.patchValue(this.data.payment);
-      this.paymentAccountChanges(this.form.value.payment_account_id);
+      this.paymentAccountChanges(this.form.value.paymentAccountId);
 
-      if (this.data.payment.attachment_name) {
+      if (this.data.payment.attachmentName) {
         this.selectedFile = new File(
           [new Blob()],
-          this.data.payment.attachment_name
+          this.data.payment.attachmentName
         );
       }
     } else {
-      this.form
-        .get('payment_account_id')!
-        .setValue(this.defaultPaymmentAccount);
+      this.form.get('paymentAccountId')!.setValue(this.defaultPaymmentAccount);
       this.paymentAccountChanges(this.defaultPaymmentAccount!);
 
-      this.form.get('payment_date')!.setValue(this.data.expireDate);
+      this.form.get('paymentDate')!.setValue(this.data.expireDate);
     }
   }
 
   buildForm() {
     this.form = this._fb.group({
       id: null,
-      credit_card_id: this.data.creditCardId,
-      month_year: this.data.monthYear,
-      payment_account_id: null,
-      payment_amount: this.data.defaultPaymentAmount,
-      payment_date: new Date(),
-      payment_hour: '',
+      creditCardId: this.data.creditCardId,
+      monthYear: this.data.monthYear,
+      paymentAccountId: null,
+      paymentAmount: this.data.defaultPaymentAmount,
+      paymentDate: new Date(),
+      paymentHour: '',
     });
   }
 
   save() {
-    // if (this.form.value.payment_amount > this.data.defaultPaymentAmount) {
+    // if (this.form.value.paymentAmount > this.data.defaultPaymentAmount) {
     //   this.utilsService.showMessage('invoice.payment.invalid-amount', 5000);
     //   return;
     // }
@@ -185,7 +183,7 @@ export class InvoicePaymentDialog implements OnInit {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     fileInput.value = '';
 
-    if (this.data.payment?.attachment_name) {
+    if (this.data.payment?.attachmentName) {
       this.removedFile = true;
     }
   }

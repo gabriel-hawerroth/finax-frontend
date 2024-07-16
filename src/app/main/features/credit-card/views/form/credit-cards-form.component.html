@@ -13,8 +13,8 @@
       <div style="display: flex; justify-content: end">
         <app-buttons
           [showSave]="true"
-          [disableSave]="cardForm.invalid || cardForm.pristine || saving"
-          [showLoading]="saving"
+          [disableSave]="cardForm.invalid || cardForm.pristine || saving()"
+          [showLoading]="saving()"
           (onSave)="save()"
         ></app-buttons>
       </div>
@@ -49,7 +49,7 @@
           <input
             type="text"
             matInput
-            formControlName="card_limit"
+            formControlName="cardLimit"
             currencyMask
             [options]="{ prefix: currency + ' ' }"
             placeholder="0"
@@ -67,7 +67,7 @@
             {{ "credit-cards.standard-payment-account" | translate }}
           </mat-label>
           <mat-select
-            formControlName="standard_payment_account_id"
+            formControlName="standardPaymentAccountId"
             (valueChange)="paymentAccountChanges($event)"
           >
             <mat-select-trigger>
@@ -121,7 +121,7 @@
           <mat-label>
             {{ "credit-cards.close-day" | translate }}
           </mat-label>
-          <mat-select formControlName="close_day">
+          <mat-select formControlName="closeDay">
             @for (day of daysOfMonth; track $index) {
             <mat-option [value]="day">{{ day }}</mat-option>
             }
@@ -132,7 +132,7 @@
           <mat-label>
             {{ "credit-cards.expires-day" | translate }}
           </mat-label>
-          <mat-select formControlName="expires_day">
+          <mat-select formControlName="expiresDay">
             @for (day of daysOfMonth; track $index) {
             <mat-option [value]="day">{{ day }}</mat-option>
             }
