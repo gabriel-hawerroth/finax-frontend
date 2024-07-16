@@ -126,7 +126,8 @@
             "title": "Preview Mode",
             "invoices-opt": "Unified Invoice",
             "releases-opt": "Releases"
-        }
+        },
+        "balance-adjustment": "Balance Adjustment"
     },
     "release-form": {
         "description": "Description",
@@ -167,13 +168,13 @@
             "annual": "Annual"
         },
         "repeat-for-suffix": {
-            "daily": "days",
-            "weekly": "weeks",
-            "monthly": "months",
-            "bimonthly": "bimonths",
-            "quarterly": "quarters",
-            "biannual": "half-years",
-            "annual": "years"
+            "DAILY": "days",
+            "WEEKLY": "weeks",
+            "MONTHLY": "months",
+            "BIMONTHLY": "bimonths",
+            "QUARTERLY": "quarters",
+            "BIANNUAL": "half-years",
+            "ANNUAL": "years"
         }
     },
     "confirm-dialog": {

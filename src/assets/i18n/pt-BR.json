@@ -126,7 +126,8 @@
             "title": "Modo de visualização",
             "invoices-opt": "Fatura unificada",
             "releases-opt": "Lançamentos"
-        }
+        },
+        "balance-adjustment": "Ajuste de saldo"
     },
     "release-form": {
         "description": "Descrição",
@@ -167,13 +168,13 @@
             "annual": "Anual"
         },
         "repeat-for-suffix": {
-            "daily": "dias",
-            "weekly": "semanas",
-            "monthly": "meses",
-            "bimonthly": "bimestres",
-            "quarterly": "trimestres",
-            "biannual": "semestres",
-            "annual": "anos"
+            "DAILY": "dias",
+            "WEEKLY": "semanas",
+            "MONTHLY": "meses",
+            "BIMONTHLY": "bimestres",
+            "QUARTERLY": "trimestres",
+            "BIANNUAL": "semestres",
+            "ANNUAL": "anos"
         }
     },
     "confirm-dialog": {

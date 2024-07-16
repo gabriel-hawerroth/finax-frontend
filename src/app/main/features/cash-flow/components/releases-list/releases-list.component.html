@@ -16,7 +16,11 @@
           'background-color': item.categoryColor || '#AFAFAF'
         }"
       >
+        @if (item.isBalanceAdjustment) { edit }
+        <!--  -->
+        @else {
         {{ item.categoryIcon || "swap_horiz" }}
+        }
       </span>
       }
     </div>
@@ -24,6 +28,10 @@
     <div class="description">
       @if (item.type !== 'T') {
       <h3 class="h3">
+        @if (item.isBalanceAdjustment) {
+        {{ "cash-flow.balance-adjustment" | translate }}
+        } @else {
+        <!--  -->
         @if (item.type === 'I') {
         {{ "invoice.title" | translate }}
         } @if (item.cardId) {
@@ -31,6 +39,7 @@
         }
 
         {{ item.description || item.categoryName }}
+        }
       </h3>
       } @else {
       <div>

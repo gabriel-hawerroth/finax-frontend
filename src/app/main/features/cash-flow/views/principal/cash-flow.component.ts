@@ -156,8 +156,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   addRelease(releaseType: 'E' | 'R' | 'T') {
-    console.log('entrou aqui:', releaseType);
-
     this.utils
       .openReleaseFormDialog(<ReleaseFormDialogData>{
         accounts: this.accounts,

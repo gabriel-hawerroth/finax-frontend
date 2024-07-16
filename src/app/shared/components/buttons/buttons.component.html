@@ -58,7 +58,7 @@
     [disabled]="disableDelete()"
     [loading]="showLoading()"
     [btnStyle]="btnStyle()"
-    [contentStyle]="{ color: 'red' }"
+    [contentStyle]="{ color: disableDelete() ? '' : 'red' }"
     (onClick)="onDelete.emit()"
   ></styled-button>
   <!---->

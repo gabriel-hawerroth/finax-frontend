@@ -9,17 +9,24 @@
         [ngClass]="{ 'margin-top': !release.observation }"
         [ngStyle]="{ 'background-color': release.categoryColor || '#AFAFAF' }"
       >
+        @if (release.isBalanceAdjustment) { edit }
+        <!--  -->
+        @else {
         {{ release.categoryIcon || "list" }}
+        }
       </span>
 
       <div class="principal" [ngClass]="{ 'margin-top': !release.observation }">
         @if (release.type !== 'T') {
         <h2>
+          @if (release.isBalanceAdjustment) {
+          {{ "cash-flow.balance-adjustment" | translate }}
+          } @else {
           {{ release.description || release.categoryName }}
 
           @if (!release.description && !release.categoryName) {
           {{ "cash-flow.others" | translate }}
-          }
+          } }
         </h2>
 
         <span>
@@ -88,12 +95,18 @@
         [showDownload]="release.attachmentName !== null"
         [showEdit]="release.type !== 'I'"
         [showDelete]="release.type !== 'I'"
-        [disableEdit]="release.categoryId === 1"
-        [disableDelete]="release.categoryId === 1"
+        [disableEdit]="release.isBalanceAdjustment"
+        [disableDelete]="release.isBalanceAdjustment"
         [showGeneric]="release.type === 'I'"
         [genericIcon]="'sort'"
         [genericLabel]="'credit-cards.see-invoice' | translate"
-        [btnStyle]="{ padding: '1.9rem' }"
+        [btnStyle]="{
+          padding: '1.9rem',
+          color: release.isBalanceAdjustment ? 'green !important' : ''
+        }"
+        [contentStyle]="{
+          color: release.isBalanceAdjustment ? 'green !important' : ''
+        }"
         (onDownload)="downloadAttachment()"
         (onEdit)="edit()"
         (onDelete)="delete()"

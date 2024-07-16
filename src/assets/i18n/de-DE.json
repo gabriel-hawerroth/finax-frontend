@@ -126,7 +126,8 @@
             "title": "Vorschau-Modus",
             "invoices-opt": "Einheitliche Rechnung",
             "releases-opt": "Auslösungen"
-        }
+        },
+        "balance-adjustment": "Balance-Anpassung"
     },
     "release-form": {
         "description": "Beschreibung",
@@ -167,13 +168,13 @@
             "annual": "Jährlich"
         },
         "repeat-for-suffix": {
-            "daily": "Tage",
-            "weekly": "Wochen",
-            "monthly": "Monate",
-            "bimonthly": "Zweimonate",
-            "quarterly": "Quartale",
-            "biannual": "Halbjahre",
-            "annual": "Jahre"
+            "DAILY": "Tage",
+            "WEEKLY": "Wochen",
+            "MONTHLY": "Monate",
+            "BIMONTHLY": "Zweimonate",
+            "QUARTERLY": "Quartale",
+            "BIANNUAL": "Halbjahre",
+            "ANNUAL": "Jahre"
         }
     },
     "confirm-dialog": {

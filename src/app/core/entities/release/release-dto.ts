@@ -33,6 +33,7 @@ export interface MonthlyRelease {
   attachmentName?: string;
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;
+  isBalanceAdjustment: boolean;
 }
 
 export interface MonthlyBalance {

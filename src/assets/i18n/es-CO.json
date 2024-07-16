@@ -126,7 +126,8 @@
             "title": "Modo de vista previa",
             "invoices-opt": "Factura unificada",
             "releases-opt": "Libera"
-        }
+        },
+        "balance-adjustment": "Ajuste de saldo"
     },
     "release-form": {
         "description": "Descripción",
@@ -167,13 +168,13 @@
             "annual": "Anual"
         },
         "repeat-for-suffix": {
-            "daily": "días",
-            "weekly": "semanas",
-            "monthly": "meses",
-            "bimonthly": "bimestres",
-            "quarterly": "trimestres",
-            "biannual": "semestres",
-            "annual": "años"
+            "DAILY": "días",
+            "WEEKLY": "semanas",
+            "MONTHLY": "meses",
+            "BIMONTHLY": "bimestres",
+            "QUARTERLY": "trimestres",
+            "BIANNUAL": "semestres",
+            "ANNUAL": "años"
         }
     },
     "confirm-dialog": {

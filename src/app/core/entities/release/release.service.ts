@@ -41,7 +41,6 @@ export class ReleaseService {
   ): Promise<Release> {
     let params = new HttpParams();
     params = params.append('repeatFor', repeatFor);
-    params = params.append('releasedOn', releasedOn);
 
     return lastValueFrom(
       this._http.post<Release>(this.apiUrl, data, { params })
@@ -55,7 +54,6 @@ export class ReleaseService {
   ): Promise<Release> {
     let params = new HttpParams();
     params = params.append('duplicatedReleaseAction', duplicatedReleaseAction);
-    params = params.append('releasedOn', releasedOn);
 
     return lastValueFrom(
       this._http.put<Release>(this.apiUrl, data, { params })
