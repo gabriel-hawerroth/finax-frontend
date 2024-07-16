@@ -51,7 +51,10 @@ import {
   ReleaseFixedBy,
   ReleaseType,
 } from '../../../../../core/enums/release-enums';
+import { StyledButtonComponent } from '../../../../../shared/components/buttons/styled-button/styled-button.component';
+import { getBtnStyle } from '../../../../../shared/utils/constant-utils';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'release-form-dialog',
@@ -67,16 +70,25 @@ import { MatButtonModule } from '@angular/material/button';
     MatTooltipModule,
     MatSelectModule,
     NgxCurrencyDirective,
-    ButtonsComponent,
     MatCheckboxModule,
     TranslateModule,
+    ButtonsComponent,
     MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './release-form-dialog.component.html',
   styleUrl: './release-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseFormDialog implements OnInit {
+  readonly getBtnStyle = getBtnStyle;
+
+  readonly darkThemeEnabled = signal(
+    this.utils.getUserConfigs.theme === 'dark'
+  );
+
+  readonly isPcScreen = this.utils.isPcScreen;
+
   releaseForm!: FormGroup;
 
   currentDate: Date = new Date();
@@ -96,7 +108,7 @@ export class ReleaseFormDialog implements OnInit {
   installmenteRepeat = new FormControl(false);
 
   repeatForSuffix: string = this._translate.instant(
-    'release-form.repeat-for-suffix.monthly'
+    'release-form.repeat-for-suffix.MONTHLY'
   );
 
   selectedCreditCard = this.data.creditCardId !== undefined;
@@ -160,10 +172,10 @@ export class ReleaseFormDialog implements OnInit {
       done: [true, Validators.required],
       categoryId: [null, Validators.required],
       date: ['', Validators.required],
-      time: '',
-      observation: '',
+      time: null,
+      observation: null,
       repeat: null,
-      fixedBy: 'monthly',
+      fixedBy: 'MONTHLY',
       repeatFor: '12',
       installmentsBy: '2',
       cardId: null,
@@ -204,6 +216,10 @@ export class ReleaseFormDialog implements OnInit {
   }
 
   async save() {
+    console.log('accountsList:', this.data.accounts);
+    console.log('creditCardsList:', this.data.creditCards);
+    return;
+
     if (this.releaseForm.value.amount === 0) {
       this.utils.showMessage('release-form.amount-greater-than-zero');
       return;
@@ -257,7 +273,18 @@ export class ReleaseFormDialog implements OnInit {
       ? ReleasedOn.ACCOUNT
       : ReleasedOn.CREDIT_CARD;
 
-    if (!release.repeat) release.fixedBy = '';
+    let repeatFor: number;
+    if (!release.repeat) {
+      release.fixedBy = null;
+      release.installmentsBy = null;
+      delete release.repeatFor;
+      repeatFor = 0;
+    } else {
+      repeatFor =
+        release.repeat === 'fixed'
+          ? +release.repeatFor
+          : +release.installmentsBy;
+    }
 
     if (releasedOn == ReleasedOn.CREDIT_CARD) {
       release.credit_card_id = release.accountId;
@@ -266,13 +293,7 @@ export class ReleaseFormDialog implements OnInit {
 
     if (!release.id) {
       await this._cashFlowService
-        .addRelease(
-          release,
-          release.repeat === 'fixed'
-            ? release.repeatFor
-            : release.installmentsBy,
-          releasedOn
-        )
+        .addRelease(release, repeatFor, releasedOn)
         .then((response) => {
           release = response;
         })
@@ -297,9 +318,9 @@ export class ReleaseFormDialog implements OnInit {
     }
 
     if (this.changedAttachment && this.selectedFile) {
-      if (this.selectedFile.size > 1.5 * 1024 * 1024) {
-        this.utils.showMessage('generic.this-may-take-few-seconds', 6000);
-      }
+      // if (this.selectedFile.size > 1.5 * 1024 * 1024) {
+      //   this.utils.showMessage('generic.this-may-take-few-seconds', 6000);
+      // }
 
       await this._cashFlowService
         .addAttachment(release.id, this.selectedFile!)
@@ -433,6 +454,8 @@ export class ReleaseFormDialog implements OnInit {
   onChangeFixedBy(value: ReleaseFixedBy) {
     let fixedBy = '';
 
+    console.log(value);
+
     switch (value) {
       case ReleaseFixedBy.DAILY:
         fixedBy = '365';
@@ -460,6 +483,20 @@ export class ReleaseFormDialog implements OnInit {
     this.releaseForm.get('repeatFor')!.setValue(fixedBy);
     this.repeatForSuffix = this._translate.instant(
       `release-form.repeat-for-suffix.${value}`
+    );
+  }
+
+  disableSave(): boolean {
+    return (
+      (this.data.editing &&
+        this.releaseForm.pristine &&
+        !this.changedAttachment) ||
+      this.releaseForm.invalid ||
+      (this.releaseForm.value.repeat === 'fixed' &&
+        !this.releaseForm.value.repeatFor) ||
+      (this.releaseForm.value.repeat === 'installments' &&
+        !this.releaseForm.value.installmentsBy) ||
+      this.saving()
     );
   }
 }

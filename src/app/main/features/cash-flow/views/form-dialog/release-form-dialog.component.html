@@ -1,34 +1,58 @@
 <div
   class="new-release-cash-flow-dialog"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
+  [ngClass]="{ 'dark-page': darkThemeEnabled() }"
 >
   <div
     class="top"
     [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2.7rem' : '1.5rem' }"
   >
-    <!-- <app-buttons
-      [showSave]="true"
-      [disableSave]="
-        (data.editing && releaseForm.pristine && !changedAttachment) ||
-        releaseForm.invalid ||
-        (releaseForm.value.repeat === 'fixed' &&
-          !releaseForm.value.repeatFor) ||
-        (releaseForm.value.repeat === 'installments' &&
-          !releaseForm.value.installmentsBy) ||
-        saving()
-      "
-      [showLoading]="saving()"
-      (onSave)="save()"
+    @if (darkThemeEnabled()) {
+    <button
+      mat-stroked-button
+      [disabled]="disableSave()"
+      (click)="save()"
       class="save-btn"
-    ></app-buttons> -->
+    >
+      @if (saving()) {
+      <mat-spinner [diameter]="30"></mat-spinner>
+      } @else {
+      <div class="btn-content">
+        <span class="material-symbols-outlined">save</span>
+        @if (isPcScreen) {
+        <span>
+          {{ "actions.save" | translate }}
+        </span>
+        }
+      </div>
+      }
+    </button>
+    } @else {
+    <button
+      mat-raised-button
+      [disabled]="disableSave()"
+      (click)="save()"
+      class="save-btn"
+    >
+      @if (saving()) {
+      <mat-spinner [diameter]="30"></mat-spinner>
+      } @else {
+      <div class="btn-content">
+        <span class="material-symbols-outlined">save</span>
+        @if (isPcScreen) {
+        <span>
+          {{ "actions.save" | translate }}
+        </span>
+        }
+      </div>
+      }
+    </button>
+    }
 
     <h2>{{ getDialogTitle }}</h2>
 
-    <!-- <app-buttons
-      [showClose]="true"
-      mat-dialog-close
-      class="close-btn"
-    ></app-buttons> -->
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <span class="material-symbols-outlined">close</span>
+    </button>
   </div>
 
   <div class="content">
@@ -123,7 +147,13 @@
             <div class="file">
               <span>{{ selectedFile.name }}</span>
 
-              <app-buttons class="remove-file-btn"></app-buttons>
+              <button
+                mat-icon-button
+                (click)="removeFile()"
+                class="remove-file-btn"
+              >
+                <span class="material-symbols-outlined">close</span>
+              </button>
             </div>
           </div>
         </div>
@@ -240,7 +270,7 @@
                 allowZero: false,
                 decimal: '',
                 precision: 0,
-                suffix: ' ' + ('release-form.repeat-for-suffix.monthly' | translate),
+                suffix: ' ' + ('release-form.repeat-for-suffix.MONTHLY' | translate),
                 thousands: '',
                 nullable: false,
                 min: 2,
