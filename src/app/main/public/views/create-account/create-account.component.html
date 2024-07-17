@@ -28,7 +28,7 @@
             type="text"
             matInput
             formControlName="email"
-            maxlength="40"
+            maxlength="255"
             autocomplete="off"
             autofocus
           />
@@ -53,8 +53,9 @@
             [matTooltip]="utils.passwordRequirementsText"
             matTooltipPosition="below"
             matTooltipShowDelay="200"
-            >info</span
           >
+            info
+          </span>
         </mat-form-field>
       </div>
 
