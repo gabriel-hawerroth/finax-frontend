@@ -80,8 +80,8 @@ export class LoginService {
           });
       })
       .catch((err) => {
-        switch (err.error.error_description) {
-          case 'Inactive user':
+        switch (err.error.errorDescription) {
+          case 'inactive user':
             this._utils.showMessage('login.inactive-user');
             break;
           default:

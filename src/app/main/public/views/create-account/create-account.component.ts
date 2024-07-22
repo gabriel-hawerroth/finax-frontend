@@ -99,9 +99,11 @@ export class CreateAccountPage implements OnInit {
         );
         this._router.navigate(['login']);
       })
-      .catch((error) => {
-        if (error.error.errorDescription === 'this email is already in use') {
+      .catch((err) => {
+        if (err.error.errorDescription === 'this email is already in use') {
           this.utils.showMessage('create-account.email-already-registered');
+        } else if (err.error.errorDescription === 'invalid email') {
+          this.utils.showMessage('generic.invalid-mail');
         } else {
           this.utils.showMessage('create-account.error-creating-user');
         }

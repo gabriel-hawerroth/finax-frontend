@@ -22,7 +22,8 @@
         "invalid-form": "Formulário inválido",
         "without-permission": "Você não tem permissão para acessar essa tela",
         "update-in-progress": "Atualização em andamento, tente novamente mais tarde",
-        "attachment-not-found": "Arquivo não encontrado"
+        "attachment-not-found": "Arquivo não encontrado",
+        "invalid-mail": "O endereço de e-mail fornecido não existe ou é inválido. Por favor, verifique e tente novamente"
     },
     "actions": {
         "save": "Salvar",
@@ -52,7 +53,8 @@
         "title": "Recuperação de senha",
         "recovery": "Recuperar",
         "sended-recovery-link": "O link de recuperação foi enviado para o email",
-        "user-doesn't-exist": "Esse usuário não existe"
+        "user-doesn't-exist": "Esse usuário não existe",
+        "error-sending-email": "Erro ao enviar o email. Por favor tente novamente mais tarde ou entre em contato conosco"
     },
     "create-account": {
         "title": "Crie sua conta",
@@ -61,7 +63,7 @@
         "create": "Criar conta",
         "already-have-account": "Já possui uma conta?",
         "do-login": "Fazer login!",
-        "sended-activate-link": "Conta criada com sucesso, um link de ativação foi enviado \n para o email",
+        "sended-activate-link": "Conta criada com sucesso, um link de ativação foi enviado para o email",
         "email-already-registered": "Esse email já está cadastrado",
         "error-creating-user": "Erro ao criar o usuário, entre em contato com nosso suporte"
     },

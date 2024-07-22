@@ -22,7 +22,8 @@
         "invalid-form": "Formulario no válido",
         "without-permission": "No tiene permiso para acceder a esta pantalla",
         "update-in-progress": "Actualización en curso, inténtelo de nuevo más tarde",
-        "attachment-not-found": "Adjunto no encontrado"
+        "attachment-not-found": "Adjunto no encontrado",
+        "invalid-mail": "La dirección de correo electrónico proporcionada no existe o no es válida. Compruébalo e inténtalo de nuevo"
     },
     "actions": {
         "save": "Guardar",
@@ -52,7 +53,8 @@
         "title": "Recuperación de contraseña",
         "recovery": "Recuperar",
         "sended-recovery-link": "El enlace de recuperación ha sido enviado al correo electrónico",
-        "user-doesn't-exist": "Este usuario no existe"
+        "user-doesn't-exist": "Este usuario no existe",
+        "error-sending-email": "Se ha producido un error al enviar el correo electrónico. Por favor, inténtelo de nuevo más tarde o póngase en contacto con nosotros"
     },
     "create-account": {
         "title": "Crea tu cuenta",

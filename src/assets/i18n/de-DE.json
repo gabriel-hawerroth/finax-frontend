@@ -22,7 +22,8 @@
         "invalid-form": "Ungültiges Formular",
         "without-permission": "Sie haben keine Berechtigung für den Zugriff auf diesen Bildschirm",
         "update-in-progress": "Update läuft, bitte versuchen Sie es später noch einmal",
-        "attachment-not-found": "Anhang nicht gefunden"
+        "attachment-not-found": "Anhang nicht gefunden",
+        "invalid-mail": "Die angegebene E-Mail-Adresse existiert nicht oder ist ungültig. Bitte überprüfen Sie es und versuchen Sie es erneut"
     },
     "actions": {
         "save": "Speichern",
@@ -52,7 +53,8 @@
         "title": "Passwortwiederherstellung",
         "recovery": "Wiederherstellen",
         "sended-recovery-link": "Der Wiederherstellungslink wurde an die E-Mail gesendet",
-        "user-doesn't-exist": "Dieser Benutzer existiert nicht"
+        "user-doesn't-exist": "Dieser Benutzer existiert nicht",
+        "error-sending-email": "Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns"
     },
     "create-account": {
         "title": "Erstelle dein Konto",

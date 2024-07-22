@@ -22,7 +22,8 @@
         "invalid-form": "Invalid form",
         "without-permission": "You don't have permission to access this screen",
         "update-in-progress": "Update in progress, please try again later",
-        "attachment-not-found": "Attachment not found"
+        "attachment-not-found": "Attachment not found",
+        "invalid-mail": "The email address provided does not exist or is invalid. Please check and try again"
     },
     "actions": {
         "save": "Save",
@@ -52,7 +53,8 @@
         "title": "Password recovery",
         "recovery": "Recover",
         "sended-recovery-link": "Recovery link sent to the email",
-        "user-doesn't-exist": "This user doesn't exist"
+        "user-doesn't-exist": "This user doesn't exist",
+        "error-sending-email": "An error occurred while sending the email. Please try again later or contact us"
     },
     "create-account": {
         "title": "Create your account",

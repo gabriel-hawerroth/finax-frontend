@@ -58,7 +58,7 @@ export class ForgotPasswordPage implements OnInit {
     ]);
   }
 
-  resetPassword() {
+  sendChangePasswordEmail() {
     this.showLoading.set(true);
     const email: string = this.emailControl.value;
 
@@ -73,8 +73,14 @@ export class ForgotPasswordPage implements OnInit {
           'OK'
         );
       })
-      .catch(() => {
-        this.utils.showMessage("forgot-password.user-doesn't-exist");
+      .catch((err) => {
+        if (err.error.errorDescription === 'invalid email') {
+          this.utils.showMessage('generic.invalid-mail');
+        } else if (err.error.errorDescription === 'entity not found') {
+          this.utils.showMessage("forgot-password.user-doesn't-exist");
+        } else {
+          this.utils.showMessage("forgot-password.user-doesn't-exist");
+        }
       })
       .finally(() => this.showLoading.set(false));
   }
