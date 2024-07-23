@@ -72,7 +72,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-BR',
       currency: 'R$',
-      releasesViewMode: 'releases',
+      releasesViewMode: 'RELEASES',
       emailNotifications: true,
     });
   }

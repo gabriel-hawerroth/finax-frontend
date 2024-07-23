@@ -69,7 +69,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
   categories: Category[] = [];
   creditCards: CardBasicList[] = [];
 
-  viewModeCtrl: FormControl = new FormControl<string>('releases');
+  viewModeCtrl: FormControl = new FormControl<string>('RELEASES');
 
   totals = computed(() => {
     return this.calculateValues(this.monthlyValues());
