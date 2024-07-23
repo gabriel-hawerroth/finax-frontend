@@ -319,7 +319,8 @@
             "£": "Pound",
             "¥": "Yuan"
         },
-        "error-saving-settings": "Error saving settings"
+        "error-saving": "Error saving settings",
+        "email-notifications": "Receive email notifications"
     },
     "change-password-dialog": {
         "title": "Password Change",

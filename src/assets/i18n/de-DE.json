@@ -319,7 +319,8 @@
             "£": "Pfund",
             "¥": "Yuan"
         },
-        "error-saving-settings": "Fehler beim Speichern der Einstellungen"
+        "error-saving": "Fehler beim Speichern der Einstellungen",
+        "email-notifications": "E-Mail-Benachrichtigungen erhalten"
     },
     "change-password-dialog": {
         "title": "Passwortänderung",

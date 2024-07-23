@@ -11,6 +11,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { UserConfigs } from '../../../../../core/entities/user-configs/user-configs';
@@ -28,6 +29,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatSelectModule,
     MatButtonToggleModule,
     TranslateModule,
+    MatSlideToggleModule,
   ],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss',
@@ -52,6 +54,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.buidForm();
     this.getConfigs();
+    this.subscribeValueChanges();
   }
 
   ngOnDestroy(): void {
@@ -69,15 +72,9 @@ export class UserSettingsPage implements OnInit, OnDestroy {
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-BR',
       currency: 'R$',
-      releasesViewMode: '',
+      releasesViewMode: 'releases',
+      emailNotifications: true,
     });
-
-    this.configsForm.valueChanges
-      .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
-      .subscribe((value) => {
-        this.theme.set(value.theme);
-        this.utils.setUserConfigs(value);
-      });
   }
 
   getConfigs() {
@@ -92,6 +89,15 @@ export class UserSettingsPage implements OnInit, OnDestroy {
       });
   }
 
+  subscribeValueChanges() {
+    this.configsForm.valueChanges
+      .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
+      .subscribe((value) => {
+        this.theme.set(value.theme);
+        this.utils.setUserConfigs(value);
+      });
+  }
+
   saveConfigs() {
     this._userConfigsService
       .save(this.configsForm.value)
@@ -102,7 +108,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
         }
       })
       .catch(() => {
-        this.utils.showMessage('settings.error-saving-settings');
+        this.utils.showMessage('settings.error-saving');
       });
   }
 

@@ -6,4 +6,5 @@ export interface UserConfigs {
   language: string;
   currency: string;
   releasesViewMode: string;
+  emailNotifications: boolean;
 }

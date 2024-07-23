@@ -319,7 +319,8 @@
             "£": "Libra",
             "¥": "Yuan"
         },
-        "error-saving-settings": "Erro ao salvar as configurações"
+        "error-saving": "Erro ao salvar as configurações",
+        "email-notifications": "Receber notificações por email"
     },
     "change-password-dialog": {
         "title": "Alteração de senha",

@@ -79,6 +79,7 @@ export class UtilsService {
       language: 'pt-BR',
       currency: 'R$',
       releasesViewMode: ReleasesViewMode.releases,
+      emailNotifications: true,
     };
   }
 
