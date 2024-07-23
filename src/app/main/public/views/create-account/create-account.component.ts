@@ -101,11 +101,14 @@ export class CreateAccountPage implements OnInit {
       })
       .catch((err) => {
         if (err.error.errorDescription === 'this email is already in use') {
-          this.utils.showMessage('create-account.email-already-registered');
+          this.utils.showMessage(
+            'create-account.email-already-registered',
+            5000
+          );
         } else if (err.error.errorDescription === 'invalid email') {
-          this.utils.showMessage('generic.invalid-mail');
+          this.utils.showMessage('generic.invalid-mail', 6000);
         } else {
-          this.utils.showMessage('create-account.error-creating-user');
+          this.utils.showMessage('create-account.error-creating-user', 4000);
         }
       })
       .finally(() => this.showLoading.set(false));

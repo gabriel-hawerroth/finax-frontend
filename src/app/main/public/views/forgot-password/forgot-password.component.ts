@@ -75,11 +75,11 @@ export class ForgotPasswordPage implements OnInit {
       })
       .catch((err) => {
         if (err.error.errorDescription === 'invalid email') {
-          this.utils.showMessage('generic.invalid-mail');
+          this.utils.showMessage('generic.invalid-mail', 6000);
         } else if (err.error.errorDescription === 'entity not found') {
-          this.utils.showMessage("forgot-password.user-doesn't-exist");
+          this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
         } else {
-          this.utils.showMessage("forgot-password.user-doesn't-exist");
+          this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
         }
       })
       .finally(() => this.showLoading.set(false));

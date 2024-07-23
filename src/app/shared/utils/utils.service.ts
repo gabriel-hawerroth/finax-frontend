@@ -5,8 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
-import { ReleaseFormDialogData } from '../../core/entities/release/release-dto';
 import { ConfirmDialogData } from '../../core/entities/generic';
+import { ReleaseFormDialogData } from '../../core/entities/release/release-dto';
 import { UserConfigs } from '../../core/entities/user-configs/user-configs';
 import { User } from '../../core/entities/user/user';
 import { ReleasesViewMode } from '../../core/enums/releases-view-mode';
@@ -108,7 +108,7 @@ export class UtilsService {
     if (this.isBrowser) localStorage.removeItem(item);
   }
 
-  showMessage(message: string, duration: number = 3000) {
+  showMessage(message: string, duration: number = 3500) {
     message = this._translateService.instant(message);
 
     this._snackBar.open(message, '', {
