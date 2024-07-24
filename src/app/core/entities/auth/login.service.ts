@@ -99,8 +99,8 @@ export class LoginService {
     );
   }
 
-  logout(showMessage: boolean) {
-    this._router.navigate(['']);
+  logout(showMessage: boolean, redirectToPublicPage: boolean = true) {
+    if (redirectToPublicPage) this._router.navigate(['']);
 
     this._utils.removeItemLocalStorage('userFinax');
     this._utils.removeItemLocalStorage('tokenFinax');
@@ -115,7 +115,9 @@ export class LoginService {
     params = params.append('email', email);
 
     return lastValueFrom(
-      this._http.post<void>(`${this.apiUrl}/send-change-password-email`, params)
+      this._http.post<void>(`${this.apiUrl}/send-change-password-email`, null, {
+        params,
+      })
     );
   }
 
@@ -127,5 +129,19 @@ export class LoginService {
 
   get logged(): boolean {
     return this._utils.getItemLocalStorage('tokenFinax') ? true : false;
+  }
+
+  sendCancelUserAccountEmail(): Promise<void> {
+    const userId = this._utils.getLoggedUser?.id;
+    if (!userId) {
+      throw new Error('user must be logged to send cancel user account email');
+    }
+
+    return lastValueFrom(
+      this._http.post<void>(
+        `${this.apiUrl}/send-cancel-account-email/${userId}`,
+        null
+      )
+    );
   }
 }

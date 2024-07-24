@@ -10,6 +10,7 @@ import {
 import { getBtnStyle } from '../../utils/constant-utils';
 import { UtilsService } from '../../utils/utils.service';
 import { StyledButtonComponent } from './styled-button/styled-button.component';
+import { ButtonType } from '../../../core/enums/button-style';
 
 @Component({
   selector: 'app-buttons',
@@ -26,6 +27,7 @@ export class ButtonsComponent {
   readonly onSave = output<void>();
   readonly onDelete = output<void>();
   readonly onEdit = output<void>();
+  readonly onCancel = output<void>();
   readonly onDownload = output<void>();
   readonly onClose = output<void>();
   readonly onGoBack = output<void>();
@@ -36,6 +38,7 @@ export class ButtonsComponent {
   readonly showSave = input<boolean>(false);
   readonly showDelete = input<boolean>(false);
   readonly showEdit = input<boolean>(false);
+  readonly showCancel = input<boolean>(false);
   readonly showDownload = input<boolean>(false);
   readonly showClose = input<boolean>(false);
   readonly showGoBack = input<boolean>(false);
@@ -46,6 +49,7 @@ export class ButtonsComponent {
   readonly disableSave = input<boolean>(false);
   readonly disableDelete = input<boolean>(false);
   readonly disableEdit = input<boolean>(false);
+  readonly disableCancel = input<boolean>(false);
   readonly disableDownload = input<boolean>(false);
   readonly disableChangePassword = input<boolean>(false);
   readonly disableGeneric = input<boolean>(false);
@@ -54,6 +58,7 @@ export class ButtonsComponent {
 
   readonly labelNewM = input<boolean>(false);
 
+  readonly genericStyle = input<ButtonType>();
   readonly genericIcon = input<string>('');
   readonly genericLabel = input<string>('');
 

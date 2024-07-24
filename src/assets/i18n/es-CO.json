@@ -299,7 +299,13 @@
         "change-payment-method": "Cambiar método de pago",
         "edited-successfully": "Perfil editado con éxito",
         "edited-but-error-saving-picture": "El perfil se editó pero hubo un error al guardar la nueva foto de perfil",
-        "error-saving": "Error al guardar los cambios"
+        "error-saving": "Error al guardar los cambios",
+        "cancel-account-dialog": {
+            "title": "Cancelación de la cuenta",
+            "description": "Estás a punto de cancelar tu cuenta. Esta acción es irreversible y dará lugar a la eliminación permanente de todos sus datos de nuestro sistema. Se le enviará un correo electrónico de confirmación. Confirme la cancelación haciendo clic en el enlace proporcionado en el correo electrónico.",
+            "email-sent-successfully": "Correo electrónico de cancelación enviado con éxito",
+            "error-sending-email": "Se ha producido un error al enviar el correo electrónico. Por favor, inténtelo de nuevo más tarde o póngase en contacto con nosotros"
+        }
     },
     "settings": {
         "title": "Configuraciones",

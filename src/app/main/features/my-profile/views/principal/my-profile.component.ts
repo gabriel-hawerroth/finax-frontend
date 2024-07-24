@@ -18,6 +18,7 @@ import { cloudFireCdnLink } from '../../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';
 import { MyProfileFormComponent } from '../../components/my-profile-form/my-profile-form.component';
+import { CancelAccountDialog } from '../../components/cancel-account-dialog/cancel-account-dialog.component';
 
 @Component({
   selector: 'app-my-profile',
@@ -163,11 +164,21 @@ export class MyProfilePage implements OnInit, OnDestroy {
       data: {
         userId: this.utils.getLoggedUser!.id,
       },
-      disableClose: false,
-      autoFocus: true,
+      panelClass: 'change-password-dialog',
+      width: '39vw',
       minWidth: '39vw',
+      autoFocus: true,
     });
   }
 
   changePlan() {}
+
+  openCancelAccountDialog() {
+    this._matDialog.open(CancelAccountDialog, {
+      panelClass: 'cancel-account-dialog',
+      width: '40vw',
+      minWidth: '40vw',
+      autoFocus: false,
+    });
+  }
 }

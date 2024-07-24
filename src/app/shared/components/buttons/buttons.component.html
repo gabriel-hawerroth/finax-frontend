@@ -49,6 +49,18 @@
     (onClick)="onEdit.emit()"
   ></styled-button>
   <!---->
+  } @if (showCancel()) {
+  <!---->
+  <styled-button
+    [btnType]="getBtnStyle('basic')"
+    label="confirm-dialog.cancel"
+    icon=""
+    [disabled]="disableCancel()"
+    [btnStyle]="btnStyle()"
+    [contentStyle]="contentStyle()"
+    (onClick)="onCancel.emit()"
+  ></styled-button>
+  <!---->
   } @if (showDelete()) {
   <!---->
   <styled-button
@@ -77,7 +89,11 @@
   } @if (showGeneric()) {
   <!---->
   <styled-button
-    [btnType]="getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')"
+    [btnType]="
+      genericStyle()
+        ? genericStyle()!
+        : getBtnStyle(darkThemeEnabled() ? 'stroked' : 'raised')
+    "
     [label]="genericLabel()"
     [icon]="genericIcon()"
     [disabled]="disableGeneric()"

@@ -299,7 +299,13 @@
         "change-payment-method": "Zahlungsmethode ändern",
         "edited-successfully": "Profil erfolgreich bearbeitet",
         "edited-but-error-saving-picture": "Das Profil wurde bearbeitet, aber es gab einen Fehler beim Speichern des neuen Profilbilds",
-        "error-saving": "Fehler beim Speichern der Änderungen"
+        "error-saving": "Fehler beim Speichern der Änderungen",
+        "cancel-account-dialog": {
+            "title": "Kündigung des Kontos",
+            "description": "Sie sind dabei, Ihr Konto zu kündigen. Diese Aktion ist irreversibel und führt zur dauerhaften Löschung aller Ihrer Daten aus unserem System. Sie erhalten eine Bestätigungs-E-Mail. Bitte bestätigen Sie die Stornierung, indem Sie auf den in der E-Mail angegebenen Link klicken.",
+            "email-sent-successfully": "Stornierungs-E-Mail erfolgreich gesendet",
+            "error-sending-email": "Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns"
+        }
     },
     "settings": {
         "title": "Einstellungen",

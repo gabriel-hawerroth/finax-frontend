@@ -1,0 +1,23 @@
+@import 'generic.scss';
+
+.cancel-account-dialog {
+    width: 40vw;
+    max-width: 40vw;
+    font-family: $default-font-family !important;
+
+    * {
+        font-family: $default-font-family !important;
+    }
+
+    .title {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .content {
+        font-size: 1.1rem;
+        overflow: hidden;
+        margin: 1rem;
+        color: #000;
+    }
+}

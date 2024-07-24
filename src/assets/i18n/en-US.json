@@ -299,7 +299,13 @@
         "change-payment-method": "Change payment method",
         "edited-successfully": "Profile edited successfully",
         "edited-but-error-saving-picture": "The profile was edited but there was an error saving the new profile picture",
-        "error-saving": "Error saving changes"
+        "error-saving": "Error saving changes",
+        "cancel-account-dialog": {
+            "title": "Account Cancellation",
+            "description": "You are about to cancel your account. This action is irreversible and will result in the permanent deletion of all your data from our system. A confirmation email will be sent to you. Please confirm the cancellation by clicking on the link provided in the email.",
+            "email-sent-successfully": "Cancellation email sent successfully",
+            "error-sending-email": "An error occurred while sending the email. Please try again later or contact us"
+        }
     },
     "settings": {
         "title": "Settings",

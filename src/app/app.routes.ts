@@ -19,6 +19,7 @@ import { LoginPage } from './main/public/views/login/login.component';
 import { PublicPage } from './main/public/views/principal/public.component';
 import { UserActivationPage } from './main/public/views/user-activation/user-activation.component';
 import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
+import { AccountCanceledPage } from './main/public/views/account-canceled/account-canceled.component';
 
 export const routes: Routes = [
   { path: '', component: PublicPage },
@@ -47,6 +48,10 @@ export const routes: Routes = [
     path: 'recuperacao-da-senha/:userId',
     component: ChangePasswordPage,
     canActivate: [UnauthenticatedUserGuard],
+  },
+  {
+    path: 'conta-cancelada',
+    component: AccountCanceledPage,
   },
   {
     path: 'home',

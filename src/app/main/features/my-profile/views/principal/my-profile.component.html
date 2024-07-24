@@ -84,7 +84,9 @@
           </button>
 
           <span id="cancel-signature">
-            <span>{{ "my-profile.cancel" | translate }}</span>
+            <span (click)="openCancelAccountDialog()">{{
+              "my-profile.cancel" | translate
+            }}</span>
           </span>
         </div>
       </div>

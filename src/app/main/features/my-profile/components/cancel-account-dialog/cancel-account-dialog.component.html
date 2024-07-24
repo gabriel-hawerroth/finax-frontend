@@ -1,0 +1,23 @@
+<div class="cancel-account-dialog">
+  <span class="title" mat-dialog-title>
+    {{ "my-profile.cancel-account-dialog.title" | translate }}
+  </span>
+
+  <div class="content" mat-dialog-content>
+    <p>{{ "my-profile.cancel-account-dialog.description" | translate }}</p>
+  </div>
+
+  <div class="actions" mat-dialog-actions>
+    <app-buttons
+      [showCancel]="true"
+      [showGeneric]="true"
+      [genericLabel]="'confirm-dialog.confirm' | translate"
+      (onCancel)="onCancel()"
+      (onGeneric)="confirmCancelAccount()"
+      [btnStyle]="{
+        transform: 'scale(.9)'
+      }"
+      [showLoading]="loading()"
+    ></app-buttons>
+  </div>
+</div>
