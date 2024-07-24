@@ -1,0 +1,36 @@
+<div class="simple-page">
+  <mat-card class="card">
+    <h1>{{ "cancelation-error.title" | translate }}</h1>
+
+    <p>
+      {{ "cancelation-error.sub-title" | translate }}
+    </p>
+
+    <ul>
+      <li>{{ "cancelation-error.reason-1" | translate }}</li>
+      <li>{{ "cancelation-error.reason-2" | translate }}</li>
+      <li>{{ "cancelation-error.reason-3" | translate }}</li>
+    </ul>
+
+    <p>{{ "cancelation-error.try-again-later" | translate }}</p>
+
+    <!-- <p style="margin-bottom: 0.2rem">
+        Você pode seguir nossas redes sociais para se manter atualizado:
+      </p>
+      <div class="footer-links">
+        <a href="https://facebook.com">Facebook</a>
+        <span>|</span>
+        <a href="https://twitter.com">Twitter</a>
+        <span>|</span>
+        <a href="https://instagram.com">Instagram</a>
+      </div> -->
+
+    <app-buttons
+      routerLink="/"
+      [showGeneric]="true"
+      [genericLabel]="'cancelation-error.go-back' | translate"
+      [genericStyle]="getBtnStyle('flat')"
+      class="button"
+    ></app-buttons>
+  </mat-card>
+</div>

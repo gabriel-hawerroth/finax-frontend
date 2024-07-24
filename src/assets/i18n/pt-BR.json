@@ -336,5 +336,14 @@
         "cannot-be-the-same-as-current": "A nova senha não pode ser igual a senha atual",
         "incorrect-current-password": "A senha atual está incorreta",
         "unexpected-error-updating-password": "Houve um erro inesperado ao atualizar a senha"
+    },
+    "cancelation-error": {
+        "title": "Erro ao cancelar a conta",
+        "sub-title": "Ocorreu um erro ao tentar cancelar sua conta. Isso pode ter acontecido por um dos seguintes motivos:",
+        "reason-1": "O link de confirmação expirou (válido por apenas 2 horas)",
+        "reason-2": "O link já foi utilizado",
+        "reason-3": "Problema de conexão com o servidor",
+        "try-again-later": "Por favor, tente novamente mais tarde ou entre em contato com nosso suporte para assistência.",
+        "go-back": "Voltar à Página Inicial"
     }
 }

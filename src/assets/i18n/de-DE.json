@@ -336,5 +336,14 @@
         "cannot-be-the-same-as-current": "Das neue Kennwort darf nicht mit dem aktuellen Kennwort identisch sein",
         "incorrect-current-password": "Das aktuelle Passwort ist falsch",
         "unexpected-error-updating-password": "Beim Aktualisieren des Kennworts ist ein unerwarteter Fehler aufgetreten"
+    },
+    "cancelation-error": {
+        "title": "Fehler beim Kündigen des Kontos",
+        "sub-title": "Beim Versuch, Ihr Konto zu kündigen, ist ein Fehler aufgetreten. Dies kann aus einem der folgenden Gründe passiert sein:",
+        "reason-1": "Der Bestätigungslink ist abgelaufen (gültig nur für 2 Stunden)",
+        "reason-2": "Der Link wurde bereits verwendet",
+        "reason-3": "Serververbindungsproblem",
+        "try-again-later": "Bitte versuchen Sie es später erneut oder kontaktieren Sie unseren Support für Unterstützung.",
+        "go-back": "Zurück zur Startseite"
     }
 }

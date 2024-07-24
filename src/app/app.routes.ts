@@ -20,6 +20,7 @@ import { PublicPage } from './main/public/views/principal/public.component';
 import { UserActivationPage } from './main/public/views/user-activation/user-activation.component';
 import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
 import { AccountCanceledPage } from './main/public/views/account-canceled/account-canceled.component';
+import { CancelationErrorPage } from './main/public/views/cancelation-error/cancelation-error.component';
 
 export const routes: Routes = [
   { path: '', component: PublicPage },
@@ -52,6 +53,10 @@ export const routes: Routes = [
   {
     path: 'conta-cancelada',
     component: AccountCanceledPage,
+  },
+  {
+    path: 'erro-cancelamento',
+    component: CancelationErrorPage,
   },
   {
     path: 'home',

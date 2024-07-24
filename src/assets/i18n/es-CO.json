@@ -336,5 +336,14 @@
         "cannot-be-the-same-as-current": "La nueva contraseña no puede ser la misma que la contraseña actual",
         "incorrect-current-password": "La contraseña actual es incorrecta",
         "unexpected-error-updating-password": "Se ha producido un error inesperado al actualizar la contraseña"
+    },
+    "cancelation-error": {
+        "title": "Error al cancelar la cuenta",
+        "sub-title": "Ocurrió un error al intentar cancelar su cuenta. Esto puede haber sucedido por una de las siguientes razones:",
+        "reason-1": "El enlace de confirmación ha expirado (válido solo por 2 horas)",
+        "reason-2": "El enlace ya ha sido utilizado",
+        "reason-3": "Problema de conexión con el servidor",
+        "try-again-later": "Por favor, inténtelo de nuevo más tarde o contacte a nuestro soporte para asistencia.",
+        "go-back": "Volver a la página principal"
     }
 }

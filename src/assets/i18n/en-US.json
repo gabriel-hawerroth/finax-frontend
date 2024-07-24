@@ -336,5 +336,14 @@
         "cannot-be-the-same-as-current": "The new password cannot be the same as the current password",
         "incorrect-current-password": "The current password is incorrect",
         "unexpected-error-updating-password": "There was an unexpected error updating the password"
+    },
+    "cancelation-error": {
+        "title": "Error Canceling Account",
+        "sub-title": "An error occurred while trying to cancel your account. This may have happened for one of the following reasons:",
+        "reason-1": "The confirmation link has expired (valid for only 2 hours)",
+        "reason-2": "The link has already been used",
+        "reason-3": "Server connection issue",
+        "try-again-later": "Please try again later or contact our support for assistance.",
+        "go-back": "Return to Home Page"
     }
 }
