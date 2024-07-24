@@ -11,7 +11,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -19,8 +18,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../../core/entities/auth/auth.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
+import {
+  cloudFireCdnImgsLink,
+  getBtnStyle,
+} from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-create-account',
@@ -31,10 +34,10 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     MatInputModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
-    MatButtonModule,
     RouterModule,
     NgOptimizedImage,
     TranslateModule,
+    ButtonsComponent,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
@@ -42,6 +45,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class CreateAccountPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly getBtnStyle = getBtnStyle;
 
   userRegisterForm!: FormGroup;
   showLoading = signal(false);

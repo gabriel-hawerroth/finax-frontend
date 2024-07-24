@@ -37,14 +37,17 @@
       <div class="buttons">
         <app-buttons
           [showSave]="true"
-          [showChangePassword]="true"
+          [showLoading]="saving()"
           [disableSave]="
             (userForm.pristine && !changedProfileImg) ||
             userForm.invalid ||
             saving()
           "
-          [showLoading]="saving()"
           (onSave)="saveUser()"
+        ></app-buttons>
+
+        <app-buttons
+          [showChangePassword]="true"
           (onChangePassword)="openChangePasswordDialog()"
         ></app-buttons>
       </div>

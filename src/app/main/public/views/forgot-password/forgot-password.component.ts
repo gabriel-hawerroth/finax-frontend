@@ -11,14 +11,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
+import {
+  cloudFireCdnImgsLink,
+  getBtnStyle,
+} from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
+import { RouterModule } from '@angular/router';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-forgot-password',
@@ -28,9 +32,10 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     ReactiveFormsModule,
     MatInputModule,
     NgOptimizedImage,
-    MatButtonModule,
     MatProgressSpinnerModule,
     TranslateModule,
+    RouterModule,
+    ButtonsComponent,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
@@ -38,6 +43,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class ForgotPasswordPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly getBtnStyle = getBtnStyle;
 
   originalFormValue!: FormGroup;
   showLoading = signal(false);
@@ -74,12 +80,17 @@ export class ForgotPasswordPage implements OnInit {
         );
       })
       .catch((err) => {
-        if (err.error.errorDescription === 'invalid email') {
-          this.utils.showMessage('generic.invalid-mail', 6000);
-        } else if (err.error.errorDescription === 'entity not found') {
-          this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
-        } else {
-          this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
+        const error = err.error.errorDescription;
+
+        switch (error) {
+          case 'invalid email':
+            this.utils.showMessage('generic.invalid-mail', 6000);
+            break;
+          case 'entity not found':
+            this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
+            break;
+          default:
+            this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
         }
       })
       .finally(() => this.showLoading.set(false));

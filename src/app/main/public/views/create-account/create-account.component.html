@@ -88,12 +88,13 @@
       @if (showLoading()) {
       <mat-spinner [diameter]="40" color="primary"></mat-spinner>
       } @else {
-      <button mat-flat-button color="primary" (click)="createUser()">
-        <span>
-          <span class="material-symbols-outlined">person</span>
-          {{ "create-account.create" | translate }}
-        </span>
-      </button>
+      <app-buttons
+        [showGeneric]="true"
+        [genericStyle]="getBtnStyle('flat')"
+        genericLabel="create-account.create"
+        genericIcon="person"
+        (onGeneric)="createUser()"
+      ></app-buttons>
       }
     </div>
   </div>

@@ -11,15 +11,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
+import {
+  cloudFireCdnImgsLink,
+  getBtnStyle,
+} from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-login',
@@ -28,12 +31,12 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     CommonModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule,
     MatProgressSpinnerModule,
     NgOptimizedImage,
     MatCheckboxModule,
     RouterModule,
     TranslateModule,
+    ButtonsComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -41,6 +44,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class LoginPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly getBtnStyle = getBtnStyle;
 
   loginForm!: FormGroup;
   showLoading = signal(false);
@@ -70,6 +74,7 @@ export class LoginPage implements OnInit {
     if (this.loginForm.invalid) return;
 
     const credentials = this.loginForm.value;
+
     this.showLoading.set(true);
 
     this.loginService

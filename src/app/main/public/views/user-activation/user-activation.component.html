@@ -13,9 +13,13 @@
 
     <div class="content">
       <h2>{{ "user-activation.title" | translate }}</h2>
-      <button mat-flat-button routerLink="/login" color="primary">
-        {{ "user-activation.do-login" | translate }}
-      </button>
+
+      <app-buttons
+        routerLink="/login"
+        [showGeneric]="true"
+        [genericStyle]="getBtnStyle('flat')"
+        genericLabel="user-activation.do-login"
+      ></app-buttons>
     </div>
   </div>
 </div>

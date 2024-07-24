@@ -1,3 +1,7 @@
-button:not(.mdc-icon-button) {
-    padding: 1.6rem;
+button {
+    width: 100%;
+
+    &:not(.mdc-icon-button) {
+        padding: 1.6rem;
+    }
 }

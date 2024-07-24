@@ -11,7 +11,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -22,8 +21,12 @@ import { Credentials } from '../../../../core/entities/auth/credentials';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { User } from '../../../../core/entities/user/user';
 import { UserService } from '../../../../core/entities/user/user.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
+import {
+  cloudFireCdnImgsLink,
+  getBtnStyle,
+} from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-change-password',
@@ -35,9 +38,9 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
-    MatButtonModule,
     NgOptimizedImage,
     TranslateModule,
+    ButtonsComponent,
   ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
@@ -45,6 +48,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class ChangePasswordPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly getBtnStyle = getBtnStyle;
 
   user!: User;
   changePasswordForm!: FormGroup;

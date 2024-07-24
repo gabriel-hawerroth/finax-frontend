@@ -64,12 +64,13 @@
       @if (showLoading()) {
       <mat-spinner [diameter]="40"></mat-spinner>
       } @else {
-      <button mat-flat-button color="primary" (click)="login()">
-        <span>
-          <span class="material-symbols-outlined">person</span>
-          {{ "login.login" | translate }}
-        </span>
-      </button>
+      <app-buttons
+        [showGeneric]="true"
+        [genericStyle]="getBtnStyle('flat')"
+        genericLabel="login.login"
+        genericIcon="person"
+        (onGeneric)="login()"
+      ></app-buttons>
       }
     </div>
   </div>
@@ -83,4 +84,6 @@
       {{ "login.create-one" | translate }}
     </span>
   </span>
+
+  <div class="privacy-policy"></div>
 </div>

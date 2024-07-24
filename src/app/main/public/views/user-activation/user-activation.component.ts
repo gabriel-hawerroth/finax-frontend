@@ -1,10 +1,13 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
+import {
+  cloudFireCdnImgsLink,
+  getBtnStyle,
+} from '../../../../shared/utils/constant-utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-user-activation',
@@ -12,9 +15,9 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   imports: [
     CommonModule,
     NgOptimizedImage,
-    MatButtonModule,
     RouterModule,
     TranslateModule,
+    ButtonsComponent,
   ],
   templateUrl: './user-activation.component.html',
   styleUrl: './user-activation.component.scss',
@@ -22,6 +25,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class UserActivationPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly getBtnStyle = getBtnStyle;
 
   constructor(
     private readonly _utils: UtilsService,
