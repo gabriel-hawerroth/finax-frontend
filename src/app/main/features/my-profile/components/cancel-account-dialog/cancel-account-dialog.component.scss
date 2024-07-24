@@ -1,4 +1,5 @@
 @import 'generic.scss';
+@import 'colors.scss';
 
 .cancel-account-dialog {
     width: 40vw;
@@ -19,5 +20,11 @@
         overflow: hidden;
         margin: 1rem;
         color: #000;
+    }
+}
+
+.dark-page {
+    .content {
+        color: $dark-font-color;
     }
 }
