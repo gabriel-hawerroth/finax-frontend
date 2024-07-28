@@ -13,6 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatCheckboxChange,
   MatCheckboxModule,
@@ -26,6 +27,7 @@ import {
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -33,28 +35,25 @@ import { isAfter } from 'date-fns';
 import moment from 'moment';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
+import { Category } from '../../../../../core/entities/category/category';
+import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { GenericIdDs } from '../../../../../core/entities/generic';
 import {
   ConfirmDuplicatedReleasesActionDialogData,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
-import { Category } from '../../../../../core/entities/category/category';
-import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
-import { GenericIdDs } from '../../../../../core/entities/generic';
 import { DuplicatedReleaseAction } from '../../../../../core/enums/duplicated-release-action';
-import { ReleasedOn } from '../../../../../core/enums/released-on';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
-import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
 import {
   ReleaseFixedBy,
   ReleaseType,
 } from '../../../../../core/enums/release-enums';
-import { StyledButtonComponent } from '../../../../../shared/components/buttons/styled-button/styled-button.component';
+import { ReleasedOn } from '../../../../../core/enums/released-on';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { getBtnStyle } from '../../../../../shared/utils/constant-utils';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
 
 @Component({
   selector: 'release-form-dialog',
@@ -216,10 +215,6 @@ export class ReleaseFormDialog implements OnInit {
   }
 
   async save() {
-    console.log('accountsList:', this.data.accounts);
-    console.log('creditCardsList:', this.data.creditCards);
-    return;
-
     if (this.releaseForm.value.amount === 0) {
       this.utils.showMessage('release-form.amount-greater-than-zero');
       return;
