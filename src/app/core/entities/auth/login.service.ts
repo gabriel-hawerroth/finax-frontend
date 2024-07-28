@@ -106,6 +106,7 @@ export class LoginService {
     this._utils.removeItemLocalStorage('tokenFinax');
     this._utils.removeItemLocalStorage('tokenExpiration');
     this._utils.removeItemLocalStorage('selectedMonthCashFlow');
+    this._utils.userImage.next('');
 
     if (showMessage) this._utils.showMessage('login.access-expired', 5000);
   }
