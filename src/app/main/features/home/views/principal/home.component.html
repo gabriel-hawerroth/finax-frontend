@@ -40,13 +40,6 @@
         [currency]="currency()"
       ></app-home-accounts-list-widget>
 
-      <app-home-spend-by-category-widget
-        [theme]="theme()"
-        [currency]="currency()"
-      ></app-home-spend-by-category-widget>
-    </div>
-
-    <div class="right-column">
       <app-home-payable-accounts-widget
         [releasesList]="getUpcomingReleases('E')"
         [currency]="currency()"
@@ -56,6 +49,13 @@
         [releasesList]="getUpcomingReleases('R')"
         [currency]="currency()"
       ></app-home-receivable-accounts-widget>
+    </div>
+
+    <div class="right-column">
+      <app-home-spend-by-category-widget
+        [theme]="theme()"
+        [currency]="currency()"
+      ></app-home-spend-by-category-widget>
     </div>
   </div>
 </div>
