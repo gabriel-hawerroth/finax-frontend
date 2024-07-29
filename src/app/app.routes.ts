@@ -21,10 +21,15 @@ import { UserActivationPage } from './main/public/views/user-activation/user-act
 import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
 import { AccountCanceledPage } from './main/public/views/account-canceled/account-canceled.component';
 import { CancelationErrorPage } from './main/public/views/cancelation-error/cancelation-error.component';
+import { PrivacyPolicyPage } from './main/public/views/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
   { path: '', component: PublicPage },
-  { path: 'fora-do-ar', component: SystemErrorWarningPage },
+  {
+    path: 'fora-do-ar',
+    component: SystemErrorWarningPage,
+    canActivate: [UnauthenticatedUserGuard],
+  },
   {
     path: 'login',
     component: LoginPage,
@@ -57,6 +62,10 @@ export const routes: Routes = [
   {
     path: 'erro-cancelamento',
     component: CancelationErrorPage,
+  },
+  {
+    path: 'politica-privacidade',
+    component: PrivacyPolicyPage,
   },
   {
     path: 'home',

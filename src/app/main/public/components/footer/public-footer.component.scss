@@ -17,9 +17,8 @@ $footer-height: 5.8rem;
     box-shadow: 0 1px 5px #0000007c;
 
     .left {
-        flex: 1;
         height: 100%;
-        padding-left: 3em;
+        padding-left: 3rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -31,7 +30,26 @@ $footer-height: 5.8rem;
         }
     }
 
+    .privacy-policy {
+        height: 100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-left: 6rem;
+
+        span {
+            font-size: 1.05rem;
+            padding: .3rem;
+
+            &:hover {
+                color: $primary-font-color;
+                cursor: pointer;
+            }
+        }
+    }
+
     .right {
+        margin-left: auto;
         width: 50%;
         height: 100%;
         padding-right: 5rem;
