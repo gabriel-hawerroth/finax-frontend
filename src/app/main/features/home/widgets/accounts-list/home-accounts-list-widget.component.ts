@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-home-accounts-list-widget',

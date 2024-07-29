@@ -2,12 +2,12 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
-} from '../../../../shared/utils/constant-utils';
+} from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
-import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-user-activation',

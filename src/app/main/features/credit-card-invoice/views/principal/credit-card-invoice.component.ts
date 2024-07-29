@@ -24,7 +24,6 @@ import {
 } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
-import { ReleaseFormDialogData } from '../../../../../core/entities/release/release-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
@@ -38,14 +37,15 @@ import {
   InvoicePaymentPerson,
 } from '../../../../../core/entities/invoice/invoice-payment-dto';
 import { InvoiceService } from '../../../../../core/entities/invoice/invoice.service';
+import { ReleaseFormDialogData } from '../../../../../core/entities/release/release-dto';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { InvoicePaymentsCardComponent } from '../../components/payments-card/invoice-payments-card.component';
 import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.component';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-credit-card-invoice',

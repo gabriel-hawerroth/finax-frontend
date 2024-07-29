@@ -21,12 +21,12 @@ import { Credentials } from '../../../../core/entities/auth/credentials';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { User } from '../../../../core/entities/user/user';
 import { UserService } from '../../../../core/entities/user/user.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
-} from '../../../../shared/utils/constant-utils';
+} from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
-import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-change-password',

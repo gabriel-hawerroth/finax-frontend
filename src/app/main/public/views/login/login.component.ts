@@ -17,12 +17,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
-} from '../../../../shared/utils/constant-utils';
+} from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
-import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-login',

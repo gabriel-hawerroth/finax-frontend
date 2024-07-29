@@ -14,15 +14,15 @@ import {
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
-} from '../../../../shared/utils/constant-utils';
+} from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
-import { RouterModule } from '@angular/router';
-import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-forgot-password',

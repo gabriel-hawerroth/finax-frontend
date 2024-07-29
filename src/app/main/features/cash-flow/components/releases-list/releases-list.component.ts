@@ -10,15 +10,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
+import { Category } from '../../../../../core/entities/category/category';
+import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
 import {
   MonthlyRelease,
   ReleaseDetailsData,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
-import { Category } from '../../../../../core/entities/category/category';
-import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleaseDetailsComponent } from '../../views/details/release-details.component';
 

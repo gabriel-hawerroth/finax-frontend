@@ -18,12 +18,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../../core/entities/auth/auth.service';
+import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
-} from '../../../../shared/utils/constant-utils';
+} from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
-import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-create-account',

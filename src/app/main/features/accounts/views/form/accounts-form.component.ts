@@ -23,7 +23,7 @@ import { lastValueFrom } from 'rxjs';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({

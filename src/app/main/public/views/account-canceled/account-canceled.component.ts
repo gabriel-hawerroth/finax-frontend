@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatCardModule } from '@angular/material/card';
+import { RouterModule } from '@angular/router';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
-import { getBtnStyle } from '../../../../shared/utils/constant-utils';
-import { RouterModule } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
+import { getBtnStyle } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-account-canceled',

@@ -8,7 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ButtonType } from '../../../../core/enums/button-style';
-import { getBtnStyle } from '../../../utils/constant-utils';
+import { getBtnStyle } from '../../../utils/utils';
 import { BtnContentComponent } from './btn-content/btn-content.component';
 
 @Component({

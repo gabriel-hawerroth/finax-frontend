@@ -14,11 +14,11 @@ import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../../../../core/entities/user/user';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { cloudFireCdnLink } from '../../../../../shared/utils/constant-utils';
+import { cloudFireCdnLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { CancelAccountDialog } from '../../components/cancel-account-dialog/cancel-account-dialog.component';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';
 import { MyProfileFormComponent } from '../../components/my-profile-form/my-profile-form.component';
-import { CancelAccountDialog } from '../../components/cancel-account-dialog/cancel-account-dialog.component';
 
 @Component({
   selector: 'app-my-profile',

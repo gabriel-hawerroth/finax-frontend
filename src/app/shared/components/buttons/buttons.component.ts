@@ -7,10 +7,10 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { getBtnStyle } from '../../utils/constant-utils';
+import { ButtonType } from '../../../core/enums/button-style';
+import { getBtnStyle } from '../../utils/utils';
 import { UtilsService } from '../../utils/utils.service';
 import { StyledButtonComponent } from './styled-button/styled-button.component';
-import { ButtonType } from '../../../core/enums/button-style';
 
 @Component({
   selector: 'app-buttons',

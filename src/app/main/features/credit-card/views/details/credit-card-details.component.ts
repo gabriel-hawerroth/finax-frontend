@@ -15,7 +15,7 @@ import { ButtonType } from '../../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { StyledButtonComponent } from '../../../../../shared/components/buttons/styled-button/styled-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({

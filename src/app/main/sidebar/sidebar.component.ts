@@ -10,14 +10,14 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { LoginService } from '../../core/entities/auth/login.service';
+import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
 import { UserService } from '../../core/entities/user/user.service';
+import { UserAccess } from '../../core/enums/user-enums';
 import {
   cloudFireCdnImgsLink,
   cloudFireCdnLink,
-} from '../../shared/utils/constant-utils';
+} from '../../shared/utils/utils';
 import { UtilsService } from '../../shared/utils/utils.service';
-import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
-import { UserAccess } from '../../core/enums/user-enums';
 
 @Component({
   selector: 'app-sidebar',

@@ -2,7 +2,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { cloudFireCdnImgsLink } from '../../utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../utils/utils';
 import { UtilsService } from '../../utils/utils.service';
 
 @Component({

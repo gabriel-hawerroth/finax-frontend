@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { LoginService } from '../../../../core/entities/auth/login.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-public-header',

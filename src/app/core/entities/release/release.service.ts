@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { DuplicatedReleaseAction } from '../../enums/duplicated-release-action';
 import { ReleasedOn } from '../../enums/released-on';
 import { Release } from './release';
 import { CashFlowValues, MonthlyFlow } from './release-dto';
-import { cloudFireCdnLink } from '../../../shared/utils/constant-utils';
 
 @Injectable({
   providedIn: 'root',

@@ -18,7 +18,7 @@ import {
 } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CreditCardDetailsComponent } from '../details/credit-card-details.component';
 

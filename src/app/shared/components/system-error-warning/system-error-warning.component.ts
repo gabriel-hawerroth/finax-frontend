@@ -1,7 +1,7 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { cloudFireCdnImgsLink } from '../../utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../utils/utils';
 
 @Component({
   selector: 'app-system-error-warning',

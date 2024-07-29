@@ -11,7 +11,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterModule } from '@angular/router';
 import { isAfter } from 'date-fns';
 import { LoginService } from '../../../../core/entities/auth/login.service';
-import { cloudFireCdnImgsLink } from '../../../../shared/utils/constant-utils';
+import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
 import { PublicFooterComponent } from '../../components/footer/public-footer.component';
 import { PublicHeaderComponent } from '../../components/header/public-header.component';
