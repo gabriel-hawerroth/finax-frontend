@@ -15,6 +15,9 @@ import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
 import { PublicFooterComponent } from '../../components/footer/public-footer.component';
 import { PublicHeaderComponent } from '../../components/header/public-header.component';
+import { PublicFirstSectionComponent } from './public-first-section/public-first-section.component';
+import { PublicSecondSectionComponent } from './public-second-section/public-second-section.component';
+import { PublicThirdSectionComponent } from './public-third-section/public-third-section.component';
 
 @Component({
   selector: 'app-public',
@@ -28,6 +31,9 @@ import { PublicHeaderComponent } from '../../components/header/public-header.com
     RouterModule,
     PublicHeaderComponent,
     PublicFooterComponent,
+    PublicFirstSectionComponent,
+    PublicSecondSectionComponent,
+    PublicThirdSectionComponent,
   ],
   templateUrl: './public.component.html',
   styleUrl: './public.component.scss',

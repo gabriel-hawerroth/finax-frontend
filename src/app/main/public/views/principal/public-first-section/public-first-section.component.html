@@ -1,0 +1,39 @@
+<div class="public-section" id="first-ps">
+  <div class="content">
+    <div class="left-side">
+      <h1>
+        Maximizando seu potencial <br />
+        financeiro
+      </h1>
+
+      <p>
+        Acompanhe suas despesas, crie orçamentos e planeje seus investimentos
+        com facilidade. Nossa plataforma conta com gráficos, relatórios, índices
+        de mercado, controle de investimentos e muito mais.
+        <br /><br />
+        Tornando-se a principal escolha para quem quer
+        <br />
+        <span class="benefits">Previsibilidade, Segurança e Controle</span>
+        <br />
+        sobre suas finanças!
+      </p>
+
+      <div class="call-action">
+        <span>Não tem uma conta ainda?</span>
+        <button mat-flat-button color="primary" routerLink="/nova-conta">
+          Comece já
+        </button>
+      </div>
+    </div>
+    <div class="right-side" id="fs-img-container">
+      @defer {
+      <img
+        [ngSrc]="cloudFireCdnImgsLink + 'img-first-section.svg'"
+        [width]="getWidth"
+        [height]="getHeight"
+        alt="fantasy image"
+      />
+      }
+    </div>
+  </div>
+</div>
