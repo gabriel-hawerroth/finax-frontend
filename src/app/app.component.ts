@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginService } from './core/entities/auth/login.service';
 import { MobilePage } from './main/features/mobile-page/views/principal/mobile-page.component';
@@ -17,12 +17,14 @@ import { UtilsService } from './shared/utils/utils.service';
     '[style.--mat-checkbox-label-text-size]': '2',
   },
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     public readonly loginService: LoginService,
     public readonly location: Location,
     private readonly _utils: UtilsService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this._utils.removeItemLocalStorage('savedUserConfigsFinax');
 
     this._utils.setDefaultLanguage();
