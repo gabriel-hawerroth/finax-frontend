@@ -1,244 +1,27 @@
 <div id="public-page">
-  <!-- Start of **** Public Header **** -->
   <app-public-header></app-public-header>
-  <!-- End of **** Public Header **** -->
 
-  <!-- Start of **** First Section **** -->
-  <app-public-first-section class="public-section"></app-public-first-section>
-  <!-- End of **** First Section **** -->
+  <app-public-first-section
+    #firstSection
+    id="first-section"
+    class="public-section"
+  ></app-public-first-section>
 
-  <!-- Start of **** Second Section **** -->
   @defer {
-  <div class="public-section" #secondSection id="reset-the-possible">
-    <div class="left" id="ss-img-container">
-      <img
-        [ngSrc]="cloudFireCdnImgsLink + 'img-section2.webp'"
-        [width]="getSecondWidth"
-        [height]="getSecondHeight"
-        alt="fantasy image"
-      />
-    </div>
+  <app-public-second-section
+    #secondSection
+    id="second-section"
+    class="public-section"
+  ></app-public-second-section>
 
-    <div class="right">
-      <h1>Redefina o possível</h1>
-
-      <div class="list">
-        <div class="item">
-          <div class="icon">
-            <span class="material-symbols-outlined">done</span>
-          </div>
-          <div class="content">
-            <div class="title">Simples de usar</div>
-            <div class="detail">
-              Desfrute de uma plataforma interativa e dinâmica sem perder a
-              simplicidade
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="icon">
-            <span class="material-symbols-outlined">done</span>
-          </div>
-          <div class="content">
-            <div class="title">Controle seus investimentos</div>
-            <div class="detail">
-              Dê aos seus investimentos a atenção que eles merecem mantendo eles
-              separados dos seus gastos do dia a dia
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="icon">
-            <span class="material-symbols-outlined">done</span>
-          </div>
-          <div class="content">
-            <div class="title">Cálculo de rendimentos automático</div>
-            <div class="detail">
-              Atualização diária do rendimento das suas aplicações
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="icon">
-            <span class="material-symbols-outlined">done</span>
-          </div>
-          <div class="content">
-            <div class="title">Boletins semanais</div>
-            <div class="detail">
-              Toda semana um novo boletim resumindo todos os acontecimentos mais
-              relevantes da b3, do mercado internacional e também do mundo
-              cripto
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="icon">
-            <span class="material-symbols-outlined">done</span>
-          </div>
-          <div class="content">
-            <div class="title">Índices de mercado sempre atualizados</div>
-            <div class="detail">
-              Todos os indicadores da economia que você possa imaginar, nós
-              temos, <br />
-              e com atualização em tempo real!
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End of **** Second Section **** -->
-
-  <!-- Start of **** Third Section **** -->
   @defer (on viewport(secondSection)) {
-  <div class="public-section" #signaturesSection id="signatures">
-    <div class="top">
-      <h1>Nossos planos</h1>
-      <span>
-        Mensal
-        <mat-slide-toggle [formControl]="switchPlansControl"></mat-slide-toggle>
-        Anual
-      </span>
-    </div>
-
-    <div class="content">
-      <div class="plan free">
-        <div class="title">
-          <h3>Gratuito</h3>
-
-          <div class="plan-value">
-            <span class="amount">R$0</span>
-            <span class="by-month"> / mês</span>
-          </div>
-        </div>
-
-        <div class="services">
-          <h4>Módulos liberados</h4>
-
-          <ul>
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Fluxo de caixa</span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Metas de gasto</span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Contas de banco</span>
-            </li>
-          </ul>
-
-          <button routerLink="/nova-conta" mat-raised-button>
-            Assinar agora
-          </button>
-        </div>
-      </div>
-
-      <div class="plan basic">
-        <div class="title">
-          <h3>Básico</h3>
-
-          <div class="plan-value">
-            <span class="amount">
-              R${{ switchPlansControl.value ? "7,90" : "11,90" }}
-            </span>
-            <span class="by-month"> / mês</span>
-          </div>
-        </div>
-
-        <div class="services">
-          <h4>Módulos liberados</h4>
-
-          <ul>
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Todos do plano gratuito</span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Controle de investimentos</span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Relatórios</span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Calculadora de juros</span>
-            </li>
-          </ul>
-
-          <button routerLink="/nova-conta" mat-raised-button>
-            Assinar agora
-          </button>
-        </div>
-      </div>
-
-      <div class="plan premium">
-        <div class="title">
-          <h3>Premium</h3>
-
-          <div class="plan-value">
-            <span class="amount">
-              R${{ switchPlansControl.value ? "29,90" : "39,90" }}
-            </span>
-            <span class="by-month"> / mês</span>
-          </div>
-        </div>
-
-        <div class="services">
-          <h4>Módulos liberados</h4>
-
-          <ul>
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Todos do plano básico</span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Newsletter (B3, internacional, cripto)</span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>
-                + de 20 índices de mercado em <br />
-                tempo real
-              </span>
-            </li>
-
-            <li>
-              <span class="material-symbols-outlined">attach_money</span>
-              <span>Cálculo de rendimentos automático</span>
-            </li>
-          </ul>
-
-          <button routerLink="/nova-conta" mat-raised-button>
-            Assinar agora
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-public-third-section
+    #thirdSection
+    id="third-section"
+    class="public-section"
+  ></app-public-third-section>
   }
 
-  <!-- End of **** Third Section **** -->
-
-  <!-- Start of **** Public Footer **** -->
-  @defer {
   <app-public-footer></app-public-footer>
-  } }
-  <!-- End of **** Public Footer **** -->
+  }
 </div>

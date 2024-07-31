@@ -1,4 +1,4 @@
-<div class="public-section" id="first-ps">
+<div class="public-section">
   <div class="content">
     <div class="left-side">
       <h1>
@@ -20,20 +20,21 @@
 
       <div class="call-action">
         <span>Não tem uma conta ainda?</span>
+
         <button mat-flat-button color="primary" routerLink="/nova-conta">
           Comece já
         </button>
       </div>
     </div>
+
     <div class="right-side" id="fs-img-container">
-      @defer {
       <img
+        priority
         [ngSrc]="cloudFireCdnImgsLink + 'img-first-section.svg'"
-        [width]="getWidth"
-        [height]="getHeight"
+        width="537"
+        height="610"
         alt="fantasy image"
       />
-      }
     </div>
   </div>
 </div>
