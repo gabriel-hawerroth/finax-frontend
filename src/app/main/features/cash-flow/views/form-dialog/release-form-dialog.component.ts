@@ -54,6 +54,7 @@ import { getBtnStyle } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
+import { Release } from '../../../../../core/entities/release/release';
 
 @Component({
   selector: 'release-form-dialog',
@@ -177,7 +178,6 @@ export class ReleaseFormDialog implements OnInit {
       fixedBy: 'MONTHLY',
       repeatFor: '12',
       installmentsBy: '2',
-      cardId: null,
     });
 
     this.formValidations();
@@ -215,17 +215,96 @@ export class ReleaseFormDialog implements OnInit {
   }
 
   async save() {
+    if (!this.validForm()) return;
+
+    const saveAction = this.releaseForm.value.id
+      ? SaveAction.UPDATE
+      : SaveAction.INSERT;
+
+    const saveDto = await this.getSaveDto(saveAction);
+    if (!saveDto) return;
+
+    let release = saveDto.release;
+    const repeatFor = saveDto.repeatFor;
+    const duplicatedReleaseAction = saveDto.duplicatedReleaseAction;
+    const releasedOn = saveDto.releasedOn;
+
+    var requestError: boolean = false;
+    this.saving.set(true);
+
+    switch (saveAction) {
+      case SaveAction.INSERT:
+        await this._cashFlowService
+          .addRelease(release, repeatFor!, releasedOn)
+          .then((response) => {
+            release = response;
+          })
+          .catch(() => {
+            requestError = true;
+          });
+        break;
+      case SaveAction.UPDATE:
+        await this._cashFlowService
+          .editRelease(release, duplicatedReleaseAction!, releasedOn)
+          .then((response) => {
+            release = response;
+          })
+          .catch(() => {
+            requestError = true;
+          });
+        break;
+    }
+
+    if (requestError) {
+      this.saving.set(false);
+      this.utils.showMessage('release-form.error-saving-release');
+      this.releaseForm.markAsPristine();
+      return;
+    }
+
+    if (this.changedAttachment && this.selectedFile) {
+      await this._cashFlowService
+        .addAttachment(release.id!, this.selectedFile!)
+        .catch(() => {
+          this.utils.showMessage('release-form.error-saving-attachment', 6000);
+          requestError = true;
+        });
+    } else if (this.removedFile) {
+      await this._cashFlowService.removeAttachment(release.id!).catch(() => {
+        this.utils.showMessage('release-form.error-excluding-attachment', 6000);
+        requestError = true;
+      });
+    }
+
+    if (requestError) {
+      this.saving.set(false);
+      return;
+    }
+
+    this.utils.showMessage('release-form.release-saved-successfully');
+    this._matDialogRef.close(true);
+
+    this.saving.set(false);
+  }
+
+  private validForm(): boolean {
     if (this.releaseForm.value.amount === 0) {
       this.utils.showMessage('release-form.amount-greater-than-zero');
-      return;
+      return false;
     } else if (
       this.releaseForm.value.type === 'T' &&
       this.releaseForm.value.accountId == this.releaseForm.value.targetAccountId
     ) {
       this.utils.showMessage('release-form.not-possible-transfer-same-bank');
-      return;
+      return false;
     }
 
+    return true;
+  }
+
+  private async getSaveDto(
+    saveAction: SaveAction
+  ): Promise<SaveDto | undefined> {
     var release = this.releaseForm.value;
     var duplicatedReleaseAction: DuplicatedReleaseAction =
       DuplicatedReleaseAction.UNNECESSARY;
@@ -258,9 +337,6 @@ export class ReleaseFormDialog implements OnInit {
       }
     }
 
-    var requestError: boolean = false;
-    this.saving.set(true);
-
     const selectedAccount = this.data.accounts.find(
       (item: CardBasicList) => item.id === release.accountId
     );
@@ -282,63 +358,26 @@ export class ReleaseFormDialog implements OnInit {
     }
 
     if (releasedOn == ReleasedOn.CREDIT_CARD) {
-      release.credit_card_id = release.accountId;
+      release.creditCardId = release.accountId;
       release.accountId = null;
     }
 
-    if (!release.id) {
-      await this._cashFlowService
-        .addRelease(release, repeatFor, releasedOn)
-        .then((response) => {
-          release = response;
-        })
-        .catch(() => {
-          requestError = true;
-        });
-    } else {
-      await this._cashFlowService
-        .editRelease(release, duplicatedReleaseAction, releasedOn)
-        .then((response) => {
-          release = response;
-        })
-        .catch(() => {
-          requestError = true;
-        });
+    switch (saveAction) {
+      case SaveAction.INSERT:
+        return {
+          release,
+          repeatFor,
+          duplicatedReleaseAction: null,
+          releasedOn,
+        };
+      case SaveAction.UPDATE:
+        return {
+          release,
+          repeatFor: null,
+          duplicatedReleaseAction,
+          releasedOn,
+        };
     }
-
-    if (requestError) {
-      this.saving.set(false);
-      this.utils.showMessage('release-form.error-saving-release');
-      return;
-    }
-
-    if (this.changedAttachment && this.selectedFile) {
-      // if (this.selectedFile.size > 1.5 * 1024 * 1024) {
-      //   this.utils.showMessage('generic.this-may-take-few-seconds', 6000);
-      // }
-
-      await this._cashFlowService
-        .addAttachment(release.id, this.selectedFile!)
-        .catch(() => {
-          this.utils.showMessage('release-form.error-saving-attachment', 6000);
-          requestError = true;
-        });
-    } else if (this.removedFile) {
-      await this._cashFlowService.removeAttachment(release.id).catch(() => {
-        this.utils.showMessage('release-form.error-excluding-attachment', 6000);
-        requestError = true;
-      });
-    }
-
-    if (requestError) {
-      this.saving.set(false);
-      return;
-    }
-
-    this.utils.showMessage('release-form.release-saved-successfully');
-    this._matDialogRef.close(true);
-
-    this.saving.set(false);
   }
 
   get getDialogTitle(): string {
@@ -494,4 +533,16 @@ export class ReleaseFormDialog implements OnInit {
       this.saving()
     );
   }
+}
+
+interface SaveDto {
+  release: Release;
+  repeatFor: number | null;
+  duplicatedReleaseAction: DuplicatedReleaseAction | null;
+  releasedOn: ReleasedOn;
+}
+
+enum SaveAction {
+  INSERT,
+  UPDATE,
 }
