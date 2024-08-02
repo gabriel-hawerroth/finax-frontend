@@ -2,7 +2,7 @@ import { CommonModule, Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginService } from './core/entities/auth/login.service';
-import { MobilePage } from './main/features/mobile-page/views/principal/mobile-page.component';
+import { MobilePage } from './main/pages/mobile-page/views/principal/mobile-page.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { UtilsService } from './shared/utils/utils.service';
 
