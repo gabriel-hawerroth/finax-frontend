@@ -192,20 +192,20 @@
         >
           <mat-checkbox
             [formControl]="fixedRepeat"
-            (change)="onChangeRepeat('fixed', $event)"
+            (change)="onChangeRepeat('FIXED', $event)"
           >
             {{ "release-form.fixed-release" | translate }}
           </mat-checkbox>
 
           <mat-checkbox
             [formControl]="installmenteRepeat"
-            (change)="onChangeRepeat('installments', $event)"
+            (change)="onChangeRepeat('INSTALLMENTS', $event)"
           >
             {{ "release-form.installment-release" | translate }}
           </mat-checkbox>
         </div>
 
-        @if (releaseForm.value.repeat === 'fixed') {
+        @if (releaseForm.value.repeat === 'FIXED') {
         <div
           class="fixed-release"
           [ngStyle]="{

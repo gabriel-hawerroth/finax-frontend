@@ -352,7 +352,7 @@ export class ReleaseFormDialog implements OnInit {
       repeatFor = 0;
     } else {
       repeatFor =
-        release.repeat === 'fixed'
+        release.repeat === 'FIXED'
           ? +release.repeatFor
           : +release.installmentsBy;
     }
@@ -428,7 +428,7 @@ export class ReleaseFormDialog implements OnInit {
     }
   }
 
-  onChangeRepeat(action: 'fixed' | 'installments', event: MatCheckboxChange) {
+  onChangeRepeat(action: 'FIXED' | 'INSTALLMENTS', event: MatCheckboxChange) {
     if (!event.checked) {
       this.releaseForm.get('repeat')!.setValue('');
       return;
@@ -437,12 +437,12 @@ export class ReleaseFormDialog implements OnInit {
     this.releaseForm.get('repeat')!.setValue(action);
 
     switch (action) {
-      case 'fixed':
+      case 'FIXED':
         this.installmenteRepeat.setValue(false);
         this.releaseForm.get('repeatFor')!.setValidators(Validators.required);
         this.releaseForm.get('installmentsBy')!.clearValidators();
         break;
-      case 'installments':
+      case 'INSTALLMENTS':
         this.fixedRepeat.setValue(false);
         this.releaseForm
           .get('installmentsBy')!
@@ -526,9 +526,9 @@ export class ReleaseFormDialog implements OnInit {
         this.releaseForm.pristine &&
         !this.changedAttachment) ||
       this.releaseForm.invalid ||
-      (this.releaseForm.value.repeat === 'fixed' &&
+      (this.releaseForm.value.repeat === 'FIXED' &&
         !this.releaseForm.value.repeatFor) ||
-      (this.releaseForm.value.repeat === 'installments' &&
+      (this.releaseForm.value.repeat === 'INSTALLMENTS' &&
         !this.releaseForm.value.installmentsBy) ||
       this.saving()
     );
