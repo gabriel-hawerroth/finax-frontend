@@ -15,8 +15,7 @@
           {{ "home.monthly-revenue" | translate }}
 
           <span>
-            {{ currency()
-            }}{{ homeValues().balances.revenues | customCurrency }}
+            {{ currency() }}{{ balances().revenues | customCurrency }}
           </span>
         </div>
 
@@ -24,8 +23,7 @@
           {{ "home.monthly-expense" | translate }}
 
           <span>
-            {{ currency()
-            }}{{ homeValues().balances.expenses | customCurrency }}
+            {{ currency() }}{{ balances().expenses | customCurrency }}
           </span>
         </div>
       </div>
@@ -35,7 +33,7 @@
   <div class="content">
     <div class="left-column">
       <app-home-accounts-list-widget
-        [accountsList]="homeValues().accountsList"
+        [accountsList]="accountsList()"
         [generalBalance]="generalBalance"
         [currency]="currency()"
       ></app-home-accounts-list-widget>

@@ -27,7 +27,7 @@
     </span>
 
     <div class="list">
-      @for (account of accountsList(); track account.id) {
+      @for (account of accountsList(); track $index) {
       <div class="account">
         @if (account.image) {
         <img
@@ -49,7 +49,7 @@
         </span>
       </div>
 
-      @if (isntLastItemAccounts(account.id!)) {
+      @if (isntLastItemAccounts($index)) {
       <mat-divider></mat-divider>
       } } @empty {
       <div class="empty-list">

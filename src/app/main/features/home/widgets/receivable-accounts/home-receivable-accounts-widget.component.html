@@ -8,7 +8,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    @for (item of releasesList(); track item.id) {
+    @for (item of releasesList(); track $index) {
     <div class="release">
       <span
         class="material-symbols-outlined"
@@ -32,7 +32,7 @@
       </span>
     </div>
 
-    @if (isntLastItem(item.id)) {
+    @if (isntLastItem($index)) {
     <mat-divider></mat-divider>
     } } @empty {
     <div class="no-releases">

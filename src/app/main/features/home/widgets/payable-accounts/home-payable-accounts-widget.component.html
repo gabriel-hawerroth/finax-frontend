@@ -8,7 +8,7 @@
   </mat-card-header>
 
   <mat-card-content>
-    @for (item of releasesList(); track item.id) {
+    @for (item of releasesList(); track $index) {
     <div class="release">
       <span
         class="material-symbols-outlined category-icon"
@@ -23,10 +23,13 @@
         </span>
 
         <div class="release-account">
-          @if (item.cardId) {
+          @if (item.isCreditCardRelease) {
           <span class="material-symbols-outlined card-icon">credit_card</span>
-          }
+
+          <span id="account">{{ item.creditCardName }}</span>
+          } @else {
           <span id="account">{{ item.accountName }}</span>
+          }
         </div>
       </div>
 
@@ -37,7 +40,7 @@
       </span>
     </div>
 
-    @if (isntLastItem(item.id)) {
+    @if (isntLastItem($index)) {
     <mat-divider></mat-divider>
     } } @empty {
     <div class="no-releases">

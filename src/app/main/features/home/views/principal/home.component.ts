@@ -10,8 +10,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
-import { MonthlyRelease } from '../../../../../core/entities/release/release-dto';
-import { HomeValues } from '../../../../../core/entities/home-p/home-dto';
+import {
+  HomeAccountsList,
+  HomeBalances,
+  HomeUpcomingReleases,
+} from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -49,14 +52,12 @@ export class HomePage implements OnInit, OnDestroy {
   theme = signal<string>(this._utils.getUserConfigs.theme);
   currency = signal<string>(this._utils.getUserConfigs.currency);
 
-  homeValues = signal<HomeValues>({
-    balances: {
-      revenues: 0,
-      expenses: 0,
-    },
-    accountsList: [],
-    upcomingReleasesExpected: [],
+  balances = signal<HomeBalances>({
+    revenues: 0,
+    expenses: 0,
   });
+  accountsList = signal<HomeAccountsList[]>([]);
+  upcomingReleases = signal<HomeUpcomingReleases[]>([]);
 
   generalBalance: number = 0;
 
@@ -84,21 +85,27 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   getValues() {
-    this._homeService.getHomeValues().then((response) => {
-      this.homeValues.set(response);
+    this._homeService
+      .getRevenueExpense()
+      .then((response) => this.balances.set(response));
 
-      this.generalBalance = response.accountsList.reduce(
+    this._homeService.getAccountsList().then((response) => {
+      this.accountsList.set(response);
+
+      this.generalBalance = response.reduce(
         (count, item) => count + item.balance,
         0
       );
     });
+
+    this._homeService
+      .getUpcomingReleases()
+      .then((response) => this.upcomingReleases.set(response));
+
+    this._homeService;
   }
 
-  getUpcomingReleases(type: 'R' | 'E'): MonthlyRelease[] {
-    return this._utils.filterList(
-      this.homeValues().upcomingReleasesExpected,
-      'type',
-      type
-    );
+  getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingReleases[] {
+    return this._utils.filterList(this.upcomingReleases(), 'type', type);
   }
 }
