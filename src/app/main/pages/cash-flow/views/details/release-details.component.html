@@ -26,11 +26,16 @@
 
           @if (!release.description && !release.categoryName) {
           {{ "cash-flow.others" | translate }}
-          } }
+          }
+          <!---->
+          }
         </h2>
 
-        <span>
-          {{ release.accountName }}
+        <span class="account-card-name">
+          @if (release.cardId) {
+          <span class="material-symbols-outlined">credit_card</span>
+          }
+          {{ release.accountName || release.cardName }}
         </span>
         } @else {
         <h2>
@@ -97,7 +102,7 @@
         [showDelete]="release.type !== 'I'"
         [disableEdit]="release.isBalanceAdjustment"
         [disableDelete]="release.isBalanceAdjustment"
-        [showGeneric]="release.type === 'I'"
+        [showGeneric]="false"
         [genericIcon]="'sort'"
         [genericLabel]="'credit-cards.see-invoice' | translate"
         [btnStyle]="{

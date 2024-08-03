@@ -31,6 +31,7 @@
             .principal {
                 display: flex;
                 flex-direction: column;
+                gap: .5rem;
 
                 .transfer {
                     display: flex;
@@ -41,6 +42,19 @@
                     .material-symbols-outlined {
                         color: #333333;
                         padding: 0.3rem !important;
+                    }
+                }
+
+                .account-card-name {
+                    display: flex;
+                    align-items: center;
+                    gap: .5rem;
+                    font-size: 1.2rem;
+
+                    .material-symbols-outlined {
+                        padding: inherit;
+                        border-radius: 0%;
+                        color: $primary-font-color;
                     }
                 }
             }
