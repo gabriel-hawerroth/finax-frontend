@@ -15,15 +15,11 @@ export class InvoiceService {
 
   getMonthValues(
     creditCardId: number,
-    selectedMonth: string,
-    firstDt: Date,
-    lastDt: Date
+    selectedMonth: string
   ): Promise<InvoiceMonthValues> {
     let params = new HttpParams();
     params = params.append('creditCardId', creditCardId);
     params = params.append('selectedMonth', selectedMonth);
-    params = params.append('firstDt', firstDt.toString());
-    params = params.append('lastDt', lastDt.toString());
 
     return lastValueFrom(
       this._http.get<InvoiceMonthValues>(`${this.apiUrl}/get-month-values`, {

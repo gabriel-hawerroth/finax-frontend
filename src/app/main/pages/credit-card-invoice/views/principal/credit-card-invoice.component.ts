@@ -15,7 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import {
   addDays,
   addMonths,
-  endOfDay,
   format,
   isBefore,
   isValid,
@@ -137,12 +136,8 @@ export class CreditCardInvoicePage implements OnInit {
   getMonthValues() {
     const monthYear = format(this.selectedDate(), 'MM/yyyy');
 
-    const lastDt = endOfDay(this.invoiceValues().close);
-
-    let firstDt = this.getFirstDtInvoice;
-
     this._invoiceService
-      .getMonthValues(this.creditCardId, monthYear, firstDt, lastDt)
+      .getMonthValues(this.creditCardId, monthYear)
       .then((response) => this.monthValues.set(response));
   }
 
