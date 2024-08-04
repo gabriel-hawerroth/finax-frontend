@@ -65,7 +65,7 @@ export const appConfig: ApplicationConfig = {
       thousands: '.',
       nullable: false,
       min: null,
-      max: 9999999999999.99,
+      max: 999999999999.99,
       inputMode: NgxCurrencyInputMode.Financial,
     }),
     importProvidersFrom(
