@@ -10,7 +10,7 @@ import { AccountBasicList } from './account-dto';
   providedIn: 'root',
 })
 export class AccountService {
-  private readonly apiUrl = `${environment.baseApiUrl}accounts`;
+  private readonly apiUrl = `${environment.baseApiUrl}account`;
 
   constructor(
     private readonly _http: HttpClient,
@@ -33,10 +33,13 @@ export class AccountService {
     );
   }
 
-  save(data: Account): Promise<Account> {
-    data.userId = this._utils.getLoggedUser!.id;
-
+  createNew(data: Account): Promise<Account> {
+    data.id = undefined;
     return lastValueFrom(this._http.post<Account>(this.apiUrl, data));
+  }
+
+  edit(data: Account): Promise<Account> {
+    return lastValueFrom(this._http.put<Account>(this.apiUrl, data));
   }
 
   adjustBalance(accountId: number, newBalance: number): Promise<Account> {
@@ -44,7 +47,7 @@ export class AccountService {
     params = params.append('newBalance', newBalance);
 
     return lastValueFrom(
-      this._http.post<Account>(
+      this._http.patch<Account>(
         `${this.apiUrl}/adjust-balance/${accountId}`,
         null,
         {

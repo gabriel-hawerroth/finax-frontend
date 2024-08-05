@@ -25,6 +25,7 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { Account } from '../../../../../core/entities/account/account';
 
 @Component({
   selector: 'app-accounts-form',
@@ -78,7 +79,7 @@ export class BankAccountsFormPage implements OnInit {
     }
   }
 
-  buildForm() {
+  private buildForm() {
     this.accountForm = this._fb.group({
       id: null,
       userId: null,
@@ -96,27 +97,30 @@ export class BankAccountsFormPage implements OnInit {
     });
   }
 
-  save() {
+  public save() {
     this.saving = true;
 
     this.accountForm.markAsPristine();
     const data = this.accountForm.value;
 
-    this._accountService
-      .save(data)
+    this.getSaveRequest(data)
       .then(() => {
         this.utils.showMessage('my-accounts.saved-successfully');
         this._router.navigate(['contas']);
       })
       .catch(() => {
+        this.accountForm.markAsPristine();
         this.utils.showMessage('my-accounts.error-saving-account');
       })
-      .finally(() => {
-        this.saving = false;
-      });
+      .finally(() => (this.saving = false));
   }
 
-  selectIcon() {
+  private getSaveRequest(data: Account) {
+    if (data.id) return this._accountService.edit(data);
+    else return this._accountService.createNew(data);
+  }
+
+  public selectIcon() {
     lastValueFrom(this._dialog.open(SelectIconDialog).afterClosed()).then(
       (value) => {
         if (!value) return;
