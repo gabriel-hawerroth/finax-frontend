@@ -9,7 +9,6 @@ import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,16 +22,18 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-balance-dialog.component';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { ButtonType } from '../../../../../core/enums/button-style';
 
 @Component({
   selector: 'app-account-details',
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
     CustomCurrencyPipe,
     NgOptimizedImage,
     TranslateModule,
+    ButtonsComponent,
   ],
   templateUrl: './account-details.component.html',
   styleUrl: './account-details.component.scss',
@@ -82,5 +83,13 @@ export class BankAccountDetailsComponent {
     let type = 'my-accounts.account-types.';
     type += this.account.type.toString().toLowerCase();
     return type;
+  }
+
+  get getBtnStyle() {
+    return ButtonType.STROKED;
+  }
+
+  get getEditBtnStyle() {
+    return ButtonType.BASIC;
   }
 }

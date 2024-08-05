@@ -73,21 +73,25 @@
   </div>
 
   <div class="actions">
-    <styled-button
-      [btnType]="getBtnStyle2"
-      label="credit-cards.see-invoice"
-      icon="sort"
-      [contentStyle]="{ color: '#585858' }"
-      (onClick)="seeInvoice()"
-    ></styled-button>
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="sort"
+      genericLabel="credit-cards.see-invoice"
+      [genericStyle]="strokedBtnStyle"
+      [btnStyle]="{
+        padding: '2rem'
+      }"
+      [contentStyle]="{
+        color: '#585858'
+      }"
+      (onGeneric)="seeInvoice()"
+    ></app-buttons>
 
-    <styled-button
-      [btnType]="getBtnStyle"
-      label="actions.edit"
-      icon=""
-      (onClick)="edit()"
-      [btnStyle]="{ padding: '1.3rem 1.6rem !important' }"
-      [contentStyle]="{ 'font-size': '1.1rem' }"
-    ></styled-button>
+    <app-buttons
+      [showGeneric]="true"
+      genericLabel="actions.edit"
+      [genericStyle]="basicBtnStyle"
+      (onGeneric)="edit()"
+    ></app-buttons>
   </div>
 </div>

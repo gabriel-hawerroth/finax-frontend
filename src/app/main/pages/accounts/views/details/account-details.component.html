@@ -79,27 +79,45 @@
   </div>
 
   <div class="actions">
-    <button mat-stroked-button class="large-btn">
-      <div class="btn-content">
-        <span class="material-symbols-outlined">sort</span>
-        {{ "my-accounts.see-releases" | translate }}
-      </div>
-    </button>
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="sort"
+      genericLabel="my-accounts.see-releases"
+      [genericStyle]="getBtnStyle"
+      [btnStyle]="{
+        padding: '2rem'
+      }"
+      [contentStyle]="{
+        color: '#585858',
+        'font-size': '1rem'
+      }"
+    ></app-buttons>
 
-    <button mat-stroked-button class="large-btn">
-      <div class="btn-content">
-        <span class="material-symbols-outlined">query_stats</span>
-        {{ "generic.reports" | translate }}
-      </div>
-    </button>
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="query_stats"
+      genericLabel="generic.reports"
+      [genericStyle]="getBtnStyle"
+      [btnStyle]="{
+        padding: '2rem'
+      }"
+      [contentStyle]="{
+        color: '#585858',
+        'font-size': '1rem'
+      }"
+    ></app-buttons>
 
-    <button
-      mat-button
-      color="primary"
-      (click)="edit()"
-      style="padding: 1.3rem 1.6rem; font-size: 1.1rem !important"
-    >
-      {{ "actions.edit" | translate }}
-    </button>
+    <app-buttons
+      [showGeneric]="true"
+      genericLabel="actions.edit"
+      [genericStyle]="getEditBtnStyle"
+      [btnStyle]="{
+        padding: '1.3rem 1.6rem'
+      }"
+      [contentStyle]="{
+        'font-size': '1.1rem'
+      }"
+      (onGeneric)="edit()"
+    ></app-buttons>
   </div>
 </div>
