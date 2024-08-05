@@ -1,12 +1,10 @@
 <div class="public-header">
   <div class="left-side">
-    <a href="#second-section" aria-label="Our services">
-      <button mat-button>Nossos serviços</button>
-    </a>
+    <button (click)="navigateToOurServices()" mat-button>
+      Nossos serviços
+    </button>
 
-    <a href="#third-section" aria-label="Signature plans">
-      <button mat-button>Planos</button>
-    </a>
+    <button (click)="navigateToPlans()" mat-button>Planos</button>
   </div>
 
   <div class="title">
@@ -17,6 +15,7 @@
       height="45"
       alt="company logo"
     />
+
     <h1>Finax</h1>
   </div>
 

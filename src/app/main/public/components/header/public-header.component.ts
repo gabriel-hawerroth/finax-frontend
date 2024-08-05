@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { LoginService } from '../../../../core/entities/auth/login.service';
@@ -14,7 +14,18 @@ import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicHeaderComponent {
+  onNavigateToOurServices = output<void>();
+  onNavigateToPlans = output<void>();
+
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   constructor(public loginService: LoginService) {}
+
+  navigateToOurServices(): void {
+    this.onNavigateToOurServices.emit();
+  }
+
+  navigateToPlans(): void {
+    this.onNavigateToPlans.emit();
+  }
 }

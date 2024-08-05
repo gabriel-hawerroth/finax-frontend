@@ -1,5 +1,8 @@
 <div id="public-page">
-  <app-public-header></app-public-header>
+  <app-public-header
+    (onNavigateToOurServices)="navigateToOurServices()"
+    (onNavigateToPlans)="navigateToPlans()"
+  ></app-public-header>
 
   <app-public-first-section
     #firstSection

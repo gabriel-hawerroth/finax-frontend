@@ -463,3 +463,81 @@ mat-card-title {
     }
   }
 }
+
+.policy-page {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 5rem;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.7rem;
+    color: $primary-font-color;
+    margin-right: 3rem;
+    margin-bottom: 8vh;
+
+    h1 {
+      font-family: 'Dosis';
+    }
+  }
+
+  .policy {
+    width: 42%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 7vh;
+
+    .title {
+      display: flex;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 3rem;
+      font-weight: bold;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2rem;
+      text-align: justify;
+      line-height: 1.8rem;
+
+      p {
+        margin-bottom: 1.2rem;
+      }
+
+      .sub-title {
+        margin: 1.1rem 0;
+        font-size: 1.45rem;
+      }
+
+      ul {
+        list-style: none;
+        margin-top: .2rem;
+      }
+    }
+  }
+
+  .last-update {
+    margin-bottom: .8rem;
+    font-size: 1.1rem;
+  }
+
+  .link {
+    color: $primary-font-color;
+    text-decoration: underline;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+
+  #home-button {
+    position: absolute;
+    right: 4.5rem;
+    bottom: 3rem;
+  }
+}

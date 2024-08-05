@@ -7,14 +7,14 @@ import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
-  selector: 'privacy-policy-page',
+  selector: 'app-use-terms',
   standalone: true,
   imports: [CommonModule, NgOptimizedImage, RouterModule, ButtonsComponent],
-  templateUrl: './privacy-policy.component.html',
-  styleUrl: './privacy-policy.component.scss',
+  templateUrl: './use-terms.component.html',
+  styleUrl: './use-terms.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PrivacyPolicyPage {
+export class UseTermsPage {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   readonly darkThemeEnabled = signal(

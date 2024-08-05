@@ -12,16 +12,17 @@ import { CreditCardsPage } from './main/pages/credit-card/views/principal/credit
 import { HomePage } from './main/pages/home/views/principal/home.component';
 import { MyProfilePage } from './main/pages/my-profile/views/principal/my-profile.component';
 import { UserSettingsPage } from './main/pages/user-settings/views/principal/user-settings.component';
+import { AccountCanceledPage } from './main/public/views/account-canceled/account-canceled.component';
+import { CancelationErrorPage } from './main/public/views/cancelation-error/cancelation-error.component';
 import { ChangePasswordPage } from './main/public/views/change-password/change-password.component';
 import { CreateAccountPage } from './main/public/views/create-account/create-account.component';
 import { ForgotPasswordPage } from './main/public/views/forgot-password/forgot-password.component';
 import { LoginPage } from './main/public/views/login/login.component';
 import { PublicPage } from './main/public/views/principal/public.component';
+import { PrivacyPolicyPage } from './main/public/views/privacy-policy/privacy-policy.component';
+import { UseTermsPage } from './main/public/views/use-terms/use-terms.component';
 import { UserActivationPage } from './main/public/views/user-activation/user-activation.component';
 import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
-import { AccountCanceledPage } from './main/public/views/account-canceled/account-canceled.component';
-import { CancelationErrorPage } from './main/public/views/cancelation-error/cancelation-error.component';
-import { PrivacyPolicyPage } from './main/public/views/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
   { path: '', component: PublicPage },
@@ -64,8 +65,14 @@ export const routes: Routes = [
     component: CancelationErrorPage,
   },
   {
-    path: 'politica-privacidade',
+    path: 'politica-de-privacidade',
     component: PrivacyPolicyPage,
+    canActivate: [UnauthenticatedUserGuard],
+  },
+  {
+    path: 'termos-de-uso',
+    component: UseTermsPage,
+    canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'home',

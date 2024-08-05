@@ -40,4 +40,18 @@ export class PublicPage implements OnInit {
       this._loginService.logout(false);
     }
   }
+
+  navigateToOurServices() {
+    const element = document.getElementById('second-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  navigateToPlans() {
+    const element = document.getElementById('third-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
