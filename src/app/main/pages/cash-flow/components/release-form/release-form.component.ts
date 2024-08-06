@@ -90,15 +90,20 @@ export class ReleaseFormComponent implements OnInit {
       'type',
       this.form().value.type
     );
+
+    if (this.form().value.targetAccountId) {
+      this.form().get('targetAccountId')!.updateValueAndValidity();
+      this.targetAccountChanges(this.form().value.targetAccountId);
+    }
   }
 
-  dateChanges(value: MatDatepickerInputEvent<any>) {
+  public dateChanges(value: MatDatepickerInputEvent<any>) {
     this.form()
       .get('done')!
       .setValue(!moment(value.value).isAfter(this.currentDt));
   }
 
-  accountChanges(value: number) {
+  public accountChanges(value: number) {
     const selectedAccount: AccountBasicList | undefined =
       this.accountsList().find((item) => item.id === value);
 
@@ -109,13 +114,13 @@ export class ReleaseFormComponent implements OnInit {
     this.selectedAccount = selectedAccount ? selectedAccount : selectedCard!;
   }
 
-  targetAccountChanges(value: number) {
+  public targetAccountChanges(value: number) {
     this.selectedTargetAccount = this.accountsList().find(
       (item) => item.id === value
     )!;
   }
 
-  categoryChanges(value: number) {
+  public categoryChanges(value: number) {
     this.selectedCategory = this.categoriesList().find(
       (item) => item.id === value
     )!;

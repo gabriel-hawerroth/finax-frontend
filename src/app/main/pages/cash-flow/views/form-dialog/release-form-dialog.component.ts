@@ -126,8 +126,11 @@ export class ReleaseFormDialog implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.formValidations();
 
     if (this.data.editing && this.data.release) {
+      console.log(this.data.release);
+
       this.releaseForm.patchValue(this.data.release);
       this.releaseForm
         .get('date')!
@@ -161,7 +164,7 @@ export class ReleaseFormDialog implements OnInit {
     }
   }
 
-  buildForm() {
+  private buildForm() {
     this.releaseForm = this._fb.group({
       id: null,
       userId: this.utils.getLoggedUser!.id,
@@ -180,11 +183,9 @@ export class ReleaseFormDialog implements OnInit {
       repeatFor: '12',
       installmentsBy: '2',
     });
-
-    this.formValidations();
   }
 
-  formValidations() {
+  private formValidations() {
     if (this.data.creditCardId) {
       this.releaseForm.get('accountId')!.setValue(this.data.creditCardId);
     }
@@ -215,7 +216,7 @@ export class ReleaseFormDialog implements OnInit {
       .setValue(!isAfter(new Date(), this.releaseForm.value.data));
   }
 
-  async save() {
+  public async save() {
     if (!this.validForm()) return;
 
     const saveAction = this.releaseForm.value.id
@@ -403,7 +404,7 @@ export class ReleaseFormDialog implements OnInit {
     return title;
   }
 
-  onFileSelected(event: any) {
+  public onFileSelected(event: any) {
     const file = event.target?.files[0];
     if (!file) return;
 
@@ -417,7 +418,7 @@ export class ReleaseFormDialog implements OnInit {
     this.changedAttachment = true;
   }
 
-  removeFile() {
+  public removeFile() {
     this.selectedFile = null;
     this.releaseForm.markAsDirty();
 
@@ -429,7 +430,10 @@ export class ReleaseFormDialog implements OnInit {
     }
   }
 
-  onChangeRepeat(action: 'FIXED' | 'INSTALLMENTS', event: MatCheckboxChange) {
+  public onChangeRepeat(
+    action: 'FIXED' | 'INSTALLMENTS',
+    event: MatCheckboxChange
+  ) {
     if (!event.checked) {
       this.releaseForm.get('repeat')!.setValue('');
       return;
@@ -486,7 +490,7 @@ export class ReleaseFormDialog implements OnInit {
     ];
   }
 
-  onChangeFixedBy(value: ReleaseFixedBy) {
+  public onChangeFixedBy(value: ReleaseFixedBy) {
     let fixedBy = '';
 
     console.log(value);
@@ -521,7 +525,7 @@ export class ReleaseFormDialog implements OnInit {
     );
   }
 
-  disableSave(): boolean {
+  public disableSave(): boolean {
     return (
       (this.data.editing &&
         this.releaseForm.pristine &&
