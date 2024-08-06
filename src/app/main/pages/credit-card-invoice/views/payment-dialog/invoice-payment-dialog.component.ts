@@ -2,8 +2,8 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
+  inject,
   signal,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -53,6 +53,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoicePaymentDialog implements OnInit {
+  readonly data: InvoicePaymentDialogData = inject(MAT_DIALOG_DATA);
+
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   readonly currency = this.utils.getUserConfigs.currency;
@@ -72,7 +74,6 @@ export class InvoicePaymentDialog implements OnInit {
   removedFile = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public readonly data: InvoicePaymentDialogData,
     public readonly utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _dialogRef: MatDialogRef<InvoicePaymentDialog>,

@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
+  inject,
   signal,
 } from '@angular/core';
 import {
@@ -38,6 +38,7 @@ import { lastValueFrom } from 'rxjs';
 import { Category } from '../../../../../core/entities/category/category';
 import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { GenericIdDs } from '../../../../../core/entities/generic';
+import { Release } from '../../../../../core/entities/release/release';
 import {
   ConfirmDuplicatedReleasesActionDialogData,
   ReleaseFormDialogData,
@@ -54,7 +55,6 @@ import { getBtnStyle } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
-import { Release } from '../../../../../core/entities/release/release';
 
 @Component({
   selector: 'release-form-dialog',
@@ -81,6 +81,8 @@ import { Release } from '../../../../../core/entities/release/release';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseFormDialog implements OnInit {
+  readonly data: ReleaseFormDialogData = inject(MAT_DIALOG_DATA);
+
   readonly getBtnStyle = getBtnStyle;
 
   readonly darkThemeEnabled = signal(
@@ -114,7 +116,6 @@ export class ReleaseFormDialog implements OnInit {
   selectedCreditCard = this.data.creditCardId !== undefined;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: ReleaseFormDialogData,
     public readonly utils: UtilsService,
     private readonly _matDialogRef: MatDialogRef<ReleaseFormDialog>,
     private readonly _translate: TranslateService,

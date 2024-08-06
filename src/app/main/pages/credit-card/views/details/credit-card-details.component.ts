@@ -1,15 +1,12 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  CreditCardDetailsData,
-  UserCreditCard,
-} from '../../../../../core/entities/credit-card/credit-card-dto';
+import { UserCreditCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
@@ -35,10 +32,9 @@ export class CreditCardDetailsComponent {
 
   currency = this.utils.getUserConfigs.currency;
 
-  card: UserCreditCard = this.data.card;
+  card: UserCreditCard = inject(MAT_BOTTOM_SHEET_DATA).card;
 
   constructor(
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: CreditCardDetailsData,
     public readonly utils: UtilsService,
     private readonly _router: Router,
     private readonly _bottomSheetRef: MatBottomSheetRef

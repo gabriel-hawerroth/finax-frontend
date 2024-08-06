@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
+  inject,
   signal,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -41,13 +41,15 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditBalanceDialog implements OnInit {
+  readonly data: EditBalanceDialogData = inject(MAT_DIALOG_DATA);
+
   readonly currency = this.utils.getUserConfigs.currency;
 
   balanceControl = new FormControl(this.data.account.balance || 0);
+
   loading = signal(false);
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: EditBalanceDialogData,
     public readonly dialogRef: MatDialogRef<EditBalanceDialog>,
     public readonly utils: UtilsService,
     private readonly _accountService: AccountService
@@ -57,23 +59,17 @@ export class EditBalanceDialog implements OnInit {
     this.balanceControl.markAsTouched();
   }
 
-  save() {
+  public save() {
     this.loading.set(true);
+    this.balanceControl.markAsPristine();
 
     this._accountService
       .adjustBalance(this.data.account.id!, this.balanceControl.value!)
       .then((response) => {
-        this.utils.showMessage('my-accounts.balance-changed-successfully');
-
         this.dialogRef.close(response.balance);
+        this.utils.showMessage('my-accounts.balance-changed-successfully');
       })
-      .catch(() => {
-        this.utils.showMessage('my-accounts.error-changing-balance');
-      })
-      .finally(() => {
-        this.loading.set(false);
-      });
-
-    this.balanceControl.markAsPristine();
+      .catch(() => this.utils.showMessage('my-accounts.error-changing-balance'))
+      .finally(() => this.loading.set(false));
   }
 }

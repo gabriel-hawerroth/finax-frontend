@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,9 +15,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmDuplicatedReleasesActionDialog {
-  constructor(
-    @Inject(MAT_DIALOG_DATA)
-    public data: ConfirmDuplicatedReleasesActionDialogData,
-    public readonly utils: UtilsService
-  ) {}
+  readonly data: ConfirmDuplicatedReleasesActionDialogData =
+    inject(MAT_DIALOG_DATA);
+
+  constructor(public readonly utils: UtilsService) {}
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
@@ -13,7 +13,6 @@ import { lastValueFrom } from 'rxjs';
 import {
   ConfirmDuplicatedReleasesActionDialogData,
   MonthlyRelease,
-  ReleaseDetailsData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
 import { DuplicatedReleaseAction } from '../../../../../core/enums/duplicated-release-action';
@@ -40,13 +39,12 @@ import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-
 export class ReleaseDetailsComponent {
   currency = this.utils.getUserConfigs.currency;
 
-  release: MonthlyRelease = this.data.cashFlow;
+  release: MonthlyRelease = inject(MAT_BOTTOM_SHEET_DATA).cashFlow;
 
   confirmDelete: boolean = false;
   excluding: boolean = false;
 
   constructor(
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: ReleaseDetailsData,
     public readonly utils: UtilsService,
     private readonly _bottomSheet: MatBottomSheetRef,
     private readonly _matDialog: MatDialog,

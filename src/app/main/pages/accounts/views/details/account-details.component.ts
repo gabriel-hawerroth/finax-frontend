@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Inject,
+  inject,
 } from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
@@ -14,16 +14,13 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
-import {
-  BankAccountDetailsData,
-  EditBalanceDialogData,
-} from '../../../../../core/entities/account/account-dto';
+import { EditBalanceDialogData } from '../../../../../core/entities/account/account-dto';
+import { ButtonType } from '../../../../../core/enums/button-style';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-balance-dialog.component';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { ButtonType } from '../../../../../core/enums/button-style';
 
 @Component({
   selector: 'app-account-details',
@@ -44,10 +41,9 @@ export class BankAccountDetailsComponent {
 
   readonly currency = this.utils.getUserConfigs.currency;
 
-  account: Account = this.data.account;
+  account: Account = inject(MAT_BOTTOM_SHEET_DATA).account;
 
   constructor(
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: BankAccountDetailsData,
     public readonly utils: UtilsService,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _bottomSheetRef: MatBottomSheetRef,
