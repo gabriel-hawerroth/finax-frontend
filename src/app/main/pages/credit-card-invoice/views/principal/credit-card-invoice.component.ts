@@ -7,7 +7,6 @@ import {
   computed,
   signal,
 } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -45,6 +44,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { InvoicePaymentsCardComponent } from '../../components/payments-card/invoice-payments-card.component';
 import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.component';
+import { ButtonType } from '../../../../../core/enums/button-style';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -53,7 +53,6 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
     CommonModule,
     MatCardModule,
     CustomCurrencyPipe,
-    MatButtonModule,
     NgOptimizedImage,
     TranslateModule,
     ReleasesListComponent,
@@ -245,5 +244,9 @@ export class CreditCardInvoicePage implements OnInit {
 
   formatDay(day: number | undefined): string {
     return (day || 1).toString().padStart(2, '0');
+  }
+
+  public get iconBtnStyle() {
+    return ButtonType.ICON;
   }
 }

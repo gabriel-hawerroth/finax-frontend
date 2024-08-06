@@ -36,4 +36,13 @@ export class StyledButtonComponent {
   loading = input<boolean>();
   btnStyle = input<{}>();
   contentStyle = input<{}>();
+
+  public get getIconBtnStyle() {
+    return {
+      display: 'flex',
+      'justify-content': 'center',
+      'align-items': 'center',
+      ...this.btnStyle(),
+    };
+  }
 }
