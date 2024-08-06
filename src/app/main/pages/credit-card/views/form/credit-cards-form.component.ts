@@ -24,6 +24,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
 import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
+import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
@@ -113,7 +114,7 @@ export class CreditCardsFormPage implements OnInit {
     });
   }
 
-  buildForm() {
+  private buildForm() {
     this.cardForm = this._fb.group({
       id: null,
       userId: this.utils.getLoggedUser!.id,
@@ -127,32 +128,30 @@ export class CreditCardsFormPage implements OnInit {
     });
   }
 
-  save() {
+  public save() {
     if (this.cardForm.value.cardLimit === 0) {
       this.utils.showMessage('credit-cards.limit-must-be-greater-than-zero');
       return;
     }
 
     this.saving.set(true);
-
     this.cardForm.markAsPristine();
-    const data = this.cardForm.value;
 
-    this._creditCardService
-      .save(data)
+    this.getSaveRequest(this.cardForm.getRawValue())
       .then(() => {
         this.utils.showMessage('credit-cards.saved-successfully');
         this._router.navigate(['cartoes-de-credito']);
       })
-      .catch(() => {
-        this.utils.showMessage('credit-cards.error-saving-card');
-      })
-      .finally(() => {
-        this.saving.set(false);
-      });
+      .catch(() => this.utils.showMessage('credit-cards.error-saving-card'))
+      .finally(() => this.saving.set(false));
   }
 
-  selectIcon() {
+  private getSaveRequest(card: CreditCard) {
+    if (card.id) return this._creditCardService.edit(card);
+    else return this._creditCardService.createNew(card);
+  }
+
+  public selectIcon() {
     lastValueFrom(this._dialog.open(SelectIconDialog).afterClosed()).then(
       (value) => {
         if (!value) return;
@@ -164,7 +163,7 @@ export class CreditCardsFormPage implements OnInit {
     );
   }
 
-  paymentAccountChanges(value: number) {
+  public paymentAccountChanges(value: number) {
     this.selectedAccount = this.accounsList.find((item) => item.id === value)!;
   }
 }

@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   OnInit,
+  inject,
   signal,
 } from '@angular/core';
 import {
@@ -22,6 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
+import { Category } from '../../../../../core/entities/category/category';
 import { CategoryFormDialogData } from '../../../../../core/entities/category/category-dto';
 import { CategoryService } from '../../../../../core/entities/category/category.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
@@ -46,6 +47,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryFormDialog implements OnInit {
+  data: CategoryFormDialogData = inject(MAT_DIALOG_DATA);
+
   categoryForm!: FormGroup;
 
   disabled: boolean = false;
@@ -53,7 +56,6 @@ export class CategoryFormDialog implements OnInit {
   saving = signal(false);
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CategoryFormDialogData,
     public readonly utils: UtilsService,
     private readonly _dialogRef: MatDialogRef<CategoryFormDialog>,
     private readonly _fb: FormBuilder,
@@ -75,7 +77,7 @@ export class CategoryFormDialog implements OnInit {
     }
   }
 
-  buildForm() {
+  private buildForm() {
     this.categoryForm = this._fb.group({
       id: null,
       name: ['', Validators.required],
@@ -88,35 +90,35 @@ export class CategoryFormDialog implements OnInit {
     });
   }
 
-  pickColor(color: string) {
+  public pickColor(color: string) {
     this.categoryForm.get('color')!.setValue(color);
     this.categoryForm.markAsDirty();
   }
 
-  pickIcon(icon: string) {
+  public pickIcon(icon: string) {
     this.categoryForm.get('icon')!.setValue(icon);
     this.categoryForm.markAsDirty();
   }
 
-  save() {
+  public save() {
     this.saving.set(true);
+    this.categoryForm.markAllAsTouched();
 
-    this._categoryService
-      .save(this.categoryForm.value)
+    this.getSaveRequest(this.categoryForm.getRawValue())
       .then((response) => {
         this._dialogRef.close(response);
-
         this.utils.showMessage('categories.saved-successfully');
       })
-      .catch(() => {
-        this.utils.showMessage('categories.error-saving');
-      })
-      .finally(() => {
-        this.saving.set(false);
-      });
+      .catch(() => this.utils.showMessage('categories.error-saving'))
+      .finally(() => this.saving.set(false));
   }
 
-  colors: string[] = [
+  private getSaveRequest(data: Category): Promise<Category> {
+    if (data.id) return this._categoryService.edit(data);
+    else return this._categoryService.createNew(data);
+  }
+
+  readonly colors: string[] = [
     '#AFAFAF',
     '#787878',
     '#FCA52D',
@@ -136,7 +138,7 @@ export class CategoryFormDialog implements OnInit {
     '#D9AA6A',
   ];
 
-  icons: string[] = [
+  readonly icons: string[] = [
     'person',
     'local_bar',
     'apparel',

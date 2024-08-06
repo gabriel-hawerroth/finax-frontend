@@ -13,8 +13,10 @@
       <div style="display: flex; justify-content: end">
         <app-buttons
           [showSave]="true"
-          [disableSave]="accountForm.invalid || accountForm.pristine || saving"
-          [showLoading]="saving"
+          [disableSave]="
+            accountForm.invalid || accountForm.pristine || saving()
+          "
+          [showLoading]="saving()"
           (onSave)="save()"
         ></app-buttons>
       </div>

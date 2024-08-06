@@ -1,5 +1,5 @@
 export interface CreditCard {
-  id: number;
+  id?: number;
   userId: number;
   name: string;
   cardLimit: number;

@@ -22,8 +22,13 @@ export class CategoryService {
     );
   }
 
-  save(category: Category): Promise<Category> {
+  createNew(category: Category): Promise<Category> {
+    category.id = undefined;
     return lastValueFrom(this._http.post<Category>(`${this.apiUrl}`, category));
+  }
+
+  edit(category: Category): Promise<Category> {
+    return lastValueFrom(this._http.put<Category>(`${this.apiUrl}`, category));
   }
 
   delete(id: number): Promise<void> {

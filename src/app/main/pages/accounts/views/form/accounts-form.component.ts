@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  signal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -20,12 +21,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
+import { Account } from '../../../../../core/entities/account/account';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { Account } from '../../../../../core/entities/account/account';
 
 @Component({
   selector: 'app-accounts-form',
@@ -56,7 +57,7 @@ export class BankAccountsFormPage implements OnInit {
 
   accountForm!: FormGroup;
 
-  saving: boolean = false;
+  saving = signal(false);
 
   constructor(
     public readonly location: Location,
@@ -98,21 +99,16 @@ export class BankAccountsFormPage implements OnInit {
   }
 
   public save() {
-    this.saving = true;
-
+    this.saving.set(true);
     this.accountForm.markAsPristine();
-    const data = this.accountForm.value;
 
-    this.getSaveRequest(data)
+    this.getSaveRequest(this.accountForm.getRawValue())
       .then(() => {
         this.utils.showMessage('my-accounts.saved-successfully');
         this._router.navigate(['contas']);
       })
-      .catch(() => {
-        this.accountForm.markAsPristine();
-        this.utils.showMessage('my-accounts.error-saving-account');
-      })
-      .finally(() => (this.saving = false));
+      .catch(() => this.utils.showMessage('my-accounts.error-saving-account'))
+      .finally(() => this.saving.set(false));
   }
 
   private getSaveRequest(data: Account) {

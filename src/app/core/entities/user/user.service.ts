@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { User } from './user';
+import { EditUserDTO } from './user-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class UserService {
     return lastValueFrom(this._http.get<User>(`${this.apiUrl}/${userId}`));
   }
 
-  saveUser(user: User): Promise<User> {
+  saveUser(user: EditUserDTO): Promise<User> {
     return lastValueFrom(this._http.put<User>(this.apiUrl, user));
   }
 
@@ -65,7 +66,7 @@ export class UserService {
   getUserImage(): Promise<string> {
     return lastValueFrom(
       this._http.get(`${this.apiUrl}/get-user-image`, {
-        responseType: 'text'
+        responseType: 'text',
       })
     );
   }

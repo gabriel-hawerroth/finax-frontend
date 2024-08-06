@@ -23,8 +23,13 @@ export class CreditCardService {
     return lastValueFrom(this._http.get<CreditCard>(`${this.apiUrl}/${id}`));
   }
 
-  save(card: CreditCard): Promise<CreditCard> {
+  createNew(card: CreditCard): Promise<CreditCard> {
+    card.id = undefined;
     return lastValueFrom(this._http.post<CreditCard>(this.apiUrl, card));
+  }
+
+  edit(card: CreditCard): Promise<CreditCard> {
+    return lastValueFrom(this._http.put<CreditCard>(this.apiUrl, card));
   }
 
   getBasicList(): Promise<CardBasicList[]> {

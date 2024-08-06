@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../../../../core/entities/user/user';
+import { EditUserDTO } from '../../../../../core/entities/user/user-dto';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { cloudFireCdnLink } from '../../../../../shared/utils/utils';
@@ -88,8 +89,8 @@ export class MyProfilePage implements OnInit, OnDestroy {
 
   saveUser() {
     this.saving.set(true);
-
     this.userForm.markAsPristine();
+
     let showingMessage: boolean = false;
 
     setTimeout(() => {
@@ -102,8 +103,13 @@ export class MyProfilePage implements OnInit, OnDestroy {
       }
     }, 8000);
 
+    const dto: EditUserDTO = {
+      firstName: this.userForm.value.firstName,
+      lastName: this.userForm.value.lastName,
+    };
+
     this._userService
-      .saveUser(this.userForm.value)
+      .saveUser(dto)
       .then(async (user: User) => {
         this.utils.setItemLocalStorage('userFinax', btoa(JSON.stringify(user)));
         this.utils.updateLoggedUser(user);
@@ -128,9 +134,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
           this.utils.showMessage('my-profile.edited-successfully');
         }
       })
-      .catch(() => {
-        this.utils.showMessage('my-profile.error-saving');
-      })
+      .catch(() => this.utils.showMessage('my-profile.error-saving'))
       .finally(() => {
         this.changedProfileImg = false;
         this.saving.set(false);
