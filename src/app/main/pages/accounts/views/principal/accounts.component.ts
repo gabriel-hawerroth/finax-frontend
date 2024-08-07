@@ -79,7 +79,7 @@ export class MyBankAccountsPage implements OnInit {
   }
 
   onNew() {
-    this._router.navigate(['contas/novo']);
+    this._router.navigateByUrl('contas/novo');
   }
 
   openDetails(account: Account) {

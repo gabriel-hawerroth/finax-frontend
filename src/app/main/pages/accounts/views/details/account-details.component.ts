@@ -53,7 +53,7 @@ export class BankAccountDetailsComponent {
 
   edit() {
     this._bottomSheetRef.dismiss();
-    this._router.navigate([`contas/${this.account.id}`]);
+    this._router.navigateByUrl(`contas/${this.account.id}`);
   }
 
   adjustBalance() {

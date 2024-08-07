@@ -22,10 +22,7 @@
       </div>
 
       <div class="first-row">
-        <app-buttons
-          [showGoBack]="true"
-          (onGoBack)="location.back()"
-        ></app-buttons>
+        <app-buttons appBackButton [showGoBack]="true"></app-buttons>
 
         <mat-form-field style="width: 30%">
           <mat-label>{{ "my-accounts.description" | translate }}</mat-label>

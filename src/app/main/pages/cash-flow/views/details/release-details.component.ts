@@ -137,8 +137,8 @@ export class ReleaseDetailsComponent {
 
   seeInvoice() {
     this._bottomSheet.dismiss();
-    this._router.navigate([
-      `cartoes-de-credito/fatura/${this.release.accountId}`,
-    ]);
+    this._router.navigateByUrl(
+      `cartoes-de-credito/fatura/${this.release.accountId}`
+    );
   }
 }

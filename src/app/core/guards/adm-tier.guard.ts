@@ -19,11 +19,11 @@ export const AdmTierGuard: CanActivateFn = (
   if (loginService.logged) {
     if (utilsService.getLoggedUser?.access === UserAccess.ADM) return true;
     else {
-      router.navigate(['home']);
+      router.navigateByUrl('home');
       utilsService.showMessage('generic.without-permission');
       return false;
     }
   }
-  router.navigate(['']);
+  router.navigateByUrl('');
   return false;
 };

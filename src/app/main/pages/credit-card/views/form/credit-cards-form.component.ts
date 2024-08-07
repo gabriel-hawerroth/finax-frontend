@@ -30,6 +30,7 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 
 @Component({
   selector: 'app-credit-cards-form',
@@ -46,6 +47,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgOptimizedImage,
     MatCheckboxModule,
     TranslateModule,
+    BackButtonDirective,
   ],
   templateUrl: './credit-cards-form.component.html',
   styleUrl: './credit-cards-form.component.scss',
@@ -75,28 +77,31 @@ export class CreditCardsFormPage implements OnInit {
   changedIcon: boolean = false;
 
   constructor(
-    public readonly location: Location,
     public readonly utils: UtilsService,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _dialog: MatDialog,
     private readonly _fb: FormBuilder,
     private readonly _router: Router,
     private readonly _creditCardService: CreditCardService,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _location: Location
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
 
     if (this.cardId) {
-      this._creditCardService.getById(this.cardId).then((response) => {
-        this.cardForm.patchValue(response);
-        this.paymentAccountChanges(response.standardPaymentAccountId);
+      this._creditCardService
+        .getById(this.cardId)
+        .then((response) => {
+          this.cardForm.patchValue(response);
+          this.paymentAccountChanges(response.standardPaymentAccountId);
 
-        if (response.image) {
-          this.selectedIcon.set(response.image);
-        }
-      });
+          if (response.image) {
+            this.selectedIcon.set(response.image);
+          }
+        })
+        .catch(() => this._location.back());
     }
 
     this._accountService.getBasicList().then((response) => {
@@ -140,7 +145,7 @@ export class CreditCardsFormPage implements OnInit {
     this.getSaveRequest(this.cardForm.getRawValue())
       .then(() => {
         this.utils.showMessage('credit-cards.saved-successfully');
-        this._router.navigate(['cartoes-de-credito']);
+        this._router.navigateByUrl('cartoes-de-credito');
       })
       .catch(() => this.utils.showMessage('credit-cards.error-saving-card'))
       .finally(() => this.saving.set(false));

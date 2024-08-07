@@ -19,11 +19,11 @@ export const BasicTierGuard: CanActivateFn = (
   if (loginService.logged) {
     if (utilsService.getLoggedUser!.access !== UserAccess.FREE) return true;
     else {
-      router.navigate(['home']);
+      router.navigateByUrl('home');
       utilsService.showMessage('generic.without-permission');
       return false;
     }
   }
-  router.navigate(['']);
+  router.navigateByUrl('');
   return false;
 };

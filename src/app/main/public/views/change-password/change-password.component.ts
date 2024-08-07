@@ -70,10 +70,10 @@ export class ChangePasswordPage implements OnInit {
       .getById(+this._activatedRoute.snapshot.paramMap.get('userId')!)
       .then((user) => {
         if (!user.canChangePassword) {
-          this._router.navigate(['']);
+          this._router.navigateByUrl('');
         } else this.user = user;
       })
-      .catch(() => this._router.navigate(['']));
+      .catch(() => this._router.navigateByUrl(''));
   }
 
   buildForm() {
@@ -118,7 +118,7 @@ export class ChangePasswordPage implements OnInit {
           window.innerHeight < 1230
         ) {
           this.utils.showMessage('change-password.changed-successfully');
-          this._router.navigate(['']);
+          this._router.navigateByUrl('');
         } else {
           const credentials: Credentials = {
             email: this.user!.email,

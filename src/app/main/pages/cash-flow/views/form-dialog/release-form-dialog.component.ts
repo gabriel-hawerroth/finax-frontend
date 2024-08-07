@@ -129,8 +129,6 @@ export class ReleaseFormDialog implements OnInit {
     this.formValidations();
 
     if (this.data.editing && this.data.release) {
-      console.log(this.data.release);
-
       this.releaseForm.patchValue(this.data.release);
       this.releaseForm
         .get('date')!
@@ -492,8 +490,6 @@ export class ReleaseFormDialog implements OnInit {
 
   public onChangeFixedBy(value: ReleaseFixedBy) {
     let fixedBy = '';
-
-    console.log(value);
 
     switch (value) {
       case ReleaseFixedBy.DAILY:

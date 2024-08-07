@@ -100,7 +100,7 @@ export class LoginService {
   }
 
   logout(showMessage: boolean, redirectToPublicPage: boolean = true) {
-    if (redirectToPublicPage) this._router.navigate(['']);
+    if (redirectToPublicPage) this._router.navigateByUrl('');
 
     this._utils.removeItemLocalStorage('userFinax');
     this._utils.removeItemLocalStorage('tokenFinax');

@@ -27,6 +27,7 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 
 @Component({
   selector: 'app-accounts-form',
@@ -42,6 +43,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgOptimizedImage,
     ButtonsComponent,
     TranslateModule,
+    BackButtonDirective,
   ],
   templateUrl: './accounts-form.component.html',
   styleUrl: './accounts-form.component.scss',
@@ -60,14 +62,14 @@ export class BankAccountsFormPage implements OnInit {
   saving = signal(false);
 
   constructor(
-    public readonly location: Location,
     public readonly utils: UtilsService,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _dialog: MatDialog,
     private readonly _fb: FormBuilder,
     private readonly _router: Router,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _location: Location
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +78,8 @@ export class BankAccountsFormPage implements OnInit {
     if (this.accountId) {
       this._accountService
         .getById(this.accountId)
-        .then((response) => this.accountForm.patchValue(response));
+        .then((response) => this.accountForm.patchValue(response))
+        .catch(() => this._location.back());
     }
   }
 
@@ -105,7 +108,7 @@ export class BankAccountsFormPage implements OnInit {
     this.getSaveRequest(this.accountForm.getRawValue())
       .then(() => {
         this.utils.showMessage('my-accounts.saved-successfully');
-        this._router.navigate(['contas']);
+        this._router.navigateByUrl('contas');
       })
       .catch(() => this.utils.showMessage('my-accounts.error-saving-account'))
       .finally(() => this.saving.set(false));

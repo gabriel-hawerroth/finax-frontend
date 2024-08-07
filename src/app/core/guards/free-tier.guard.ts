@@ -16,6 +16,6 @@ export const FreeTierGuard: CanActivateFn = (
   if (loginService.logged) {
     return true;
   }
-  router.navigate(['']);
+  router.navigateByUrl('');
   return false;
 };

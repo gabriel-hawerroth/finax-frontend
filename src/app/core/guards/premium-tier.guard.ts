@@ -23,11 +23,11 @@ export const PremiumTierGuard: CanActivateFn = (
     )
       return true;
     else {
-      router.navigate(['home']);
+      router.navigateByUrl('home');
       utilsService.showMessage('generic.without-permission');
       return false;
     }
   }
-  router.navigate(['']);
+  router.navigateByUrl('');
   return false;
 };

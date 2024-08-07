@@ -42,12 +42,12 @@ export class CreditCardDetailsComponent {
 
   edit() {
     this._bottomSheetRef.dismiss();
-    this._router.navigate([`cartoes-de-credito/${this.card.id}`]);
+    this._router.navigateByUrl(`cartoes-de-credito/${this.card.id}`);
   }
 
   seeInvoice() {
     this._bottomSheetRef.dismiss();
-    this._router.navigate([`cartoes-de-credito/fatura/${this.card.id}`]);
+    this._router.navigateByUrl(`cartoes-de-credito/fatura/${this.card.id}`);
   }
 
   get strokedBtnStyle() {

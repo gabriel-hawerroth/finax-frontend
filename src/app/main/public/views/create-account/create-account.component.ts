@@ -101,7 +101,7 @@ export class CreateAccountPage implements OnInit {
           }`,
           'OK'
         );
-        this._router.navigate(['login']);
+        this._router.navigateByUrl('login');
       })
       .catch((err) => {
         if (err.error.errorDescription === 'this email is already in use') {

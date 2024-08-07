@@ -77,7 +77,7 @@ export class CreditCardsPage implements OnInit {
   }
 
   onNew() {
-    this._router.navigate(['cartoes-de-credito/novo']);
+    this._router.navigateByUrl('cartoes-de-credito/novo');
   }
 
   openDetails(card: UserCreditCard) {

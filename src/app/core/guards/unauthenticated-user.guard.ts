@@ -14,7 +14,7 @@ export const UnauthenticatedUserGuard: CanActivateFn = (
   router = inject(Router)
 ) => {
   if (loginService.logged) {
-    router.navigate(['home']);
+    router.navigateByUrl('home');
     return false;
   }
   return true;

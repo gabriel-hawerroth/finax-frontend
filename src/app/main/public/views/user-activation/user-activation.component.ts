@@ -39,7 +39,7 @@ export class UserActivationPage implements OnInit {
       window.innerHeight <= 1230
     ) {
       this._utils.showMessageWithoutDuration('user-activation.title');
-      this._router.navigate(['']);
+      this._router.navigateByUrl('');
     }
   }
 }
