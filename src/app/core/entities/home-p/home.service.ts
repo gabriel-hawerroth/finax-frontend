@@ -44,6 +44,12 @@ export class HomeService {
     );
   }
 
+  getCreditCardsList(): Promise<any[]> {
+    return lastValueFrom(
+      this._http.get<any[]>(`${this.apiUrl}/get-credit-cards-list`)
+    );
+  }
+
   getEssentialsExpenses(): Promise<EssentialExpenses> {
     return lastValueFrom(
       this._http.get<EssentialExpenses>(`${this.apiUrl}/get-essential-expenses`)

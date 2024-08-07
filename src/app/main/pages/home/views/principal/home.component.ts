@@ -22,6 +22,7 @@ import { HomeAccountsListWidget } from '../../widgets/accounts-list/home-account
 import { HomePayableAccountsWidget } from '../../widgets/payable-accounts/home-payable-accounts-widget.component';
 import { HomeReceivableAccountsWidget } from '../../widgets/receivable-accounts/home-receivable-accounts-widget.component';
 import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-spend-by-category-widget.component';
+import { HomeCreditCardsListWidget } from '../../widgets/credit-cards-list/home-credit-cards-list-widget.component';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +38,7 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
     HomePayableAccountsWidget,
     HomeReceivableAccountsWidget,
     HomeSpendByCategoryWidget,
+    HomeCreditCardsListWidget,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
