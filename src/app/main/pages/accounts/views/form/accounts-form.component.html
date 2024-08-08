@@ -10,7 +10,14 @@
 
   <div class="content">
     <form class="account-card" [formGroup]="accountForm">
-      <div style="display: flex; justify-content: end">
+      <div class="card-header">
+        <app-buttons
+          appBackButton
+          [showGoBack]="true"
+          [btnStyle]="{ transform: 'scale(1.2)' }"
+          [contentStyle]="{ transform: 'scale(0.9)' }"
+        ></app-buttons>
+
         <app-buttons
           [showSave]="true"
           [disableSave]="
@@ -22,8 +29,6 @@
       </div>
 
       <div class="first-row">
-        <app-buttons appBackButton [showGoBack]="true"></app-buttons>
-
         <mat-form-field style="width: 30%">
           <mat-label>{{ "my-accounts.description" | translate }}</mat-label>
           <input

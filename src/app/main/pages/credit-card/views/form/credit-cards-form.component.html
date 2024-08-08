@@ -10,7 +10,14 @@
 
   <div class="content">
     <mat-card class="card" [formGroup]="cardForm">
-      <div style="display: flex; justify-content: end">
+      <div class="card-header">
+        <app-buttons
+          appBackButton
+          [showGoBack]="true"
+          [btnStyle]="{ transform: 'scale(1.2)' }"
+          [contentStyle]="{ transform: 'scale(0.9)' }"
+        ></app-buttons>
+
         <app-buttons
           [showSave]="true"
           [disableSave]="cardForm.invalid || cardForm.pristine || saving()"
@@ -20,8 +27,6 @@
       </div>
 
       <div class="first-row">
-        <app-buttons appBackButton [showGoBack]="true"></app-buttons>
-
         <mat-form-field style="width: 30%">
           <mat-label>{{ "credit-cards.description" | translate }}</mat-label>
           <input
@@ -53,9 +58,31 @@
           />
         </mat-form-field>
 
-        <mat-checkbox formControlName="active">
+        <mat-checkbox formControlName="active" style="width: 12%">
           {{ "generic.activeM" | translate }}
         </mat-checkbox>
+
+        <div id="img-div">
+          @if (!selectedIcon()) {
+          <span class="material-symbols-outlined" (click)="selectIcon()">
+            credit_card
+          </span>
+          } @else {
+          <img
+            [ngSrc]="
+              'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
+              selectedIcon()
+            "
+            width="70"
+            height="70"
+            (click)="selectIcon()"
+            alt="credit card image"
+          />
+          }
+          <span id="text" (click)="selectIcon()">
+            {{ "generic.select-icon" | translate }}
+          </span>
+        </div>
       </div>
 
       <div class="second-row">
@@ -135,28 +162,6 @@
             }
           </mat-select>
         </mat-form-field>
-
-        <div id="img-div">
-          @if (!selectedIcon()) {
-          <span class="material-symbols-outlined" (click)="selectIcon()">
-            credit_card
-          </span>
-          } @else {
-          <img
-            [ngSrc]="
-              'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
-              selectedIcon()
-            "
-            width="70"
-            height="70"
-            (click)="selectIcon()"
-            alt="credit card image"
-          />
-          }
-          <span id="text" (click)="selectIcon()">
-            {{ "generic.select-icon" | translate }}
-          </span>
-        </div>
       </div>
     </mat-card>
   </div>

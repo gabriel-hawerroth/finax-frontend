@@ -6,8 +6,9 @@
 
     .content {
         flex: 1;
-        display: grid;
-        place-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .account-card {
             width: 74%;
@@ -16,6 +17,20 @@
             border-radius: 1rem;
             display: flex;
             flex-direction: column;
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: .8rem;
+            }
+
+            .first-row,
+            .second-row,
+            .third-row {
+                display: flex;
+                width: 100%;
+                padding: 0 2rem;
+            }
 
             .first-row {
                 width: 100%;
@@ -28,7 +43,7 @@
             .second-row {
                 display: flex;
                 gap: 2rem;
-                margin: 0 0 2rem 1rem;
+                margin-bottom: 2rem;
             }
 
             .third-row {
