@@ -106,7 +106,11 @@
         "no-expense-current-month": "Nenhum gasto realizado no mês atual",
         "financial-balance": "Equilíbrio financeiro",
         "essential-expenses": "Gastos essenciais",
-        "non-essential-expenses": "Gastos não essenciais"
+        "non-essential-expenses": "Gastos não essenciais",
+        "credit-cards": "Cartões de crédito",
+        "available": "Disponível",
+        "current-invoice": "Fatura atual",
+        "empty-credit-cards-list": "Nenhum cartão cadastrado"
     },
     "cash-flow": {
         "title": "Fluxo de caixa",

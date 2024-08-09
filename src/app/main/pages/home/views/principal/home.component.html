@@ -1,6 +1,6 @@
 <div
+  class="simple-page home-page"
   [ngClass]="{
-    'simple-page': true,
     'dark-page': theme() === 'dark'
   }"
 >
@@ -33,9 +33,10 @@
   <div class="content">
     <div class="left-column">
       <app-home-accounts-list-widget
-        [accountsList]="accountsList()"
-        [generalBalance]="generalBalance"
         [currency]="currency()"
+        [ngStyle]="{
+          'border-radius': '5rem !important'
+        }"
       ></app-home-accounts-list-widget>
 
       <app-home-payable-accounts-widget
@@ -55,7 +56,9 @@
         [currency]="currency()"
       ></app-home-spend-by-category-widget>
 
-      <!-- <app-home-credit-cards-list-widget></app-home-credit-cards-list-widget> -->
+      <app-home-credit-cards-list-widget
+        [currency]="currency()"
+      ></app-home-credit-cards-list-widget>
     </div>
   </div>
 </div>

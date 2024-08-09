@@ -11,18 +11,18 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import {
-  HomeAccountsList,
+  HomeAccount,
   HomeBalances,
-  HomeUpcomingReleases,
+  HomeUpcomingRelease,
 } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { HomeAccountsListWidget } from '../../widgets/accounts-list/home-accounts-list-widget.component';
+import { HomeCreditCardsListWidget } from '../../widgets/credit-cards-list/home-credit-cards-list-widget.component';
 import { HomePayableAccountsWidget } from '../../widgets/payable-accounts/home-payable-accounts-widget.component';
 import { HomeReceivableAccountsWidget } from '../../widgets/receivable-accounts/home-receivable-accounts-widget.component';
 import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-spend-by-category-widget.component';
-import { HomeCreditCardsListWidget } from '../../widgets/credit-cards-list/home-credit-cards-list-widget.component';
 
 @Component({
   selector: 'app-home',
@@ -58,8 +58,8 @@ export class HomePage implements OnInit, OnDestroy {
     revenues: 0,
     expenses: 0,
   });
-  accountsList = signal<HomeAccountsList[]>([]);
-  upcomingReleases = signal<HomeUpcomingReleases[]>([]);
+  accountsList = signal<HomeAccount[]>([]);
+  upcomingReleases = signal<HomeUpcomingRelease[]>([]);
 
   generalBalance: number = 0;
 
@@ -107,7 +107,7 @@ export class HomePage implements OnInit, OnDestroy {
     this._homeService;
   }
 
-  getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingReleases[] {
+  getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingRelease[] {
     return this._utils.filterList(this.upcomingReleases(), 'type', type);
   }
 }

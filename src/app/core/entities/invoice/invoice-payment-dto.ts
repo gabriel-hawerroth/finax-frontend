@@ -1,4 +1,4 @@
-import { AccountBasicList } from '../account/account-dto';
+import { BasicAccount } from '../account/account-dto';
 
 export interface InvoicePaymentPerson {
   id: number;
@@ -14,7 +14,7 @@ export interface InvoicePaymentPerson {
 }
 
 export interface InvoicePaymentDialogData {
-  accounts: AccountBasicList[];
+  accounts: BasicAccount[];
   creditCardId: number;
   defaultPaymmentAccount: number;
   defaultPaymentAmount: number;

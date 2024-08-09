@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { UtilsService } from '../../../../utils/utils.service';
+import { ResponsiveService } from '../../../../utils/responsive.service';
 
 @Component({
   selector: 'btn-content',
@@ -16,7 +16,5 @@ export class BtnContentComponent {
   icon = input.required<string>();
   contentStyle = input<any>();
 
-  readonly isPcScreen = this._utils.isPcScreen;
-
-  constructor(private readonly _utils: UtilsService) {}
+  constructor(public readonly responsiveService: ResponsiveService) {}
 }

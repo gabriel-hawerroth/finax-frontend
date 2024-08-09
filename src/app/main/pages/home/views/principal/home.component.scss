@@ -16,6 +16,7 @@
     flex-direction: column;
     align-items: center;
     gap: .9rem;
+    padding-bottom: 2rem;
 
     .top-card {
         width: 90%;
@@ -65,10 +66,6 @@
         display: flex;
         gap: 1.3rem;
 
-        mat-card {
-            border-radius: .5rem;
-        }
-
         .left-column,
         .right-column {
             width: 50%;
@@ -80,10 +77,6 @@
 }
 
 .dark-page {
-    mat-card {
-        background-color: $dark-card-bg;
-    }
-
     .top-card {
         background-color: $dark-card-bg !important;
 

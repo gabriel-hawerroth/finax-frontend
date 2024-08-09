@@ -1,0 +1,20 @@
+<div class="account">
+  @if (account().image) {
+  <img
+    [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account().image"
+    width="55"
+    height="55"
+    alt="account logo"
+  />
+  } @else {
+  <span class="material-symbols-outlined default-bank-account">
+    account_balance
+  </span>
+  }
+
+  <b>{{ account().name }}</b>
+
+  <span class="account-balance">
+    {{ currency() }}{{ account().balance | customCurrency }}
+  </span>
+</div>

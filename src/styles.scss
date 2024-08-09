@@ -261,6 +261,10 @@ mat-card-title {
     }
   }
 
+  .home-widget {
+    background-color: $dark-card-bg !important;
+  }
+
   .mdc-button,
   .mdc-icon-button {
 
@@ -539,5 +543,23 @@ mat-card-title {
     position: absolute;
     right: 4.5rem;
     bottom: 3rem;
+  }
+}
+
+.home-page {
+  .home-widget {
+    border-radius: 1rem;
+
+    .empty {
+      width: 100%;
+      height: 100%;
+      padding: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #818181;
+      gap: 1rem;
+    }
   }
 }

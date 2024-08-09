@@ -16,9 +16,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
+import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
-import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import {
   MonthlyFlow,
   ReleaseFormDialogData,
@@ -65,9 +65,9 @@ export class CashFlowPage implements OnInit, OnDestroy {
   searching = signal<boolean>(false);
   selectedDate = new Date(this.currentDate.setDate(15));
 
-  accounts: AccountBasicList[] = [];
+  accounts: BasicAccount[] = [];
   categories: Category[] = [];
-  creditCards: CardBasicList[] = [];
+  creditCards: BasicCard[] = [];
 
   viewModeCtrl: FormControl = new FormControl<string>('RELEASES');
 

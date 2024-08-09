@@ -4,9 +4,10 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import {
   EssentialExpenses,
-  HomeAccountsList,
+  HomeAccount,
   HomeBalances,
-  HomeUpcomingReleases,
+  HomeCreditCard,
+  HomeUpcomingRelease,
   SpendByCategory,
 } from './home-dto';
 
@@ -24,15 +25,15 @@ export class HomeService {
     );
   }
 
-  getAccountsList(): Promise<HomeAccountsList[]> {
+  getAccountsList(): Promise<HomeAccount[]> {
     return lastValueFrom(
-      this._http.get<HomeAccountsList[]>(`${this.apiUrl}/get-accounts-list`)
+      this._http.get<HomeAccount[]>(`${this.apiUrl}/get-accounts-list`)
     );
   }
 
-  getUpcomingReleases(): Promise<HomeUpcomingReleases[]> {
+  getUpcomingReleases(): Promise<HomeUpcomingRelease[]> {
     return lastValueFrom(
-      this._http.get<HomeUpcomingReleases[]>(
+      this._http.get<HomeUpcomingRelease[]>(
         `${this.apiUrl}/get-upcoming-releases`
       )
     );
@@ -44,9 +45,9 @@ export class HomeService {
     );
   }
 
-  getCreditCardsList(): Promise<any[]> {
+  getCreditCardsList(): Promise<HomeCreditCard[]> {
     return lastValueFrom(
-      this._http.get<any[]>(`${this.apiUrl}/get-credit-cards-list`)
+      this._http.get<HomeCreditCard[]>(`${this.apiUrl}/get-credit-cards-list`)
     );
   }
 

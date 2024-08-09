@@ -3,7 +3,8 @@
   <span class="material-symbols-outlined">
     {{ icon() }}
   </span>
-  } @if (isPcScreen && label()) {
+  } @if ((responsiveService.largeWidth() || responsiveService.veryLargeWith() ||
+  !icon()) && label()) {
   <span>
     {{ label() | translate }}
   </span>

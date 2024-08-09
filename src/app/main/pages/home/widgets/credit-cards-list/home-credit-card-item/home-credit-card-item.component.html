@@ -1,0 +1,54 @@
+<div class="credit-card">
+  <div class="image">
+    <img
+      [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card().cardImage"
+      width="55"
+      height="55"
+      alt="account logo"
+    />
+  </div>
+
+  <div class="infos">
+    <div class="top">
+      <span class="card-name">
+        {{ card().cardName }}
+      </span>
+    </div>
+
+    <div class="bottom">
+      <div class="available">
+        <div class="label">
+          {{ "home.available" | translate }}
+        </div>
+
+        <div class="amount">
+          <span>
+            {{
+              currency() +
+                (card().cardLimit - card().currentInvoiceAmount
+                  | customCurrency)
+            }}
+          </span>
+        </div>
+      </div>
+
+      <div class="current-invoice">
+        <div class="label">
+          {{ "home.current-invoice" | translate }}
+        </div>
+
+        <div class="amount">
+          {{ currency() + (card().currentInvoiceAmount | customCurrency) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action">
+    <app-buttons
+      [routerLink]="'/cartoes-de-credito/fatura/' + card().cardId"
+      [showGeneric]="true"
+      genericLabel="credit-cards.see-invoice"
+    ></app-buttons>
+  </div>
+</div>

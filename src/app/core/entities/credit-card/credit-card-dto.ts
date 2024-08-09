@@ -12,7 +12,7 @@ export interface UserCreditCard {
   accountImage: string;
 }
 
-export interface CardBasicList {
+export interface BasicCard {
   id: number;
   name: string;
   image: string;

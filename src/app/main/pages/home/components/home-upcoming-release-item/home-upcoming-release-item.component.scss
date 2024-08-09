@@ -1,0 +1,56 @@
+@import 'colors.scss';
+
+.release {
+    padding: .7rem;
+    display: flex;
+    align-items: center;
+
+    .category-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1.5rem;
+    }
+
+    .title-account {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        .release-title {
+            font-size: 1.1rem;
+        }
+
+        .release-account {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .card-icon {
+                color: $primary-font-color;
+                margin-right: .5rem;
+            }
+
+            #account {
+                font-size: .9rem;
+                color: #616161;
+            }
+        }
+    }
+
+    .date {
+        width: 20%;
+        color: #616161;
+    }
+
+    .amount {
+        width: 18%;
+        color: #616161;
+        display: flex;
+        justify-content: end;
+    }
+}

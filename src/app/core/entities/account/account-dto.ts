@@ -1,6 +1,6 @@
 import { Account } from './account';
 
-export interface AccountBasicList {
+export interface BasicAccount {
   id: number;
   name: string;
   image: string;

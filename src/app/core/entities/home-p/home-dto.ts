@@ -6,13 +6,13 @@ export interface HomeBalances {
   expenses: number;
 }
 
-export interface HomeAccountsList {
+export interface HomeAccount {
   name: string;
   image: string;
   balance: number;
 }
 
-export interface HomeUpcomingReleases {
+export interface HomeUpcomingRelease {
   categoryColor: string;
   categoryIcon: string;
   categoryName: string;
@@ -37,4 +37,12 @@ export interface EssentialExpenses {
 
 export interface HomeValues {
   upcomingReleasesExpected: MonthlyRelease[];
+}
+
+export interface HomeCreditCard {
+  cardId: number;
+  cardName: string;
+  cardImage: string;
+  cardLimit: number;
+  currentInvoiceAmount: number;
 }

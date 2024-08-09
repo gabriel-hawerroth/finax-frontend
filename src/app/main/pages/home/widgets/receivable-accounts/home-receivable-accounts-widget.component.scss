@@ -1,4 +1,4 @@
-.card {
+.home-widget {
     padding-bottom: 1rem;
 
     mat-card-header {
@@ -49,14 +49,6 @@
                 display: flex;
                 justify-content: end;
             }
-        }
-
-        .no-releases {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #818181;
-            padding: 2rem 0;
         }
     }
 }

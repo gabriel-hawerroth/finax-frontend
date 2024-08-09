@@ -18,13 +18,14 @@ import {
   isBefore,
   isValid,
   parse,
+  setDay,
   toDate,
 } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
-import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
+import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
-import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import {
   CreditCardInvoiceValues,
@@ -36,6 +37,7 @@ import {
 } from '../../../../../core/entities/invoice/invoice-payment-dto';
 import { InvoiceService } from '../../../../../core/entities/invoice/invoice.service';
 import { ReleaseFormDialogData } from '../../../../../core/entities/release/release-dto';
+import { ButtonType } from '../../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
@@ -44,7 +46,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
 import { InvoicePaymentsCardComponent } from '../../components/payments-card/invoice-payments-card.component';
 import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.component';
-import { ButtonType } from '../../../../../core/enums/button-style';
 
 @Component({
   selector: 'app-credit-card-invoice',
@@ -79,14 +80,14 @@ export class CreditCardInvoicePage implements OnInit {
     previousBalance: 0,
   });
 
-  selectedDate = signal(new Date(new Date().setDate(15)));
+  selectedDate = signal(addMonths(setDay(new Date(), 15), 1));
   currentYear: string = this.selectedDate().getFullYear().toString();
 
   searching = signal(false);
 
-  accounts: AccountBasicList[] = [];
+  accounts: BasicAccount[] = [];
   categories: Category[] = [];
-  creditCards: CardBasicList[] = [];
+  creditCards: BasicCard[] = [];
 
   invoiceValues!: Signal<CreditCardInvoiceValues>;
 

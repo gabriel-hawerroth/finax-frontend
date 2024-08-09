@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule } from '@ngx-translate/core';
-import { HomeUpcomingReleases } from '../../../../../core/entities/home-p/home-dto';
-import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { HomeUpcomingRelease } from '../../../../../core/entities/home-p/home-dto';
+import { HomeUpcomingReleaseItemComponent } from '../../components/home-upcoming-release-item/home-upcoming-release-item.component';
 
 @Component({
   selector: 'app-home-receivable-accounts-widget',
@@ -13,15 +13,15 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
     CommonModule,
     MatCardModule,
     TranslateModule,
-    CustomCurrencyPipe,
     MatDividerModule,
+    HomeUpcomingReleaseItemComponent,
   ],
   templateUrl: './home-receivable-accounts-widget.component.html',
   styleUrl: './home-receivable-accounts-widget.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeReceivableAccountsWidget {
-  releasesList = input.required<HomeUpcomingReleases[]>();
+  releasesList = input.required<HomeUpcomingRelease[]>();
   currency = input.required<string>();
 
   isntLastItem(index: number): boolean {

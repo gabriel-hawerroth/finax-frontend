@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="home-widget">
   <mat-card-header>
     <h3 style="font-weight: 500">
       {{ "home.general-balance" | translate }}
@@ -28,41 +28,26 @@
 
     <div class="list">
       @for (account of accountsList(); track $index) {
-      <div class="account">
-        @if (account.image) {
-        <img
-          [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
-          width="55"
-          height="55"
-          alt="account logo"
-        />
-        } @else {
-        <span class="material-symbols-outlined default-bank-account">
-          account_balance
-        </span>
-        }
+      <app-home-account-item
+        [account]="account"
+        [currency]="currency()"
+      ></app-home-account-item>
 
-        <b>{{ account.name }}</b>
-
-        <span class="account-balance">
-          {{ currency() }}{{ account.balance | customCurrency }}
-        </span>
-      </div>
-
-      @if (isntLastItemAccounts($index)) {
+      @if (isntLastItem($index)) {
       <mat-divider></mat-divider>
-      } } @empty {
-      <div class="empty-list">
+      }
+      <!---->
+      } @empty {
+      <div class="empty">
         @defer (on timer(170ms)) {
         <span>
           {{ "home.empty-accounts-list" | translate }}
         </span>
 
         <app-buttons
+          routerLink="/contas/nova"
           [showGeneric]="true"
           genericLabel="home.register-one"
-          genericIcon=""
-          routerLink="/contas/nova"
         ></app-buttons>
         }
       </div>

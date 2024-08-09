@@ -4,7 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UtilsService } from '../../../shared/utils/utils.service';
 import { Account } from './account';
-import { AccountBasicList } from './account-dto';
+import { BasicAccount } from './account-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -27,9 +27,9 @@ export class AccountService {
     return lastValueFrom(this._http.get<Account>(`${this.apiUrl}/${id}`));
   }
 
-  getBasicList(): Promise<AccountBasicList[]> {
+  getBasicList(): Promise<BasicAccount[]> {
     return lastValueFrom(
-      this._http.get<AccountBasicList[]>(`${this.apiUrl}/basic-list`)
+      this._http.get<BasicAccount[]>(`${this.apiUrl}/basic-list`)
     );
   }
 

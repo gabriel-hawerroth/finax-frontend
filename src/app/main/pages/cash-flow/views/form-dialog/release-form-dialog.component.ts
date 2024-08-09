@@ -36,7 +36,7 @@ import moment from 'moment';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
 import { Category } from '../../../../../core/entities/category/category';
-import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { GenericIdDs } from '../../../../../core/entities/generic';
 import { Release } from '../../../../../core/entities/release/release';
 import {
@@ -338,7 +338,7 @@ export class ReleaseFormDialog implements OnInit {
     }
 
     const selectedAccount = this.data.accounts.find(
-      (item: CardBasicList) => item.id === release.accountId
+      (item: BasicCard) => item.id === release.accountId
     );
     const releasedOn: ReleasedOn = selectedAccount
       ? ReleasedOn.ACCOUNT

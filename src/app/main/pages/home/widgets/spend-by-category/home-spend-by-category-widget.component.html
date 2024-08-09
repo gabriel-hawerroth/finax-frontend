@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="home-widget">
   <mat-card-header>
     <mat-card-title>
       <h3>
@@ -12,9 +12,19 @@
     </mat-card-title>
   </mat-card-header>
 
-  <mat-card-content>
+  <mat-card-content
+    [ngStyle]="{
+      'flex-direction': hasMoreThenFourCategories ? 'column' : 'row'
+    }"
+  >
     @if (spendsByCategory().length > 0) {
-    <div class="left">
+    <div
+      class="left"
+      [ngStyle]="{
+        width: hasMoreThenFourCategories ? '100%' : '55%',
+        padding: hasMoreThenFourCategories ? '.5rem 1.5rem' : '1rem 0 0 1.4rem'
+      }"
+    >
       @for (item of spendsByCategory(); track $index) {
       <div class="category">
         <span
@@ -34,7 +44,12 @@
       } }
     </div>
 
-    <div class="right">
+    <div
+      class="right"
+      [ngStyle]="{
+        'margin-top': hasMoreThenFourCategories ? '1rem' : '0'
+      }"
+    >
       <p-chart
         id="chart"
         type="pie"
@@ -43,8 +58,10 @@
       ></p-chart>
     </div>
     } @else {
-    <div class="no-expenses">
+    <div class="empty">
+      @defer (on timer(150ms)) {
       <span>{{ "home.no-expense-current-month" | translate }}</span>
+      }
     </div>
     }
   </mat-card-content>

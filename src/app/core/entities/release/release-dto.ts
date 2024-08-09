@@ -1,7 +1,7 @@
 import { ReleaseType } from '../../enums/release-enums';
-import { AccountBasicList } from '../account/account-dto';
+import { BasicAccount } from '../account/account-dto';
 import { Category } from '../category/category';
-import { CardBasicList } from '../credit-card/credit-card-dto';
+import { BasicCard } from '../credit-card/credit-card-dto';
 
 export interface MonthlyFlow {
   releases: MonthlyRelease[];
@@ -43,15 +43,15 @@ export interface MonthlyBalance {
 }
 
 export interface CashFlowValues {
-  accountsList: AccountBasicList[];
+  accountsList: BasicAccount[];
   categoriesList: Category[];
-  creditCardsList: CardBasicList[];
+  creditCardsList: BasicCard[];
 }
 
 export interface ReleaseFormDialogData {
-  accounts: AccountBasicList[];
+  accounts: BasicAccount[];
   categories: Category[];
-  creditCards: CardBasicList[];
+  creditCards: BasicCard[];
   editing: boolean;
   releaseType: ReleaseType;
   selectedDate: Date;

@@ -1,13 +1,21 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { HomeAccountsList } from '../../../../../core/entities/home-p/home-dto';
+import { HomeAccount } from '../../../../../core/entities/home-p/home-dto';
+import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import { HomeAccountItemComponent } from './home-account-item/home-account-item.component';
 
 @Component({
   selector: 'app-home-accounts-list-widget',
@@ -17,23 +25,36 @@ import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
     MatCardModule,
     TranslateModule,
     CustomCurrencyPipe,
-    NgOptimizedImage,
     MatDividerModule,
     RouterModule,
     ButtonsComponent,
+    HomeAccountItemComponent,
   ],
   templateUrl: './home-accounts-list-widget.component.html',
   styleUrl: './home-accounts-list-widget.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeAccountsListWidget {
-  accountsList = input.required<HomeAccountsList[]>();
-  generalBalance = input.required<number>();
+export class HomeAccountsListWidget implements OnInit {
   currency = input.required<string>();
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
-  isntLastItemAccounts(index: number): boolean {
+  accountsList = signal<HomeAccount[]>([]);
+  generalBalance = signal<number>(0);
+
+  constructor(private readonly _homeService: HomeService) {}
+
+  ngOnInit(): void {
+    this._homeService.getAccountsList().then((response) => {
+      this.accountsList.set(response);
+
+      this.generalBalance.set(
+        response.reduce((count, item) => count + item.balance, 0)
+      );
+    });
+  }
+
+  isntLastItem(index: number): boolean {
     return index !== this.accountsList().length - 1;
   }
 }

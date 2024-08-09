@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="home-widget">
   <mat-card-header>
     <mat-card-title>
       <h3>
@@ -8,35 +8,19 @@
   </mat-card-header>
 
   <mat-card-content>
-    @for (item of releasesList(); track $index) {
-    <div class="release">
-      <span
-        class="material-symbols-outlined"
-        [ngStyle]="{ 'background-color': item.categoryColor }"
-      >
-        {{ item.categoryIcon }}
-      </span>
-
-      <div class="title-account">
-        <span class="release-title">
-          {{ item.description || item.categoryName }}
-        </span>
-
-        <span class="release-account">{{ item.accountName }}</span>
-      </div>
-
-      <span class="date">{{ item.date | date : "dd/MM/yyyy" }}</span>
-
-      <span class="amount">
-        {{ currency() }}{{ item.amount | customCurrency }}
-      </span>
-    </div>
+    @for (release of releasesList(); track $index) {
+    <app-home-upcoming-release-item
+      [release]="release"
+      [currency]="currency()"
+    ></app-home-upcoming-release-item>
 
     @if (isntLastItem($index)) {
     <mat-divider></mat-divider>
-    } } @empty {
-    <div class="no-releases">
-      @defer (on timer(100ms)) {
+    }
+    <!---->
+    } @empty {
+    <div class="empty">
+      @defer (on timer(150ms)) {
       <span>
         {{ "home.whitout-receivable-accounts" | translate }}
       </span>

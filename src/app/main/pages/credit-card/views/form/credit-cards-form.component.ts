@@ -22,15 +22,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
-import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
+import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 
 @Component({
   selector: 'app-credit-cards-form',
@@ -65,8 +65,8 @@ export class CreditCardsFormPage implements OnInit {
 
   saving = signal(false);
 
-  accounsList: AccountBasicList[] = [];
-  selectedAccount: AccountBasicList | null = null;
+  accounsList: BasicAccount[] = [];
+  selectedAccount: BasicAccount | null = null;
 
   daysOfMonth: number[] = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,

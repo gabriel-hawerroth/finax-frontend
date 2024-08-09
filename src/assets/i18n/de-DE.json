@@ -106,7 +106,11 @@
         "no-expense-current-month": "Keine Ausgaben im laufenden Monat getätigt",
         "financial-balance": "Finanzielles Gleichgewicht",
         "essential-expenses": "Wesentliche Ausgaben",
-        "non-essential-expenses": "Nicht unbedingt notwendige Ausgaben"
+        "non-essential-expenses": "Nicht unbedingt notwendige Ausgaben",
+        "credit-cards": "Kreditkarten",
+        "available": "Verfügbar",
+        "current-invoice": "Aktuelle Rechnung",
+        "empty-credit-cards-list": "Es sind keine Karten registriert"
     },
     "cash-flow": {
         "title": "Kassenfluss",

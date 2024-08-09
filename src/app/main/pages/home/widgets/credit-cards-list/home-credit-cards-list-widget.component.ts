@@ -1,12 +1,20 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import { TranslateModule } from '@ngx-translate/core';
-import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { HomeCreditCard } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { HomeCreditCardItemComponent } from './home-credit-card-item/home-credit-card-item.component';
 
 @Component({
   selector: 'app-home-credit-cards-list-widget',
@@ -20,18 +28,26 @@ import { HomeService } from '../../../../../core/entities/home-p/home.service';
     MatDividerModule,
     RouterModule,
     ButtonsComponent,
+    HomeCreditCardItemComponent,
   ],
   templateUrl: './home-credit-cards-list-widget.component.html',
   styleUrl: './home-credit-cards-list-widget.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeCreditCardsListWidget implements OnInit {
-  constructor(private _homeService: HomeService) {}
+  public readonly currency = input.required<string>();
+
+  public readonly cardsList = signal<HomeCreditCard[]>([]);
+
+  constructor(private readonly _homeService: HomeService) {}
 
   ngOnInit(): void {
     this._homeService.getCreditCardsList().then((response) => {
-      console.log(response);
-      
-    })
+      this.cardsList.set(response);
+    });
+  }
+
+  public isntLastItem(index: number) {
+    return index !== this.cardsList().length - 1;
   }
 }

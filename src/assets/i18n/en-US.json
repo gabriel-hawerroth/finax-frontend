@@ -106,7 +106,11 @@
         "no-expense-current-month": "No expenses made in the current month",
         "financial-balance": "Financial balance",
         "essential-expenses": "Essential expenses",
-        "non-essential-expenses": "Non-essential expenses"
+        "non-essential-expenses": "Non-essential expenses",
+        "credit-cards": "Credit cards",
+        "available": "Available",
+        "current-invoice": "Current invoice",
+        "empty-credit-cards-list": "No cards registered"
     },
     "cash-flow": {
         "title": "Cash Flow",

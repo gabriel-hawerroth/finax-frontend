@@ -1,7 +1,31 @@
-<mat-card class="card">
-  <mat-card-header></mat-card-header>
+<mat-card class="home-widget">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>
+        {{ "home.credit-cards" | translate }}
+      </h3>
+    </mat-card-title>
+  </mat-card-header>
 
-  <mat-divider></mat-divider>
+  <mat-card-content>
+    @for (card of cardsList(); track card.cardId) {
+    <app-home-credit-card-item
+      [card]="card"
+      [currency]="currency()"
+    ></app-home-credit-card-item>
 
-  <mat-card-content></mat-card-content>
+    @if (isntLastItem($index)) {
+    <mat-divider></mat-divider>
+    }
+    <!---->
+    } @empty {
+    <div class="empty">
+      @defer (on timer(150ms)) {
+      <span>
+        {{ "home.empty-credit-cards-list" | translate }}
+      </span>
+      }
+    </div>
+    }
+  </mat-card-content>
 </mat-card>

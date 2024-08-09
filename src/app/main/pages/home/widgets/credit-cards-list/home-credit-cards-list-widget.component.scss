@@ -1,0 +1,19 @@
+.home-widget {
+    padding-bottom: 1rem;
+
+    mat-card-header {
+        margin-bottom: .8rem;
+    }
+
+    mat-card-content {
+        padding: 0 2rem !important;
+        max-height: 30vh;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+
+        app-home-credit-card-item {
+            width: 100%;
+        }
+    }
+}

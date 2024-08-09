@@ -16,9 +16,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
+import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
-import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
@@ -42,9 +42,9 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 })
 export class ReleaseFormComponent implements OnInit {
   public form = input.required<FormGroup>();
-  public accountsList = input.required<AccountBasicList[]>();
+  public accountsList = input.required<BasicAccount[]>();
   public categoriesList = input.required<Category[]>();
-  public creditCardsList = input.required<CardBasicList[]>();
+  public creditCardsList = input.required<BasicCard[]>();
   public selectedCreditCard = input.required<boolean>();
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
@@ -55,8 +55,8 @@ export class ReleaseFormComponent implements OnInit {
 
   filteredCategories: Category[] = [];
 
-  selectedAccount: AccountBasicList | CardBasicList | null = null;
-  selectedTargetAccount: AccountBasicList | null = null;
+  selectedAccount: BasicAccount | BasicCard | null = null;
+  selectedTargetAccount: BasicAccount | null = null;
   selectedCategory: Category | null = null;
 
   constructor(public readonly utils: UtilsService) {}
@@ -104,10 +104,11 @@ export class ReleaseFormComponent implements OnInit {
   }
 
   public accountChanges(value: number) {
-    const selectedAccount: AccountBasicList | undefined =
-      this.accountsList().find((item) => item.id === value);
+    const selectedAccount: BasicAccount | undefined = this.accountsList().find(
+      (item) => item.id === value
+    );
 
-    const selectedCard: CardBasicList | undefined = this.creditCardsList().find(
+    const selectedCard: BasicCard | undefined = this.creditCardsList().find(
       (item) => item.id === value
     );
 

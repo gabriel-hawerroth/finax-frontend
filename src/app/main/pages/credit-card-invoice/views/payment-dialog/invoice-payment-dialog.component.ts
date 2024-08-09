@@ -21,7 +21,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
+import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { InvoicePaymentDialogData } from '../../../../../core/entities/invoice/invoice-payment-dto';
 import { InvoiceService } from '../../../../../core/entities/invoice/invoice.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
@@ -59,13 +59,13 @@ export class InvoicePaymentDialog implements OnInit {
 
   readonly currency = this.utils.getUserConfigs.currency;
 
-  accounts: AccountBasicList[] = this.data.accounts || [];
+  accounts: BasicAccount[] = this.data.accounts || [];
   defaultPaymmentAccount: number | null =
     this.data.defaultPaymmentAccount || null;
 
   form!: FormGroup;
 
-  selectedAccount: AccountBasicList | null = null;
+  selectedAccount: BasicAccount | null = null;
   selectedFile: File | null = null;
 
   saving = signal(false);

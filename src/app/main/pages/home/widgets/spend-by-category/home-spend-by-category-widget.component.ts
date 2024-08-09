@@ -89,4 +89,8 @@ export class HomeSpendByCategoryWidget implements OnInit {
   isntLastItem(index: number) {
     return index != this.spendsByCategory().length - 1;
   }
+
+  get hasMoreThenFourCategories() {
+    return this.spendsByCategory().length > 4;
+  }
 }

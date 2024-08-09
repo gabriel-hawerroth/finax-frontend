@@ -9,9 +9,9 @@ import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
-import { AccountBasicList } from '../../../../../core/entities/account/account-dto';
+import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
-import { CardBasicList } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import {
   MonthlyRelease,
   ReleaseDetailsData,
@@ -37,9 +37,9 @@ import { ReleaseDetailsComponent } from '../../views/details/release-details.com
 })
 export class ReleasesListComponent {
   public releases = input.required<MonthlyRelease[]>();
-  public accounts = input.required<AccountBasicList[]>();
+  public accounts = input.required<BasicAccount[]>();
   public categories = input.required<Category[]>();
-  public creditCards = input.required<CardBasicList[]>();
+  public creditCards = input.required<BasicCard[]>();
   public selectedDate = input.required<Date>();
   public updateList = output<void>();
 

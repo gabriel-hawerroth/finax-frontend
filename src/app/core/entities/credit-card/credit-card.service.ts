@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { CreditCard } from './credit-card';
-import { CardBasicList, UserCreditCard } from './credit-card-dto';
+import { BasicCard, UserCreditCard } from './credit-card-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -32,9 +32,9 @@ export class CreditCardService {
     return lastValueFrom(this._http.put<CreditCard>(this.apiUrl, card));
   }
 
-  getBasicList(): Promise<CardBasicList[]> {
+  getBasicList(): Promise<BasicCard[]> {
     return lastValueFrom(
-      this._http.get<CardBasicList[]>(`${this.apiUrl}/basic-list`)
+      this._http.get<BasicCard[]>(`${this.apiUrl}/basic-list`)
     );
   }
 }
