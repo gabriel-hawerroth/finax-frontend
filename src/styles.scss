@@ -549,6 +549,7 @@ mat-card-title {
 .home-page {
   .home-widget {
     border-radius: 1rem;
+    background-color: $primary-card-bg !important;
 
     .empty {
       width: 100%;
