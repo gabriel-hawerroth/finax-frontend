@@ -26,7 +26,12 @@
       }"
     >
       @for (item of spendsByCategory(); track $index) {
-      <div class="category">
+      <div
+        class="category"
+        [matTooltip]="currency() + (item.value | customCurrency)"
+        matTooltipPosition="below"
+        matTooltipShowDelay="200"
+      >
         <span
           class="material-symbols-outlined"
           [ngStyle]="{ 'background-color': item.category.color }"
