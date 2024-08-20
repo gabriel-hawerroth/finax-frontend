@@ -26,7 +26,12 @@
       }"
     >
       @for (item of spendsByCategory(); track $index) {
-      <div class="category">
+      <div
+        class="category"
+        [matTooltip]="currency() + (item.value | customCurrency)"
+        matTooltipPosition="below"
+        matTooltipShowDelay="200"
+      >
         <span
           class="material-symbols-outlined"
           [ngStyle]="{ 'background-color': item.category.color }"
@@ -36,7 +41,7 @@
 
         <span id="category-name">{{ item.category.name }}</span>
 
-        <span id="percent">{{ item.percent | customCurrency }}%</span>
+        <span id="percent">{{ item.percent }}%</span>
       </div>
 
       @if (isntLastItem($index)) {

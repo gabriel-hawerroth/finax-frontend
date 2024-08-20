@@ -14,6 +14,7 @@ import { ChartModule } from 'primeng/chart';
 import { SpendByCategory } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-home-spend-by-category-widget',
@@ -25,6 +26,7 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
     CustomCurrencyPipe,
     MatDividerModule,
     ChartModule,
+    MatTooltipModule,
   ],
   templateUrl: './home-spend-by-category-widget.component.html',
   styleUrl: './home-spend-by-category-widget.component.scss',
