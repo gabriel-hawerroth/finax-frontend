@@ -38,15 +38,22 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class UserSettingsPage implements OnInit, OnDestroy {
   private readonly _unsubscribeAll = new Subject<void>();
 
-  configsForm!: FormGroup;
-  userConfigs!: UserConfigs;
+  public readonly languagesList: string[] = [
+    'pt-BR',
+    'en-US',
+    'es-CO',
+    'de-DE',
+  ];
 
-  theme = signal<string>(this.utils.getUserConfigs.theme);
+  public readonly currenciesList: string[] = ['R$', '$', '€', '£', '¥'];
 
-  initError: boolean = false;
+  public configsForm!: FormGroup;
+  public userConfigs!: UserConfigs;
+
+  public theme = signal(this._utils.getUserConfigs.theme);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _userConfigsService: UserConfigsService
   ) {}
@@ -67,7 +74,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
   buidForm() {
     this.configsForm = this._fb.group({
       id: null,
-      userId: this.utils.getLoggedUser!.id,
+      userId: this._utils.getLoggedUser!.id,
       theme: 'light',
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-BR',
@@ -78,15 +85,9 @@ export class UserSettingsPage implements OnInit, OnDestroy {
   }
 
   getConfigs() {
-    this._userConfigsService
-      .getLoggedUserConfigs()
-      .then((response) => {
-        this.configsForm.patchValue(response);
-      })
-      .catch(() => {
-        this.saveConfigs();
-        this.initError = true;
-      });
+    this._userConfigsService.getLoggedUserConfigs().then((response) => {
+      this.configsForm.patchValue(response);
+    });
   }
 
   subscribeValueChanges() {
@@ -94,25 +95,12 @@ export class UserSettingsPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
       .subscribe((value) => {
         this.theme.set(value.theme);
-        this.utils.setUserConfigs(value);
+        this._utils.setUserConfigs(value);
+        this.saveConfigs();
       });
   }
 
   saveConfigs() {
-    this._userConfigsService
-      .save(this.configsForm.value)
-      .then((response) => {
-        if (this.initError) {
-          this.configsForm.patchValue(response);
-          this.getConfigs();
-        }
-      })
-      .catch(() => {
-        this.utils.showMessage('settings.error-saving');
-      });
+    this._userConfigsService.save(this.configsForm.getRawValue());
   }
-
-  languagesList: string[] = ['pt-BR', 'en-US', 'es-CO', 'de-DE'];
-
-  currenciesList: string[] = ['R$', '$', '€', '£', '¥'];
 }
