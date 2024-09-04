@@ -36,48 +36,30 @@ export class LoginService {
           return;
         }
 
+        if (!response.token || !response.user) {
+          this._utils.showMessage('login.error-getting-user');
+          return;
+        }
+
+        this._utils.updateLoggedUser(response.user);
+
+        if (credentials.rememberMe) {
+          this._utils.setItemLocalStorage(
+            'savedLoginFinax',
+            btoa(JSON.stringify(credentials))
+          );
+        } else {
+          this._utils.removeItemLocalStorage('savedLoginFinax');
+        }
+
+        if (!credentials.changedPassword) {
+          this._utils.showMessage('login.login-successfully');
+        } else {
+          this._utils.showMessage('change-password.changed-successfully');
+        }
+
         this.setToken(response.token);
-
-        await this._userService
-          .getTokenUser(response.token)
-          .then((user: User) => {
-            if (!user) {
-              this._utils.showMessage('login.error-getting-user');
-              return;
-            }
-
-            this._utils.updateLoggedUser(user);
-
-            this._userConfigsService
-              .getLoggedUserConfigs()
-              .then((response: UserConfigs) => {
-                this._utils.setUserConfigs(response);
-                this._utils.setItemLocalStorage(
-                  'savedUserConfigsFinax',
-                  JSON.stringify(response)
-                );
-              });
-
-            if (credentials.rememberMe) {
-              this._utils.setItemLocalStorage(
-                'savedLoginFinax',
-                btoa(JSON.stringify(credentials))
-              );
-            } else {
-              this._utils.removeItemLocalStorage('savedLoginFinax');
-            }
-
-            if (!credentials.changedPassword) {
-              this._utils.showMessage('login.login-successfully');
-            } else {
-              this._utils.showMessage('change-password.changed-successfully');
-            }
-
-            this._router.navigateByUrl('home');
-          })
-          .catch(() => {
-            this._utils.showMessage('login.error-getting-user');
-          });
+        this._router.navigateByUrl('home');
       })
       .catch((err) => {
         switch (err.error.errorDescription) {

@@ -54,11 +54,14 @@ export class UtilsService {
   }
 
   updateLoggedUser(user: User) {
+    this.username.next(user.firstName);
+
+    if (user.profileImage)
+      this.userImage.next(`${cloudFireCdnLink}/${user.profileImage}`);
+
     user.password = '';
     user.profileImage = undefined;
-
     this.setItemLocalStorage('userFinax', btoa(JSON.stringify(user)));
-    this.username.next(user.firstName);
   }
 
   get getUserConfigs(): UserConfigs {

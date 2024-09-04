@@ -25,8 +25,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this._utils.removeItemLocalStorage('savedUserConfigsFinax');
-
     this._utils.setDefaultLanguage();
   }
 }
