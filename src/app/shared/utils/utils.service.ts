@@ -13,7 +13,7 @@ import { ReleasesViewMode } from '../../core/enums/releases-view-mode';
 import { ReleaseFormDialog } from '../../main/pages/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
 import { ResponsiveService } from './responsive.service';
-import { cloudFireCdnLink } from './utils';
+import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
 
 @Injectable({
   providedIn: 'root',
@@ -37,10 +37,11 @@ export class UtilsService {
     this.username.next(this.getLoggedUser?.firstName || '');
   }
 
+  // user observables
   public readonly username = new BehaviorSubject<string>('');
 
   public readonly userImage = new BehaviorSubject<string>(
-    cloudFireCdnLink + '/imgs/user-image.webp'
+    cloudFireCdnImgsLink + 'user-image.webp'
   );
 
   private readonly userConfigs: BehaviorSubject<UserConfigs> =

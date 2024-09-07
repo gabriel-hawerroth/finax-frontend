@@ -73,15 +73,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.utils
       .getUserConfigsObservable()
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => {
-        this.darkThemeEnabled.set(value.theme === 'dark');
-      });
+      .subscribe((value) => this.darkThemeEnabled.set(value.theme === 'dark'));
   }
 
   getUserImage() {
     this._userService.getUserImage().then((response) => {
-      if (response)
-        this.utils.userImage.next(`${cloudFireCdnLink}/${response}`);
+      if (!response) return;
+
+      this.utils.userImage.next(`${cloudFireCdnLink}/${response}`);
     });
   }
 

@@ -5,10 +5,6 @@ import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UtilsService } from '../../../shared/utils/utils.service';
-import { UserConfigs } from '../user-configs/user-configs';
-import { UserConfigsService } from '../user-configs/user-configs.service';
-import { User } from '../user/user';
-import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { Credentials } from './credentials';
 
@@ -22,9 +18,7 @@ export class LoginService {
     private readonly _http: HttpClient,
     private readonly _router: Router,
     private readonly _utils: UtilsService,
-    private readonly _userConfigsService: UserConfigsService,
-    private readonly _authService: AuthService,
-    private readonly _userService: UserService
+    private readonly _authService: AuthService
   ) {}
 
   async login(credentials: Credentials) {
@@ -88,7 +82,6 @@ export class LoginService {
     this._utils.removeItemLocalStorage('tokenFinax');
     this._utils.removeItemLocalStorage('tokenExpiration');
     this._utils.removeItemLocalStorage('selectedMonthCashFlow');
-    this._utils.userImage.next('');
 
     if (showMessage) this._utils.showMessage('login.access-expired', 5000);
   }
