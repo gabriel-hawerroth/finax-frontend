@@ -84,7 +84,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
 
   getConfigs() {
     this._userConfigsService.getLoggedUserConfigs().then((response) => {
-      this.configsForm.patchValue(response);
+      this.configsForm.patchValue(response, {emitEvent: false});
     });
   }
 
