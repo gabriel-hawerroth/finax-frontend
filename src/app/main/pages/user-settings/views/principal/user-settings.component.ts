@@ -65,8 +65,6 @@ export class UserSettingsPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.saveConfigs();
-
     this._unsubscribeAll.complete();
     this._unsubscribeAll.unsubscribe();
   }
