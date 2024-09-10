@@ -44,7 +44,7 @@ export const authInterceptor: HttpInterceptorFn = (
 
         error.error.errorDescription = (
           error.error.errorDescription as string
-        ).toLowerCase();
+        )?.toLowerCase();
 
         return throwError(() => error);
       })
