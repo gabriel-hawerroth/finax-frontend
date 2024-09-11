@@ -15,7 +15,6 @@ import { User } from '../../../../../core/entities/user/user';
 import { EditUserDTO } from '../../../../../core/entities/user/user-dto';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { cloudFireCdnLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CancelAccountDialog } from '../../components/cancel-account-dialog/cancel-account-dialog.component';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';
@@ -111,36 +110,30 @@ export class MyProfilePage implements OnInit, OnDestroy {
     this._userService
       .saveUser(dto)
       .then(async (user: User) => {
-        this.utils.setItemLocalStorage('userFinax', btoa(JSON.stringify(user)));
-        this.utils.updateLoggedUser(user);
-
         if (this.changedProfileImg) {
           await this._userService
             .changeProfileImage(this.selectedProfileImage!)
             .then((user) => {
               this.utils.showMessage('my-profile.edited-successfully');
-              this.changedProfileImg = false;
-
-              this.utils.userImage.next(
-                `${cloudFireCdnLink}/${user.profileImage}`
-              );
+              this.utils.updateLoggedUser(user);
             })
-            .catch(() => {
+            .catch(() =>
               this.utils.showMessage(
                 'my-profile.edited-but-error-saving-picture'
-              );
-            });
+              )
+            );
         } else {
           this.utils.showMessage('my-profile.edited-successfully');
+          this.utils.updateLoggedUser(user);
         }
       })
       .catch(() => this.utils.showMessage('my-profile.error-saving'))
       .finally(() => {
         this.changedProfileImg = false;
         this.saving.set(false);
-      });
 
-    if (showingMessage) this.utils.dismissMessage();
+        if (showingMessage) this.utils.dismissMessage();
+      });
   }
 
   onFileSelected(event: any) {
