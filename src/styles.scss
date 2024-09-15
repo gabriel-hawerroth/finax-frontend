@@ -394,6 +394,11 @@ mat-card-title {
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+
+      .row {
+        display: flex;
+        justify-content: center;
+      }
     }
 
     .bottom {
@@ -498,21 +503,30 @@ mat-card-title {
 
     .title {
       display: flex;
-      justify-content: center;
-      font-size: 1.5rem;
+      flex-direction: column;
+      align-items: center;
       margin-bottom: 3rem;
-      font-weight: bold;
+
+      h2 {
+        font-weight: bold;
+        font-size: 2.4rem;
+      }
+
+      span {
+        font-size: 1.3rem;
+      }
     }
 
     .content {
       display: flex;
       flex-direction: column;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       text-align: justify;
       line-height: 1.8rem;
 
       p {
         margin-bottom: 1.2rem;
+        color: #343434;
       }
 
       .sub-title {

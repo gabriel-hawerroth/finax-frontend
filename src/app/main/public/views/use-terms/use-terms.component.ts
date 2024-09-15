@@ -1,5 +1,6 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { ButtonType } from '../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
@@ -9,7 +10,13 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-use-terms',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterModule, ButtonsComponent],
+  imports: [
+    CommonModule,
+    NgOptimizedImage,
+    RouterModule,
+    ButtonsComponent,
+    MatDividerModule,
+  ],
   templateUrl: './use-terms.component.html',
   styleUrl: './use-terms.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

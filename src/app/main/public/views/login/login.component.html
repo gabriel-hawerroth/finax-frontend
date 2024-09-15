@@ -18,7 +18,7 @@
     </div>
 
     <form [formGroup]="loginForm">
-      <div style="display: flex; justify-content: center">
+      <div class="row">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>{{ "generic.email" | translate }}</mat-label>
           <input
@@ -31,7 +31,7 @@
         </mat-form-field>
       </div>
 
-      <div style="display: flex; justify-content: center">
+      <div class="row">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>
             {{ "generic.password" | translate }}
@@ -45,7 +45,14 @@
         </mat-form-field>
       </div>
 
-      <div style="display: flex; justify-content: space-around; gap: 70px">
+      <div
+        class="row"
+        style="
+          justify-content: space-around !important;
+          align-items: center;
+          gap: 70px;
+        "
+      >
         <mat-checkbox formControlName="rememberMe">
           {{ "login.remember-me" | translate }}
         </mat-checkbox>
@@ -60,7 +67,7 @@
       </div>
     </form>
 
-    <div class="bottom" style="display: flex; justify-content: center">
+    <div class="row bottom">
       @if (showLoading()) {
       <mat-spinner [diameter]="40"></mat-spinner>
       } @else {

@@ -65,7 +65,10 @@
         "do-login": "Einloggen!",
         "sended-activate-link": "Konto erfolgreich erstellt, ein Aktivierungslink wurde an die E-Mail gesendet",
         "email-already-registered": "Diese E-Mail ist bereits registriert",
-        "error-creating-user": "Fehler beim Erstellen des Benutzers, kontaktieren Sie unseren Support"
+        "error-creating-user": "Fehler beim Erstellen des Benutzers, kontaktieren Sie unseren Support",
+        "read-and-agree": "Ich habe die gelesen und bin damit einverstanden",
+        "use-terms": "Nutzungsbedingungen",
+        "accept-terms": "Sie müssen die Nutzungsbedingungen akzeptieren"
     },
     "change-password": {
         "title": "Setze dein neues Passwort",

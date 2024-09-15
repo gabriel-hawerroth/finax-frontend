@@ -65,7 +65,10 @@
         "do-login": "Do login!",
         "sended-activate-link": "Account created successfully, an activation link has been sent to the email",
         "email-already-registered": "This email is already registered",
-        "error-creating-user": "Error creating the user, contact our support"
+        "error-creating-user": "Error creating the user, contact our support",
+        "read-and-agree": "I read and agree with the",
+        "use-terms": "Terms of use",
+        "accept-terms": "You must accept the terms of use"
     },
     "change-password": {
         "title": "Set your new password",

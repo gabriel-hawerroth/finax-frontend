@@ -65,7 +65,10 @@
         "do-login": "¡Inicia sesión!",
         "sended-activate-link": "Cuenta creada con éxito, se ha enviado un enlace de activación al correo electrónico",
         "email-already-registered": "Este correo electrónico ya está registrado",
-        "error-creating-user": "Error al crear el usuario, contacta a nuestro soporte"
+        "error-creating-user": "Error al crear el usuario, contacta a nuestro soporte",
+        "read-and-agree": "He leído y estoy de acuerdo con el",
+        "use-terms": "Condiciones de uso",
+        "accept-terms": "Debes aceptar los términos de uso"
     },
     "change-password": {
         "title": "Define tu nueva contraseña",

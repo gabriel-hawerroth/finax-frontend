@@ -11,6 +11,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -38,6 +39,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     NgOptimizedImage,
     TranslateModule,
     ButtonsComponent,
+    MatCheckboxModule,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
@@ -75,6 +77,7 @@ export class CreateAccountPage implements OnInit {
       ],
       firstName: ['', Validators.required],
       lastName: '',
+      useTerms: [false, Validators.requiredTrue],
     });
   }
 
@@ -84,6 +87,10 @@ export class CreateAccountPage implements OnInit {
       this.utils.showMessage(
         "generic.password-doesn't-meet-security-requirements"
       );
+      return;
+    } else if (this.userRegisterForm.get('useTerms')!.invalid) {
+      this.userRegisterForm.controls['useTerms'].markAsTouched();
+      this.utils.showMessage('create-account.accept-terms');
       return;
     } else if (this.userRegisterForm.invalid) {
       this.userRegisterForm.markAllAsTouched();

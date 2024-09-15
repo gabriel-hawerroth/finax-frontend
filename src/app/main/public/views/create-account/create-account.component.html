@@ -21,7 +21,7 @@
     </div>
 
     <form [formGroup]="userRegisterForm">
-      <div style="display: flex; justify-content: center">
+      <div class="row">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>{{ "generic.email" | translate }}</mat-label>
           <input
@@ -35,7 +35,7 @@
         </mat-form-field>
       </div>
 
-      <div style="display: flex; justify-content: center; gap: 0.3rem">
+      <div class="row" style="gap: 0.3rem">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>
             {{ "generic.password" | translate }}
@@ -59,7 +59,7 @@
         </mat-form-field>
       </div>
 
-      <div style="display: flex; justify-content: center; gap: 0.9rem">
+      <div class="row" style="gap: 0.9rem">
         <mat-form-field style="width: 32%" [hideRequiredMarker]="true">
           <mat-label>
             {{ "create-account.first-name" | translate }}
@@ -82,9 +82,19 @@
           />
         </mat-form-field>
       </div>
+
+      <div class="row" style="gap: 70px">
+        <mat-checkbox formControlName="useTerms">
+          {{ "create-account.read-and-agree" | translate }}
+
+          <span style="text-decoration: underline" routerLink="/termos-de-uso">
+            {{ "create-account.use-terms" | translate }}
+          </span>
+        </mat-checkbox>
+      </div>
     </form>
 
-    <div class="bottom">
+    <div class="row bottom">
       @if (showLoading()) {
       <mat-spinner [diameter]="40" color="primary"></mat-spinner>
       } @else {
