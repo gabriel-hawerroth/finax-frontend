@@ -1,5 +1,7 @@
 @import 'colors.scss';
 
+$grey: #616161;
+
 .release {
     padding: .7rem;
     display: flex;
@@ -37,19 +39,18 @@
 
             #account {
                 font-size: .9rem;
-                color: #616161;
+                color: $grey;
             }
         }
     }
 
     .date {
         width: 20%;
-        color: #616161;
     }
 
     .amount {
         width: 18%;
-        color: #616161;
+        color: $grey;
         display: flex;
         justify-content: end;
     }

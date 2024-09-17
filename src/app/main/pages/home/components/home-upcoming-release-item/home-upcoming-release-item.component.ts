@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  addHours,
+  isBefore,
+  isSameDay,
+  startOfDay,
+  startOfToday,
+} from 'date-fns';
 import { HomeUpcomingRelease } from '../../../../../core/entities/home-p/home-dto';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 
@@ -14,4 +21,15 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
 export class HomeUpcomingReleaseItemComponent {
   public readonly release = input.required<HomeUpcomingRelease>();
   public readonly currency = input.required<string>();
+
+  get isLate() {
+    return isBefore(
+      startOfDay(addHours(this.release().date, 3)),
+      startOfToday()
+    );
+  }
+
+  get isToday() {
+    return isSameDay(startOfToday(), addHours(this.release().date, 3));
+  }
 }
