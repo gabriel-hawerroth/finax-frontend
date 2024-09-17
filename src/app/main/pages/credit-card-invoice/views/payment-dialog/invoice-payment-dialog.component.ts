@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
+import { addHours } from 'date-fns';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { InvoicePaymentDialogData } from '../../../../../core/entities/invoice/invoice-payment-dto';
@@ -84,6 +85,11 @@ export class InvoicePaymentDialog implements OnInit {
     this.buildForm();
 
     if (this.data.payment) {
+      this.data.payment.paymentDate = addHours(
+        this.data.payment.paymentDate,
+        3
+      );
+
       this.form.patchValue(this.data.payment);
       this.paymentAccountChanges(this.form.value.paymentAccountId);
 
