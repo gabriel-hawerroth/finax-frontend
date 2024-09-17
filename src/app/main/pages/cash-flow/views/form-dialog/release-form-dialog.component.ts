@@ -31,7 +31,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { isAfter } from 'date-fns';
+import { isAfter, setHours } from 'date-fns';
 import moment from 'moment';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom } from 'rxjs';
@@ -231,6 +231,8 @@ export class ReleaseFormDialog implements OnInit {
 
     var requestError: boolean = false;
     this.saving.set(true);
+
+    release.date = setHours(release.date, 12);
 
     switch (saveAction) {
       case SaveAction.INSERT:
