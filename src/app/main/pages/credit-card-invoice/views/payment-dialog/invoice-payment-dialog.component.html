@@ -6,7 +6,12 @@
 >
   <div class="title">
     <h2>
-      {{ "invoice.payment.title" | translate }}
+      {{
+        (data.payment
+          ? "invoice.payment.editing-payment"
+          : "invoice.payment.title"
+        ) | translate
+      }}
     </h2>
 
     <app-buttons [showClose]="true" mat-dialog-close></app-buttons>
@@ -147,7 +152,7 @@
     <app-buttons
       [showGeneric]="true"
       [showLoading]="saving()"
-      genericLabel="invoice.pay"
+      [genericLabel]="data.payment ? 'actions.save' : 'invoice.pay'"
       (onGeneric)="save()"
     ></app-buttons>
   </div>

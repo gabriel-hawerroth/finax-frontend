@@ -53,7 +53,7 @@
             @if (monthValues().invoicePayments.length != 0) {
             <app-invoice-payments-card
               id="payments-card"
-              [payments]="monthValues().invoicePayments"
+              [payments]="monthValues().invoicePayments || []"
               [invoiceValue]="invoiceValues().value"
               (updateValues)="getMonthValues()"
               (editPayment)="payInvoice($event)"

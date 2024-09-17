@@ -262,7 +262,8 @@
             "error-saving": "Error al guardar el pago",
             "invalid-amount": "El importe de los pagos debe ser igual o inferior al importe de la factura",
             "error-deleting-attachment": "El pago se guardó, pero hubo un error al intentar eliminar el archivo adjunto",
-            "error-saving-attachment": "Se guardó el pago, pero se produjo un error al intentar guardar el archivo adjunto"
+            "error-saving-attachment": "Se guardó el pago, pero se produjo un error al intentar guardar el archivo adjunto",
+            "editing-payment": "Editando el pago"
         },
         "payments-card": {
             "title": "Pagos",

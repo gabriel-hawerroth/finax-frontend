@@ -262,7 +262,8 @@
             "error-saving": "Error saving payment",
             "invalid-amount": "The amount of payments must be equal to or less than the amount of the invoice",
             "error-deleting-attachment": "The payment was saved, but there was an error when trying to delete the attachment",
-            "error-saving-attachment": "The payment was saved, but there was an error trying to save the attachment"
+            "error-saving-attachment": "The payment was saved, but there was an error trying to save the attachment",
+            "editing-payment": "Editing payment"
         },
         "payments-card": {
             "title": "Payments",

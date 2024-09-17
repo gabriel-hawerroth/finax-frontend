@@ -262,7 +262,8 @@
             "error-saving": "Erro ao salvar o pagamento",
             "invalid-amount": "O valor dos pagamentos deve ser igual ou menor ao valor da fatura",
             "error-deleting-attachment": "O pagamento foi salvo porém houve um erro ao tentar excluir o anexo",
-            "error-saving-attachment": "O pagamento foi salvo porém houve um erro ao tentar salvar o anexo"
+            "error-saving-attachment": "O pagamento foi salvo porém houve um erro ao tentar salvar o anexo",
+            "editing-payment": "Editando pagamento"
         },
         "payments-card": {
             "title": "Pagamentos",

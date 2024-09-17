@@ -194,6 +194,8 @@ export class CreditCardInvoicePage implements OnInit {
             monthYear: format(this.selectedDate(), 'MM/yyyy'),
             payment: invoicePayment,
             expireDate: this.invoiceValues().expire,
+            invoiceValue: this.invoiceValues().value,
+            invoicePayments: this.monthValues().invoicePayments,
           },
         })
         .afterClosed()

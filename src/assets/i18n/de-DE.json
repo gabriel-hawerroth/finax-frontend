@@ -262,7 +262,8 @@
             "error-saving": "Fehler beim Speichern der Zahlung",
             "invalid-amount": "Der Betrag der Zahlungen muss gleich oder kleiner als der Rechnungsbetrag sein",
             "error-deleting-attachment": "Die Zahlung wurde gespeichert, aber beim Versuch, den Anhang zu löschen, ist ein Fehler aufgetreten",
-            "error-saving-attachment": "Die Zahlung wurde gespeichert, aber beim Versuch, den Anhang zu speichern, ist ein Fehler aufgetreten"
+            "error-saving-attachment": "Die Zahlung wurde gespeichert, aber beim Versuch, den Anhang zu speichern, ist ein Fehler aufgetreten",
+            "editing-payment": "Bearbeitung der Zahlung"
         },
         "payments-card": {
             "title": "Zahlungen",

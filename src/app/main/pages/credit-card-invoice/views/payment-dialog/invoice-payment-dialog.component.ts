@@ -120,10 +120,10 @@ export class InvoicePaymentDialog implements OnInit {
   }
 
   save() {
-    // if (this.form.value.paymentAmount > this.data.defaultPaymentAmount) {
-    //   this.utilsService.showMessage('invoice.payment.invalid-amount', 5000);
-    //   return;
-    // }
+    if (this.totalPaymentsValue > this.data.invoiceValue) {
+      this.utils.showMessage('invoice.payment.invalid-amount', 5000);
+      return;
+    }
 
     this.saving.set(true);
 
@@ -193,5 +193,15 @@ export class InvoicePaymentDialog implements OnInit {
     if (this.data.payment?.attachmentName) {
       this.removedFile = true;
     }
+  }
+
+  get totalPaymentsValue() {
+    return (
+      this.form.get('paymentAmount')!.value +
+      this.data.invoicePayments.reduce(
+        (amount, item) => (amount += item.paymentAmount),
+        0
+      )
+    );
   }
 }

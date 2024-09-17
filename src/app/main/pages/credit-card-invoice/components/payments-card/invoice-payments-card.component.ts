@@ -40,14 +40,9 @@ export class InvoicePaymentsCardComponent {
 
   currency = this.utils.getUserConfigs.currency;
 
-  totalValue = computed(() => {
-    const response = this.payments().reduce(
-      (count, item) => (count += item.paymentAmount),
-      0
-    );
-
-    return response;
-  });
+  totalValue = computed(() =>
+    this.payments().reduce((count, item) => (count += item.paymentAmount), 0)
+  );
 
   constructor(
     public readonly utils: UtilsService,

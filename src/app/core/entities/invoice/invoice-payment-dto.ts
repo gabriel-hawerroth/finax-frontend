@@ -21,4 +21,6 @@ export interface InvoicePaymentDialogData {
   monthYear: string;
   payment?: InvoicePaymentPerson;
   expireDate: Date;
+  invoiceValue: number;
+  invoicePayments: InvoicePaymentPerson[];
 }
