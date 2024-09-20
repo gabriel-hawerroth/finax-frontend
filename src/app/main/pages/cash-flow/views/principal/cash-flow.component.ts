@@ -12,7 +12,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
@@ -28,6 +28,7 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../components/releases-list/releases-list.component';
+import { CashFlowBalancesComponent } from '../../components/cash-flow-balances/cash-flow-balances.component';
 
 @Component({
   selector: 'app-cash-flow',
@@ -45,6 +46,7 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     ReleasesListComponent,
     ReleasesMonthPipe,
     MatDialogModule,
+    CashFlowBalancesComponent,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -77,7 +79,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
   constructor(
     public readonly utils: UtilsService,
-    private readonly _matDialog: MatDialog,
     private readonly _cashFlowService: ReleaseService
   ) {}
 
