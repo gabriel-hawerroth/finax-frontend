@@ -186,6 +186,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     const expectedBalance =
       monthlyFlow.releases
+        .filter((release) => release.type !== 'T')
         .map((item) => item.amount)
         .reduce((count, amount) => count + amount) || 0;
 
