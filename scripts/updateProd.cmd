@@ -1,3 +1,5 @@
+cd ..
+
 call npm run build:prod
 
 IF NOT %ERRORLEVEL% == 0 (

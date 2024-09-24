@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ..
+
 npm run build:prod
 
 # Verifica se o build foi bem-sucedido
