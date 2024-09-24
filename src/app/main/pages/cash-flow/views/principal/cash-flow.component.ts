@@ -184,11 +184,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     const expenses =
       expensesList.reduce((count, item) => count + item.amount, 0) || 0;
 
-    const expectedBalance =
-      monthlyFlow.releases
-        .filter((release) => release.type !== 'T')
-        .map((item) => item.amount)
-        .reduce((count, amount) => count + amount) || 0;
+    const expectedBalance = this.allRevenuesAmount - this.allExpensesAmount;
 
     return {
       revenues,
@@ -200,5 +196,23 @@ export class CashFlowPage implements OnInit, OnDestroy {
         0
       ),
     };
+  }
+
+  get allRevenuesAmount(): number {
+    return (
+      this.monthlyValues()
+        .releases.filter((release) => release.type === 'R')
+        .map((item) => item.amount)
+        .reduce((count, amount) => count + amount) || 0
+    );
+  }
+
+  get allExpensesAmount(): number {
+    return (
+      this.monthlyValues()
+        .releases.filter((release) => release.type === 'E')
+        .map((item) => item.amount)
+        .reduce((count, amount) => count + amount) || 0
+    );
   }
 }
