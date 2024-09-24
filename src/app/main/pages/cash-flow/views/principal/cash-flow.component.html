@@ -122,15 +122,20 @@
           </span>
 
           <span>
-            {{ "cash-flow.balance" | translate }}: {{ currency
+            {{ "cash-flow.actual-balance" | translate }}: {{ currency
             }}{{ totals().balance | customCurrency }}
+          </span>
+
+          <span>
+            {{ "cash-flow.expected-balance" | translate }}: {{ currency
+            }}{{ totals().expectedBalance | customCurrency }}
           </span>
         </div>
 
         @if (viewModeCtrl.value === 'invoice') {
         <div class="row2">
           <span>
-            {{ "cash-flow.general-balance" | translate }}: {{ currency
+            {{ "cash-flow.general-account-balance" | translate }}: {{ currency
             }}{{ totals().generalBalance || 0 | customCurrency }}
           </span>
 

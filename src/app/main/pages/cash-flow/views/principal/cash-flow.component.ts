@@ -73,9 +73,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
   viewModeCtrl: FormControl = new FormControl<string>('RELEASES');
 
-  totals = computed(() => {
-    return this.calculateValues(this.monthlyValues());
-  });
+  totals = computed(() => this.calculateValues(this.monthlyValues()));
 
   constructor(
     public readonly utils: UtilsService,
@@ -124,15 +122,9 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     this._cashFlowService
       .getMonthlyFlow(this.selectedDate)
-      .then((response) => {
-        this.monthlyValues.set(response);
-      })
-      .catch(() => {
-        this.utils.showMessage('cash-flow.error-getting-releases');
-      })
-      .finally(() => {
-        this.searching.set(false);
-      });
+      .then((response) => this.monthlyValues.set(response))
+      .catch(() => this.utils.showMessage('cash-flow.error-getting-releases'))
+      .finally(() => this.searching.set(false));
   }
 
   getValues() {
@@ -192,10 +184,16 @@ export class CashFlowPage implements OnInit, OnDestroy {
     const expenses =
       expensesList.reduce((count, item) => count + item.amount, 0) || 0;
 
+    const expectedBalance =
+      monthlyFlow.releases
+        .map((item) => item.amount)
+        .reduce((count, amount) => count + amount) || 0;
+
     return {
       revenues,
       expenses,
       balance: revenues - expenses,
+      expectedBalance,
       generalBalance: this.accounts.reduce(
         (count, item) => count + item.balance,
         0
