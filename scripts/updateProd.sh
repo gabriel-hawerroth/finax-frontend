@@ -16,6 +16,8 @@ git checkout develop
 git pull origin develop
 
 git checkout main
+git pull origin main
+
 git merge origin/develop
 git push origin main
 git checkout develop
