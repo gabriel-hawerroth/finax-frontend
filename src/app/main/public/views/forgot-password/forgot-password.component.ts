@@ -89,6 +89,9 @@ export class ForgotPasswordPage implements OnInit {
           case 'entity not found':
             this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
             break;
+          case 'error sending email':
+            this.utils.showMessage('forgot-password.error-sending-email', 4500);
+            break;
           default:
             this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
         }
