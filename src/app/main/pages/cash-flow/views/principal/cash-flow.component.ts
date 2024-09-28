@@ -27,8 +27,8 @@ import { ReleaseService } from '../../../../../core/entities/release/release.ser
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { ReleasesListComponent } from '../../components/releases-list/releases-list.component';
 import { CashFlowBalancesComponent } from '../../components/cash-flow-balances/cash-flow-balances.component';
+import { ReleasesListComponent } from '../../components/releases-list/releases-list.component';
 
 @Component({
   selector: 'app-cash-flow',
@@ -199,20 +199,22 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   get allRevenuesAmount(): number {
-    return (
-      this.monthlyValues()
-        .releases.filter((release) => release.type === 'R')
-        .map((item) => item.amount)
-        .reduce((count, amount) => count + amount) || 0
-    );
+    const amounts = this.monthlyValues()
+      .releases.filter((release) => release.type === 'R')
+      .map((item) => item.amount);
+
+    if (amounts.length === 0) return 0;
+
+    return amounts.reduce((count, amount) => count + amount) || 0;
   }
 
   get allExpensesAmount(): number {
-    return (
-      this.monthlyValues()
-        .releases.filter((release) => release.type === 'E')
-        .map((item) => item.amount)
-        .reduce((count, amount) => count + amount) || 0
-    );
+    const amounts = this.monthlyValues()
+      .releases.filter((release) => release.type === 'E')
+      .map((item) => item.amount);
+
+    if (amounts.length === 0) return 0;
+
+    return amounts.reduce((count, amount) => count + amount) || 0;
   }
 }
