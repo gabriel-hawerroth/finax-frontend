@@ -11,7 +11,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import {
-  HomeAccount,
   HomeBalances,
   HomeUpcomingRelease,
 } from '../../../../../core/entities/home-p/home-dto';
@@ -58,7 +57,6 @@ export class HomePage implements OnInit, OnDestroy {
     revenues: 0,
     expenses: 0,
   });
-  accountsList = signal<HomeAccount[]>([]);
   upcomingReleases = signal<HomeUpcomingRelease[]>([]);
 
   generalBalance: number = 0;
@@ -91,20 +89,9 @@ export class HomePage implements OnInit, OnDestroy {
       .getRevenueExpense()
       .then((response) => this.balances.set(response));
 
-    this._homeService.getAccountsList().then((response) => {
-      this.accountsList.set(response);
-
-      this.generalBalance = response.reduce(
-        (count, item) => count + item.balance,
-        0
-      );
-    });
-
     this._homeService
       .getUpcomingReleases()
       .then((response) => this.upcomingReleases.set(response));
-
-    this._homeService;
   }
 
   getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingRelease[] {
