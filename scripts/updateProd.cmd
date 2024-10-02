@@ -18,10 +18,10 @@ git merge origin/develop
 git push origin main
 git checkout develop
 
-ssh root@147.79.81.13 "pm2 delete ssr.finax"
+ssh ubuntu@64.181.177.7 "pm2 delete ssr.finax"
 
-ssh root@147.79.81.13 "rm -rf /var/www/html/finax/*"
+ssh ubuntu@64.181.177.7 "rm -rf /home/ubuntu/finax_builds/front/*"
 
-scp -r dist/finax-front/* root@147.79.81.13:/var/www/html/finax/
+scp -r dist/finax-front/* ubuntu@64.181.177.7:/home/ubuntu/finax_builds/front/
 
-ssh root@147.79.81.13 "/root/start_finax.sh"
+ssh ubuntu@64.181.177.7 "/home/ubuntu/start_scripts/start_finax.sh"
