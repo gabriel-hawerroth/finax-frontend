@@ -24,6 +24,12 @@ export interface HomeUpcomingRelease {
   amount: number;
 }
 
+export interface SpendByCategoryOutput {
+  spendByCategories: SpendByCategory[];
+  startDate: Date;
+  endDate: Date;
+}
+
 export interface SpendByCategory {
   category: Category;
   percent: number;

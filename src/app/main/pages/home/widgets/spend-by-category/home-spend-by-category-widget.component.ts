@@ -44,12 +44,8 @@ export class HomeSpendByCategoryWidget implements OnInit {
   spendsByCategory = signal<SpendByCategory[]>([]);
 
   currentDt = new Date();
-  firstDt = new Date(this.currentDt.setDate(1));
-  lastDt = new Date(
-    new Date(this.currentDt.setMonth(this.currentDt.getMonth() + 1)).setDate(
-      1 - 1
-    )
-  ).toString();
+  firstDt = signal(new Date());
+  lastDt = signal(new Date());
 
   data!: ChartData;
   options!: ChartOptions;
@@ -86,7 +82,10 @@ export class HomeSpendByCategoryWidget implements OnInit {
     this._homeService
       .getSpendsByCategory(dateInterval || this.dateInterval.value!)
       .then((response) => {
-        this.spendsByCategory.set(response);
+        this.spendsByCategory.set(response.spendByCategories);
+
+        this.firstDt.set(response.startDate);
+        this.lastDt.set(response.endDate);
 
         this.data = {
           datasets: [

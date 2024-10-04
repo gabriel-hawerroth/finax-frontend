@@ -9,7 +9,7 @@ import {
   HomeBalances,
   HomeCreditCard,
   HomeUpcomingRelease,
-  SpendByCategory,
+  SpendByCategoryOutput,
 } from './home-dto';
 
 @Injectable({
@@ -42,12 +42,12 @@ export class HomeService {
 
   getSpendsByCategory(
     interval: SpendByCategoryInterval
-  ): Promise<SpendByCategory[]> {
+  ): Promise<SpendByCategoryOutput> {
     let params = new HttpParams();
     params = params.append('interval', interval);
 
     return lastValueFrom(
-      this._http.get<SpendByCategory[]>(
+      this._http.get<SpendByCategoryOutput>(
         `${this.apiUrl}/get-spends-by-category`,
         { params }
       )
