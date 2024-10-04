@@ -8,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -24,6 +25,7 @@ import {
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -47,6 +49,8 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     ReleasesMonthPipe,
     MatDialogModule,
     CashFlowBalancesComponent,
+    ButtonsComponent,
+    MatBadgeModule,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -74,6 +78,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
   viewModeCtrl: FormControl = new FormControl<string>('RELEASES');
 
   totals = computed(() => this.calculateValues(this.monthlyValues()));
+
+  totalAppliedFilters = signal<number>(0);
 
   constructor(
     public readonly utils: UtilsService,

@@ -46,33 +46,18 @@
           </div>
 
           <div class="right">
-            <!-- <button
-              mat-stroked-button
-              color="primary"
-              [mat-menu-trigger-for]="changeViewMode"
-            >
-              <div class="btn-content">
-                <span class="material-symbols-outlined">sync_alt</span>
-              </div>
-            </button>
-
-            <mat-menu #changeViewMode="matMenu" xPosition="before">
-              <div class="change-view-mode">
-                <span id="title">
-                  {{ "cash-flow.view-mode.title" | translate }}
-                </span>
-
-                <mat-button-toggle-group [formControl]="viewModeCtrl">
-                  <mat-button-toggle value="INVOICE">
-                    {{ "cash-flow.view-mode.invoices-opt" | translate }}
-                  </mat-button-toggle>
-
-                  <mat-button-toggle value="RELEASES">
-                    {{ "cash-flow.view-mode.releases-opt" | translate }}
-                  </mat-button-toggle>
-                </mat-button-toggle-group>
-              </div>
-            </mat-menu> -->
+            <!-- <app-buttons
+              [showGeneric]="true"
+              genericIcon="filter_list"
+              genericLabel="filters.filter"
+              [btnStyle]="{
+                transform: 'scale(0.9)',
+                position: 'relative',
+                top: '.7rem',
+                right: '1rem'
+              }"
+              [matBadge]="totalAppliedFilters()"
+            ></app-buttons> -->
           </div>
         </div>
 

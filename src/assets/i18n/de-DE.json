@@ -205,6 +205,7 @@
         "title": "Symbol auswählen"
     },
     "filters": {
+        "filter": "Filter",
         "filter-by": "Filtern nach",
         "situation": "Situation",
         "all": "Alle",

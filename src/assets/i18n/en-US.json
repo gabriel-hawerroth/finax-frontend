@@ -205,6 +205,7 @@
         "title": "Select an icon"
     },
     "filters": {
+        "filter": "Filter",
         "filter-by": "Filter by",
         "situation": "situation",
         "all": "All",

@@ -205,6 +205,7 @@
         "title": "Selecciona un ícono"
     },
     "filters": {
+        "filter": "Filtrar",
         "filter-by": "Filtrar por",
         "situation": "situación",
         "all": "Todas",
