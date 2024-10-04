@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { SpendByCategoryInterval } from '../../enums/spend-by-category-interval';
 import {
   EssentialExpenses,
   HomeAccount,
@@ -39,9 +40,17 @@ export class HomeService {
     );
   }
 
-  getSpendsByCategory(): Promise<SpendByCategory[]> {
+  getSpendsByCategory(
+    interval: SpendByCategoryInterval
+  ): Promise<SpendByCategory[]> {
+    let params = new HttpParams();
+    params = params.append('interval', interval);
+
     return lastValueFrom(
-      this._http.get<SpendByCategory[]>(`${this.apiUrl}/get-spends-by-category`)
+      this._http.get<SpendByCategory[]>(
+        `${this.apiUrl}/get-spends-by-category`,
+        { params }
+      )
     );
   }
 

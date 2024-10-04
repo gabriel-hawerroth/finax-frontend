@@ -113,7 +113,10 @@
         "credit-cards": "Cartões de crédito",
         "available": "Disponível",
         "current-invoice": "Fatura atual",
-        "empty-credit-cards-list": "Nenhum cartão cadastrado"
+        "empty-credit-cards-list": "Nenhum cartão cadastrado",
+        "last-30-days": "Últimos 30 dias",
+        "current-month": "Mês atual",
+        "date-interval": "Intervalo de datas"
     },
     "cash-flow": {
         "title": "Fluxo de caixa",

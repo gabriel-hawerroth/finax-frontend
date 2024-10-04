@@ -113,7 +113,10 @@
         "credit-cards": "Kreditkarten",
         "available": "Verfügbar",
         "current-invoice": "Aktuelle Rechnung",
-        "empty-credit-cards-list": "Es sind keine Karten registriert"
+        "empty-credit-cards-list": "Es sind keine Karten registriert",
+        "last-30-days": "Letzte 30 Tage",
+        "current-month": "Aktueller Monat",
+        "date-interval": "Datumsintervall"
     },
     "cash-flow": {
         "title": "Kassenfluss",

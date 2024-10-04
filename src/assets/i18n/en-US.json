@@ -113,7 +113,10 @@
         "credit-cards": "Credit cards",
         "available": "Available",
         "current-invoice": "Current invoice",
-        "empty-credit-cards-list": "No cards registered"
+        "empty-credit-cards-list": "No cards registered",
+        "last-30-days": "Last 30 days",
+        "current-month": "Current month",
+        "date-interval": "Date interval"
     },
     "cash-flow": {
         "title": "Cash Flow",

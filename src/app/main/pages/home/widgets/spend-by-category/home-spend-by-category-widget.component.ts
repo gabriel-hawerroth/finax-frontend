@@ -6,15 +6,18 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
 import { SpendByCategory } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
+import { SpendByCategoryInterval } from '../../../../../core/enums/spend-by-category-interval';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-home-spend-by-category-widget',
@@ -27,6 +30,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDividerModule,
     ChartModule,
     MatTooltipModule,
+    ReactiveFormsModule,
+    MatSelectModule,
   ],
   templateUrl: './home-spend-by-category-widget.component.html',
   styleUrl: './home-spend-by-category-widget.component.scss',
@@ -49,43 +54,53 @@ export class HomeSpendByCategoryWidget implements OnInit {
   data!: ChartData;
   options!: ChartOptions;
 
+  dateInterval = new FormControl<SpendByCategoryInterval>(
+    SpendByCategoryInterval.LAST_30_DAYS
+  );
+
   constructor(private _homeService: HomeService) {}
 
   ngOnInit(): void {
-    this._homeService.getSpendsByCategory().then((response) => {
-      this.spendsByCategory.set(response);
+    this.getSpends();
 
-      this.data = {
-        datasets: [
-          {
-            data: this.spendsByCategory().map((exp) => exp.value),
-            backgroundColor: this.spendsByCategory().map(
-              (exp) => exp.category.color
-            ),
-            borderColor: this.theme() === 'dark' ? '#dededeea' : '#fff',
+    this.options = {
+      plugins: {
+        legend: {
+          labels: {
+            usePointStyle: true,
+            color: this.theme() === 'dark' ? '#e5e5e5' : '#000',
           },
-        ],
-        labels: this.spendsByCategory().map((exp) => exp.category.name),
-      };
-
-      this.options = {
-        plugins: {
-          legend: {
-            labels: {
-              usePointStyle: true,
-              color: this.theme() === 'dark' ? '#e5e5e5' : '#000',
-            },
-          },
-          tooltip: {
-            callbacks: {
-              label: (data) => {
-                return ` ${this.currency()}${data.formattedValue}`;
-              },
+        },
+        tooltip: {
+          callbacks: {
+            label: (data) => {
+              return ` ${this.currency()}${data.formattedValue}`;
             },
           },
         },
-      };
-    });
+      },
+    };
+  }
+
+  getSpends(dateInterval?: SpendByCategoryInterval) {
+    this._homeService
+      .getSpendsByCategory(dateInterval || this.dateInterval.value!)
+      .then((response) => {
+        this.spendsByCategory.set(response);
+
+        this.data = {
+          datasets: [
+            {
+              data: this.spendsByCategory().map((exp) => exp.value),
+              backgroundColor: this.spendsByCategory().map(
+                (exp) => exp.category.color
+              ),
+              borderColor: this.theme() === 'dark' ? '#dededeea' : '#fff',
+            },
+          ],
+          labels: this.spendsByCategory().map((exp) => exp.category.name),
+        };
+      });
   }
 
   isntLastItem(index: number) {
@@ -94,5 +109,13 @@ export class HomeSpendByCategoryWidget implements OnInit {
 
   get hasMoreThenFourCategories() {
     return this.spendsByCategory().length > 4;
+  }
+
+  getIntervalEnum(interval: 'LAST_30_DAYS' | 'CURRENT_MONTH') {
+    return SpendByCategoryInterval[interval];
+  }
+
+  onChangeDateInterval(newValue: SpendByCategoryInterval) {
+    this.getSpends(newValue);
   }
 }

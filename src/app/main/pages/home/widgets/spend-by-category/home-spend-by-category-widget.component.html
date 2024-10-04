@@ -10,6 +10,27 @@
         {{ lastDt | date : "dd/MM/yyyy" }}
       </span>
     </mat-card-title>
+
+    <span class="date-interval">
+      <mat-form-field>
+        <mat-label>
+          {{ "home.date-interval" | translate }}
+        </mat-label>
+
+        <mat-select
+          [formControl]="dateInterval"
+          (valueChange)="onChangeDateInterval($event)"
+        >
+          <mat-option [value]="getIntervalEnum('LAST_30_DAYS')">
+            {{ "home.last-30-days" | translate }}
+          </mat-option>
+
+          <mat-option [value]="getIntervalEnum('CURRENT_MONTH')">
+            {{ "home.current-month" | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </span>
   </mat-card-header>
 
   <mat-card-content
