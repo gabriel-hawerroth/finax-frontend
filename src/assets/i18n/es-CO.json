@@ -106,7 +106,7 @@
         "whitout-payble-accounts": "No tienes cuentas a pagar",
         "whitout-receivable-accounts": "No tienes cuentas a cobrar",
         "spend-by-category": "Gasto por categoría",
-        "no-expense-current-month": "No se han realizado gastos en el mes en curso",
+        "no-expense-in-selected-interval": "No se ha realizado ningún gasto en el intervalo seleccionado",
         "financial-balance": "Balance financiero",
         "essential-expenses": "Gastos Esenciales",
         "non-essential-expenses": "Gastos no esenciales",

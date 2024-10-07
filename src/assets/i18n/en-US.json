@@ -106,7 +106,7 @@
         "whitout-payble-accounts": "You don't have any accounts payable",
         "whitout-receivable-accounts": "You don't have any accounts receivable",
         "spend-by-category": "Spending by category",
-        "no-expense-current-month": "No expenses made in the current month",
+        "no-expense-in-selected-interval": "No spend made in the selected interval",
         "financial-balance": "Financial balance",
         "essential-expenses": "Essential expenses",
         "non-essential-expenses": "Non-essential expenses",
