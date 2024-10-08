@@ -12,5 +12,19 @@ export interface ButtonConfig {
   loading?: boolean;
   style?: { [key: string]: string };
   contentStyle?: { [key: string]: string };
+  preConfig?: ButtonPreConfig;
+  gen?: 'M' | 'F';
   onClick?: () => void;
+}
+
+export enum ButtonPreConfig {
+  NEW = 'new',
+  SAVE = 'save',
+  DELETE = 'delete',
+  EDIT = 'edit',
+  CANCEL = 'cancel',
+  DOWNLOAD = 'download',
+  CLOSE = 'close',
+  GO_BACK = 'go-back',
+  CHANGE_PASSWORD = 'change-password',
 }

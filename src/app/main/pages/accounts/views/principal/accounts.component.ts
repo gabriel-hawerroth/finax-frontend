@@ -18,10 +18,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
 import { BankAccountDetailsData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { BankAccountDetailsComponent } from '../details/account-details.component';
+import { AppButtonComponent } from '../../../../../shared/components/app-buttons/app-button/app-button.component';
+import {
+  ButtonConfig,
+  ButtonPreConfig,
+} from '../../../../../core/interfaces/button-config';
 
 @Component({
   selector: 'app-accounts',
@@ -29,14 +33,13 @@ import { BankAccountDetailsComponent } from '../details/account-details.componen
   imports: [
     CommonModule,
     NgOptimizedImage,
-    RouterModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatBottomSheetModule,
     MatCardModule,
-    ButtonsComponent,
     TranslateModule,
+    AppButtonComponent,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
@@ -49,6 +52,11 @@ export class MyBankAccountsPage implements OnInit {
 
   rows: Account[] = [];
   filteredRows = signal<Account[]>([]);
+
+  newBtnConfig: ButtonConfig = {
+    preConfig: ButtonPreConfig.NEW,
+    onClick: () => this.onNew(),
+  };
 
   constructor(
     public utils: UtilsService,
@@ -79,7 +87,7 @@ export class MyBankAccountsPage implements OnInit {
   }
 
   onNew() {
-    this._router.navigateByUrl('contas/novo');
+    this._router.navigateByUrl('contas/nova');
   }
 
   openDetails(account: Account) {
