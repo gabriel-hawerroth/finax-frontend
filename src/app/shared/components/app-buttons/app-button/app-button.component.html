@@ -1,0 +1,124 @@
+@switch (config().type) {
+<!---->
+@case (getBtnStyle('basic')) {
+<button
+  mat-button
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="config().style"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    [label]="config().label || ''"
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('raised')) {
+<button
+  mat-raised-button
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="config().style"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    [label]="config().label || ''"
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('stroked')) {
+<button
+  mat-stroked-button
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="config().style"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    [label]="config().label || ''"
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('flat')) {
+<button
+  mat-flat-button
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="config().style"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    [label]="config().label || ''"
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('icon')) {
+<button
+  mat-icon-button
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="getIconBtnStyle"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    label=""
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('fab')) {
+<button
+  mat-fab
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="config().style"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    label=""
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('mini-fab')) {
+<button
+  mat-mini-fab
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="config().style"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    label=""
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+@case (getBtnStyle('extended-fab')) {
+<button
+  mat-fab
+  extended
+  [disabled]="config().disabled || config().loading"
+  [ngStyle]="config().style"
+  (click)="config().onClick?.()"
+>
+  <btn-content
+    [label]="config().label || ''"
+    [icon]="config().icon || ''"
+    [contentStyle]="config().contentStyle"
+    [loading]="config().loading"
+  ></btn-content>
+</button>
+}<!---->
+}

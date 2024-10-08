@@ -1,0 +1,5 @@
+<div class="form-buttons">
+  @for (button of config().buttons; track $index) {
+  <app-button [config]="button"></app-button>
+  }
+</div>

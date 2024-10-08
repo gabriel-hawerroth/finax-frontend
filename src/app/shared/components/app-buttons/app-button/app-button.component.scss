@@ -1,0 +1,7 @@
+button {
+    width: 100%;
+
+    &:not(.mdc-icon-button) {
+        padding: 1.6rem;
+    }
+}

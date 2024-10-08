@@ -1,12 +1,15 @@
+@if (loading()) {
+<mat-spinner [diameter]="30"></mat-spinner>
+} @else {
 <div class="btn-content" [ngStyle]="contentStyle()">
   @if (icon()) {
   <span class="material-symbols-outlined">
     {{ icon() }}
   </span>
-  } @if ((responsiveService.largeWidth() || responsiveService.veryLargeWith() ||
-  !icon()) && label()) {
+  } @if (showLabel) {
   <span>
-    {{ label() | translate }}
+    {{ label()! | translate }}
   </span>
   }
 </div>
+}

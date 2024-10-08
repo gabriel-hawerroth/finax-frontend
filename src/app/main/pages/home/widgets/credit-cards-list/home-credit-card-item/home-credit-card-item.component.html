@@ -45,10 +45,9 @@
   </div>
 
   <div class="action">
-    <app-buttons
+    <app-button
       [routerLink]="'/cartoes-de-credito/fatura/' + card().cardId"
-      [showGeneric]="true"
-      genericLabel="credit-cards.see-invoice"
-    ></app-buttons>
+      [config]="btnConfig"
+    ></app-button>
   </div>
 </div>
