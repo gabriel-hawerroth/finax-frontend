@@ -196,9 +196,17 @@ export class InvoicePaymentDialog implements OnInit {
   }
 
   get totalPaymentsValue() {
+    const curPayment = this.form.getRawValue();
+
+    const invoicePayments = this.data.invoicePayments.filter(
+      (payment) => payment.id != curPayment.id
+    );
+
+    if (invoicePayments.length === 0) return curPayment.paymentAmount;
+
     return (
-      this.form.get('paymentAmount')!.value +
-      this.data.invoicePayments.reduce(
+      curPayment.paymentAmount +
+      invoicePayments.reduce(
         (amount, item) => (amount += item.paymentAmount),
         0
       )
