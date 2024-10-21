@@ -23,11 +23,7 @@
 
         <div class="amount">
           <span>
-            {{
-              currency() +
-                (card().cardLimit - card().currentInvoiceAmount
-                  | customCurrency)
-            }}
+            {{ currency() + (cardAvailableLimit | customCurrency) }}
           </span>
         </div>
       </div>

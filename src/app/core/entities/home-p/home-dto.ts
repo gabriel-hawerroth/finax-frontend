@@ -51,4 +51,5 @@ export interface HomeCreditCard {
   cardImage: string;
   cardLimit: number;
   currentInvoiceAmount: number;
+  nextInvoicesAmount: number;
 }

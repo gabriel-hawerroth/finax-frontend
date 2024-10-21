@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomeCreditCard } from '../../../../../../core/entities/home-p/home-dto';
+import { ButtonConfig } from '../../../../../../core/interfaces/button-config';
+import { AppButtonComponent } from '../../../../../../shared/components/app-buttons/app-button/app-button.component';
 import { CustomCurrencyPipe } from '../../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../../shared/utils/utils';
-import { AppButtonComponent } from '../../../../../../shared/components/app-buttons/app-button/app-button.component';
-import { ButtonConfig } from '../../../../../../core/interfaces/button-config';
 
 @Component({
   selector: 'app-home-credit-card-item',
@@ -32,4 +32,12 @@ export class HomeCreditCardItemComponent {
   btnConfig: ButtonConfig = {
     label: 'credit-cards.see-invoice',
   };
+
+  get cardAvailableLimit(): number {
+    return (
+      this.card().cardLimit -
+      this.card().currentInvoiceAmount -
+      this.card().nextInvoicesAmount
+    );
+  }
 }
