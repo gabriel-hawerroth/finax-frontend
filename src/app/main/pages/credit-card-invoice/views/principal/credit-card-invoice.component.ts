@@ -18,7 +18,7 @@ import {
   isBefore,
   isValid,
   parse,
-  setDay,
+  setDate,
   toDate,
 } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
@@ -80,7 +80,7 @@ export class CreditCardInvoicePage implements OnInit {
     previousBalance: 0,
   });
 
-  selectedDate = signal(addMonths(setDay(new Date(), 15), 1));
+  selectedDate = signal(addMonths(setDate(new Date(), 15), 1));
   currentYear: string = this.selectedDate().getFullYear().toString();
 
   searching = signal(false);
