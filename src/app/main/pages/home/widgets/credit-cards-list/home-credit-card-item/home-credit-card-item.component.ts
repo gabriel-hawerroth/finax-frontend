@@ -34,10 +34,11 @@ export class HomeCreditCardItemComponent {
   };
 
   get cardAvailableLimit(): number {
-    return (
+    const availableLimit =
       this.card().cardLimit -
       this.card().currentInvoiceAmount -
-      this.card().nextInvoicesAmount
-    );
+      this.card().nextInvoicesAmount;
+
+    return Math.max(0, availableLimit);
   }
 }
