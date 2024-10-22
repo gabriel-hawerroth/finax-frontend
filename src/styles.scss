@@ -303,6 +303,14 @@ mat-card-title {
     color: #e6e6e6;
   }
 
+  .policy {
+    .content {
+      p {
+        color: $dark-font-color !important;
+      }
+    }
+  }
+
   .mdc-floating-label {
     color: #e6e6e6 !important;
   }
