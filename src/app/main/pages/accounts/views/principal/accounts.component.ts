@@ -13,19 +13,19 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
 import { BankAccountDetailsData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { BankAccountDetailsComponent } from '../details/account-details.component';
-import { AppButtonComponent } from '../../../../../shared/components/app-buttons/app-button/app-button.component';
 import {
   ButtonConfig,
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
+import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
+import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { BankAccountDetailsComponent } from '../details/account-details.component';
 
 @Component({
   selector: 'app-accounts',
@@ -39,7 +39,7 @@ import {
     MatBottomSheetModule,
     MatCardModule,
     TranslateModule,
-    AppButtonComponent,
+    DynamicButtonComponent,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',

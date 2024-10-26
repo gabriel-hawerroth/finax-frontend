@@ -1,25 +1,24 @@
+import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   input,
   OnInit,
   signal,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ButtonType } from '../../../../core/enums/button-style';
 import {
   ButtonConfig,
   ButtonPreConfig,
 } from '../../../../core/interfaces/button-config';
 import { getBtnStyle } from '../../../utils/utils';
-import { CommonModule } from '@angular/common';
-import { BtnContentComponent } from '../../btn-content/btn-content.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ButtonType } from '../../../../core/enums/button-style';
 import { UtilsService } from '../../../utils/utils.service';
+import { BtnContentComponent } from '../../btn-content/btn-content.component';
 
 @Component({
-  selector: 'app-button',
+  selector: 'dynamic-button',
   standalone: true,
   imports: [
     CommonModule,
@@ -27,11 +26,11 @@ import { UtilsService } from '../../../utils/utils.service';
     MatButtonModule,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './app-button.component.html',
-  styleUrl: './app-button.component.scss',
+  templateUrl: './dynamic-button.component.html',
+  styleUrl: './dynamic-button.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppButtonComponent implements OnInit {
+export class DynamicButtonComponent implements OnInit {
   config = input.required<ButtonConfig>();
 
   getBtnStyle = getBtnStyle;

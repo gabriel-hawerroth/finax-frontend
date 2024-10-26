@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomeCreditCard } from '../../../../../../core/entities/home-p/home-dto';
 import { ButtonConfig } from '../../../../../../core/interfaces/button-config';
-import { AppButtonComponent } from '../../../../../../shared/components/app-buttons/app-button/app-button.component';
+import { DynamicButtonComponent } from '../../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../../shared/utils/utils';
 
@@ -17,7 +17,7 @@ import { cloudFireCdnImgsLink } from '../../../../../../shared/utils/utils';
     TranslateModule,
     CustomCurrencyPipe,
     RouterModule,
-    AppButtonComponent,
+    DynamicButtonComponent,
   ],
   templateUrl: './home-credit-card-item.component.html',
   styleUrl: './home-credit-card-item.component.scss',
