@@ -23,7 +23,10 @@
         "without-permission": "Sie haben keine Berechtigung für den Zugriff auf diesen Bildschirm",
         "update-in-progress": "Update läuft, bitte versuchen Sie es später noch einmal",
         "attachment-not-found": "Anhang nicht gefunden",
-        "invalid-mail": "Die angegebene E-Mail-Adresse existiert nicht oder ist ungültig. Bitte überprüfen Sie es und versuchen Sie es erneut"
+        "invalid-mail": "Die angegebene E-Mail-Adresse existiert nicht oder ist ungültig. Bitte überprüfen Sie es und versuchen Sie es erneut",
+        "internal-server-error": "Interner Serverfehler",
+        "server-down": "Server ausgefallen",
+        "try-again-later": "Versuchen Sie es später noch einmal"
     },
     "actions": {
         "save": "Speichern",

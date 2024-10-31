@@ -126,6 +126,20 @@ export class UtilsService {
     this._snackBar.open(message, 'OK');
   }
 
+  showJoinedMessages(
+    separator: string,
+    duration: number,
+    ...messages: string[]
+  ) {
+    const joinedMessages = messages
+      .map((message) => this._translateService.instant(message))
+      .join(separator);
+
+    this._snackBar.open(joinedMessages, '', {
+      duration: duration,
+    });
+  }
+
   dismissMessage() {
     this._snackBar.dismiss();
   }

@@ -23,7 +23,10 @@
         "without-permission": "You don't have permission to access this screen",
         "update-in-progress": "Update in progress, please try again later",
         "attachment-not-found": "Attachment not found",
-        "invalid-mail": "The email address provided does not exist or is invalid. Please check and try again"
+        "invalid-mail": "The email address provided does not exist or is invalid. Please check and try again",
+        "internal-server-error": "Internal server error",
+        "server-down": "Server down",
+        "try-again-later": "Try again later"
     },
     "actions": {
         "save": "Save",

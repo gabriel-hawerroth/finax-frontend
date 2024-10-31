@@ -25,11 +25,6 @@ export class LoginService {
     await this._authService
       .doLogin(credentials)
       .then(async (response) => {
-        if (!response) {
-          this._utils.showMessage('login.invalid-login');
-          return;
-        }
-
         if (!response.token || !response.user) {
           this._utils.showMessage('login.error-getting-user');
           return;
@@ -56,12 +51,30 @@ export class LoginService {
         this._router.navigateByUrl('home');
       })
       .catch((err) => {
+        if (err.error.message === 'Failed to fetch') {
+          this._utils.showJoinedMessages(
+            '. ',
+            4500,
+            'generic.server-down',
+            'generic.try-again-later'
+          );
+          return;
+        }
+
         switch (err.error.errorDescription) {
           case 'inactive user':
             this._utils.showMessage('login.inactive-user');
             break;
-          default:
+          case 'bad credentials':
             this._utils.showMessage('login.invalid-login');
+            break;
+          default:
+            this._utils.showJoinedMessages(
+              '. ',
+              4500,
+              'generic.server-error',
+              'generic.try-again-later'
+            );
             break;
         }
       });

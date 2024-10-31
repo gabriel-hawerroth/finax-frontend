@@ -23,7 +23,10 @@
         "without-permission": "Você não tem permissão para acessar essa tela",
         "update-in-progress": "Atualização em andamento, tente novamente mais tarde",
         "attachment-not-found": "Arquivo não encontrado",
-        "invalid-mail": "O endereço de e-mail fornecido não existe ou é inválido. Por favor, verifique e tente novamente"
+        "invalid-mail": "O endereço de e-mail fornecido não existe ou é inválido. Por favor, verifique e tente novamente",
+        "internal-server-error": "Erro interno do servidor",
+        "server-down": "Servidor fora do ar",
+        "try-again-later": "Tente novamente mais tarde"
     },
     "actions": {
         "save": "Salvar",
