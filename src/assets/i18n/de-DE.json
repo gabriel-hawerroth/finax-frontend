@@ -27,7 +27,9 @@
         "internal-server-error": "Interner Serverfehler",
         "server-down": "Server ausgefallen",
         "try-again-later": "Versuchen Sie es später noch einmal",
-        "all": "Alle"
+        "all": "Alle",
+        "yes": "Ja",
+        "no": "Nein"
     },
     "actions": {
         "save": "Speichern",
@@ -135,6 +137,7 @@
         "new-transfer": "Neue Überweisung",
         "error-getting-releases": "Fehler beim Abrufen der Veröffentlichungen",
         "transfer": "Überweisung",
+        "transfers": "Überträgt",
         "others": "Andere",
         "confirm-delete": "Möchten Sie diesen Datensatz wirklich löschen?",
         "deleted-successfully": "Datensatz erfolgreich gelöscht",

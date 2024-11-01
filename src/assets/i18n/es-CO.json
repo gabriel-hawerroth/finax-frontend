@@ -27,7 +27,9 @@
         "internal-server-error": "Error interno del servidor",
         "server-down": "Servidor caído",
         "try-again-later": "Inténtalo de nuevo más tarde",
-        "all": "Todos"
+        "all": "Todos",
+        "yes": "Sí",
+        "no": "No"
     },
     "actions": {
         "save": "Guardar",
@@ -135,6 +137,7 @@
         "new-transfer": "Nueva transferencia",
         "error-getting-releases": "Error al obtener las transacciones",
         "transfer": "Transferencia",
+        "transfers": "Transferencias",
         "others": "Otros",
         "confirm-delete": "¿Realmente quieres eliminar este registro?",
         "deleted-successfully": "Registro eliminado con éxito",

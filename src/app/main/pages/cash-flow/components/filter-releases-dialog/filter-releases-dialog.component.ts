@@ -75,7 +75,7 @@ export class FilterReleasesDialog implements OnInit {
       categoryIds: [[]],
       releaseTypes: ['all'],
       description: [''],
-      done: [undefined],
+      done: ['all'],
     });
   }
 
@@ -106,7 +106,5 @@ export class FilterReleasesDialog implements OnInit {
     this.filterForm.controls['creditCardIds'].setValue([]);
     this.filterForm.controls['categoryIds'].setValue([]);
     this.filterForm.controls['releaseTypes'].setValue('all');
-
-    this._dialogRef.close();
   }
 }

@@ -12,7 +12,7 @@
 
   <form class="filters" [formGroup]="filterForm">
     <div class="row">
-      <mat-form-field style="width: 30%">
+      <mat-form-field>
         <mat-label>{{ "release-form.accounts" | translate }}</mat-label>
 
         <mat-select formControlName="accountIds" multiple>
@@ -38,7 +38,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field style="width: 30%">
+      <mat-form-field>
         <mat-label>{{ "release-form.cards" | translate }}</mat-label>
 
         <mat-select formControlName="creditCardIds" multiple>
@@ -66,7 +66,7 @@
     </div>
 
     <div class="row">
-      <mat-form-field style="width: 30%">
+      <mat-form-field>
         <mat-label>{{ "categories.title" | translate }}</mat-label>
 
         <mat-select formControlName="categoryIds" multiple>
@@ -108,7 +108,7 @@
         </ng-template>
       </mat-form-field>
 
-      <mat-form-field style="width: 30%">
+      <mat-form-field>
         <mat-label>{{ "cash-flow.release-type" | translate }}</mat-label>
 
         <mat-select formControlName="releaseTypes">
@@ -125,7 +125,38 @@
           </mat-option>
 
           <mat-option [value]="releaseTypeTransfer">
-            {{ "cash-flow.transfer" | translate }}
+            {{ "cash-flow.transfers" | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ "generic.description" | translate }}</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="description"
+          maxlength="50"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ "release-form.done" | translate }}</mat-label>
+
+        <mat-select formControlName="done">
+          <mat-option [value]="'all'">
+            {{ "generic.all" | translate }}
+          </mat-option>
+
+          <mat-option [value]="true">
+            {{ "generic.yes" | translate }}
+          </mat-option>
+
+          <mat-option [value]="false">
+            {{ "generic.no" | translate }}
           </mat-option>
         </mat-select>
       </mat-form-field>

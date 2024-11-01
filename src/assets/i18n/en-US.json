@@ -27,7 +27,9 @@
         "internal-server-error": "Internal server error",
         "server-down": "Server down",
         "try-again-later": "Try again later",
-        "all": "All"
+        "all": "All",
+        "yes": "Yes",
+        "no": "No"
     },
     "actions": {
         "save": "Save",
@@ -135,6 +137,7 @@
         "new-transfer": "New Transfer",
         "error-getting-releases": "Error getting releases",
         "transfer": "Transfer",
+        "transfers": "Transfers",
         "others": "Others",
         "confirm-delete": "Do you really want to delete this record?",
         "deleted-successfully": "Record deleted successfully",
