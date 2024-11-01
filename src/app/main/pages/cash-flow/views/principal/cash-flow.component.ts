@@ -13,7 +13,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
@@ -21,15 +21,16 @@ import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import {
+  FilterReleasesDialogData,
   MonthlyFlow,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CashFlowBalancesComponent } from '../../components/cash-flow-balances/cash-flow-balances.component';
+import { FilterReleasesDialog } from '../../components/filter-releases-dialog/filter-releases-dialog.component';
 import { ReleasesListComponent } from '../../components/releases-list/releases-list.component';
 
 @Component({
@@ -49,7 +50,6 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     ReleasesMonthPipe,
     MatDialogModule,
     CashFlowBalancesComponent,
-    ButtonsComponent,
     MatBadgeModule,
   ],
   templateUrl: './cash-flow.component.html',
@@ -83,7 +83,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
   constructor(
     public readonly utils: UtilsService,
-    private readonly _cashFlowService: ReleaseService
+    private readonly _cashFlowService: ReleaseService,
+    private readonly _matDialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -138,6 +139,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
       this.accounts = response.accountsList;
       this.categories = response.categoriesList;
       this.creditCards = response.creditCardsList;
+
+      this.openFilterDialog();
     });
   }
 
@@ -222,5 +225,19 @@ export class CashFlowPage implements OnInit, OnDestroy {
     if (amounts.length === 0) return 0;
 
     return amounts.reduce((count, amount) => count + amount) || 0;
+  }
+
+  openFilterDialog() {
+    this._matDialog.open(FilterReleasesDialog, {
+      data: <FilterReleasesDialogData>{
+        accounts: this.accounts,
+        creditCards: this.creditCards,
+        categories: this.categories,
+      },
+      panelClass: 'filter-releases-dialog',
+      width: '42vw',
+      minWidth: '42vw',
+      autoFocus: false,
+    });
   }
 }

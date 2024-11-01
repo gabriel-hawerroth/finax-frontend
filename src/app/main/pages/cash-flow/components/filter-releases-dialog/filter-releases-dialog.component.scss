@@ -1,0 +1,42 @@
+@import 'generic.scss';
+@import 'colors.scss';
+
+.filter-releases-dialog {
+    display: flex;
+    flex-direction: column;
+
+    * {
+        font-family: $default-font-family !important;
+    }
+
+    .title {
+        font-weight: bold;
+        margin-top: 1rem;
+        margin-left: 1.5rem;
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+
+        .row {
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+
+    .actions {
+        display: flex;
+        justify-content: flex-end;
+        margin: 1rem 2rem 1.5rem 0;
+        gap: 1.5rem;
+    }
+}
+
+.dark-page {
+    .filters {
+        color: $dark-font-color;
+    }
+}

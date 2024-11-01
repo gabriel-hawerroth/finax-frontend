@@ -26,7 +26,8 @@
         "invalid-mail": "Die angegebene E-Mail-Adresse existiert nicht oder ist ungültig. Bitte überprüfen Sie es und versuchen Sie es erneut",
         "internal-server-error": "Interner Serverfehler",
         "server-down": "Server ausgefallen",
-        "try-again-later": "Versuchen Sie es später noch einmal"
+        "try-again-later": "Versuchen Sie es später noch einmal",
+        "all": "Alle"
     },
     "actions": {
         "save": "Speichern",
@@ -143,7 +144,9 @@
             "invoices-opt": "Einheitliche Rechnung",
             "releases-opt": "Auslösungen"
         },
-        "balance-adjustment": "Balance-Anpassung"
+        "balance-adjustment": "Balance-Anpassung",
+        "filter-releases": "Veröffentlichungen filtern",
+        "release-type": "Art der Veröffentlichung"
     },
     "release-form": {
         "description": "Beschreibung",
@@ -213,7 +216,8 @@
         "situation": "Situation",
         "all": "Alle",
         "actives": "Aktiv",
-        "inactives": "Inaktiv"
+        "inactives": "Inaktiv",
+        "clear": "Löschen"
     },
     "my-accounts": {
         "title": "Meine Konten",

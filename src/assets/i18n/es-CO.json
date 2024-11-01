@@ -26,7 +26,8 @@
         "invalid-mail": "La dirección de correo electrónico proporcionada no existe o no es válida. Compruébalo e inténtalo de nuevo",
         "internal-server-error": "Error interno del servidor",
         "server-down": "Servidor caído",
-        "try-again-later": "Inténtalo de nuevo más tarde"
+        "try-again-later": "Inténtalo de nuevo más tarde",
+        "all": "Todos"
     },
     "actions": {
         "save": "Guardar",
@@ -143,7 +144,9 @@
             "invoices-opt": "Factura unificada",
             "releases-opt": "Libera"
         },
-        "balance-adjustment": "Ajuste de saldo"
+        "balance-adjustment": "Ajuste de saldo",
+        "filter-releases": "Filtrar lanzamientos",
+        "release-type": "Tipo de lanzamiento"
     },
     "release-form": {
         "description": "Descripción",
@@ -213,7 +216,8 @@
         "situation": "situación",
         "all": "Todas",
         "actives": "Activas",
-        "inactives": "Inactivas"
+        "inactives": "Inactivas",
+        "clear": "Limpiar"
     },
     "my-accounts": {
         "title": "Mis cuentas",

@@ -1,0 +1,83 @@
+<div
+  class="filter-releases-dialog"
+  [ngClass]="{ 'dark-page': darkThemeEnabled() }"
+>
+  <div class="title">
+    <h1>
+      {{ "cash-flow.filter-releases" | translate }}
+    </h1>
+  </div>
+
+  <form class="filters" [formGroup]="filterForm">
+    <div class="row">
+      <mat-form-field style="width: 30%">
+        <mat-label>{{ "release-form.accounts" | translate }}</mat-label>
+
+        <mat-select formControlName="accountIds">
+          <mat-option *ngFor="let account of accounts" [value]="account.id">
+            {{ account.name | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="width: 30%">
+        <mat-label>{{ "release-form.cards" | translate }}</mat-label>
+
+        <mat-select formControlName="creditCardIds">
+          <mat-option *ngFor="let card of creditCards" [value]="card.id">
+            {{ card.name | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field style="width: 30%">
+        <mat-label>{{ "categories.title" | translate }}</mat-label>
+
+        <mat-select formControlName="creditCardIds">
+          <mat-option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="width: 30%">
+        <mat-label>{{ "cash-flow.release-type" | translate }}</mat-label>
+
+        <mat-select formControlName="creditCardIds">
+          <mat-option [value]="undefined">
+            {{ "generic.all" | translate }}
+          </mat-option>
+
+          <mat-option [value]="releaseTypeExpense">
+            {{ "cash-flow.expenses" | translate }}
+          </mat-option>
+
+          <mat-option [value]="releaseTypeRevenue">
+            {{ "cash-flow.revenues" | translate }}
+          </mat-option>
+
+          <mat-option [value]="releaseTypeTransfer">
+            {{ "cash-flow.transfer" | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="actions">
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="close_small"
+      genericLabel="filters.clear"
+      [genericStyle]="clearBtnStyle"
+    ></app-buttons>
+
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="search"
+      genericLabel="filters.filter"
+    ></app-buttons>
+  </div>
+</div>
