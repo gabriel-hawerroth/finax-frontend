@@ -6,6 +6,8 @@
     <h1>
       {{ "cash-flow.filter-releases" | translate }}
     </h1>
+
+    <app-buttons [showClose]="true" mat-dialog-close></app-buttons>
   </div>
 
   <form class="filters" [formGroup]="filterForm">
@@ -13,20 +15,52 @@
       <mat-form-field style="width: 30%">
         <mat-label>{{ "release-form.accounts" | translate }}</mat-label>
 
-        <mat-select formControlName="accountIds">
-          <mat-option *ngFor="let account of accounts" [value]="account.id">
-            {{ account.name | translate }}
+        <mat-select formControlName="accountIds" multiple>
+          @for (account of accounts; track account.id) {
+          <mat-option [value]="account.id">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                account_balance
+              </span>
+              }
+              <span>{{ account.name }}</span>
+            </div>
           </mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field style="width: 30%">
         <mat-label>{{ "release-form.cards" | translate }}</mat-label>
 
-        <mat-select formControlName="creditCardIds">
-          <mat-option *ngFor="let card of creditCards" [value]="card.id">
-            {{ card.name | translate }}
+        <mat-select formControlName="creditCardIds" multiple>
+          @for (card of creditCards; track card.id) {
+          <mat-option [value]="card.id">
+            <div class="account-opt">
+              @if (card.image) {
+              <img
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                credit_card
+              </span>
+              }
+              <span>{{ card.name }}</span>
+            </div>
           </mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </div>
@@ -35,18 +69,50 @@
       <mat-form-field style="width: 30%">
         <mat-label>{{ "categories.title" | translate }}</mat-label>
 
-        <mat-select formControlName="creditCardIds">
-          <mat-option *ngFor="let category of categories" [value]="category.id">
-            {{ category.name | translate }}
+        <mat-select formControlName="categoryIds" multiple>
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="selectedCategoryTemplate"
+            ></ng-container>
+          </mat-select-trigger>
+
+          @for (category of categories; track category.id) {
+          <mat-option [value]="category.id">
+            <div class="category-opt">
+              @if (category.icon) {
+              <span
+                class="material-symbols-outlined"
+                [ngStyle]="{ 'background-color': category.color }"
+              >
+                {{ category.icon }}
+              </span>
+              }
+              {{ category.name }}
+            </div>
           </mat-option>
+          }
         </mat-select>
+
+        <ng-template #selectedCategoryTemplate>
+          <div class="selected-category">
+            @for (category of selectedCategories; track $index) {
+            <span>{{
+              category.name +
+                (selectedCategories.length > 1 &&
+                $index !== selectedCategories.length - 1
+                  ? ", "
+                  : "")
+            }}</span>
+            }
+          </div>
+        </ng-template>
       </mat-form-field>
 
       <mat-form-field style="width: 30%">
         <mat-label>{{ "cash-flow.release-type" | translate }}</mat-label>
 
-        <mat-select formControlName="creditCardIds">
-          <mat-option [value]="undefined">
+        <mat-select formControlName="releaseTypes">
+          <mat-option [value]="'all'">
             {{ "generic.all" | translate }}
           </mat-option>
 
@@ -72,6 +138,7 @@
       genericIcon="close_small"
       genericLabel="filters.clear"
       [genericStyle]="clearBtnStyle"
+      (onGeneric)="clearFilters()"
     ></app-buttons>
 
     <app-buttons
