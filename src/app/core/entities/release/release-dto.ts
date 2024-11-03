@@ -68,12 +68,12 @@ export interface ConfirmDuplicatedReleasesActionDialogData {
 }
 
 export interface ReleaseFilters {
-  accountId: number;
-  creditCardId: number;
-  categoryId: number;
-  type: ReleaseType;
+  accountIds: number[];
+  creditCardIds: number[];
+  categoryIds: number[];
+  releaseTypes: ReleaseType | 'all';
   description: string;
-  done: boolean;
+  done: boolean | 'all';
 }
 
 export interface FilterReleasesDialogData {

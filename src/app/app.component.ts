@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginService } from './core/entities/auth/login.service';
 import { MobilePage } from './main/pages/mobile-page/views/principal/mobile-page.component';
@@ -12,7 +12,6 @@ import { UtilsService } from './shared/utils/utils.service';
   imports: [CommonModule, RouterOutlet, SidebarComponent, MobilePage],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[style.--mat-checkbox-label-text-size]': '2',
   },

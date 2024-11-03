@@ -76,21 +76,41 @@
             ></ng-container>
           </mat-select-trigger>
 
-          @for (category of categories; track category.id) {
-          <mat-option [value]="category.id">
-            <div class="category-opt">
-              @if (category.icon) {
-              <span
-                class="material-symbols-outlined"
-                [ngStyle]="{ 'background-color': category.color }"
-              >
-                {{ category.icon }}
-              </span>
-              }
-              {{ category.name }}
-            </div>
-          </mat-option>
-          }
+          <mat-optgroup [label]="'cash-flow.expenses' | translate">
+            @for (category of expenseCategories; track category.id) {
+            <mat-option [value]="category.id">
+              <div class="category-opt">
+                @if (category.icon) {
+                <span
+                  class="material-symbols-outlined"
+                  [ngStyle]="{ 'background-color': category.color }"
+                >
+                  {{ category.icon }}
+                </span>
+                }
+                {{ category.name }}
+              </div>
+            </mat-option>
+            }
+          </mat-optgroup>
+
+          <mat-optgroup [label]="'cash-flow.revenues' | translate">
+            @for (category of revenueCategories; track category.id) {
+            <mat-option [value]="category.id">
+              <div class="category-opt">
+                @if (category.icon) {
+                <span
+                  class="material-symbols-outlined"
+                  [ngStyle]="{ 'background-color': category.color }"
+                >
+                  {{ category.icon }}
+                </span>
+                }
+                {{ category.name }}
+              </div>
+            </mat-option>
+            }
+          </mat-optgroup>
         </mat-select>
 
         <ng-template #selectedCategoryTemplate>
@@ -176,6 +196,7 @@
       [showGeneric]="true"
       genericIcon="search"
       genericLabel="filters.filter"
+      (onGeneric)="filter()"
     ></app-buttons>
   </div>
 </div>

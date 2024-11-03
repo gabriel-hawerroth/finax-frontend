@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  computed,
-  signal,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, computed, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -23,6 +16,8 @@ import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-
 import {
   FilterReleasesDialogData,
   MonthlyFlow,
+  MonthlyRelease,
+  ReleaseFilters,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
@@ -54,7 +49,6 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CashFlowPage implements OnInit, OnDestroy {
   private readonly _unsubscribeAll = new Subject<void>();
@@ -68,6 +62,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
     expectedBalance: 0,
   });
 
+  allMonthlyReleases: MonthlyRelease[] = [];
+
   searching = signal<boolean>(false);
   selectedDate = new Date(this.currentDate.setDate(15));
 
@@ -79,6 +75,14 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
   totals = computed(() => this.calculateValues(this.monthlyValues()));
 
+  appliedFilters = signal<ReleaseFilters>({
+    accountIds: [],
+    creditCardIds: [],
+    categoryIds: [],
+    releaseTypes: 'all',
+    description: '',
+    done: 'all',
+  });
   totalAppliedFilters = signal<number>(0);
 
   constructor(
@@ -129,7 +133,11 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     this._cashFlowService
       .getMonthlyFlow(this.selectedDate)
-      .then((response) => this.monthlyValues.set(response))
+      .then((response) => {
+        this.monthlyValues.set(response);
+        this.allMonthlyReleases = response.releases;
+        this.applyFilters();
+      })
       .catch(() => this.utils.showMessage('cash-flow.error-getting-releases'))
       .finally(() => this.searching.set(false));
   }
@@ -140,6 +148,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
       this.categories = response.categoriesList;
       this.creditCards = response.creditCardsList;
 
+      // just for test, remove this
       this.openFilterDialog();
     });
   }
@@ -228,16 +237,106 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   openFilterDialog() {
-    this._matDialog.open(FilterReleasesDialog, {
-      data: <FilterReleasesDialogData>{
-        accounts: this.accounts,
-        creditCards: this.creditCards,
-        categories: this.categories,
-      },
-      panelClass: 'filter-releases-dialog',
-      width: '42vw',
-      minWidth: '42vw',
-      autoFocus: false,
+    this._matDialog
+      .open(FilterReleasesDialog, {
+        data: <FilterReleasesDialogData>{
+          accounts: this.accounts,
+          creditCards: this.creditCards,
+          categories: this.categories,
+          filters: this.appliedFilters(),
+        },
+        panelClass: 'filter-releases-dialog',
+        width: '42vw',
+        minWidth: '42vw',
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((response: ReleaseFilters | undefined) => {
+        if (!response) return;
+
+        this.appliedFilters.set(response);
+        this.applyFilters();
+      });
+  }
+
+  applyFilters() {
+    console.log('releases:', this.allMonthlyReleases);
+    console.log(
+      this.allMonthlyReleases.map((item) => ({
+        ...item,
+        description: this.utils.removeAccents(item.description.toLowerCase()),
+      }))
+    );
+
+    this.totalAppliedFilters.set(
+      Object.values(this.appliedFilters()).filter(
+        (item) =>
+          item &&
+          item != 'all' &&
+          (typeof item === 'boolean' ? true : item.length > 0)
+      ).length
+    );
+
+    this.monthlyValues.update((values) => {
+      let releases = this.allMonthlyReleases;
+
+      if (this.appliedFilters().accountIds?.length) {
+        releases = this.utils.filterList(
+          releases,
+          'accountId',
+          this.appliedFilters().accountIds
+        );
+      }
+
+      if (this.appliedFilters().creditCardIds?.length) {
+        const cardReleases = this.utils.filterList(
+          this.allMonthlyReleases,
+          'cardId',
+          this.appliedFilters().creditCardIds
+        );
+
+        if (releases.length === this.allMonthlyReleases.length) {
+          releases = cardReleases;
+        } else {
+          releases = releases.concat(cardReleases);
+        }
+      }
+
+      if (this.appliedFilters().categoryIds?.length) {
+        releases = this.utils.filterList(
+          releases,
+          'categoryId',
+          this.appliedFilters().categoryIds
+        );
+      }
+
+      if (this.appliedFilters().releaseTypes !== 'all') {
+        releases = this.utils.filterList(
+          releases,
+          'type',
+          this.appliedFilters().releaseTypes
+        );
+      }
+
+      if (this.appliedFilters().description) {
+        releases = this.utils.filterList(
+          releases,
+          ['description', 'categoryName'],
+          this.appliedFilters().description
+        );
+      }
+
+      if (this.appliedFilters().done !== 'all') {
+        releases = this.utils.filterList(
+          releases,
+          'done',
+          this.appliedFilters().done
+        );
+      }
+
+      values.releases = releases;
+      console.log('final values', values);
+      return values;
     });
   }
 }

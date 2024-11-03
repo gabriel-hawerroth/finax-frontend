@@ -19,7 +19,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
-import { FilterReleasesDialogData } from '../../../../../core/entities/release/release-dto';
+import {
+  FilterReleasesDialogData,
+  ReleaseFilters,
+} from '../../../../../core/entities/release/release-dto';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ReleaseType } from '../../../../../core/enums/release-enums';
 import { Theme } from '../../../../../core/enums/theme';
@@ -65,7 +68,10 @@ export class FilterReleasesDialog implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this._utils.removeAccents('Salário'.toLowerCase()));
+
     this.buildForm();
+    this.filterForm.patchValue(this.data.filters);
   }
 
   buildForm() {
@@ -106,5 +112,26 @@ export class FilterReleasesDialog implements OnInit {
     this.filterForm.controls['creditCardIds'].setValue([]);
     this.filterForm.controls['categoryIds'].setValue([]);
     this.filterForm.controls['releaseTypes'].setValue('all');
+    this.filterForm.controls['description'].setValue('');
+    this.filterForm.controls['done'].setValue('all');
+  }
+
+  filter() {
+    if (this.filterForm.invalid) return;
+
+    const filters: ReleaseFilters = this.filterForm.getRawValue();
+    this._dialogRef.close(filters);
+  }
+
+  get expenseCategories(): Category[] {
+    return this.categories.filter(
+      (category) => category.type === ReleaseType.EXPENSE
+    );
+  }
+
+  get revenueCategories(): Category[] {
+    return this.categories.filter(
+      (category) => category.type === ReleaseType.REVENUE
+    );
   }
 }
