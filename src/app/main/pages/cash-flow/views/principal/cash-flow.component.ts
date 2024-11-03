@@ -260,14 +260,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   applyFilters() {
-    console.log('releases:', this.allMonthlyReleases);
-    console.log(
-      this.allMonthlyReleases.map((item) => ({
-        ...item,
-        description: this.utils.removeAccents(item.description.toLowerCase()),
-      }))
-    );
-
     this.totalAppliedFilters.set(
       Object.values(this.appliedFilters()).filter(
         (item) =>
@@ -335,7 +327,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
       }
 
       values.releases = releases;
-      console.log('final values', values);
       return values;
     });
   }

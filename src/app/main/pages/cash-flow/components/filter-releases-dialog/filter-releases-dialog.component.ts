@@ -68,8 +68,6 @@ export class FilterReleasesDialog implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this._utils.removeAccents('Salário'.toLowerCase()));
-
     this.buildForm();
     this.filterForm.patchValue(this.data.filters);
   }
