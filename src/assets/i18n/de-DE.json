@@ -26,7 +26,10 @@
         "invalid-mail": "Die angegebene E-Mail-Adresse existiert nicht oder ist ungültig. Bitte überprüfen Sie es und versuchen Sie es erneut",
         "internal-server-error": "Interner Serverfehler",
         "server-down": "Server ausgefallen",
-        "try-again-later": "Versuchen Sie es später noch einmal"
+        "try-again-later": "Versuchen Sie es später noch einmal",
+        "all": "Alle",
+        "yes": "Ja",
+        "no": "Nein"
     },
     "actions": {
         "save": "Speichern",
@@ -134,6 +137,7 @@
         "new-transfer": "Neue Überweisung",
         "error-getting-releases": "Fehler beim Abrufen der Veröffentlichungen",
         "transfer": "Überweisung",
+        "transfers": "Überträgt",
         "others": "Andere",
         "confirm-delete": "Möchten Sie diesen Datensatz wirklich löschen?",
         "deleted-successfully": "Datensatz erfolgreich gelöscht",
@@ -143,7 +147,9 @@
             "invoices-opt": "Einheitliche Rechnung",
             "releases-opt": "Auslösungen"
         },
-        "balance-adjustment": "Balance-Anpassung"
+        "balance-adjustment": "Balance-Anpassung",
+        "filter-releases": "Veröffentlichungen filtern",
+        "release-type": "Art der Veröffentlichung"
     },
     "release-form": {
         "description": "Beschreibung",
@@ -213,7 +219,8 @@
         "situation": "Situation",
         "all": "Alle",
         "actives": "Aktiv",
-        "inactives": "Inaktiv"
+        "inactives": "Inaktiv",
+        "clear": "Löschen"
     },
     "my-accounts": {
         "title": "Meine Konten",

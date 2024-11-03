@@ -66,3 +66,19 @@ export interface ReleaseDetailsData {
 export interface ConfirmDuplicatedReleasesActionDialogData {
   action: 'edit' | 'delete';
 }
+
+export interface ReleaseFilters {
+  accountIds: number[];
+  creditCardIds: number[];
+  categoryIds: number[];
+  releaseTypes: ReleaseType | 'all';
+  description: string;
+  done: boolean | 'all';
+}
+
+export interface FilterReleasesDialogData {
+  accounts: BasicAccount[];
+  creditCards: BasicCard[];
+  categories: Category[];
+  filters: ReleaseFilters;
+}

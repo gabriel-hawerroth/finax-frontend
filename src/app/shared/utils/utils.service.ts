@@ -152,22 +152,50 @@ export class UtilsService {
     return this._translateService.instant('generic.password-requirements');
   }
 
-  filterList(rows: any[], atributo: string, keyWord: any): any[] {
+  filterList(rows: any[], atributo: string | string[], keyWord: any): any[] {
     if (!rows) return [];
+
+    const attributes = atributo instanceof Array ? atributo : [atributo];
 
     if (typeof keyWord === 'string') {
       return rows.filter((item: any) => {
-        if (item[atributo]) {
-          return (
-            this.removeAccents(String(item[atributo]).toLowerCase()).indexOf(
-              this.removeAccents(keyWord.toLowerCase())
-            ) !== -1
-          );
+        for (const attribute of attributes) {
+          if (item[attribute]) {
+            return (
+              this.removeAccents(String(item[attribute]).toLowerCase()).indexOf(
+                this.removeAccents(keyWord.toLowerCase())
+              ) !== -1
+            );
+          }
         }
         return false;
       });
     }
-    return rows.filter((item: any) => item[atributo] === keyWord);
+
+    if (keyWord instanceof Array) {
+      return rows.filter((item: any) => {
+        for (const attribute of attributes) {
+          if (item[attribute]) {
+            if (typeof item[attribute] === 'string') {
+              return keyWord
+                .map((item) => this.removeAccents(item.toLowerCase()))
+                .includes(this.removeAccents(item[attribute].toLowerCase()));
+            }
+            return keyWord.includes(item[attribute]);
+          }
+        }
+        return false;
+      });
+    }
+
+    return rows.filter((item: any) => {
+      for (const attribute of attributes) {
+        if (item[attribute] !== null && item[attribute] !== undefined) {
+          return item[attribute] === keyWord;
+        }
+      }
+      return false;
+    });
   }
 
   filterListByDate(

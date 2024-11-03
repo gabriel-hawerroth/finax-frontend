@@ -1,0 +1,202 @@
+<div
+  class="filter-releases-dialog"
+  [ngClass]="{ 'dark-page': darkThemeEnabled() }"
+>
+  <div class="title">
+    <h1>
+      {{ "cash-flow.filter-releases" | translate }}
+    </h1>
+
+    <app-buttons [showClose]="true" mat-dialog-close></app-buttons>
+  </div>
+
+  <form class="filters" [formGroup]="filterForm">
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ "release-form.accounts" | translate }}</mat-label>
+
+        <mat-select formControlName="accountIds" multiple>
+          @for (account of accounts; track account.id) {
+          <mat-option [value]="account.id">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                account_balance
+              </span>
+              }
+              <span>{{ account.name }}</span>
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ "release-form.cards" | translate }}</mat-label>
+
+        <mat-select formControlName="creditCardIds" multiple>
+          @for (card of creditCards; track card.id) {
+          <mat-option [value]="card.id">
+            <div class="account-opt">
+              @if (card.image) {
+              <img
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-outlined default-account-logo">
+                credit_card
+              </span>
+              }
+              <span>{{ card.name }}</span>
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ "categories.title" | translate }}</mat-label>
+
+        <mat-select formControlName="categoryIds" multiple>
+          <mat-select-trigger>
+            <ng-container
+              *ngTemplateOutlet="selectedCategoryTemplate"
+            ></ng-container>
+          </mat-select-trigger>
+
+          <mat-optgroup [label]="'cash-flow.expenses' | translate">
+            @for (category of expenseCategories; track category.id) {
+            <mat-option [value]="category.id">
+              <div class="category-opt">
+                @if (category.icon) {
+                <span
+                  class="material-symbols-outlined"
+                  [ngStyle]="{ 'background-color': category.color }"
+                >
+                  {{ category.icon }}
+                </span>
+                }
+                {{ category.name }}
+              </div>
+            </mat-option>
+            }
+          </mat-optgroup>
+
+          <mat-optgroup [label]="'cash-flow.revenues' | translate">
+            @for (category of revenueCategories; track category.id) {
+            <mat-option [value]="category.id">
+              <div class="category-opt">
+                @if (category.icon) {
+                <span
+                  class="material-symbols-outlined"
+                  [ngStyle]="{ 'background-color': category.color }"
+                >
+                  {{ category.icon }}
+                </span>
+                }
+                {{ category.name }}
+              </div>
+            </mat-option>
+            }
+          </mat-optgroup>
+        </mat-select>
+
+        <ng-template #selectedCategoryTemplate>
+          <div class="selected-category">
+            @for (category of selectedCategories; track $index) {
+            <span>{{
+              category.name +
+                (selectedCategories.length > 1 &&
+                $index !== selectedCategories.length - 1
+                  ? ", "
+                  : "")
+            }}</span>
+            }
+          </div>
+        </ng-template>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ "cash-flow.release-type" | translate }}</mat-label>
+
+        <mat-select formControlName="releaseTypes">
+          <mat-option [value]="'all'">
+            {{ "generic.all" | translate }}
+          </mat-option>
+
+          <mat-option [value]="releaseTypeExpense">
+            {{ "cash-flow.expenses" | translate }}
+          </mat-option>
+
+          <mat-option [value]="releaseTypeRevenue">
+            {{ "cash-flow.revenues" | translate }}
+          </mat-option>
+
+          <mat-option [value]="releaseTypeTransfer">
+            {{ "cash-flow.transfers" | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>{{ "generic.description" | translate }}</mat-label>
+
+        <input
+          matInput
+          type="text"
+          formControlName="description"
+          maxlength="50"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ "release-form.done" | translate }}</mat-label>
+
+        <mat-select formControlName="done">
+          <mat-option [value]="'all'">
+            {{ "generic.all" | translate }}
+          </mat-option>
+
+          <mat-option [value]="true">
+            {{ "generic.yes" | translate }}
+          </mat-option>
+
+          <mat-option [value]="false">
+            {{ "generic.no" | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="actions">
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="close_small"
+      genericLabel="filters.clear"
+      [genericStyle]="clearBtnStyle"
+      (onGeneric)="clearFilters()"
+    ></app-buttons>
+
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="search"
+      genericLabel="filters.filter"
+      (onGeneric)="filter()"
+    ></app-buttons>
+  </div>
+</div>

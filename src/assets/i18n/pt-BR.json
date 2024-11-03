@@ -26,7 +26,10 @@
         "invalid-mail": "O endereço de e-mail fornecido não existe ou é inválido. Por favor, verifique e tente novamente",
         "internal-server-error": "Erro interno do servidor",
         "server-down": "Servidor fora do ar",
-        "try-again-later": "Tente novamente mais tarde"
+        "try-again-later": "Tente novamente mais tarde",
+        "all": "Todos",
+        "yes": "Sim",
+        "no": "Não"
     },
     "actions": {
         "save": "Salvar",
@@ -134,6 +137,7 @@
         "new-transfer": "Nova transferência",
         "error-getting-releases": "Erro ao obter os lançamentos",
         "transfer": "Transferência",
+        "transfers": "Transferências",
         "others": "Outros",
         "confirm-delete": "Deseja realmente excluir esse registro?",
         "deleted-successfully": "Registro excluído com sucesso",
@@ -143,7 +147,9 @@
             "invoices-opt": "Fatura unificada",
             "releases-opt": "Lançamentos"
         },
-        "balance-adjustment": "Ajuste de saldo"
+        "balance-adjustment": "Ajuste de saldo",
+        "filter-releases": "Filtrar lançamentos",
+        "release-type": "Tipo de lançamento"
     },
     "release-form": {
         "description": "Descrição",
@@ -213,7 +219,8 @@
         "situation": "situação",
         "all": "Todas",
         "actives": "Ativas",
-        "inactives": "Inativas"
+        "inactives": "Inativas",
+        "clear": "Limpar"
     },
     "my-accounts": {
         "title": "Minhas contas",

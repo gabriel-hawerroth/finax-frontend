@@ -42,9 +42,8 @@ export const authInterceptor: HttpInterceptorFn = (
             utilsService.showMessage('generic.update-in-progress');
         }
 
-        error.error.errorDescription = (
-          error.error.errorDescription as string
-        )?.toLowerCase();
+        error.error.errorDescription =
+          (error.error.errorDescription as string)?.toLowerCase() || undefined;
 
         return throwError(() => error);
       })
