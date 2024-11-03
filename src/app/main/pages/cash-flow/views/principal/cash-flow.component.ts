@@ -147,9 +147,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
       this.accounts = response.accountsList;
       this.categories = response.categoriesList;
       this.creditCards = response.creditCardsList;
-
-      // just for test, remove this
-      this.openFilterDialog();
     });
   }
 
