@@ -73,7 +73,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this._userService.getUserImage().then((response) => {
       if (!response) return;
 
-      this.utils.userImage.next(`${cloudFireCdnLink}/${response}`);
+      this.utils.userImage.next(
+        `${cloudFireCdnLink}/user/profile-image/${response}`
+      );
     });
   }
 

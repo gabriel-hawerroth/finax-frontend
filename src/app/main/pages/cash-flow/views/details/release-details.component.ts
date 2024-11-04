@@ -53,25 +53,27 @@ export class ReleaseDetailsComponent {
   ) {}
 
   downloadAttachment() {
-    this._cashFlowService.getAttachment(this.release.id).then((response) => {
-      if (response.size === 0) {
+    this._cashFlowService
+      .getAttachment(this.release.id)
+      .then((response) => {
+        if (response.size === 0) throw new Error('Attachment not found');
+
+        const blob = new Blob([response], {
+          type: response.type,
+        });
+
+        const blobUrl = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = blobUrl;
+        anchor.download = this.release.attachmentName!;
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(blobUrl);
+      })
+      .catch(() => {
         this.utils.showMessage('generic.attachment-not-found');
-        return;
-      }
-
-      const blob = new Blob([response], {
-        type: response.type,
       });
-
-      const blobUrl = URL.createObjectURL(blob);
-      const anchor = document.createElement('a');
-      anchor.href = blobUrl;
-      anchor.download = this.release.attachmentName!;
-      document.body.appendChild(anchor);
-      anchor.click();
-      document.body.removeChild(anchor);
-      URL.revokeObjectURL(blobUrl);
-    });
   }
 
   edit() {

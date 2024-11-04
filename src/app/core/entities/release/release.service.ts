@@ -72,7 +72,7 @@ export class ReleaseService {
     );
   }
 
-  addAttachment(releaseId: number, file: File): Promise<Release> {
+  saveAttachment(releaseId: number, file: File): Promise<Release> {
     const formData = new FormData();
     formData.append('file', file);
 

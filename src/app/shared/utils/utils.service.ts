@@ -58,7 +58,9 @@ export class UtilsService {
     this.username.next(user.firstName);
 
     if (user.profileImage)
-      this.userImage.next(`${cloudFireCdnLink}/${user.profileImage}`);
+      this.userImage.next(
+        `${cloudFireCdnLink}/user/profile-image/${user.profileImage}`
+      );
 
     user.password = '';
     user.profileImage = undefined;

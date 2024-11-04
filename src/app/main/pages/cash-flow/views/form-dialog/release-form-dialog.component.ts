@@ -266,7 +266,7 @@ export class ReleaseFormDialog implements OnInit {
 
     if (this.changedAttachment && this.selectedFile) {
       await this._cashFlowService
-        .addAttachment(release.id!, this.selectedFile!)
+        .saveAttachment(release.id!, this.selectedFile!)
         .catch(() => {
           this.utils.showMessage('release-form.error-saving-attachment', 6000);
           requestError = true;
@@ -280,6 +280,7 @@ export class ReleaseFormDialog implements OnInit {
 
     if (requestError) {
       this.saving.set(false);
+      this.releaseForm.markAsPristine();
       return;
     }
 

@@ -1,8 +1,8 @@
+import { environment } from '../../../environments/environment';
 import { ButtonType } from '../../core/enums/button-style';
 
-export const cloudFireCdnLink: string = 'https://d3dpbaewouik5z.cloudfront.net';
-export const cloudFireCdnImgsLink: string =
-  'https://d3dpbaewouik5z.cloudfront.net/imgs/';
+export const cloudFireCdnLink: string = environment.cloudFrontUrl;
+export const cloudFireCdnImgsLink: string = `${cloudFireCdnLink}/imgs/`;
 
 export function getBtnStyle(style: string): ButtonType {
   switch (style) {
