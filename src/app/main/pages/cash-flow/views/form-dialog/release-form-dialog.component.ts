@@ -312,6 +312,8 @@ export class ReleaseFormDialog implements OnInit {
     var duplicatedReleaseAction: DuplicatedReleaseAction =
       DuplicatedReleaseAction.UNNECESSARY;
 
+    let confirmedAction = false;
+
     if (this.data.editing && this.data.release!.isDuplicatedRelease) {
       await lastValueFrom(
         this._matDialog
@@ -327,9 +329,10 @@ export class ReleaseFormDialog implements OnInit {
         if (!response) return;
 
         duplicatedReleaseAction = response;
+        confirmedAction = true;
       });
 
-      if (!duplicatedReleaseAction) return;
+      if (!confirmedAction) return;
 
       if (
         !duplicatedReleaseAction.match(DuplicatedReleaseAction.JUST_THIS) &&
