@@ -15,6 +15,7 @@ import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { HomeAccountItemComponent } from './home-account-item/home-account-item.component';
 
 @Component({
@@ -42,16 +43,22 @@ export class HomeAccountsListWidget implements OnInit {
   accountsList = signal<HomeAccount[]>([]);
   generalBalance = signal<number>(0);
 
-  constructor(private readonly _homeService: HomeService) {}
+  constructor(
+    private readonly _homeService: HomeService,
+    private readonly _utils: UtilsService
+  ) {}
 
   ngOnInit(): void {
-    this._homeService.getAccountsList().then((response) => {
-      this.accountsList.set(response);
+    this._homeService
+      .getAccountsList()
+      .then((response) => {
+        this.accountsList.set(response);
 
-      this.generalBalance.set(
-        response.reduce((count, item) => count + item.balance, 0)
-      );
-    });
+        this.generalBalance.set(
+          response.reduce((count, item) => count + item.balance, 0)
+        );
+      })
+      .catch(() => this._utils.showMessage('home.error-getting-accounts'));
   }
 
   isntLastItem(index: number): boolean {

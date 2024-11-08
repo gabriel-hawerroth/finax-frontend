@@ -122,7 +122,11 @@
         "empty-credit-cards-list": "No cards registered",
         "last-30-days": "Last 30 days",
         "current-month": "Current month",
-        "date-interval": "Date interval"
+        "date-interval": "Date interval",
+        "error-getting-credit-cards": "Error getting credit cards",
+        "error-getting-accounts": "Error getting accounts",
+        "error-getting-payable-and-receivable-accounts": "Error getting payable and receivable accounts",
+        "error-getting-expenses-by-category": "Error getting expenses by category"
     },
     "cash-flow": {
         "title": "Cash Flow",

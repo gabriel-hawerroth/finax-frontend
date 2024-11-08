@@ -122,7 +122,11 @@
         "empty-credit-cards-list": "Nenhum cartão cadastrado",
         "last-30-days": "Últimos 30 dias",
         "current-month": "Mês atual",
-        "date-interval": "Intervalo de datas"
+        "date-interval": "Intervalo de datas",
+        "error-getting-credit-cards": "Erro ao obter os cartões de crédito",
+        "error-getting-accounts": "Erro ao obter as contas",
+        "error-getting-payable-and-receivable-accounts": "Erro ao obter as contas a pagar e a receber",
+        "error-getting-expenses-by-category": "Erro ao obter os gastos por categoria"
     },
     "cash-flow": {
         "title": "Fluxo de caixa",

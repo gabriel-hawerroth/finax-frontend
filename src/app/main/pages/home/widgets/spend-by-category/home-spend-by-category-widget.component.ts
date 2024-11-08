@@ -18,6 +18,7 @@ import { SpendByCategory } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { SpendByCategoryInterval } from '../../../../../core/enums/spend-by-category-interval';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-home-spend-by-category-widget',
@@ -54,7 +55,10 @@ export class HomeSpendByCategoryWidget implements OnInit {
     SpendByCategoryInterval.LAST_30_DAYS
   );
 
-  constructor(private _homeService: HomeService) {}
+  constructor(
+    private _homeService: HomeService,
+    private readonly _utils: UtilsService
+  ) {}
 
   ngOnInit(): void {
     this.getSpends();
@@ -99,7 +103,10 @@ export class HomeSpendByCategoryWidget implements OnInit {
           ],
           labels: this.spendsByCategory().map((exp) => exp.category.name),
         };
-      });
+      })
+      .catch(() =>
+        this._utils.showMessage('home.error-getting-expenses-by-category')
+      );
   }
 
   isntLastItem(index: number) {

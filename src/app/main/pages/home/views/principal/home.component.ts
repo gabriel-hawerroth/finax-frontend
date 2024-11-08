@@ -90,7 +90,12 @@ export class HomePage implements OnInit, OnDestroy {
 
     this._homeService
       .getUpcomingReleases()
-      .then((response) => this.upcomingReleases.set(response));
+      .then((response) => this.upcomingReleases.set(response))
+      .catch(() =>
+        this._utils.showMessage(
+          'home.error-getting-payable-and-receivable-accounts'
+        )
+      );
   }
 
   getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingRelease[] {

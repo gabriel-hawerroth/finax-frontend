@@ -122,7 +122,11 @@
         "empty-credit-cards-list": "Es sind keine Karten registriert",
         "last-30-days": "Letzte 30 Tage",
         "current-month": "Aktueller Monat",
-        "date-interval": "Datumsintervall"
+        "date-interval": "Datumsintervall",
+        "error-getting-credit-cards": "Fehler beim Abrufen der Kreditkarten",
+        "error-getting-accounts": "Fehler beim Abrufen der Konten",
+        "error-getting-payable-and-receivable-accounts": "Fehler beim Abrufen der Kreditoren- und Debitorenbuchhaltung",
+        "error-getting-expenses-by-category": "Fehler beim Abrufen der Ausgaben nach Kategorie"
     },
     "cash-flow": {
         "title": "Kassenfluss",
