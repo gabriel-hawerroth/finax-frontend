@@ -1,1 +1,37 @@
-<p>cash-flow-balances works!</p>
+<div class="balances">
+  <div class="row1">
+    <span>
+      {{ "cash-flow.revenues" | translate }}: {{ currency()
+      }}{{ balances().revenues | customCurrency }}
+    </span>
+
+    <span>
+      {{ "cash-flow.expenses" | translate }}: {{ currency()
+      }}{{ balances().expenses | customCurrency }}
+    </span>
+
+    <span>
+      {{ "cash-flow.actual-balance" | translate }}: {{ currency()
+      }}{{ balances().balance | customCurrency }}
+    </span>
+
+    <span>
+      {{ "cash-flow.expected-balance" | translate }}: {{ currency()
+      }}{{ balances().expectedBalance | customCurrency }}
+    </span>
+  </div>
+
+  <!-- @if (viewModeCtrl.value === 'invoice') {
+  <div class="row2">
+    <span>
+      {{ "cash-flow.general-account-balance" | translate }}: {{ currency()
+      }}{{ totals().generalBalance || 0 | customCurrency }}
+    </span>
+
+    <span>
+      {{ "cash-flow.expected-balance" | translate }}: {{ currency()
+      }}{{ monthlyValues().expectedBalance | customCurrency }}
+    </span>
+  </div>
+  } -->
+</div>

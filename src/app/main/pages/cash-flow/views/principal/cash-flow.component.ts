@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit, computed, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
@@ -25,7 +25,10 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { CashFlowBalancesComponent } from '../../components/cash-flow-balances/cash-flow-balances.component';
+import {
+  CashFlowBalancesComponent,
+  CashFlowBalancesComponentData,
+} from '../../components/cash-flow-balances/cash-flow-balances.component';
 import { FilterReleasesDialog } from '../../components/filter-releases-dialog/filter-releases-dialog.component';
 import { ReleasesListComponent } from '../../components/releases-list/releases-list.component';
 
@@ -73,9 +76,11 @@ export class CashFlowPage implements OnInit, OnDestroy {
   categories: Category[] = [];
   creditCards: BasicCard[] = [];
 
-  viewModeCtrl: FormControl = new FormControl<string>('RELEASES');
+  // viewModeCtrl: FormControl = new FormControl<string>(
+  //   ReleasesViewMode.releases
+  // );
 
-  totals = computed(() => this.calculateValues(this.monthlyValues()));
+  balances = computed(() => this.calculateValues());
 
   appliedFilters = signal<ReleaseFilters>({
     accountIds: [],
@@ -109,9 +114,9 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     this.getReleases();
 
-    this.viewModeCtrl.valueChanges
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(() => this.getReleases());
+    // this.viewModeCtrl.valueChanges
+    //   .pipe(takeUntil(this._unsubscribeAll))
+    //   .subscribe(() => this.getReleases());
   }
 
   ngOnDestroy(): void {
@@ -180,7 +185,9 @@ export class CashFlowPage implements OnInit, OnDestroy {
       });
   }
 
-  calculateValues(monthlyFlow: MonthlyFlow) {
+  calculateValues(): CashFlowBalancesComponentData {
+    const monthlyFlow = this.monthlyValues();
+
     const doneReleases = this.utils.filterList(
       monthlyFlow.releases,
       'done',
@@ -201,15 +208,11 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     const expectedBalance = this.allRevenuesAmount - this.allExpensesAmount;
 
-    return {
+    return <CashFlowBalancesComponentData>{
       revenues,
       expenses,
       balance: revenues - expenses,
       expectedBalance,
-      generalBalance: this.accounts.reduce(
-        (count, item) => count + item.balance,
-        0
-      ),
     };
   }
 

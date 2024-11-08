@@ -101,23 +101,6 @@
                 flex: 1;
                 overflow-y: scroll;
             }
-
-            .totals {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 1.4rem;
-                font-size: 1.1rem;
-                border-top: 1px solid #00000032;
-                gap: 1rem;
-
-                .row1,
-                .row2 {
-                    width: 100%;
-                    display: flex;
-                    justify-content: space-around;
-                }
-            }
         }
     }
 }
@@ -186,7 +169,7 @@
                 }
             }
 
-            .totals {
+            .balances {
                 border-top: 1px solid #ffffff32 !important;
             }
         }
