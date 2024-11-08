@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { endOfMonth, startOfMonth } from 'date-fns';
+import { format } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { cloudFireCdnLink } from '../../../shared/utils/utils';
@@ -18,12 +18,10 @@ export class ReleaseService {
   constructor(private readonly _http: HttpClient) {}
 
   getMonthlyFlow(selectedDt: Date): Promise<MonthlyFlow> {
-    const firstDt = startOfMonth(selectedDt).toLocaleDateString();
-    const lastDt = endOfMonth(selectedDt).toLocaleDateString();
+    const monthYear = format(selectedDt, 'yyyy-MM');
 
     let params = new HttpParams();
-    params = params.append('firstDt', firstDt);
-    params = params.append('lastDt', lastDt);
+    params = params.append('monthYear', monthYear);
 
     return lastValueFrom(this._http.get<MonthlyFlow>(this.apiUrl, { params }));
   }
