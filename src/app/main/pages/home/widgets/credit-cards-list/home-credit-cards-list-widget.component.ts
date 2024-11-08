@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,8 +12,6 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomeCreditCard } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { HomeCreditCardItemComponent } from './home-credit-card-item/home-credit-card-item.component';
 
 @Component({
@@ -23,11 +21,8 @@ import { HomeCreditCardItemComponent } from './home-credit-card-item/home-credit
     CommonModule,
     MatCardModule,
     TranslateModule,
-    CustomCurrencyPipe,
-    NgOptimizedImage,
     MatDividerModule,
     RouterModule,
-    ButtonsComponent,
     HomeCreditCardItemComponent,
   ],
   templateUrl: './home-credit-cards-list-widget.component.html',

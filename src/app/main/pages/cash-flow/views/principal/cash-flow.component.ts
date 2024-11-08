@@ -22,7 +22,6 @@ import {
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import {
@@ -41,7 +40,6 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     MatMenuModule,
     MatButtonModule,
     MatCardModule,
-    CustomCurrencyPipe,
     MatBottomSheetModule,
     TranslateModule,
     MatButtonToggleModule,

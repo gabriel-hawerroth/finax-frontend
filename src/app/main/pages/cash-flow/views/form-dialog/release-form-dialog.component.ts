@@ -50,7 +50,6 @@ import {
   ReleaseType,
 } from '../../../../../core/enums/release-enums';
 import { ReleasedOn } from '../../../../../core/enums/released-on';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { getBtnStyle } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
@@ -72,7 +71,6 @@ import { ReleaseFormComponent } from '../../components/release-form/release-form
     NgxCurrencyDirective,
     MatCheckboxModule,
     TranslateModule,
-    ButtonsComponent,
     MatButtonModule,
     MatProgressSpinnerModule,
   ],

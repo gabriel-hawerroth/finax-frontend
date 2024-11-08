@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -31,7 +31,6 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
     MatCardModule,
     CustomCurrencyPipe,
     MatDividerModule,
-    NgOptimizedImage,
     TranslateModule,
     HomeAccountsListWidget,
     HomePayableAccountsWidget,
