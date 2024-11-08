@@ -46,36 +46,17 @@
           </div>
 
           <div class="right">
-            <button
-              mat-raised-button
-              [ngStyle]="{
-                position: 'relative',
-                top: '.7rem',
-                right: '1rem'
-              }"
-              (click)="openFilterDialog()"
-            >
-              <div class="btn-content">
-                <span class="material-symbols-outlined">filter_list</span>
-
-                <span>
-                  {{ "filters.filter" | translate }}
-                </span>
-              </div>
-            </button>
-
-            <!-- <app-buttons
+            <app-buttons
               [showGeneric]="true"
               genericIcon="filter_list"
               genericLabel="filters.filter"
               [btnStyle]="{
-                transform: 'scale(0.9)',
                 position: 'relative',
                 top: '.7rem',
                 right: '1rem'
               }"
-              [matBadge]="totalAppliedFilters()"
-            ></app-buttons> -->
+              (onGeneric)="openFilterDialog()"
+            ></app-buttons>
           </div>
         </div>
 

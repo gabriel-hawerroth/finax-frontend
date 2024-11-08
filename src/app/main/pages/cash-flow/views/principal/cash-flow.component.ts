@@ -21,6 +21,7 @@ import {
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -46,6 +47,7 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     MatDialogModule,
     CashFlowBalancesComponent,
     MatBadgeModule,
+    ButtonsComponent,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -109,9 +111,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     this.viewModeCtrl.valueChanges
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(() => {
-        this.getReleases();
-      });
+      .subscribe(() => this.getReleases());
   }
 
   ngOnDestroy(): void {
