@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
@@ -20,14 +21,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import { AccountService } from '../../../../../core/entities/account/account.service';
+import { AccountType } from '../../../../../core/enums/account-enums';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 
 @Component({
   selector: 'app-accounts-form',
@@ -49,8 +51,10 @@ import { BackButtonDirective } from '../../../../../shared/directives/back-butto
   styleUrl: './accounts-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BankAccountsFormPage implements OnInit {
+export class BankAccountsFormPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+
+  private readonly unsubscribeAll = new Subject<void>();
 
   readonly currency = this.utils.getUserConfigs.currency;
 
@@ -81,6 +85,13 @@ export class BankAccountsFormPage implements OnInit {
         .then((response) => this.accountForm.patchValue(response))
         .catch(() => this._location.back());
     }
+
+    this.subscribeValueChanges();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 
   private buildForm() {
@@ -129,5 +140,29 @@ export class BankAccountsFormPage implements OnInit {
         this._changeDetectorRef.detectChanges();
       }
     );
+  }
+
+  private subscribeValueChanges() {
+    const formControls = this.accountForm.controls;
+
+    formControls['type'].valueChanges
+      .pipe(takeUntil(this.unsubscribeAll))
+      .subscribe((value) => {
+        if (value === AccountType.CASH) {
+          formControls['code'].setValue(null, { emitEvent: false });
+          formControls['accountNumber'].setValue('', { emitEvent: false });
+          formControls['agency'].setValue(null, { emitEvent: false });
+          formControls['investments'].setValue(false, { emitEvent: false });
+          formControls['code'].disable({ emitEvent: false });
+          formControls['accountNumber'].disable({ emitEvent: false });
+          formControls['agency'].disable({ emitEvent: false });
+          formControls['investments'].disable({ emitEvent: false });
+        } else {
+          formControls['code'].enable({ emitEvent: false });
+          formControls['accountNumber'].enable({ emitEvent: false });
+          formControls['agency'].enable({ emitEvent: false });
+          formControls['investments'].enable({ emitEvent: false });
+        }
+      });
   }
 }

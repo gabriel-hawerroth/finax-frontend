@@ -21,6 +21,7 @@ export class SelectIconDialog {
 
   private get getIcons(): string[] {
     return [
+      'money.png',
       'agora.png',
       'alelo.png',
       'ame.png',

@@ -235,7 +235,8 @@
             "saving": "Savings Account",
             "salary": "Salary Account",
             "legal": "Legal Account",
-            "brokerage": "Brokerage"
+            "brokerage": "Brokerage",
+            "cash": "Cash"
         },
         "code": "Code",
         "balance": "Balance",

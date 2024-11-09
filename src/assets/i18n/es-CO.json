@@ -235,7 +235,8 @@
             "saving": "Cuenta de ahorros",
             "salary": "Cuenta de salario",
             "legal": "Cuenta jurídica",
-            "brokerage": "Correduría"
+            "brokerage": "Correduría",
+            "cash": "Dinero"
         },
         "code": "Código",
         "balance": "Balance",

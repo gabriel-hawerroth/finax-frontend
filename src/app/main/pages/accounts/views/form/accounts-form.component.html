@@ -45,10 +45,10 @@
         </mat-form-field>
 
         <mat-form-field>
-          <!-- The value of the options follows a pattern of two characters, the first is the first letter of the first acronym of the label, the second is the first letter of the second acronym of the label  -->
           <mat-label>
             {{ "my-accounts.account-type" | translate }}
           </mat-label>
+
           <mat-select formControlName="type">
             <mat-option value="CHECKING">
               {{ "my-accounts.account-types.checking" | translate }}
@@ -68,6 +68,10 @@
 
             <mat-option value="BROKERAGE">
               {{ "my-accounts.account-types.brokerage" | translate }}
+            </mat-option>
+
+            <mat-option value="CASH">
+              {{ "my-accounts.account-types.cash" | translate }}
             </mat-option>
           </mat-select>
         </mat-form-field>

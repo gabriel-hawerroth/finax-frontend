@@ -235,7 +235,8 @@
             "savings": "Sparkonto",
             "salary": "Gehaltskonto",
             "legal": "Geschäftskonto",
-            "brokerage": "Maklerkonto"
+            "brokerage": "Maklerkonto",
+            "cash": "Geld"
         },
         "code": "Code",
         "balance": "Bilanz",

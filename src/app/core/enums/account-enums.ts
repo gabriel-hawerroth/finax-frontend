@@ -4,4 +4,5 @@ export enum AccountType {
   SALARY = 'SALARY',
   LEGAL = 'LEGAL',
   BROKERAGE = 'BROKERAGE',
+  CASH = 'CASH',
 }
