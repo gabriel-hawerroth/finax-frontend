@@ -75,9 +75,9 @@ export class CreditCardInvoicePage implements OnInit {
   creditCard = signal<CreditCard | null>(null);
 
   monthValues = signal<InvoiceMonthValues>({
-    invoicePayments: [],
+    payments: [],
     releases: [],
-    previousBalance: 0,
+    amount: 0,
   });
 
   selectedDate = signal(addMonths(setDate(new Date(), 15), 1));
@@ -118,17 +118,10 @@ export class CreditCardInvoicePage implements OnInit {
         expire = addMonths(expire, 1);
       }
 
-      const value: number = this.utils.limitTwoDecimals(
-        this.utils
-          .filterList(this.monthValues().releases, 'done', true)
-          .reduce((count, item) => count + item.amount, 0) +
-          this.monthValues().previousBalance
-      );
-
       return {
         close,
         expire,
-        value,
+        value: this.monthValues().amount,
       };
     });
   }
@@ -187,7 +180,7 @@ export class CreditCardInvoicePage implements OnInit {
             defaultPaymmentAccount: this.creditCard()!.standardPaymentAccountId,
             defaultPaymentAmount:
               this.invoiceValues().value -
-              this.monthValues().invoicePayments.reduce(
+              this.monthValues().payments.reduce(
                 (amount, item) => (amount += item.paymentAmount),
                 0
               ),
@@ -195,7 +188,7 @@ export class CreditCardInvoicePage implements OnInit {
             payment: invoicePayment,
             expireDate: this.invoiceValues().expire,
             invoiceValue: this.invoiceValues().value,
-            invoicePayments: this.monthValues().invoicePayments,
+            invoicePayments: this.monthValues().payments,
           },
         })
         .afterClosed()

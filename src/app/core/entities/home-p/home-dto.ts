@@ -49,7 +49,6 @@ export interface HomeCreditCard {
   cardId: number;
   cardName: string;
   cardImage: string;
-  cardLimit: number;
   currentInvoiceAmount: number;
-  nextInvoicesAmount: number;
+  availableLimit: number;
 }

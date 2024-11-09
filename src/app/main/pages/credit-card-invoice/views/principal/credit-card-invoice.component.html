@@ -50,10 +50,10 @@
           </div>
 
           <div class="right">
-            @if (monthValues().invoicePayments.length != 0) {
+            @if (monthValues().payments.length != 0) {
             <app-invoice-payments-card
               id="payments-card"
-              [payments]="monthValues().invoicePayments || []"
+              [payments]="monthValues().payments"
               [invoiceValue]="invoiceValues().value"
               (updateValues)="getMonthValues()"
               (editPayment)="payInvoice($event)"

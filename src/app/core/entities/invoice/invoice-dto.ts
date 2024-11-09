@@ -5,9 +5,9 @@ import { MonthlyRelease } from '../release/release-dto';
 import { InvoicePaymentPerson } from './invoice-payment-dto';
 
 export interface InvoiceMonthValues {
-  invoicePayments: InvoicePaymentPerson[];
+  payments: InvoicePaymentPerson[];
   releases: MonthlyRelease[];
-  previousBalance: number;
+  amount: number;
 }
 
 export interface InvoiceValues {

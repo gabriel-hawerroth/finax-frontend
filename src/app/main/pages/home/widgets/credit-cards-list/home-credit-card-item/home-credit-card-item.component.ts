@@ -32,13 +32,4 @@ export class HomeCreditCardItemComponent {
   btnConfig: ButtonConfig = {
     label: 'credit-cards.see-invoice',
   };
-
-  get cardAvailableLimit(): number {
-    const availableLimit =
-      this.card().cardLimit -
-      this.card().currentInvoiceAmount -
-      this.card().nextInvoicesAmount;
-
-    return Math.max(0, availableLimit);
-  }
 }
