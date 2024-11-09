@@ -271,10 +271,12 @@ export class CashFlowPage implements OnInit, OnDestroy {
       let releases = this.allMonthlyReleases;
 
       if (this.appliedFilters().accountIds?.length) {
-        releases = this.utils.filterList(
-          releases,
-          'accountId',
-          this.appliedFilters().accountIds
+        releases = releases.filter(
+          (item) =>
+            this.appliedFilters().accountIds.includes(item.accountId) ||
+            (item.targetAccountId
+              ? this.appliedFilters().accountIds.includes(item.targetAccountId!)
+              : false)
         );
       }
 
