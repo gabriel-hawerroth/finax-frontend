@@ -23,6 +23,7 @@ import {
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { BankAccountDetailsComponent } from '../details/account-details.component';
@@ -40,6 +41,7 @@ import { BankAccountDetailsComponent } from '../details/account-details.componen
     MatCardModule,
     TranslateModule,
     DynamicButtonComponent,
+    CustomCurrencyPipe,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
@@ -47,6 +49,8 @@ import { BankAccountDetailsComponent } from '../details/account-details.componen
 })
 export class MyBankAccountsPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnable = this._utils.darkThemeEnable;
+  readonly currency = this._utils.getUserConfigs.currency;
 
   situationFilter = new FormControl(true);
 
@@ -59,7 +63,7 @@ export class MyBankAccountsPage implements OnInit {
   };
 
   constructor(
-    public utils: UtilsService,
+    private _utils: UtilsService,
     private _bottomSheet: MatBottomSheet,
     private _router: Router,
     private _accountService: AccountService
@@ -80,7 +84,7 @@ export class MyBankAccountsPage implements OnInit {
     let rows = this.rows.slice();
 
     if (newValue != 'all') {
-      rows = this.utils.filterList(rows, 'active', newValue);
+      rows = this._utils.filterList(rows, 'active', newValue);
     }
 
     this.filteredRows.set(rows);

@@ -1,3 +1,5 @@
+@import 'colors.scss';
+
 .account {
     display: flex;
     align-items: center;
@@ -22,6 +24,6 @@
     .account-balance {
         margin-left: auto;
         font-size: 1.1rem;
-        color: #3d799c;
+        color: $balance-blue-color;
     }
 }

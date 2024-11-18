@@ -1,6 +1,6 @@
 <div
   [ngClass]="{
-    'dark-page': utils.getUserConfigs.theme === 'dark'
+    'dark-page': darkThemeEnable
   }"
   class="simple-page"
 >
@@ -39,26 +39,32 @@
       <div class="list">
         @for (account of filteredRows(); track account.id) {
         <div class="account" (click)="openDetails(account)">
-          @if (account.image) {
-          <img
-            [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
-            width="60"
-            height="60"
-            alt="account logo"
-          />
-          } @else {
-          <span class="material-symbols-outlined default-bank-account">
-            account_balance
-          </span>
-          }
+          <div class="image-name">
+            @if (account.image) {
+            <img
+              [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+              width="60"
+              height="60"
+              alt="account logo"
+            />
+            } @else {
+            <span class="material-symbols-outlined default-bank-account">
+              account_balance
+            </span>
+            }
 
-          <span>
-            <b>{{ account.name }}</b>
-          </span>
+            <span>
+              <b>{{ account.name }}</b>
+            </span>
+          </div>
 
-          <span class="material-symbols-outlined navigate-icon">
-            navigate_next
-          </span>
+          <div class="amount">
+            {{ currency + (account.balance | customCurrency) }}
+          </div>
+
+          <div class="navigate-icon">
+            <span class="material-symbols-outlined">navigate_next</span>
+          </div>
         </div>
         }
       </div>
