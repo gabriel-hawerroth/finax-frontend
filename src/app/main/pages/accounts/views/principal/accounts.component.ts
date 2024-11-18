@@ -18,12 +18,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
 import { BankAccountDetailsData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
+import { ButtonType } from '../../../../../core/enums/button-style';
+import { ShowValues } from '../../../../../core/enums/show-values';
 import {
   ButtonConfig,
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { LS_SHOW_VALUES } from '../../../../../shared/utils/local-storage-contants';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { BankAccountDetailsComponent } from '../details/account-details.component';
@@ -62,11 +65,20 @@ export class MyBankAccountsPage implements OnInit {
     onClick: () => this.onNew(),
   };
 
+  valuesViewBtnConfig: ButtonConfig = {
+    type: ButtonType.ICON,
+    icon: this._utils.getItemLocalStorage(LS_SHOW_VALUES) || ShowValues.OFF,
+    style: {
+      transform: 'scale(1.1)',
+    },
+    onClick: () => this.onChangeShowValues(),
+  };
+
   constructor(
-    private _utils: UtilsService,
-    private _bottomSheet: MatBottomSheet,
-    private _router: Router,
-    private _accountService: AccountService
+    private readonly _utils: UtilsService,
+    private readonly _bottomSheet: MatBottomSheet,
+    private readonly _router: Router,
+    private readonly _accountService: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -101,5 +113,25 @@ export class MyBankAccountsPage implements OnInit {
       },
       panelClass: 'account-details',
     });
+  }
+
+  onChangeShowValues() {
+    switch (this.valuesViewBtnConfig.icon) {
+      case ShowValues.ON:
+        this.valuesViewBtnConfig.icon = ShowValues.OFF;
+        break;
+      case ShowValues.OFF:
+        this.valuesViewBtnConfig.icon = ShowValues.ON;
+        break;
+    }
+
+    this._utils.setItemLocalStorage(
+      LS_SHOW_VALUES,
+      this.valuesViewBtnConfig.icon!
+    );
+  }
+
+  get showValues() {
+    return this.valuesViewBtnConfig.icon === ShowValues.ON;
   }
 }

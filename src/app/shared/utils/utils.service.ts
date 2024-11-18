@@ -10,9 +10,11 @@ import { ReleaseFormDialogData } from '../../core/entities/release/release-dto';
 import { UserConfigs } from '../../core/entities/user-configs/user-configs';
 import { User } from '../../core/entities/user/user';
 import { ReleasesViewMode } from '../../core/enums/releases-view-mode';
+import { ShowValues } from '../../core/enums/show-values';
 import { Theme } from '../../core/enums/theme';
 import { ReleaseFormDialog } from '../../main/pages/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
+import { LS_SHOW_VALUES } from './local-storage-contants';
 import { ResponsiveService } from './responsive.service';
 import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
 
@@ -92,6 +94,10 @@ export class UtilsService {
 
   get darkThemeEnable() {
     return this.getUserConfigs.theme === Theme.DARK;
+  }
+
+  get showValues() {
+    return this.getItemLocalStorage(LS_SHOW_VALUES) === ShowValues.ON;
   }
 
   setDefaultLanguage() {

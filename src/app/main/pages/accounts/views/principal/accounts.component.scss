@@ -27,6 +27,12 @@
                 justify-content: space-between;
                 align-items: center;
 
+                .left {
+                    display: flex;
+                    align-items: center;
+                    gap: 5rem;
+                }
+
                 button {
                     padding: 1.3rem;
                 }
