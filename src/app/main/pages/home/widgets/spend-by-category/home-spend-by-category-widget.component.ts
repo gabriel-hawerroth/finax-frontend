@@ -53,9 +53,9 @@ export class HomeSpendByCategoryWidget implements OnInit {
   options!: ChartOptions;
 
   dateInterval = new FormControl<SpendByCategoryInterval>(
-    this._utils.getItemLocalStorage(
+    (this._utils.getItemLocalStorage(
       LS_DATE_INTERVAL_SPENDS_BY_CATEGORY
-    ) as SpendByCategoryInterval
+    ) as SpendByCategoryInterval) || SpendByCategoryInterval.LAST_30_DAYS
   );
 
   constructor(
