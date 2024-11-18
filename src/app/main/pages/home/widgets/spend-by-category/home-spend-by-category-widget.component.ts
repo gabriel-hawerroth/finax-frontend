@@ -18,6 +18,7 @@ import { SpendByCategory } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { SpendByCategoryInterval } from '../../../../../core/enums/spend-by-category-interval';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { LS_DATE_INTERVAL_SPENDS_BY_CATEGORY } from '../../../../../shared/utils/local-storage-contants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
@@ -52,7 +53,9 @@ export class HomeSpendByCategoryWidget implements OnInit {
   options!: ChartOptions;
 
   dateInterval = new FormControl<SpendByCategoryInterval>(
-    SpendByCategoryInterval.LAST_30_DAYS
+    this._utils.getItemLocalStorage(
+      LS_DATE_INTERVAL_SPENDS_BY_CATEGORY
+    ) as SpendByCategoryInterval
   );
 
   constructor(
@@ -123,5 +126,9 @@ export class HomeSpendByCategoryWidget implements OnInit {
 
   onChangeDateInterval(newValue: SpendByCategoryInterval) {
     this.getSpends(newValue);
+    this._utils.setItemLocalStorage(
+      LS_DATE_INTERVAL_SPENDS_BY_CATEGORY,
+      newValue
+    );
   }
 }
