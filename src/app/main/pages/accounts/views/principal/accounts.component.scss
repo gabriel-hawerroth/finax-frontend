@@ -1,5 +1,3 @@
-@import 'colors.scss';
-
 ::-webkit-scrollbar {
     display: none;
 }
@@ -38,73 +36,10 @@
                 }
             }
 
-            .list {
-                width: 70%;
-                max-height: 85% !important;
-                border-radius: 4px;
+            .list-component {
+                width: 75%;
+                max-height: 85%;
                 margin: 1rem 0;
-                overflow-y: scroll;
-                padding-left: 2rem;
-
-                .account {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    cursor: pointer;
-                    font-size: 1.2rem;
-                    padding: 20px 10px;
-                    border-bottom: 1px solid #74747437;
-
-                    .image-name {
-                        flex: 1;
-                        display: flex;
-                        align-items: center;
-                        gap: 1.5rem;
-                        font-size: 1.2rem;
-
-                        img {
-                            border-radius: 50%;
-                        }
-
-                        .default-bank-account {
-                            width: 60px;
-                            height: 60px;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            border-radius: 50%;
-                            box-shadow: 0 0 2px #5d5d5d;
-                            cursor: pointer;
-                        }
-                    }
-
-                    .amount {
-                        width: 20%;
-                        display: flex;
-                        justify-content: flex-end;
-                        margin-right: 1.5rem;
-                        color: $balance-blue-color;
-                    }
-
-                    .navigate-icon {
-                        width: 10%;
-                        display: flex;
-                        justify-content: center;
-
-                        .material-symbols-outlined {
-                            display: none;
-                            color: #50505040;
-                        }
-                    }
-
-                    &:hover {
-                        .navigate-icon {
-                            .material-symbols-outlined {
-                                display: block;
-                            }
-                        }
-                    }
-                }
             }
         }
     }

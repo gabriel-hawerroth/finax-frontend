@@ -1,0 +1,49 @@
+<div class="list">
+  @for (account of accounts(); track account.id) {
+  <div class="account" (click)="openDetails(account)">
+    <div class="image-name">
+      @if (account.image) {
+      <img
+        [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+        width="60"
+        height="60"
+        alt="account logo"
+      />
+      } @else {
+      <span class="material-symbols-outlined default-bank-account">
+        account_balance
+      </span>
+      }
+
+      <span>
+        <b>{{ account.name }}</b>
+      </span>
+    </div>
+
+    <div class="amount">
+      {{
+        currency +
+          (showValues() ? (account.balance | customCurrency) : hideValue)
+      }}
+    </div>
+
+    <div class="sub-accounts-expand-btn">
+      <span
+        class="material-symbols-outlined"
+        [ngStyle]="{
+          display: account.subAccounts?.length ? 'flex' : 'none'
+        }"
+        (click)="expandSubAccounts(account.id!, $event)"
+      >
+        {{
+          expandedSubAccounts.get(account.id!) ? "expand_less" : "expand_more"
+        }}
+      </span>
+    </div>
+
+    <div class="navigate-icon">
+      <span class="material-symbols-outlined">navigate_next</span>
+    </div>
+  </div>
+  }
+</div>

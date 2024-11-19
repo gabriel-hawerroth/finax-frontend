@@ -9,10 +9,11 @@ export interface Account {
   addOverallBalance: boolean;
   active: boolean;
   archived: boolean;
-  image: string;
-  accountNumber: string;
-  agency: number;
-  code: number;
-  type: AccountType;
-  primaryAccountId: number;
+  image?: string;
+  accountNumber?: string;
+  agency?: number;
+  code?: number;
+  type?: AccountType;
+  primaryAccountId?: number;
+  subAccounts?: Account[];
 }

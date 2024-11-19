@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,17 +6,13 @@ import {
   signal,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatBottomSheet,
-  MatBottomSheetModule,
-} from '@angular/material/bottom-sheet';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
-import { BankAccountDetailsData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ShowValues } from '../../../../../core/enums/show-values';
@@ -25,21 +21,15 @@ import {
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
-import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { LS_SHOW_VALUES } from '../../../../../shared/utils/local-storage-contants';
-import {
-  cloudFireCdnImgsLink,
-  HIDE_VALUE,
-} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { BankAccountDetailsComponent } from '../details/account-details.component';
+import { AccountsListComponent } from '../../components/accounts-list/accounts-list.component';
 
 @Component({
   selector: 'app-accounts',
   standalone: true,
   imports: [
     CommonModule,
-    NgOptimizedImage,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -47,17 +37,14 @@ import { BankAccountDetailsComponent } from '../details/account-details.componen
     MatCardModule,
     TranslateModule,
     DynamicButtonComponent,
-    CustomCurrencyPipe,
+    AccountsListComponent,
   ],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyBankAccountsPage implements OnInit {
-  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly darkThemeEnable = this._utils.darkThemeEnable;
-  readonly currency = this._utils.getUserConfigs.currency;
-  readonly hideValue = HIDE_VALUE;
 
   situationFilter = new FormControl(true);
 
@@ -80,7 +67,6 @@ export class MyBankAccountsPage implements OnInit {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _bottomSheet: MatBottomSheet,
     private readonly _router: Router,
     private readonly _accountService: AccountService
   ) {}
@@ -103,20 +89,27 @@ export class MyBankAccountsPage implements OnInit {
       rows = this._utils.filterList(rows, 'active', newValue);
     }
 
+    this.joinSubAccounts(rows);
+  }
+
+  joinSubAccounts(accounts: Account[]) {
+    let rows: Account[] = [];
+
+    accounts.forEach((account) => {
+      if (account.primaryAccountId) return;
+
+      const subAccounts = accounts.filter(
+        (item) => item.primaryAccountId === account.id
+      );
+      account.subAccounts = subAccounts;
+      rows.push(account);
+    });
+
     this.filteredRows.set(rows);
   }
 
   onNew() {
     this._router.navigateByUrl('contas/nova');
-  }
-
-  openDetails(account: Account) {
-    this._bottomSheet.open(BankAccountDetailsComponent, {
-      data: <BankAccountDetailsData>{
-        account: account,
-      },
-      panelClass: 'account-details',
-    });
   }
 
   onChangeShowValues() {
