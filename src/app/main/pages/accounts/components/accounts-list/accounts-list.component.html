@@ -1,6 +1,17 @@
 <div class="list">
   @for (account of accounts(); track account.id) {
   <div class="account" (click)="openDetails(account)">
+    <div class="sub-accounts-expand-btn">
+      <span
+        class="material-symbols-outlined"
+        (click)="expandSubAccounts(account.id!, $event)"
+      >
+        {{
+          expandedSubAccounts.get(account.id!) ? "expand_less" : "expand_more"
+        }}
+      </span>
+    </div>
+
     <div class="image-name">
       @if (account.image) {
       <img
@@ -25,20 +36,6 @@
         currency +
           (showValues() ? (account.balance | customCurrency) : hideValue)
       }}
-    </div>
-
-    <div class="sub-accounts-expand-btn">
-      <span
-        class="material-symbols-outlined"
-        [ngStyle]="{
-          display: account.subAccounts?.length ? 'flex' : 'none'
-        }"
-        (click)="expandSubAccounts(account.id!, $event)"
-      >
-        {{
-          expandedSubAccounts.get(account.id!) ? "expand_less" : "expand_more"
-        }}
-      </span>
     </div>
 
     <div class="navigate-icon">
