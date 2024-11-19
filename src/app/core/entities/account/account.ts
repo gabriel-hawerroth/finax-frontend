@@ -14,4 +14,5 @@ export interface Account {
   agency: number;
   code: number;
   type: AccountType;
+  primaryAccountId: number;
 }

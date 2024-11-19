@@ -27,7 +27,10 @@ import {
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { LS_SHOW_VALUES } from '../../../../../shared/utils/local-storage-contants';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import {
+  cloudFireCdnImgsLink,
+  HIDE_VALUE,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { BankAccountDetailsComponent } from '../details/account-details.component';
 
@@ -54,6 +57,7 @@ export class MyBankAccountsPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly darkThemeEnable = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
+  readonly hideValue = HIDE_VALUE;
 
   situationFilter = new FormControl(true);
 

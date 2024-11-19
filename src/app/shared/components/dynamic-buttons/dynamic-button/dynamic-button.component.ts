@@ -35,14 +35,16 @@ export class DynamicButtonComponent implements OnInit {
 
   getBtnStyle = getBtnStyle;
 
-  readonly darkThemeEnabled = signal(false);
+  readonly darkThemeEnabled = signal(this._utils.darkThemeEnable);
 
   constructor(private readonly _utils: UtilsService) {}
 
   ngOnInit(): void {
-    this._utils.getUserConfigsObservable().subscribe((configs) => {
-      this.darkThemeEnabled.set(configs.theme === 'dark');
-    });
+    // this._utils
+    //   .getUserConfigsObservable()
+    //   .subscribe((configs) =>
+    //     this.darkThemeEnabled.set(configs.theme == Theme.DARK)
+    //   );
 
     if (this.config().type === undefined) {
       this.config().type = this.darkThemeEnabled()

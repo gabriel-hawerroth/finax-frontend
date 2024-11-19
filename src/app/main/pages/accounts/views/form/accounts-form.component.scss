@@ -24,31 +24,35 @@
                 margin-bottom: .8rem;
             }
 
-            .first-row,
-            .second-row,
-            .third-row {
-                display: flex;
+            .row {
                 width: 100%;
+                display: flex;
+                gap: 1rem;
                 padding: 0 2rem;
             }
 
-            .first-row {
+            .first {
                 width: 100%;
-                display: flex;
                 align-items: center;
-                gap: 1rem;
                 margin-bottom: 1rem;
             }
 
-            .second-row {
-                display: flex;
-                gap: 2rem;
-                margin-bottom: 2rem;
+            .second {
+                margin-bottom: 1rem;
+
+                .selected-account {
+                    display: flex;
+                    align-items: center;
+                    gap: .5rem;
+
+                    img {
+                        border-radius: 50%;
+                    }
+                }
             }
 
-            .third-row {
+            .fourth {
                 flex: 1;
-                display: flex;
 
                 .check-boxs {
                     padding: 1.5rem;

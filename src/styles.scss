@@ -586,3 +586,15 @@ mat-card-title {
     }
   }
 }
+
+.clear-value-button {
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px;
+
+  &:hover {
+    background-color: #74747430;
+  }
+}

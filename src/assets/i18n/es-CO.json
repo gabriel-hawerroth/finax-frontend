@@ -250,7 +250,10 @@
         "adjust-balance": "Ajustar balance",
         "see-releases": "Ver transacciones",
         "balance-changed-successfully": "Balance cambiado con éxito",
-        "error-changing-balance": "Error al cambiar el balance"
+        "error-changing-balance": "Error al cambiar el balance",
+        "primary-account": "Cuenta principal",
+        "primary-account-tooltip": "Seleccione una cuenta principal si esta es una subcuenta. Esto permite vincular esta cuenta como una 'caja', 'hucha' o cuenta de inversión de la cuenta principal seleccionada, facilitando la organización y el control financiero.",
+        "description-is-required": "La descripción es obligatoria"
     },
     "credit-cards": {
         "title": "Tarjetas de crédito",

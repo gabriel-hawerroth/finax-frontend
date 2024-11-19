@@ -83,7 +83,7 @@ export class BankAccountDetailsComponent {
 
   get getAccountType(): string {
     let type = 'my-accounts.account-types.';
-    type += this.account.type.toString().toLowerCase();
+    type += this.account.type?.toString().toLowerCase();
     return type;
   }
 

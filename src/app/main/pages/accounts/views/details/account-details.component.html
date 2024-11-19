@@ -46,9 +46,11 @@
       </div>
 
       <div class="right">
+        @if (account.type) {
         <span>
           {{ getAccountType | translate }}
         </span>
+        }
       </div>
     </div>
 

@@ -250,7 +250,10 @@
         "adjust-balance": "Saldo anpassen",
         "see-releases": "Veröffentlichungen anzeigen",
         "balance-changed-successfully": "Saldo erfolgreich geändert",
-        "error-changing-balance": "Fehler beim Ändern des Saldos"
+        "error-changing-balance": "Fehler beim Ändern des Saldos",
+        "primary-account": "Primärkonto",
+        "primary-account-tooltip": "Wählen Sie ein Hauptkonto, wenn dies ein Unterkonto ist. Dies ermöglicht die Verknüpfung dieses Kontos als 'Box', 'Sparschwein' oder Anlagekonto des ausgewählten Hauptkontos, was die Organisation und Finanzkontrolle erleichtert.",
+        "description-is-required": "Beschreibung ist erforderlich"
     },
     "credit-cards": {
         "title": "Kreditkarten",
