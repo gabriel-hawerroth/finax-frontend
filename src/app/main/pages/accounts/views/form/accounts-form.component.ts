@@ -53,10 +53,10 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 })
 export class BankAccountsFormPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly currency = this._utils.getUserConfigs.currency;
 
   private readonly unsubscribeAll = new Subject<void>();
-
-  readonly currency = this.utils.getUserConfigs.currency;
 
   accountId: number | null =
     +this._activatedRoute.snapshot.paramMap.get('id')! || null;
@@ -66,7 +66,7 @@ export class BankAccountsFormPage implements OnInit, OnDestroy {
   saving = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _dialog: MatDialog,
@@ -118,10 +118,10 @@ export class BankAccountsFormPage implements OnInit, OnDestroy {
 
     this.getSaveRequest(this.accountForm.getRawValue())
       .then(() => {
-        this.utils.showMessage('my-accounts.saved-successfully');
+        this._utils.showMessage('my-accounts.saved-successfully');
         this._router.navigateByUrl('contas');
       })
-      .catch(() => this.utils.showMessage('my-accounts.error-saving-account'))
+      .catch(() => this._utils.showMessage('my-accounts.error-saving-account'))
       .finally(() => this.saving.set(false));
   }
 

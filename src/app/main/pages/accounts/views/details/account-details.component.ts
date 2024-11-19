@@ -18,7 +18,10 @@ import { EditBalanceDialogData } from '../../../../../core/entities/account/acco
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import {
+  cloudFireCdnImgsLink,
+  HIDE_VALUE,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-balance-dialog.component';
 
@@ -38,13 +41,16 @@ import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-bal
 })
 export class BankAccountDetailsComponent {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly showValues = this._utils.showValues;
+  readonly hideValue = HIDE_VALUE;
 
-  readonly currency = this.utils.getUserConfigs.currency;
+  readonly currency = this._utils.getUserConfigs.currency;
 
   account: Account = inject(MAT_BOTTOM_SHEET_DATA).account;
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _bottomSheetRef: MatBottomSheetRef,
     private readonly _dialog: MatDialog,

@@ -1,6 +1,6 @@
 <div
   [ngClass]="{
-    'dark-page': utils.getUserConfigs.theme === 'dark'
+    'dark-page': darkThemeEnabled
   }"
   class="simple-page"
 >
@@ -95,6 +95,7 @@
       </div>
 
       <div class="second-row">
+        @if (!accountId) {
         <mat-form-field
           floatLabel="always"
           style="width: 28%"
@@ -119,6 +120,7 @@
           </mat-hint>
           }
         </mat-form-field>
+        }
 
         <mat-form-field style="width: 30%">
           <mat-label>

@@ -1,6 +1,8 @@
 <div
   class="bank-account-details"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
+  [ngClass]="{
+    'dark-page': darkThemeEnabled
+  }"
 >
   @if (account.image) {
   <img
@@ -16,7 +18,12 @@
       <h1 class="name">{{ account.name }}</h1>
 
       <div class="balance">
-        <h1>{{ currency }}{{ account.balance | customCurrency }}</h1>
+        <h1>
+          {{
+            currency +
+              (showValues ? (account.balance | customCurrency) : hideValue)
+          }}
+        </h1>
         <span (click)="adjustBalance()">
           {{ "my-accounts.adjust-balance" | translate }}
         </span>

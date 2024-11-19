@@ -1,3 +1,5 @@
+@import 'colors.scss';
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -25,13 +27,19 @@
                 justify-content: space-between;
                 align-items: center;
 
+                .left {
+                    display: flex;
+                    align-items: center;
+                    gap: 5rem;
+                }
+
                 button {
                     padding: 1.3rem;
                 }
             }
 
             .list {
-                width: 75%;
+                width: 70%;
                 max-height: 85% !important;
                 border-radius: 4px;
                 margin: 1rem 0;
@@ -40,44 +48,62 @@
 
                 .account {
                     display: flex;
+                    justify-content: space-between;
                     align-items: center;
                     cursor: pointer;
-                    gap: 1.5rem;
                     font-size: 1.2rem;
                     padding: 20px 10px;
                     border-bottom: 1px solid #74747437;
 
+                    .image-name {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        gap: 1.5rem;
+                        font-size: 1.2rem;
 
-                    img {
-                        border-radius: 50%;
+                        img {
+                            border-radius: 50%;
+                        }
+
+                        .default-bank-account {
+                            width: 60px;
+                            height: 60px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            box-shadow: 0 0 2px #5d5d5d;
+                            cursor: pointer;
+                        }
                     }
 
-                    .default-bank-account {
-                        width: 60px;
-                        height: 60px;
+                    .amount {
+                        width: 20%;
                         display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        border-radius: 50%;
-                        box-shadow: 0 0 2px #5d5d5d;
-                        cursor: pointer;
+                        justify-content: flex-end;
+                        margin-right: 1.5rem;
+                        color: $balance-blue-color;
                     }
 
                     .navigate-icon {
-                        display: none;
-                        margin-left: auto;
-                        color: #50505040;
+                        width: 10%;
+                        display: flex;
+                        justify-content: center;
+
+                        .material-symbols-outlined {
+                            display: none;
+                            color: #50505040;
+                        }
                     }
 
                     &:hover {
                         .navigate-icon {
-                            display: block;
+                            .material-symbols-outlined {
+                                display: block;
+                            }
                         }
                     }
-
-                    // &:last-child .content {
-                    //     border: none !important;
-                    // }
                 }
             }
         }

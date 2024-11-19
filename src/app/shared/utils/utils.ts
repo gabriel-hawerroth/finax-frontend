@@ -4,6 +4,8 @@ import { ButtonType } from '../../core/enums/button-style';
 export const cloudFireCdnLink: string = environment.cloudFrontUrl;
 export const cloudFireCdnImgsLink: string = `${cloudFireCdnLink}/imgs/`;
 
+export const HIDE_VALUE = '---';
+
 export function getBtnStyle(style: string): ButtonType {
   switch (style) {
     case 'basic':
