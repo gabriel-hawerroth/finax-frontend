@@ -54,43 +54,40 @@
 
         .row2 {
             display: flex;
+            flex-direction: column;
+            // margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .row3 {
+            display: flex;
+            flex-direction: row;
             justify-content: space-between;
 
             .left {
                 display: flex;
                 flex-direction: column;
+                gap: .8rem;
+
+                .item {
+                    display: flex;
+                    align-items: center;
+                    gap: .8rem;
+
+                    .true {
+                        color: #00de34;
+                    }
+
+                    .false {
+                        color: rgb(225, 0, 0);
+                    }
+                }
             }
 
             .right {
                 position: relative;
-                top: 2.5rem;
+                // top: 2.5rem;
             }
-        }
-
-        .row3 {
-            display: flex;
-            flex-direction: column;
-            gap: .8rem;
-            margin-top: 2rem;
-
-            .item {
-                display: flex;
-                align-items: center;
-                gap: .8rem;
-
-                .true {
-                    color: #00de34;
-                }
-
-                .false {
-                    color: rgb(225, 0, 0);
-                }
-            }
-        }
-
-        .up {
-            position: relative;
-            bottom: 2.5rem;
         }
     }
 

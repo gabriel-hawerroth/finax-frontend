@@ -31,18 +31,53 @@
     </div>
 
     <div class="row2">
+      @if (account.accountNumber) {
+      <span>
+        {{ "my-accounts.account-number" | translate }}:
+        {{ account.accountNumber }}
+      </span>
+      } @if (account.agency) {
+      <span>
+        {{ "my-accounts.agency" | translate }}:
+        {{ account.agency }}
+      </span>
+      }
+    </div>
+
+    <div
+      class="row3"
+      [ngStyle]="{
+        'align-items':
+          account.accountNumber || account.agency ? 'start' : 'center'
+      }"
+    >
       <div class="left">
-        @if (account.accountNumber) {
-        <span>
-          {{ "my-accounts.account-number" | translate }}:
-          {{ account.accountNumber }}
+        <span class="item">
+          @if (account.investments) {
+          <span class="material-symbols-outlined true">check</span>
+          } @else {
+          <span class="material-symbols-outlined false">close</span>
+          }
+          {{ "my-accounts.account-with-investments" | translate }}
         </span>
-        } @if (account.agency) {
-        <span>
-          {{ "my-accounts.agency" | translate }}:
-          {{ account.agency }}
+
+        <span class="item">
+          @if (account.addOverallBalance) {
+          <span class="material-symbols-outlined true">check</span>
+          } @else {
+          <span class="material-symbols-outlined false">close</span>
+          }
+          {{ "my-accounts.add-to-overall-balance" | translate }}
         </span>
-        }
+
+        <span class="item">
+          @if (account.active) {
+          <span class="material-symbols-outlined true">check</span>
+          } @else {
+          <span class="material-symbols-outlined false">close</span>
+          }
+          {{ "generic.active" | translate }}
+        </span>
       </div>
 
       <div class="right">
@@ -52,38 +87,6 @@
         </span>
         }
       </div>
-    </div>
-
-    <div
-      class="row3"
-      [ngClass]="{ up: !account.accountNumber && !account.agency }"
-    >
-      <span class="item">
-        @if (account.investments) {
-        <span class="material-symbols-outlined true">check</span>
-        } @else {
-        <span class="material-symbols-outlined false">close</span>
-        }
-        {{ "my-accounts.account-with-investments" | translate }}
-      </span>
-
-      <span class="item">
-        @if (account.addOverallBalance) {
-        <span class="material-symbols-outlined true">check</span>
-        } @else {
-        <span class="material-symbols-outlined false">close</span>
-        }
-        {{ "my-accounts.add-to-overall-balance" | translate }}
-      </span>
-
-      <span class="item">
-        @if (account.active) {
-        <span class="material-symbols-outlined true">check</span>
-        } @else {
-        <span class="material-symbols-outlined false">close</span>
-        }
-        {{ "generic.active" | translate }}
-      </span>
     </div>
   </div>
 
