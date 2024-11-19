@@ -2,9 +2,10 @@ import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
-  WritableSignal,
   signal,
+  WritableSignal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -21,7 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
@@ -53,10 +54,11 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   styleUrl: './credit-cards-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardsFormPage implements OnInit {
+export class CreditCardsFormPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly currency = this.utils.getUserConfigs.currency;
 
-  currency = this.utils.getUserConfigs.currency;
+  private readonly unsubscribeAll = new Subject<void>();
 
   cardId: number | null =
     +this._activatedRoute.snapshot.paramMap.get('id')! || null;
@@ -89,34 +91,13 @@ export class CreditCardsFormPage implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
+    this.getValues();
+    this.subscribeValueChanges();
+  }
 
-    if (this.cardId) {
-      this._creditCardService
-        .getById(this.cardId)
-        .then((response) => {
-          this.cardForm.patchValue(response);
-          this.paymentAccountChanges(response.standardPaymentAccountId);
-
-          if (response.image) {
-            this.selectedIcon.set(response.image);
-          }
-        })
-        .catch(() => this._location.back());
-    }
-
-    this._accountService.getBasicList().then((response) => {
-      this.accounsList = response;
-
-      if (this.cardId && !this.selectedAccount) {
-        const standardPaymentAccount =
-          this.cardForm.value.standardPaymentAccountId;
-
-        this.cardForm
-          .get('standardPaymentAccountId')!
-          .setValue(standardPaymentAccount);
-        this.paymentAccountChanges(standardPaymentAccount);
-      }
-    });
+  ngOnDestroy(): void {
+    this.unsubscribeAll.next();
+    this.unsubscribeAll.complete();
   }
 
   private buildForm() {
@@ -131,6 +112,34 @@ export class CreditCardsFormPage implements OnInit {
       standardPaymentAccountId: [null, Validators.required],
       active: true,
     });
+  }
+
+  private getValues() {
+    if (this.cardId) {
+      Promise.all([
+        this._accountService.getBasicList(),
+        this._creditCardService.getById(this.cardId),
+      ])
+        .then(([accounts, card]) => {
+          this.accounsList = accounts;
+
+          this.cardForm.patchValue(card);
+          if (card.image) this.selectedIcon.set(card.image);
+        })
+        .catch(() => {
+          this.utils.showMessage('credit-cards.error-getting-card');
+          this._location.back();
+        });
+
+      return;
+    }
+
+    this._accountService
+      .getBasicList()
+      .then((response) => (this.accounsList = response))
+      .catch(() =>
+        this.utils.showMessage('credit-cards.error-getting-accounts')
+      );
   }
 
   public save() {
@@ -168,7 +177,14 @@ export class CreditCardsFormPage implements OnInit {
     );
   }
 
-  public paymentAccountChanges(value: number) {
+  private subscribeValueChanges() {
+    this.cardForm
+      .get('standardPaymentAccountId')!
+      .valueChanges.pipe(takeUntil(this.unsubscribeAll))
+      .subscribe((value) => this.paymentAccountChanges(value));
+  }
+
+  private paymentAccountChanges(value: number) {
     this.selectedAccount = this.accounsList.find((item) => item.id === value)!;
   }
 }

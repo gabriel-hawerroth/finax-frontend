@@ -90,10 +90,8 @@
           <mat-label>
             {{ "credit-cards.standard-payment-account" | translate }}
           </mat-label>
-          <mat-select
-            formControlName="standardPaymentAccountId"
-            (valueChange)="paymentAccountChanges($event)"
-          >
+
+          <mat-select formControlName="standardPaymentAccountId">
             <mat-select-trigger>
               <ng-container
                 *ngTemplateOutlet="selectedAccountTemplate"
