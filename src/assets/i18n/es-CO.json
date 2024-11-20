@@ -239,7 +239,8 @@
             "cash": "Dinero"
         },
         "code": "Código",
-        "balance": "Balance",
+        "balance": "Saldo",
+        "initial-balance": "Saldo inicial",
         "minus-for-negative-more-for-positive": "Ingresa - para saldo negativo y + para positivo",
         "account-number": "Nº de cuenta",
         "agency": "Agencia",

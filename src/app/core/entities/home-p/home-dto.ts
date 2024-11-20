@@ -1,3 +1,4 @@
+import { AccountType } from '../../enums/account-enums';
 import { Category } from '../category/category';
 import { MonthlyRelease } from '../release/release-dto';
 
@@ -10,6 +11,7 @@ export interface HomeAccount {
   name: string;
   image: string;
   balance: number;
+  type: AccountType;
 }
 
 export interface HomeUpcomingRelease {

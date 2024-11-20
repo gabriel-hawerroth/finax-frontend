@@ -2,7 +2,10 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HomeAccount } from '../../../../../../core/entities/home-p/home-dto';
 import { CustomCurrencyPipe } from '../../../../../../shared/pipes/custom-currency.pipe';
-import { cloudFireCdnImgsLink } from '../../../../../../shared/utils/utils';
+import {
+  cloudFireCdnImgsLink,
+  getDefaultAccountImage,
+} from '../../../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-home-account-item',
@@ -13,8 +16,9 @@ import { cloudFireCdnImgsLink } from '../../../../../../shared/utils/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeAccountItemComponent {
-  public readonly account = input.required<HomeAccount>();
-  public readonly currency = input.required<string>();
+  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly getDefaultAccountImage = getDefaultAccountImage;
 
-  public readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly account = input.required<HomeAccount>();
+  readonly currency = input.required<string>();
 }

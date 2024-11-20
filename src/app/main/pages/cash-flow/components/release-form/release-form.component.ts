@@ -19,7 +19,11 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import { ReleaseType } from '../../../../../core/enums/release-enums';
+import {
+  cloudFireCdnImgsLink,
+  getDefaultAccountImage,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
@@ -41,13 +45,14 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseFormComponent implements OnInit {
+  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly getDefaultAccountImage = getDefaultAccountImage;
+
   public form = input.required<FormGroup>();
   public accountsList = input.required<BasicAccount[]>();
   public categoriesList = input.required<Category[]>();
   public creditCardsList = input.required<BasicCard[]>();
   public selectedCreditCard = input.required<boolean>();
-
-  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   currency = this.utils.getUserConfigs.currency;
 
@@ -125,5 +130,17 @@ export class ReleaseFormComponent implements OnInit {
     this.selectedCategory = this.categoriesList().find(
       (item) => item.id === value
     )!;
+  }
+
+  get isExpense() {
+    return this.form().value.type === ReleaseType.EXPENSE;
+  }
+
+  get isRevenue() {
+    return this.form().value.type === ReleaseType.REVENUE;
+  }
+
+  get isTransfer() {
+    return this.form().value.type === ReleaseType.TRANSFER;
   }
 }

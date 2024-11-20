@@ -113,6 +113,34 @@
       </div>
 
       <div class="row second">
+        @if (!accountId) {
+        <mat-form-field
+          floatLabel="always"
+          style="width: 23%"
+          [hideRequiredMarker]="true"
+        >
+          <mat-label>
+            {{ "my-accounts.initial-balance" | translate }}
+          </mat-label>
+
+          <input
+            matInput
+            placeholder="0"
+            currencyMask
+            [options]="{
+              prefix: currency + ' '
+            }"
+            formControlName="balance"
+            [readonly]="accountId !== null"
+          />
+          @if (!accountId) {
+          <mat-hint>
+            {{ "my-accounts.minus-for-negative-more-for-positive" | translate }}
+          </mat-hint>
+          }
+        </mat-form-field>
+        }
+
         <mat-form-field style="width: 27%">
           <mat-label>
             {{ "my-accounts.account-number" | translate }}
@@ -131,112 +159,6 @@
           </mat-label>
           <input matInput type="text" formControlName="agency" maxlength="5" />
         </mat-form-field>
-
-        <mat-form-field style="width: 23%">
-          <mat-label>{{ "my-accounts.primary-account" | translate }}</mat-label>
-
-          <mat-select formControlName="primaryAccountId">
-            <mat-select-trigger>
-              <ng-container
-                *ngTemplateOutlet="selectedAccountTemplate"
-              ></ng-container>
-            </mat-select-trigger>
-
-            @for (account of accounts; track account.id) {
-            <mat-option [value]="account.id" class="bank-account-item">
-              <div class="account-opt">
-                @if (account.image) {
-                <img
-                  [ngSrc]="
-                    'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
-                    account.image
-                  "
-                  width="30"
-                  height="30"
-                  alt="bank account logo"
-                />
-                } @else {
-                <span class="material-symbols-outlined default-account-logo">
-                  account_balance
-                </span>
-                }
-                <span>{{ account.name }}</span>
-              </div>
-            </mat-option>
-            }
-          </mat-select>
-
-          <ng-template #selectedAccountTemplate>
-            <div class="selected-account">
-              @if (selectedPrimaryAccount && selectedPrimaryAccount.image) {
-              <img
-                [ngSrc]="
-                  cloudFireCdnImgsLink + 'banks/' + selectedPrimaryAccount.image
-                "
-                width="20"
-                height="20"
-                alt="bank account logo"
-              />
-              }
-              <span>{{ selectedPrimaryAccount?.name }}</span>
-            </div>
-          </ng-template>
-
-          <div
-            style="
-              margin-left: 0.5rem;
-              display: flex;
-              flex-direction: row;
-              gap: 0.4rem;
-            "
-            matSuffix
-          >
-            @if (selectedPrimaryAccount) {
-            <span
-              class="material-symbols-outlined clear-value-button"
-              (click)="removeSelectedPrimaryAccount($event)"
-            >
-              close
-            </span>
-            }
-
-            <span
-              class="material-symbols-outlined"
-              [matTooltip]="'my-accounts.primary-account-tooltip' | translate"
-              matTooltipPosition="below"
-              matTooltipShowDelay="200"
-            >
-              info
-            </span>
-          </div>
-        </mat-form-field>
-
-        @if (!accountId) {
-        <mat-form-field
-          floatLabel="always"
-          style="width: 23%"
-          [hideRequiredMarker]="true"
-        >
-          <mat-label>
-            {{ "my-accounts.balance" | translate }}
-          </mat-label>
-          <input
-            matInput
-            placeholder="0"
-            currencyMask
-            [options]="{
-              prefix: currency + ' '
-            }"
-            formControlName="balance"
-            [readonly]="accountId !== null"
-          />
-          @if (!accountId) {
-          <mat-hint>
-            {{ "my-accounts.minus-for-negative-more-for-positive" | translate }}
-          </mat-hint>
-          }
-        </mat-form-field>
-        }
       </div>
 
       <div class="row fourth">

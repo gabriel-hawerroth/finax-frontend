@@ -4,7 +4,6 @@ import {
   Component,
   inject,
   OnInit,
-  signal,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -25,9 +24,11 @@ import {
 } from '../../../../../core/entities/release/release-dto';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ReleaseType } from '../../../../../core/enums/release-enums';
-import { Theme } from '../../../../../core/enums/theme';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import {
+  cloudFireCdnImgsLink,
+  getDefaultAccountImage,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
@@ -50,8 +51,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 })
 export class FilterReleasesDialog implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
-  darkThemeEnabled = signal(this._utils.getUserConfigs.theme === Theme.DARK);
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly getDefaultAccountImage = getDefaultAccountImage;
 
   readonly data: FilterReleasesDialogData = inject(MAT_DIALOG_DATA);
 
@@ -60,6 +61,12 @@ export class FilterReleasesDialog implements OnInit {
   accounts: BasicAccount[] = this.data.accounts;
   creditCards: BasicCard[] = this.data.creditCards;
   categories: Category[] = this.data.categories;
+
+  clearBtnStyle = ButtonType.BASIC;
+
+  releaseTypeExpense = ReleaseType.EXPENSE;
+  releaseTypeRevenue = ReleaseType.REVENUE;
+  releaseTypeTransfer = ReleaseType.TRANSFER;
 
   constructor(
     private readonly _utils: UtilsService,
@@ -81,28 +88,6 @@ export class FilterReleasesDialog implements OnInit {
       description: [''],
       done: ['all'],
     });
-  }
-
-  get clearBtnStyle() {
-    return ButtonType.BASIC;
-  }
-
-  releaseTypeExpense = ReleaseType.EXPENSE;
-  releaseTypeRevenue = ReleaseType.REVENUE;
-  releaseTypeTransfer = ReleaseType.TRANSFER;
-
-  get selectedCategories() {
-    const selectedCategoriesId: number[] =
-      this.filterForm.controls['categoryIds'].getRawValue();
-
-    if (!selectedCategoriesId) return [];
-
-    return this.categories.filter(
-      (category) =>
-        selectedCategoriesId.findIndex(
-          (categoryId) => categoryId === category.id
-        ) !== -1
-    );
   }
 
   clearFilters() {
@@ -131,5 +116,30 @@ export class FilterReleasesDialog implements OnInit {
     return this.categories.filter(
       (category) => category.type === ReleaseType.REVENUE
     );
+  }
+
+  selectedItemsTemplate(type: 'account' | 'creditCard' | 'category') {
+    const selectedIds: number[] =
+      this.filterForm.controls[`${type}Ids`].getRawValue();
+
+    if (!selectedIds) return [];
+
+    let items;
+    switch (type) {
+      case 'account':
+        items = this.accounts;
+        break;
+      case 'creditCard':
+        items = this.creditCards;
+        break;
+      case 'category':
+        items = this.categories;
+    }
+
+    const selectedValues = items.filter((item) =>
+      selectedIds.includes(item.id!)
+    );
+
+    return selectedValues.map((category) => category.name).join(', ');
   }
 }

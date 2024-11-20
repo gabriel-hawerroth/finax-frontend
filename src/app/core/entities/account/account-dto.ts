@@ -1,3 +1,4 @@
+import { AccountType } from '../../enums/account-enums';
 import { Account } from './account';
 
 export interface BasicAccount {
@@ -5,6 +6,7 @@ export interface BasicAccount {
   name: string;
   image: string;
   balance: number;
+  type: AccountType;
 }
 
 export interface EditBalanceDialogData {

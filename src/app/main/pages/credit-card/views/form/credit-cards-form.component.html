@@ -69,10 +69,7 @@
           </span>
           } @else {
           <img
-            [ngSrc]="
-              'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
-              selectedIcon()
-            "
+            [ngSrc]="cloudFireCdnImgsLink + 'banks/' + selectedIcon()"
             width="70"
             height="70"
             (click)="selectIcon()"
@@ -93,12 +90,6 @@
 
           <mat-select formControlName="standardPaymentAccountId">
             <mat-select-trigger>
-              <ng-container
-                *ngTemplateOutlet="selectedAccountTemplate"
-              ></ng-container>
-            </mat-select-trigger>
-
-            <ng-template #selectedAccountTemplate>
               <div class="selected-account">
                 @if (selectedAccount && selectedAccount.image) {
                 <img
@@ -112,24 +103,21 @@
                 }
                 <span>{{ selectedAccount?.name }}</span>
               </div>
-            </ng-template>
+            </mat-select-trigger>
 
             @for (account of accounsList; track account.id) {
             <mat-option [value]="account.id" class="bank-account-item">
               <div class="account-opt">
                 @if (account.image) {
                 <img
-                  [ngSrc]="
-                    'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
-                    account.image
-                  "
+                  [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
                   width="30"
                   height="30"
                   alt="bank account logo"
                 />
                 } @else {
                 <span class="material-symbols-outlined default-account-logo">
-                  account_balance
+                  {{ getDefaultAccountImage(account) }}
                 </span>
                 }
                 <span>{{ account.name }}</span>

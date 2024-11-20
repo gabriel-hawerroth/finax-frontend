@@ -14,11 +14,11 @@
     .default-bank-account {
         width: 55px;
         aspect-ratio: 1/1;
+        border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 50%;
-        cursor: pointer;
+        box-shadow: 0 0 2px #5d5d5d;
     }
 
     .account-balance {

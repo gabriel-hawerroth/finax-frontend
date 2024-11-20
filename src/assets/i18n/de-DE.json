@@ -240,6 +240,7 @@
         },
         "code": "Code",
         "balance": "Bilanz",
+        "initial-balance": "Anfangssaldo",
         "minus-for-negative-more-for-positive": "Geben Sie - für ein negatives Saldo und + für ein positives Saldo ein",
         "account-number": "Kontonummer",
         "agency": "Filiale",

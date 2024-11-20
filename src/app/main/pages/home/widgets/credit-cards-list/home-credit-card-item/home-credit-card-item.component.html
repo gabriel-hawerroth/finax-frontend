@@ -1,11 +1,17 @@
 <div class="credit-card">
   <div class="image">
+    @if (card().cardImage) {
     <img
       [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card().cardImage"
       width="55"
       height="55"
       alt="account logo"
     />
+    } @else {
+    <span class="material-symbols-outlined default-credit-card-image">
+      credit_card
+    </span>
+    }
   </div>
 
   <div class="infos">

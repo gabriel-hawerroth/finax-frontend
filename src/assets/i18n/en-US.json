@@ -240,6 +240,7 @@
         },
         "code": "Code",
         "balance": "Balance",
+        "initial-balance": "Initial Balance",
         "minus-for-negative-more-for-positive": "Type - for negative balance and + for positive",
         "account-number": "Account Number",
         "agency": "Agency",

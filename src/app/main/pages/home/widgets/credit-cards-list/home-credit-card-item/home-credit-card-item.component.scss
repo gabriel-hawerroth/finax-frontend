@@ -11,6 +11,16 @@
         img {
             border-radius: 50%;
         }
+
+        .default-credit-card-image {
+            width: 55px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 2px #5d5d5d;
+        }
     }
 
     .infos {

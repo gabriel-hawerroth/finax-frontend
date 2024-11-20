@@ -6,6 +6,7 @@ import { BankAccountDetailsData } from '../../../../../core/entities/account/acc
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import {
   cloudFireCdnImgsLink,
+  getDefaultAccountImage,
   HIDE_VALUE,
 } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -23,6 +24,7 @@ export class AccountsListComponent {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
   readonly hideValue = HIDE_VALUE;
+  readonly getDefaultAccountImage = getDefaultAccountImage;
 
   readonly accounts = input.required<Account[]>();
   readonly showValues = input.required<boolean>();

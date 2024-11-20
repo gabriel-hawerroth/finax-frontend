@@ -20,19 +20,14 @@
     </div>
 
     <div class="row row2">
-      @if (form().value.type !== 'T') {
+      @if (!isTransfer) {
       <mat-form-field style="width: 39%">
-        @if (form().value.type === 'E') {
         <mat-label>
-          {{ "release-form.account" | translate }}/{{
-            "release-form.card" | translate
+          {{
+            ("release-form.account" | translate) +
+              (isExpense ? "/" + ("release-form.card" | translate) : "")
           }}
         </mat-label>
-        } @else {
-        <mat-label>
-          {{ "release-form.account" | translate }}
-        </mat-label>
-        }
 
         <mat-select
           formControlName="accountId"
@@ -44,8 +39,9 @@
             ></ng-container>
           </mat-select-trigger>
 
-          @if (form().value.type !== 'E') { @for (account of accountsList();
-          track account.id) {
+          @if (isRevenue) {
+          <!---->
+          @for (account of accountsList(); track account.id) {
           <mat-option [value]="account.id" class="bank-account-item">
             <div class="account-opt">
               @if (account.image) {
@@ -57,14 +53,20 @@
               />
               } @else {
               <span class="material-symbols-outlined default-account-logo">
-                account_balance
+                {{ getDefaultAccountImage(account) }}
               </span>
               }
               <span>{{ account.name }}</span>
             </div>
           </mat-option>
-          } } @else { @if (selectedCreditCard()) { @for (card of
-          creditCardsList(); track card.id) {
+          }
+          <!---->
+          } @else {
+          <!-- is expense -->
+          <!---->
+          @if (selectedCreditCard()) {
+          <!---->
+          @for (card of creditCardsList(); track card.id) {
           <mat-option [value]="card.id">
             <div class="account-opt">
               @if (card.image) {
@@ -82,7 +84,11 @@
               <span>{{ card.name }}</span>
             </div>
           </mat-option>
-          } } @else { @if (accountsList().length !== 0) {
+          }
+          <!---->
+          } @else {
+          <!---->
+          @if (accountsList().length !== 0) {
           <mat-optgroup [label]="'release-form.accounts' | translate">
             @for (account of accountsList(); track account.id) {
             <mat-option [value]="account.id" class="bank-account-item">
@@ -96,7 +102,7 @@
                 />
                 } @else {
                 <span class="material-symbols-outlined default-account-logo">
-                  account_balance
+                  {{ getDefaultAccountImage(account) }}
                 </span>
                 }
                 <span>{{ account.name }}</span>
@@ -126,7 +132,11 @@
             </mat-option>
             }
           </mat-optgroup>
-          } } }
+          }
+          <!---->
+          }
+          <!---->
+          }
         </mat-select>
       </mat-form-field>
 
@@ -158,10 +168,12 @@
         />
       </mat-form-field>
       } @else {
+      <!-- is transfer -->
       <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.origin-account" | translate }}
         </mat-label>
+
         <mat-select
           formControlName="accountId"
           (valueChange)="accountChanges($event)"
@@ -184,7 +196,7 @@
               />
               } @else {
               <span class="material-symbols-outlined default-account-logo">
-                account_balance
+                {{ getDefaultAccountImage(account) }}
               </span>
               }
               <span>{{ account.name }}</span>
@@ -234,7 +246,7 @@
               />
               } @else {
               <span class="material-symbols-outlined default-account-logo">
-                account_balance
+                {{ getDefaultAccountImage(account) }}
               </span>
               }
               <span>{{ account.name }}</span>

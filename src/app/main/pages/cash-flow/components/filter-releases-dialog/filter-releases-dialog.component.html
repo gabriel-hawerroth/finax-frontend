@@ -1,6 +1,6 @@
 <div
   class="filter-releases-dialog"
-  [ngClass]="{ 'dark-page': darkThemeEnabled() }"
+  [ngClass]="{ 'dark-page': darkThemeEnabled }"
 >
   <div class="title">
     <h1>
@@ -16,6 +16,10 @@
         <mat-label>{{ "release-form.accounts" | translate }}</mat-label>
 
         <mat-select formControlName="accountIds" multiple>
+          <mat-select-trigger>
+            {{ selectedItemsTemplate("account") }}
+          </mat-select-trigger>
+
           @for (account of accounts; track account.id) {
           <mat-option [value]="account.id">
             <div class="account-opt">
@@ -28,7 +32,7 @@
               />
               } @else {
               <span class="material-symbols-outlined default-account-logo">
-                account_balance
+                {{ getDefaultAccountImage(account) }}
               </span>
               }
               <span>{{ account.name }}</span>
@@ -42,6 +46,10 @@
         <mat-label>{{ "release-form.cards" | translate }}</mat-label>
 
         <mat-select formControlName="creditCardIds" multiple>
+          <mat-select-trigger>
+            {{ selectedItemsTemplate("creditCard") }}
+          </mat-select-trigger>
+
           @for (card of creditCards; track card.id) {
           <mat-option [value]="card.id">
             <div class="account-opt">
@@ -71,9 +79,7 @@
 
         <mat-select formControlName="categoryIds" multiple>
           <mat-select-trigger>
-            <ng-container
-              *ngTemplateOutlet="selectedCategoryTemplate"
-            ></ng-container>
+            {{ selectedItemsTemplate("category") }}
           </mat-select-trigger>
 
           <mat-optgroup [label]="'cash-flow.expenses' | translate">
@@ -112,20 +118,6 @@
             }
           </mat-optgroup>
         </mat-select>
-
-        <ng-template #selectedCategoryTemplate>
-          <div class="selected-category">
-            @for (category of selectedCategories; track $index) {
-            <span>{{
-              category.name +
-                (selectedCategories.length > 1 &&
-                $index !== selectedCategories.length - 1
-                  ? ", "
-                  : "")
-            }}</span>
-            }
-          </div>
-        </ng-template>
       </mat-form-field>
 
       <mat-form-field>

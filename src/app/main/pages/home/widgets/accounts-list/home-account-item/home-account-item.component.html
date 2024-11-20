@@ -8,13 +8,13 @@
   />
   } @else {
   <span class="material-symbols-outlined default-bank-account">
-    account_balance
+    {{ getDefaultAccountImage(account()) }}
   </span>
   }
 
   <b>{{ account().name }}</b>
 
   <span class="account-balance">
-    {{ currency() }}{{ account().balance | customCurrency }}
+    {{ currency() + (account().balance | customCurrency) }}
   </span>
 </div>

@@ -32,10 +32,7 @@
           <span class="account">
             @if (card.accountImage) {
             <img
-              [ngSrc]="
-                'https://d3dpbaewouik5z.cloudfront.net/imgs/banks/' +
-                card.accountImage
-              "
+              [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.accountImage"
               width="27"
               height="27"
               alt="standard payment account logo"
