@@ -254,7 +254,8 @@
         "error-changing-balance": "Error al cambiar el balance",
         "primary-account": "Cuenta principal",
         "primary-account-tooltip": "Seleccione una cuenta principal si esta es una subcuenta. Esto permite vincular esta cuenta como una 'caja', 'hucha' o cuenta de inversión de la cuenta principal seleccionada, facilitando la organización y el control financiero.",
-        "description-is-required": "La descripción es obligatoria"
+        "description-is-required": "La descripción es obligatoria",
+        "no-sub-accounts-registered": "No hay subcuentas registradas"
     },
     "credit-cards": {
         "title": "Tarjetas de crédito",

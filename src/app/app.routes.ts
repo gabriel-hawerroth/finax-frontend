@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { BasicTierGuard } from './core/guards/basic-tier.guard';
 import { FreeTierGuard } from './core/guards/free-tier.guard';
 import { UnauthenticatedUserGuard } from './core/guards/unauthenticated-user.guard';
-import { BankAccountsFormPage } from './main/pages/accounts/views/form/accounts-form.component';
 import { MyBankAccountsPage } from './main/pages/accounts/views/principal/accounts.component';
+import { AccountsFormPage } from './main/pages/accounts/views/register/accounts-register.component';
 import { CashFlowPage } from './main/pages/cash-flow/views/principal/cash-flow.component';
 import { CategoriesPage } from './main/pages/categories/views/principal/categories.component';
 import { CreditCardInvoicePage } from './main/pages/credit-card-invoice/views/principal/credit-card-invoice.component';
@@ -131,7 +131,7 @@ export const routes: Routes = [
   },
   {
     path: 'contas/:id',
-    component: BankAccountsFormPage,
+    component: AccountsFormPage,
     canActivate: [FreeTierGuard],
   },
   {

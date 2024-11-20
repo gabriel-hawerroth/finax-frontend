@@ -2,9 +2,13 @@
   class="select-icon-dialog"
   [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
 >
-  <h2 class="title">
-    {{ "select-icon-dialog.title" | translate }}
-  </h2>
+  <div class="title">
+    <h2>
+      {{ "select-icon-dialog.title" | translate }}
+    </h2>
+
+    <dynamic-button mat-dialog-close [config]="closeBtnCfg"></dynamic-button>
+  </div>
 
   <div mat-dialog-content class="icons">
     @for (icon of icons; track $index) {

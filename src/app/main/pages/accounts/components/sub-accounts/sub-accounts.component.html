@@ -1,0 +1,11 @@
+<div class="sub-accounts">
+  @for (account of subAccounts(); track account.id) {
+  <span>{{ account.name }}</span>
+  } @empty {
+  <div class="empty">
+    <span>{{ "my-accounts.no-sub-accounts-registered" | translate }}</span>
+
+    <dynamic-button [config]="registerOneBtnConfig"></dynamic-button>
+  </div>
+  }
+</div>

@@ -1,5 +1,10 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Account } from '../../../../../core/entities/account/account';
 import { BankAccountDetailsData } from '../../../../../core/entities/account/account-dto';
@@ -11,11 +16,17 @@ import {
 } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { BankAccountDetailsComponent } from '../../views/details/account-details.component';
+import { SubAccountsComponent } from '../sub-accounts/sub-accounts.component';
 
 @Component({
   selector: 'app-accounts-list',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, CustomCurrencyPipe],
+  imports: [
+    CommonModule,
+    NgOptimizedImage,
+    CustomCurrencyPipe,
+    SubAccountsComponent,
+  ],
   templateUrl: './accounts-list.component.html',
   styleUrl: './accounts-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,6 +39,7 @@ export class AccountsListComponent {
 
   readonly accounts = input.required<Account[]>();
   readonly showValues = input.required<boolean>();
+  readonly reloadList = output<void>();
 
   expandedSubAccounts: Map<number, boolean> = new Map();
 
@@ -57,5 +69,9 @@ export class AccountsListComponent {
     }
 
     this.expandedSubAccounts.set(accountId, true);
+  }
+
+  isExpanded(account: Account): boolean {
+    return this.expandedSubAccounts.get(account.id!) || false;
   }
 }

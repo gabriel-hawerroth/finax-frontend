@@ -254,7 +254,8 @@
         "error-changing-balance": "Fehler beim Ändern des Saldos",
         "primary-account": "Primärkonto",
         "primary-account-tooltip": "Wählen Sie ein Hauptkonto, wenn dies ein Unterkonto ist. Dies ermöglicht die Verknüpfung dieses Kontos als 'Box', 'Sparschwein' oder Anlagekonto des ausgewählten Hauptkontos, was die Organisation und Finanzkontrolle erleichtert.",
-        "description-is-required": "Beschreibung ist erforderlich"
+        "description-is-required": "Beschreibung ist erforderlich",
+        "no-sub-accounts-registered": "Keine Unterkonten registriert"
     },
     "credit-cards": {
         "title": "Kreditkarten",

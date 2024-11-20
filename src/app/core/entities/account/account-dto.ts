@@ -16,3 +16,7 @@ export interface EditBalanceDialogData {
 export interface BankAccountDetailsData {
   account: Account;
 }
+
+export interface AccountFormDialogData {
+  primaryAccountId: number;
+}

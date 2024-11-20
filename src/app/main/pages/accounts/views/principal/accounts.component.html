@@ -46,6 +46,7 @@
         class="list-component"
         [accounts]="filteredRows()"
         [showValues]="showValues"
+        (reloadList)="getAccounts()"
       ></app-accounts-list>
     </mat-card>
   </div>

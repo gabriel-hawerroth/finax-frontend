@@ -2,13 +2,24 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
+import {
+  ButtonConfig,
+  ButtonPreConfig,
+} from '../../../core/interfaces/button-config';
 import { cloudFireCdnImgsLink } from '../../utils/utils';
 import { UtilsService } from '../../utils/utils.service';
+import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynamic-button.component';
 
 @Component({
   selector: 'app-select-icon-dialog',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, TranslateModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    NgOptimizedImage,
+    TranslateModule,
+    MatDialogModule,
+    DynamicButtonComponent,
+  ],
   templateUrl: './select-icon-dialog.component.html',
   styleUrl: './select-icon-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +27,10 @@ import { UtilsService } from '../../utils/utils.service';
 export class SelectIconDialog {
   cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   icons: string[] = this.getIcons;
+
+  closeBtnCfg: ButtonConfig = {
+    preConfig: ButtonPreConfig.CLOSE,
+  };
 
   constructor(public readonly utils: UtilsService) {}
 

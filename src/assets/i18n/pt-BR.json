@@ -254,7 +254,8 @@
         "error-changing-balance": "Erro ao alterar o saldo",
         "primary-account": "Conta principal",
         "primary-account-tooltip": "Selecione uma conta principal caso esta seja uma subconta. Isso permite vincular esta conta como uma 'caixinha', 'cofrinho' ou conta de investimentos da conta principal selecionada, facilitando a organização e o controle financeiro.",
-        "description-is-required": "A descrição é obrigatória"
+        "description-is-required": "A descrição é obrigatória",
+        "no-sub-accounts-registered": "Nenhuma subconta cadastrada"
     },
     "credit-cards": {
         "title": "Cartões de crédito",

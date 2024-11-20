@@ -42,5 +42,14 @@
       <span class="material-symbols-outlined">navigate_next</span>
     </div>
   </div>
+
+  <app-sub-accounts
+    [subAccounts]="account.subAccounts || []"
+    [primaryAccountId]="account.id!"
+    (reloadList)="reloadList.emit()"
+    [ngStyle]="{
+      display: isExpanded(account) ? 'flex' : 'none'
+    }"
+  ></app-sub-accounts>
   }
 </div>

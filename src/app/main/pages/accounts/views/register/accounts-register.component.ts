@@ -1,29 +1,20 @@
-import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxCurrencyDirective } from 'ngx-currency';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
-import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
 import {
@@ -31,13 +22,13 @@ import {
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { AccountsFormComponent } from '../../components/accounts-form/accounts-form.component';
 
 @Component({
-  selector: 'app-accounts-form',
+  selector: 'accounts-register-page',
   standalone: true,
   imports: [
     CommonModule,
@@ -46,17 +37,16 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
-    NgxCurrencyDirective,
-    NgOptimizedImage,
     ButtonsComponent,
     TranslateModule,
     BackButtonDirective,
-    MatTooltipModule,
+    MatCardModule,
+    AccountsFormComponent,
   ],
-  templateUrl: './accounts-form.component.html',
-  styleUrl: './accounts-form.component.scss',
+  templateUrl: './accounts-register.component.html',
+  styleUrl: './accounts-register.component.scss',
 })
-export class BankAccountsFormPage implements OnInit, OnDestroy {
+export class AccountsFormPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
@@ -70,23 +60,16 @@ export class BankAccountsFormPage implements OnInit, OnDestroy {
 
   saving = signal(false);
 
-  accounts: BasicAccount[] = [];
-
-  selectedPrimaryAccount: BasicAccount | null = null;
-
   removeSelectedPrimaryAccountBtnConfig: ButtonConfig = {
     preConfig: ButtonPreConfig.CLOSE,
   };
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _dialog: MatDialog,
     private readonly _fb: FormBuilder,
     private readonly _router: Router,
-    private readonly _accountService: AccountService,
-    private readonly _location: Location
+    private readonly _accountService: AccountService
   ) {}
 
   ngOnInit() {
@@ -122,20 +105,10 @@ export class BankAccountsFormPage implements OnInit, OnDestroy {
 
   private async getValues() {
     if (this.accountId) {
-      const [accounts, account] = await Promise.all([
-        this._accountService.getBasicList(),
-        this._accountService.getById(this.accountId),
-      ]);
-
-      this.accounts = accounts.filter((item) => item.id !== this.accountId);
-      this.accountForm.patchValue(account);
-      return;
+      this._accountService.getById(this.accountId).then((account) => {
+        this.accountForm.patchValue(account);
+      });
     }
-
-    this._accountService
-      .getBasicList()
-      .then((response) => (this.accounts = response))
-      .catch(() => this._utils.showMessage('home.error-getting-accounts'));
   }
 
   public save() {
@@ -154,18 +127,6 @@ export class BankAccountsFormPage implements OnInit, OnDestroy {
   private getSaveRequest(data: Account) {
     if (data.id) return this._accountService.edit(data);
     else return this._accountService.createNew(data);
-  }
-
-  public selectIcon() {
-    lastValueFrom(this._dialog.open(SelectIconDialog).afterClosed()).then(
-      (value) => {
-        if (!value) return;
-
-        this.accountForm.get('image')!.setValue(value);
-        this.accountForm.markAsDirty();
-        this._changeDetectorRef.detectChanges();
-      }
-    );
   }
 
   private subscribeValueChanges() {
@@ -190,43 +151,11 @@ export class BankAccountsFormPage implements OnInit, OnDestroy {
           formControls['investments'].enable({ emitEvent: false });
         }
       });
-
-    formControls['primaryAccountId'].valueChanges
-      .pipe(takeUntil(this.unsubscribeAll))
-      .subscribe((value) => {
-        if (value) {
-          this.selectedPrimaryAccount = this.accounts.find(
-            (item) => item.id === value
-          )!;
-          return;
-        }
-
-        this.selectedPrimaryAccount = null;
-      });
-  }
-
-  public primaryAccountChanges(value: number) {
-    this.selectedPrimaryAccount = this.accounts.find(
-      (item) => item.id === value
-    )!;
-  }
-
-  removeAccountType(event: MouseEvent) {
-    event.stopPropagation();
-    this.accountForm.get('type')!.setValue(null);
-    this.accountForm.markAsDirty();
   }
 
   removeSelectedPrimaryAccount(event: MouseEvent) {
     event.stopPropagation();
     this.accountForm.get('primaryAccountId')!.setValue(null);
     this.accountForm.markAsDirty();
-  }
-
-  get showDescriptionErrorHint() {
-    return (
-      this.accountForm.controls['name'].touched &&
-      this.accountForm.controls['name'].hasError('required')
-    );
   }
 }
