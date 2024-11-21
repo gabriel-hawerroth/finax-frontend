@@ -74,12 +74,7 @@ export class MyBankAccountsPage implements OnInit {
 
   ngOnInit(): void {
     this.getAccounts();
-
-    accountBalanceUpdatedEvent.subscribe((response) => {
-      if (!response) return;
-
-      this.getAccounts();
-    });
+    this.subscribeAccountBalanceUpdatedEvent();
   }
 
   getAccounts() {
@@ -133,6 +128,31 @@ export class MyBankAccountsPage implements OnInit {
       LS_SHOW_VALUES,
       this.valuesViewBtnConfig.icon!
     );
+  }
+
+  subscribeAccountBalanceUpdatedEvent() {
+    accountBalanceUpdatedEvent.subscribe((response) => {
+      if (!response) return;
+
+      this.filteredRows.update((rows) => {
+        rows.forEach((row) => {
+          if (row.id === response.accountId) {
+            row.balance = response.newBalance;
+          }
+
+          if (!row.subAccounts) return;
+
+          row.subAccounts.forEach((subAccount) => {
+            if (subAccount.id === response.accountId) {
+              subAccount.balance = response.newBalance;
+              row.subAccounts = [...row.subAccounts!];
+            }
+          });
+        });
+
+        return [...rows];
+      });
+    });
   }
 
   get showValues() {
