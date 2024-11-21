@@ -55,16 +55,14 @@
                 cursor: pointer;
             }
 
-            .bank-img-div {
-                .bank-img {
-                    border-radius: 50%;
-                    box-shadow: 0 0 2px #5d5d5d;
-                    cursor: pointer;
-                }
+            #bank-img {
+                border-radius: 50%;
+                box-shadow: 0 0 2px #5d5d5d;
+                cursor: pointer;
+            }
 
-                #text {
-                    cursor: pointer;
-                }
+            #text {
+                cursor: pointer;
             }
         }
     }
