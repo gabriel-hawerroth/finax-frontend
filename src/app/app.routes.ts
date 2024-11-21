@@ -169,4 +169,8 @@ export const routes: Routes = [
     component: UserSettingsPage,
     canActivate: [FreeTierGuard],
   },
+  {
+    path: '**',
+    redirectTo: '',
+  },
 ];
