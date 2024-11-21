@@ -26,7 +26,14 @@
       {{ "home.my-accounts" | translate }}
     </span>
 
+    @defer (when finishedFetch()) {
     <div class="list">
+      @if (errorFetching()) {
+      <div class="empty">
+        <span>{{ "home.error-getting-accounts" | translate }}</span>
+      </div>
+      } @else {
+      <!--  -->
       @for (account of accountsList(); track $index) {
       <app-home-account-item
         [account]="account"
@@ -39,7 +46,6 @@
       <!---->
       } @empty {
       <div class="empty">
-        @defer (on timer(170ms)) {
         <span>
           {{ "home.empty-accounts-list" | translate }}
         </span>
@@ -49,9 +55,9 @@
           [showGeneric]="true"
           genericLabel="home.register-one"
         ></app-buttons>
-        }
       </div>
-      }
+      } }
     </div>
+    }
   </mat-card-content>
 </mat-card>

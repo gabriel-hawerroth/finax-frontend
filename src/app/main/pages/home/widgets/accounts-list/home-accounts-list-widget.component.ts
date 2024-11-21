@@ -43,12 +43,19 @@ export class HomeAccountsListWidget implements OnInit {
   accountsList = signal<HomeAccount[]>([]);
   generalBalance = signal<number>(0);
 
+  finishedFetch = signal<boolean>(false);
+  errorFetching = signal<boolean>(false);
+
   constructor(
     private readonly _homeService: HomeService,
     private readonly _utils: UtilsService
   ) {}
 
   ngOnInit(): void {
+    this.fetchData();
+  }
+
+  fetchData() {
     this._homeService
       .getAccountsList()
       .then((response) => {
@@ -58,7 +65,8 @@ export class HomeAccountsListWidget implements OnInit {
           response.reduce((count, item) => count + item.balance, 0)
         );
       })
-      .catch(() => this._utils.showMessage('home.error-getting-accounts'));
+      .catch(() => this.errorFetching.set(true))
+      .finally(() => this.finishedFetch.set(true));
   }
 
   isntLastItem(index: number): boolean {
