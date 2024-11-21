@@ -4,8 +4,7 @@
     class="account"
     (click)="openDetails(account)"
     [ngStyle]="{
-      'border-bottom':
-        $index === accounts().length - 1 ? '' : '1px solid #74747437'
+      'border-bottom': isLastItem($index) ? 'none' : '1px solid #74747437'
     }"
   >
     @if (!isSubAccounts()) {
@@ -56,6 +55,7 @@
   <app-sub-accounts
     [subAccounts]="account.subAccounts || []"
     [primaryAccountId]="account.id!"
+    [isLastPrimaryAccount]="isLastItem($index)"
     (reloadList)="reloadList.emit()"
     [ngStyle]="{
       display: isExpanded(account) ? 'flex' : 'none'

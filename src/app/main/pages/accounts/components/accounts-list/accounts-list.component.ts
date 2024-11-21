@@ -75,4 +75,8 @@ export class AccountsListComponent {
   isExpanded(account: Account): boolean {
     return this.expandedSubAccounts.get(account.id!) || false;
   }
+
+  isLastItem(index: number) {
+    return index === this.accounts().length - 1;
+  }
 }

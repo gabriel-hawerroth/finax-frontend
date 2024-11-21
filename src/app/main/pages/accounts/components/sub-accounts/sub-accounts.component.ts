@@ -16,6 +16,7 @@ import {
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { AccountsFormDialog } from '../accounts-form-dialog/accounts-form-dialog.component';
 import { AccountsListComponent } from '../accounts-list/accounts-list.component';
 
@@ -33,8 +34,11 @@ import { AccountsListComponent } from '../accounts-list/accounts-list.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubAccountsComponent {
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
   primaryAccountId = input.required<number>();
   subAccounts = input.required<Account[]>();
+  isLastPrimaryAccount = input.required<boolean>();
   reloadList = output<void>();
 
   registerOneBtnConfig: ButtonConfig = {
@@ -43,12 +47,15 @@ export class SubAccountsComponent {
   };
 
   addMoreBtnConfig: ButtonConfig = {
-    type: ButtonType.RAISED,
+    type: this.darkThemeEnabled ? ButtonType.STROKED : ButtonType.RAISED,
     icon: 'add',
     onClick: () => this.openAccountFormDialog(),
   };
 
-  constructor(private readonly _matDialog: MatDialog) {}
+  constructor(
+    private readonly _matDialog: MatDialog,
+    private readonly _utils: UtilsService
+  ) {}
 
   openAccountFormDialog(): void {
     lastValueFrom(

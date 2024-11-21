@@ -1,5 +1,10 @@
-@defer (on timer(1000ms)) {
-<div class="sub-accounts">
+@defer (on timer(200ms)) {
+<div
+  class="sub-accounts"
+  [ngStyle]="{
+    'border-bottom': isLastPrimaryAccount() ? 'none' : '1px solid #74747437'
+  }"
+>
   @if (subAccounts().length > 0) {
   <div class="add-more">
     <dynamic-button
