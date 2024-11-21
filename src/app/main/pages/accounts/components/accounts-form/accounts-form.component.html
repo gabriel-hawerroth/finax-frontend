@@ -84,7 +84,7 @@
   </div>
 
   <div class="row second">
-    @if (!accountId) {
+    @if (!accountId()) {
     <mat-form-field
       floatLabel="always"
       style="width: 23%"
@@ -102,13 +102,11 @@
           prefix: currency + ' '
         }"
         formControlName="balance"
-        [readonly]="accountId !== null"
+        [readonly]="accountId() !== null"
       />
-      @if (!accountId) {
       <mat-hint>
         {{ "my-accounts.minus-for-negative-more-for-positive" | translate }}
       </mat-hint>
-      }
     </mat-form-field>
     }
 

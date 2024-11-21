@@ -39,6 +39,7 @@ export class AccountsListComponent {
 
   readonly accounts = input.required<Account[]>();
   readonly showValues = input.required<boolean>();
+  readonly isSubAccounts = input<boolean>(false);
   readonly reloadList = output<void>();
 
   expandedSubAccounts: Map<number, boolean> = new Map();

@@ -1,20 +1,29 @@
 .sub-accounts {
-    // border: 1px solid rgba(0, 128, 0, 0.282);
     width: 100%;
     min-height: 8rem;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     border-bottom: 1px solid #74747437;
 
+    .add-more {
+        width: 10%;
+        display: flex;
+        padding-top: .8rem;
+        padding-left: .8rem;
+    }
+
+    .sub-accounts-list {
+        flex: 1;
+    }
+
     .empty {
-        font-size: 1.15rem;
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 1rem;
+        font-size: 1.15rem;
         padding: 3rem 0;
+        gap: 1rem;
     }
 }

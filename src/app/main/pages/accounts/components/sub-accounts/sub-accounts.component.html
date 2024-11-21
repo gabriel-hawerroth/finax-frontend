@@ -1,7 +1,20 @@
+@defer (on timer(1000ms)) {
 <div class="sub-accounts">
-  @for (account of subAccounts(); track account.id) {
-  <span>{{ account.name }}</span>
-  } @empty {
+  @if (subAccounts().length > 0) {
+  <div class="add-more">
+    <dynamic-button
+      class="add-more-btn"
+      [config]="addMoreBtnConfig"
+    ></dynamic-button>
+  </div>
+
+  <app-accounts-list
+    class="sub-accounts-list"
+    [accounts]="subAccounts()"
+    [showValues]="true"
+    [isSubAccounts]="true"
+  ></app-accounts-list>
+  } @else {
   <div class="empty">
     <span>{{ "my-accounts.no-sub-accounts-registered" | translate }}</span>
 
@@ -9,3 +22,4 @@
   </div>
   }
 </div>
+}

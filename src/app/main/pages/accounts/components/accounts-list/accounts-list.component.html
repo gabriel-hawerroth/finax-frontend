@@ -1,6 +1,14 @@
 <div class="list">
-  @for (account of accounts(); track account.id) {
-  <div class="account" (click)="openDetails(account)">
+  @for (account of accounts(); track $index) {
+  <div
+    class="account"
+    (click)="openDetails(account)"
+    [ngStyle]="{
+      'border-bottom':
+        $index === accounts().length - 1 ? '' : '1px solid #74747437'
+    }"
+  >
+    @if (!isSubAccounts()) {
     <div class="sub-accounts-expand-btn">
       <span
         class="material-symbols-outlined"
@@ -11,6 +19,7 @@
         }}
       </span>
     </div>
+    }
 
     <div class="image-name">
       @if (account.image) {
@@ -43,6 +52,7 @@
     </div>
   </div>
 
+  @if (!isSubAccounts()) {
   <app-sub-accounts
     [subAccounts]="account.subAccounts || []"
     [primaryAccountId]="account.id!"
@@ -51,5 +61,7 @@
       display: isExpanded(account) ? 'flex' : 'none'
     }"
   ></app-sub-accounts>
+  }
+  <!---->
   }
 </div>
