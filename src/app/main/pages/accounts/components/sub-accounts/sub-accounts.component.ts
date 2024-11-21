@@ -32,9 +32,11 @@ import { AccountsListComponent } from '../accounts-list/accounts-list.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubAccountsComponent {
-  primaryAccountId = input.required<number>();
-  subAccounts = input.required<Account[]>();
-  isLastPrimaryAccount = input.required<boolean>();
+  readonly primaryAccountId = input.required<number>();
+  readonly subAccounts = input.required<Account[]>();
+  readonly showValues = input.required<boolean>();
+  readonly isLastPrimaryAccount = input.required<boolean>();
+  
   reloadList = output<void>();
 
   registerOneBtnConfig: ButtonConfig = {
@@ -61,8 +63,6 @@ export class SubAccountsComponent {
         })
         .afterClosed()
     ).then((result) => {
-      console.log('closed', result);
-
       if (!result) return;
 
       this.reloadList.emit();

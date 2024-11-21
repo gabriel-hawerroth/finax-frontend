@@ -16,6 +16,7 @@ import { Account } from '../../../../../core/entities/account/account';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ShowValues } from '../../../../../core/enums/show-values';
+import { accountBalanceUpdatedEvent } from '../../../../../core/events/events';
 import {
   ButtonConfig,
   ButtonPreConfig,
@@ -73,6 +74,12 @@ export class MyBankAccountsPage implements OnInit {
 
   ngOnInit(): void {
     this.getAccounts();
+
+    accountBalanceUpdatedEvent.subscribe((response) => {
+      if (!response) return;
+
+      this.getAccounts();
+    });
   }
 
   getAccounts() {
@@ -82,11 +89,11 @@ export class MyBankAccountsPage implements OnInit {
     });
   }
 
-  filterList(newValue: 'all' | boolean) {
+  filterList(situation: 'all' | boolean) {
     let rows = this.rows.slice();
 
-    if (newValue != 'all') {
-      rows = this._utils.filterList(rows, 'active', newValue);
+    if (situation != 'all') {
+      rows = this._utils.filterList(rows, 'active', situation);
     }
 
     this.joinSubAccounts(rows);

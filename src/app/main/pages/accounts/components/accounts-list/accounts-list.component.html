@@ -56,6 +56,7 @@
     [subAccounts]="account.subAccounts || []"
     [primaryAccountId]="account.id!"
     [isLastPrimaryAccount]="isLastItem($index)"
+    [showValues]="showValues()"
     (reloadList)="reloadList.emit()"
     [ngStyle]="{
       display: isExpanded(account) ? 'flex' : 'none'

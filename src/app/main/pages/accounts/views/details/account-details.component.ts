@@ -16,6 +16,7 @@ import { lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import { EditBalanceDialogData } from '../../../../../core/entities/account/account-dto';
 import { ButtonType } from '../../../../../core/enums/button-style';
+import { accountBalanceUpdatedEvent } from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import {
@@ -78,6 +79,11 @@ export class BankAccountDetailsComponent {
 
       this.account.balance = result;
       this._changeDetectorRef.detectChanges();
+
+      accountBalanceUpdatedEvent.next({
+        accountId: this.account.id!,
+        newBalance: result,
+      });
     });
   }
 
