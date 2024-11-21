@@ -10,13 +10,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import { AccountFormDialogData } from '../../../../../core/entities/account/account-dto';
-import { ButtonType } from '../../../../../core/enums/button-style';
 import {
   ButtonConfig,
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { AccountsFormDialog } from '../accounts-form-dialog/accounts-form-dialog.component';
 import { AccountsListComponent } from '../accounts-list/accounts-list.component';
 
@@ -34,8 +32,6 @@ import { AccountsListComponent } from '../accounts-list/accounts-list.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubAccountsComponent {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
-
   primaryAccountId = input.required<number>();
   subAccounts = input.required<Account[]>();
   isLastPrimaryAccount = input.required<boolean>();
@@ -47,15 +43,11 @@ export class SubAccountsComponent {
   };
 
   addMoreBtnConfig: ButtonConfig = {
-    type: this.darkThemeEnabled ? ButtonType.STROKED : ButtonType.RAISED,
     icon: 'add',
     onClick: () => this.openAccountFormDialog(),
   };
 
-  constructor(
-    private readonly _matDialog: MatDialog,
-    private readonly _utils: UtilsService
-  ) {}
+  constructor(private readonly _matDialog: MatDialog) {}
 
   openAccountFormDialog(): void {
     lastValueFrom(

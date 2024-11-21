@@ -1,12 +1,22 @@
-<div class="account-form-dialog">
+<div
+  class="account-form-dialog"
+  [ngClass]="{
+    'dark-page': darkThemeEnabled
+  }"
+>
   <div class="header">
     <h1>Nova conta</h1>
 
-    <dynamic-button [config]="saveBtnConfig"></dynamic-button>
+    <dynamic-button mat-dialog-close [config]="closeBtnConfig"></dynamic-button>
   </div>
 
   <app-accounts-form
     [accountForm]="accountForm"
     [accountId]="null"
+    [isDialog]="true"
   ></app-accounts-form>
+
+  <div class="bottom">
+    <dynamic-button [config]="saveBtnConfig"></dynamic-button>
+  </div>
 </div>

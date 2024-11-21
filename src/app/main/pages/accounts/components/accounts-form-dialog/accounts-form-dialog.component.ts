@@ -6,7 +6,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { AccountFormDialogData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import {
@@ -20,15 +24,26 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
 @Component({
   selector: 'app-accounts-form-dialog',
   standalone: true,
-  imports: [CommonModule, AccountsFormComponent, DynamicButtonComponent],
+  imports: [
+    CommonModule,
+    AccountsFormComponent,
+    DynamicButtonComponent,
+    MatDialogModule,
+  ],
   templateUrl: './accounts-form-dialog.component.html',
   styleUrl: './accounts-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountsFormDialog implements OnInit {
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
   readonly data: AccountFormDialogData = inject(MAT_DIALOG_DATA);
 
   accountForm!: FormGroup;
+
+  closeBtnConfig: ButtonConfig = {
+    preConfig: ButtonPreConfig.CLOSE,
+  };
 
   saveBtnConfig: ButtonConfig = {
     preConfig: ButtonPreConfig.SAVE,

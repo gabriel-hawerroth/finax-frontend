@@ -42,6 +42,7 @@ export class AccountsFormComponent {
 
   accountForm = input.required<FormGroup>();
   accountId = input.required<number | null>();
+  isDialog = input<boolean>(false);
 
   constructor(
     private readonly _utils: UtilsService,
