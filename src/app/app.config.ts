@@ -46,6 +46,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+// Date.prototype.toJSON = function () {
+//   return format(this, 'yyyy-MM-dd');
+// };
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -79,6 +83,7 @@ export const appConfig: ApplicationConfig = {
     ),
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
+    { provide: 'TIMEZONE', useValue: 'America/Sao_Paulo' },
     DatePipe,
   ],
 };
