@@ -7,6 +7,7 @@ import {
   output,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonType } from '../../../core/enums/button-style';
 import { getBtnStyle } from '../../utils/utils';
 import { UtilsService } from '../../utils/utils.service';
@@ -70,6 +71,7 @@ export class ButtonsComponent {
   constructor() {
     inject(UtilsService)
       .getUserConfigsObservable()
+      .pipe(takeUntilDestroyed())
       .subscribe((configs) => {
         this.darkThemeEnabled.set(configs.theme === 'dark');
       });

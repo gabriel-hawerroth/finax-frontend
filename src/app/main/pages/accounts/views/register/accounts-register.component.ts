@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormGroup,
@@ -13,7 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
@@ -46,12 +46,10 @@ import { AccountsFormComponent } from '../../components/accounts-form/accounts-f
   templateUrl: './accounts-register.component.html',
   styleUrl: './accounts-register.component.scss',
 })
-export class AccountsFormPage implements OnInit, OnDestroy {
+export class AccountsFormPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
-
-  private readonly unsubscribeAll = new Subject<void>();
 
   accountId: number | null =
     +this._activatedRoute.snapshot.paramMap.get('id')! || null;
@@ -77,11 +75,6 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     this.getValues();
 
     this.subscribeValueChanges();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeAll.next();
-    this.unsubscribeAll.complete();
   }
 
   private buildForm() {
@@ -133,7 +126,7 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     const formControls = this.accountForm.controls;
 
     formControls['type'].valueChanges
-      .pipe(takeUntil(this.unsubscribeAll))
+      .pipe(takeUntilDestroyed())
       .subscribe((value) => {
         if (value === AccountType.CASH) {
           formControls['code'].setValue(null, { emitEvent: false });

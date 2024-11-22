@@ -2,15 +2,14 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, takeUntil } from 'rxjs';
 import { User } from '../../../../../core/entities/user/user';
 import { EditUserDTO } from '../../../../../core/entities/user/user-dto';
 import { UserService } from '../../../../../core/entities/user/user.service';
@@ -35,9 +34,7 @@ import { MyProfileFormComponent } from '../../components/my-profile-form/my-prof
   styleUrl: './my-profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyProfilePage implements OnInit, OnDestroy {
-  private readonly _unsubscribeAll = new Subject<void>();
-
+export class MyProfilePage implements OnInit {
   readonly currency: string = this.utils.getUserConfigs.currency;
 
   userForm!: FormGroup;
@@ -66,13 +63,8 @@ export class MyProfilePage implements OnInit, OnDestroy {
 
     this.utils.userImage
       .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(takeUntilDestroyed())
       .subscribe((value) => this.profileImageSrc.set(value));
-  }
-
-  ngOnDestroy(): void {
-    this._unsubscribeAll.complete();
-    this._unsubscribeAll.unsubscribe();
   }
 
   buildForm() {

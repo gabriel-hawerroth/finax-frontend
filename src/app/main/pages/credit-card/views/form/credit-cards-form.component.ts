@@ -2,11 +2,11 @@ import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
   OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormBuilder,
   FormGroup,
@@ -22,7 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
@@ -57,12 +57,10 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   styleUrl: './credit-cards-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardsFormPage implements OnInit, OnDestroy {
+export class CreditCardsFormPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getDefaultAccountImage = getDefaultAccountImage;
   readonly currency = this.utils.getUserConfigs.currency;
-
-  private readonly unsubscribeAll = new Subject<void>();
 
   cardId: number | null =
     +this._activatedRoute.snapshot.paramMap.get('id')! || null;
@@ -97,11 +95,6 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
     this.buildForm();
     this.getValues();
     this.subscribeValueChanges();
-  }
-
-  ngOnDestroy(): void {
-    this.unsubscribeAll.next();
-    this.unsubscribeAll.complete();
   }
 
   private buildForm() {
@@ -184,7 +177,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   private subscribeValueChanges() {
     this.cardForm
       .get('standardPaymentAccountId')!
-      .valueChanges.pipe(takeUntil(this.unsubscribeAll))
+      .valueChanges.pipe(takeUntilDestroyed())
       .subscribe((value) => this.paymentAccountChanges(value));
   }
 

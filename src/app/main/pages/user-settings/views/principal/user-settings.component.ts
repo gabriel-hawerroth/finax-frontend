@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDividerModule } from '@angular/material/divider';
@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, debounceTime, takeUntil } from 'rxjs';
+import { debounceTime } from 'rxjs';
 import { UserConfigs } from '../../../../../core/entities/user-configs/user-configs';
 import { UserConfigsService } from '../../../../../core/entities/user-configs/user-configs.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -35,9 +35,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   styleUrl: './user-settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserSettingsPage implements OnInit, OnDestroy {
-  private readonly _unsubscribeAll = new Subject<void>();
-
+export class UserSettingsPage implements OnInit {
   public readonly languagesList: string[] = [
     'pt-BR',
     'en-US',
@@ -64,11 +62,6 @@ export class UserSettingsPage implements OnInit, OnDestroy {
     this.subscribeValueChanges();
   }
 
-  ngOnDestroy(): void {
-    this._unsubscribeAll.complete();
-    this._unsubscribeAll.unsubscribe();
-  }
-
   buidForm() {
     this.configsForm = this._fb.group({
       id: null,
@@ -84,13 +77,13 @@ export class UserSettingsPage implements OnInit, OnDestroy {
 
   getConfigs() {
     this._userConfigsService.getLoggedUserConfigs().then((response) => {
-      this.configsForm.patchValue(response, {emitEvent: false});
+      this.configsForm.patchValue(response, { emitEvent: false });
     });
   }
 
   subscribeValueChanges() {
     this.configsForm.valueChanges
-      .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
+      .pipe(takeUntilDestroyed(), debounceTime(200))
       .subscribe((value) => {
         this.theme.set(value.theme);
         this._utils.setUserConfigs(value);
