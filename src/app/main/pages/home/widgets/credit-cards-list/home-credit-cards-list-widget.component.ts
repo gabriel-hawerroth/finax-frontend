@@ -34,8 +34,8 @@ export class HomeCreditCardsListWidget implements OnInit {
 
   public readonly cardsList = signal<HomeCreditCard[]>([]);
 
-  finishedFetch = signal<boolean>(false);
-  errorFetching = signal<boolean>(false);
+  finishedFetch = signal(false);
+  errorFetching = signal(false);
 
   constructor(private readonly _homeService: HomeService) {}
 

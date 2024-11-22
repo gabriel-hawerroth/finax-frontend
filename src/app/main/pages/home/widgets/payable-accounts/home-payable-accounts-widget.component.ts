@@ -23,6 +23,8 @@ import { HomeUpcomingReleaseItemComponent } from '../../components/home-upcoming
 export class HomePayableAccountsWidget {
   releasesList = input.required<HomeUpcomingRelease[]>();
   currency = input.required<string>();
+  finishedFetch = input.required<boolean>();
+  errorFetching = input.required<boolean>();
 
   isntLastItem(index: number): boolean {
     return index !== this.releasesList().length - 1;

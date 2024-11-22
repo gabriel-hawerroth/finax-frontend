@@ -7,7 +7,16 @@
     </mat-card-title>
   </mat-card-header>
 
+  @defer (when finishedFetch()) {
   <mat-card-content>
+    @if (errorFetching()) {
+    <div class="empty">
+      <span>
+        {{ "home.error-getting-payable-and-receivable-accounts" | translate }}
+      </span>
+    </div>
+    } @else {
+    <!---->
     @for (release of releasesList(); track $index) {
     <app-home-upcoming-release-item
       [release]="release"
@@ -20,12 +29,11 @@
     <!---->
     } @empty {
     <div class="empty">
-      @defer (on timer(150ms)) {
       <span>
         {{ "home.whitout-payble-accounts" | translate }}
       </span>
-      }
     </div>
-    }
+    } }
   </mat-card-content>
+  }
 </mat-card>

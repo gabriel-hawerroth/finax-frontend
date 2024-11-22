@@ -40,10 +40,10 @@ export class HomeAccountsListWidget implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   accountsList = signal<HomeAccount[]>([]);
-  generalBalance = signal<number>(0);
+  generalBalance = signal(0);
 
-  finishedFetch = signal<boolean>(false);
-  errorFetching = signal<boolean>(false);
+  finishedFetch = signal(false);
+  errorFetching = signal(false);
 
   constructor(private readonly _homeService: HomeService) {}
 

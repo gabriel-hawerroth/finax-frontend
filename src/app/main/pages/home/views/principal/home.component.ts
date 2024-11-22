@@ -60,6 +60,9 @@ export class HomePage implements OnInit, OnDestroy {
 
   generalBalance: number = 0;
 
+  finishedFetchPayableReceivableAccounts = signal(false);
+  errorFetchingPayableReceivableAccounts = signal(false);
+
   constructor(
     private readonly _translateService: TranslateService,
     private readonly _homeService: HomeService,
@@ -91,11 +94,8 @@ export class HomePage implements OnInit, OnDestroy {
     this._homeService
       .getUpcomingReleases()
       .then((response) => this.upcomingReleases.set(response))
-      .catch(() =>
-        this._utils.showMessage(
-          'home.error-getting-payable-and-receivable-accounts'
-        )
-      );
+      .catch(() => this.errorFetchingPayableReceivableAccounts.set(true))
+      .finally(() => this.finishedFetchPayableReceivableAccounts.set(true));
   }
 
   getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingRelease[] {

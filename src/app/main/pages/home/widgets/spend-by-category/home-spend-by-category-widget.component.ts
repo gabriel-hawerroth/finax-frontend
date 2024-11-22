@@ -58,8 +58,8 @@ export class HomeSpendByCategoryWidget implements OnInit {
     ) as SpendByCategoryInterval) || SpendByCategoryInterval.LAST_30_DAYS
   );
 
-  finishedFetch = signal<boolean>(false);
-  errorFetching = signal<boolean>(false);
+  finishedFetch = signal(false);
+  errorFetching = signal(false);
 
   constructor(
     private readonly _homeService: HomeService,

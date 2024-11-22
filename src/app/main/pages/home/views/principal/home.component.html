@@ -42,11 +42,15 @@
       <app-home-payable-accounts-widget
         [releasesList]="getUpcomingReleases('E')"
         [currency]="currency()"
+        [finishedFetch]="finishedFetchPayableReceivableAccounts()"
+        [errorFetching]="errorFetchingPayableReceivableAccounts()"
       ></app-home-payable-accounts-widget>
 
       <app-home-receivable-accounts-widget
         [releasesList]="getUpcomingReleases('R')"
         [currency]="currency()"
+        [finishedFetch]="finishedFetchPayableReceivableAccounts()"
+        [errorFetching]="errorFetchingPayableReceivableAccounts()"
       ></app-home-receivable-accounts-widget>
     </div>
 
