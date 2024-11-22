@@ -135,20 +135,27 @@ export class MyBankAccountsPage implements OnInit {
       if (!response) return;
 
       this.filteredRows.update((rows) => {
-        rows.forEach((row) => {
+        for (const row of rows) {
           if (row.id === response.accountId) {
             row.balance = response.newBalance;
+            break;
           }
 
-          if (!row.subAccounts) return;
+          if (row.subAccounts) {
+            let founded = false;
 
-          row.subAccounts.forEach((subAccount) => {
-            if (subAccount.id === response.accountId) {
-              subAccount.balance = response.newBalance;
-              row.subAccounts = [...row.subAccounts!];
+            for (const subAccount of row.subAccounts) {
+              if (subAccount.id === response.accountId) {
+                subAccount.balance = response.newBalance;
+                row.subAccounts = [...row.subAccounts!];
+                founded = true;
+                break;
+              }
             }
-          });
-        });
+
+            if (founded) break;
+          }
+        }
 
         return [...rows];
       });

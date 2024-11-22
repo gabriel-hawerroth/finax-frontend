@@ -84,6 +84,8 @@ export class BankAccountDetailsComponent {
         accountId: this.account.id!,
         newBalance: result,
       });
+
+      this._bottomSheetRef.dismiss();
     });
   }
 
