@@ -58,8 +58,11 @@ export class HomeSpendByCategoryWidget implements OnInit {
     ) as SpendByCategoryInterval) || SpendByCategoryInterval.LAST_30_DAYS
   );
 
+  finishedFetch = signal<boolean>(false);
+  errorFetching = signal<boolean>(false);
+
   constructor(
-    private _homeService: HomeService,
+    private readonly _homeService: HomeService,
     private readonly _utils: UtilsService
   ) {}
 
@@ -90,10 +93,8 @@ export class HomeSpendByCategoryWidget implements OnInit {
       .getSpendsByCategory(dateInterval || this.dateInterval.value!)
       .then((response) => {
         this.spendsByCategory.set(response.spendByCategories);
-
         this.firstDt.set(response.startDate);
         this.lastDt.set(response.endDate);
-
         this.data = {
           datasets: [
             {
@@ -107,9 +108,8 @@ export class HomeSpendByCategoryWidget implements OnInit {
           labels: this.spendsByCategory().map((exp) => exp.category.name),
         };
       })
-      .catch(() =>
-        this._utils.showMessage('home.error-getting-expenses-by-category')
-      );
+      .catch(() => this.errorFetching.set(true))
+      .finally(() => this.finishedFetch.set(true));
   }
 
   isntLastItem(index: number) {

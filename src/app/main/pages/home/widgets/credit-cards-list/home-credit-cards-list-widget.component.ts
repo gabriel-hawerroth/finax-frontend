@@ -12,7 +12,6 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomeCreditCard } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { HomeCreditCardItemComponent } from './home-credit-card-item/home-credit-card-item.component';
 
 @Component({
@@ -35,21 +34,24 @@ export class HomeCreditCardsListWidget implements OnInit {
 
   public readonly cardsList = signal<HomeCreditCard[]>([]);
 
-  constructor(
-    private readonly _homeService: HomeService,
-    private readonly _utils: UtilsService
-  ) {}
+  finishedFetch = signal<boolean>(false);
+  errorFetching = signal<boolean>(false);
+
+  constructor(private readonly _homeService: HomeService) {}
 
   ngOnInit(): void {
-    this._homeService
-      .getCreditCardsList()
-      .then((response) => {
-        this.cardsList.set(response);
-      })
-      .catch(() => this._utils.showMessage('home.error-getting-credit-cards'));
+    this.fetchData();
   }
 
-  public isntLastItem(index: number) {
+  fetchData() {
+    this._homeService
+      .getCreditCardsList()
+      .then((response) => this.cardsList.set(response))
+      .catch(() => this.errorFetching.set(true))
+      .finally(() => this.finishedFetch.set(true));
+  }
+
+  isntLastItem(index: number) {
     return index !== this.cardsList().length - 1;
   }
 }

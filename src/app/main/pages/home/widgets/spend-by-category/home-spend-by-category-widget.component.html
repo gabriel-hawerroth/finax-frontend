@@ -33,11 +33,18 @@
     </span>
   </mat-card-header>
 
+  @defer (when finishedFetch()) {
   <mat-card-content
     [ngStyle]="{
       'flex-direction': hasMoreThenFourCategories ? 'column' : 'row'
     }"
   >
+    @if (errorFetching()) {
+    <div class="empty">
+      <span>{{ "home.error-getting-expenses-by-category" | translate }}</span>
+    </div>
+    } @else {
+    <!---->
     @if (spendsByCategory().length > 0) {
     <div
       class="left"
@@ -85,10 +92,9 @@
     </div>
     } @else {
     <div class="empty">
-      @defer (on timer(150ms)) {
       <span>{{ "home.no-expense-in-selected-interval" | translate }}</span>
-      }
     </div>
-    }
+    } }
   </mat-card-content>
+  }
 </mat-card>

@@ -15,7 +15,6 @@ import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { HomeAccountItemComponent } from './home-account-item/home-account-item.component';
 
 @Component({
@@ -46,10 +45,7 @@ export class HomeAccountsListWidget implements OnInit {
   finishedFetch = signal<boolean>(false);
   errorFetching = signal<boolean>(false);
 
-  constructor(
-    private readonly _homeService: HomeService,
-    private readonly _utils: UtilsService
-  ) {}
+  constructor(private readonly _homeService: HomeService) {}
 
   ngOnInit(): void {
     this.fetchData();

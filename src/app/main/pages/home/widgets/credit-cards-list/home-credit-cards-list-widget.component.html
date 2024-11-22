@@ -7,7 +7,16 @@
     </mat-card-title>
   </mat-card-header>
 
+  @defer (when finishedFetch()) {
   <mat-card-content>
+    @if (errorFetching()) {
+    <div class="empty">
+      <span>
+        {{ "home.error-getting-credit-cards" | translate }}
+      </span>
+    </div>
+    } @else {
+    <!---->
     @for (card of cardsList(); track card.cardId) {
     <app-home-credit-card-item
       [card]="card"
@@ -20,12 +29,11 @@
     <!---->
     } @empty {
     <div class="empty">
-      @defer (on timer(150ms)) {
       <span>
         {{ "home.empty-credit-cards-list" | translate }}
       </span>
-      }
     </div>
-    }
+    } }
   </mat-card-content>
+  }
 </mat-card>
