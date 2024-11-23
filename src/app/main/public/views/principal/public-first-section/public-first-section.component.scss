@@ -3,10 +3,9 @@
 .public-section {
     width: 100%;
     height: 100%;
-    background-image: url('https://d3dpbaewouik5z.cloudfront.net/imgs/bg-first-section.webp');
-    background-size: cover;
     display: flex;
     justify-content: center;
+    position: relative;
 
     .content {
         width: 85%;

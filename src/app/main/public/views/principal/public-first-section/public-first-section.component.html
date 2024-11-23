@@ -1,4 +1,12 @@
 <div class="public-section">
+  <img
+    [ngSrc]="cloudFireCdnImgsLink + 'bg-first-section.webp'"
+    fill
+    priority
+    style="z-index: -1"
+    alt="background image"
+  />
+
   <div class="content">
     <div class="left-side">
       <h1>
@@ -29,7 +37,6 @@
 
     <div class="right-side" id="fs-img-container">
       <img
-        priority
         [ngSrc]="cloudFireCdnImgsLink + 'img-first-section.svg'"
         width="537"
         height="610"
