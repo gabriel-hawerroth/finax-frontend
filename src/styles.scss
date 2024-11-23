@@ -570,19 +570,19 @@ mat-card-title {
   .home-widget {
     border-radius: 1rem;
     background-color: $primary-card-bg;
-
-    .empty {
-      width: 100%;
-      height: 100%;
-      padding: 1.5rem 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #818181;
-      gap: 1rem;
-    }
   }
+}
+
+.empty {
+  width: 100%;
+  height: 100%;
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #818181;
+  gap: 1rem;
 }
 
 .clear-value-button {

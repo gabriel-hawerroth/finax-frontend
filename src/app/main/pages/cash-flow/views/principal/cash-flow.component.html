@@ -83,15 +83,35 @@
         </div>
       </header>
 
+      @defer (when !searching()) { @if (errorFetchingReleases()) {
+      <div class="empty">
+        <span>Erro ao obter os lançamentos</span>
+      </div>
+      } @else {
+      <!---->
+      @if (errorFetchingReleases()) {
+      <div class="empty">
+        <span>Erro ao obter os lançamentos</span>
+      </div>
+      } @else {
+      <!---->
+      @if (monthlyValues().releases.length) {
       <app-releases-list
+        id="releases-list"
         [releases]="monthlyValues().releases"
         [accounts]="accounts"
         [categories]="categories"
         [creditCards]="creditCards"
         [selectedDate]="selectedDate"
         (updateList)="getReleases()"
-        id="releases-list"
       ></app-releases-list>
+      } @else {
+      <div class="empty">
+        <span>{{
+          "Nenhum lançamento realizado no mês selecionado" | translate
+        }}</span>
+      </div>
+      } } } }
 
       <app-cash-flow-balances
         class="balances"

@@ -19,8 +19,8 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeUpcomingReleaseItemComponent {
-  public readonly release = input.required<HomeUpcomingRelease>();
-  public readonly currency = input.required<string>();
+  readonly release = input.required<HomeUpcomingRelease>();
+  readonly currency = input.required<string>();
 
   get isLate() {
     return isBefore(

@@ -74,10 +74,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
   categories: Category[] = [];
   creditCards: BasicCard[] = [];
 
-  // viewModeCtrl: FormControl = new FormControl<string>(
-  //   ReleasesViewMode.releases
-  // );
-
   balances = computed(() => this.calculateValues());
 
   appliedFilters = signal<ReleaseFilters>({
@@ -88,7 +84,9 @@ export class CashFlowPage implements OnInit, OnDestroy {
     description: '',
     done: 'all',
   });
-  totalAppliedFilters = signal<number>(0);
+  totalAppliedFilters = signal(0);
+
+  errorFetchingReleases = signal(false);
 
   constructor(
     public readonly utils: UtilsService,
@@ -111,19 +109,11 @@ export class CashFlowPage implements OnInit, OnDestroy {
     }
 
     this.getReleases();
-
-    // this.viewModeCtrl.valueChanges
-    //   .pipe(takeUntil(this._unsubscribeAll))
-    //   .subscribe(() => this.getReleases());
   }
 
   ngOnDestroy(): void {
     this._unsubscribeAll.complete();
     this._unsubscribeAll.unsubscribe();
-
-    // const configs = this.utils.getUserConfigs;
-    // configs.releasesViewMode = this.viewModeCtrl.value;
-    // this._userConfigsService.save(configs);
 
     this.utils.setItemLocalStorage(
       'selectedMonthCashFlow',
@@ -141,7 +131,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
         this.allMonthlyReleases = response.releases;
         this.applyFilters();
       })
-      .catch(() => this.utils.showMessage('cash-flow.error-getting-releases'))
+      .catch(() => this.errorFetchingReleases.set(true))
       .finally(() => this.searching.set(false));
   }
 

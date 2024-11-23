@@ -97,7 +97,8 @@
                 }
             }
 
-            #releases-list {
+            #releases-list,
+            .empty {
                 flex: 1;
                 overflow-y: scroll;
             }
