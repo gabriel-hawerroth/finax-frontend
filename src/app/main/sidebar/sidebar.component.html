@@ -124,10 +124,13 @@
       }"
     >
       <img
-        [src]="utils.userImage | async"
+        [ngSrc]="
+          (utils.userImage | async) || cloudFireCdnImgsLink + 'user-image.webp'
+        "
         width="28"
         height="28"
         alt="user profile image"
+        priority
       />
 
       <span>{{ utils.username | async }}</span>
