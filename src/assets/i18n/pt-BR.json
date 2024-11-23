@@ -153,7 +153,8 @@
         },
         "balance-adjustment": "Ajuste de saldo",
         "filter-releases": "Filtrar lançamentos",
-        "release-type": "Tipo de lançamento"
+        "release-type": "Tipo de lançamento",
+        "empty-releases": "Nenhum lançamento realizado no mês selecionado"
     },
     "release-form": {
         "description": "Descrição",

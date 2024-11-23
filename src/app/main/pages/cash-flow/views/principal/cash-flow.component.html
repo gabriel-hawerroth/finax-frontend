@@ -83,15 +83,11 @@
         </div>
       </header>
 
-      @defer (when !searching()) { @if (errorFetchingReleases()) {
-      <div class="empty">
-        <span>Erro ao obter os lançamentos</span>
-      </div>
-      } @else {
+      @defer (when !searching()) {
       <!---->
       @if (errorFetchingReleases()) {
       <div class="empty">
-        <span>Erro ao obter os lançamentos</span>
+        <span>{{ "cash-flow.error-getting-releases" | translate }}</span>
       </div>
       } @else {
       <!---->
@@ -107,11 +103,9 @@
       ></app-releases-list>
       } @else {
       <div class="empty">
-        <span>{{
-          "Nenhum lançamento realizado no mês selecionado" | translate
-        }}</span>
+        <span>{{ "cash-flow.empty-releases" | translate }}</span>
       </div>
-      } } } }
+      } } }
 
       <app-cash-flow-balances
         class="balances"
