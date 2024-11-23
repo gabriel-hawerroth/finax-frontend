@@ -38,6 +38,9 @@ export class CategoriesPage implements OnInit {
   expenseCategories = signal<Category[]>([]);
   revenueCategories = signal<Category[]>([]);
 
+  finishedFetchingCategories = signal(false);
+  errorFetchingCategories = signal(false);
+
   constructor(
     public readonly utils: UtilsService,
     private readonly _matDialog: MatDialog,
@@ -61,9 +64,8 @@ export class CategoriesPage implements OnInit {
           this.utils.filterList(this.categories(), 'type', 'R')
         );
       })
-      .catch(() => {
-        this.utils.showMessage('categories.error-getting-categories');
-      });
+      .catch(() => this.errorFetchingCategories.set(true))
+      .finally(() => this.finishedFetchingCategories.set(true));
   }
 
   newCategory(event: 'E' | 'R') {
@@ -122,7 +124,7 @@ export class CategoriesPage implements OnInit {
     });
   }
 
-  delete(id: number) {
+  deleteCategory(id: number) {
     const deletingCategorie = this.categories().find((item) => item.id === id);
 
     if (

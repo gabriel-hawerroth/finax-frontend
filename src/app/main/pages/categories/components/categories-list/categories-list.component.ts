@@ -22,6 +22,7 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 export class CategoriesListComponent {
   categories = input.required<Category[]>();
   categoryType = input.required<'E' | 'R'>();
+  errorFetching = input.required();
 
   onNew = output<'E' | 'R'>();
   onEdit = output<OnCategoryEditDto>();

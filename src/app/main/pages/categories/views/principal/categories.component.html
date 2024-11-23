@@ -10,23 +10,27 @@
 
   <div class="content">
     <mat-card class="card">
+      @defer (when finishedFetchingCategories()) {
       <app-categories-list
+        [errorFetching]="errorFetchingCategories()"
         [categories]="expenseCategories()"
         [categoryType]="'E'"
         (onNew)="newCategory($event)"
         (onEdit)="editCategory($event)"
-        (onDelete)="delete($event)"
+        (onDelete)="deleteCategory($event)"
         class="categories"
       ></app-categories-list>
 
       <app-categories-list
+        [errorFetching]="errorFetchingCategories()"
         [categories]="revenueCategories()"
         [categoryType]="'R'"
         (onNew)="newCategory($event)"
         (onEdit)="editCategory($event)"
-        (onDelete)="delete($event)"
+        (onDelete)="deleteCategory($event)"
         class="categories"
       ></app-categories-list>
+      }
     </mat-card>
   </div>
 </div>

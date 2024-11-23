@@ -14,6 +14,11 @@
     ></app-buttons>
   </div>
 
+  @if (errorFetching()) {
+  <div class="empty">
+    <p>{{ "categories.error-getting-categories" | translate }}</p>
+  </div>
+  } @else {
   <div class="list">
     @for (category of categories(); track category.id) {
     <div class="item" (click)="onCategoryEdit($event, category)">
@@ -36,4 +41,5 @@
     </div>
     }
   </div>
+  }
 </div>
