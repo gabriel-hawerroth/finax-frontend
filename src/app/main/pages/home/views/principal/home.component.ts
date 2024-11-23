@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 import {
   HomeBalances,
   HomeUpcomingRelease,
@@ -41,7 +42,9 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
+  private readonly _unsubscribeAll = new Subject<void>();
+
   title = this._translateService.instant('home.hello', {
     username: this._utils.username.value,
   });
@@ -71,11 +74,16 @@ export class HomePage implements OnInit {
 
     this._utils
       .getUserConfigsObservable()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((configs) => {
         this.theme.set(configs.theme);
         this.currency.set(configs.currency);
       });
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
   }
 
   getValues() {

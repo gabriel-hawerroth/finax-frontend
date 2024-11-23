@@ -1,8 +1,8 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 import { LoginService } from '../../core/entities/auth/login.service';
 import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
 import { UserService } from '../../core/entities/user/user.service';
@@ -20,8 +20,10 @@ import { UtilsService } from '../../shared/utils/utils.service';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+
+  private readonly _unsubscribeAll = new Subject<void>();
 
   userAccess: UserAccess | null = this.utils.getLoggedUser?.access || null;
 
@@ -45,6 +47,11 @@ export class SidebarComponent implements OnInit {
     this.subscribeUserConfigs();
   }
 
+  ngOnDestroy(): void {
+    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
+  }
+
   getUserConfigs() {
     this._userConfigsService.getLoggedUserConfigs().then((response) => {
       this.utils.setUserConfigs(response);
@@ -58,7 +65,7 @@ export class SidebarComponent implements OnInit {
   subscribeUserConfigs() {
     this.utils
       .getUserConfigsObservable()
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => this.darkThemeEnabled.set(value.theme === 'dark'));
   }
 

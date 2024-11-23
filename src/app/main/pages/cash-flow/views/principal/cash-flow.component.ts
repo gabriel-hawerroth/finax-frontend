@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
-import { lastValueFrom } from 'rxjs';
+import { Subject } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
@@ -54,6 +54,8 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
   styleUrl: './cash-flow.component.scss',
 })
 export class CashFlowPage implements OnInit, OnDestroy {
+  private readonly _unsubscribeAll = new Subject<void>();
+
   currency = this.utils.getUserConfigs.currency;
 
   currentDate: Date = new Date();
@@ -71,6 +73,10 @@ export class CashFlowPage implements OnInit, OnDestroy {
   accounts: BasicAccount[] = [];
   categories: Category[] = [];
   creditCards: BasicCard[] = [];
+
+  // viewModeCtrl: FormControl = new FormControl<string>(
+  //   ReleasesViewMode.releases
+  // );
 
   balances = computed(() => this.calculateValues());
 
@@ -105,9 +111,20 @@ export class CashFlowPage implements OnInit, OnDestroy {
     }
 
     this.getReleases();
+
+    // this.viewModeCtrl.valueChanges
+    //   .pipe(takeUntil(this._unsubscribeAll))
+    //   .subscribe(() => this.getReleases());
   }
 
   ngOnDestroy(): void {
+    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
+
+    // const configs = this.utils.getUserConfigs;
+    // configs.releasesViewMode = this.viewModeCtrl.value;
+    // this._userConfigsService.save(configs);
+
     this.utils.setItemLocalStorage(
       'selectedMonthCashFlow',
       this.selectedDate.toString()
@@ -218,27 +235,26 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   openFilterDialog() {
-    lastValueFrom(
-      this._matDialog
-        .open(FilterReleasesDialog, {
-          data: <FilterReleasesDialogData>{
-            accounts: this.accounts,
-            creditCards: this.creditCards,
-            categories: this.categories,
-            filters: this.appliedFilters(),
-          },
-          panelClass: 'filter-releases-dialog',
-          width: '42vw',
-          minWidth: '42vw',
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((response: ReleaseFilters | undefined) => {
-      if (!response) return;
+    this._matDialog
+      .open(FilterReleasesDialog, {
+        data: <FilterReleasesDialogData>{
+          accounts: this.accounts,
+          creditCards: this.creditCards,
+          categories: this.categories,
+          filters: this.appliedFilters(),
+        },
+        panelClass: 'filter-releases-dialog',
+        width: '42vw',
+        minWidth: '42vw',
+        autoFocus: false,
+      })
+      .afterClosed()
+      .subscribe((response: ReleaseFilters | undefined) => {
+        if (!response) return;
 
-      this.appliedFilters.set(response);
-      this.applyFilters();
-    });
+        this.appliedFilters.set(response);
+        this.applyFilters();
+      });
   }
 
   applyFilters() {

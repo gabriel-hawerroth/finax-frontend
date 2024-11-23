@@ -5,7 +5,6 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatCardModule } from '@angular/material/card';
@@ -132,37 +131,35 @@ export class MyBankAccountsPage implements OnInit {
   }
 
   subscribeAccountBalanceUpdatedEvent() {
-    accountBalanceUpdatedEvent
-      .pipe(takeUntilDestroyed())
-      .subscribe((response) => {
-        if (!response) return;
+    accountBalanceUpdatedEvent.subscribe((response) => {
+      if (!response) return;
 
-        this.filteredRows.update((rows) => {
-          for (const row of rows) {
-            if (row.id === response.accountId) {
-              row.balance = response.newBalance;
-              break;
-            }
-
-            if (row.subAccounts) {
-              let founded = false;
-
-              for (const subAccount of row.subAccounts) {
-                if (subAccount.id === response.accountId) {
-                  subAccount.balance = response.newBalance;
-                  row.subAccounts = [...row.subAccounts!];
-                  founded = true;
-                  break;
-                }
-              }
-
-              if (founded) break;
-            }
+      this.filteredRows.update((rows) => {
+        for (const row of rows) {
+          if (row.id === response.accountId) {
+            row.balance = response.newBalance;
+            break;
           }
 
-          return [...rows];
-        });
+          if (row.subAccounts) {
+            let founded = false;
+
+            for (const subAccount of row.subAccounts) {
+              if (subAccount.id === response.accountId) {
+                subAccount.balance = response.newBalance;
+                row.subAccounts = [...row.subAccounts!];
+                founded = true;
+                break;
+              }
+            }
+
+            if (founded) break;
+          }
+        }
+
+        return [...rows];
       });
+    });
   }
 
   get showValues() {
