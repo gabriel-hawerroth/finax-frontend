@@ -1,0 +1,24 @@
+<div class="list">
+  @for (card of creditCards(); track card.id) {
+  <div class="account" (click)="openDetails(card)">
+    @if (card.image) {
+    <img
+      [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.image"
+      width="60"
+      height="60"
+      alt="account logo"
+    />
+    } @else {
+    <span class="material-symbols-outlined default-bank-account">
+      credit_card
+    </span>
+    }
+
+    <span>
+      <b>{{ card.name }}</b>
+    </span>
+
+    <span class="material-symbols-outlined navigate-icon"> navigate_next </span>
+  </div>
+  }
+</div>

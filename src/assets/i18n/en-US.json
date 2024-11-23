@@ -254,9 +254,10 @@
         "balance-changed-successfully": "Balance changed successfully",
         "error-changing-balance": "Error changing the balance",
         "primary-account": "Primary Account",
-        "primary-account-tooltip": "Select a primary account if this is a sub-account. This allows linking this account as a 'box', 'piggy bank' or investment account of the selected primary account, facilitating organization and financial control.",
         "description-is-required": "Description is required",
-        "no-sub-accounts-registered": "No sub-accounts registered"
+        "empty-accounts": "No accounts registered",
+        "no-sub-accounts-registered": "No sub-accounts registered",
+        "error-getting-accounts": "Error getting accounts"
     },
     "credit-cards": {
         "title": "Credit Cards",
@@ -268,7 +269,9 @@
         "description": "Description",
         "limit-must-be-greater-than-zero": "Limit must be greater than zero",
         "saved-successfully": "Credit card saved successfully",
-        "error-saving-card": "Error saving the credit card"
+        "error-saving-card": "Error saving the credit card",
+        "error-getting-cards": "Error getting credit cards",
+        "empty-credit-cards": "No credit cards registered"
     },
     "invoice": {
         "title": "Invoice",

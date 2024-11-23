@@ -66,6 +66,9 @@ export class MyBankAccountsPage implements OnInit {
     onClick: () => this.onChangeShowValues(),
   };
 
+  finishedFetchingAccounts = signal(false);
+  errorFetchingAccounts = signal(false);
+
   constructor(
     private readonly _utils: UtilsService,
     private readonly _router: Router,
@@ -78,10 +81,14 @@ export class MyBankAccountsPage implements OnInit {
   }
 
   getAccounts() {
-    this._accountService.getByUser().then((result: Account[]) => {
-      this.rows = result;
-      this.filterList(this.situationFilter.value!);
-    });
+    this._accountService
+      .getByUser()
+      .then((result: Account[]) => {
+        this.rows = result;
+        this.filterList(this.situationFilter.value!);
+      })
+      .catch(() => this.errorFetchingAccounts.set(true))
+      .finally(() => this.finishedFetchingAccounts.set(true));
   }
 
   filterList(situation: 'all' | boolean) {

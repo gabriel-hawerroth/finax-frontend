@@ -42,12 +42,30 @@
         <dynamic-button [config]="newBtnConfig"></dynamic-button>
       </div>
 
+      @defer (when finishedFetchingAccounts()) {
+      <!---->
+      @if (errorFetchingAccounts()) {
+      <div class="empty">
+        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+          {{ "my-accounts.error-getting-accounts" | translate }}
+        </span>
+      </div>
+      } @else {
+      <!---->
+      @if (filteredRows().length) {
       <app-accounts-list
         class="list-component"
         [accounts]="filteredRows()"
         [showValues]="showValues"
         (reloadList)="getAccounts()"
       ></app-accounts-list>
+      } @else {
+      <div class="empty">
+        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+          {{ "my-accounts.empty-accounts" | translate }}
+        </span>
+      </div>
+      } } }
     </mat-card>
   </div>
 </div>

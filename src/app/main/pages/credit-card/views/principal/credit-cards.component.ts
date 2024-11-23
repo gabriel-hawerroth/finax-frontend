@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,21 +6,16 @@ import {
   signal,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  CreditCardDetailsData,
-  UserCreditCard,
-} from '../../../../../core/entities/credit-card/credit-card-dto';
+import { UserCreditCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { CreditCardDetailsComponent } from '../details/credit-card-details.component';
+import { CreditCardsListComponent } from '../../components/credit-cards-list/credit-cards-list.component';
 
 @Component({
   selector: 'app-credit-cards',
@@ -31,26 +26,26 @@ import { CreditCardDetailsComponent } from '../details/credit-card-details.compo
     ButtonsComponent,
     MatFormFieldModule,
     MatSelectModule,
-    NgOptimizedImage,
     RouterModule,
     ReactiveFormsModule,
     TranslateModule,
+    CreditCardsListComponent,
   ],
   templateUrl: './credit-cards.component.html',
   styleUrl: './credit-cards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardsPage implements OnInit {
-  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
   situationFilter = new FormControl(true);
 
   rows: UserCreditCard[] = [];
   filteredRows = signal<UserCreditCard[]>([]);
 
+  finishedFetchingCards = signal(false);
+  errorFetchingCards = signal(false);
+
   constructor(
     public readonly utils: UtilsService,
-    private readonly _bottomSheet: MatBottomSheet,
     private readonly _router: Router,
     private readonly _creditCardService: CreditCardService
   ) {}
@@ -60,10 +55,14 @@ export class CreditCardsPage implements OnInit {
   }
 
   getCards() {
-    this._creditCardService.getByUser().then((response) => {
-      this.rows = response;
-      this.filterList(this.situationFilter.value!);
-    });
+    this._creditCardService
+      .getByUser()
+      .then((response) => {
+        this.rows = response;
+        this.filterList(this.situationFilter.value!);
+      })
+      .catch(() => this.errorFetchingCards.set(true))
+      .finally(() => this.finishedFetchingCards.set(true));
   }
 
   filterList(value: 'all' | boolean) {
@@ -78,14 +77,5 @@ export class CreditCardsPage implements OnInit {
 
   onNew() {
     this._router.navigateByUrl('cartoes-de-credito/novo');
-  }
-
-  openDetails(card: UserCreditCard) {
-    this._bottomSheet.open(CreditCardDetailsComponent, {
-      data: <CreditCardDetailsData>{
-        card,
-      },
-      panelClass: 'credit-card-details',
-    });
   }
 }

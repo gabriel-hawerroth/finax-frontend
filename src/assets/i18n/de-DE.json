@@ -254,9 +254,10 @@
         "balance-changed-successfully": "Saldo erfolgreich geändert",
         "error-changing-balance": "Fehler beim Ändern des Saldos",
         "primary-account": "Primärkonto",
-        "primary-account-tooltip": "Wählen Sie ein Hauptkonto, wenn dies ein Unterkonto ist. Dies ermöglicht die Verknüpfung dieses Kontos als 'Box', 'Sparschwein' oder Anlagekonto des ausgewählten Hauptkontos, was die Organisation und Finanzkontrolle erleichtert.",
         "description-is-required": "Beschreibung ist erforderlich",
-        "no-sub-accounts-registered": "Keine Unterkonten registriert"
+        "empty-accounts": "Keine Konten registriert",
+        "no-sub-accounts-registered": "Keine Unterkonten registriert",
+        "error-getting-accounts": "Fehler beim Abrufen der Konten"
     },
     "credit-cards": {
         "title": "Kreditkarten",
@@ -268,7 +269,9 @@
         "description": "Beschreibung",
         "limit-must-be-greater-than-zero": "Das Limit muss größer als null sein",
         "saved-successfully": "Kreditkarte erfolgreich gespeichert",
-        "error-saving-card": "Fehler beim Speichern der Kreditkarte"
+        "error-saving-card": "Fehler beim Speichern der Kreditkarte",
+        "error-getting-cards": "Fehler beim Abrufen der Kreditkarten",
+        "empty-credit-cards": "Keine Kreditkarten registriert"
     },
     "invoice": {
         "title": "Rechnung",

@@ -40,34 +40,25 @@
         ></app-buttons>
       </div>
 
-      @defer {
-      <div class="list">
-        @for (account of filteredRows(); track account.id) {
-        <div class="account" (click)="openDetails(account)">
-          @if (account.image) {
-          <img
-            [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
-            width="60"
-            height="60"
-            alt="account logo"
-          />
-          } @else {
-          <span class="material-symbols-outlined default-bank-account">
-            credit_card
-          </span>
-          }
-
-          <span>
-            <b>{{ account.name }}</b>
-          </span>
-
-          <span class="material-symbols-outlined navigate-icon">
-            navigate_next
-          </span>
-        </div>
-        }
+      @defer (when finishedFetchingCards()) { @if (errorFetchingCards()) {
+      <div class="empty">
+        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+          {{ "credit-cards.error-getting-cards" | translate }}
+        </span>
       </div>
-      }
+      } @else {
+      <!---->
+      @if (filteredRows().length) {
+      <app-credit-cards-list
+        [creditCards]="filteredRows()"
+      ></app-credit-cards-list>
+      } @else {
+      <div class="empty">
+        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+          {{ "credit-cards.empty-credit-cards" | translate }}
+        </span>
+      </div>
+      } } }
     </mat-card>
   </div>
 </div>

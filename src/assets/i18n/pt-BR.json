@@ -254,9 +254,10 @@
         "balance-changed-successfully": "Saldo alterado com sucesso",
         "error-changing-balance": "Erro ao alterar o saldo",
         "primary-account": "Conta principal",
-        "primary-account-tooltip": "Selecione uma conta principal caso esta seja uma subconta. Isso permite vincular esta conta como uma 'caixinha', 'cofrinho' ou conta de investimentos da conta principal selecionada, facilitando a organização e o controle financeiro.",
         "description-is-required": "A descrição é obrigatória",
-        "no-sub-accounts-registered": "Nenhuma subconta cadastrada"
+        "empty-accounts": "Nenhuma conta cadastrada",
+        "no-sub-accounts-registered": "Nenhuma subconta cadastrada",
+        "error-getting-accounts": "Erro ao obter as contas"
     },
     "credit-cards": {
         "title": "Cartões de crédito",
@@ -268,7 +269,9 @@
         "description": "Descrição",
         "limit-must-be-greater-than-zero": "O limite deve ser maior que zero",
         "saved-successfully": "Cartão de crédito salvo com sucesso",
-        "error-saving-card": "Erro ao salvar o cartão de crédito"
+        "error-saving-card": "Erro ao salvar o cartão de crédito",
+        "error-getting-cards": "Erro ao obter os cartões de crédito",
+        "empty-credit-cards": "Nenhum cartão de crédito cadastrado"
     },
     "invoice": {
         "title": "Fatura",
