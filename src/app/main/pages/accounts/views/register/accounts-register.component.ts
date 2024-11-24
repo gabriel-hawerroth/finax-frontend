@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -45,6 +51,7 @@ import { AccountsFormComponent } from '../../components/accounts-form/accounts-f
   ],
   templateUrl: './accounts-register.component.html',
   styleUrl: './accounts-register.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountsFormPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
@@ -151,11 +158,5 @@ export class AccountsFormPage implements OnInit, OnDestroy {
           formControls['investments'].enable({ emitEvent: false });
         }
       });
-  }
-
-  removeSelectedPrimaryAccount(event: MouseEvent) {
-    event.stopPropagation();
-    this.accountForm.get('primaryAccountId')!.setValue(null);
-    this.accountForm.markAsDirty();
   }
 }

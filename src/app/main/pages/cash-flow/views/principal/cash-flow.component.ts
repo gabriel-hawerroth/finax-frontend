@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  computed,
+  signal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -52,6 +59,7 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CashFlowPage implements OnInit, OnDestroy {
   private readonly _unsubscribeAll = new Subject<void>();
@@ -317,7 +325,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
       }
 
       values.releases = releases;
-      return values;
+      return { ...values };
     });
   }
 }
