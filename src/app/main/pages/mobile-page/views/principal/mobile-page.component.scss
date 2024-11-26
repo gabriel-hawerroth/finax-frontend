@@ -13,7 +13,7 @@
 
     #mobile-section {
         width: 100vw;
-        height: calc(100vh - $header-height - $footer-height);
+        height: calc(100vh - $header-height);
         display: flex;
         flex-direction: column;
         justify-content: center;
