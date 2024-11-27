@@ -257,7 +257,11 @@
         "description-is-required": "Description is required",
         "empty-accounts": "No accounts registered",
         "no-sub-accounts-registered": "No sub-accounts registered",
-        "error-getting-accounts": "Error getting accounts"
+        "error-getting-accounts": "Error getting accounts",
+        "confirm-delete": "Do you really want to delete this account?",
+        "error-deleting": "There was an error trying to delete the account",
+        "deleted-successfully": "Account deleted successfully",
+        "linked-account-inactivated": "The account has linked records, cannot be deleted, and has been deactivated"
     },
     "credit-cards": {
         "title": "Credit Cards",

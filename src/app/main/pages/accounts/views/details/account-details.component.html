@@ -95,28 +95,27 @@
       [showGeneric]="true"
       genericIcon="sort"
       genericLabel="my-accounts.see-releases"
-      [genericStyle]="getBtnStyle"
       [btnStyle]="{
         padding: '2rem'
       }"
       [contentStyle]="{
-        color: '#585858',
+        color: 'green',
         'font-size': '1rem'
       }"
     ></app-buttons>
 
     <app-buttons
       [showGeneric]="true"
-      genericIcon="query_stats"
-      genericLabel="generic.reports"
-      [genericStyle]="getBtnStyle"
+      genericIcon="delete"
+      genericLabel="actions.exclude"
       [btnStyle]="{
         padding: '2rem'
       }"
       [contentStyle]="{
-        color: '#585858',
+        color: 'red',
         'font-size': '1rem'
       }"
+      (onGeneric)="deleteAccount()"
     ></app-buttons>
 
     <app-buttons

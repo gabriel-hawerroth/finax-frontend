@@ -15,7 +15,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import { EditBalanceDialogData } from '../../../../../core/entities/account/account-dto';
+import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
+import { ExclusionProcess } from '../../../../../core/enums/exclusion-process';
 import { accountBalanceUpdatedEvent } from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
@@ -55,7 +57,8 @@ export class BankAccountDetailsComponent {
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _bottomSheetRef: MatBottomSheetRef,
     private readonly _dialog: MatDialog,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _accountService: AccountService
   ) {}
 
   edit() {
@@ -101,5 +104,29 @@ export class BankAccountDetailsComponent {
 
   get getEditBtnStyle() {
     return ButtonType.BASIC;
+  }
+
+  deleteAccount() {
+    this._utils
+      .showConfirmDialog('my-accounts.confirm-delete')
+      .then((response) => {
+        if (!response) return;
+
+        this._accountService
+          .deleteById(this.account.id!)
+          .then((response) => {
+            switch (response) {
+              case ExclusionProcess.DELETED:
+                this._utils.showMessage('my-accounts.deleted-successfully');
+                break;
+              case ExclusionProcess.INACTIVATED:
+                this._utils.showMessage(
+                  'my-accounts.linked-account-inactivated'
+                );
+                break;
+            }
+          })
+          .catch(() => this._utils.showMessage('my-accounts.error-deleting'));
+      });
   }
 }

@@ -257,7 +257,11 @@
         "description-is-required": "A descrição é obrigatória",
         "empty-accounts": "Nenhuma conta cadastrada",
         "no-sub-accounts-registered": "Nenhuma subconta cadastrada",
-        "error-getting-accounts": "Erro ao obter as contas"
+        "error-getting-accounts": "Erro ao obter as contas",
+        "confirm-delete": "Deseja realmente excluir essa conta?",
+        "error-deleting": "Houve um erro ao tentar excluir a conta",
+        "deleted-successfully": "Conta excluída com sucesso",
+        "linked-account-inactivated": "A conta possui registros vinculados, não pode ser excluída e foi inativada"
     },
     "credit-cards": {
         "title": "Cartões de crédito",

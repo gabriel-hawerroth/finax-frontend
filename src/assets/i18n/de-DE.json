@@ -257,7 +257,11 @@
         "description-is-required": "Beschreibung ist erforderlich",
         "empty-accounts": "Keine Konten registriert",
         "no-sub-accounts-registered": "Keine Unterkonten registriert",
-        "error-getting-accounts": "Fehler beim Abrufen der Konten"
+        "error-getting-accounts": "Fehler beim Abrufen der Konten",
+        "confirm-delete": "Möchten Sie dieses Konto wirklich löschen?",
+        "error-deleting": "Beim Löschen des Kontos ist ein Fehler aufgetreten",
+        "deleted-successfully": "Konto erfolgreich gelöscht",
+        "linked-account-inactivated": "Das Konto hat verknüpfte Einträge, kann nicht gelöscht werden und wurde deaktiviert"
     },
     "credit-cards": {
         "title": "Kreditkarten",

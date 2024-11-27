@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UtilsService } from '../../../shared/utils/utils.service';
+import { ExclusionProcess } from '../../enums/exclusion-process';
 import { Account } from './account';
 import { BasicAccount } from './account-dto';
 
@@ -54,6 +55,12 @@ export class AccountService {
           params,
         }
       )
+    );
+  }
+
+  deleteById(id: number): Promise<ExclusionProcess> {
+    return lastValueFrom(
+      this._http.delete<ExclusionProcess>(`${this.apiUrl}/${id}`)
     );
   }
 }
