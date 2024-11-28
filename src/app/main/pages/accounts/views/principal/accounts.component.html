@@ -59,10 +59,20 @@
         [showValues]="showValues"
         (reloadList)="getAccounts()"
       ></app-accounts-list>
+      } @else if (!rows.length) {
+      <div class="empty">
+        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+          {{ "my-accounts.no-registered-accounts" | translate }}
+        </span>
+      </div>
       } @else {
       <div class="empty">
         <span style="font-size: 1.5rem; margin-bottom: 4rem">
-          {{ "my-accounts.empty-accounts" | translate }}
+          {{ "my-accounts.no-accounts" | translate }}
+          {{
+            (situationFilter.value ? "generic.active" : "generic.inactive")
+              | translate
+          }}
         </span>
       </div>
       } } }

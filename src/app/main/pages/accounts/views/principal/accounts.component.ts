@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
@@ -12,11 +13,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ShowValues } from '../../../../../core/enums/show-values';
-import { accountBalanceUpdatedEvent } from '../../../../../core/events/events';
+import {
+  accountBalanceUpdatedEvent,
+  accountDeletedEvent,
+} from '../../../../../core/events/events';
 import {
   ButtonConfig,
   ButtonPreConfig,
@@ -44,8 +49,10 @@ import { AccountsListComponent } from '../../components/accounts-list/accounts-l
   styleUrl: './accounts.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MyBankAccountsPage implements OnInit {
+export class MyBankAccountsPage implements OnInit, OnDestroy {
   readonly darkThemeEnable = this._utils.darkThemeEnable;
+
+  private readonly _unsubscribeAll = new Subject<void>();
 
   situationFilter = new FormControl(true);
 
@@ -78,6 +85,12 @@ export class MyBankAccountsPage implements OnInit {
   ngOnInit(): void {
     this.getAccounts();
     this.subscribeAccountBalanceUpdatedEvent();
+    this.subscribeAccountDeletedEvent();
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
   }
 
   getAccounts() {
@@ -101,11 +114,15 @@ export class MyBankAccountsPage implements OnInit {
     this.joinSubAccounts(rows);
   }
 
-  joinSubAccounts(accounts: Account[]) {
+  private joinSubAccounts(accounts: Account[]) {
+    console.log(accounts);
+
     let rows: Account[] = [];
 
     accounts.forEach((account) => {
-      if (account.primaryAccountId) return;
+      if (account.primaryAccountId) {
+        return;
+      }
 
       const subAccounts = accounts.filter(
         (item) => item.primaryAccountId === account.id
@@ -121,7 +138,7 @@ export class MyBankAccountsPage implements OnInit {
     this._router.navigateByUrl('contas/nova');
   }
 
-  onChangeShowValues() {
+  private onChangeShowValues() {
     switch (this.valuesViewBtnConfig.icon) {
       case ShowValues.ON:
         this.valuesViewBtnConfig.icon = ShowValues.OFF;
@@ -137,36 +154,74 @@ export class MyBankAccountsPage implements OnInit {
     );
   }
 
-  subscribeAccountBalanceUpdatedEvent() {
-    accountBalanceUpdatedEvent.subscribe((response) => {
-      if (!response) return;
+  private subscribeAccountBalanceUpdatedEvent() {
+    accountBalanceUpdatedEvent
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((response) => {
+        if (!response) return;
 
-      this.filteredRows.update((rows) => {
-        for (const row of rows) {
-          if (row.id === response.accountId) {
-            row.balance = response.newBalance;
-            break;
-          }
-
-          if (row.subAccounts) {
-            let founded = false;
-
-            for (const subAccount of row.subAccounts) {
-              if (subAccount.id === response.accountId) {
-                subAccount.balance = response.newBalance;
-                row.subAccounts = [...row.subAccounts!];
-                founded = true;
-                break;
-              }
+        this.filteredRows.update((rows) => {
+          for (const row of rows) {
+            if (row.id === response.accountId) {
+              row.balance = response.newBalance;
+              break;
             }
 
-            if (founded) break;
-          }
-        }
+            if (row.subAccounts) {
+              let founded = false;
 
-        return [...rows];
+              for (const subAccount of row.subAccounts) {
+                if (subAccount.id === response.accountId) {
+                  subAccount.balance = response.newBalance;
+                  row.subAccounts = [...row.subAccounts!];
+                  founded = true;
+                  break;
+                }
+              }
+
+              if (founded) break;
+            }
+          }
+
+          return [...rows];
+        });
       });
-    });
+  }
+
+  private subscribeAccountDeletedEvent() {
+    accountDeletedEvent
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((response) => {
+        if (!response) return;
+
+        this.filteredRows.update((rows) => {
+          for (let i = 0; i < rows.length; i++) {
+            if (rows[i].id === response.accountId) {
+              rows.splice(i, 1);
+              break;
+            }
+
+            const subAccounts = rows[i].subAccounts;
+
+            if (subAccounts?.length) {
+              let founded = false;
+
+              for (let j = 0; j < subAccounts.length; j++) {
+                if (subAccounts[j].id === response.accountId) {
+                  subAccounts.splice(j, 1);
+                  rows[i].subAccounts = [...subAccounts];
+                  founded = true;
+                  break;
+                }
+              }
+
+              if (founded) break;
+            }
+          }
+
+          return [...rows];
+        });
+      });
   }
 
   get showValues() {

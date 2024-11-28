@@ -18,7 +18,10 @@ import { EditBalanceDialogData } from '../../../../../core/entities/account/acco
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ExclusionProcess } from '../../../../../core/enums/exclusion-process';
-import { accountBalanceUpdatedEvent } from '../../../../../core/events/events';
+import {
+  accountBalanceUpdatedEvent,
+  accountDeletedEvent,
+} from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import {
@@ -92,6 +95,40 @@ export class BankAccountDetailsComponent {
     });
   }
 
+  deleteAccount() {
+    this._utils
+      .showConfirmDialog('my-accounts.confirm-delete')
+      .then((response) => {
+        if (!response) return;
+
+        this._accountService
+          .deleteById(this.account.id!)
+          .then((response) => {
+            switch (response) {
+              case ExclusionProcess.DELETED:
+                this._utils.showMessage(
+                  'my-accounts.deleted-successfully',
+                  4000
+                );
+                break;
+              case ExclusionProcess.INACTIVATED:
+                this._utils.showMessage(
+                  'my-accounts.linked-account-inactivated',
+                  5000
+                );
+                break;
+            }
+
+            accountDeletedEvent.next({
+              accountId: this.account.id!,
+            });
+
+            this._bottomSheetRef.dismiss();
+          })
+          .catch(() => this._utils.showMessage('my-accounts.error-deleting'));
+      });
+  }
+
   get getAccountType(): string {
     let type = 'my-accounts.account-types.';
     type += this.account.type?.toString().toLowerCase();
@@ -104,29 +141,5 @@ export class BankAccountDetailsComponent {
 
   get getEditBtnStyle() {
     return ButtonType.BASIC;
-  }
-
-  deleteAccount() {
-    this._utils
-      .showConfirmDialog('my-accounts.confirm-delete')
-      .then((response) => {
-        if (!response) return;
-
-        this._accountService
-          .deleteById(this.account.id!)
-          .then((response) => {
-            switch (response) {
-              case ExclusionProcess.DELETED:
-                this._utils.showMessage('my-accounts.deleted-successfully');
-                break;
-              case ExclusionProcess.INACTIVATED:
-                this._utils.showMessage(
-                  'my-accounts.linked-account-inactivated'
-                );
-                break;
-            }
-          })
-          .catch(() => this._utils.showMessage('my-accounts.error-deleting'));
-      });
   }
 }
