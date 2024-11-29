@@ -131,6 +131,15 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
       rows.push(account);
     });
 
+    const subAccounts = accounts.filter((item) => item.primaryAccountId);
+    subAccounts.forEach((account) => {
+      const primaryIsPresent =
+        rows.findIndex((row) => row.id === account.primaryAccountId) !== -1;
+
+      if (!primaryIsPresent) rows.push(account);
+    });
+
+    console.log(rows);
     this.filteredRows.set(rows);
   }
 

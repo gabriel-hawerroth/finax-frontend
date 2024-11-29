@@ -7,7 +7,7 @@
       'border-bottom': isLastItem($index) ? 'none' : '1px solid #74747437'
     }"
   >
-    @if (!isSubAccounts()) {
+    @if (!isSubAccounts() && !account.primaryAccountId) {
     <div class="sub-accounts-expand-btn">
       <span
         class="material-symbols-outlined"
