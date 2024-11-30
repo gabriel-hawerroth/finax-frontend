@@ -7,10 +7,12 @@
 >
   @if (subAccounts().length > 0) {
   <div class="add-more">
+    @if (primaryAccount().active) {
     <dynamic-button
       class="add-more-btn"
       [config]="addMoreBtnConfig"
     ></dynamic-button>
+    }
   </div>
 
   <app-accounts-list

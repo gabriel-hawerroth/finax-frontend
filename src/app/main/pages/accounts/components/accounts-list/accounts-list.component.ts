@@ -8,6 +8,7 @@ import {
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { Account } from '../../../../../core/entities/account/account';
 import { BankAccountDetailsData } from '../../../../../core/entities/account/account-dto';
+import { AccountType } from '../../../../../core/enums/account-enums';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import {
   cloudFireCdnImgsLink,
@@ -78,5 +79,13 @@ export class AccountsListComponent {
 
   isLastItem(index: number) {
     return index === this.accounts().length - 1;
+  }
+
+  showSubAccountsExpandButton(account: Account): boolean {
+    return (
+      !this.isSubAccounts() &&
+      !account.primaryAccountId &&
+      account.type !== AccountType.CASH
+    );
   }
 }

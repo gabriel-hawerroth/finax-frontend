@@ -9,6 +9,7 @@
   >
     @if (!isSubAccounts() && !account.primaryAccountId) {
     <div class="sub-accounts-expand-btn">
+      @if (account.type !== 'CASH') {
       <span
         class="material-symbols-outlined"
         (click)="expandSubAccounts(account.id!, $event)"
@@ -17,6 +18,7 @@
           expandedSubAccounts.get(account.id!) ? "expand_less" : "expand_more"
         }}
       </span>
+      }
     </div>
     }
 
@@ -53,10 +55,10 @@
 
   @if (!isSubAccounts()) {
   <app-sub-accounts
+    [primaryAccount]="account"
     [subAccounts]="account.subAccounts || []"
-    [primaryAccountId]="account.id!"
-    [isLastPrimaryAccount]="isLastItem($index)"
     [showValues]="showValues()"
+    [isLastPrimaryAccount]="isLastItem($index)"
     (reloadList)="reloadList.emit()"
     [ngStyle]="{
       display: isExpanded(account) ? 'flex' : 'none'

@@ -32,11 +32,11 @@ import { AccountsListComponent } from '../accounts-list/accounts-list.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SubAccountsComponent {
-  readonly primaryAccountId = input.required<number>();
+  readonly primaryAccount = input.required<Account>();
   readonly subAccounts = input.required<Account[]>();
   readonly showValues = input.required<boolean>();
   readonly isLastPrimaryAccount = input.required<boolean>();
-  
+
   reloadList = output<void>();
 
   registerOneBtnConfig: ButtonConfig = {
@@ -56,7 +56,7 @@ export class SubAccountsComponent {
       this._matDialog
         .open(AccountsFormDialog, {
           data: <AccountFormDialogData>{
-            primaryAccountId: this.primaryAccountId(),
+            primaryAccountId: this.primaryAccount().id,
           },
           minWidth: '45vw',
           autoFocus: false,
