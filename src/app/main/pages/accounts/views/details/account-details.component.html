@@ -6,6 +6,7 @@
 >
   @if (account.image) {
   <img
+    id="account-logo"
     [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
     width="80"
     height="80"
@@ -85,6 +86,28 @@
         <span>
           {{ getAccountType | translate }}
         </span>
+        }
+
+        <br />
+
+        @if (account.primaryAccountId) {
+        <div class="primary-account">
+          <span> {{ "my-accounts.sub-account-of" | translate }}: </span>
+
+          <div class="primary-account-details">
+            @if (primaryAccount?.image) {
+            <img
+              [ngSrc]="cloudFireCdnImgsLink + 'banks/' + primaryAccount!.image"
+              width="20"
+              height="20"
+              alt="bank account logo"
+            />
+            }
+            <span>
+              {{ primaryAccount?.name }}
+            </span>
+          </div>
+        </div>
         }
       </div>
     </div>

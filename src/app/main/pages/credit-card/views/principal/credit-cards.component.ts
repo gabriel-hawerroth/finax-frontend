@@ -36,7 +36,7 @@ import { CreditCardsListComponent } from '../../components/credit-cards-list/cre
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardsPage implements OnInit {
-  situationFilter = new FormControl(true);
+  situationFilter = new FormControl(false);
 
   rows: UserCreditCard[] = [];
   filteredRows = signal<UserCreditCard[]>([]);

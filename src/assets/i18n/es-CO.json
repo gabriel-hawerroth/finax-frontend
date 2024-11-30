@@ -265,7 +265,8 @@
         "confirm-delete": "¿Realmente desea eliminar esta cuenta?",
         "error-deleting": "Hubo un error al intentar eliminar la cuenta",
         "deleted-successfully": "Cuenta eliminada con éxito",
-        "linked-account-inactivated": "La cuenta tiene registros vinculados, no se puede eliminar y ha sido desactivada"
+        "linked-account-inactivated": "La cuenta tiene registros vinculados, no se puede eliminar y ha sido desactivada",
+        "sub-account-of": "Subcuenta de"
     },
     "credit-cards": {
         "title": "Tarjetas de crédito",

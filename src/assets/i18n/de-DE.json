@@ -265,7 +265,8 @@
         "confirm-delete": "Möchten Sie dieses Konto wirklich löschen?",
         "error-deleting": "Beim Löschen des Kontos ist ein Fehler aufgetreten",
         "deleted-successfully": "Konto erfolgreich gelöscht",
-        "linked-account-inactivated": "Das Konto hat verknüpfte Einträge, kann nicht gelöscht werden und wurde deaktiviert"
+        "linked-account-inactivated": "Das Konto hat verknüpfte Einträge, kann nicht gelöscht werden und wurde deaktiviert",
+        "sub-account-of": "Unterkonto von"
     },
     "credit-cards": {
         "title": "Kreditkarten",

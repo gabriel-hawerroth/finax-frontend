@@ -16,7 +16,7 @@
     margin-bottom: 3rem;
     background-color: #fff;
 
-    img {
+    #account-logo {
         position: relative;
         border-radius: 50%;
         top: 5rem;
@@ -55,7 +55,6 @@
         .row2 {
             display: flex;
             flex-direction: column;
-            // margin-top: 1rem;
             margin-bottom: 2rem;
         }
 
@@ -86,7 +85,22 @@
 
             .right {
                 position: relative;
-                // top: 2.5rem;
+                display: flex;
+                flex-direction: column;
+
+                .primary-account {
+                    display: flex;
+                    flex-direction: column;
+
+                    .primary-account-details {
+                        display: flex;
+                        gap: .6rem;
+
+                        img {
+                            border-radius: 50%;
+                        }
+                    }
+                }
             }
         }
     }

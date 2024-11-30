@@ -14,7 +14,10 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
-import { EditBalanceDialogData } from '../../../../../core/entities/account/account-dto';
+import {
+  BankAccountDetailsData,
+  EditBalanceDialogData,
+} from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ExclusionProcess } from '../../../../../core/enums/exclusion-process';
@@ -53,7 +56,8 @@ export class BankAccountDetailsComponent {
 
   readonly currency = this._utils.getUserConfigs.currency;
 
-  account: Account = inject(MAT_BOTTOM_SHEET_DATA).account;
+  account: Account;
+  primaryAccount: Account | null;
 
   constructor(
     private readonly _utils: UtilsService,
@@ -62,7 +66,11 @@ export class BankAccountDetailsComponent {
     private readonly _dialog: MatDialog,
     private readonly _router: Router,
     private readonly _accountService: AccountService
-  ) {}
+  ) {
+    const data: BankAccountDetailsData = inject(MAT_BOTTOM_SHEET_DATA);
+    this.account = data.account;
+    this.primaryAccount = data.primaryAccount;
+  }
 
   edit() {
     this._bottomSheetRef.dismiss();

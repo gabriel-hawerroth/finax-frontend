@@ -54,10 +54,10 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
 
   private readonly _unsubscribeAll = new Subject<void>();
 
-  situationFilter = new FormControl(true);
+  situationFilter = new FormControl(false);
+  situationFilterValue: boolean | 'all' = this.situationFilter.getRawValue()!;
 
-  rows: Account[] = [];
-  filteredRows = signal<Account[]>([]);
+  rows = signal<Account[]>([]);
 
   newBtnConfig: ButtonConfig = {
     preConfig: ButtonPreConfig.NEW,
@@ -97,50 +97,10 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
     this._accountService
       .getByUser()
       .then((result: Account[]) => {
-        this.rows = result;
-        this.filterList(this.situationFilter.value!);
+        this.rows.set(result);
       })
       .catch(() => this.errorFetchingAccounts.set(true))
       .finally(() => this.finishedFetchingAccounts.set(true));
-  }
-
-  filterList(situation: 'all' | boolean) {
-    let rows = this.rows.slice();
-
-    if (situation != 'all') {
-      rows = this._utils.filterList(rows, 'active', situation);
-    }
-
-    this.joinSubAccounts(rows);
-  }
-
-  private joinSubAccounts(accounts: Account[]) {
-    console.log(accounts);
-
-    let rows: Account[] = [];
-
-    accounts.forEach((account) => {
-      if (account.primaryAccountId) {
-        return;
-      }
-
-      const subAccounts = accounts.filter(
-        (item) => item.primaryAccountId === account.id
-      );
-      account.subAccounts = subAccounts;
-      rows.push(account);
-    });
-
-    const subAccounts = accounts.filter((item) => item.primaryAccountId);
-    subAccounts.forEach((account) => {
-      const primaryIsPresent =
-        rows.findIndex((row) => row.id === account.primaryAccountId) !== -1;
-
-      if (!primaryIsPresent) rows.push(account);
-    });
-
-    console.log(rows);
-    this.filteredRows.set(rows);
   }
 
   onNew() {
@@ -169,26 +129,11 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
       .subscribe((response) => {
         if (!response) return;
 
-        this.filteredRows.update((rows) => {
+        this.rows.update((rows) => {
           for (const row of rows) {
             if (row.id === response.accountId) {
               row.balance = response.newBalance;
               break;
-            }
-
-            if (row.subAccounts) {
-              let founded = false;
-
-              for (const subAccount of row.subAccounts) {
-                if (subAccount.id === response.accountId) {
-                  subAccount.balance = response.newBalance;
-                  row.subAccounts = [...row.subAccounts!];
-                  founded = true;
-                  break;
-                }
-              }
-
-              if (founded) break;
             }
           }
 
@@ -203,28 +148,11 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
       .subscribe((response) => {
         if (!response) return;
 
-        this.filteredRows.update((rows) => {
+        this.rows.update((rows) => {
           for (let i = 0; i < rows.length; i++) {
             if (rows[i].id === response.accountId) {
               rows.splice(i, 1);
               break;
-            }
-
-            const subAccounts = rows[i].subAccounts;
-
-            if (subAccounts?.length) {
-              let founded = false;
-
-              for (let j = 0; j < subAccounts.length; j++) {
-                if (subAccounts[j].id === response.accountId) {
-                  subAccounts.splice(j, 1);
-                  rows[i].subAccounts = [...subAccounts];
-                  founded = true;
-                  break;
-                }
-              }
-
-              if (founded) break;
             }
           }
 
@@ -235,5 +163,9 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
 
   get showValues() {
     return this.valuesViewBtnConfig.icon === ShowValues.ON;
+  }
+
+  addAccount(account: Account) {
+    this.rows.update((rows) => [...rows, account]);
   }
 }

@@ -1,7 +1,10 @@
+@import 'colors.scss';
+
 .sub-accounts {
     width: 100%;
     min-height: 8rem;
     display: flex;
+    gap: 3rem;
 
     .add-more {
         width: 10%;
@@ -12,6 +15,83 @@
 
     .sub-accounts-list {
         flex: 1;
+
+        .account {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 20px 10px;
+
+            .sub-accounts-expand-btn {
+                width: 8%;
+                display: flex;
+                justify-content: center;
+
+                .material-symbols-outlined {
+                    color: #8f8f8f5b;
+                    border-radius: 50%;
+                    padding: .5rem;
+                }
+
+                &:hover {
+                    .material-symbols-outlined {
+                        background-color: #74747422;
+                    }
+                }
+            }
+
+            .image-name {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                font-size: 1.2rem;
+
+                img {
+                    border-radius: 50%;
+                }
+
+                .default-bank-account {
+                    width: 60px;
+                    height: 60px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    box-shadow: 0 0 2px #5d5d5d;
+                    cursor: pointer;
+                }
+            }
+
+            .amount {
+                width: 20%;
+                display: flex;
+                justify-content: flex-end;
+                margin-right: 1.5rem;
+                color: $balance-blue-color;
+            }
+
+            .navigate-icon {
+                width: 10%;
+                display: flex;
+                justify-content: center;
+
+                .material-symbols-outlined {
+                    color: #8f8f8f5b;
+                    display: none;
+                }
+            }
+
+            &:hover {
+                .navigate-icon {
+                    .material-symbols-outlined {
+                        display: block;
+                    }
+                }
+            }
+        }
     }
 
     .empty {

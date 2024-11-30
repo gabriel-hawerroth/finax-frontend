@@ -82,16 +82,14 @@ export class AccountsFormDialog implements OnInit {
   save() {
     if (this.accountForm.invalid) return;
 
-    // this.saving.set(true);
     this.accountForm.markAsPristine();
 
     this._accountService
       .createNew(this.accountForm.getRawValue())
-      .then(() => {
+      .then((response) => {
         this._utils.showMessage('my-accounts.saved-successfully');
-        this._matDialogRef.close(true);
+        this._matDialogRef.close(response);
       })
       .catch(() => this._utils.showMessage('my-accounts.error-saving-account'));
-    // .finally(() => this.saving.set(false));
   }
 }

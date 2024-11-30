@@ -1,15 +1,22 @@
-<div class="list">
-  @for (account of accounts(); track $index) {
+<div
+  class="list"
+  [ngStyle]="{
+    width: filteredRows().length > 0 ? '75%' : '100%'
+  }"
+>
+  @for (account of filteredRows(); track account.id) {
   <div
     class="account"
     (click)="openDetails(account)"
     [ngStyle]="{
-      'border-bottom': isLastItem($index) ? 'none' : '1px solid #74747437'
+      'border-bottom':
+        isLastItem($index) && !isExpanded(account)
+          ? 'none'
+          : '1px solid #74747437'
     }"
   >
-    @if (!isSubAccounts() && !account.primaryAccountId) {
     <div class="sub-accounts-expand-btn">
-      @if (account.type !== 'CASH') {
+      @if (showSubAccounts(account)) {
       <span
         class="material-symbols-outlined"
         (click)="expandSubAccounts(account.id!, $event)"
@@ -20,7 +27,6 @@
       </span>
       }
     </div>
-    }
 
     <div class="image-name">
       @if (account.image) {
@@ -36,8 +42,12 @@
       </span>
       }
 
-      <span>
+      <span class="name">
         <b>{{ account.name }}</b>
+
+        @if (account.primaryAccountId) {
+        <span class="sub-account-info">subconta</span>
+        }
       </span>
     </div>
 
@@ -53,18 +63,29 @@
     </div>
   </div>
 
-  @if (!isSubAccounts()) {
+  @if (showSubAccounts(account)) {
   <app-sub-accounts
     [primaryAccount]="account"
     [subAccounts]="account.subAccounts || []"
     [showValues]="showValues()"
     [isLastPrimaryAccount]="isLastItem($index)"
-    (reloadList)="reloadList.emit()"
+    (reloadList)="reloadList.emit($event)"
     [ngStyle]="{
       display: isExpanded(account) ? 'flex' : 'none'
     }"
   ></app-sub-accounts>
   }
   <!---->
+  } @empty {
+  <div class="empty">
+    <span style="font-size: 1.5rem; margin-bottom: 4rem">
+      {{ "my-accounts.no-accounts" | translate }}
+      {{
+        (situationFilterValue() ? "generic.active" : "generic.inactive")
+          | translate
+          | lowercase
+      }}
+    </span>
+  </div>
   }
 </div>

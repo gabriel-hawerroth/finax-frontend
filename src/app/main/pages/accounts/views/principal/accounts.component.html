@@ -20,7 +20,7 @@
 
             <mat-select
               [formControl]="situationFilter"
-              (valueChange)="filterList($event)"
+              [(value)]="situationFilterValue"
             >
               <mat-option value="all">
                 {{ "filters.all" | translate }}
@@ -52,27 +52,18 @@
       </div>
       } @else {
       <!---->
-      @if (filteredRows().length) {
+      @if (rows().length > 0) {
       <app-accounts-list
         class="list-component"
-        [accounts]="filteredRows()"
+        [accounts]="rows()"
         [showValues]="showValues"
-        (reloadList)="getAccounts()"
+        [situationFilterValue]="situationFilterValue"
+        (reloadList)="addAccount($event)"
       ></app-accounts-list>
-      } @else if (!rows.length) {
-      <div class="empty">
-        <span style="font-size: 1.5rem; margin-bottom: 4rem">
-          {{ "my-accounts.no-registered-accounts" | translate }}
-        </span>
-      </div>
       } @else {
       <div class="empty">
         <span style="font-size: 1.5rem; margin-bottom: 4rem">
-          {{ "my-accounts.no-accounts" | translate }}
-          {{
-            (situationFilter.value ? "generic.active" : "generic.inactive")
-              | translate
-          }}
+          {{ "my-accounts.no-registered-accounts" | translate }}
         </span>
       </div>
       } } }

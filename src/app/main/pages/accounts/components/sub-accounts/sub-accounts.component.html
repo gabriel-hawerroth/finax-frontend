@@ -1,4 +1,4 @@
-@defer (on timer(200ms)) {
+@defer (on idle) {
 <div
   class="sub-accounts"
   [ngStyle]="{
@@ -15,12 +15,47 @@
     }
   </div>
 
-  <app-accounts-list
-    class="sub-accounts-list"
-    [accounts]="subAccounts()"
-    [showValues]="showValues()"
-    [isSubAccounts]="true"
-  ></app-accounts-list>
+  <div class="sub-accounts-list">
+    @for (account of subAccounts(); track account.id) {
+    <div
+      class="account"
+      (click)="openDetails(account)"
+      [ngStyle]="{
+        'border-bottom': isLastItem($index) ? 'none' : '1px solid #74747437'
+      }"
+    >
+      <div class="image-name">
+        @if (account.image) {
+        <img
+          [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+          width="60"
+          height="60"
+          alt="account logo"
+        />
+        } @else {
+        <span class="material-symbols-outlined default-bank-account">
+          {{ getDefaultAccountImage(account) }}
+        </span>
+        }
+
+        <span>
+          <b>{{ account.name }}</b>
+        </span>
+      </div>
+
+      <div class="amount">
+        {{
+          currency +
+            (showValues() ? (account.balance | customCurrency) : hideValue)
+        }}
+      </div>
+
+      <div class="navigate-icon">
+        <span class="material-symbols-outlined">navigate_next</span>
+      </div>
+    </div>
+    }
+  </div>
   } @else {
   <div class="empty">
     <span>{{ "my-accounts.no-sub-accounts-registered" | translate }}</span>

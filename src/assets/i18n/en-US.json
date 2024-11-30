@@ -265,7 +265,8 @@
         "confirm-delete": "Do you really want to delete this account?",
         "error-deleting": "There was an error trying to delete the account",
         "deleted-successfully": "Account deleted successfully",
-        "linked-account-inactivated": "The account has linked records, cannot be deleted, and has been deactivated"
+        "linked-account-inactivated": "The account has linked records, cannot be deleted, and has been deactivated",
+        "sub-account-of": "Sub-account of"
     },
     "credit-cards": {
         "title": "Credit Cards",

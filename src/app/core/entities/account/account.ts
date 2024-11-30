@@ -15,5 +15,4 @@ export interface Account {
   code?: number;
   type?: AccountType;
   primaryAccountId?: number;
-  subAccounts?: Account[];
 }
