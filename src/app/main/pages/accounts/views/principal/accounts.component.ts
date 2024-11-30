@@ -54,7 +54,7 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
 
   private readonly _unsubscribeAll = new Subject<void>();
 
-  situationFilter = new FormControl(false);
+  situationFilter = new FormControl(true);
   situationFilterValue: boolean | 'all' = this.situationFilter.getRawValue()!;
 
   rows = signal<Account[]>([]);
