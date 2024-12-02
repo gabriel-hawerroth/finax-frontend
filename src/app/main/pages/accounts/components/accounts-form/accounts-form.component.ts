@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   input,
+  OnInit,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -36,7 +37,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   styleUrl: './accounts-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountsFormComponent {
+export class AccountsFormComponent implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
 
@@ -49,6 +50,10 @@ export class AccountsFormComponent {
     private readonly _dialog: MatDialog,
     private readonly _cdr: ChangeDetectorRef
   ) {}
+
+  ngOnInit(): void {
+    this.accountForm().controls['active'].disable();
+  }
 
   public selectIcon() {
     lastValueFrom(

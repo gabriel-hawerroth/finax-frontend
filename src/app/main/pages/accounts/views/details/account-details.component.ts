@@ -17,15 +17,14 @@ import { Account } from '../../../../../core/entities/account/account';
 import {
   BankAccountDetailsData,
   EditBalanceDialogData,
+  SubAccountsActivateDialogData,
 } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
+import { AccountChangedEvent } from '../../../../../core/enums/account-changed-event';
 import { ButtonType } from '../../../../../core/enums/button-style';
-import { ExclusionProcess } from '../../../../../core/enums/exclusion-process';
-import {
-  accountBalanceUpdatedEvent,
-  accountDeletedEvent,
-} from '../../../../../core/events/events';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { accountChangedEvent } from '../../../../../core/events/events';
+import { ButtonConfig } from '../../../../../core/interfaces/button-config';
+import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import {
   cloudFireCdnImgsLink,
@@ -33,6 +32,7 @@ import {
 } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-balance-dialog.component';
+import { SubAccountsActivateDialog } from '../../components/sub-accounts-activate-dialog/sub-accounts-activate-dialog.component';
 
 @Component({
   selector: 'app-account-details',
@@ -42,7 +42,7 @@ import { EditBalanceDialog } from '../../components/edit-balance-dialog/edit-bal
     CustomCurrencyPipe,
     NgOptimizedImage,
     TranslateModule,
-    ButtonsComponent,
+    DynamicButtonComponent,
   ],
   templateUrl: './account-details.component.html',
   styleUrl: './account-details.component.scss',
@@ -58,6 +58,37 @@ export class BankAccountDetailsComponent {
 
   account: Account;
   primaryAccount: Account | null;
+  readonly subAccounts?: Account[];
+  readonly hasSubAccounts: boolean;
+  readonly isSubAccount: boolean;
+
+  seeReleasesBtnConfig: ButtonConfig = {
+    icon: 'sort',
+    label: 'my-accounts.see-releases',
+    contentStyle: {
+      'font-size': '1rem',
+    },
+  };
+
+  editBtnConfig: ButtonConfig = {
+    icon: 'edit',
+    label: 'actions.edit',
+    contentStyle: {
+      'font-size': '1rem',
+    },
+    onClick: () => this.edit(),
+  };
+
+  changeSituationBtnConfig: ButtonConfig;
+
+  deleteBtnConfig: ButtonConfig = {
+    label: 'actions.exclude',
+    style: {},
+    contentStyle: {
+      color: 'red',
+    },
+    onClick: () => this.onDelete(),
+  };
 
   constructor(
     private readonly _utils: UtilsService,
@@ -70,6 +101,18 @@ export class BankAccountDetailsComponent {
     const data: BankAccountDetailsData = inject(MAT_BOTTOM_SHEET_DATA);
     this.account = data.account;
     this.primaryAccount = data.primaryAccount;
+    this.subAccounts = data.subAccounts;
+    this.hasSubAccounts = Boolean(this.subAccounts?.length);
+    this.isSubAccount = Boolean(this.primaryAccount);
+
+    this.changeSituationBtnConfig = {
+      label: this.account.active ? 'generic.inactivate' : 'generic.activate',
+      contentStyle: {
+        color: 'gray',
+      },
+      onClick: () =>
+        this.account.active ? this.onInactivate() : this.onActivate(),
+    };
   }
 
   edit() {
@@ -94,8 +137,9 @@ export class BankAccountDetailsComponent {
       this.account.balance = result;
       this._changeDetectorRef.detectChanges();
 
-      accountBalanceUpdatedEvent.next({
-        accountId: this.account.id!,
+      accountChangedEvent.next({
+        accountsId: this.account.id!,
+        event: AccountChangedEvent.BALANCE_UPDATED,
         newBalance: result,
       });
 
@@ -103,37 +147,141 @@ export class BankAccountDetailsComponent {
     });
   }
 
-  deleteAccount() {
+  onDelete() {
+    const confirmMessage = this.hasSubAccounts
+      ? 'my-accounts.primary-with-sub-accounts-confirm-action'
+      : 'my-accounts.confirm-action';
+
+    const action = this.hasSubAccounts
+      ? 'record-events.exclusion'
+      : 'actions.exclude';
+
     this._utils
-      .showConfirmDialog('my-accounts.confirm-delete')
+      .showConfirmDialog(confirmMessage, { action })
       .then((response) => {
         if (!response) return;
+        this.deleteAccount();
+      });
+  }
 
-        this._accountService
-          .deleteById(this.account.id!)
-          .then((response) => {
-            switch (response) {
-              case ExclusionProcess.DELETED:
-                this._utils.showMessage(
-                  'my-accounts.deleted-successfully',
-                  4000
-                );
-                break;
-              case ExclusionProcess.INACTIVATED:
-                this._utils.showMessage(
-                  'my-accounts.linked-account-inactivated',
-                  5000
-                );
-                break;
-            }
+  private deleteAccount() {
+    this._accountService
+      .deleteById(this.account.id!)
+      .then(() => {
+        this._utils.showMessage('my-accounts.deleted-successfully', 4000);
 
-            accountDeletedEvent.next({
-              accountId: this.account.id!,
+        accountChangedEvent.next({
+          accountsId: this.account.id!,
+          event: AccountChangedEvent.DELETED,
+        });
+
+        this._bottomSheetRef.dismiss();
+      })
+      .catch(() => {
+        if (this.account.active) {
+          this._utils
+            .showConfirmDialog(
+              'my-accounts.error-excluding-linked-registers-inactivate'
+            )
+            .then((response) => {
+              if (!response) return;
+              this.inactiveAccount();
             });
+        } else {
+          this._utils.showMessage(
+            'my-accounts.error-excluding-linked-registers',
+            4000
+          );
+        }
+      });
+  }
 
-            this._bottomSheetRef.dismiss();
+  onInactivate() {
+    const confirmMessage = this.hasSubAccounts
+      ? 'my-accounts.primary-with-sub-accounts-confirm-action'
+      : 'my-accounts.confirm-action';
+
+    const action = this.hasSubAccounts
+      ? 'record-events.inactivation'
+      : 'generic.inactivate';
+
+    this._utils
+      .showConfirmDialog(confirmMessage, { action })
+      .then((response) => {
+        if (!response) return;
+        this.inactiveAccount();
+      });
+  }
+
+  private inactiveAccount() {
+    this._accountService.inactivateAccount(this.account.id!).then(() => {
+      this._utils.showParamitezedMessages(
+        'my-accounts.action-success',
+        { action: 'record-events.inactivated-f' },
+        4000
+      );
+
+      accountChangedEvent.next({
+        accountsId: this.account.id!,
+        event: AccountChangedEvent.INACTIVATED,
+      });
+
+      this._bottomSheetRef.dismiss();
+    });
+  }
+
+  onActivate() {
+    if (this.hasSubAccounts) {
+      lastValueFrom(
+        this._dialog
+          .open(SubAccountsActivateDialog, {
+            data: <SubAccountsActivateDialogData>{
+              subAccounts: this.subAccounts,
+            },
+            autoFocus: false,
           })
-          .catch(() => this._utils.showMessage('my-accounts.error-deleting'));
+          .afterClosed()
+      ).then((response) => {
+        if (!response) return;
+        this.activeAccount(response);
+      });
+    } else if (this.primaryAccount && !this.primaryAccount.active) {
+      this._utils
+        .showConfirmDialog(
+          'my-accounts.confirm-sub-account-activate-with-principal'
+        )
+        .then((response) => {
+          if (!response) return;
+          this.activeAccount([this.primaryAccount!.id!]);
+        });
+    } else {
+      this._utils
+        .showConfirmDialog('my-accounts.confirm-action', {
+          action: 'generic.activate',
+        })
+        .then((response) => {
+          if (!response) return;
+          this.activeAccount();
+        });
+    }
+  }
+
+  private activeAccount(accountsId: number[] = []) {
+    this._accountService
+      .activateAccount(this.account.id!, accountsId || [])
+      .then(() => {
+        this._utils.showParamitezedMessages(
+          'my-accounts.action-success',
+          { action: 'record-events.activated-f' },
+          4000
+        );
+
+        accountChangedEvent.next({
+          accountsId: [this.account.id!, ...accountsId],
+          event: AccountChangedEvent.ACTIVATED,
+        });
+
+        this._bottomSheetRef.dismiss();
       });
   }
 

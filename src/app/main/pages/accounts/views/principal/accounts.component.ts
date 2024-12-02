@@ -16,12 +16,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
 import { AccountService } from '../../../../../core/entities/account/account.service';
+import { AccountChangedEvent } from '../../../../../core/enums/account-changed-event';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ShowValues } from '../../../../../core/enums/show-values';
-import {
-  accountBalanceUpdatedEvent,
-  accountDeletedEvent,
-} from '../../../../../core/events/events';
+import { accountChangedEvent } from '../../../../../core/events/events';
 import {
   ButtonConfig,
   ButtonPreConfig,
@@ -84,8 +82,7 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAccounts();
-    this.subscribeAccountBalanceUpdatedEvent();
-    this.subscribeAccountDeletedEvent();
+    this.subscribeAccountChangedEvent();
   }
 
   ngOnDestroy(): void {
@@ -123,42 +120,77 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
     );
   }
 
-  private subscribeAccountBalanceUpdatedEvent() {
-    accountBalanceUpdatedEvent
+  private subscribeAccountChangedEvent() {
+    accountChangedEvent
       .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((response) => {
-        if (!response) return;
-
-        this.rows.update((rows) => {
-          for (const row of rows) {
-            if (row.id === response.accountId) {
-              row.balance = response.newBalance;
-              break;
-            }
-          }
-
-          return [...rows];
-        });
+      .subscribe((event) => {
+        switch (event.event) {
+          case AccountChangedEvent.BALANCE_UPDATED:
+            this.onBalanceUpdate(event.accountsId as number, event.newBalance!);
+            break;
+          case AccountChangedEvent.DELETED:
+            this.onDeleted(event.accountsId as number);
+            break;
+          case AccountChangedEvent.INACTIVATED:
+            this.onInactivated(event.accountsId as number);
+            break;
+          case AccountChangedEvent.ACTIVATED:
+            this.onActivated(event.accountsId as number[]);
+            break;
+        }
       });
   }
 
-  private subscribeAccountDeletedEvent() {
-    accountDeletedEvent
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((response) => {
-        if (!response) return;
+  private onBalanceUpdate(accountId: number, newBalance: number) {
+    this.rows.update((rows) => {
+      for (const row of rows) {
+        if (row.id === accountId) {
+          row.balance = newBalance;
+          break;
+        }
+      }
 
-        this.rows.update((rows) => {
-          for (let i = 0; i < rows.length; i++) {
-            if (rows[i].id === response.accountId) {
-              rows.splice(i, 1);
-              break;
-            }
-          }
+      return [...rows];
+    });
+  }
 
-          return [...rows];
-        });
-      });
+  private onDeleted(accountId: number) {
+    this.rows.update((rows) => {
+      for (let i = 0; i < rows.length; i++) {
+        if (
+          rows[i].id === accountId ||
+          rows[i].primaryAccountId === accountId
+        ) {
+          rows.splice(i, 1);
+        }
+      }
+
+      return [...rows];
+    });
+  }
+
+  private onInactivated(accountId: number) {
+    this.rows.update((rows) => {
+      for (const row of rows) {
+        if (row.id === accountId || row.primaryAccountId === accountId) {
+          row.active = false;
+        }
+      }
+
+      return [...rows];
+    });
+  }
+
+  private onActivated(accountsId: number[]) {
+    this.rows.update((rows) => {
+      for (const row of rows) {
+        if (accountsId.includes(row.id!)) {
+          row.active = true;
+        }
+      }
+
+      return [...rows];
+    });
   }
 
   get showValues() {

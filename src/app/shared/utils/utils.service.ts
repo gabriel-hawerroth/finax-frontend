@@ -153,6 +153,30 @@ export class UtilsService {
     });
   }
 
+  showParamitezedMessages(
+    message: string,
+    params?: Record<string, string>,
+    duration: number = 3500
+  ) {
+    const translatedParams = new Map<string, string>();
+    if (params)
+      Object.entries(params).forEach(([key, value]) => {
+        translatedParams.set(
+          key,
+          this._translateService.instant(value).toLowerCase()
+        );
+      });
+
+    message = this._translateService.instant(
+      message,
+      Object.fromEntries(translatedParams)
+    );
+
+    this._snackBar.open(message, '', {
+      duration: duration,
+    });
+  }
+
   dismissMessage() {
     this._snackBar.dismiss();
   }
@@ -286,12 +310,27 @@ export class UtilsService {
     };
   }
 
-  showConfirmDialog(message: string): Promise<boolean> {
+  showConfirmDialog(
+    message: string,
+    params?: Record<string, string>
+  ): Promise<boolean> {
+    const translatedParams = new Map<string, string>();
+    if (params)
+      Object.entries(params).forEach(([key, value]) => {
+        translatedParams.set(
+          key,
+          this._translateService.instant(value).toLowerCase()
+        );
+      });
+
     return lastValueFrom(
       this._matDialog
         .open(ConfirmDialog, {
           data: <ConfirmDialogData>{
-            message,
+            message: this._translateService.instant(
+              message,
+              Object.fromEntries(translatedParams)
+            ),
           },
           panelClass: 'confirm-dialog',
           autoFocus: false,

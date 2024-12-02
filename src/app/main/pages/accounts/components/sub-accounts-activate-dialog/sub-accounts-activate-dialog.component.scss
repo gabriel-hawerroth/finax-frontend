@@ -1,0 +1,67 @@
+.confirm-dialog {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: .7rem;
+    gap: 1rem;
+
+    .title {
+        padding: .8rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        font-size: 1.4rem;
+    }
+
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 2rem;
+
+        .accounts-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: .8rem;
+        }
+
+        .account {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+
+            .left {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+
+                img {
+                    border-radius: 50%;
+                }
+
+                .default-bank-account {
+                    width: 50px;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    box-shadow: 0 0 2px #5d5d5d;
+                }
+            }
+        }
+    }
+
+    .buttons {
+        padding: 1.2rem 0;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+
+        .button {
+            margin-right: 1rem;
+        }
+    }
+}

@@ -12,6 +12,8 @@
         "inactive": "Inactive",
         "active-m": "Active",
         "inactive-m": "Inactive",
+        "activate": "Activate",
+        "inactivate": "Deactivate",
         "reports": "Reports",
         "activeM": "Active",
         "select-icon": "Select an icon",
@@ -230,8 +232,20 @@
         "inactives": "Inactives",
         "clear": "Clear"
     },
+    "record-events": {
+        "excluded": "excluded",
+        "excluded-f": "excluded",
+        "activated": "activated",
+        "activated-f": "activated",
+        "inactivated": "inactivated",
+        "inactivated-f": "inactivated",
+        "activation": "activation",
+        "inactivation": "inactivation",
+        "exclusion": "exclusion"
+    },
     "my-accounts": {
         "title": "My Accounts",
+        "accounts": "Accounts",
         "description": "Description",
         "account-type": "Account Type",
         "account-types": {
@@ -262,11 +276,17 @@
         "no-accounts": "No accounts",
         "no-sub-accounts-registered": "No sub-accounts registered",
         "error-getting-accounts": "Error getting accounts",
-        "confirm-delete": "Do you really want to delete this account?",
         "error-deleting": "There was an error trying to delete the account",
         "deleted-successfully": "Account deleted successfully",
         "linked-account-inactivated": "The account has linked records, cannot be deleted, and has been deactivated",
-        "sub-account-of": "Sub-account of"
+        "sub-account-of": "Sub-account of",
+        "error-excluding-linked-registers-inactivate": "This account has linked records and cannot be deleted. Do you want to deactivate it?",
+        "error-excluding-linked-registers": "This account has linked records and cannot be deleted",
+        "confirm-action": "Do you really want to {{action}} this account?",
+        "primary-with-sub-accounts-confirm-action": "This action will also result in the {{action}} of all linked sub-accounts. Do you want to continue?",
+        "action-success": "Successfully {{action}} account",
+        "select-sub-account-to-reactivate": "Select the sub-accounts you want to reactivate together",
+        "confirm-sub-account-activate-with-principal": "To reactivate this sub-account, it is necessary to reactivate the main account together. Do you want to continue?"
     },
     "credit-cards": {
         "title": "Credit Cards",

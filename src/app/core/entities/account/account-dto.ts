@@ -16,6 +16,7 @@ export interface EditBalanceDialogData {
 export interface BankAccountDetailsData {
   account: Account;
   primaryAccount: Account | null;
+  subAccounts?: Account[];
 }
 
 export interface AccountFormDialogData {
@@ -24,5 +25,9 @@ export interface AccountFormDialogData {
 
 export interface AccountsListItemDTO extends Account {
   primaryAccount: Account | null;
+  subAccounts: Account[];
+}
+
+export interface SubAccountsActivateDialogData {
   subAccounts: Account[];
 }

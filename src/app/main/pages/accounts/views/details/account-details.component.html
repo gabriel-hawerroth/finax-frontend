@@ -114,44 +114,12 @@
   </div>
 
   <div class="actions">
-    <app-buttons
-      [showGeneric]="true"
-      genericIcon="sort"
-      genericLabel="my-accounts.see-releases"
-      [btnStyle]="{
-        padding: '2rem'
-      }"
-      [contentStyle]="{
-        color: 'green',
-        'font-size': '1rem'
-      }"
-    ></app-buttons>
+    <dynamic-button [config]="seeReleasesBtnConfig"></dynamic-button>
 
-    <app-buttons
-      [showGeneric]="true"
-      genericIcon="delete"
-      genericLabel="actions.exclude"
-      [btnStyle]="{
-        padding: '2rem'
-      }"
-      [contentStyle]="{
-        color: 'red',
-        'font-size': '1rem'
-      }"
-      (onGeneric)="deleteAccount()"
-    ></app-buttons>
+    <dynamic-button [config]="editBtnConfig"></dynamic-button>
 
-    <app-buttons
-      [showGeneric]="true"
-      genericLabel="actions.edit"
-      [genericStyle]="getEditBtnStyle"
-      [btnStyle]="{
-        padding: '1.3rem 1.6rem'
-      }"
-      [contentStyle]="{
-        'font-size': '1.1rem'
-      }"
-      (onGeneric)="edit()"
-    ></app-buttons>
+    <dynamic-button [config]="changeSituationBtnConfig"></dynamic-button>
+
+    <dynamic-button [config]="deleteBtnConfig"></dynamic-button>
   </div>
 </div>

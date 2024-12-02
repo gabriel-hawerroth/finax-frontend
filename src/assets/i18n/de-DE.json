@@ -12,6 +12,8 @@
         "inactive": "Inaktiv",
         "active-m": "Aktiv",
         "inactive-m": "Inaktiv",
+        "activate": "Aktivieren",
+        "inactivate": "Deaktivieren",
         "reports": "Berichte",
         "activeM": "Aktiv",
         "select-icon": "Wählen Sie ein Symbol",
@@ -230,8 +232,20 @@
         "inactives": "Inaktiv",
         "clear": "Löschen"
     },
+    "record-events": {
+        "excluded": "ausgeschlossen",
+        "excluded-f": "ausgeschlossen",
+        "activated": "aktiviert",
+        "activated-f": "aktiviert",
+        "inactivated": "deaktiviert",
+        "inactivated-f": "deaktiviert",
+        "activation": "aktivierung",
+        "inactivation": "deaktivierung",
+        "exclusion": "ausschluss"
+    },
     "my-accounts": {
         "title": "Meine Konten",
+        "accounts": "Konten",
         "description": "Beschreibung",
         "account-type": "Kontotyp",
         "account-types": {
@@ -262,11 +276,17 @@
         "no-accounts": "Keine Konten",
         "no-sub-accounts-registered": "Keine Unterkonten registriert",
         "error-getting-accounts": "Fehler beim Abrufen der Konten",
-        "confirm-delete": "Möchten Sie dieses Konto wirklich löschen?",
         "error-deleting": "Beim Löschen des Kontos ist ein Fehler aufgetreten",
         "deleted-successfully": "Konto erfolgreich gelöscht",
         "linked-account-inactivated": "Das Konto hat verknüpfte Einträge, kann nicht gelöscht werden und wurde deaktiviert",
-        "sub-account-of": "Unterkonto von"
+        "sub-account-of": "Unterkonto von",
+        "error-excluding-linked-registers-inactivate": "Dieses Konto hat verknüpfte Einträge und kann nicht gelöscht werden. Möchten Sie es deaktivieren?",
+        "error-excluding-linked-registers": "Dieses Konto hat verknüpfte Einträge und kann nicht gelöscht werden",
+        "confirm-action": "Möchten Sie dieses Konto wirklich {{action}}?",
+        "primary-with-sub-accounts-confirm-action": "Diese Aktion führt auch zur {{action}} aller verknüpften Unterkonten. Möchten Sie fortfahren?",
+        "action-success": "Konto erfolgreich {{action}}",
+        "select-sub-account-to-reactivate": "Wählen Sie die Unterkonten aus, die Sie zusammen reaktivieren möchten",
+        "confirm-sub-account-activate-with-principal": "Um dieses Unterkonto zu reaktivieren, muss das Hauptkonto zusammen reaktiviert werden. Möchten Sie fortfahren?"
     },
     "credit-cards": {
         "title": "Kreditkarten",

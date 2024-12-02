@@ -12,6 +12,8 @@
         "inactive": "Inativa",
         "active-m": "Ativo",
         "inactive-m": "Inativo",
+        "activate": "Ativar",
+        "inactivate": "Inativar",
         "reports": "Relatórios",
         "activeM": "Ativo",
         "select-icon": "Selecione um ícone",
@@ -230,8 +232,20 @@
         "inactives": "Inativas",
         "clear": "Limpar"
     },
+    "record-events": {
+        "excluded": "excluído",
+        "excluded-f": "excluída",
+        "activated": "ativado",
+        "activated-f": "ativada",
+        "inactivated": "inativado",
+        "inactivated-f": "inativada",
+        "activation": "ativação",
+        "inactivation": "inativação",
+        "exclusion": "exclusão"
+    },
     "my-accounts": {
         "title": "Minhas contas",
+        "accounts": "Contas",
         "description": "Descrição",
         "account-type": "Tipo de conta",
         "account-types": {
@@ -262,11 +276,17 @@
         "no-accounts": "Nenhuma conta",
         "no-sub-accounts-registered": "Nenhuma subconta cadastrada",
         "error-getting-accounts": "Erro ao obter as contas",
-        "confirm-delete": "Deseja realmente excluir essa conta?",
         "error-deleting": "Houve um erro ao tentar excluir a conta",
         "deleted-successfully": "Conta excluída com sucesso",
         "linked-account-inactivated": "A conta possui registros vinculados, não pode ser excluída e foi inativada",
-        "sub-account-of": "Subconta de"
+        "sub-account-of": "Subconta de",
+        "error-excluding-linked-registers-inactivate": "Essa conta possui registros vinculados e não pode ser excluída. Deseja inativá-la?",
+        "error-excluding-linked-registers": "Essa conta possui registros vinculados e não pode ser excluída",
+        "confirm-action": "Deseja realmente {{action}} essa conta?",
+        "primary-with-sub-accounts-confirm-action": "Essa ação resultará também na {{action}} de todas as subcontas vinculadas. Deseja continuar?",
+        "action-success": "Conta {{action}} com sucesso",
+        "select-sub-account-to-reactivate": "Selecione as subcontas que deseja reativar junto",
+        "confirm-sub-account-activate-with-principal": "Para reativar essa subconta é necessário reativar a conta principal junto. Deseja continuar?"
     },
     "credit-cards": {
         "title": "Cartões de crédito",

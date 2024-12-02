@@ -1,10 +1,8 @@
 import { Subject } from 'rxjs';
+import { AccountChangedEvent } from '../enums/account-changed-event';
 
-export const accountBalanceUpdatedEvent = new Subject<{
-  accountId: number;
-  newBalance: number;
-}>();
-
-export const accountDeletedEvent = new Subject<{
-  accountId: number;
+export const accountChangedEvent = new Subject<{
+  accountsId: number | number[];
+  event: AccountChangedEvent;
+  newBalance?: number;
 }>();

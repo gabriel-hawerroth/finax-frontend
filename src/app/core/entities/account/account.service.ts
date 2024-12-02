@@ -2,8 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { UtilsService } from '../../../shared/utils/utils.service';
-import { ExclusionProcess } from '../../enums/exclusion-process';
 import { Account } from './account';
 import { BasicAccount } from './account-dto';
 
@@ -13,10 +11,7 @@ import { BasicAccount } from './account-dto';
 export class AccountService {
   private readonly apiUrl = `${environment.baseApiUrl}account`;
 
-  constructor(
-    private readonly _http: HttpClient,
-    private readonly _utils: UtilsService
-  ) {}
+  constructor(private readonly _http: HttpClient) {}
 
   getByUser(): Promise<Account[]> {
     return lastValueFrom(
@@ -58,9 +53,22 @@ export class AccountService {
     );
   }
 
-  deleteById(id: number): Promise<ExclusionProcess> {
+  deleteById(id: number): Promise<void> {
+    return lastValueFrom(this._http.delete<void>(`${this.apiUrl}/${id}`));
+  }
+
+  inactivateAccount(id: number): Promise<void> {
     return lastValueFrom(
-      this._http.delete<ExclusionProcess>(`${this.apiUrl}/${id}`)
+      this._http.patch<void>(`${this.apiUrl}/inactivate/${id}`, null)
+    );
+  }
+
+  activateAccount(id: number, subAccountIds: number[]): Promise<void> {
+    let params = new HttpParams();
+    params = params.append('subAccounts', subAccountIds.toString());
+
+    return lastValueFrom(
+      this._http.patch<void>(`${this.apiUrl}/activate/${id}`, null, { params })
     );
   }
 }

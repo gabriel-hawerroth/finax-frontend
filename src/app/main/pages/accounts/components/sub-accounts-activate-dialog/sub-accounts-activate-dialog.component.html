@@ -1,0 +1,66 @@
+<div
+  [ngClass]="{
+    'confirm-dialog': true,
+    'dark-page': darkThemeEnabled
+  }"
+>
+  <div class="title">
+    <h3>
+      {{ "Selecione as subcontas que deseja reativar junto" | translate }}
+    </h3>
+
+    <dynamic-button
+      mat-dialog-close
+      [config]="closeDialogBtnConfig"
+    ></dynamic-button>
+  </div>
+
+  <div class="content">
+    <div class="accounts-list-header">
+      <h3>{{ "my-accounts.accounts" | translate }}</h3>
+
+      <mat-checkbox
+        [checked]="selectAll"
+        (change)="selectAllAccounts($event)"
+      ></mat-checkbox>
+    </div>
+
+    @for (account of subAccounts; track account.id) {
+    <div class="account">
+      <div class="left">
+        @if (account.image) {
+        <img
+          [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+          width="50"
+          height="50"
+          alt="account logo"
+        />
+        } @else {
+        <span class="material-symbols-outlined default-bank-account">
+          {{ getDefaultAccountImage(account) }}
+        </span>
+        }
+
+        <h3>{{ account.name }}</h3>
+      </div>
+
+      <div class="right">
+        <mat-checkbox
+          [checked]="account.selected"
+          (change)="account.selected = !account.selected; onSelectAccount()"
+        ></mat-checkbox>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="buttons">
+    <dynamic-button
+      mat-dialog-close
+      class="button"
+      [config]="cancelBtnConfig"
+    ></dynamic-button>
+
+    <dynamic-button class="button" [config]="confirmBtnConfig"></dynamic-button>
+  </div>
+</div>

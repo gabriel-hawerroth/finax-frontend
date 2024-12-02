@@ -126,6 +126,7 @@ export class AccountsListComponent implements OnDestroy {
       data: <BankAccountDetailsData>{
         account: account,
         primaryAccount: account.primaryAccount,
+        subAccounts: account.subAccounts,
       },
       panelClass: 'account-details',
     });

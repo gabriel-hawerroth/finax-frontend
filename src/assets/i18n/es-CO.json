@@ -12,6 +12,8 @@
         "inactive": "Inactiva",
         "active-m": "Activo",
         "inactive-m": "Inactivo",
+        "activate": "Activar",
+        "inactivate": "Desactivar",
         "reports": "Informes",
         "activeM": "Activo",
         "select-icon": "Selecciona un ícono",
@@ -230,8 +232,20 @@
         "inactives": "Inactivas",
         "clear": "Limpiar"
     },
+    "record-events": {
+        "excluded": "excluido",
+        "excluded-f": "excluida",
+        "activated": "activado",
+        "activated-f": "activada",
+        "inactivated": "desactivado",
+        "inactivated-f": "desactivada",
+        "activation": "activación",
+        "inactivation": "inactivación",
+        "exclusion": "exclusión"
+    },
     "my-accounts": {
         "title": "Mis cuentas",
+        "accounts": "Cuentas",
         "description": "Descripción",
         "account-type": "Tipo de cuenta",
         "account-types": {
@@ -262,11 +276,17 @@
         "no-accounts": "Ninguna cuenta",
         "no-sub-accounts-registered": "No hay subcuentas registradas",
         "error-getting-accounts": "Error al obtener las cuentas",
-        "confirm-delete": "¿Realmente desea eliminar esta cuenta?",
         "error-deleting": "Hubo un error al intentar eliminar la cuenta",
         "deleted-successfully": "Cuenta eliminada con éxito",
         "linked-account-inactivated": "La cuenta tiene registros vinculados, no se puede eliminar y ha sido desactivada",
-        "sub-account-of": "Subcuenta de"
+        "sub-account-of": "Subcuenta de",
+        "error-excluding-linked-registers-inactivate": "Esta cuenta tiene registros vinculados y no se puede eliminar. ¿Desea desactivarla?",
+        "error-excluding-linked-registers": "Esta cuenta tiene registros vinculados y no se puede eliminar",
+        "confirm-action": "¿Realmente desea {{action}} esta cuenta?",
+        "primary-with-sub-accounts-confirm-action": "Esta acción también resultará en la {{action}} de todas las subcuentas vinculadas. ¿Desea continuar?",
+        "action-success": "Cuenta {{action}} con éxito",
+        "select-sub-account-to-reactivate": "Seleccione las subcuentas que desea reactivar juntas",
+        "confirm-sub-account-activate-with-principal": "Para reactivar esta subcuenta, es necesario reactivar la cuenta principal junto. ¿Desea continuar?"
     },
     "credit-cards": {
         "title": "Tarjetas de crédito",
