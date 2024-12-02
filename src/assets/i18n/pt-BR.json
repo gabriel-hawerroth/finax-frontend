@@ -300,7 +300,8 @@
         "saved-successfully": "Cartão de crédito salvo com sucesso",
         "error-saving-card": "Erro ao salvar o cartão de crédito",
         "error-getting-cards": "Erro ao obter os cartões de crédito",
-        "empty-credit-cards": "Nenhum cartão de crédito cadastrado"
+        "empty-credit-cards": "Nenhum cartão cadastrado",
+        "no-cards": "Nenhum cartão"
     },
     "invoice": {
         "title": "Fatura",

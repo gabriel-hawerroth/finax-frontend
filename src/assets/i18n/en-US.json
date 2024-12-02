@@ -300,7 +300,8 @@
         "saved-successfully": "Credit card saved successfully",
         "error-saving-card": "Error saving the credit card",
         "error-getting-cards": "Error getting credit cards",
-        "empty-credit-cards": "No credit cards registered"
+        "empty-credit-cards": "No cards registered",
+        "no-cards": "No cards"
     },
     "invoice": {
         "title": "Invoice",

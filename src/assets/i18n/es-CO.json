@@ -300,7 +300,8 @@
         "saved-successfully": "Tarjeta de crédito guardada con éxito",
         "error-saving-card": "Error al guardar la tarjeta de crédito",
         "error-getting-cards": "Error al obtener las tarjetas de crédito",
-        "empty-credit-cards": "No hay tarjetas de crédito registradas"
+        "empty-credit-cards": "No hay tarjetas registradas",
+        "no-cards": "Ninguna tarjeta"
     },
     "invoice": {
         "title": "Factura",

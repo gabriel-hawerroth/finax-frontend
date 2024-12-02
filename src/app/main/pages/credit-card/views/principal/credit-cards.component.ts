@@ -36,7 +36,10 @@ import { CreditCardsListComponent } from '../../components/credit-cards-list/cre
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardsPage implements OnInit {
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
   situationFilter = new FormControl(true);
+  situationFilterValue: boolean | 'all' = this.situationFilter.getRawValue()!;
 
   rows: UserCreditCard[] = [];
   filteredRows = signal<UserCreditCard[]>([]);
@@ -45,7 +48,7 @@ export class CreditCardsPage implements OnInit {
   errorFetchingCards = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _router: Router,
     private readonly _creditCardService: CreditCardService
   ) {}
@@ -69,7 +72,7 @@ export class CreditCardsPage implements OnInit {
     let rows = this.rows.slice();
 
     if (value !== 'all') {
-      rows = this.utils.filterList(rows, 'active', value);
+      rows = this._utils.filterList(rows, 'active', value);
     }
 
     this.filteredRows.set(rows);

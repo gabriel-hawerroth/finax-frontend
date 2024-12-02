@@ -1,6 +1,6 @@
 <div
   [ngClass]="{
-    'dark-page': utils.getUserConfigs.theme === 'dark'
+    'dark-page': darkThemeEnabled
   }"
   class="simple-page"
 >
@@ -19,6 +19,7 @@
 
           <mat-select
             [formControl]="situationFilter"
+            [(value)]="situationFilterValue"
             (valueChange)="filterList($event)"
           >
             <mat-option value="all">
@@ -40,7 +41,9 @@
         ></app-buttons>
       </div>
 
-      @defer (when finishedFetchingCards()) { @if (errorFetchingCards()) {
+      @defer (when finishedFetchingCards()) {
+      <!---->
+      @if (errorFetchingCards()) {
       <div class="empty">
         <span style="font-size: 1.5rem; margin-bottom: 4rem">
           {{ "credit-cards.error-getting-cards" | translate }}
@@ -48,9 +51,11 @@
       </div>
       } @else {
       <!---->
-      @if (filteredRows().length) {
+      @if (rows.length > 0) {
       <app-credit-cards-list
+        class="list-component"
         [creditCards]="filteredRows()"
+        [situationFilterValue]="situationFilterValue"
       ></app-credit-cards-list>
       } @else {
       <div class="empty">

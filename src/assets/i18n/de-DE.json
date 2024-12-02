@@ -300,7 +300,8 @@
         "saved-successfully": "Kreditkarte erfolgreich gespeichert",
         "error-saving-card": "Fehler beim Speichern der Kreditkarte",
         "error-getting-cards": "Fehler beim Abrufen der Kreditkarten",
-        "empty-credit-cards": "Keine Kreditkarten registriert"
+        "empty-credit-cards": "Keine registrierten Karten",
+        "no-cards": "Keine Karten"
     },
     "invoice": {
         "title": "Rechnung",
