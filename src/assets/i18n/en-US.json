@@ -289,7 +289,8 @@
         "grouper-account": "Grouping Account",
         "grouper-account-description": "With this setting enabled, this account will only be used to group your sub-accounts and cannot be used for releases",
         "add-to-cash-flow": "Add to cash flow",
-        "add-to-cash-flow-description": "With this setting disabled, releases in this account will not be added to the monthly cash flow values"
+        "add-to-cash-flow-description": "With this setting disabled, releases in this account will not be added to the monthly cash flow values",
+        "grouper-accounts-with-balance-error": "Grouping accounts cannot have a balance. To fix this, set the balance to 0"
     },
     "credit-cards": {
         "title": "Credit Cards",

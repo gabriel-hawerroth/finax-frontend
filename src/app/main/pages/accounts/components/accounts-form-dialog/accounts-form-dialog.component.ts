@@ -65,15 +65,17 @@ export class AccountsFormDialog implements OnInit {
       this.primaryAccount.id
     );
 
-    const formControls = this.accountForm.controls;
-
-    formControls['addToCashFlow'].setValue(this.primaryAccount.addToCashFlow);
-    formControls['addToCashFlow'].disable();
-
-    formControls['addOverallBalance'].setValue(
-      this.primaryAccount.addOverallBalance
-    );
-    formControls['addOverallBalance'].disable();
+    if (this.primaryAccount.grouper) {
+      const formControls = this.accountForm.controls;
+  
+      formControls['addToCashFlow'].setValue(this.primaryAccount.addToCashFlow);
+      formControls['addToCashFlow'].disable();
+  
+      formControls['addOverallBalance'].setValue(
+        this.primaryAccount.addOverallBalance
+      );
+      formControls['addOverallBalance'].disable();
+    }
   }
 
   save() {

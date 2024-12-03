@@ -289,7 +289,8 @@
         "grouper-account": "Gruppenkonto",
         "grouper-account-description": "Mit dieser Einstellung wird dieses Konto nur verwendet, um Ihre Unterkonten zu gruppieren, und kann nicht für Transaktionen verwendet werden",
         "add-to-cash-flow": "Zum Cashflow hinzufügen",
-        "add-to-cash-flow-description": "Mit dieser deaktivierten Einstellung werden Transaktionen in diesem Konto nicht zu den monatlichen Cashflow-Werten hinzugefügt"
+        "add-to-cash-flow-description": "Mit dieser deaktivierten Einstellung werden Transaktionen in diesem Konto nicht zu den monatlichen Cashflow-Werten hinzugefügt",
+        "grouper-accounts-with-balance-error": "Gruppenkonten dürfen keinen Saldo haben. Um dies zu beheben, setzen Sie den Saldo auf 0"
     },
     "credit-cards": {
         "title": "Kreditkarten",

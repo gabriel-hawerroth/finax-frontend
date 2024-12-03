@@ -53,7 +53,7 @@ export class AccountsFormPage implements OnInit, OnDestroy {
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
 
-  private readonly unsubscribeAll = new Subject<void>();
+  private readonly _unsubscribeAll = new Subject<void>();
 
   accountId: number | null =
     +this._activatedRoute.snapshot.paramMap.get('id')! || null;
@@ -84,8 +84,8 @@ export class AccountsFormPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubscribeAll.next();
-    this.unsubscribeAll.complete();
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   private async getValues() {
@@ -116,7 +116,22 @@ export class AccountsFormPage implements OnInit, OnDestroy {
         this._utils.showMessage('my-accounts.saved-successfully');
         this._router.navigateByUrl('contas');
       })
-      .catch(() => this._utils.showMessage('my-accounts.error-saving-account'))
+      .catch((err) => {
+        if (
+          err.error.errorDescription.includes(
+            'grouping accounts cannot have a balance'
+          )
+        ) {
+          this._utils.showMessage(
+            'my-accounts.grouper-accounts-with-balance-error',
+            4000
+          );
+          this.accountForm.controls['grouper'].setValue(false);
+          this.accountForm.markAsDirty();
+        } else {
+          this._utils.showMessage('my-accounts.error-saving-account');
+        }
+      })
       .finally(() => this.saving.set(false));
   }
 
@@ -129,7 +144,7 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     const formControls = this.accountForm.controls;
 
     formControls['type'].valueChanges
-      .pipe(takeUntil(this.unsubscribeAll))
+      .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => {
         if (value === AccountType.CASH) {
           formControls['code'].setValue(null, { emitEvent: false });
@@ -140,12 +155,27 @@ export class AccountsFormPage implements OnInit, OnDestroy {
           formControls['accountNumber'].disable({ emitEvent: false });
           formControls['agency'].disable({ emitEvent: false });
           formControls['investments'].disable({ emitEvent: false });
-        } else {
-          formControls['code'].enable({ emitEvent: false });
-          formControls['accountNumber'].enable({ emitEvent: false });
-          formControls['agency'].enable({ emitEvent: false });
-          formControls['investments'].enable({ emitEvent: false });
+          return;
         }
+
+        formControls['code'].enable({ emitEvent: false });
+        formControls['accountNumber'].enable({ emitEvent: false });
+        formControls['agency'].enable({ emitEvent: false });
+        formControls['investments'].enable({ emitEvent: false });
       });
+
+    if (!this.accountId) {
+      formControls['grouper'].valueChanges
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((value) => {
+          if (value) {
+            formControls['balance'].setValue(0, { emitEvent: false });
+            formControls['balance'].disable({ emitEvent: false });
+            return;
+          }
+
+          formControls['balance'].enable({ emitEvent: false });
+        });
+    }
   }
 }

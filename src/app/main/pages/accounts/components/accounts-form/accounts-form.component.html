@@ -144,6 +144,7 @@
         [formControlName]="item.key"
         [matTooltip]="item.tooltip ? (item.tooltip | translate) : ''"
         [matTooltipDisabled]="!item.tooltip"
+        [matTooltipShowDelay]="200"
         matTooltipPosition="left"
       >
         {{ item.label | translate }}
