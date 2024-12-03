@@ -159,7 +159,7 @@
       }"
     >
       @if (!accountForm().value.image) {
-      <span class="material-symbols-outlined" (click)="selectIcon()">
+      <span class="material-symbols-outlined" (click)="openSelectIconDialog()">
         account_balance
       </span>
       } @else {
@@ -168,11 +168,11 @@
         id="bank-img"
         width="70"
         height="70"
-        (click)="selectIcon()"
+        (click)="openSelectIconDialog()"
         alt="bank account image"
       />
       }
-      <span id="text" (click)="selectIcon()">
+      <span id="text" (click)="openSelectIconDialog()">
         {{ "generic.select-icon" | translate }}
       </span>
     </div>

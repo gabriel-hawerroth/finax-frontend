@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   inject,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import {
@@ -35,8 +37,11 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
   styleUrl: './accounts-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountsFormDialog implements OnInit {
+export class AccountsFormDialog implements OnInit, AfterViewInit {
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
+  @ViewChild(AccountsFormComponent)
+  accountFormComponent!: AccountsFormComponent;
 
   readonly primaryAccount: Account;
 
@@ -67,15 +72,20 @@ export class AccountsFormDialog implements OnInit {
 
     if (this.primaryAccount.grouper) {
       const formControls = this.accountForm.controls;
-  
+
       formControls['addToCashFlow'].setValue(this.primaryAccount.addToCashFlow);
       formControls['addToCashFlow'].disable();
-  
+
       formControls['addOverallBalance'].setValue(
         this.primaryAccount.addOverallBalance
       );
       formControls['addOverallBalance'].disable();
     }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.primaryAccount.image)
+      this.accountFormComponent.selectIcon(this.primaryAccount.image);
   }
 
   save() {

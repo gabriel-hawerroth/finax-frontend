@@ -29,6 +29,7 @@
       <app-accounts-form
         [accountForm]="accountForm"
         [accountId]="accountId"
+        (selectedIcon)="accountForm.markAsDirty()"
       ></app-accounts-form>
     </mat-card>
   </div>

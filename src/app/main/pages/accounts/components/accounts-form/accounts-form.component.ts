@@ -1,11 +1,11 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   input,
   OnDestroy,
   OnInit,
+  output,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -52,13 +52,13 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
   accountForm = input.required<FormGroup>();
   accountId = input.required<number | null>();
   isDialog = input<boolean>(false);
+  selectedIcon = output<void>();
 
   configs!: AccountConfigs[];
 
   constructor(
     private readonly _utils: UtilsService,
     private readonly _dialog: MatDialog,
-    private readonly _cdr: ChangeDetectorRef,
     private readonly _accountService: AccountService
   ) {}
 
@@ -77,16 +77,19 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
-  public selectIcon() {
+  public openSelectIconDialog() {
     lastValueFrom(
       this._dialog.open(SelectIconDialog, { autoFocus: false }).afterClosed()
     ).then((value) => {
       if (!value) return;
-
-      this.accountForm().get('image')!.setValue(value);
-      this.accountForm().markAsDirty();
-      this._cdr.detectChanges();
+      this.selectIcon(value);
     });
+  }
+
+  public selectIcon(icon: string) {
+    this.accountForm().get('image')!.setValue(icon);
+    this.accountForm().markAsDirty();
+    this.selectedIcon.emit();
   }
 
   removeAccountType(event: MouseEvent) {
