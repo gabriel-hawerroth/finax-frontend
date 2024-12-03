@@ -54,7 +54,9 @@
     <div class="amount">
       {{
         currency +
-          (showValues() ? (account.balance | customCurrency) : hideValue)
+          (showValues()
+            ? (getAccountBalance(account) | customCurrency)
+            : hideValue)
       }}
     </div>
 

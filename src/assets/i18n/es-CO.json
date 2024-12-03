@@ -262,7 +262,6 @@
         "minus-for-negative-more-for-positive": "Ingresa - para saldo negativo y + para positivo",
         "account-number": "Nº de cuenta",
         "agency": "Agencia",
-        "account-with-investments": "Cuenta con inversiones",
         "add-to-overall-balance": "Sumar al saldo general",
         "saved-successfully": "Cuenta guardada con éxito",
         "error-saving-account": "Error al guardar la cuenta",
@@ -286,7 +285,11 @@
         "primary-with-sub-accounts-confirm-action": "Esta acción también resultará en la {{action}} de todas las subcuentas vinculadas. ¿Desea continuar?",
         "action-success": "Cuenta {{action}} con éxito",
         "select-sub-account-to-reactivate": "Seleccione las subcuentas que desea reactivar juntas",
-        "confirm-sub-account-activate-with-principal": "Para reactivar esta subcuenta, es necesario reactivar la cuenta principal junto. ¿Desea continuar?"
+        "confirm-sub-account-activate-with-principal": "Para reactivar esta subcuenta, es necesario reactivar la cuenta principal junto. ¿Desea continuar?",
+        "grouper-account": "Cuenta agrupadora",
+        "grouper-account-description": "Con esta configuración activada, esta cuenta solo se utilizará para agrupar sus subcuentas y no se puede utilizar para transacciones",
+        "add-to-cash-flow": "Sumar al flujo de efectivo",
+        "add-to-cash-flow-description": "Con esta configuración desactivada, las transacciones en esta cuenta no se sumarán a los valores mensuales del flujo de efectivo"
     },
     "credit-cards": {
         "title": "Tarjetas de crédito",

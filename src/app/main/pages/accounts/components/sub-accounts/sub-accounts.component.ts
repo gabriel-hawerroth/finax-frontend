@@ -76,7 +76,7 @@ export class SubAccountsComponent {
       this._matDialog
         .open(AccountsFormDialog, {
           data: <AccountFormDialogData>{
-            primaryAccountId: this.primaryAccount().id,
+            primaryAccount: this.primaryAccount(),
           },
           minWidth: '45vw',
           autoFocus: false,

@@ -48,7 +48,7 @@
           {{ "my-accounts.account-types.brokerage" | translate }}
         </mat-option>
 
-        <mat-option value="CASH">
+        <mat-option value="CASH" [disabled]="disableCashType">
           {{ "my-accounts.account-types.cash" | translate }}
         </mat-option>
       </mat-select>
@@ -137,21 +137,18 @@
     }"
   >
     <div class="check-boxs">
-      <mat-checkbox formControlName="investments">
-        {{ "my-accounts.account-with-investments" | translate }}
+      @for (item of configs; track $index) {
+      <!---->
+      @if (item.show) {
+      <mat-checkbox
+        [formControlName]="item.key"
+        [matTooltip]="item.tooltip ? (item.tooltip | translate) : ''"
+        [matTooltipDisabled]="!item.tooltip"
+        matTooltipPosition="left"
+      >
+        {{ item.label | translate }}
       </mat-checkbox>
-
-      <br />
-
-      <mat-checkbox formControlName="addOverallBalance">
-        {{ "my-accounts.add-to-overall-balance" | translate }}
-      </mat-checkbox>
-
-      <br />
-
-      <mat-checkbox formControlName="active">
-        {{ "generic.active" | translate }}
-      </mat-checkbox>
+      } }
     </div>
 
     <div

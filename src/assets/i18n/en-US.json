@@ -262,7 +262,6 @@
         "minus-for-negative-more-for-positive": "Type - for negative balance and + for positive",
         "account-number": "Account Number",
         "agency": "Agency",
-        "account-with-investments": "Account with Investments",
         "add-to-overall-balance": "Add to overall balance",
         "saved-successfully": "Account saved successfully",
         "error-saving-account": "Error saving the account",
@@ -286,7 +285,11 @@
         "primary-with-sub-accounts-confirm-action": "This action will also result in the {{action}} of all linked sub-accounts. Do you want to continue?",
         "action-success": "Successfully {{action}} account",
         "select-sub-account-to-reactivate": "Select the sub-accounts you want to reactivate together",
-        "confirm-sub-account-activate-with-principal": "To reactivate this sub-account, it is necessary to reactivate the main account together. Do you want to continue?"
+        "confirm-sub-account-activate-with-principal": "To reactivate this sub-account, it is necessary to reactivate the main account together. Do you want to continue?",
+        "grouper-account": "Grouping Account",
+        "grouper-account-description": "With this setting enabled, this account will only be used to group your sub-accounts and cannot be used for releases",
+        "add-to-cash-flow": "Add to cash flow",
+        "add-to-cash-flow-description": "With this setting disabled, releases in this account will not be added to the monthly cash flow values"
     },
     "credit-cards": {
         "title": "Credit Cards",

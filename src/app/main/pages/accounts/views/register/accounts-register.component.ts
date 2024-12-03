@@ -6,12 +6,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -63,6 +58,8 @@ export class AccountsFormPage implements OnInit, OnDestroy {
   accountId: number | null =
     +this._activatedRoute.snapshot.paramMap.get('id')! || null;
 
+  primaryAccount: Account | null = null;
+
   accountForm!: FormGroup;
 
   saving = signal(false);
@@ -74,13 +71,13 @@ export class AccountsFormPage implements OnInit, OnDestroy {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _fb: FormBuilder,
     private readonly _router: Router,
     private readonly _accountService: AccountService
   ) {}
 
   ngOnInit() {
-    this.buildForm();
+    this.accountForm = this._accountService.getFormGroup();
+
     this.getValues();
 
     this.subscribeValueChanges();
@@ -91,34 +88,26 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     this.unsubscribeAll.complete();
   }
 
-  private buildForm() {
-    this.accountForm = this._fb.group({
-      id: null,
-      userId: null,
-      name: ['', Validators.required],
-      type: null,
-      code: null,
-      balance: [0, Validators.required],
-      accountNumber: null,
-      agency: null,
-      investments: false,
-      addOverallBalance: true,
-      active: true,
-      archived: false,
-      image: null,
-      primaryAccountId: null,
-    });
-  }
-
   private async getValues() {
     if (this.accountId) {
-      this._accountService.getById(this.accountId).then((account) => {
-        this.accountForm.patchValue(account);
+      this._accountService.getById(this.accountId).then((response) => {
+        this.accountForm.patchValue(response.account);
+        this.primaryAccount = response.primaryAccount;
+
+        if (this.primaryAccount?.grouper) {
+          this.accountForm.get('addToCashFlow')!.disable();
+          this.accountForm.get('addOverallBalance')!.disable();
+        }
       });
     }
   }
 
   public save() {
+    if (this.accountForm.invalid) {
+      this.accountForm.markAllAsTouched();
+      return;
+    }
+
     this.saving.set(true);
     this.accountForm.markAsPristine();
 

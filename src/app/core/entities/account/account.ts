@@ -14,5 +14,7 @@ export interface Account {
   agency?: number;
   code?: number;
   type?: AccountType;
+  grouper: boolean;
+  addToCashFlow: boolean;
   primaryAccountId?: number;
 }

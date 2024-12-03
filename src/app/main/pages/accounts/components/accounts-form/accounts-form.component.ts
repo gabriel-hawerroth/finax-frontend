@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   Component,
   input,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -12,9 +13,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { AccountConfigs } from '../../../../../core/entities/account/account-dto';
+import { AccountService } from '../../../../../core/entities/account/account.service';
+import { AccountType } from '../../../../../core/enums/account-enums';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -32,27 +37,44 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgxCurrencyDirective,
     NgOptimizedImage,
     TranslateModule,
+    MatTooltipModule,
   ],
   templateUrl: './accounts-form.component.html',
   styleUrl: './accounts-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccountsFormComponent implements OnInit {
+export class AccountsFormComponent implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
+
+  private readonly _unsubscribeAll = new Subject<void>();
 
   accountForm = input.required<FormGroup>();
   accountId = input.required<number | null>();
   isDialog = input<boolean>(false);
 
+  configs!: AccountConfigs[];
+
   constructor(
     private readonly _utils: UtilsService,
     private readonly _dialog: MatDialog,
-    private readonly _cdr: ChangeDetectorRef
+    private readonly _cdr: ChangeDetectorRef,
+    private readonly _accountService: AccountService
   ) {}
 
   ngOnInit(): void {
     this.accountForm().controls['active'].disable();
+
+    this.configs = this._accountService.getConfigs(
+      Boolean(this.accountForm().controls['primaryAccountId'].getRawValue())
+    );
+
+    this.subscribeToFormChanges();
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
   }
 
   public selectIcon() {
@@ -78,5 +100,35 @@ export class AccountsFormComponent implements OnInit {
       this.accountForm().controls['name'].touched &&
       this.accountForm().controls['name'].hasError('required')
     );
+  }
+
+  private subscribeToFormChanges() {
+    const formControls = this.accountForm().controls;
+
+    formControls['primaryAccountId'].valueChanges
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => {
+        this.configs.find((config) => config.key === 'grouper')!.show =
+          !Boolean(value);
+      });
+
+    formControls['grouper'].valueChanges
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((value) => this.onGrouperChange(value));
+  }
+
+  onGrouperChange(newValue: boolean) {
+    const formControls = this.accountForm().controls;
+
+    if (newValue) {
+      if (formControls['type'].getRawValue() === AccountType.CASH)
+        formControls['type'].setValue(null);
+
+      return;
+    }
+  }
+
+  get disableCashType() {
+    return this.accountForm().controls['grouper'].getRawValue();
   }
 }

@@ -262,7 +262,6 @@
         "minus-for-negative-more-for-positive": "Geben Sie - für ein negatives Saldo und + für ein positives Saldo ein",
         "account-number": "Kontonummer",
         "agency": "Filiale",
-        "account-with-investments": "Konto mit Investitionen",
         "add-to-overall-balance": "Zum Gesamtsaldo hinzufügen",
         "saved-successfully": "Konto erfolgreich gespeichert",
         "error-saving-account": "Fehler beim Speichern des Kontos",
@@ -286,7 +285,11 @@
         "primary-with-sub-accounts-confirm-action": "Diese Aktion führt auch zur {{action}} aller verknüpften Unterkonten. Möchten Sie fortfahren?",
         "action-success": "Konto erfolgreich {{action}}",
         "select-sub-account-to-reactivate": "Wählen Sie die Unterkonten aus, die Sie zusammen reaktivieren möchten",
-        "confirm-sub-account-activate-with-principal": "Um dieses Unterkonto zu reaktivieren, muss das Hauptkonto zusammen reaktiviert werden. Möchten Sie fortfahren?"
+        "confirm-sub-account-activate-with-principal": "Um dieses Unterkonto zu reaktivieren, muss das Hauptkonto zusammen reaktiviert werden. Möchten Sie fortfahren?",
+        "grouper-account": "Gruppenkonto",
+        "grouper-account-description": "Mit dieser Einstellung wird dieses Konto nur verwendet, um Ihre Unterkonten zu gruppieren, und kann nicht für Transaktionen verwendet werden",
+        "add-to-cash-flow": "Zum Cashflow hinzufügen",
+        "add-to-cash-flow-description": "Mit dieser deaktivierten Einstellung werden Transaktionen in diesem Konto nicht zu den monatlichen Cashflow-Werten hinzugefügt"
     },
     "credit-cards": {
         "title": "Kreditkarten",

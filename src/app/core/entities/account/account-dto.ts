@@ -1,6 +1,11 @@
 import { AccountType } from '../../enums/account-enums';
 import { Account } from './account';
 
+export interface GetAccountById {
+  account: Account;
+  primaryAccount: Account | null;
+}
+
 export interface BasicAccount {
   id: number;
   name: string;
@@ -20,7 +25,7 @@ export interface BankAccountDetailsData {
 }
 
 export interface AccountFormDialogData {
-  primaryAccountId: number;
+  primaryAccount: Account;
 }
 
 export interface AccountsListItemDTO extends Account {
@@ -31,3 +36,10 @@ export interface AccountsListItemDTO extends Account {
 export interface SubAccountsActivateDialogData {
   subAccounts: Account[];
 }
+
+export type AccountConfigs = {
+  key: keyof Account;
+  label: string;
+  show: boolean;
+  tooltip?: string;
+};

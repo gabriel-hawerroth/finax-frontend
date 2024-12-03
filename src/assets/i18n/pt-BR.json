@@ -262,7 +262,6 @@
         "minus-for-negative-more-for-positive": "Digite - para saldo negativo e + para positivo",
         "account-number": "Nº da conta",
         "agency": "Agência",
-        "account-with-investments": "Conta com investimentos",
         "add-to-overall-balance": "Somar no saldo geral",
         "saved-successfully": "Conta salva com sucesso",
         "error-saving-account": "Erro ao salvar a conta",
@@ -286,7 +285,11 @@
         "primary-with-sub-accounts-confirm-action": "Essa ação resultará também na {{action}} de todas as subcontas vinculadas. Deseja continuar?",
         "action-success": "Conta {{action}} com sucesso",
         "select-sub-account-to-reactivate": "Selecione as subcontas que deseja reativar junto",
-        "confirm-sub-account-activate-with-principal": "Para reativar essa subconta é necessário reativar a conta principal junto. Deseja continuar?"
+        "confirm-sub-account-activate-with-principal": "Para reativar essa subconta é necessário reativar a conta principal junto. Deseja continuar?",
+        "grouper-account": "Conta agrupadora",
+        "grouper-account-description": "Com essa configuração ativada, essa conta servirá apenas para agrupar suas subcontas, não podendo ser utilizada para lançamentos",
+        "add-to-cash-flow": "Somar no fluxo de caixa",
+        "add-to-cash-flow-description": "Com essa configuração desativada, os lançamentos nessa conta não serão somados nos valores mensais do fluxo de caixa"
     },
     "credit-cards": {
         "title": "Cartões de crédito",

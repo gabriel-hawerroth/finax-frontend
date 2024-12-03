@@ -25,9 +25,12 @@
               (showValues ? (account.balance | customCurrency) : hideValue)
           }}
         </h1>
+
+        @if (!account.grouper) {
         <span (click)="adjustBalance()">
           {{ "my-accounts.adjust-balance" | translate }}
         </span>
+        }
       </div>
     </div>
 
@@ -53,32 +56,20 @@
       }"
     >
       <div class="left">
+        @for (item of configs; track $index) {
+        <!---->
+        @if (item.show) {
         <span class="item">
-          @if (account.investments) {
-          <span class="material-symbols-outlined true">check</span>
-          } @else {
-          <span class="material-symbols-outlined false">close</span>
-          }
-          {{ "my-accounts.account-with-investments" | translate }}
-        </span>
+          <span
+            class="material-symbols-outlined"
+            [ngClass]="{ true: account[item.key], false: !account[item.key] }"
+          >
+            {{ account[item.key] ? "check" : "close" }}
+          </span>
 
-        <span class="item">
-          @if (account.addOverallBalance) {
-          <span class="material-symbols-outlined true">check</span>
-          } @else {
-          <span class="material-symbols-outlined false">close</span>
-          }
-          {{ "my-accounts.add-to-overall-balance" | translate }}
+          {{ item.label | translate }}
         </span>
-
-        <span class="item">
-          @if (account.active) {
-          <span class="material-symbols-outlined true">check</span>
-          } @else {
-          <span class="material-symbols-outlined false">close</span>
-          }
-          {{ "generic.active" | translate }}
-        </span>
+        } }
       </div>
 
       <div class="right">

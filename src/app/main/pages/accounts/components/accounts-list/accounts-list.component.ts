@@ -122,6 +122,10 @@ export class AccountsListComponent implements OnDestroy {
   }
 
   openDetails(account: AccountsListItemDTO) {
+    if (account.grouper) {
+      account.balance = this.getAccountBalance(account);
+    }
+
     this._bottomSheet.open(BankAccountDetailsComponent, {
       data: <BankAccountDetailsData>{
         account: account,
@@ -165,5 +169,20 @@ export class AccountsListComponent implements OnDestroy {
 
   hasCashType(account: Account): boolean {
     return account.type === AccountType.CASH;
+  }
+
+  getAccountBalance(account: AccountsListItemDTO): number {
+    if (account.grouper) {
+      const subAccounts = this.accounts()
+        .filter((ac) => ac.primaryAccountId === account.id)
+        .filter((ac) => ac.active);
+
+      return subAccounts.reduce(
+        (acc, subAccount) => acc + subAccount.balance,
+        0
+      );
+    }
+
+    return account.balance;
   }
 }

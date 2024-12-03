@@ -5,12 +5,13 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { Account } from '../../../../../core/entities/account/account';
 import { AccountFormDialogData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import {
@@ -37,7 +38,7 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
 export class AccountsFormDialog implements OnInit {
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
-  readonly data: AccountFormDialogData = inject(MAT_DIALOG_DATA);
+  readonly primaryAccount: Account;
 
   accountForm!: FormGroup;
 
@@ -52,35 +53,34 @@ export class AccountsFormDialog implements OnInit {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _fb: FormBuilder,
     private readonly _accountService: AccountService,
     private readonly _matDialogRef: MatDialogRef<AccountsFormDialog>
-  ) {}
-
-  ngOnInit(): void {
-    this.buildForm();
+  ) {
+    const data: AccountFormDialogData = inject(MAT_DIALOG_DATA);
+    this.primaryAccount = data.primaryAccount;
   }
 
-  buildForm(): void {
-    this.accountForm = this._fb.group({
-      id: null,
-      name: ['', Validators.required],
-      type: null,
-      code: null,
-      balance: [0, Validators.required],
-      accountNumber: null,
-      agency: null,
-      investments: false,
-      addOverallBalance: true,
-      active: true,
-      archived: false,
-      image: null,
-      primaryAccountId: this.data.primaryAccountId,
-    });
+  ngOnInit(): void {
+    this.accountForm = this._accountService.getFormGroup(
+      this.primaryAccount.id
+    );
+
+    const formControls = this.accountForm.controls;
+
+    formControls['addToCashFlow'].setValue(this.primaryAccount.addToCashFlow);
+    formControls['addToCashFlow'].disable();
+
+    formControls['addOverallBalance'].setValue(
+      this.primaryAccount.addOverallBalance
+    );
+    formControls['addOverallBalance'].disable();
   }
 
   save() {
-    if (this.accountForm.invalid) return;
+    if (this.accountForm.invalid) {
+      this.accountForm.markAllAsTouched();
+      return;
+    }
 
     this.accountForm.markAsPristine();
 

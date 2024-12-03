@@ -1,9 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Account } from './account';
-import { BasicAccount } from './account-dto';
+import { AccountConfigs, BasicAccount, GetAccountById } from './account-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,58 @@ import { BasicAccount } from './account-dto';
 export class AccountService {
   private readonly apiUrl = `${environment.baseApiUrl}account`;
 
-  constructor(private readonly _http: HttpClient) {}
+  constructor(
+    private readonly _http: HttpClient,
+    private readonly _fb: FormBuilder
+  ) {}
+
+  getFormGroup(primaryAccountId?: number): FormGroup {
+    return this._fb.group({
+      id: null,
+      userId: null,
+      name: ['', Validators.required],
+      type: null,
+      code: null,
+      balance: [0, Validators.required],
+      accountNumber: null,
+      agency: null,
+      investments: false,
+      addOverallBalance: true,
+      grouper: false,
+      addToCashFlow: true,
+      active: true,
+      archived: false,
+      image: null,
+      primaryAccountId: primaryAccountId || null,
+    });
+  }
+
+  getConfigs(isSubAccount: boolean): AccountConfigs[] {
+    return [
+      {
+        key: 'grouper',
+        label: 'my-accounts.grouper-account',
+        show: !isSubAccount,
+        tooltip: 'my-accounts.grouper-account-description',
+      },
+      {
+        key: 'addToCashFlow',
+        label: 'my-accounts.add-to-cash-flow',
+        show: true,
+        tooltip: 'my-accounts.add-to-cash-flow-description',
+      },
+      {
+        key: 'addOverallBalance',
+        label: 'my-accounts.add-to-overall-balance',
+        show: true,
+      },
+      {
+        key: 'active',
+        label: 'generic.active',
+        show: true,
+      },
+    ];
+  }
 
   getByUser(): Promise<Account[]> {
     return lastValueFrom(
@@ -19,8 +71,10 @@ export class AccountService {
     );
   }
 
-  getById(id: number): Promise<Account> {
-    return lastValueFrom(this._http.get<Account>(`${this.apiUrl}/${id}`));
+  getById(id: number): Promise<GetAccountById> {
+    return lastValueFrom(
+      this._http.get<GetAccountById>(`${this.apiUrl}/${id}`)
+    );
   }
 
   getBasicList(): Promise<BasicAccount[]> {

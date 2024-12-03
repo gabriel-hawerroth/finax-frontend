@@ -90,6 +90,8 @@ export class BankAccountDetailsComponent {
     onClick: () => this.onDelete(),
   };
 
+  configs: { key: keyof Account; label: string; show: boolean }[];
+
   constructor(
     private readonly _utils: UtilsService,
     private readonly _changeDetectorRef: ChangeDetectorRef,
@@ -113,6 +115,8 @@ export class BankAccountDetailsComponent {
       onClick: () =>
         this.account.active ? this.onInactivate() : this.onActivate(),
     };
+
+    this.configs = _accountService.getConfigs(this.isSubAccount);
   }
 
   edit() {
