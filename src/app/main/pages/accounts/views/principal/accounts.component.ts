@@ -156,26 +156,20 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
 
   private onDeleted(accountId: number) {
     this.rows.update((rows) => {
-      for (let i = 0; i < rows.length; i++) {
-        if (
-          rows[i].id === accountId ||
-          rows[i].primaryAccountId === accountId
-        ) {
-          rows.splice(i, 1);
-        }
-      }
-
-      return [...rows];
+      return [
+        ...rows.filter(
+          (row) => row.id !== accountId && row.primaryAccountId !== accountId
+        ),
+      ];
     });
   }
 
   private onInactivated(accountId: number) {
     this.rows.update((rows) => {
-      for (const row of rows) {
-        if (row.id === accountId || row.primaryAccountId === accountId) {
+      rows.forEach((row) => {
+        if (row.id === accountId || row.primaryAccountId === accountId)
           row.active = false;
-        }
-      }
+      });
 
       return [...rows];
     });
@@ -183,11 +177,9 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
 
   private onActivated(accountsId: number[]) {
     this.rows.update((rows) => {
-      for (const row of rows) {
-        if (accountsId.includes(row.id!)) {
-          row.active = true;
-        }
-      }
+      rows.forEach((row) => {
+        if (accountsId.includes(row.id!)) row.active = true;
+      });
 
       return [...rows];
     });
