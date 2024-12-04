@@ -90,6 +90,8 @@ export class AccountsFormPage implements OnInit, OnDestroy {
 
   private async getValues() {
     if (this.accountId) {
+      this.accountForm.controls['grouper'].disable();
+
       this._accountService.getById(this.accountId).then((response) => {
         this.accountForm.patchValue(response.account);
         this.primaryAccount = response.primaryAccount;

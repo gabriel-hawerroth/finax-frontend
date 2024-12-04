@@ -8,6 +8,7 @@ export interface HomeBalances {
 }
 
 export interface HomeAccount {
+  id: number;
   name: string;
   image: string;
   balance: number;
