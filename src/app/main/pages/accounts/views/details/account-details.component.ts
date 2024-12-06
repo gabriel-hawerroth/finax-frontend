@@ -75,6 +75,7 @@ export class BankAccountDetailsComponent {
     label: 'actions.edit',
     contentStyle: {
       'font-size': '1rem',
+      color: '#585858',
     },
     onClick: () => this.edit(),
   };
@@ -110,7 +111,7 @@ export class BankAccountDetailsComponent {
     this.changeSituationBtnConfig = {
       label: this.account.active ? 'generic.inactivate' : 'generic.activate',
       contentStyle: {
-        color: 'gray',
+        color: '#585858',
       },
       onClick: () =>
         this.account.active ? this.onInactivate() : this.onActivate(),

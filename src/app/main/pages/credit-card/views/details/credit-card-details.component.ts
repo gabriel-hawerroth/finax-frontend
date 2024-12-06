@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserCreditCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { ButtonType } from '../../../../../core/enums/button-style';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { ButtonConfig } from '../../../../../core/interfaces/button-config';
+import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -21,7 +22,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgOptimizedImage,
     CustomCurrencyPipe,
     TranslateModule,
-    ButtonsComponent,
+    DynamicButtonComponent,
   ],
   templateUrl: './credit-card-details.component.html',
   styleUrl: './credit-card-details.component.scss',
@@ -33,6 +34,24 @@ export class CreditCardDetailsComponent {
   currency = this.utils.getUserConfigs.currency;
 
   card: UserCreditCard = inject(MAT_BOTTOM_SHEET_DATA).card;
+
+  seeInvoiceBtnConfig: ButtonConfig = {
+    icon: 'sort',
+    label: 'credit-cards.see-invoice',
+    style: {
+      padding: '2rem',
+    },
+    onClick: () => this.seeInvoice(),
+  };
+
+  editBtnConfig: ButtonConfig = {
+    icon: 'edit',
+    label: 'actions.edit',
+    contentStyle: {
+      color: '#585858',
+    },
+    onClick: () => this.edit(),
+  };
 
   constructor(
     public readonly utils: UtilsService,

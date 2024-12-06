@@ -70,25 +70,8 @@
   </div>
 
   <div class="actions">
-    <app-buttons
-      [showGeneric]="true"
-      genericIcon="sort"
-      genericLabel="credit-cards.see-invoice"
-      [genericStyle]="strokedBtnStyle"
-      [btnStyle]="{
-        padding: '2rem'
-      }"
-      [contentStyle]="{
-        color: '#585858'
-      }"
-      (onGeneric)="seeInvoice()"
-    ></app-buttons>
+    <dynamic-button [config]="seeInvoiceBtnConfig"></dynamic-button>
 
-    <app-buttons
-      [showGeneric]="true"
-      genericLabel="actions.edit"
-      [genericStyle]="basicBtnStyle"
-      (onGeneric)="edit()"
-    ></app-buttons>
+    <dynamic-button [config]="editBtnConfig"></dynamic-button>
   </div>
 </div>
