@@ -1,90 +1,75 @@
-<div class="releases-list" [class]="utils.getUserConfigs.theme">
-  @for (item of releases(); track item.id) {
-  <div class="release" (click)="openDetails(item)">
+<div class="releases-list" [class]="theme">
+  @for (release of releases(); track release.id) {
+  <div class="release" (click)="openDetails(release)">
     <div class="category">
-      @if (item.type === 'I') {
-      <img
-        [ngSrc]="cloudFireCdnImgsLink + 'banks/' + item.cardImg"
-        style="border-radius: 50%"
-        width="40"
-        height="40"
-      />
-      } @else {
       <span
         class="material-symbols-outlined"
         [ngStyle]="{
-          'background-color': item.categoryColor || '#AFAFAF'
+          'background-color': release.category?.color || '#AFAFAF'
         }"
       >
-        @if (item.isBalanceAdjustment) { edit }
-        <!--  -->
-        @else {
-        {{ item.categoryIcon || "swap_horiz" }}
-        }
+        {{
+          release.isBalanceAdjustment
+            ? "edit"
+            : release.category?.icon || "swap_horiz"
+        }}
       </span>
-      }
     </div>
 
     <div class="description">
-      @if (item.type !== 'T') {
+      @if (release.type !== 'T') {
       <h3 class="h3">
-        @if (item.isBalanceAdjustment) {
+        @if (release.isBalanceAdjustment) {
         {{ "cash-flow.balance-adjustment" | translate }}
         } @else {
         <!--  -->
-        @if (item.type === 'I') {
-        {{ "invoice.title" | translate }}
-        } @if (item.cardId) {
+        @if (release.card) {
         <span class="material-symbols-outlined">credit_card</span>
         }
 
-        {{ item.description || item.categoryName }}
+        {{ release.description || release.category?.name }}
         }
       </h3>
       } @else {
       <div>
         <h3>
-          @if (item.description) {
-          {{ item.description }}
-          } @else {
-          {{ "cash-flow.transfer" | translate }}
-          }
+          {{ release.description || ("cash-flow.transfer" | translate) }}
         </h3>
 
         <span class="transfer-sub-title">
           {{ "generic.from" | translate }}
-          {{ item.accountName }}
+          {{ release.account?.name }}
           {{ "generic.to" | translate }}
-          {{ item.targetAccountName }}
+          {{ release.targetAccount!.name }}
         </span>
       </div>
       }
     </div>
 
     <div class="account">
-      <span>{{ item.accountName || item.cardName }}</span>
+      <span>{{ release.account?.name || release.card?.name }}</span>
     </div>
 
     <div class="date">
-      <span>{{ item.date | date : "dd/MM/yyyy" }}</span>
-      <span>{{ item.time }}</span>
+      <span>{{ release.date | date : "dd/MM/yyyy" }}</span>
+      <span>{{ release.time }}</span>
     </div>
 
     <div class="amount">
-      @if (item.type === 'E') {
-      <span>-</span>
-      } @else if (item.type === 'R') {
-      <span>+</span>
-      }
-      <span> {{ item.amount | customCurrency }}</span>
+      {{ release.type === "E" ? "-" : "+" }}
+      <span> {{ release.amount | customCurrency }}</span>
     </div>
 
     <div class="situation">
-      @if (item.done) {
-      <span class="material-symbols-outlined done"> thumb_up </span>
-      } @else {
-      <span class="material-symbols-outlined pending"> thumb_down </span>
-      }
+      <span
+        class="material-symbols-outlined"
+        [ngClass]="{
+          done: release.done,
+          pending: !release.done
+        }"
+      >
+        {{ release.done ? "thumb_up" : "thumb_down" }}
+      </span>
     </div>
   </div>
   }

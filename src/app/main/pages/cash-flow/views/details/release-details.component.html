@@ -1,18 +1,15 @@
-<div
-  class="release-details"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
->
+<div class="release-details" [ngClass]="{ 'dark-page': darkThemeEnabled }">
   <div class="content">
     <div class="row1">
       <span
         class="material-symbols-outlined"
         [ngClass]="{ 'margin-top': !release.observation }"
-        [ngStyle]="{ 'background-color': release.categoryColor || '#AFAFAF' }"
+        [ngStyle]="{ 'background-color': release.category?.color || '#AFAFAF' }"
       >
         @if (release.isBalanceAdjustment) { edit }
         <!--  -->
         @else {
-        {{ release.categoryIcon || "list" }}
+        {{ release.category?.icon || "list" }}
         }
       </span>
 
@@ -22,9 +19,9 @@
           @if (release.isBalanceAdjustment) {
           {{ "cash-flow.balance-adjustment" | translate }}
           } @else {
-          {{ release.description || release.categoryName }}
+          {{ release.description || release.category?.name }}
 
-          @if (!release.description && !release.categoryName) {
+          @if (!release.description && !release.category?.name) {
           {{ "cash-flow.others" | translate }}
           }
           <!---->
@@ -32,10 +29,10 @@
         </h2>
 
         <span class="account-card-name">
-          @if (release.cardId) {
+          @if (release.card) {
           <span class="material-symbols-outlined">credit_card</span>
           }
-          {{ release.accountName || release.cardName }}
+          {{ release.account?.name || release.card?.name }}
         </span>
         } @else {
         <h2>
@@ -47,9 +44,9 @@
         </h2>
 
         <span class="transfer">
-          {{ release.accountName }}
+          {{ release.account?.name }}
           <span class="material-symbols-outlined">arrow_right_alt</span>
-          {{ release.targetAccountName }}
+          {{ release.targetAccount?.name }}
         </span>
         }
       </div>

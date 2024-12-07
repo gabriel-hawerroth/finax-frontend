@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -6,12 +6,12 @@ import {
   output,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { Release } from '../../../../../core/entities/release/release';
 import {
   MonthlyRelease,
   ReleaseDetailsData,
@@ -25,38 +25,35 @@ import { ReleaseDetailsComponent } from '../../views/details/release-details.com
 @Component({
   selector: 'app-releases-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    CustomCurrencyPipe,
-    NgOptimizedImage,
-  ],
+  imports: [CommonModule, TranslateModule, CustomCurrencyPipe],
   templateUrl: './releases-list.component.html',
   styleUrl: './releases-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleasesListComponent {
-  public releases = input.required<MonthlyRelease[]>();
-  public accounts = input.required<BasicAccount[]>();
-  public categories = input.required<Category[]>();
-  public creditCards = input.required<BasicCard[]>();
-  public selectedDate = input.required<Date>();
-  public updateList = output<void>();
+  releases = input.required<MonthlyRelease[]>();
+  accounts = input.required<BasicAccount[]>();
+  categories = input.required<Category[]>();
+  creditCards = input.required<BasicCard[]>();
+  selectedDate = input.required<Date>();
+  updateList = output<void>();
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
+  readonly theme = this._utils.getUserConfigs.theme;
+
   constructor(
-    public readonly utils: UtilsService,
-    private readonly _bottomSheet: MatBottomSheet,
-    private readonly _matDialog: MatDialog
+    private readonly _utils: UtilsService,
+    private readonly _bottomSheet: MatBottomSheet
   ) {}
 
-  openDetails(cashFlow: MonthlyRelease) {
+  openDetails(release: MonthlyRelease) {
     lastValueFrom(
       this._bottomSheet
         .open(ReleaseDetailsComponent, {
           data: <ReleaseDetailsData>{
-            cashFlow: cashFlow,
+            release,
+            isDuplicatedRelease: release.isDuplicatedRelease,
           },
           panelClass: 'release-details',
         })
@@ -64,13 +61,13 @@ export class ReleasesListComponent {
     ).then((response) => {
       if (!response) return;
 
-      if (response === 'edit') this.editRelease(cashFlow);
+      if (response === 'edit') this.editRelease(release);
       else if (response === 'delete') this.updateList.emit();
     });
   }
 
   editRelease(release: MonthlyRelease) {
-    this.utils
+    this._utils
       .openReleaseFormDialog(<ReleaseFormDialogData>{
         accounts: this.accounts(),
         categories: this.categories(),
@@ -78,12 +75,37 @@ export class ReleasesListComponent {
         editing: true,
         releaseType: release.type,
         selectedDate: this.selectedDate(),
-        release: release,
+        release: this.mapToRelease(release),
+        isDuplicatedRelease: release.isDuplicatedRelease,
       })
       .then((response) => {
         if (!response) return;
 
         this.updateList.emit();
       });
+  }
+
+  mapToRelease(release: MonthlyRelease): Release {
+    return {
+      id: release.id,
+      userId: release.userId,
+      description: release.description,
+      accountId: release.account?.id || release.card!.id,
+      amount: release.amount,
+      type: release.type,
+      done: release.done,
+      targetAccountId: release.targetAccount?.id,
+      categoryId: release.category?.id,
+      date: release.date,
+      time: release.time,
+      observation: release.observation,
+      attachment: undefined,
+      attachmentName: release.attachmentName,
+      duplicatedReleaseId: release.duplicatedReleaseId,
+      repeat: undefined,
+      fixedBy: undefined,
+      creditCardId: release.card?.id,
+      isBalanceAdjustment: release.isBalanceAdjustment,
+    };
   }
 }

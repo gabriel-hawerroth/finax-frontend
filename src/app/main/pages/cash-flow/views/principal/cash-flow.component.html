@@ -91,10 +91,10 @@
       </div>
       } @else {
       <!---->
-      @if (monthlyValues().releases.length) {
+      @if (monthlyReleases().length) {
       <app-releases-list
         id="releases-list"
-        [releases]="monthlyValues().releases"
+        [releases]="monthlyReleases()"
         [accounts]="accounts"
         [categories]="categories"
         [creditCards]="creditCards"

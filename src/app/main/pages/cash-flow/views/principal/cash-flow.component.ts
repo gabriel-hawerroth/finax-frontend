@@ -22,12 +22,12 @@ import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import {
   FilterReleasesDialogData,
-  MonthlyFlow,
   MonthlyRelease,
   ReleaseFilters,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
+import { ReleaseType } from '../../../../../core/enums/release-enums';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -63,16 +63,11 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
 })
 export class CashFlowPage implements OnInit, OnDestroy {
   private readonly _unsubscribeAll = new Subject<void>();
-
-  currency = this.utils.getUserConfigs.currency;
+  readonly currency = this.utils.getUserConfigs.currency;
 
   currentDate: Date = new Date();
 
-  monthlyValues = signal<MonthlyFlow>({
-    releases: [],
-    expectedBalance: 0,
-  });
-
+  monthlyReleases = signal<MonthlyRelease[]>([]);
   allMonthlyReleases: MonthlyRelease[] = [];
 
   searching = signal<boolean>(false);
@@ -133,10 +128,11 @@ export class CashFlowPage implements OnInit, OnDestroy {
     this.searching.set(true);
 
     this._cashFlowService
-      .getMonthlyFlow(this.selectedDate)
+      .getMonthlyReleases(this.selectedDate)
       .then((response) => {
-        this.monthlyValues.set(response);
-        this.allMonthlyReleases = response.releases;
+        this.errorFetchingReleases.set(false);
+        this.monthlyReleases.set(response);
+        this.allMonthlyReleases = response;
         this.applyFilters();
       })
       .catch(() => this.errorFetchingReleases.set(true))
@@ -182,25 +178,21 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   calculateValues(): CashFlowBalancesComponentData {
-    const monthlyFlow = this.monthlyValues();
-
-    const doneReleases = this.utils.filterList(
-      monthlyFlow.releases,
+    const doneReleases: MonthlyRelease[] = this.utils.filterList(
+      this.monthlyReleases(),
       'done',
       true
     );
 
-    const revenues =
-      this.utils
-        .filterList(doneReleases, 'type', 'R')
-        .reduce((count, item) => count + item.amount, 0) || 0;
+    const revenues = this.getAmountByReleaseType(
+      doneReleases,
+      ReleaseType.REVENUE
+    );
 
-    let expensesList = this.utils.filterList(doneReleases, 'type', 'E');
-
-    expensesList.concat(this.utils.filterList(doneReleases, 'type', 'I'));
-
-    const expenses =
-      expensesList.reduce((count, item) => count + item.amount, 0) || 0;
+    const expenses = this.getAmountByReleaseType(
+      doneReleases,
+      ReleaseType.EXPENSE
+    );
 
     const expectedBalance = this.allRevenuesAmount - this.allExpensesAmount;
 
@@ -212,24 +204,33 @@ export class CashFlowPage implements OnInit, OnDestroy {
     };
   }
 
+  private getAmountByReleaseType(
+    releases: MonthlyRelease[],
+    type: ReleaseType
+  ): number {
+    return (
+      releases
+        .filter(
+          (item) =>
+            item.type === type &&
+            (item.account ? item.account.addToCashFlow : true)
+        )
+        .reduce((count, item) => count + item.amount, 0) || 0
+    );
+  }
+
   get allRevenuesAmount(): number {
-    const amounts = this.monthlyValues()
-      .releases.filter((release) => release.type === 'R')
-      .map((item) => item.amount);
-
-    if (amounts.length === 0) return 0;
-
-    return amounts.reduce((count, amount) => count + amount) || 0;
+    return this.getAmountByReleaseType(
+      this.monthlyReleases(),
+      ReleaseType.REVENUE
+    );
   }
 
   get allExpensesAmount(): number {
-    const amounts = this.monthlyValues()
-      .releases.filter((release) => release.type === 'E')
-      .map((item) => item.amount);
-
-    if (amounts.length === 0) return 0;
-
-    return amounts.reduce((count, amount) => count + amount) || 0;
+    return this.getAmountByReleaseType(
+      this.monthlyReleases(),
+      ReleaseType.EXPENSE
+    );
   }
 
   openFilterDialog() {
@@ -265,67 +266,73 @@ export class CashFlowPage implements OnInit, OnDestroy {
       ).length
     );
 
-    this.monthlyValues.update((values) => {
+    this.monthlyReleases.update((values) => {
       let releases = this.allMonthlyReleases;
 
       if (this.appliedFilters().accountIds?.length) {
-        releases = releases.filter(
-          (item) =>
-            this.appliedFilters().accountIds.includes(item.accountId) ||
-            (item.targetAccountId
-              ? this.appliedFilters().accountIds.includes(item.targetAccountId!)
+        releases = releases.filter((item) => {
+          if (!item.account && !item.targetAccount) return false;
+
+          return (
+            this.appliedFilters().accountIds.includes(item.account!.id) ||
+            (item.targetAccount
+              ? this.appliedFilters().accountIds.includes(item.targetAccount.id)
               : false)
-        );
+          );
+        });
       }
 
       if (this.appliedFilters().creditCardIds?.length) {
-        const cardReleases = this.utils.filterList(
-          this.allMonthlyReleases,
-          'cardId',
-          this.appliedFilters().creditCardIds
+        const cardReleases = this.allMonthlyReleases.filter((item) =>
+          item.card?.id
+            ? this.appliedFilters().creditCardIds.includes(item.card.id)
+            : false
         );
 
-        if (releases.length === this.allMonthlyReleases.length) {
+        if (releases.length === this.allMonthlyReleases.length)
           releases = cardReleases;
-        } else {
-          releases = releases.concat(cardReleases);
-        }
+        else releases = releases.concat(cardReleases);
       }
 
       if (this.appliedFilters().categoryIds?.length) {
-        releases = this.utils.filterList(
-          releases,
-          'categoryId',
-          this.appliedFilters().categoryIds
+        releases = releases.filter((item) =>
+          item.category
+            ? this.appliedFilters().categoryIds.includes(item.category.id)
+            : false
         );
       }
 
       if (this.appliedFilters().releaseTypes !== 'all') {
-        releases = this.utils.filterList(
-          releases,
-          'type',
-          this.appliedFilters().releaseTypes
+        releases = releases.filter((item) =>
+          this.appliedFilters().releaseTypes.includes(item.type)
         );
       }
 
       if (this.appliedFilters().description) {
-        releases = this.utils.filterList(
-          releases,
-          ['description', 'categoryName'],
-          this.appliedFilters().description
-        );
+        releases = releases.filter((item) => {
+          const filterValue = this.utils.removeAccents(
+            this.appliedFilters().description.toLowerCase()
+          );
+
+          return (
+            this.utils
+              .removeAccents(item.description.toLowerCase())
+              .includes(filterValue) ||
+            (item.category &&
+              this.utils
+                .removeAccents(item.category.name.toLowerCase())
+                .includes(filterValue))
+          );
+        });
       }
 
       if (this.appliedFilters().done !== 'all') {
-        releases = this.utils.filterList(
-          releases,
-          'done',
-          this.appliedFilters().done
+        releases = releases.filter(
+          (item) => item.done === this.appliedFilters().done
         );
       }
 
-      values.releases = releases;
-      return { ...values };
+      return [...releases];
     });
   }
 }

@@ -2,38 +2,46 @@ import { ReleaseType } from '../../enums/release-enums';
 import { BasicAccount } from '../account/account-dto';
 import { Category } from '../category/category';
 import { BasicCard } from '../credit-card/credit-card-dto';
-
-export interface MonthlyFlow {
-  releases: MonthlyRelease[];
-  expectedBalance: number;
-}
+import { Release } from './release';
 
 export interface MonthlyRelease {
   id: number;
   userId: number;
+  type: ReleaseType;
   description: string;
-  accountId: number;
-  accountName: string;
-  cardId: number;
-  cardName: string;
-  cardImg: string;
   amount: number;
-  type: string;
-  done: boolean;
-  targetAccountId?: number;
-  targetAccountName?: string;
-  categoryId?: number;
-  categoryName?: string;
-  categoryColor?: string;
-  categoryIcon?: string;
   date: Date;
   time: string;
-  observation: string;
-  attachment?: string;
+  done: boolean;
+  account?: MonthlyReleaseAccount;
+  card?: MonthlyReleaseCard;
+  targetAccount?: MonthlyReleaseAccount;
+  category?: MonthlyReleaseCategory;
+  observation?: string;
+  attachmentS3FileName?: string;
   attachmentName?: string;
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;
   isBalanceAdjustment: boolean;
+}
+
+export interface MonthlyReleaseAccount {
+  id: number;
+  name: string;
+  addToCashFlow: boolean;
+}
+
+export interface MonthlyReleaseCard {
+  id: number;
+  name: string;
+  image: string;
+}
+
+export interface MonthlyReleaseCategory {
+  id: number;
+  name: string;
+  color: string;
+  icon: string;
 }
 
 export interface MonthlyBalance {
@@ -55,12 +63,13 @@ export interface ReleaseFormDialogData {
   editing: boolean;
   releaseType: ReleaseType;
   selectedDate: Date;
-  release?: MonthlyRelease;
+  release?: Release;
+  isDuplicatedRelease?: boolean;
   creditCardId?: number;
 }
 
 export interface ReleaseDetailsData {
-  cashFlow: MonthlyRelease;
+  release: MonthlyRelease;
 }
 
 export interface ConfirmDuplicatedReleasesActionDialogData {

@@ -132,7 +132,7 @@ export class ReleaseFormDialog implements OnInit {
         .get('date')!
         .setValue(moment(this.releaseForm.value.date).toISOString());
 
-      const cardId = this.data.release.cardId;
+      const cardId = this.data.release.creditCardId;
       if (cardId) this.releaseForm.get('accountId')!.setValue(cardId);
 
       if (this.data.release.attachmentName) {
@@ -312,7 +312,7 @@ export class ReleaseFormDialog implements OnInit {
 
     let confirmedAction = false;
 
-    if (this.data.editing && this.data.release!.isDuplicatedRelease) {
+    if (this.data.editing && this.data.isDuplicatedRelease) {
       await lastValueFrom(
         this._matDialog
           .open(ConfirmDuplicatedReleasesActionDialog, {

@@ -7,7 +7,7 @@ export interface Release {
   type: string;
   done: boolean;
   targetAccountId?: number;
-  categoryId: number;
+  categoryId?: number;
   date: Date;
   time?: string;
   observation?: string;
@@ -17,4 +17,5 @@ export interface Release {
   repeat?: string;
   fixedBy?: string;
   creditCardId?: number;
+  isBalanceAdjustment: boolean;
 }

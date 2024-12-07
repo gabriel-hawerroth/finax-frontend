@@ -13,6 +13,7 @@ import { lastValueFrom } from 'rxjs';
 import {
   ConfirmDuplicatedReleasesActionDialogData,
   MonthlyRelease,
+  ReleaseDetailsData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
 import { DuplicatedReleaseAction } from '../../../../../core/enums/duplicated-release-action';
@@ -37,24 +38,28 @@ import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseDetailsComponent {
-  currency = this.utils.getUserConfigs.currency;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly currency = this._utils.getUserConfigs.currency;
 
-  release: MonthlyRelease = inject(MAT_BOTTOM_SHEET_DATA).cashFlow;
+  release: MonthlyRelease;
 
   confirmDelete: boolean = false;
   excluding: boolean = false;
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _bottomSheet: MatBottomSheetRef,
     private readonly _matDialog: MatDialog,
     private readonly _router: Router,
     private readonly _cashFlowService: ReleaseService
-  ) {}
+  ) {
+    const data: ReleaseDetailsData = inject(MAT_BOTTOM_SHEET_DATA);
+    this.release = data.release;
+  }
 
   downloadAttachment() {
     this._cashFlowService
-      .getAttachment(this.release.id)
+      .getAttachment(this.release.id!)
       .then((response) => {
         if (response.size === 0) throw new Error('Attachment not found');
 
@@ -72,7 +77,7 @@ export class ReleaseDetailsComponent {
         URL.revokeObjectURL(blobUrl);
       })
       .catch(() => {
-        this.utils.showMessage('generic.attachment-not-found');
+        this._utils.showMessage('generic.attachment-not-found');
       });
   }
 
@@ -103,7 +108,7 @@ export class ReleaseDetailsComponent {
         confirmedDelete = true;
       });
     } else {
-      await this.utils
+      await this._utils
         .showConfirmDialog('cash-flow.confirm-delete')
         .then((response) => {
           if (!response) return;
@@ -123,13 +128,13 @@ export class ReleaseDetailsComponent {
     this.confirmDelete = false;
 
     this._cashFlowService
-      .delete(this.release.id, duplicatedReleasesAction)
+      .delete(this.release.id!, duplicatedReleasesAction)
       .then(() => {
         this._bottomSheet.dismiss('delete');
-        this.utils.showMessage('cash-flow.deleted-successfully');
+        this._utils.showMessage('cash-flow.deleted-successfully');
       })
       .catch(() => {
-        this.utils.showMessage('cash-flow.delete-error');
+        this._utils.showMessage('cash-flow.delete-error');
       })
       .finally(() => {
         this.confirmDelete = false;
@@ -140,7 +145,7 @@ export class ReleaseDetailsComponent {
   seeInvoice() {
     this._bottomSheet.dismiss();
     this._router.navigateByUrl(
-      `cartoes-de-credito/fatura/${this.release.accountId}`
+      `cartoes-de-credito/fatura/${this.release.account?.id}`
     );
   }
 }

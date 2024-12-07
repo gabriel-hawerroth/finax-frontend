@@ -7,7 +7,7 @@ import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { DuplicatedReleaseAction } from '../../enums/duplicated-release-action';
 import { ReleasedOn } from '../../enums/released-on';
 import { Release } from './release';
-import { CashFlowValues, MonthlyFlow } from './release-dto';
+import { CashFlowValues, MonthlyRelease } from './release-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -17,13 +17,17 @@ export class ReleaseService {
 
   constructor(private readonly _http: HttpClient) {}
 
-  getMonthlyFlow(selectedDt: Date): Promise<MonthlyFlow> {
+  getMonthlyReleases(selectedDt: Date): Promise<MonthlyRelease[]> {
     const monthYear = format(selectedDt, 'yyyy-MM');
 
     let params = new HttpParams();
     params = params.append('monthYear', monthYear);
 
-    return lastValueFrom(this._http.get<MonthlyFlow>(this.apiUrl, { params }));
+    return lastValueFrom(
+      this._http.get<MonthlyRelease[]>(`${this.apiUrl}/get-monthly-releases`, {
+        params,
+      })
+    );
   }
 
   getValues(): Promise<CashFlowValues> {

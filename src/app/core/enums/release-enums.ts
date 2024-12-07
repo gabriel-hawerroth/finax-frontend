@@ -2,6 +2,7 @@ export enum ReleaseType {
   EXPENSE = 'E',
   REVENUE = 'R',
   TRANSFER = 'T',
+  INVOICE = 'I',
 }
 
 export enum ReleaseRepeat {
