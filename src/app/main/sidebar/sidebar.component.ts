@@ -6,6 +6,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
@@ -22,7 +23,13 @@ import { UtilsService } from '../../shared/utils/utils.service';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule, NgOptimizedImage, TranslateModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    NgOptimizedImage,
+    TranslateModule,
+    MatListModule,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -92,4 +99,56 @@ export class SidebarComponent implements OnInit, OnDestroy {
   logout() {
     this._loginService.logout(false);
   }
+
+  routes: NavItem[] = [
+    {
+      route: 'home',
+      icon: 'home',
+      label: 'sidebar.home',
+    },
+    {
+      route: 'fluxo-de-caixa',
+      icon: 'wallet',
+      label: 'sidebar.cash-flow',
+    },
+    {
+      route: 'contas',
+      icon: 'account_balance',
+      label: 'sidebar.my-accounts',
+    },
+    {
+      route: 'cartoes-de-credito',
+      icon: 'credit_card',
+      label: 'sidebar.credit-cards',
+    },
+    {
+      route: 'categorias',
+      icon: 'sell',
+      label: 'sidebar.categories',
+    },
+  ];
+
+  bottomRoutes: NavItem[] = [
+    {
+      route: 'meu-perfil',
+      icon: 'account_circle',
+      label: 'sidebar.my-profile',
+    },
+    {
+      route: 'configuracoes',
+      icon: 'settings',
+      label: 'sidebar.settings',
+    },
+    {
+      route: '',
+      icon: 'logout',
+      label: 'sidebar.logout',
+    },
+  ];
+}
+
+interface NavItem {
+  route: string;
+  icon: string;
+  label: string;
 }

@@ -13,131 +13,75 @@
   </div>
 
   <div class="navigation">
-    <ul class="nav-ul">
-      <li
-        routerLink="/home"
+    <mat-list role="list" class="nav-ul">
+      @for (item of routes; track $index) {
+      <mat-list-item
+        [routerLink]="item.route"
         [ngClass]="{
           'nav-ul-item': true,
           'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
-        <i class="material-symbols-outlined">home</i>
-        <span>{{ "sidebar.home" | translate }}</span>
-      </li>
-
-      <li
-        routerLink="/fluxo-de-caixa"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
-        }"
-      >
-        <i class="material-symbols-outlined">wallet</i>
-        <span>
-          {{ "sidebar.cash-flow" | translate }}
-        </span>
-      </li>
-
-      <li
-        routerLink="/contas"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
-        }"
-      >
-        <i class="material-symbols-outlined">account_balance</i>
-        <span>
-          {{ "sidebar.my-accounts" | translate }}
-        </span>
-      </li>
-
-      <li
-        routerLink="/cartoes-de-credito"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
-        }"
-      >
-        <i class="material-symbols-outlined">credit_card</i>
-        <span>
-          {{ "sidebar.credit-cards" | translate }}
-        </span>
-      </li>
-
-      <li
-        routerLink="/categorias"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
-        }"
-      >
-        <i class="material-symbols-outlined">sell</i>
-        <span>
-          {{ "sidebar.categories" | translate }}
-        </span>
-      </li>
-    </ul>
+        <mat-icon
+          matListItemIcon
+          [innerText]="item.icon"
+          class="material-symbols-outlined"
+        ></mat-icon>
+        <span>{{ item.label | translate }}</span>
+      </mat-list-item>
+      }
+    </mat-list>
   </div>
 
   <div class="user-options">
-    <ul [ngClass]="{ 'nav-ul': true, hidden: !userActionsUl }">
-      <li
-        routerLink="/meu-perfil"
+    <mat-list role="list" class="nav-ul">
+      @for (item of bottomRoutes; track $index) {
+      <mat-list-item
+        (click)="item.icon === 'logout' ? logout() : true"
+        [routerLink]="item.route"
         [ngClass]="{
           'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
+          'nav-ul-item-dark': darkThemeEnabled(),
+          hidden: !userActionsUl
         }"
       >
-        <i class="material-symbols-outlined">account_circle</i>
-        <span>{{ "sidebar.my-profile" | translate }}</span>
-      </li>
+        <mat-icon
+          matListItemIcon
+          [innerText]="item.icon"
+          class="material-symbols-outlined"
+        ></mat-icon>
+        <span>{{ item.label | translate }}</span>
+      </mat-list-item>
+      }
 
-      <li
-        routerLink="/configuracoes"
+      <mat-list-item
+        (click)="userActionsUl = !userActionsUl"
         [ngClass]="{
           'nav-ul-item': true,
+          'user-item': true,
           'nav-ul-item-dark': darkThemeEnabled()
         }"
+        style="padding: 1.5rem 0"
       >
-        <i class="material-symbols-outlined">settings</i>
-        <span>{{ "sidebar.settings" | translate }}</span>
-      </li>
+        <img
+          [ngSrc]="
+            (utils.userImage | async) ||
+            cloudFireCdnImgsLink + 'user-image.webp'
+          "
+          width="28"
+          height="28"
+          alt="user profile image"
+          priority
+        />
 
-      <li
-        (click)="logout()"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
-        }"
-      >
-        <i class="material-symbols-outlined">logout</i>
-        <span>{{ "sidebar.logout" | translate }}</span>
-      </li>
-    </ul>
+        <span>{{ utils.username | async }}</span>
 
-    <li
-      (click)="userActionsUl = !userActionsUl"
-      [ngClass]="{
-        'nav-ul-item': true,
-        'user-item': true,
-        'nav-ul-item-dark': darkThemeEnabled()
-      }"
-    >
-      <img
-        [ngSrc]="
-          (utils.userImage | async) || cloudFireCdnImgsLink + 'user-image.webp'
-        "
-        width="28"
-        height="28"
-        alt="user profile image"
-        priority
-      />
-
-      <span>{{ utils.username | async }}</span>
-
-      <i class="material-symbols-outlined">
-        {{ userActionsUl ? "expand_more" : "expand_less" }}
-      </i>
-    </li>
+        <div style="margin-left: auto">
+          <i class="material-symbols-outlined">
+            {{ userActionsUl ? "expand_more" : "expand_less" }}
+          </i>
+        </div>
+      </mat-list-item>
+    </mat-list>
   </div>
 </div>
