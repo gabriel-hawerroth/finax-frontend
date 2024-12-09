@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
@@ -13,6 +14,9 @@ import { Credentials } from './credentials';
 })
 export class LoginService {
   private readonly apiUrl = `${environment.baseApiUrl}login`;
+
+  isLogged = signal(this.logged);
+  isLogged$ = toObservable(this.isLogged);
 
   constructor(
     private readonly _http: HttpClient,
@@ -49,6 +53,7 @@ export class LoginService {
 
         this.setToken(response.token);
         this._router.navigateByUrl('home');
+        this.isLogged.set(true);
       })
       .catch((err) => {
         if (err.error.message === 'Failed to fetch') {
@@ -89,6 +94,8 @@ export class LoginService {
   }
 
   logout(showMessage: boolean, redirectToPublicPage: boolean = true) {
+    this.isLogged.set(false);
+
     if (redirectToPublicPage) this._router.navigateByUrl('');
 
     this._utils.removeItemLocalStorage('userFinax');

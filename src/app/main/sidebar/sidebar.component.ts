@@ -42,16 +42,19 @@ export class SidebarComponent implements OnInit, OnDestroy {
   darkThemeEnabled = signal(false);
 
   constructor(
-    public readonly loginService: LoginService,
     public readonly utils: UtilsService,
+    private readonly _loginService: LoginService,
     private readonly _userService: UserService,
     private readonly _userConfigsService: UserConfigsService
   ) {}
 
   ngOnInit(): void {
-    this.getUserConfigs();
-    this.getUserImage();
     this.subscribeUserConfigs();
+
+    if (this._loginService.logged) {
+      this.getUserConfigs();
+      this.getUserImage();
+    }
   }
 
   ngOnDestroy(): void {
@@ -87,6 +90,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.loginService.logout(false);
+    this._loginService.logout(false);
   }
 }

@@ -1,15 +1,12 @@
-<div class="app">
-  @if (loginService.logged && location.path() !== '') {
-  <app-sidebar></app-sidebar>
-  }
-  <main
-    [ngClass]="{
-      'change-size': loginService.logged && location.path() !== '',
-    }"
-  >
-    <router-outlet></router-outlet>
-  </main>
-</div>
+<mat-sidenav-container>
+  <mat-sidenav id="sidebar" [(opened)]="sidebarOpened" mode="side">
+    <app-sidebar />
+  </mat-sidenav>
+
+  <div class="container">
+    <router-outlet />
+  </div>
+</mat-sidenav-container>
 
 @defer {
 <app-mobile-page id="mobile"></app-mobile-page>
