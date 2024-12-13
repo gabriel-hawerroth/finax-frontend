@@ -63,10 +63,13 @@
 
     .nav-ul-item-dark {
         transition-duration: .4s;
-        color: #dedede !important;
 
         &:hover {
             background-color: #383838 !important;
+        }
+
+        * {
+            color: #dedede !important;
         }
     }
 
