@@ -1,5 +1,12 @@
 @import '../../components/header/public-header.component.scss';
 
+@media screen and (max-width: 900px) {
+
+    .public-section {
+        height: fit-content !important;
+    }
+}
+
 #public-page {
     width: 100%;
     max-width: 100vw;
@@ -12,6 +19,6 @@
     }
 
     #first-section {
-        height: calc(102vh - $header-height) !important;
+        height: calc(102vh - $header-height);
     }
 }

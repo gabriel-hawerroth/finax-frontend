@@ -1,14 +1,14 @@
 @import './shared/styles/generic.scss';
 
-@media screen and (max-width: 900px) {
-    .app {
-        display: none !important;
-    }
+// @media screen and (max-width: 900px) {
+//     .app {
+//         display: none !important;
+//     }
 
-    #mobile {
-        display: block !important;
-    }
-}
+//     #mobile {
+//         display: block !important;
+//     }
+// }
 
 mat-sidenav-container {
     height: 100%;

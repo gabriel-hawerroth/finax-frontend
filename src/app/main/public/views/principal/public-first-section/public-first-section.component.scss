@@ -1,11 +1,25 @@
 @import '../../../components/header/public-header.component.scss';
 
+@media screen and (max-width: 900px) {
+    .public-section {
+        padding-bottom: 8rem;
+
+        #fs-img-container {
+            display: none !important;
+        }
+    }
+}
+
 .public-section {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     position: relative;
+
+    #first-section-background-image {
+        object-fit: cover;
+    }
 
     .content {
         width: 85%;
@@ -17,10 +31,10 @@
             flex: 1;
             height: 100%;
             padding: 4.5em 2em 0 2em;
-            color: white;
+            color: #fff;
 
-            h1 {
-                font-size: 2.7em;
+            .title {
+                font-size: 2.7rem;
                 margin-bottom: 20px;
             }
 
