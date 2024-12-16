@@ -511,7 +511,7 @@ mat-card-title {
     font-size: 1.7rem;
     color: $primary-font-color;
     margin-right: 3rem;
-    margin-bottom: 8vh;
+    margin-bottom: 5vh;
 
     h1 {
       font-family: 'Dosis';
@@ -519,10 +519,11 @@ mat-card-title {
   }
 
   .policy {
-    width: 42%;
+    width: 90vw;
+    max-width: 50rem;
     display: flex;
     flex-direction: column;
-    margin-bottom: 7vh;
+    margin-bottom: 6vh;
 
     .title {
       display: flex;
