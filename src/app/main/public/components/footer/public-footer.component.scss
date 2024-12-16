@@ -5,6 +5,7 @@ $footer-height: 5.8rem;
 @media screen and (max-width: 650px) {
     .public-footer {
         padding-right: 1rem;
+        padding-bottom: 1.5rem !important;
 
         .left {
             h1 {

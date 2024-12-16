@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
-import { ResponsiveService } from '../../utils/responsive.service';
 
 @Component({
   selector: 'btn-content',
@@ -17,15 +16,4 @@ export class BtnContentComponent {
   icon = input<string | undefined>();
   contentStyle = input<Object | undefined>();
   loading = input<boolean | undefined>();
-
-  constructor(public readonly responsiveService: ResponsiveService) {}
-
-  get showLabel() {
-    return (
-      (this.responsiveService.largeWidth() ||
-        this.responsiveService.veryLargeWith() ||
-        !this.icon()) &&
-      this.label()
-    );
-  }
 }
