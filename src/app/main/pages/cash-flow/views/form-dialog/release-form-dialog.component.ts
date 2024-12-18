@@ -84,10 +84,10 @@ export class ReleaseFormDialog implements OnInit {
   readonly getBtnStyle = getBtnStyle;
 
   readonly darkThemeEnabled = signal(
-    this.utils.getUserConfigs.theme === 'dark'
+    this._utils.getUserConfigs.theme === 'dark'
   );
 
-  readonly isPcScreen = this.utils.isPcScreen;
+  readonly isPcScreen = this._utils.isPcScreen;
 
   releaseForm!: FormGroup;
 
@@ -114,7 +114,7 @@ export class ReleaseFormDialog implements OnInit {
   selectedCreditCard = this.data.creditCardId !== undefined;
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _matDialogRef: MatDialogRef<ReleaseFormDialog>,
     private readonly _translate: TranslateService,
     private readonly _matDialog: MatDialog,
@@ -163,7 +163,7 @@ export class ReleaseFormDialog implements OnInit {
   private buildForm() {
     this.releaseForm = this._fb.group({
       id: null,
-      userId: this.utils.getLoggedUser!.id,
+      userId: this._utils.getLoggedUser!.id,
       description: '',
       accountId: [null, Validators.required],
       targetAccountId: [null],
@@ -257,7 +257,7 @@ export class ReleaseFormDialog implements OnInit {
 
     if (requestError) {
       this.saving.set(false);
-      this.utils.showMessage('release-form.error-saving-release');
+      this._utils.showMessage('release-form.error-saving-release');
       this.releaseForm.markAsPristine();
       return;
     }
@@ -266,12 +266,15 @@ export class ReleaseFormDialog implements OnInit {
       await this._cashFlowService
         .saveAttachment(release.id!, this.selectedFile!)
         .catch(() => {
-          this.utils.showMessage('release-form.error-saving-attachment', 6000);
+          this._utils.showMessage('release-form.error-saving-attachment', 6000);
           requestError = true;
         });
     } else if (this.removedFile) {
       await this._cashFlowService.removeAttachment(release.id!).catch(() => {
-        this.utils.showMessage('release-form.error-excluding-attachment', 6000);
+        this._utils.showMessage(
+          'release-form.error-excluding-attachment',
+          6000
+        );
         requestError = true;
       });
     }
@@ -282,7 +285,7 @@ export class ReleaseFormDialog implements OnInit {
       return;
     }
 
-    this.utils.showMessage('release-form.release-saved-successfully');
+    this._utils.showMessage('release-form.release-saved-successfully');
     this._matDialogRef.close(true);
 
     this.saving.set(false);
@@ -290,13 +293,13 @@ export class ReleaseFormDialog implements OnInit {
 
   private validForm(): boolean {
     if (this.releaseForm.value.amount === 0) {
-      this.utils.showMessage('release-form.amount-greater-than-zero');
+      this._utils.showMessage('release-form.amount-greater-than-zero');
       return false;
     } else if (
       this.releaseForm.value.type === 'T' &&
       this.releaseForm.value.accountId == this.releaseForm.value.targetAccountId
     ) {
-      this.utils.showMessage('release-form.not-possible-transfer-same-bank');
+      this._utils.showMessage('release-form.not-possible-transfer-same-bank');
       return false;
     }
 
@@ -336,7 +339,7 @@ export class ReleaseFormDialog implements OnInit {
         !duplicatedReleaseAction.match(DuplicatedReleaseAction.JUST_THIS) &&
         this.releaseForm.get('date')!.dirty
       ) {
-        this.utils.showMessage('release-form.date-must-remain-the-same', 5000);
+        this._utils.showMessage('release-form.date-must-remain-the-same', 5000);
         return;
       }
     }
@@ -412,7 +415,7 @@ export class ReleaseFormDialog implements OnInit {
 
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
-      this.utils.showMessage('generic.file-too-large', 8000);
+      this._utils.showMessage('generic.file-too-large', 8000);
       return;
     }
 
