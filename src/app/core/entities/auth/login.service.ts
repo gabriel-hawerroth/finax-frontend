@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { UtilsService } from '../../../shared/utils/utils.service';
+import { UserConfigsService } from '../user-configs/user-configs.service';
+import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { Credentials } from './credentials';
 
@@ -22,7 +25,9 @@ export class LoginService {
     private readonly _http: HttpClient,
     private readonly _router: Router,
     private readonly _utils: UtilsService,
-    private readonly _authService: AuthService
+    private readonly _authService: AuthService,
+    private readonly _userConfigsService: UserConfigsService,
+    private readonly _userService: UserService
   ) {}
 
   async login(credentials: Credentials) {
@@ -44,6 +49,9 @@ export class LoginService {
         } else {
           this._utils.removeItemLocalStorage('savedLoginFinax');
         }
+
+        this.getUserConfigs();
+        this.getUserImage();
 
         if (!credentials.changedPassword) {
           this._utils.showMessage('login.login-successfully');
@@ -83,6 +91,26 @@ export class LoginService {
             break;
         }
       });
+  }
+
+  getUserConfigs() {
+    this._userConfigsService.getLoggedUserConfigs().then((response) => {
+      this._utils.setUserConfigs(response);
+      this._utils.setItemLocalStorage(
+        'savedUserConfigsFinax',
+        JSON.stringify(response)
+      );
+    });
+  }
+
+  getUserImage() {
+    this._userService.getUserImage().then((response) => {
+      if (!response) return;
+
+      this._utils.userImage.next(
+        `${cloudFireCdnLink}/user/profile-image/${response}`
+      );
+    });
   }
 
   setToken(token: string) {
