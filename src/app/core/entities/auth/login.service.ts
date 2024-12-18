@@ -50,6 +50,8 @@ export class LoginService {
           this._utils.removeItemLocalStorage('savedLoginFinax');
         }
 
+        this.setToken(response.token);
+
         this.getUserConfigs();
         this.getUserImage();
 
@@ -59,7 +61,6 @@ export class LoginService {
           this._utils.showMessage('change-password.changed-successfully');
         }
 
-        this.setToken(response.token);
         this._router.navigateByUrl('home');
         this.isLogged.set(true);
       })

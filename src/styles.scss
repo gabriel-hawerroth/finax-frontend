@@ -307,7 +307,7 @@ mat-card-title {
   }
 
   .login-box {
-    background-color: #212121 !important;
+    background-color: $dark-card-bg !important;
   }
 
   label {
@@ -383,7 +383,7 @@ mat-card-title {
 
 @media screen and (max-width: 650px) {
   .login {
-    background-color: #fff !important;
+    background-color: var(--card-background-color) !important;
 
     .login-box {
       width: 100vw !important;

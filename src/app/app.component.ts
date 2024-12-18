@@ -8,7 +8,6 @@ import { LoginService } from './core/entities/auth/login.service';
 import { ShowValues } from './core/enums/show-values';
 import { SpendByCategoryInterval } from './core/enums/spend-by-category-interval';
 import { Theme } from './core/enums/theme';
-import { MobilePage } from './main/pages/mobile-page/views/principal/mobile-page.component';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import {
   LS_DATE_INTERVAL_SPENDS_BY_CATEGORY,
@@ -19,13 +18,7 @@ import { UtilsService } from './shared/utils/utils.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    SidebarComponent,
-    MobilePage,
-    MatSidenavModule,
-  ],
+  imports: [CommonModule, RouterOutlet, SidebarComponent, MatSidenavModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {
@@ -95,6 +88,11 @@ export class AppComponent implements OnInit {
           document.body.style.setProperty(
             `--sidebar-content-background-color`,
             this.darkThemeEnabled() ? '#383838' : '#eff3f8'
+          );
+
+          document.body.style.setProperty(
+            `--card-background-color`,
+            this.darkThemeEnabled() ? '#212121' : '#fefefe'
           );
         }
       });
