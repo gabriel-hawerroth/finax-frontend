@@ -13,7 +13,7 @@
 @media screen and (max-width: 650px) {
     .simple-page {
         .top-card {
-            width: 100% !important;
+            width: 97% !important;
 
             .amounts {
                 gap: .5rem !important;
@@ -21,7 +21,7 @@
         }
 
         .content {
-            width: 100% !important;
+            width: 97% !important;
             flex-direction: column;
 
             .left-column,
@@ -47,6 +47,8 @@
         .top-card-content {
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: .7rem;
 
             .amounts {
                 display: flex;
