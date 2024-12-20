@@ -4,63 +4,24 @@
     'dark-page': utils.getUserConfigs.theme === 'dark'
   }"
 >
+  <h1 class="page-title">
+    {{ "cash-flow.title" | translate }}
+
+    <button
+      mat-icon-button
+      id="add-btn"
+      [mat-menu-trigger-for]="newReleaseMenu"
+    >
+      <span class="material-symbols-outlined">add</span>
+    </button>
+  </h1>
+
   <div class="content">
     <mat-card class="card">
       <header>
-        <div class="first-row">
-          <div class="left">
-            <h1>
-              {{ "cash-flow.title" | translate }}
-            </h1>
+        <div class="left"></div>
 
-            <button
-              mat-icon-button
-              id="add-btn"
-              [mat-menu-trigger-for]="newReleaseMenu"
-            >
-              <span class="material-symbols-outlined">add</span>
-            </button>
-
-            <mat-menu #newReleaseMenu="matMenu">
-              <div
-                class="new-release-menu"
-                [ngStyle]="{
-                  'background-color':
-                    utils.getUserConfigs.theme === 'dark' ? '#3b3b3bfd' : '',
-                  color: utils.getUserConfigs.theme === 'dark' ? '#dddddd' : ''
-                }"
-              >
-                <span (click)="addRelease('E')">
-                  {{ "cash-flow.new-expense" | translate }}
-                </span>
-
-                <span (click)="addRelease('R')">
-                  {{ "cash-flow.new-revenue" | translate }}
-                </span>
-
-                <span (click)="addRelease('T')">
-                  {{ "cash-flow.new-transfer" | translate }}
-                </span>
-              </div>
-            </mat-menu>
-          </div>
-
-          <div class="right">
-            <app-buttons
-              [showGeneric]="true"
-              genericIcon="filter_list"
-              genericLabel="filters.filter"
-              [btnStyle]="{
-                position: 'relative',
-                top: '.7rem',
-                right: '1rem'
-              }"
-              (onGeneric)="openFilterDialog()"
-            ></app-buttons>
-          </div>
-        </div>
-
-        <div class="second-row">
+        <div class="center">
           <button
             mat-icon-button
             (click)="changeMonth('before')"
@@ -80,6 +41,15 @@
           >
             <span class="material-symbols-outlined">navigate_next</span>
           </button>
+        </div>
+
+        <div class="right">
+          <app-buttons
+            [showGeneric]="true"
+            genericIcon="filter_list"
+            genericLabel="filters.filter"
+            (onGeneric)="openFilterDialog()"
+          ></app-buttons>
         </div>
       </header>
 
@@ -117,3 +87,26 @@
     </mat-card>
   </div>
 </div>
+
+<mat-menu #newReleaseMenu="matMenu">
+  <div
+    class="new-release-menu"
+    [ngStyle]="{
+      'background-color':
+        utils.getUserConfigs.theme === 'dark' ? '#3b3b3bfd' : '',
+      color: utils.getUserConfigs.theme === 'dark' ? '#dddddd' : ''
+    }"
+  >
+    <span (click)="addRelease('E')">
+      {{ "cash-flow.new-expense" | translate }}
+    </span>
+
+    <span (click)="addRelease('R')">
+      {{ "cash-flow.new-revenue" | translate }}
+    </span>
+
+    <span (click)="addRelease('T')">
+      {{ "cash-flow.new-transfer" | translate }}
+    </span>
+  </div>
+</mat-menu>
