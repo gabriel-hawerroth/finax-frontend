@@ -2,6 +2,18 @@
 
 $grey: #616161;
 
+@media screen and (max-width: 650px) {
+    .release {
+        .category-icon {
+            margin-right: 1rem !important;
+        }
+
+        .date {
+            width: 27% !important;
+        }
+    }
+}
+
 .release {
     padding: .7rem;
     display: flex;

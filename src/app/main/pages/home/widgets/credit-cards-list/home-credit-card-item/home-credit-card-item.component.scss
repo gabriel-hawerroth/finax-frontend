@@ -1,3 +1,22 @@
+@media screen and (max-width: 650px) {
+    .credit-card {
+        .infos {
+            margin-top: .6rem !important;
+
+            .bottom {
+                width: 150% !important;
+                flex-wrap: nowrap;
+                margin-top: .5rem !important;
+
+                .available,
+                .current-invoice {
+                    font-size: .9rem;
+                }
+            }
+        }
+    }
+}
+
 .credit-card {
     flex: 1;
     display: flex;

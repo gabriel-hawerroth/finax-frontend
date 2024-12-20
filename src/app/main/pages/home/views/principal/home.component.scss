@@ -10,6 +10,28 @@
     border-radius: 10px !important;
 }
 
+@media screen and (max-width: 650px) {
+    .simple-page {
+        .top-card {
+            width: 100% !important;
+
+            .amounts {
+                gap: .5rem !important;
+            }
+        }
+
+        .content {
+            width: 100% !important;
+            flex-direction: column;
+
+            .left-column,
+            .right-column {
+                width: 100% !important;
+            }
+        }
+    }
+}
+
 .simple-page {
     height: 100%;
     display: flex;
