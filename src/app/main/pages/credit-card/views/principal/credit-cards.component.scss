@@ -1,6 +1,4 @@
-::-webkit-scrollbar {
-    display: none;
-}
+@import 'generic.scss';
 
 .simple-page {
     display: flex;
@@ -13,9 +11,9 @@
         place-items: center;
 
         .card {
-            width: 80%;
-            height: 80vh;
-            max-height: 80vh;
+            width: $default-card-width;
+            height: $default-card-height;
+            max-height: $default-card-height;
             display: flex;
             flex-direction: column;
             padding: 2rem;
