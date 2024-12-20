@@ -1,46 +1,90 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { combineLatest, distinctUntilChanged, filter, map } from 'rxjs';
+import {
+  combineLatest,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  fromEvent,
+  map,
+  Subscription,
+} from 'rxjs';
 import { LoginService } from './core/entities/auth/login.service';
+import { ButtonType } from './core/enums/button-style';
 import { ShowValues } from './core/enums/show-values';
 import { SpendByCategoryInterval } from './core/enums/spend-by-category-interval';
 import { Theme } from './core/enums/theme';
+import { ButtonConfig } from './core/interfaces/button-config';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
+import { DynamicButtonComponent } from './shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
+import { LogoTitleComponent } from './shared/components/logo-title/logo-title.component';
 import {
   LS_DATE_INTERVAL_SPENDS_BY_CATEGORY,
   LS_SHOW_VALUES,
 } from './shared/utils/local-storage-contants';
+import { ResponsiveService } from './shared/utils/responsive.service';
 import { UtilsService } from './shared/utils/utils.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, SidebarComponent, MatSidenavModule],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    SidebarComponent,
+    MatSidenavModule,
+    MatToolbarModule,
+    LogoTitleComponent,
+    DynamicButtonComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {
     '[style.--mat-checkbox-label-text-size]': '2',
   },
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   sidebarOpened = signal(this._loginService.logged && this._router.url !== '/');
+  mobileToolbarOpened = signal(false);
+
+  sidebarMode = computed(() => {
+    if (this.mobileToolbarOpened()) return 'over';
+    return 'side';
+  });
+
+  showMenu: boolean = false;
 
   darkThemeEnabled = signal(this._utils.darkThemeEnable);
 
+  resizeSubscription!: Subscription;
+
+  toogleSidebarBtnConfig: ButtonConfig = {
+    type: ButtonType.ICON,
+    icon: 'menu',
+    onClick: () => this.toogleSidebar(),
+  };
+
   constructor(
+    private readonly _responsiveService: ResponsiveService,
     private readonly _loginService: LoginService,
     private readonly _utils: UtilsService,
     private readonly _router: Router
   ) {
-    this.handleSidebarVisibilityChange();
+    this.subscribeShowMenuChanges();
     this.handleThemeChanges();
+    this.subscribeWindowResize();
   }
 
   ngOnInit(): void {
     this.setDefaults();
+  }
+
+  ngOnDestroy(): void {
+    if (this.resizeSubscription) this.resizeSubscription.unsubscribe();
   }
 
   setDefaults() {
@@ -56,7 +100,7 @@ export class AppComponent implements OnInit {
       );
   }
 
-  private handleSidebarVisibilityChange() {
+  private subscribeShowMenuChanges() {
     const location$ = this._router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this._router.url),
@@ -70,7 +114,21 @@ export class AppComponent implements OnInit {
         map(([path, isLogged]) => isLogged && path !== '/'),
         takeUntilDestroyed()
       )
-      .subscribe((isSidebarOpen) => this.sidebarOpened.set(isSidebarOpen));
+      .subscribe((showMenu) => {
+        this.showMenu = showMenu;
+        this.handleSidebarVisibilityChange();
+      });
+  }
+
+  private handleSidebarVisibilityChange() {
+    if (this._responsiveService.smallWidth()) {
+      this.mobileToolbarOpened.set(this.showMenu);
+      this.sidebarOpened.set(false);
+      return;
+    }
+
+    this.sidebarOpened.set(this.showMenu);
+    this.mobileToolbarOpened.set(false);
   }
 
   private handleThemeChanges() {
@@ -96,5 +154,17 @@ export class AppComponent implements OnInit {
           );
         }
       });
+  }
+
+  private subscribeWindowResize() {
+    if (!this._utils.isBrowser) return;
+
+    this.resizeSubscription = fromEvent(window, 'resize')
+      .pipe(debounceTime(200))
+      .subscribe(() => this.handleSidebarVisibilityChange());
+  }
+
+  toogleSidebar() {
+    this.sidebarOpened.set(!this.sidebarOpened());
   }
 }

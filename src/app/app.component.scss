@@ -1,21 +1,14 @@
-@import './shared/styles/generic.scss';
+@import 'generic.scss';
 
-// @media screen and (max-width: 900px) {
-//     .app {
-//         display: none !important;
-//     }
-
-//     #mobile {
-//         display: block !important;
-//     }
-// }
+#mobile-toolbar {
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3rem;
+}
 
 mat-sidenav-container {
     height: 100%;
-
-    #sidebar {
-        width: $sidebar-width;
-    }
 
     .container,
     router-outlet {

@@ -6,8 +6,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
   providedIn: 'root',
 })
 export class ResponsiveService {
-  private readonly small = '(max-width: 600px)';
-  private readonly medium = '(min-width: 601px) and (max-width: 1000px)';
+  private readonly small = '(max-width: 650px)';
+  private readonly medium = '(min-width: 651px) and (max-width: 1000px)';
   private readonly large = '(min-width: 1001px) and (max-width: 1400px)';
   private readonly veryLarge = '(min-width: 1401px)';
 

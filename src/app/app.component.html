@@ -1,5 +1,24 @@
+@if (mobileToolbarOpened()) {
+<mat-toolbar
+  id="mobile-toolbar"
+  [ngClass]="{ 'dark-page': darkThemeEnabled() }"
+>
+  <app-logo-title></app-logo-title>
+
+  <dynamic-button [config]="toogleSidebarBtnConfig"></dynamic-button>
+</mat-toolbar>
+}
+
 <mat-sidenav-container>
-  <mat-sidenav id="sidebar" [(opened)]="sidebarOpened" mode="side">
+  <mat-sidenav
+    id="sidebar"
+    [(opened)]="sidebarOpened"
+    [mode]="sidebarMode()"
+    [ngStyle]="{
+      width: mobileToolbarOpened() ? '100vw' : '20rem',
+      height: mobileToolbarOpened() ? 'calc(100vh - 5rem)' : '100%'
+    }"
+  >
     <app-sidebar />
   </mat-sidenav>
 
@@ -7,7 +26,3 @@
     <router-outlet />
   </div>
 </mat-sidenav-container>
-
-<!-- @defer {
-<app-mobile-page id="mobile"></app-mobile-page>
-} -->

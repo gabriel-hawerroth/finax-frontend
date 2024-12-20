@@ -14,6 +14,8 @@ import { LoginService } from '../../core/entities/auth/login.service';
 import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
 import { UserService } from '../../core/entities/user/user.service';
 import { UserAccess } from '../../core/enums/user-enums';
+import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
+import { ResponsiveService } from '../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
   cloudFireCdnLink,
@@ -29,6 +31,7 @@ import { UtilsService } from '../../shared/utils/utils.service';
     NgOptimizedImage,
     TranslateModule,
     MatListModule,
+    LogoTitleComponent,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
@@ -48,11 +51,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   darkThemeEnabled = signal(false);
 
+  isMobile = this._responsiveService.smallWidth;
+
   constructor(
     public readonly utils: UtilsService,
     private readonly _loginService: LoginService,
     private readonly _userService: UserService,
-    private readonly _userConfigsService: UserConfigsService
+    private readonly _userConfigsService: UserConfigsService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
