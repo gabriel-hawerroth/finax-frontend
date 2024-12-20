@@ -9,7 +9,11 @@
 </mat-toolbar>
 }
 
-<mat-sidenav-container>
+<mat-sidenav-container
+  [ngStyle]="{
+    'margin-top': mobileToolbarOpened() ? '5rem' : '0'
+  }"
+>
   <mat-sidenav
     id="sidebar"
     [(opened)]="sidebarOpened"
