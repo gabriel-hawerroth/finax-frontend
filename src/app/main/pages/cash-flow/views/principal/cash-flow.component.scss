@@ -16,7 +16,8 @@
     .simple-page {
         .content {
             .card {
-                height: 95% !important;
+                height: $default-mobile-card-height !important;
+                max-height: $default-mobile-card-height !important;
             }
         }
     }

@@ -5,7 +5,7 @@
     height: 5rem;
     display: flex;
     justify-content: space-between;
-    padding: 0 3rem;
+    padding: .3rem 3rem;
     position: fixed;
     top: 0;
     left: 0;
@@ -13,7 +13,6 @@
 }
 
 mat-sidenav-container {
-    height: 100%;
 
     .container,
     router-outlet {

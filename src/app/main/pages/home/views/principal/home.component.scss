@@ -22,7 +22,8 @@
 
         .content {
             width: 97% !important;
-            flex-direction: column;
+            flex-direction: column !important;
+            gap: 1rem !important;
 
             .left-column,
             .right-column {
