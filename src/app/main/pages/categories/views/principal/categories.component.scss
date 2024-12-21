@@ -1,5 +1,34 @@
 @import 'generic.scss';
 
+$separator: 1px solid #6161613b;
+
+@media screen and (max-width: 700px) {
+    .simple-page {
+        .content {
+            .card {
+                flex-direction: column !important;
+                height: fit-content !important;
+                max-height: fit-content !important;
+                margin-top: 2rem;
+
+                .categories {
+                    width: 100% !important;
+
+                    &:first-child {
+                        border-right: none !important;
+                        border-bottom: $separator;
+                        padding-bottom: .7rem !important;
+                    }
+
+                    &:last-child {
+                        margin-top: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .simple-page {
     display: flex;
     flex-direction: column;
@@ -11,9 +40,6 @@
         place-items: center;
 
         .card {
-            width: $default-card-width;
-            height: $default-card-height;
-            max-height: $default-card-height;
             padding: 1.5rem 1rem;
             display: flex;
             flex-direction: row;
@@ -23,7 +49,7 @@
                 height: 100%;
 
                 &:first-child {
-                    border-right: 1px solid #6161613b;
+                    border-right: $separator;
                 }
             }
         }
