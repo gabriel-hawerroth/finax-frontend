@@ -107,6 +107,19 @@ html {
   body {
     font-size: 12px !important;
   }
+
+  .simple-page {
+    width: 100vw !important;
+    padding: 0.5rem !important;
+
+    .content {
+      .card {
+        width: $default-mobile-card-width !important;
+        height: $default-mobile-card-height !important;
+        padding: $default-mobile-card-padding !important;
+      }
+    }
+  }
 }
 
 .mat-mdc-list-item-unscoped-content {
@@ -260,6 +273,10 @@ mat-card-title {
   }
 
   .card {
+    width: $default-card-width;
+    height: $default-card-height;
+    max-height: $default-card-height;
+    padding: $default-card-padding;
     background-color: $primary-card-bg !important;
     border-radius: 1rem !important;
   }

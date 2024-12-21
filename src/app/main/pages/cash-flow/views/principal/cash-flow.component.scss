@@ -12,6 +12,16 @@
     border-radius: 10px !important;
 }
 
+@media screen and (max-width: 700px) {
+    .simple-page {
+        .content {
+            .card {
+                height: 95% !important;
+            }
+        }
+    }
+}
+
 .simple-page {
     display: flex;
     flex-direction: column;
@@ -43,7 +53,6 @@
         place-items: center;
 
         .card {
-            width: $default-card-width;
             height: 87vh;
             max-height: 87vh;
             display: flex;

@@ -11,12 +11,8 @@
         place-items: center;
 
         .card {
-            width: $default-card-width;
-            height: $default-card-height;
-            max-height: $default-card-height;
             display: flex;
             flex-direction: column;
-            padding: 2rem;
 
             .card-header {
                 display: flex;

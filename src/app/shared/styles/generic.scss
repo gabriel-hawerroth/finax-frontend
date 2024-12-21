@@ -3,3 +3,13 @@ $default-font-family: "Nunito", "Dosis", "Mallanna", system-ui, -apple-system, R
 $default-card-width: 80%;
 $default-card-height: 80vh;
 $default-card-padding: 2rem;
+
+$default-mobile-card-width: 95%;
+$default-mobile-card-height: 95%;
+$default-mobile-card-padding: 1rem;
+
+// @media screen and (max-width: 650px) {
+//     $default-card-width: 100% !important;
+//     $default-card-height: 80vh !important;
+//     $default-card-padding: 2rem !important;
+// }

@@ -11,7 +11,10 @@
 
 <mat-sidenav-container
   [ngStyle]="{
-    'margin-top': mobileToolbarOpened() ? '5rem' : '0'
+    height: mobileToolbarOpened() ? 'calc(100vh - 5rem)' : '100%',
+    'max-height': mobileToolbarOpened() ? 'calc(100vh - 5rem)' : '100%',
+    position: mobileToolbarOpened() ? 'fixed' : 'relative',
+    bottom: '0'
   }"
 >
   <mat-sidenav
@@ -19,8 +22,7 @@
     [(opened)]="sidebarOpened"
     [mode]="sidebarMode()"
     [ngStyle]="{
-      width: mobileToolbarOpened() ? '100vw' : '20rem',
-      height: mobileToolbarOpened() ? 'calc(100vh - 5rem)' : '100%'
+      width: mobileToolbarOpened() ? '100vw' : '20rem'
     }"
   >
     <app-sidebar />
