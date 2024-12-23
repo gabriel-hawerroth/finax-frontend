@@ -171,7 +171,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
   }
 
   openCancelAccountDialog() {
-    const width = this._responsiveService.smallWidth() ? '95vw' : '40vw';
+    const width = this._responsiveService.smallWidth() ? '100vw' : '40vw';
 
     this._matDialog.open(CancelAccountDialog, {
       panelClass: 'cancel-account-dialog',

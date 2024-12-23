@@ -16,6 +16,7 @@ import {
   OnCategoryEditDto,
 } from '../../../../../core/entities/category/category-dto';
 import { CategoryService } from '../../../../../core/entities/category/category.service';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CategoriesListComponent } from '../../components/categories-list/categories-list.component';
 import { CategoryFormDialog } from '../form-dialog/category-form-dialog.component';
@@ -45,7 +46,8 @@ export class CategoriesPage implements OnInit {
     public readonly utils: UtilsService,
     private readonly _matDialog: MatDialog,
     private readonly _changeDetectorRef: ChangeDetectorRef,
-    private readonly _categoryService: CategoryService
+    private readonly _categoryService: CategoryService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -154,13 +156,15 @@ export class CategoriesPage implements OnInit {
   }
 
   openCategoryFormDialog(data: CategoryFormDialogData): Promise<any> {
+    const width = this._responsiveService.smallWidth() ? '100vw' : '40vw';
+
     return lastValueFrom(
       this._matDialog
         .open(CategoryFormDialog, {
           data,
           panelClass: 'category-form-dialog',
-          minWidth: '40vw',
-          width: '40vw',
+          minWidth: width,
+          width: width,
           maxHeight: '95vh',
           autoFocus: false,
         })
