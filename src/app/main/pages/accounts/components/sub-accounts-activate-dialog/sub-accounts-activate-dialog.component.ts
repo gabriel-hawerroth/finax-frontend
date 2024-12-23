@@ -83,7 +83,6 @@ export class SubAccountsActivateDialog {
 
   selectAllAccounts(event: MatCheckboxChange) {
     this.selectAll = event.checked;
-    console.log('selectAllAccounts', this.selectAll);
 
     this.subAccounts.forEach((account) => (account.selected = this.selectAll));
   }
