@@ -23,7 +23,6 @@ import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
 })
 export class UtilsService {
   public isBrowser: boolean;
-  public isPcScreen: boolean;
 
   constructor(
     private readonly _snackBar: MatSnackBar,
@@ -32,10 +31,6 @@ export class UtilsService {
     private readonly _responsiveService: ResponsiveService
   ) {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
-
-    this.isPcScreen = this.isBrowser
-      ? window.innerWidth > 1000 && window.innerHeight > 520
-      : false;
 
     this.username.next(this.getLoggedUser?.firstName || '');
   }

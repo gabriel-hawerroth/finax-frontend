@@ -50,6 +50,7 @@ import {
   ReleaseType,
 } from '../../../../../core/enums/release-enums';
 import { ReleasedOn } from '../../../../../core/enums/released-on';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { getBtnStyle } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
@@ -87,7 +88,7 @@ export class ReleaseFormDialog implements OnInit {
     this._utils.getUserConfigs.theme === 'dark'
   );
 
-  readonly isPcScreen = this._utils.isPcScreen;
+  readonly isMobileView = !this._responsiveService.isMobileView();
 
   releaseForm!: FormGroup;
 
@@ -99,8 +100,6 @@ export class ReleaseFormDialog implements OnInit {
 
   changedAttachment: boolean = false;
   removedFile: boolean = false;
-
-  smallScreen: boolean = window.innerHeight < 800 && window.innerWidth < 1400;
 
   saving = signal(false);
 
@@ -119,7 +118,8 @@ export class ReleaseFormDialog implements OnInit {
     private readonly _translate: TranslateService,
     private readonly _matDialog: MatDialog,
     private readonly _fb: FormBuilder,
-    private readonly _cashFlowService: ReleaseService
+    private readonly _cashFlowService: ReleaseService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
