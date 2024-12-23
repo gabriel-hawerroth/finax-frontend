@@ -6,6 +6,7 @@ import {
   CreditCardDetailsData,
   UserCreditCard,
 } from '../../../../../core/entities/credit-card/credit-card-dto';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { CreditCardDetailsComponent } from '../../views/details/credit-card-details.component';
 
@@ -23,7 +24,10 @@ export class CreditCardsListComponent {
   readonly creditCards = input.required<UserCreditCard[]>();
   readonly situationFilterValue = input.required<boolean | 'all'>();
 
-  constructor(private readonly _bottomSheet: MatBottomSheet) {}
+  constructor(
+    private readonly _bottomSheet: MatBottomSheet,
+    private readonly _responsiveService: ResponsiveService
+  ) {}
 
   openDetails(card: UserCreditCard) {
     this._bottomSheet.open(CreditCardDetailsComponent, {
@@ -36,5 +40,12 @@ export class CreditCardsListComponent {
 
   isLastItem(index: number) {
     return index === this.creditCards().length - 1;
+  }
+
+  get getListWidth() {
+    return this.creditCards().length > 0 &&
+      !this._responsiveService.isMobileView()
+      ? '75%'
+      : '100%';
   }
 }

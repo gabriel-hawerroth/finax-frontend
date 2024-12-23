@@ -156,7 +156,7 @@ export class CategoriesPage implements OnInit {
   }
 
   openCategoryFormDialog(data: CategoryFormDialogData): Promise<any> {
-    const width = this._responsiveService.smallWidth() ? '100vw' : '40vw';
+    const width = this._responsiveService.isMobileView() ? '100vw' : '40vw';
 
     return lastValueFrom(
       this._matDialog

@@ -7,8 +7,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class ResponsiveService {
   private readonly small = '(max-width: 650px)';
-  private readonly medium = '(min-width: 651px) and (max-width: 1000px)';
-  private readonly large = '(min-width: 1001px) and (max-width: 1400px)';
+  private readonly medium = '(min-width: 651px) and (max-width: 1050px)';
+  private readonly large = '(min-width: 1051px) and (max-width: 1400px)';
   private readonly veryLarge = '(min-width: 1401px)';
 
   breakpointObserver = inject(BreakpointObserver);
@@ -27,5 +27,9 @@ export class ResponsiveService {
   largeWidth = computed(() => this.screenWith()?.breakpoints[this.large]);
   veryLargeWith = computed(
     () => this.screenWith()?.breakpoints[this.veryLarge]
+  );
+
+  isMobileView = computed(
+    () => this.smallWidth() || this.mediumWidth() || false
   );
 }

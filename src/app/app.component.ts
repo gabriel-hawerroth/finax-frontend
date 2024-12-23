@@ -123,7 +123,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private handleSidebarVisibilityChange() {
-    if (this._responsiveService.smallWidth()) {
+    if (this._responsiveService.isMobileView()) {
       this.mobileToolbarOpened.set(this.showMenu);
       this.sidebarOpened.set(false);
       return;

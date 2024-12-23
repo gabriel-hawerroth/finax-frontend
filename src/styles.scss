@@ -92,20 +92,11 @@ html {
 }
 
 // tablet
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1050px) {
 
   html,
   body {
     font-size: 14px !important;
-  }
-}
-
-// celular
-@media screen and (max-width: 650px) {
-
-  html,
-  body {
-    font-size: 12px !important;
   }
 
   .simple-page {
@@ -121,6 +112,15 @@ html {
         padding: $default-mobile-card-padding !important;
       }
     }
+  }
+}
+
+// celular
+@media screen and (max-width: 650px) {
+
+  html,
+  body {
+    font-size: 12px !important;
   }
 }
 
@@ -396,7 +396,7 @@ mat-card-title {
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1050px) {
   .login {
     background-color: var(--card-background-color) !important;
 

@@ -1,7 +1,7 @@
 <div
   class="list"
   [ngStyle]="{
-    width: creditCards().length > 0 ? '75%' : '100%'
+    width: getListWidth
   }"
 >
   @for (card of creditCards(); track card.id) {
