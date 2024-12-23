@@ -325,10 +325,6 @@ mat-card-title {
     background-color: $dark-bg !important;
   }
 
-  .login-box {
-    background-color: $dark-card-bg !important;
-  }
-
   label {
     color: #d5d5d5 !important;
   }
@@ -425,7 +421,7 @@ mat-card-title {
     max-width: 95vw;
     width: 510px;
     height: 510px;
-    background-color: #fff;
+    background-color: var(--card-background-color) !important;
     border-radius: 5px;
     display: flex;
     flex-direction: column;

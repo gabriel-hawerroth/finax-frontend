@@ -74,6 +74,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly _utils: UtilsService,
     private readonly _router: Router
   ) {
+    _utils.setUserConfigs(_utils.getUserConfigs);
+
     this.subscribeShowMenuChanges();
     this.handleThemeChanges();
     this.subscribeWindowResize();
