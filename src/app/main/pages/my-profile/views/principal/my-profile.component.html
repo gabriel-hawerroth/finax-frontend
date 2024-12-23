@@ -1,7 +1,7 @@
 <div
   [ngClass]="{
     'simple-page': true,
-    'dark-page': utils.getUserConfigs.theme === 'dark'
+    'dark-page': darkThemeEnabled
   }"
 >
   <h1 class="page-title">
@@ -77,7 +77,7 @@
         </div>
 
         <div class="actions">
-          <button mat-button class="change-plan" (click)="changePlan()">
+          <button mat-button class="change-plan">
             <span>
               <span class="material-symbols-outlined">
                 swap_horizontal_circle

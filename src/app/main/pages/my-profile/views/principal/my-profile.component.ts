@@ -15,6 +15,7 @@ import { User } from '../../../../../core/entities/user/user';
 import { EditUserDTO } from '../../../../../core/entities/user/user-dto';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CancelAccountDialog } from '../../components/cancel-account-dialog/cancel-account-dialog.component';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';
@@ -36,9 +37,10 @@ import { MyProfileFormComponent } from '../../components/my-profile-form/my-prof
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyProfilePage implements OnInit, OnDestroy {
-  private readonly _unsubscribeAll = new Subject<void>();
+  readonly currency: string = this._utils.getUserConfigs.currency;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
-  readonly currency: string = this.utils.getUserConfigs.currency;
+  private readonly _unsubscribeAll = new Subject<void>();
 
   userForm!: FormGroup;
 
@@ -47,24 +49,24 @@ export class MyProfilePage implements OnInit, OnDestroy {
   planPrice: string = '';
   signatureExpiration: string = '';
 
-  profileImageSrc = signal<string | ArrayBuffer>(this.utils.userImage.value);
+  profileImageSrc = signal<string | ArrayBuffer>(this._utils.userImage.value);
   changedProfileImg: boolean = false;
   selectedProfileImage: File | null = null;
 
   saving = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _matDialog: MatDialog,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
-    // this.getUserPlan();
 
-    this.utils.userImage
+    this._utils.userImage
       .asObservable()
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((value) => this.profileImageSrc.set(value));
@@ -83,7 +85,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
       lastName: '',
     });
 
-    this.userForm.patchValue(this.utils.getLoggedUser!);
+    this.userForm.patchValue(this._utils.getLoggedUser!);
   }
 
   saveUser() {
@@ -94,7 +96,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
 
     setTimeout(() => {
       if (this.saving() && this.selectedProfileImage) {
-        this.utils.showMessage('generic.this-may-take-few-seconds', 6000);
+        this._utils.showMessage('generic.this-may-take-few-seconds', 6000);
         showingMessage = true;
         setTimeout(() => {
           showingMessage = false;
@@ -114,25 +116,25 @@ export class MyProfilePage implements OnInit, OnDestroy {
           await this._userService
             .changeProfileImage(this.selectedProfileImage!)
             .then((user) => {
-              this.utils.showMessage('my-profile.edited-successfully');
-              this.utils.updateLoggedUser(user);
+              this._utils.showMessage('my-profile.edited-successfully');
+              this._utils.updateLoggedUser(user);
             })
             .catch(() =>
-              this.utils.showMessage(
+              this._utils.showMessage(
                 'my-profile.edited-but-error-saving-picture'
               )
             );
         } else {
-          this.utils.showMessage('my-profile.edited-successfully');
-          this.utils.updateLoggedUser(user);
+          this._utils.showMessage('my-profile.edited-successfully');
+          this._utils.updateLoggedUser(user);
         }
       })
-      .catch(() => this.utils.showMessage('my-profile.error-saving'))
+      .catch(() => this._utils.showMessage('my-profile.error-saving'))
       .finally(() => {
         this.changedProfileImg = false;
         this.saving.set(false);
 
-        if (showingMessage) this.utils.dismissMessage();
+        if (showingMessage) this._utils.dismissMessage();
       });
   }
 
@@ -142,7 +144,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
 
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
-      this.utils.showMessage('generic.file-too-large', 8000);
+      this._utils.showMessage('generic.file-too-large', 8000);
       return;
     }
 
@@ -159,7 +161,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
   openChangePasswordDialog() {
     this._matDialog.open(ChangePasswordDialog, {
       data: {
-        userId: this.utils.getLoggedUser!.id,
+        userId: this._utils.getLoggedUser!.id,
       },
       panelClass: 'change-password-dialog',
       width: '39vw',
@@ -168,13 +170,13 @@ export class MyProfilePage implements OnInit, OnDestroy {
     });
   }
 
-  changePlan() {}
-
   openCancelAccountDialog() {
+    const width = this._responsiveService.smallWidth() ? '95vw' : '40vw';
+
     this._matDialog.open(CancelAccountDialog, {
       panelClass: 'cancel-account-dialog',
-      width: '40vw',
-      minWidth: '40vw',
+      width: width,
+      minWidth: width,
       autoFocus: false,
     });
   }

@@ -1,3 +1,22 @@
+@media screen and (max-width: 650px) {
+    .simple-page {
+        padding-bottom: 3rem !important;
+
+        .img-content {
+            position: relative;
+            top: 1rem;
+        }
+
+        .content {
+            flex-direction: column-reverse;
+
+            .form-box {
+                width: 100% !important;
+            }
+        }
+    }
+}
+
 .simple-page {
     display: flex;
     flex-direction: column;
