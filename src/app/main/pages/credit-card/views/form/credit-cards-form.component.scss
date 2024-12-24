@@ -8,6 +8,27 @@
     }
 }
 
+@media screen and (max-width: 1050px) {
+    .simple-page {
+        .content {
+            .card {
+                .form {
+                    flex-direction: column;
+                    gap: 3rem;
+
+                    .fields {
+                        width: 100% !important;
+                    }
+
+                    #img-div {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .simple-page {
     display: flex;
     flex-direction: column;
@@ -32,21 +53,30 @@
                 margin-bottom: .8rem;
             }
 
-            .first-row,
-            .second-row {
+            .form {
                 display: flex;
-                width: 100%;
-                gap: 1.5rem;
                 padding: 0 2rem;
-            }
 
-            .first-row {
-                align-items: center;
-                position: relative;
-                bottom: 1rem;
+                .fields {
+                    width: 70%;
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 1.5rem;
+
+                    .selected-account {
+                        display: flex;
+                        align-items: center;
+                        gap: .5rem;
+
+                        img {
+                            border-radius: 50%;
+                        }
+                    }
+                }
 
                 #img-div {
-                    height: 100%;
+                    flex: 1;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
@@ -70,20 +100,6 @@
                     #text {
                         cursor: pointer;
                         text-align: center;
-                    }
-                }
-            }
-
-            .second-row {
-                margin-bottom: 2rem;
-
-                .selected-account {
-                    display: flex;
-                    align-items: center;
-                    gap: .5rem;
-
-                    img {
-                        border-radius: 50%;
                     }
                 }
             }

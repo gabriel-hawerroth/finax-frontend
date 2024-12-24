@@ -26,41 +26,140 @@
         ></app-buttons>
       </div>
 
-      <div class="first-row">
-        <mat-form-field style="width: 30%">
-          <mat-label>{{ "credit-cards.description" | translate }}</mat-label>
-          <input
-            type="text"
-            matInput
-            #accountName
-            maxlength="40"
-            formControlName="name"
-            autofocus
-          />
-          <mat-hint align="end">
-            {{ accountName.value.length }}/{{ accountName.maxLength }}
-          </mat-hint>
-        </mat-form-field>
+      <div class="form">
+        <div class="fields">
+          <mat-form-field
+            [style]="
+              getResponsiveFieldWidth(
+                { sm: '100%', md: '100%' },
+                '30%',
+                '20rem'
+              )
+            "
+          >
+            <mat-label>{{ "credit-cards.description" | translate }}</mat-label>
+            <input
+              type="text"
+              matInput
+              #accountName
+              maxlength="40"
+              formControlName="name"
+              autofocus
+            />
+            <mat-hint align="end">
+              {{ accountName.value.length }}/{{ accountName.maxLength }}
+            </mat-hint>
+          </mat-form-field>
 
-        <mat-form-field
-          style="width: 20%"
-          floatLabel="always"
-          [hideRequiredMarker]="true"
-        >
-          <mat-label>{{ "credit-cards.limit" | translate }}</mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="cardLimit"
-            currencyMask
-            [options]="{ prefix: currency + ' ' }"
-            placeholder="0"
-          />
-        </mat-form-field>
+          <mat-form-field
+            [style]="
+              getResponsiveFieldWidth({ sm: '60%', md: '60%' }, '20%', '15rem')
+            "
+            floatLabel="always"
+            [hideRequiredMarker]="true"
+          >
+            <mat-label>{{ "credit-cards.limit" | translate }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="cardLimit"
+              currencyMask
+              [options]="{ prefix: currency + ' ' }"
+              placeholder="0"
+            />
+          </mat-form-field>
 
-        <mat-checkbox formControlName="active" style="width: 12%">
-          {{ "generic.activeM" | translate }}
-        </mat-checkbox>
+          <mat-checkbox
+            formControlName="active"
+            [style]="getResponsiveFieldWidth({ sm: '30%', md: '30%' }, '12%')"
+          >
+            {{ "generic.activeM" | translate }}
+          </mat-checkbox>
+
+          <mat-form-field
+            [style]="
+              getResponsiveFieldWidth(
+                { sm: '100%', md: '100%' },
+                '28%',
+                '18rem'
+              )
+            "
+          >
+            <mat-label>
+              {{ "credit-cards.standard-payment-account" | translate }}
+            </mat-label>
+
+            <mat-select formControlName="standardPaymentAccountId">
+              <mat-select-trigger>
+                <div class="selected-account">
+                  @if (selectedAccount && selectedAccount.image) {
+                  <img
+                    [ngSrc]="
+                      cloudFireCdnImgsLink + 'banks/' + selectedAccount.image
+                    "
+                    width="20"
+                    height="20"
+                    alt="bank account logo"
+                  />
+                  }
+                  <span>{{ selectedAccount?.name }}</span>
+                </div>
+              </mat-select-trigger>
+
+              @for (account of accounsList; track account.id) {
+              <mat-option [value]="account.id" class="bank-account-item">
+                <div class="account-opt">
+                  @if (account.image) {
+                  <img
+                    [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+                    width="30"
+                    height="30"
+                    alt="bank account logo"
+                  />
+                  } @else {
+                  <span class="material-symbols-outlined default-account-logo">
+                    {{ getDefaultAccountImage(account) }}
+                  </span>
+                  }
+                  <span>{{ account.name }}</span>
+                </div>
+              </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            [hideRequiredMarker]="true"
+            [style]="
+              getResponsiveFieldWidth({ sm: '46%', md: '46%' }, '18%', '11rem')
+            "
+          >
+            <mat-label>
+              {{ "credit-cards.close-day" | translate }}
+            </mat-label>
+            <mat-select formControlName="closeDay">
+              @for (day of daysOfMonth; track $index) {
+              <mat-option [value]="day">{{ day }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field
+            [hideRequiredMarker]="true"
+            [style]="
+              getResponsiveFieldWidth({ sm: '46%', md: '46%' }, '18%', '11rem')
+            "
+          >
+            <mat-label>
+              {{ "credit-cards.expires-day" | translate }}
+            </mat-label>
+            <mat-select formControlName="expiresDay">
+              @for (day of daysOfMonth; track $index) {
+              <mat-option [value]="day">{{ day }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
 
         <div id="img-div">
           @if (!selectedIcon()) {
@@ -80,74 +179,6 @@
             {{ "generic.select-icon" | translate }}
           </span>
         </div>
-      </div>
-
-      <div class="second-row">
-        <mat-form-field style="width: 28%">
-          <mat-label>
-            {{ "credit-cards.standard-payment-account" | translate }}
-          </mat-label>
-
-          <mat-select formControlName="standardPaymentAccountId">
-            <mat-select-trigger>
-              <div class="selected-account">
-                @if (selectedAccount && selectedAccount.image) {
-                <img
-                  [ngSrc]="
-                    cloudFireCdnImgsLink + 'banks/' + selectedAccount.image
-                  "
-                  width="20"
-                  height="20"
-                  alt="bank account logo"
-                />
-                }
-                <span>{{ selectedAccount?.name }}</span>
-              </div>
-            </mat-select-trigger>
-
-            @for (account of accounsList; track account.id) {
-            <mat-option [value]="account.id" class="bank-account-item">
-              <div class="account-opt">
-                @if (account.image) {
-                <img
-                  [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
-                  width="30"
-                  height="30"
-                  alt="bank account logo"
-                />
-                } @else {
-                <span class="material-symbols-outlined default-account-logo">
-                  {{ getDefaultAccountImage(account) }}
-                </span>
-                }
-                <span>{{ account.name }}</span>
-              </div>
-            </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "credit-cards.close-day" | translate }}
-          </mat-label>
-          <mat-select formControlName="closeDay">
-            @for (day of daysOfMonth; track $index) {
-            <mat-option [value]="day">{{ day }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <mat-form-field [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "credit-cards.expires-day" | translate }}
-          </mat-label>
-          <mat-select formControlName="expiresDay">
-            @for (day of daysOfMonth; track $index) {
-            <mat-option [value]="day">{{ day }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
       </div>
     </mat-card>
   </div>

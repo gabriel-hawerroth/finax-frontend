@@ -4,6 +4,7 @@ import { BasicAccount } from '../../core/entities/account/account-dto';
 import { HomeAccount } from '../../core/entities/home-p/home-dto';
 import { AccountType } from '../../core/enums/account-enums';
 import { ButtonType } from '../../core/enums/button-style';
+import { ResponsiveService } from './responsive.service';
 
 export const cloudFireCdnLink: string = environment.cloudFrontUrl;
 export const cloudFireCdnImgsLink: string = `${cloudFireCdnLink}/imgs/`;
@@ -41,4 +42,32 @@ export function getDefaultAccountImage(
   }
 
   return 'account_balance';
+}
+
+export function getResponsiveFieldWidth(
+  responsiveService: ResponsiveService,
+  widths: Widths,
+  defaultWidth: string = '100%',
+  minWidth?: string
+): string {
+  let width: string;
+
+  if (responsiveService.smallWidth()) {
+    width = widths.sm || defaultWidth;
+  } else if (responsiveService.mediumWidth()) {
+    width = widths.md || defaultWidth;
+  } else if (responsiveService.largeWidth()) {
+    width = widths.lg || defaultWidth;
+  } else {
+    width = widths.xl || defaultWidth;
+  }
+
+  return `width: ${width};${minWidth ? 'min-width: ' + minWidth : ''}`;
+}
+
+export interface Widths {
+  sm?: string;
+  md?: string;
+  lg?: string;
+  xl?: string;
 }

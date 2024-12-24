@@ -30,9 +30,12 @@ import { CreditCardService } from '../../../../../core/entities/credit-card/cred
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,
+  getResponsiveFieldWidth,
+  Widths,
 } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
@@ -58,8 +61,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardsFormPage implements OnInit, OnDestroy {
-  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getDefaultAccountImage = getDefaultAccountImage;
+  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this.utils.getUserConfigs.currency;
 
   private readonly unsubscribeAll = new Subject<void>();
@@ -90,7 +93,8 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
     private readonly _router: Router,
     private readonly _creditCardService: CreditCardService,
     private readonly _accountService: AccountService,
-    private readonly _location: Location
+    private readonly _location: Location,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -190,5 +194,18 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
 
   private paymentAccountChanges(value: number) {
     this.selectedAccount = this.accounsList.find((item) => item.id === value)!;
+  }
+
+  getResponsiveFieldWidth(
+    widths: Widths,
+    defaultWidth?: string,
+    minWidth?: string
+  ) {
+    return getResponsiveFieldWidth(
+      this._responsiveService,
+      widths,
+      defaultWidth,
+      minWidth
+    );
   }
 }
