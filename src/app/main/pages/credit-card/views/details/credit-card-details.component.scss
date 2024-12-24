@@ -6,6 +6,37 @@
     }
 }
 
+@media screen and (max-width: 1050px) {
+    .credit-card-details {
+        flex-direction: column !important;
+        gap: 0 !important;
+
+        .content {
+            width: 92vw !important;
+
+            .row1,
+            .row2 {
+                justify-content: space-around !important;
+            }
+        }
+
+        .actions {
+            width: 80vw !important;
+            flex-direction: row-reverse !important;
+            justify-content: flex-start !important;
+        }
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .credit-card-details {
+        .actions {
+            width: 85vw !important;
+            margin-top: 1rem;
+        }
+    }
+}
+
 .credit-card-details {
     width: 98vw;
     overflow-y: hidden !important;
@@ -51,12 +82,8 @@
 
         .row2 {
             display: flex;
+            justify-content: space-between;
             gap: .8rem;
-
-            .left,
-            .right {
-                width: 50%;
-            }
 
             .left {
                 display: flex;

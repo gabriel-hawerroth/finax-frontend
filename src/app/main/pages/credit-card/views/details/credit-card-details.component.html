@@ -2,7 +2,7 @@
   class="credit-card-details"
   [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
 >
-  @if (card.image) {
+  @if (showImage) {
   <img
     id="card-logo"
     [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.image"
