@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@use 'colors.scss' as *;
 
 .confirm-duplicated-releases-action {
     overflow: hidden;

@@ -1,4 +1,4 @@
-@import 'generic.scss';
+@use 'generic.scss' as *;
 
 #sidebar {
     width: 100%;

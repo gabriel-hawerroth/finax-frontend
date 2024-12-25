@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@use 'colors.scss' as *;
 
 ::-webkit-scrollbar {
     background-color: transparent !important;

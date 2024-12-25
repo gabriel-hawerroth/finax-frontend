@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@use 'colors.scss' as *;
 
 @media screen and (max-width: 1050px) {
     .simple-page {

@@ -1,5 +1,5 @@
-@import 'generic.scss';
-@import 'colors.scss';
+@use 'generic.scss' as *;
+@use 'colors.scss' as *;
 
 .filter-releases-dialog {
     display: flex;

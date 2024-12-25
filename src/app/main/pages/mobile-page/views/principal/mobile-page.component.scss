@@ -1,5 +1,5 @@
-@import '../../../../public/components/header/public-header.component.scss';
-@import '../../../../public/components/footer/public-footer.component.scss';
+@use '../../../../public/components/header/public-header.component.scss' as *;
+@use '../../../../public/components/footer/public-footer.component.scss' as *;
 
 @media screen and (max-width: 600px) {
     #mobile-section {

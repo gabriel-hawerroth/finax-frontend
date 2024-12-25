@@ -1,4 +1,4 @@
-@import '../../../components/header/public-header.component.scss';
+@use '../../../components/header/public-header.component.scss' as *;
 
 @media screen and (max-width: 1050px) {
     .public-section {

@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@use 'colors.scss' as *;
 
 .simple-page {
     display: flex;

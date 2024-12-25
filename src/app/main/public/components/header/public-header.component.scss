@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@use 'colors.scss' as *;
 
 $left-side-width: 36%;
 $right-side-width: 40%;

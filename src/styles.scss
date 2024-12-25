@@ -1,5 +1,9 @@
 @use '@angular/material' as mat;
 
+@use './app/app.component.scss' as *;
+@use 'colors.scss' as *;
+@use 'generic.scss' as *;
+
 @include mat.core();
 
 $theme: mat.define-theme(( //
@@ -18,10 +22,6 @@ html {
   @include mat.core-theme($theme);
   @include mat.all-component-themes($theme);
 }
-
-@import './app/app.component.scss';
-@import 'colors.scss';
-@import 'generic.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 

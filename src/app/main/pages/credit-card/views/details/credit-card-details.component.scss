@@ -1,4 +1,4 @@
-@import 'colors.scss';
+@use 'colors.scss' as *;
 
 @media screen and (min-width: 1750px) and (min-height: 800px) {
     .credit-card-details {
