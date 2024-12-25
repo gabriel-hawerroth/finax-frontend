@@ -32,6 +32,10 @@
     }
 }
 
+::-webkit-scrollbar {
+    display: flex;
+}
+
 .simple-page {
     display: flex;
     flex-direction: column;
