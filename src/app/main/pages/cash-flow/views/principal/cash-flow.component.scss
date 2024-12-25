@@ -54,18 +54,20 @@
         place-items: center;
 
         .card {
-            height: 87vh;
-            max-height: 87vh;
+            height: 85vh;
+            max-height: 85vh;
             display: flex;
             flex-direction: column;
             position: relative;
             top: .6rem;
+            padding: 0 !important;
+            padding-top: 1rem !important;
 
             header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: .8rem 1.2rem;
+                padding: 1rem 2rem;
                 margin-bottom: 1rem;
 
                 .left,
@@ -94,6 +96,10 @@
                     justify-content: flex-end;
                     padding-right: 2rem;
                 }
+            }
+
+            #releases-list {
+                padding: 0 1.2rem;
             }
 
             #releases-list,

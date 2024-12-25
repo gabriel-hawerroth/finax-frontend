@@ -1,21 +1,36 @@
 <div
   [ngClass]="{
     'simple-page': true,
-    'dark-page': utils.getUserConfigs.theme === 'dark'
+    'dark-page': darkThemeEnabled
   }"
 >
+  <h1 class="page-title">
+    {{ "invoice.title" | translate }}
+
+    <app-buttons
+      [showGeneric]="true"
+      genericIcon="add"
+      [genericStyle]="iconBtnStyle"
+      [btnStyle]="{
+      'background-color': '#099e26',
+      width: '2.3rem',
+      height: '2.3rem',
+    }"
+      [contentStyle]="{
+        color: '#fff'
+      }"
+      (onGeneric)="addRelease()"
+    ></app-buttons>
+  </h1>
+
   <div class="content">
     <mat-card class="card releases-card">
       <header>
         <div class="first-row">
           <div class="left">
             <div class="title">
-              <h1>
-                {{ "invoice.title" | translate }}
-              </h1>
-
               <div
-                class="card"
+                class="credit-card"
                 [routerLink]="'/cartoes-de-credito/' + creditCardId"
               >
                 @if (creditCard()?.image) {
@@ -32,21 +47,6 @@
                 <span>{{ creditCard()?.name }}</span>
               </div>
             </div>
-
-            <app-buttons
-              [showGeneric]="true"
-              genericIcon="add"
-              [genericStyle]="iconBtnStyle"
-              [btnStyle]="{
-                'background-color': '#099e26',
-                width: '2.3rem',
-                height: '2.3rem',
-              }"
-              [contentStyle]="{
-                color: '#fff'
-              }"
-              (onGeneric)="addRelease()"
-            ></app-buttons>
           </div>
 
           <div class="right">

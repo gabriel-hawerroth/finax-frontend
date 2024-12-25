@@ -68,8 +68,8 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
 })
 export class CreditCardInvoicePage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
-  readonly currency = this.utils.getUserConfigs.currency;
+  readonly currency = this._utils.getUserConfigs.currency;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
   creditCard = signal<CreditCard | null>(null);
@@ -92,7 +92,7 @@ export class CreditCardInvoicePage implements OnInit {
   invoiceValues!: Signal<CreditCardInvoiceValues>;
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _matDialog: MatDialog,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _invoiceService: InvoiceService,
@@ -151,7 +151,7 @@ export class CreditCardInvoicePage implements OnInit {
   }
 
   addRelease() {
-    this.utils
+    this._utils
       .openReleaseFormDialog(<ReleaseFormDialogData>{
         accounts: [],
         categories: this.categories,
