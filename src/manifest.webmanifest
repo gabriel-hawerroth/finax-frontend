@@ -9,19 +9,19 @@
     "theme_color": "#026e00",
     "icons": [
         {
-            "src": "https://d3dpbaewouik5z.cloudfront.net/imgs/piggy-bank-50x50.svg",
+            "src": "https://d3dpbaewouik5z.cloudfront.net/imgs/piggy-bank-50x50.png",
             "sizes": "50x50",
-            "type": "image/svg+xml"
+            "type": "image/png"
         },
         {
-            "src": "https://d3dpbaewouik5z.cloudfront.net/imgs/piggy-bank-192x192.svg",
+            "src": "https://d3dpbaewouik5z.cloudfront.net/imgs/piggy-bank-192x192.png",
             "sizes": "192x192",
-            "type": "image/svg+xml"
+            "type": "image/png"
         },
         {
-            "src": "https://d3dpbaewouik5z.cloudfront.net/imgs/piggy-bank-512x512.svg",
+            "src": "https://d3dpbaewouik5z.cloudfront.net/imgs/piggy-bank-512x512.png",
             "sizes": "512x512",
-            "type": "image/svg+xml"
+            "type": "image/png"
         }
     ]
 }
