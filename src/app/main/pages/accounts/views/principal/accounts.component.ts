@@ -26,6 +26,11 @@ import {
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { LS_SHOW_VALUES } from '../../../../../shared/utils/local-storage-contants';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import {
+  getResponsiveFieldWidth,
+  Widths,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { AccountsListComponent } from '../../components/accounts-list/accounts-list.component';
 
@@ -67,6 +72,7 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
     icon: this._utils.getItemLocalStorage(LS_SHOW_VALUES) || ShowValues.OFF,
     style: {
       transform: 'scale(1.1)',
+      'margin-right': '0 !important',
     },
     onClick: () => this.onChangeShowValues(),
   };
@@ -77,7 +83,8 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _router: Router,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -191,5 +198,17 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
 
   addAccount(account: Account) {
     this.rows.update((rows) => [...rows, account]);
+  }
+
+  getResponsiveFieldWidth(
+    widths: Widths,
+    defaultWidth?: string,
+    minWidth?: string
+  ) {
+    return getResponsiveFieldWidth(
+      widths,
+      defaultWidth,
+      minWidth
+    )(this._responsiveService);
   }
 }

@@ -14,6 +14,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UserCreditCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import {
+  getResponsiveFieldWidth,
+  Widths,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CreditCardsListComponent } from '../../components/credit-cards-list/credit-cards-list.component';
 
@@ -50,7 +55,8 @@ export class CreditCardsPage implements OnInit {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _router: Router,
-    private readonly _creditCardService: CreditCardService
+    private readonly _creditCardService: CreditCardService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -80,5 +86,17 @@ export class CreditCardsPage implements OnInit {
 
   onNew() {
     this._router.navigateByUrl('cartoes-de-credito/novo');
+  }
+
+  getResponsiveFieldWidth(
+    widths: Widths,
+    defaultWidth?: string,
+    minWidth?: string
+  ) {
+    return getResponsiveFieldWidth(
+      widths,
+      defaultWidth,
+      minWidth
+    )(this._responsiveService);
   }
 }

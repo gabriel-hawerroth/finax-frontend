@@ -1,5 +1,13 @@
 @use 'colors.scss' as *;
 
+@media screen and (max-width: 650px) {
+    .sub-accounts {
+        .add-more {
+            width: 12% !important;
+        }
+    }
+}
+
 .sub-accounts {
     width: 100%;
     min-height: 8rem;

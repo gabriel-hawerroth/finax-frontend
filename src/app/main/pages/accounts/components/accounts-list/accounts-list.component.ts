@@ -18,6 +18,7 @@ import {
 } from '../../../../../core/entities/account/account-dto';
 import { AccountType } from '../../../../../core/enums/account-enums';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,
@@ -60,7 +61,8 @@ export class AccountsListComponent implements OnDestroy {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _bottomSheet: MatBottomSheet
+    private readonly _bottomSheet: MatBottomSheet,
+    private readonly _responsiveService: ResponsiveService
   ) {
     toObservable(this.situationFilterValue)
       .pipe(takeUntil(this._unsubscribeAll))
@@ -184,5 +186,12 @@ export class AccountsListComponent implements OnDestroy {
     }
 
     return account.balance;
+  }
+
+  get getListWidth() {
+    return this.filteredRows().length > 0 &&
+      !this._responsiveService.isMobileView()
+      ? '75%'
+      : '100%';
   }
 }

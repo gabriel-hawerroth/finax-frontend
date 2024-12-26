@@ -11,7 +11,11 @@
   <div class="content">
     <mat-card class="card">
       <div class="card-header">
-        <mat-form-field>
+        <mat-form-field
+          [style]="
+            getResponsiveFieldWidth({ sm: '25%', md: '25%' }, '1%', '13rem')
+          "
+        >
           <mat-label>
             {{ "filters.filter-by" | translate }}
             {{ "filters.situation" | translate }}

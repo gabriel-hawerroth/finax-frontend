@@ -202,10 +202,9 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
     minWidth?: string
   ) {
     return getResponsiveFieldWidth(
-      this._responsiveService,
       widths,
       defaultWidth,
       minWidth
-    );
+    )(this._responsiveService);
   }
 }

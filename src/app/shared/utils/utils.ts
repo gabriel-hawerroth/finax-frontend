@@ -45,24 +45,25 @@ export function getDefaultAccountImage(
 }
 
 export function getResponsiveFieldWidth(
-  responsiveService: ResponsiveService,
   widths: Widths,
   defaultWidth: string = '100%',
   minWidth?: string
-): string {
-  let width: string;
+) {
+  return (responsiveService: ResponsiveService) => {
+    let width: string;
 
-  if (responsiveService.isMobileView()) {
-    width = widths.sm || defaultWidth;
-  } else if (responsiveService.mediumWidth()) {
-    width = widths.md || defaultWidth;
-  } else if (responsiveService.largeWidth()) {
-    width = widths.lg || defaultWidth;
-  } else {
-    width = widths.xl || defaultWidth;
-  }
+    if (responsiveService.isMobileView()) {
+      width = widths.sm || defaultWidth;
+    } else if (responsiveService.mediumWidth()) {
+      width = widths.md || defaultWidth;
+    } else if (responsiveService.largeWidth()) {
+      width = widths.lg || defaultWidth;
+    } else {
+      width = widths.xl || defaultWidth;
+    }
 
-  return `width: ${width};${minWidth ? 'min-width: ' + minWidth : ''}`;
+    return `width: ${width};${minWidth ? 'min-width: ' + minWidth : ''}`;
+  };
 }
 
 export interface Widths {

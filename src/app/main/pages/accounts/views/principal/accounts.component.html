@@ -12,7 +12,11 @@
     <mat-card class="card">
       <div class="card-header">
         <div class="left">
-          <mat-form-field>
+          <mat-form-field
+            [style]="
+              getResponsiveFieldWidth({ sm: '25%', md: '25%' }, '1%', '13rem')
+            "
+          >
             <mat-label>
               {{ "filters.filter-by" | translate }}
               {{ "filters.situation" | translate }}
@@ -34,12 +38,10 @@
             </mat-select>
           </mat-form-field>
 
-          <div class="show-values">
-            <dynamic-button [config]="valuesViewBtnConfig"></dynamic-button>
-          </div>
+          <dynamic-button [config]="valuesViewBtnConfig"></dynamic-button>
         </div>
 
-        <dynamic-button [config]="newBtnConfig"></dynamic-button>
+        <dynamic-button id="new-btn" [config]="newBtnConfig"></dynamic-button>
       </div>
 
       @defer (when finishedFetchingAccounts()) {

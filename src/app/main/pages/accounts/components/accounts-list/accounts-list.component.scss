@@ -1,5 +1,19 @@
 @use 'colors.scss' as *;
 
+@media screen and (max-width: 1050px) {
+    .list {
+        padding-left: 0 !important;
+
+        .account {
+            padding: 20px 5px !important;
+
+            .amount {
+                margin-right: .5rem !important;
+            }
+        }
+    }
+}
+
 .list {
     height: 100%;
     padding-left: 2rem;
@@ -14,6 +28,7 @@
 
         .sub-accounts-expand-btn {
             width: 8%;
+            min-width: 4rem;
             display: flex;
             justify-content: center;
 
@@ -63,7 +78,6 @@
         }
 
         .amount {
-            width: 20%;
             display: flex;
             justify-content: flex-end;
             margin-right: 1.5rem;
