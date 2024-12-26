@@ -149,6 +149,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       route: '',
       icon: 'logout',
       label: 'sidebar.logout',
+      onClick: () => this.logout(),
     },
   ];
 }
@@ -157,4 +158,5 @@ interface NavItem {
   route: string;
   icon: string;
   label: string;
+  onClick?: () => void;
 }

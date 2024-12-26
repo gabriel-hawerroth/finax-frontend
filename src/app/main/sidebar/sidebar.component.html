@@ -7,31 +7,27 @@
   }
 
   <div class="navigation">
-    <mat-list role="list" class="nav-ul">
+    <div class="nav-ul">
       @for (item of routes; track $index) {
-      <mat-list-item
+      <div
         [routerLink]="item.route"
         [ngClass]="{
           'nav-ul-item': true,
           'nav-ul-item-dark': darkThemeEnabled()
         }"
       >
-        <mat-icon
-          matListItemIcon
-          [innerText]="item.icon"
-          class="material-symbols-outlined"
-        ></mat-icon>
+        <i [innerText]="item.icon" class="material-symbols-outlined"></i>
         <span>{{ item.label | translate }}</span>
-      </mat-list-item>
+      </div>
       }
-    </mat-list>
+    </div>
   </div>
 
   <div class="user-options">
-    <mat-list role="list" class="nav-ul">
+    <div class="nav-ul">
       @for (item of bottomRoutes; track $index) {
-      <mat-list-item
-        (click)="item.icon === 'logout' ? logout() : true"
+      <div
+        (click)="item.onClick?.()"
         [routerLink]="item.route"
         [ngClass]="{
           'nav-ul-item': true,
@@ -39,16 +35,12 @@
           hidden: !userActionsUl
         }"
       >
-        <mat-icon
-          matListItemIcon
-          [innerText]="item.icon"
-          class="material-symbols-outlined"
-        ></mat-icon>
+        <i [innerText]="item.icon" class="material-symbols-outlined"></i>
         <span>{{ item.label | translate }}</span>
-      </mat-list-item>
+      </div>
       }
 
-      <mat-list-item
+      <div
         (click)="userActionsUl = !userActionsUl"
         [ngClass]="{
           'nav-ul-item': true,
@@ -74,7 +66,7 @@
             {{ userActionsUl ? "expand_more" : "expand_less" }}
           </i>
         </div>
-      </mat-list-item>
-    </mat-list>
+      </div>
+    </div>
   </div>
 </div>

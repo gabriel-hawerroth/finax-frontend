@@ -27,7 +27,7 @@
             align-items: center;
             text-decoration: none;
             cursor: pointer;
-            padding: 1.8rem 0;
+            padding: 1.1rem 0;
 
             * {
                 color: #666666;
@@ -39,7 +39,7 @@
                 transition-property: background-color, border-color, color;
             }
 
-            i {
+            .material-symbols-outlined {
                 width: 3rem;
                 display: flex;
                 justify-content: center;
