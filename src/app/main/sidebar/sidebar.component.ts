@@ -51,7 +51,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   darkThemeEnabled = signal(false);
 
-  isMobile = this._responsiveService.smallWidth;
+  isMobile = this._responsiveService.isMobileView;
 
   constructor(
     public readonly utils: UtilsService,

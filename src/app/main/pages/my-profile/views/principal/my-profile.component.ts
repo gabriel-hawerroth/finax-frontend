@@ -15,7 +15,10 @@ import { User } from '../../../../../core/entities/user/user';
 import { EditUserDTO } from '../../../../../core/entities/user/user-dto';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import {
+  getResponsiveDialogWidth,
+  ResponsiveService,
+} from '../../../../../shared/utils/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CancelAccountDialog } from '../../components/cancel-account-dialog/cancel-account-dialog.component';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';
@@ -159,19 +162,21 @@ export class MyProfilePage implements OnInit, OnDestroy {
   }
 
   openChangePasswordDialog() {
+    const width = getResponsiveDialogWidth('40vw')(this._responsiveService);
+
     this._matDialog.open(ChangePasswordDialog, {
       data: {
         userId: this._utils.getLoggedUser!.id,
       },
       panelClass: 'change-password-dialog',
-      width: '39vw',
-      minWidth: '39vw',
+      width: width,
+      minWidth: width,
       autoFocus: true,
     });
   }
 
   openCancelAccountDialog() {
-    const width = this._responsiveService.smallWidth() ? '100vw' : '40vw';
+    const width = getResponsiveDialogWidth('40vw')(this._responsiveService);
 
     this._matDialog.open(CancelAccountDialog, {
       panelClass: 'cancel-account-dialog',

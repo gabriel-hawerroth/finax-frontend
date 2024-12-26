@@ -33,3 +33,13 @@ export class ResponsiveService {
     () => this.smallWidth() || this.mediumWidth() || false
   );
 }
+
+export function getResponsiveDialogWidth(defaultWidth: string) {
+  return (responsiveService: ResponsiveService) => {
+    return responsiveService.smallWidth()
+      ? '100vw'
+      : responsiveService.mediumWidth()
+      ? '75vw'
+      : defaultWidth;
+  };
+}

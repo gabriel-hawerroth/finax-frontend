@@ -52,7 +52,7 @@ export function getResponsiveFieldWidth(
 ): string {
   let width: string;
 
-  if (responsiveService.smallWidth()) {
+  if (responsiveService.isMobileView()) {
     width = widths.sm || defaultWidth;
   } else if (responsiveService.mediumWidth()) {
     width = widths.md || defaultWidth;

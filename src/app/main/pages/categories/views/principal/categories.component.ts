@@ -16,7 +16,10 @@ import {
   OnCategoryEditDto,
 } from '../../../../../core/entities/category/category-dto';
 import { CategoryService } from '../../../../../core/entities/category/category.service';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import {
+  getResponsiveDialogWidth,
+  ResponsiveService,
+} from '../../../../../shared/utils/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CategoriesListComponent } from '../../components/categories-list/categories-list.component';
 import { CategoryFormDialog } from '../form-dialog/category-form-dialog.component';
@@ -156,7 +159,7 @@ export class CategoriesPage implements OnInit {
   }
 
   openCategoryFormDialog(data: CategoryFormDialogData): Promise<any> {
-    const width = this._responsiveService.isMobileView() ? '100vw' : '40vw';
+    const width = getResponsiveDialogWidth('40vw')(this._responsiveService);
 
     return lastValueFrom(
       this._matDialog
