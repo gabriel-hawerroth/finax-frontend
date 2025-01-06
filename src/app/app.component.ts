@@ -146,6 +146,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (this._utils.isBrowser) {
           document.body.style.setProperty(
+            `--primary-background-color`,
+            this.darkThemeEnabled() ? '#383838' : '#eff3f8'
+          );
+
+          document.body.style.setProperty(
             `--sidebar-content-background-color`,
             this.darkThemeEnabled() ? '#383838' : '#eff3f8'
           );
