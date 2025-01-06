@@ -1,6 +1,19 @@
+@media screen and (max-width: 1050px) {
+    .form {
+        .third {
+            flex-direction: column !important;
+
+            #bank-img-div {
+                justify-content: center !important;
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+        }
+    }
+}
+
 .form {
-
-
     .row {
         width: 100%;
         display: flex;

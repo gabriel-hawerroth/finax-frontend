@@ -10,10 +10,10 @@
         justify-content: center;
         align-items: center;
 
-        .account-card {
+        .card {
             width: 74%;
+            height: fit-content;
             padding: 1.5rem;
-            background-color: #fefefe;
             border-radius: 1rem;
             display: flex;
             flex-direction: column;
@@ -23,15 +23,6 @@
                 justify-content: space-between;
                 margin-bottom: .8rem;
             }
-        }
-    }
-}
-
-.dark-page {
-    .content {
-        .account-card {
-            background-color: $dark-card-bg !important;
-            color: #fff !important;
         }
     }
 }
