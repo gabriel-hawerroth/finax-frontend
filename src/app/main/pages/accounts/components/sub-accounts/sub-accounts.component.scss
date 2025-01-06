@@ -5,6 +5,19 @@
         .add-more {
             width: 12% !important;
         }
+
+        .sub-accounts-list {
+            .account {
+                .amount {
+                    margin-left: .5rem !important;
+                    margin-right: 0 !important;
+                }
+
+                .navigate-icon {
+                    display: none !important;
+                }
+            }
+        }
     }
 }
 

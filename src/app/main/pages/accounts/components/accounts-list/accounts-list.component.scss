@@ -14,6 +14,16 @@
     }
 }
 
+@media screen and (max-width: 650px) {
+    .list {
+        .account {
+            .navigate-icon {
+                display: none !important;
+            }
+        }
+    }
+}
+
 .list {
     height: 100%;
     padding-left: 2rem;
