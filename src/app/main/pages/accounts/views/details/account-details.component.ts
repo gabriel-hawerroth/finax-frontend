@@ -26,6 +26,7 @@ import { accountChangedEvent } from '../../../../../core/events/events';
 import { ButtonConfig } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
   HIDE_VALUE,
@@ -99,7 +100,8 @@ export class BankAccountDetailsComponent {
     private readonly _bottomSheetRef: MatBottomSheetRef,
     private readonly _dialog: MatDialog,
     private readonly _router: Router,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _responsiveService: ResponsiveService
   ) {
     const data: BankAccountDetailsData = inject(MAT_BOTTOM_SHEET_DATA);
     this.account = data.account;
@@ -302,5 +304,9 @@ export class BankAccountDetailsComponent {
 
   get getEditBtnStyle() {
     return ButtonType.BASIC;
+  }
+
+  get showImage() {
+    return this.account.image && !this._responsiveService.isMobileView();
   }
 }

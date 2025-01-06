@@ -4,7 +4,7 @@
     'dark-page': darkThemeEnabled
   }"
 >
-  @if (account.image) {
+  @if (showImage) {
   <img
     id="account-logo"
     [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
