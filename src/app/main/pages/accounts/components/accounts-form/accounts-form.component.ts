@@ -21,7 +21,12 @@ import { AccountConfigs } from '../../../../../core/entities/account/account-dto
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
-import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import {
+  cloudFireCdnImgsLink,
+  getResponsiveFieldWidth,
+  Widths,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
@@ -46,6 +51,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class AccountsFormComponent implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
+  readonly isMobileView = this._responsiveService.isMobileView;
 
   private readonly _unsubscribeAll = new Subject<void>();
 
@@ -59,7 +65,8 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _dialog: MatDialog,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -133,5 +140,17 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
 
   get disableCashType() {
     return this.accountForm().controls['grouper'].getRawValue();
+  }
+
+  getResponsiveFieldWidth(
+    widths: Widths,
+    defaultWidth?: string,
+    minWidth?: string
+  ) {
+    return getResponsiveFieldWidth(
+      widths,
+      defaultWidth,
+      minWidth
+    )(this._responsiveService);
   }
 }

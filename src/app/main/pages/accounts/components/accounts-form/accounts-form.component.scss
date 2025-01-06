@@ -14,6 +14,15 @@
 }
 
 .form {
+    .fields {
+        padding: 0 2rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
     .row {
         width: 100%;
         display: flex;
