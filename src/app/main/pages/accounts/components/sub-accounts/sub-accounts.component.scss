@@ -2,12 +2,14 @@
 
 @media screen and (max-width: 650px) {
     .sub-accounts {
-        .add-more {
-            width: 12% !important;
-        }
-
         .sub-accounts-list {
             .account {
+                padding-right: .5rem !important;
+
+                .image-name {
+                    gap: .7rem !important;
+                }
+
                 .amount {
                     margin-left: .5rem !important;
                     margin-right: 0 !important;
@@ -83,6 +85,10 @@
                     border-radius: 50%;
                     box-shadow: 0 0 2px #5d5d5d;
                     cursor: pointer;
+                }
+
+                .name {
+                    flex-wrap: wrap;
                 }
             }
 
