@@ -30,7 +30,15 @@
       }
     </mat-form-field>
 
-    <mat-form-field [ngStyle]="{ width: isDialog() ? '30%' : '23%' }">
+    <mat-form-field
+      [style]="
+        getResponsiveFieldWidth(
+          { sm: '47%', md: '47%' },
+          isDialog() ? '30%' : '23%',
+          '23%'
+        )
+      "
+    >
       <mat-label>
         {{ "my-accounts.account-type" | translate }}
       </mat-label>
@@ -73,7 +81,15 @@
       }
     </mat-form-field>
 
-    <mat-form-field [ngStyle]="{ width: isDialog() ? '18%' : '15%' }">
+    <mat-form-field
+      [style]="
+        getResponsiveFieldWidth(
+          { sm: '47%', md: '47%' },
+          isDialog() ? '18%' : '15%',
+          '15%'
+        )
+      "
+    >
       <mat-label>{{ "my-accounts.code" | translate }}</mat-label>
       <input
         matInput
@@ -98,7 +114,13 @@
     @if (!accountId()) {
     <mat-form-field
       floatLabel="always"
-      [ngStyle]="{ width: isDialog() ? '30%' : '23%' }"
+      [style]="
+        getResponsiveFieldWidth(
+          { sm: '55%', md: '55%' },
+          isDialog() ? '30%' : '23%',
+          '23%'
+        )
+      "
       [hideRequiredMarker]="true"
     >
       <mat-label>
@@ -121,7 +143,15 @@
     </mat-form-field>
     }
 
-    <mat-form-field [ngStyle]="{ width: isDialog() ? '32%' : '27%' }">
+    <mat-form-field
+      [style]="
+        getResponsiveFieldWidth(
+          { sm: '38%', md: '38%' },
+          isDialog() ? '32%' : '27%',
+          '23%'
+        )
+      "
+    >
       <mat-label>
         {{ "my-accounts.account-number" | translate }}
       </mat-label>
@@ -133,7 +163,15 @@
       />
     </mat-form-field>
 
-    <mat-form-field [ngStyle]="{ width: isDialog() ? '18%' : '15%' }">
+    <mat-form-field
+      [style]="
+        getResponsiveFieldWidth(
+          { sm: '40%', md: '40%' },
+          isDialog() ? '18%' : '15%',
+          '15%'
+        )
+      "
+    >
       <mat-label>
         {{ "my-accounts.agency" | translate }}
       </mat-label>
@@ -142,7 +180,7 @@
   </div>
 
   <div
-    class="row third"
+    class="row"
     [ngStyle]="{
       'margin-top': isDialog() ? '1rem' : '2rem',
     }"

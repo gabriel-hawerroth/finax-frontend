@@ -20,6 +20,7 @@ import {
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,
@@ -47,6 +48,7 @@ export class SubAccountsComponent {
   readonly getDefaultAccountImage = getDefaultAccountImage;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
+  readonly isMobileView = this._responsiveService.isMobileView;
   readonly hideValue = HIDE_VALUE;
 
   readonly primaryAccount = input.required<Account>();
@@ -68,7 +70,8 @@ export class SubAccountsComponent {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _matDialog: MatDialog,
-    private readonly _bottomSheet: MatBottomSheet
+    private readonly _bottomSheet: MatBottomSheet,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   openAccountFormDialog(): void {
@@ -78,7 +81,7 @@ export class SubAccountsComponent {
           data: <AccountFormDialogData>{
             primaryAccount: this.primaryAccount(),
           },
-          minWidth: '45vw',
+          minWidth: this.isMobileView() ? '100vw' : '45vw',
           autoFocus: false,
         })
         .afterClosed()
