@@ -30,6 +30,7 @@ import { ReleaseService } from '../../../../../core/entities/release/release.ser
 import { ReleaseType } from '../../../../../core/enums/release-enums';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import {
   CashFlowBalancesComponent,
@@ -94,7 +95,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
   constructor(
     public readonly utils: UtilsService,
     private readonly _cashFlowService: ReleaseService,
-    private readonly _matDialog: MatDialog
+    private readonly _matDialog: MatDialog,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -234,6 +236,12 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   openFilterDialog() {
+    const width = this._responsiveService.smallWidth()
+      ? '100vw'
+      : this._responsiveService.mediumWidth()
+      ? '60vw'
+      : '42vw';
+
     this._matDialog
       .open(FilterReleasesDialog, {
         data: <FilterReleasesDialogData>{
@@ -243,8 +251,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
           filters: this.appliedFilters(),
         },
         panelClass: 'filter-releases-dialog',
-        width: '42vw',
-        minWidth: '42vw',
+        width: width,
+        minWidth: width,
         autoFocus: false,
       })
       .afterClosed()

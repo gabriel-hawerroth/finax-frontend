@@ -1,6 +1,20 @@
 @use 'generic.scss' as *;
 @use 'colors.scss' as *;
 
+@media screen and (max-width: 650px) {
+    .filter-releases-dialog {
+        .filters {
+            .row {
+                gap: .6rem !important;
+
+                mat-form-field {
+                    width: 41% !important;
+                }
+            }
+        }
+    }
+}
+
 .filter-releases-dialog {
     display: flex;
     flex-direction: column;

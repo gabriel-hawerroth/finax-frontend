@@ -16,6 +16,33 @@
     }
 }
 
+@media screen and (max-width: 650px) {
+    .simple-page {
+        .content {
+            .card {
+                header {
+                    flex-direction: column-reverse !important;
+                    margin-bottom: 0 !important;
+
+                    .center {
+                        margin-top: 1.5rem !important;
+                    }
+
+                    .right {
+                        position: absolute !important;
+                        right: 0 !important;
+                        margin-bottom: 4rem !important;
+                    }
+                }
+
+                #releases-list {
+                    padding: 0 .3rem !important;
+                }
+            }
+        }
+    }
+}
+
 .simple-page {
     display: flex;
     flex-direction: column;
