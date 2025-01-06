@@ -110,7 +110,29 @@ html {
         height: $default-mobile-card-height !important;
         max-height: $default-mobile-card-height !important;
         padding: $default-mobile-card-padding !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        .card-header {
+          padding-left: 1rem !important;
+          padding-right: 1rem !important;
+        }
       }
+    }
+  }
+
+  .login {
+    background-color: var(--card-background-color) !important;
+
+    .login-box {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      height: fit-content !important;
+      box-shadow: none !important;
+      gap: 1.5rem !important;
     }
   }
 }
@@ -393,20 +415,6 @@ mat-card-title {
 
   .mat-divider {
     border-top-color: $dark-divider-color !important;
-  }
-}
-
-@media screen and (max-width: 1050px) {
-  .login {
-    background-color: var(--card-background-color) !important;
-
-    .login-box {
-      width: 100vw !important;
-      max-width: 100vw !important;
-      height: fit-content !important;
-      box-shadow: none !important;
-      gap: 1.5rem !important;
-    }
   }
 }
 
