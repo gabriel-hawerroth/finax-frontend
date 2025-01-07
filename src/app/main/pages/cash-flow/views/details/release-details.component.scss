@@ -1,5 +1,25 @@
 @use 'colors.scss' as *;
 
+@media screen and (max-width: 1050px) {
+    .release-details {
+        width: 80% !important;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .release-details {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+
+        .content {
+            width: 100% !important;
+        }
+    }
+}
+
 .release-details {
     width: 45vw;
     overflow-y: hidden !important;

@@ -17,6 +17,7 @@ import {
   ReleaseDetailsData,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
+import { ReleaseType } from '../../../../../core/enums/release-enums';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
@@ -111,5 +112,9 @@ export class ReleasesListComponent {
       creditCardId: release.card?.id,
       isBalanceAdjustment: release.isBalanceAdjustment,
     };
+  }
+
+  isTransfer(release: MonthlyRelease): boolean {
+    return release.type === ReleaseType.TRANSFER;
   }
 }
