@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 
 @Component({
   selector: 'app-cash-flow-balances',
@@ -12,6 +18,8 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CashFlowBalancesComponent {
+  readonly smallWidth = inject(ResponsiveService).smallWidth;
+
   currency = input.required<string>();
   balances = input.required<CashFlowBalancesComponentData>();
 }

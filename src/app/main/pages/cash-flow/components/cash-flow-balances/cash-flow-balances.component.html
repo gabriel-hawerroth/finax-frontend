@@ -10,12 +10,20 @@
   </span>
 
   <span>
-    {{ "cash-flow.actual-balance" | translate }}: {{ currency()
-    }}{{ balances().balance | customCurrency }}
+    {{ "cash-flow.actual-balance" | translate }}:
+    <!--  -->
+    @if (smallWidth()) {
+    <br />
+    }
+    {{ currency() }}{{ balances().balance | customCurrency }}
   </span>
 
   <span>
-    {{ "cash-flow.expected-balance" | translate }}: {{ currency()
-    }}{{ balances().expectedBalance | customCurrency }}
+    {{ "cash-flow.expected-balance" | translate }}:
+    <!--  -->
+    @if (smallWidth()) {
+    <br />
+    }
+    {{ currency() }}{{ balances().expectedBalance | customCurrency }}
   </span>
 </div>
