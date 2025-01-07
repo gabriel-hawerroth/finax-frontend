@@ -343,9 +343,13 @@ export class UtilsService {
       this._matDialog
         .open(ReleaseFormDialog, {
           data,
-          panelClass: 'new-release-cash-flow-dialog',
+          panelClass: 'release-form-dialog',
           autoFocus: false,
-          minWidth: this._responsiveService.veryLargeWith() ? '47vw' : '55vw',
+          minWidth: this._responsiveService.smallWidth()
+            ? '100vw'
+            : this._responsiveService.veryLargeWith()
+            ? '47vw'
+            : '55vw',
         })
         .afterClosed()
     );

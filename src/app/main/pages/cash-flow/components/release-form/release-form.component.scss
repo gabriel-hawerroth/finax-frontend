@@ -1,18 +1,35 @@
+@media screen and (max-width: 1050px) {
+    .release-form {
+        form {
+            padding: 0 1.5rem !important;
+
+            .row {
+                gap: 2rem !important;
+            }
+        }
+    }
+}
+
 .release-form {
     height: 100%;
 
     form {
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        width: 100%;
-        height: 100%;
+        padding: 0 5rem;
 
         .row {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 2.5rem;
+
+            mat-form-field {
+                width: 100%;
+            }
         }
 
         .row2 {

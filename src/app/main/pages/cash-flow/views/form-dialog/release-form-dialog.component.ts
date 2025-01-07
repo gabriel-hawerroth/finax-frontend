@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   inject,
+  OnInit,
   signal,
 } from '@angular/core';
 import {
@@ -51,7 +51,11 @@ import {
 } from '../../../../../core/enums/release-enums';
 import { ReleasedOn } from '../../../../../core/enums/released-on';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
-import { getBtnStyle } from '../../../../../shared/utils/utils';
+import {
+  getBtnStyle,
+  getResponsiveFieldWidth,
+  Widths,
+} from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
 import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
@@ -83,12 +87,9 @@ export class ReleaseFormDialog implements OnInit {
   readonly data: ReleaseFormDialogData = inject(MAT_DIALOG_DATA);
 
   readonly getBtnStyle = getBtnStyle;
-
-  readonly darkThemeEnabled = signal(
-    this._utils.getUserConfigs.theme === 'dark'
-  );
-
-  readonly isMobileView = !this._responsiveService.isMobileView();
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly isMobileView = this._responsiveService.isMobileView;
+  readonly smallWidth = this._responsiveService.smallWidth;
 
   releaseForm!: FormGroup;
 
@@ -540,6 +541,18 @@ export class ReleaseFormDialog implements OnInit {
         !this.releaseForm.value.installmentsBy) ||
       this.saving()
     );
+  }
+
+  getResponsiveFieldWidth(
+    widths: Widths,
+    defaultWidth?: string,
+    minWidth?: string
+  ) {
+    return getResponsiveFieldWidth(
+      widths,
+      defaultWidth,
+      minWidth
+    )(this._responsiveService);
   }
 }
 

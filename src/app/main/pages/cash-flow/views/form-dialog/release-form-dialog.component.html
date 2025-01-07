@@ -1,12 +1,9 @@
-<div
-  class="new-release-cash-flow-dialog"
-  [ngClass]="{ 'dark-page': darkThemeEnabled() }"
->
+<div class="release-form-dialog" [ngClass]="{ 'dark-page': darkThemeEnabled }">
   <div
     class="top"
     [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2.7rem' : '1.5rem' }"
   >
-    @if (darkThemeEnabled()) {
+    @if (darkThemeEnabled) {
     <button
       mat-stroked-button
       [disabled]="disableSave()"
@@ -18,7 +15,7 @@
       } @else {
       <div class="btn-content">
         <span class="material-symbols-outlined">save</span>
-        @if (!isMobileView) {
+        @if (!isMobileView()) {
         <span>
           {{ "actions.save" | translate }}
         </span>
@@ -38,7 +35,7 @@
       } @else {
       <div class="btn-content">
         <span class="material-symbols-outlined">save</span>
-        @if (!isMobileView) {
+        @if (!isMobileView()) {
         <span>
           {{ "actions.save" | translate }}
         </span>
@@ -71,10 +68,10 @@
         [ngStyle]="{
           'margin-top':
             showRepeat || showObservation
-              ? isMobileView
+              ? isMobileView()
                 ? '0'
                 : '2rem'
-              : isMobileView
+              : isMobileView()
               ? '0'
               : '.8rem'
         }"
@@ -214,7 +211,10 @@
         >
           <mat-form-field
             [ngStyle]="{
-              width: selectedFile || showObservation ? '50%' : '30%'
+              width:
+                selectedFile || (showObservation && smallWidth())
+                  ? '85%'
+                  : 'auto'
             }"
           >
             <mat-label></mat-label>
@@ -228,7 +228,15 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field [hideRequiredMarker]="true">
+          <mat-form-field
+            [hideRequiredMarker]="true"
+            [ngStyle]="{
+              width:
+                selectedFile || (showObservation && smallWidth())
+                  ? '85%'
+                  : 'auto'
+            }"
+          >
             <mat-label>{{ "release-form.for" | translate }}:</mat-label>
             <input
               matInput
@@ -253,9 +261,13 @@
         } @else if (releaseForm.value.repeat === 'INSTALLMENTS') {
         <div class="installments-release">
           <mat-form-field
-            [ngStyle]="{
-              width: selectedFile || showObservation ? '40%' : '20%'
-            }"
+            [style]="
+              getResponsiveFieldWidth(
+                { sm: '45%', md: '40%' },
+                selectedFile || showObservation ? '60%' : '25%',
+                '11rem'
+              )
+            "
             [hideRequiredMarker]="true"
           >
             <mat-label>{{ "release-form.in" | translate }}:</mat-label>

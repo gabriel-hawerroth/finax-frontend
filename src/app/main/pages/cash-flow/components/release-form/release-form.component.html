@@ -4,7 +4,7 @@
 >
   <form [formGroup]="form()">
     <div class="row row1">
-      <mat-form-field style="width: 75%" [hideRequiredMarker]="true">
+      <mat-form-field [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.description" | translate }}
         </mat-label>
@@ -21,7 +21,7 @@
 
     <div class="row row2">
       @if (!isTransfer) {
-      <mat-form-field style="width: 39%">
+      <mat-form-field>
         <mat-label>
           {{
             ("release-form.account" | translate) +
@@ -154,7 +154,7 @@
         </div>
       </ng-template>
 
-      <mat-form-field style="width: 37%" [hideRequiredMarker]="true">
+      <mat-form-field [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.value" | translate }}
         </mat-label>
@@ -169,7 +169,7 @@
       </mat-form-field>
       } @else {
       <!-- is transfer -->
-      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+      <mat-form-field [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.origin-account" | translate }}
         </mat-label>
@@ -220,7 +220,7 @@
         </div>
       </ng-template>
 
-      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+      <mat-form-field [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.target-account" | translate }}
         </mat-label>
@@ -275,7 +275,7 @@
     </div>
 
     <div class="row row3">
-      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+      <mat-form-field [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.date" | translate }}
         </mat-label>
@@ -292,7 +292,7 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field style="width: 38%">
+      <mat-form-field>
         <mat-label>
           {{ "release-form.hour" | translate }}
         </mat-label>
@@ -301,8 +301,8 @@
     </div>
 
     <div class="row row4">
-      @if (form().value.type !== 'T') {
-      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+      @if (!isTransfer) {
+      <mat-form-field style="width: 45%" [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.category" | translate }}
         </mat-label>
@@ -349,7 +349,7 @@
         </ng-template>
       </mat-form-field>
       } @else {
-      <mat-form-field style="width: 38%" [hideRequiredMarker]="true">
+      <mat-form-field style="width: 45%" [hideRequiredMarker]="true">
         <mat-label>
           {{ "release-form.value" | translate }}
         </mat-label>

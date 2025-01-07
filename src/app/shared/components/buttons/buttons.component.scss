@@ -1,3 +1,14 @@
+@media screen and (max-width: 650px) {
+    .form-buttons {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+
+        styled-button {
+            width: auto !important;
+        }
+    }
+}
+
 .form-buttons {
     width: 100%;
     height: 100%;
