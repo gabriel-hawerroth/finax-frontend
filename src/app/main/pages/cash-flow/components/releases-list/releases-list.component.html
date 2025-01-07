@@ -1,4 +1,4 @@
-<div class="releases-list" [class]="theme">
+<div id="releases-list" [class]="theme">
   @for (release of releases(); track release.id) {
   <div class="release" (click)="openDetails(release)">
     <div class="category">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="description">
-      @if (release.type !== 'T') {
+      @if (release.type !== 'T' && !smallWidth()) {
       <h3 class="h3">
         @if (release.isBalanceAdjustment) {
         {{ "cash-flow.balance-adjustment" | translate }}
@@ -36,19 +36,25 @@
           {{ release.description || ("cash-flow.transfer" | translate) }}
         </h3>
 
-        <span class="transfer-sub-title">
+        <span class="description-sub-title">
+          @if (release.type == 'T') {
           {{ "generic.from" | translate }}
           {{ release.account?.name }}
           {{ "generic.to" | translate }}
           {{ release.targetAccount!.name }}
+          } @else {
+          {{ release.account?.name || release.card?.name }}
+          }
         </span>
       </div>
       }
     </div>
 
+    @if (!smallWidth()) {
     <div class="account">
       <span>{{ release.account?.name || release.card?.name }}</span>
     </div>
+    }
 
     <div class="date">
       <span>{{ release.date | date : "dd/MM/yyyy" }}</span>

@@ -1,7 +1,34 @@
 @use 'colors.scss' as *;
 
-.releases-list {
-    width: 100%;
+@media screen and (max-width: 650px) {
+    #releases-list {
+        padding: 0 !important;
+
+        .release {
+            .category {
+                width: fit-content !important;
+                margin-right: .5rem;
+            }
+
+            .description {
+                padding-right: .8rem !important;
+            }
+
+            .amount {
+                width: 27% !important;
+                max-width: 27% !important;
+                padding-right: .9rem !important;
+            }
+
+            .situation {
+                width: fit-content !important;
+            }
+        }
+    }
+}
+
+#releases-list {
+    width: 100% !important;
     height: 100%;
     padding: 1rem;
     display: flex;
@@ -34,7 +61,8 @@
         }
 
         .description {
-            width: 38%;
+            flex: 1;
+            overflow-x: hidden;
 
             .h3 {
                 display: flex;
@@ -46,7 +74,7 @@
                 }
             }
 
-            .transfer-sub-title {
+            .description-sub-title {
                 color: #777777;
                 font-size: .9rem;
             }

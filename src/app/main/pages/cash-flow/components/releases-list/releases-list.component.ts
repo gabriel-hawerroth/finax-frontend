@@ -18,6 +18,7 @@ import {
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleaseDetailsComponent } from '../../views/details/release-details.component';
@@ -31,6 +32,8 @@ import { ReleaseDetailsComponent } from '../../views/details/release-details.com
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleasesListComponent {
+  readonly smallWidth = this._responsiveService.smallWidth;
+
   releases = input.required<MonthlyRelease[]>();
   accounts = input.required<BasicAccount[]>();
   categories = input.required<Category[]>();
@@ -44,7 +47,8 @@ export class ReleasesListComponent {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _bottomSheet: MatBottomSheet
+    private readonly _bottomSheet: MatBottomSheet,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   openDetails(release: MonthlyRelease) {

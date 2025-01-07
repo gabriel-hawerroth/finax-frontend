@@ -35,8 +35,9 @@
                     }
                 }
 
-                #releases-list {
-                    padding: 0 .3rem !important;
+                app-releases-list {
+                    width: 100% !important;
+                    padding: 0 !important;
                 }
             }
         }
@@ -118,11 +119,11 @@
                 }
             }
 
-            #releases-list {
+            app-releases-list {
                 padding: 0 1.2rem;
             }
 
-            #releases-list,
+            app-releases-list,
             .empty {
                 flex: 1;
                 overflow-y: scroll;
