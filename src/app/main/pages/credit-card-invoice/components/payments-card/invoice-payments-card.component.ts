@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   input,
+  OnInit,
   output,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { InvoicePaymentPerson } from '../../../../../core/entities/invoice/invoice-payment-dto';
 import { InvoiceService } from '../../../../../core/entities/invoice/invoice.service';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
@@ -30,27 +32,36 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   styleUrl: './invoice-payments-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InvoicePaymentsCardComponent {
-  public editPayment = output<InvoicePaymentPerson | undefined>();
-  public updateValues = output<void>();
-  public payments = input.required<InvoicePaymentPerson[]>();
-  public invoiceValue = input.required<number>();
+export class InvoicePaymentsCardComponent implements OnInit {
+  editPayment = output<InvoicePaymentPerson | undefined>();
+  updateValues = output<void>();
+  payments = input.required<InvoicePaymentPerson[]>();
+  invoiceValue = input.required<number>();
+  fullyPaid = input.required<boolean>();
 
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
-  currency = this.utils.getUserConfigs.currency;
+  readonly currency = this._utils.getUserConfigs.currency;
 
   totalValue = computed(() =>
     this.payments().reduce((count, item) => (count += item.paymentAmount), 0)
   );
 
+  showPayRemainingButton!: boolean;
+
   constructor(
-    public readonly utils: UtilsService,
-    private readonly _invoiceService: InvoiceService
+    private readonly _utils: UtilsService,
+    private readonly _invoiceService: InvoiceService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
+  ngOnInit(): void {
+    this.showPayRemainingButton =
+      !this.fullyPaid() && !this._responsiveService.smallWidth();
+  }
+
   deletePayment(invoicePaymentId: number) {
-    this.utils
+    this._utils
       .showConfirmDialog('invoice.payments-card.confirm-delete')
       .then((response) => {
         if (response !== true) return;
@@ -58,14 +69,14 @@ export class InvoicePaymentsCardComponent {
         this._invoiceService
           .deletePayment(invoicePaymentId)
           .then(() => {
-            this.utils.showMessage(
+            this._utils.showMessage(
               'invoice.payments-card.deleted-successfully'
             );
 
             this.updateValues.emit();
           })
           .catch(() => {
-            this.utils.showMessage('invoice.payments-card.error-deleting');
+            this._utils.showMessage('invoice.payments-card.error-deleting');
           });
       });
   }
@@ -75,7 +86,7 @@ export class InvoicePaymentsCardComponent {
       .getPaymentAttachment(invoicePaymentId)
       .then((response) => {
         if (response.size === 0) {
-          this.utils.showMessage('generic.attachment-not-found');
+          this._utils.showMessage('generic.attachment-not-found');
           return;
         }
 

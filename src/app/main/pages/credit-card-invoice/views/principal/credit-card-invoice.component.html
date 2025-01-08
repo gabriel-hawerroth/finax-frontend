@@ -51,14 +51,30 @@
 
           <div class="right">
             @if (monthValues().payments.length != 0) {
+            <!---->
+            @if (smallWidth()) {
+            <app-buttons
+              [showGeneric]="true"
+              genericLabel="Visualizar pagamentos"
+              (onGeneric)="seePayments()"
+            ></app-buttons>
+
+            @if (!fullyPaid()) {
+            <app-buttons
+              [showGeneric]="true"
+              genericLabel="Pagar restante"
+              (onGeneric)="payInvoice()"
+            ></app-buttons>
+            } } @else {
             <app-invoice-payments-card
               id="payments-card"
               [payments]="monthValues().payments"
               [invoiceValue]="invoiceValues().value"
-              (updateValues)="getMonthValues()"
+              [fullyPaid]="fullyPaid()"
               (editPayment)="payInvoice($event)"
+              (updateValues)="getMonthValues()"
             ></app-invoice-payments-card>
-            } @else if (invoiceValues().value > 0) {
+            } } @else if (invoiceValues().value > 0) {
             <app-buttons
               id="pay-btn"
               [showGeneric]="true"

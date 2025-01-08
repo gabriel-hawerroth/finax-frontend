@@ -41,9 +41,14 @@ import { ButtonType } from '../../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
+import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
+import {
+  InvoicePaymentsCardDialog,
+  InvoicePaymentsCardDialogData,
+} from '../../components/payments-card-dialog/payments-card-dialog.component';
 import { InvoicePaymentsCardComponent } from '../../components/payments-card/invoice-payments-card.component';
 import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.component';
 
@@ -70,6 +75,7 @@ export class CreditCardInvoicePage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly smallWidth = this._responsiveService.smallWidth;
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
   creditCard = signal<CreditCard | null>(null);
@@ -96,7 +102,8 @@ export class CreditCardInvoicePage implements OnInit {
     private readonly _matDialog: MatDialog,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _invoiceService: InvoiceService,
-    private readonly _creditCardService: CreditCardService
+    private readonly _creditCardService: CreditCardService,
+    private readonly _responsiveService: ResponsiveService
   ) {}
 
   ngOnInit(): void {
@@ -199,6 +206,26 @@ export class CreditCardInvoicePage implements OnInit {
     });
   }
 
+  seePayments() {
+    lastValueFrom(
+      this._matDialog
+        .open(InvoicePaymentsCardDialog, {
+          data: <InvoicePaymentsCardDialogData>{
+            payments: this.monthValues().payments,
+            invoiceValue: this.invoiceValues().value,
+            fullyPaid: this.fullyPaid(),
+            editPayment: this.payInvoice,
+            updateValues: this.getMonthValues,
+          },
+          autoFocus: false,
+          width: '95vw',
+        })
+        .afterClosed()
+    ).then((response) => {
+      this.payInvoice(response);
+    });
+  }
+
   parseDateWithFallback(stringDt: string): Date {
     const date = parse(stringDt, 'yyyy-MM-dd', new Date());
 
@@ -242,7 +269,16 @@ export class CreditCardInvoicePage implements OnInit {
     return (day || 1).toString().padStart(2, '0');
   }
 
-  public get iconBtnStyle() {
+  get iconBtnStyle() {
     return ButtonType.ICON;
   }
+
+  fullyPaid = computed(() => {
+    const paymentsAmount = this.monthValues().payments.reduce(
+      (count, item) => (count += item.paymentAmount),
+      0
+    );
+
+    return paymentsAmount >= this.invoiceValues().value;
+  });
 }

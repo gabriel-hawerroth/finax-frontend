@@ -42,6 +42,20 @@
     }
 }
 
+@media screen and (max-width: 650px) {
+    .payments-card {
+        border: none !important;
+
+        .title {
+            padding: .4rem 0 !important;
+        }
+
+        .content {
+            padding: .5rem !important;
+        }
+    }
+}
+
 $font-color: #727272;
 
 .payments-card {
@@ -205,6 +219,7 @@ $font-color: #727272;
                 .label {
                     font-size: .7rem;
                     color: $font-color;
+                    text-align: center;
                 }
 
                 .value {

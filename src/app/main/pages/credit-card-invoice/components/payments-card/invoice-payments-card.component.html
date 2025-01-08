@@ -1,11 +1,8 @@
-<div
-  class="payments-card"
-  [ngClass]="{ dark: utils.getUserConfigs.theme === 'dark' }"
->
+<div class="payments-card" [ngClass]="{ dark: darkThemeEnabled }">
   <div class="title">
     <h3>{{ "invoice.payments-card.title" | translate }}</h3>
 
-    @if (totalValue() < invoiceValue()) {
+    @if (showPayRemainingButton) {
     <button
       mat-raised-button
       color="primary"

@@ -1,0 +1,10 @@
+@defer (when loadData) {
+<app-invoice-payments-card
+  id="payments-card"
+  [payments]="payments"
+  [invoiceValue]="invoiceValue"
+  [fullyPaid]="fullyPaid"
+  (editPayment)="onEdit($event)"
+  (updateValues)="updateValues()"
+></app-invoice-payments-card>
+}
