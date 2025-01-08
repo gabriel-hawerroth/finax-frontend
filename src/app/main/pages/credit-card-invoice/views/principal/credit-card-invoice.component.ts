@@ -222,6 +222,7 @@ export class CreditCardInvoicePage implements OnInit {
         })
         .afterClosed()
     ).then((response) => {
+      if (!response) return;
       this.payInvoice(response);
     });
   }
