@@ -2,8 +2,11 @@
 
 @media screen and (max-width: 1050px) {
     .simple-page {
+        gap: 1.2rem !important;
+        padding-bottom: 3rem !important;
+
         .top-card {
-            width: 97% !important;
+            width: 93% !important;
 
             .amounts {
                 gap: .5rem !important;
@@ -11,13 +14,14 @@
         }
 
         .content {
-            width: 97% !important;
+            width: 93% !important;
             flex-direction: column !important;
-            gap: 1rem !important;
+            gap: 1.2rem !important;
 
             .left-column,
             .right-column {
                 width: 100% !important;
+                gap: 1.2rem !important;
             }
         }
     }
