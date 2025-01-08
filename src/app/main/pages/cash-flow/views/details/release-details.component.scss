@@ -16,6 +16,10 @@
 
         .content {
             width: 100% !important;
+
+            .row3 {
+                flex-wrap: wrap !important;
+            }
         }
     }
 }
@@ -133,21 +137,6 @@
             display: flex;
             justify-content: end;
             gap: 2rem;
-
-            button {
-                padding: 1.6rem;
-
-                .btn-content {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    gap: .8rem;
-
-                    .material-symbols-outlined {
-                        padding: 0 !important;
-                    }
-                }
-            }
 
             .delete {
                 display: flex;

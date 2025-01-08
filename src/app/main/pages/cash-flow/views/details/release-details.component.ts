@@ -7,7 +7,6 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import {
@@ -50,7 +49,6 @@ export class ReleaseDetailsComponent {
     private readonly _utils: UtilsService,
     private readonly _bottomSheet: MatBottomSheetRef,
     private readonly _matDialog: MatDialog,
-    private readonly _router: Router,
     private readonly _cashFlowService: ReleaseService
   ) {
     const data: ReleaseDetailsData = inject(MAT_BOTTOM_SHEET_DATA);
@@ -140,12 +138,5 @@ export class ReleaseDetailsComponent {
         this.confirmDelete = false;
         this.excluding = false;
       });
-  }
-
-  seeInvoice() {
-    this._bottomSheet.dismiss();
-    this._router.navigateByUrl(
-      `cartoes-de-credito/fatura/${this.release.account?.id}`
-    );
   }
 }
