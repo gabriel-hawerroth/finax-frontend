@@ -336,11 +336,12 @@
             "account": "KONTO",
             "actions": "AKTIONEN",
             "remaining-value": "RESTBETRAG",
-            "pay-remaining": "VERBLEIBENDE LÖHNE",
+            "pay-remaining": "Bezahlen Sie den Rest",
             "confirm-delete": "Möchten Sie diese Zahlung wirklich löschen?",
             "deleted-successfully": "Zahlung erfolgreich gelöscht",
             "error-deleting": "Fehler beim Löschen der Zahlung"
-        }
+        },
+        "view-payments": "Zahlungen anzeigen"
     },
     "categories": {
         "title": "Kategorien",

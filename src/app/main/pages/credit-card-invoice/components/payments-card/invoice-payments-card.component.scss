@@ -91,6 +91,9 @@ $font-color: #727272;
             position: absolute;
             right: 2.5rem;
             margin-bottom: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             #pay-remaining-label {
                 font-size: .6rem;
@@ -137,7 +140,6 @@ $font-color: #727272;
             .labels {
                 font-size: .73rem;
                 padding: .22rem 0 .16rem 0;
-                color: $font-color;
 
                 .actions {
                     justify-content: center;
@@ -173,9 +175,10 @@ $font-color: #727272;
                     height: 100%;
                     display: flex;
                     align-items: center;
-                    gap: 2%;
                     justify-content: end !important;
+                    gap: 2%;
                     overflow-y: hidden;
+                    flex-wrap: wrap;
 
                     .mat-mdc-icon-button {
                         width: 32px;
@@ -218,7 +221,6 @@ $font-color: #727272;
 
                 .label {
                     font-size: .7rem;
-                    color: $font-color;
                     text-align: center;
                 }
 
@@ -233,9 +235,14 @@ $font-color: #727272;
 
 .dark {
     border-color: $dark-border-color !important;
+    background-color: $dark-bg !important;
 
     .title {
         background-color: $dark-border-color !important;
+
+        #pay-remaining-btn {
+            background-color: $dark-bg !important;
+        }
     }
 
     .content {
@@ -245,7 +252,11 @@ $font-color: #727272;
             }
 
             .payment {
+                color: $dark-font-color !important;
+
                 .actions {
+                    color: $dark-font-color !important;
+
                     .material-symbols-outlined {
                         color: $dark-font-color !important;
                     }
@@ -257,7 +268,9 @@ $font-color: #727272;
 
             .total,
             .remaining {
-                .label {
+
+                .label,
+                .value {
                     color: $dark-font-color !important;
                 }
             }

@@ -336,11 +336,12 @@
             "account": "ACCOUNT",
             "actions": "ACTIONS",
             "remaining-value": "REMAINING VALUE",
-            "pay-remaining": "PAY REMAINING",
+            "pay-remaining": "Pay remaining",
             "confirm-delete": "Do you really want to delete that payment?",
             "deleted-successfully": "Payment Deleted Successfully",
             "error-deleting": "Error trying to delete payment"
-        }
+        },
+        "view-payments": "View payments"
     },
     "categories": {
         "title": "Categories",

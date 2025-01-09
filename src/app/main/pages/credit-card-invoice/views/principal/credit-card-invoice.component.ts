@@ -218,7 +218,7 @@ export class CreditCardInvoicePage implements OnInit {
             updateValues: this.getMonthValues,
           },
           autoFocus: false,
-          width: '95vw',
+          width: '98vw',
         })
         .afterClosed()
     ).then((response) => {

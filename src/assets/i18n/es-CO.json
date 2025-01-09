@@ -336,11 +336,12 @@
             "account": "CUENTA",
             "actions": "ACCIONES",
             "remaining-value": "CANTIDAD RESTANTE",
-            "pay-remaining": "PAGA RESTANTE",
+            "pay-remaining": "Paga restante",
             "confirm-delete": "¿Realmente quieres eliminar ese pago?",
             "deleted-successfully": "Pago eliminado con éxito",
             "error-deleting": "Error al intentar eliminar el pago"
-        }
+        },
+        "view-payments": "Ver pagos"
     },
     "categories": {
         "title": "Categorías",

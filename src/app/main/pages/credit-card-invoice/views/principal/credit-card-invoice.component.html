@@ -55,14 +55,14 @@
             @if (smallWidth()) {
             <app-buttons
               [showGeneric]="true"
-              genericLabel="Visualizar pagamentos"
+              genericLabel="invoice.view-payments"
               (onGeneric)="seePayments()"
             ></app-buttons>
 
             @if (!fullyPaid()) {
             <app-buttons
               [showGeneric]="true"
-              genericLabel="Pagar restante"
+              genericLabel="invoice.payments-card.pay-remaining"
               (onGeneric)="payInvoice()"
             ></app-buttons>
             } } @else {
