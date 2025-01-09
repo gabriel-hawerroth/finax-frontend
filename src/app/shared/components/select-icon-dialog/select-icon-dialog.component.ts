@@ -12,7 +12,6 @@ import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynami
 
 @Component({
   selector: 'app-select-icon-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     NgOptimizedImage,

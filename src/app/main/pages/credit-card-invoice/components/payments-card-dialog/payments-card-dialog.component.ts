@@ -11,7 +11,6 @@ import { InvoicePaymentsCardComponent } from '../payments-card/invoice-payments-
 
 @Component({
   selector: 'app-payments-card-dialog',
-  standalone: true,
   imports: [CommonModule, InvoicePaymentsCardComponent],
   templateUrl: './payments-card-dialog.component.html',
   styleUrl: './payments-card-dialog.component.scss',

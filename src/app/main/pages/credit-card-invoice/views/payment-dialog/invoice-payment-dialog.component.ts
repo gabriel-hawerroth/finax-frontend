@@ -31,7 +31,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-invoice-payment-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,

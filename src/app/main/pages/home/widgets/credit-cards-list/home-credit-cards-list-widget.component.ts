@@ -16,7 +16,6 @@ import { HomeCreditCardItemComponent } from './home-credit-card-item/home-credit
 
 @Component({
   selector: 'app-home-credit-cards-list-widget',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

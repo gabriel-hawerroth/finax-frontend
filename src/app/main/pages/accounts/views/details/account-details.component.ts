@@ -37,7 +37,6 @@ import { SubAccountsActivateDialog } from '../../components/sub-accounts-activat
 
 @Component({
   selector: 'app-account-details',
-  standalone: true,
   imports: [
     CommonModule,
     CustomCurrencyPipe,

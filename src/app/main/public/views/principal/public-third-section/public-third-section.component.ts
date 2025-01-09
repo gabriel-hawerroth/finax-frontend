@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-public-third-section',
-  standalone: true,
   imports: [ReactiveFormsModule, MatSlideToggle, MatButtonModule, RouterModule],
   templateUrl: './public-third-section.component.html',
   styleUrl: './public-third-section.component.scss',

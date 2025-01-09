@@ -19,7 +19,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-invoice-payments-card',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

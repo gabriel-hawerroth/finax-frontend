@@ -32,7 +32,6 @@ import { AccountsFormDialog } from '../accounts-form-dialog/accounts-form-dialog
 
 @Component({
   selector: 'app-sub-accounts',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

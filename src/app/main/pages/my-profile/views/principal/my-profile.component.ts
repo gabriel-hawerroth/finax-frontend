@@ -26,7 +26,6 @@ import { MyProfileFormComponent } from '../../components/my-profile-form/my-prof
 
 @Component({
   selector: 'app-my-profile',
-  standalone: true,
   imports: [
     CommonModule,
     MatButtonModule,

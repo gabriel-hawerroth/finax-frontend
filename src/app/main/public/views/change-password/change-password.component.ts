@@ -30,7 +30,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-change-password',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

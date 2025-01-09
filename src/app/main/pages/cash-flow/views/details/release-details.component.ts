@@ -23,7 +23,6 @@ import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-
 
 @Component({
   selector: 'app-release-details',
-  standalone: true,
   imports: [
     CommonModule,
     CustomCurrencyPipe,

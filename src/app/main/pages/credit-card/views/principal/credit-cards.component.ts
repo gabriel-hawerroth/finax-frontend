@@ -24,7 +24,6 @@ import { CreditCardsListComponent } from '../../components/credit-cards-list/cre
 
 @Component({
   selector: 'app-credit-cards',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

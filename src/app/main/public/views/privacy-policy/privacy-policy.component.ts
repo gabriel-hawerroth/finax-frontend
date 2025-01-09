@@ -8,7 +8,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'privacy-policy-page',
-  standalone: true,
   imports: [CommonModule, NgOptimizedImage, RouterModule, ButtonsComponent],
   templateUrl: './privacy-policy.component.html',
   styleUrl: './privacy-policy.component.scss',

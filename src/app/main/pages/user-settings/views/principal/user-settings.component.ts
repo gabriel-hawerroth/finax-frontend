@@ -20,7 +20,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-user-settings',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -84,7 +83,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
 
   getConfigs() {
     this._userConfigsService.getLoggedUserConfigs().then((response) => {
-      this.configsForm.patchValue(response, {emitEvent: false});
+      this.configsForm.patchValue(response, { emitEvent: false });
     });
   }
 

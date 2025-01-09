@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'btn-content',
-  standalone: true,
   imports: [CommonModule, TranslateModule, MatProgressSpinnerModule],
   templateUrl: './btn-content.component.html',
   styleUrl: './btn-content.component.scss',

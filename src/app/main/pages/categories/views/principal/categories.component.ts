@@ -26,7 +26,6 @@ import { CategoryFormDialog } from '../form-dialog/category-form-dialog.componen
 
 @Component({
   selector: 'app-categories',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

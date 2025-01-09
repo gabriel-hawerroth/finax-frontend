@@ -19,7 +19,6 @@ import { HomeAccountItemComponent } from './home-account-item/home-account-item.
 
 @Component({
   selector: 'app-home-accounts-list-widget',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

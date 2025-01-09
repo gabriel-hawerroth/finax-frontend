@@ -30,7 +30,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-category-form-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,

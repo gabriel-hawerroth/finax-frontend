@@ -2,13 +2,12 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { LoginService } from '../../../../../core/entities/auth/login.service';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-cancel-account-dialog',
-  standalone: true,
   imports: [CommonModule, MatDialogModule, TranslateModule, ButtonsComponent],
   templateUrl: './cancel-account-dialog.component.html',
   styleUrl: './cancel-account-dialog.component.scss',

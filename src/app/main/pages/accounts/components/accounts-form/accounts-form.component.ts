@@ -31,7 +31,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-accounts-form',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

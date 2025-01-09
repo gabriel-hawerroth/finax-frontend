@@ -28,7 +28,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-release-form',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

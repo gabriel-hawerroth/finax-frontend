@@ -31,7 +31,6 @@ import { UtilsService } from './shared/utils/utils.service';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [
     CommonModule,
     RouterOutlet,

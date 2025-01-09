@@ -14,7 +14,6 @@ import { StyledButtonComponent } from './styled-button/styled-button.component';
 
 @Component({
   selector: 'app-buttons',
-  standalone: true,
   imports: [CommonModule, StyledButtonComponent],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss',

@@ -26,7 +26,6 @@ import { ReleaseDetailsComponent } from '../../views/details/release-details.com
 
 @Component({
   selector: 'app-releases-list',
-  standalone: true,
   imports: [CommonModule, TranslateModule, CustomCurrencyPipe],
   templateUrl: './releases-list.component.html',
   styleUrl: './releases-list.component.scss',

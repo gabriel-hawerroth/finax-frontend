@@ -17,7 +17,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-credit-card-details',
-  standalone: true,
   imports: [
     CommonModule,
     NgOptimizedImage,

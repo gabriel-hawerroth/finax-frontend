@@ -24,7 +24,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-edit-balance-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

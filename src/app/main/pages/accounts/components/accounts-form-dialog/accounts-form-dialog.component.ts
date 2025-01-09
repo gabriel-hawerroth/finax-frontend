@@ -26,7 +26,6 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
 
 @Component({
   selector: 'app-accounts-form-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     AccountsFormComponent,

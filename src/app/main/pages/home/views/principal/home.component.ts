@@ -25,7 +25,6 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

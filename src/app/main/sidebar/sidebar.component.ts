@@ -24,7 +24,6 @@ import { UtilsService } from '../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-sidebar',
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,

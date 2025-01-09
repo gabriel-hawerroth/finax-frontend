@@ -5,7 +5,6 @@ import { cloudFireCdnImgsLink } from '../../utils/utils';
 
 @Component({
   selector: 'app-system-error-warning',
-  standalone: true,
   imports: [RouterModule, NgOptimizedImage, DatePipe],
   templateUrl: './system-error-warning.component.html',
   styleUrl: './system-error-warning.component.scss',

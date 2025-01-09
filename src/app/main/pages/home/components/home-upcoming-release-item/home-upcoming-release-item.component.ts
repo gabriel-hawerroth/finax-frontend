@@ -12,7 +12,6 @@ import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.
 
 @Component({
   selector: 'app-home-upcoming-release-item',
-  standalone: true,
   imports: [CommonModule, CustomCurrencyPipe],
   templateUrl: './home-upcoming-release-item.component.html',
   styleUrl: './home-upcoming-release-item.component.scss',

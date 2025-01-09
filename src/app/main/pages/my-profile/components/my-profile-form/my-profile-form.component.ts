@@ -6,7 +6,6 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-my-profile-form',
-  standalone: true,
   imports: [
     MatFormFieldModule,
     MatInputModule,

@@ -11,7 +11,6 @@ import { ResponsiveService } from '../../../../../shared/utils/responsive.servic
 
 @Component({
   selector: 'app-cash-flow-balances',
-  standalone: true,
   imports: [CommonModule, CustomCurrencyPipe, TranslateModule],
   templateUrl: './cash-flow-balances.component.html',
   styleUrl: './cash-flow-balances.component.scss',

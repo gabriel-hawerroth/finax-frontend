@@ -8,7 +8,6 @@ import { UtilsService } from '../../utils/utils.service';
 
 @Component({
   selector: 'app-confirm-dialog',
-  standalone: true,
   imports: [CommonModule, MatButtonModule, TranslateModule, MatDialogModule],
   templateUrl: './confirm-dialog.component.html',
   styleUrl: './confirm-dialog.component.scss',

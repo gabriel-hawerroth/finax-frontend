@@ -7,7 +7,6 @@ import { getBtnStyle } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-account-canceled',
-  standalone: true,
   imports: [ButtonsComponent, RouterModule, MatCardModule],
   templateUrl: './account-canceled.component.html',
   styleUrl: './account-canceled.component.scss',

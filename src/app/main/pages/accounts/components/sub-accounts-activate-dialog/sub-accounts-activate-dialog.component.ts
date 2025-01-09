@@ -27,7 +27,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-sub-accounts-activate-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     TranslateModule,

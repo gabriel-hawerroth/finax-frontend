@@ -13,7 +13,6 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 
 @Component({
   selector: 'app-categories-list',
-  standalone: true,
   imports: [CommonModule, MatButtonModule, TranslateModule, ButtonsComponent],
   templateUrl: './categories-list.component.html',
   styleUrl: './categories-list.component.scss',

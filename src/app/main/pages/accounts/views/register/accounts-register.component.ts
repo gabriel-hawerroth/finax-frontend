@@ -30,7 +30,6 @@ import { AccountsFormComponent } from '../../components/accounts-form/accounts-f
 
 @Component({
   selector: 'accounts-register-page',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

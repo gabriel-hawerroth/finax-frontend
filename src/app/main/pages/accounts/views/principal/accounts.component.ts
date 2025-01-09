@@ -36,7 +36,6 @@ import { AccountsListComponent } from '../../components/accounts-list/accounts-l
 
 @Component({
   selector: 'app-accounts',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

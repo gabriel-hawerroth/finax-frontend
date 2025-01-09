@@ -13,7 +13,6 @@ import { BtnContentComponent } from '../../btn-content/btn-content.component';
 
 @Component({
   selector: 'styled-button',
-  standalone: true,
   imports: [
     CommonModule,
     BtnContentComponent,

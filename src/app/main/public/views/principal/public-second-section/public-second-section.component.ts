@@ -5,7 +5,6 @@ import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-public-second-section',
-  standalone: true,
   imports: [NgOptimizedImage, MatDividerModule],
   templateUrl: './public-second-section.component.html',
   styleUrl: './public-second-section.component.scss',

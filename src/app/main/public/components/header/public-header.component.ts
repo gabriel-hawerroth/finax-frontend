@@ -7,7 +7,6 @@ import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-public-header',
-  standalone: true,
   imports: [NgOptimizedImage, MatButtonModule, RouterModule],
   templateUrl: './public-header.component.html',
   styleUrl: './public-header.component.scss',

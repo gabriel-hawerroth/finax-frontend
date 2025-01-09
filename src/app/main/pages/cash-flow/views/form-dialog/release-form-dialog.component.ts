@@ -62,7 +62,6 @@ import { ReleaseFormComponent } from '../../components/release-form/release-form
 
 @Component({
   selector: 'release-form-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,

@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-public-footer',
-  standalone: true,
   imports: [RouterModule, NgOptimizedImage],
   templateUrl: './public-footer.component.html',
   styleUrl: './public-footer.component.scss',

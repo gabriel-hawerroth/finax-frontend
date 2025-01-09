@@ -33,7 +33,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-filter-releases-dialog',
-  standalone: true,
   imports: [
     CommonModule,
     MatDialogModule,

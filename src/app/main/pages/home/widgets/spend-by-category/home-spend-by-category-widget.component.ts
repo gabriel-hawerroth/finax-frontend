@@ -23,7 +23,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-home-spend-by-category-widget',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

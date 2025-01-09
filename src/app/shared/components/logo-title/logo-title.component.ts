@@ -4,7 +4,6 @@ import { cloudFireCdnImgsLink } from '../../utils/utils';
 
 @Component({
   selector: 'app-logo-title',
-  standalone: true,
   imports: [NgOptimizedImage],
   template: `
     <div id="logo-title">
@@ -18,7 +17,7 @@ import { cloudFireCdnImgsLink } from '../../utils/utils';
     </div>
   `,
   styles: `
-    @import 'generic.scss';
+    @use 'generic.scss' as *;
 
     #logo-title {
         display: flex;

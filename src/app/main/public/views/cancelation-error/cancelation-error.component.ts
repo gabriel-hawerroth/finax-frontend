@@ -7,7 +7,6 @@ import { getBtnStyle } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-cancelation-error',
-  standalone: true,
   imports: [ButtonsComponent, RouterModule, MatCardModule, TranslateModule],
   templateUrl: './cancelation-error.component.html',
   styleUrl: './cancelation-error.component.scss',

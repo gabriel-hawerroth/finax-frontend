@@ -11,7 +11,6 @@ import { PublicThirdSectionComponent } from './public-third-section/public-third
 
 @Component({
   selector: 'app-public',
-  standalone: true,
   imports: [
     CommonModule,
     PublicHeaderComponent,

@@ -54,7 +54,6 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
 
 @Component({
   selector: 'app-credit-card-invoice',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

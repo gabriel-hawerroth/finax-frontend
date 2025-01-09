@@ -9,7 +9,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-use-terms',
-  standalone: true,
   imports: [
     CommonModule,
     NgOptimizedImage,

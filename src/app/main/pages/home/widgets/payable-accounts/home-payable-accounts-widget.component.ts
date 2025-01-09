@@ -8,7 +8,6 @@ import { HomeUpcomingReleaseItemComponent } from '../../components/home-upcoming
 
 @Component({
   selector: 'app-home-payable-accounts-widget',
-  standalone: true,
   imports: [
     CommonModule,
     MatCardModule,

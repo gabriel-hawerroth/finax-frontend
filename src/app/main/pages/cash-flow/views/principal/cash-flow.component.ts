@@ -41,7 +41,6 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
 
 @Component({
   selector: 'app-cash-flow',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,

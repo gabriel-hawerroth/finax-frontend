@@ -8,7 +8,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-confirm-duplicated-releases-action',
-  standalone: true,
   imports: [CommonModule, MatDialogModule, MatButtonModule, TranslateModule],
   templateUrl: './confirm-duplicated-releases-action.component.html',
   styleUrl: './confirm-duplicated-releases-action.component.scss',

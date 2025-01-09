@@ -19,7 +19,6 @@ import { BtnContentComponent } from '../../btn-content/btn-content.component';
 
 @Component({
   selector: 'dynamic-button',
-  standalone: true,
   imports: [
     CommonModule,
     BtnContentComponent,

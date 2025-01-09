@@ -11,7 +11,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-user-activation',
-  standalone: true,
   imports: [
     CommonModule,
     NgOptimizedImage,

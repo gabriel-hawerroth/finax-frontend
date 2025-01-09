@@ -30,7 +30,6 @@ import { SubAccountsComponent } from '../sub-accounts/sub-accounts.component';
 
 @Component({
   selector: 'app-accounts-list',
-  standalone: true,
   imports: [
     CommonModule,
     NgOptimizedImage,

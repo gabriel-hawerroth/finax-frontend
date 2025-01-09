@@ -10,7 +10,6 @@ import { cloudFireCdnImgsLink } from '../../../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-home-credit-card-item',
-  standalone: true,
   imports: [
     CommonModule,
     NgOptimizedImage,

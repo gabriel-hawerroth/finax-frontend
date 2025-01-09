@@ -41,7 +41,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-credit-cards-form',
-  standalone: true,
   imports: [
     CommonModule,
     ButtonsComponent,

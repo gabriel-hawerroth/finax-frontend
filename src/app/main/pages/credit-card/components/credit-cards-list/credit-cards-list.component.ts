@@ -12,7 +12,6 @@ import { CreditCardDetailsComponent } from '../../views/details/credit-card-deta
 
 @Component({
   selector: 'app-credit-cards-list',
-  standalone: true,
   imports: [CommonModule, TranslateModule, NgOptimizedImage],
   templateUrl: './credit-cards-list.component.html',
   styleUrl: './credit-cards-list.component.scss',
