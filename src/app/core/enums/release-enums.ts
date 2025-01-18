@@ -19,3 +19,18 @@ export enum ReleaseFixedBy {
   BIANNUAL = 'BIANNUAL',
   ANNUAL = 'ANNUAL',
 }
+
+export function toReleaseType(releaseType: 'E' | 'R' | 'T' | 'I'): ReleaseType {
+  switch (releaseType) {
+    case 'E':
+      return ReleaseType.EXPENSE;
+    case 'R':
+      return ReleaseType.REVENUE;
+    case 'T':
+      return ReleaseType.TRANSFER;
+    case 'I':
+      return ReleaseType.INVOICE;
+    default:
+      throw new Error(`Invalid release type: ${releaseType}`);
+  }
+}

@@ -66,6 +66,7 @@ export interface ReleaseFormDialogData {
   release?: Release;
   isDuplicatedRelease?: boolean;
   creditCardId?: number;
+  defaultAccountId?: number;
 }
 
 export interface ReleaseDetailsData {

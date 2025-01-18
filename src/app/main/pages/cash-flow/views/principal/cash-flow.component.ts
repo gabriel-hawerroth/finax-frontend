@@ -27,7 +27,10 @@ import {
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
-import { ReleaseType } from '../../../../../core/enums/release-enums';
+import {
+  ReleaseType,
+  toReleaseType,
+} from '../../../../../core/enums/release-enums';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
@@ -162,6 +165,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   addRelease(releaseType: 'E' | 'R' | 'T') {
+    const type = toReleaseType(releaseType);
+
     this.utils
       .openReleaseFormDialog(<ReleaseFormDialogData>{
         accounts: this.accounts,
@@ -170,6 +175,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
         editing: false,
         releaseType: releaseType,
         selectedDate: this.selectedDate,
+        defaultAccountId: this.getDefaultAccountCardId(type),
       })
       .then((response) => {
         if (!response) return;
@@ -341,5 +347,23 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
       return [...releases];
     });
+  }
+
+  getDefaultAccountCardId(relaseType: ReleaseType): number | undefined {
+    let accountId = undefined;
+    if (this.appliedFilters().accountIds.length === 1) {
+      accountId = this.appliedFilters().accountIds[0];
+    }
+
+    let cardId = undefined;
+    if (this.appliedFilters().creditCardIds.length === 1) {
+      cardId = this.appliedFilters().creditCardIds[0];
+    }
+
+    if (accountId && cardId) return undefined;
+
+    if (relaseType == ReleaseType.EXPENSE) return accountId || cardId;
+
+    return accountId;
   }
 }

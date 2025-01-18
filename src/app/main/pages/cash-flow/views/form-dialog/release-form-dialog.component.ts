@@ -158,6 +158,12 @@ export class ReleaseFormDialog implements OnInit {
 
       this.releaseForm.get('categoryId')!.setValue(otherCategorieId);
     }
+
+    if (!this.data.editing) {
+      this.releaseForm.controls['accountId'].setValue(
+        this.data.defaultAccountId
+      );
+    }
   }
 
   private buildForm() {
