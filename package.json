@@ -32,8 +32,7 @@
     "ngx-currency": "^19.0.0",
     "ngx-mask": "^19.0.6",
     "primeng": "^19.0.5",
-    "rxjs": "^7.8.1",
-    "zone.js": "^0.15.0"
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@angular/build": "^19.0.7",

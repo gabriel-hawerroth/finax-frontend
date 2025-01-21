@@ -10,6 +10,7 @@ import {
   ApplicationConfig,
   importProvidersFrom,
   isDevMode,
+  provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import {
@@ -51,12 +52,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-// Date.prototype.toJSON = function () {
-//   return format(this, 'yyyy-MM-dd');
-// };
-
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withI18nSupport()),
     provideAnimations(),
