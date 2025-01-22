@@ -1,55 +1,54 @@
 .simple-page {
-    transition-duration: 1s;
+  display: flex;
+  flex-direction: column;
+
+  .page-title {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+  }
 
-    .page-title {
-        display: flex;
-        justify-content: space-between;
+  .content {
+    flex: 1;
+    padding: 3.5rem 3rem;
+
+    .config {
+      padding: 1rem;
     }
 
-    .content {
-        flex: 1;
-        padding: 3.5rem 3rem;
+    .theme {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
 
-        .config {
-            padding: 1rem;
+      .mat-button-toggle-group {
+        width: fit-content !important;
+        height: 2.5rem;
+        border: none !important;
+
+        .mat-button-toggle {
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
         }
 
-        .theme {
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-
-            .mat-button-toggle-group {
-                width: fit-content !important;
-                height: 2.5rem;
-                border: none !important;
-
-                .mat-button-toggle {
-                    display: flex !important;
-                    justify-content: center !important;
-                    align-items: center !important;
-                }
-
-                .mat-button-toggle-appearance-standard {
-                    background-color: #fff !important;
-                }
-
-                .mat-button-toggle-checked {
-                    background-color: #4CAF50 !important;
-
-                    .material-symbols-outlined {
-                        color: #fff !important;
-                    }
-                }
-            }
+        .mat-button-toggle-appearance-standard {
+          background-color: #fff !important;
         }
 
-        .email-notifications {
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
+        .mat-button-toggle-checked {
+          background-color: #4caf50 !important;
+
+          .material-symbols-outlined {
+            color: #fff !important;
+          }
         }
+      }
     }
+
+    .email-notifications {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+  }
 }

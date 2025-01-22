@@ -1,33 +1,40 @@
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 
-@use './app/app.component.scss' as *;
-@use 'colors.scss' as *;
-@use 'generic.scss' as *;
+@use "./app/app.component.scss" as *;
+@use "colors.scss" as *;
+@use "generic.scss" as *;
 
 @include mat.core();
 
-$theme: mat.define-theme(( //
-      color: ( //
+$theme: mat.define-theme(
+  (
+    //
+    color:
+      (
+        //
         theme-type: light,
-        primary: mat.$green-palette,
+        primary: mat.$green-palette
       ),
-      typography: ( //
-        brand-family: 'Roboto',
-        bold-weight: 900,
-      ),
-      density: (scale: 0),
-    ));
+    typography: (
+      //
+      brand-family: "Roboto",
+      bold-weight: 900
+    ),
+    density: (
+      scale: 0,
+    )
+  )
+);
 
 html {
   @include mat.core-theme($theme);
   @include mat.all-component-themes($theme);
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 // desktop fullhd+
 @media screen and (min-width: 1750px) and (min-height: 800px) {
-
   html,
   body {
     font-size: 16px !important;
@@ -53,7 +60,6 @@ html {
 
 // desktop
 @media screen and (max-width: 1750px) and (max-height: 800px) {
-
   html,
   body {
     font-size: 15px !important;
@@ -62,7 +68,6 @@ html {
 
 // desktop hd
 @media screen and (max-width: 1400px) and (max-height: 650px) {
-
   html,
   body {
     font-size: 13px !important;
@@ -93,7 +98,6 @@ html {
 
 // tablet
 @media screen and (max-width: 1050px) {
-
   html,
   body {
     font-size: 14px !important;
@@ -150,7 +154,6 @@ html {
 
 // celular
 @media screen and (max-width: 650px) {
-
   html,
   body {
     font-size: 12px !important;
@@ -174,8 +177,12 @@ body {
 }
 
 body {
-  --mat-sidenav-container-background-color: var(--sidebar-content-background-color);
-  --mat-sidenav-content-background-color: var(--sidebar-content-background-color);
+  --mat-sidenav-container-background-color: var(
+    --sidebar-content-background-color
+  );
+  --mat-sidenav-content-background-color: var(
+    --sidebar-content-background-color
+  );
   background-color: var(--primary-background-color);
 }
 
@@ -183,11 +190,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -237,14 +240,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .mat-mdc-snack-bar-action {
-  font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
+  font-family: "Nunito", system-ui, -apple-system, Roboto !important;
   color: #fff !important;
 }
 
 .mdc-tooltip__surface {
-  font-family: 'Nunito', system-ui, -apple-system, Roboto !important;
-  padding: .5rem !important;
-  font-size: .9rem !important;
+  font-family: "Nunito", system-ui, -apple-system, Roboto !important;
+  padding: 0.5rem !important;
+  font-size: 0.9rem !important;
 }
 
 .mat-bottom-sheet-container {
@@ -305,7 +308,7 @@ mat-card-title {
     color: #383838;
     position: relative;
     left: 1.5rem;
-    top: .5rem;
+    top: 0.5rem;
   }
 
   .card {
@@ -335,7 +338,6 @@ mat-card-title {
 
   .mdc-button,
   .mdc-icon-button {
-
     .btn-content {
       color: $dark-font-color !important;
     }
@@ -390,22 +392,18 @@ mat-card-title {
   }
 
   .mdc-form-field {
-    transition-duration: 1s;
     color: #e6e6e6 !important;
   }
 
   .mat-mdc-select-value {
-    transition-duration: 1s;
     color: #e6e6e6 !important;
   }
 
   .mat-mdc-select-arrow {
-    transition-duration: 1s;
     color: #e6e6e6 !important;
   }
 
   .mat-mdc-dialog-title {
-    transition-duration: 1s;
     color: #e6e6e6 !important;
   }
 
@@ -445,7 +443,8 @@ mat-card-title {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 7px 30px rgba(0, 0, 0, 0.08), 0px 22px 30px 2px rgba(0, 0, 0, 0.15), 0px 8px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 7px 30px rgba(0, 0, 0, 0.08),
+      0px 22px 30px 2px rgba(0, 0, 0, 0.15), 0px 8px 10px rgba(0, 0, 0, 0.15);
 
     .top {
       height: 30%;
@@ -483,12 +482,11 @@ mat-card-title {
 }
 
 .mat-mdc-select-panel {
-
   .mat-mdc-option {
     width: 100%;
     padding: 0 !important;
-    padding-left: .5rem !important;
-    padding-right: .3rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.3rem !important;
 
     .mdc-list-item__primary-text {
       width: 100% !important;
@@ -496,7 +494,7 @@ mat-card-title {
       .account-opt {
         display: flex !important;
         align-items: center !important;
-        gap: .6rem !important;
+        gap: 0.6rem !important;
 
         img {
           border-radius: 50% !important;
@@ -518,14 +516,14 @@ mat-card-title {
       .category-opt {
         display: flex !important;
         align-items: center !important;
-        gap: .6rem !important;
+        gap: 0.6rem !important;
 
         .material-symbols-outlined {
           border-radius: 50%;
           display: flex;
           justify-content: center;
           align-items: center;
-          padding: .5rem;
+          padding: 0.5rem;
           font-size: 1.1rem;
           color: #fff;
         }
@@ -552,7 +550,7 @@ mat-card-title {
     margin-bottom: 5vh;
 
     h1 {
-      font-family: 'Dosis';
+      font-family: "Dosis";
     }
   }
 
@@ -598,13 +596,13 @@ mat-card-title {
 
       ul {
         list-style: none;
-        margin-top: .2rem;
+        margin-top: 0.2rem;
       }
     }
   }
 
   .last-update {
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
     font-size: 1.1rem;
   }
 
