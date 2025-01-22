@@ -2,16 +2,13 @@
 
 .simple-page {
   .login-box {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     padding: 1rem;
 
     .top {
-      display: flex !important;
+      height: auto !important;
       flex-direction: row !important;
       gap: 1.3rem;
-      height: auto !important;
       padding: 1rem 0;
 
       h1 {
@@ -34,7 +31,7 @@
       }
 
       h3 {
-        margin-top: 15%;
+        margin-top: 25%;
       }
     }
 

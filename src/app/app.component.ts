@@ -112,7 +112,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
     combineLatest([location$, isLogged$])
       .pipe(
-        map(([path, isLogged]) => isLogged && path !== '/'),
+        map(
+          ([path, isLogged]) =>
+            isLogged && path !== '/' && path !== '/link-expirado'
+        ),
         takeUntilDestroyed()
       )
       .subscribe((showMenu) => {

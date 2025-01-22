@@ -23,6 +23,7 @@ import { PrivacyPolicyPage } from './main/public/views/privacy-policy/privacy-po
 import { UseTermsPage } from './main/public/views/use-terms/use-terms.component';
 import { UserActivationPage } from './main/public/views/user-activation/user-activation.component';
 import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
+import { ExpiredLinkComponent } from './shared/components/expired-link/expired-link.component';
 
 export const routes: Routes = [
   { path: '', component: PublicPage },
@@ -30,6 +31,10 @@ export const routes: Routes = [
     path: 'fora-do-ar',
     component: SystemErrorWarningPage,
     canActivate: [UnauthenticatedUserGuard],
+  },
+  {
+    path: 'link-expirado',
+    component: ExpiredLinkComponent,
   },
   {
     path: 'login',
