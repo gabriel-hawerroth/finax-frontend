@@ -1,7 +1,33 @@
 @use 'colors.scss' as *;
 
+@media screen and (max-width: 1050px) and (min-width: 650px) {
+    .login {
+        .login-box {
+            #account-created {
+                padding: 2rem 8rem !important;
+
+                h2 {
+                    margin-bottom: 2rem;
+                }
+            }
+        }
+    }
+}
+
 .login {
     .login-box {
+        #account-created {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: justify;
+            padding: 2rem;
+            gap: 1.5rem;
+            font-size: 1.1rem;
+            margin-bottom: 15%;
+        }
+
         .bottom {
             width: 100%;
             height: 22%;

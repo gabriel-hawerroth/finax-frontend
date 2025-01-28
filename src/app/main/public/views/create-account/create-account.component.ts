@@ -46,13 +46,17 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class CreateAccountPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly passwordRequirementsText = this._utils.passwordRequirementsText;
   readonly getBtnStyle = getBtnStyle;
 
   userRegisterForm!: FormGroup;
   showLoading = signal(false);
 
+  accountCreated = signal(true);
+
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _router: Router,
     private readonly _matSnackBar: MatSnackBar,
@@ -71,7 +75,7 @@ export class CreateAccountPage implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern(this.utils.passwordValidator()),
+          Validators.pattern(this._utils.passwordValidator()),
         ],
       ],
       firstName: ['', Validators.required],
@@ -83,17 +87,17 @@ export class CreateAccountPage implements OnInit {
   createUser() {
     if (this.userRegisterForm.get('password')!.invalid) {
       this.userRegisterForm.controls['password'].markAsTouched();
-      this.utils.showMessage(
+      this._utils.showMessage(
         "generic.password-doesn't-meet-security-requirements"
       );
       return;
     } else if (this.userRegisterForm.get('useTerms')!.invalid) {
       this.userRegisterForm.controls['useTerms'].markAsTouched();
-      this.utils.showMessage('create-account.accept-terms');
+      this._utils.showMessage('create-account.accept-terms');
       return;
     } else if (this.userRegisterForm.invalid) {
       this.userRegisterForm.markAllAsTouched();
-      this.utils.showMessage('generic.invalid-form');
+      this._utils.showMessage('generic.invalid-form');
       return;
     }
 
@@ -101,23 +105,26 @@ export class CreateAccountPage implements OnInit {
     this._authService
       .registerNewUser(this.userRegisterForm.value)
       .then((result) => {
-        this._matSnackBar.open(
-          `${this._translate.instant('create-account.sended-activate-link')}: ${
-            result.email
-          }`,
-          'OK'
-        );
-        this._router.navigateByUrl('login');
+        this.accountCreated.set(true);
+
+        // this._matSnackBar.open(
+        //   `${this._translate.instant('create-account.sended-activate-link')}: ${
+        //     result.email
+        //   }`,
+        //   'OK'
+        // );
+        // this._router.navigateByUrl('login');
       })
       .catch((err) => {
         if (err.error.errorDescription === 'this email is already in use')
-          this.utils.showMessage(
+          this._utils.showMessage(
             'create-account.email-already-registered',
             5000
           );
         else if (err.error.errorDescription === 'invalid email')
-          this.utils.showMessage('generic.invalid-mail', 6000);
-        else this.utils.showMessage('create-account.error-creating-user', 4000);
+          this._utils.showMessage('generic.invalid-mail', 6000);
+        else
+          this._utils.showMessage('create-account.error-creating-user', 4000);
       })
       .finally(() => this.showLoading.set(false));
   }
