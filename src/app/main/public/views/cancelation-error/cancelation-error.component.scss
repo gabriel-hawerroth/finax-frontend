@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
 
-    .card {
+    .login-box {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -15,7 +15,6 @@
         width: 100%;
 
         h1 {
-            color: $primary-font-color;
             font-size: 2.5rem;
             margin-bottom: 1.3rem;
         }
@@ -24,14 +23,12 @@
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 1.5rem;
-            color: #000;
         }
 
         ul {
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 1.5rem;
-            color: #000;
             text-align: start;
             display: flex;
             flex-direction: column;

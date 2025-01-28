@@ -42,6 +42,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage implements OnInit {
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getBtnStyle = getBtnStyle;
 
@@ -49,15 +50,15 @@ export class LoginPage implements OnInit {
   showLoading = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
-    public readonly loginService: LoginService,
+    private readonly _utils: UtilsService,
+    private readonly _loginService: LoginService,
     private readonly _fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
 
-    const savedLogin = this.utils.getItemLocalStorage('savedLoginFinax');
+    const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
     if (savedLogin) this.loginForm.patchValue(JSON.parse(atob(savedLogin!)));
   }
 
@@ -76,7 +77,7 @@ export class LoginPage implements OnInit {
 
     this.showLoading.set(true);
 
-    this.loginService
+    this._loginService
       .login(credentials)
       .finally(() => this.showLoading.set(false));
   }
