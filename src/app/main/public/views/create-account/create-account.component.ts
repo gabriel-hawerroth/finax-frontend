@@ -14,10 +14,9 @@ import {
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../core/entities/auth/auth.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import {
@@ -53,14 +52,11 @@ export class CreateAccountPage implements OnInit {
   userRegisterForm!: FormGroup;
   showLoading = signal(false);
 
-  accountCreated = signal(true);
+  accountCreated = signal(false);
 
   constructor(
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
-    private readonly _router: Router,
-    private readonly _matSnackBar: MatSnackBar,
-    private readonly _translate: TranslateService,
     private readonly _authService: AuthService
   ) {}
 
