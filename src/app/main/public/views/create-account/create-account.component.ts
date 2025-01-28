@@ -85,36 +85,13 @@ export class CreateAccountPage implements OnInit {
   }
 
   createUser() {
-    if (this.userRegisterForm.get('password')!.invalid) {
-      this.userRegisterForm.controls['password'].markAsTouched();
-      this._utils.showMessage(
-        "generic.password-doesn't-meet-security-requirements"
-      );
-      return;
-    } else if (this.userRegisterForm.get('useTerms')!.invalid) {
-      this.userRegisterForm.controls['useTerms'].markAsTouched();
-      this._utils.showMessage('create-account.accept-terms');
-      return;
-    } else if (this.userRegisterForm.invalid) {
-      this.userRegisterForm.markAllAsTouched();
-      this._utils.showMessage('generic.invalid-form');
-      return;
-    }
+    if (!this.isValidForm()) return;
 
     this.showLoading.set(true);
+
     this._authService
       .registerNewUser(this.userRegisterForm.value)
-      .then((result) => {
-        this.accountCreated.set(true);
-
-        // this._matSnackBar.open(
-        //   `${this._translate.instant('create-account.sended-activate-link')}: ${
-        //     result.email
-        //   }`,
-        //   'OK'
-        // );
-        // this._router.navigateByUrl('login');
-      })
+      .then(() => this.accountCreated.set(true))
       .catch((err) => {
         if (err.error.errorDescription === 'this email is already in use')
           this._utils.showMessage(
@@ -127,5 +104,25 @@ export class CreateAccountPage implements OnInit {
           this._utils.showMessage('create-account.error-creating-user', 4000);
       })
       .finally(() => this.showLoading.set(false));
+  }
+
+  isValidForm(): boolean {
+    if (this.userRegisterForm.get('password')!.invalid) {
+      this.userRegisterForm.controls['password'].markAsTouched();
+      this._utils.showMessage(
+        "generic.password-doesn't-meet-security-requirements"
+      );
+      return false;
+    } else if (this.userRegisterForm.get('useTerms')!.invalid) {
+      this.userRegisterForm.controls['useTerms'].markAsTouched();
+      this._utils.showMessage('create-account.accept-terms');
+      return false;
+    } else if (this.userRegisterForm.invalid) {
+      this.userRegisterForm.markAllAsTouched();
+      this._utils.showMessage('generic.invalid-form');
+      return false;
+    }
+
+    return true;
   }
 }
