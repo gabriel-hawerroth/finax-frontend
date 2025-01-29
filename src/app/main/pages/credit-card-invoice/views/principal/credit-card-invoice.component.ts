@@ -166,6 +166,7 @@ export class CreditCardInvoicePage implements OnInit {
         releaseType: 'E',
         selectedDate: this.selectedDate(),
         creditCardId: this.creditCardId,
+        defaultAccountId: this.creditCardId,
       })
       .then((response) => {
         if (!response) return;
