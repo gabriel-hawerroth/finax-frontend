@@ -17,6 +17,7 @@ import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { UserConfigs } from '../../../../../core/entities/user-configs/user-configs';
 import { UserConfigsService } from '../../../../../core/entities/user-configs/user-configs.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { ThemingService } from '../../../../../shared/utils/theming.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -54,7 +55,8 @@ export class UserSettingsPage implements OnInit, OnDestroy {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
-    private readonly _userConfigsService: UserConfigsService
+    private readonly _userConfigsService: UserConfigsService,
+    private readonly _themingService: ThemingService
   ) {}
 
   ngOnInit(): void {
@@ -94,6 +96,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
         this.theme.set(value.theme);
         this._utils.setUserConfigs(value);
         this.saveConfigs();
+        this._themingService.applyTheme(value.theme);
       });
   }
 

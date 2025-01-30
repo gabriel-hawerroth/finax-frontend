@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -28,6 +35,7 @@ import {
 } from './shared/utils/local-storage-contants';
 import { ResponsiveService } from './shared/utils/responsive.service';
 import { UtilsService } from './shared/utils/utils.service';
+import { ThemingService } from './shared/utils/theming.service';
 
 @Component({
   selector: 'app-root',
@@ -71,13 +79,13 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly _responsiveService: ResponsiveService,
     private readonly _loginService: LoginService,
     private readonly _utils: UtilsService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _themingService: ThemingService
   ) {
     _utils.setUserConfigs(_utils.getUserConfigs);
-
     this.subscribeShowMenuChanges();
-    this.handleThemeChanges();
     this.subscribeWindowResize();
+    _themingService.applyTheme(_utils.getUserConfigs.theme);
   }
 
   ngOnInit(): void {
@@ -135,36 +143,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileToolbarOpened.set(false);
   }
 
-  private handleThemeChanges() {
-    this._utils
-      .getUserConfigsObservable()
-      .pipe(
-        map((value) => value.theme),
-        distinctUntilChanged(),
-        takeUntilDestroyed()
-      )
-      .subscribe((value) => {
-        this.darkThemeEnabled.set(value === Theme.DARK);
-
-        if (this._utils.isBrowser) {
-          document.body.style.setProperty(
-            `--primary-background-color`,
-            this.darkThemeEnabled() ? '#383838' : '#eff3f8'
-          );
-
-          document.body.style.setProperty(
-            `--sidebar-content-background-color`,
-            this.darkThemeEnabled() ? '#383838' : '#eff3f8'
-          );
-
-          document.body.style.setProperty(
-            `--card-background-color`,
-            this.darkThemeEnabled() ? '#212121' : '#fefefe'
-          );
-        }
-      });
-  }
-
   private subscribeWindowResize() {
     if (!this._utils.isBrowser) return;
 
@@ -176,4 +154,79 @@ export class AppComponent implements OnInit, OnDestroy {
   toogleSidebar() {
     this.sidebarOpened.set(!this.sidebarOpened());
   }
+
+  setTheme = effect(() => {
+    if (!this._utils.isBrowser) return;
+
+    console.log('setTheme');
+
+    document.body.style.setProperty(
+      `--primary-background-color`,
+      this._themingService.primaryBackgroundColor()
+    );
+    document.body.style.setProperty(
+      `--sidebar-content-background-color`,
+      this._themingService.sidebarBackgroundColor()
+    );
+    document.body.style.setProperty(
+      `--card-background-color`,
+      this._themingService.cardBackgroundColor()
+    );
+    document.body.style.setProperty(
+      `--primary-font-color`,
+      this._themingService.primaryFontColor()
+    );
+    document.body.style.setProperty(
+      `--disabled-font-color`,
+      this._themingService.disabledFontColor()
+    );
+    document.body.style.setProperty(
+      `--page-title-font-color`,
+      this._themingService.pageTitleFontColor()
+    );
+    document.body.style.setProperty(
+      `--form-field-hint-font-color`,
+      this._themingService.formFieldHintFontColor()
+    );
+    document.body.style.setProperty(
+      `--card-title-font-color`,
+      this._themingService.cardTitleFontColor()
+    );
+    document.body.style.setProperty(
+      `--snack-bar-message-font-color`,
+      this._themingService.snackBarMessageFontColor()
+    );
+    document.body.style.setProperty(
+      `--policy-page-paragraph-font-color`,
+      this._themingService.policyPageParagraphFontColor()
+    );
+    document.body.style.setProperty(
+      `--empty-message-font-color`,
+      this._themingService.emptyMessageFontColor()
+    );
+    document.body.style.setProperty(
+      `--divider-color`,
+      this._themingService.dividerColor()
+    );
+    document.body.style.setProperty(
+      `--default-box-shadow`,
+      this._themingService.defaultBoxShadow()
+    );
+    document.body.style.setProperty(
+      `--default-account-logo-box-shadow`,
+      this._themingService.defaultAccountLogoBoxShadow()
+    );
+    document.body.style.setProperty(
+      `--default-account-logo-color`,
+      this._themingService.defaultAccountLogoColor()
+    );
+    document.body.style.setProperty(
+      `--category-option-color`,
+      this._themingService.categoryOptionColor()
+    );
+    document.body.style.setProperty(
+      `--button-hover-background-color`,
+      this._themingService.buttonHoverBackgroundColor()
+    );
+  });
 }
