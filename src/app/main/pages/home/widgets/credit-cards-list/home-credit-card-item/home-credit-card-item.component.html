@@ -16,9 +16,9 @@
 
   <div class="infos">
     <div class="top">
-      <span class="card-name">
+      <label class="card-name">
         {{ card().cardName }}
-      </span>
+      </label>
     </div>
 
     <div class="bottom">
@@ -27,11 +27,9 @@
           {{ "home.available" | translate }}
         </div>
 
-        <div class="amount">
-          <span>
-            {{ currency() + (card().availableLimit | customCurrency) }}
-          </span>
-        </div>
+        <label class="amount">
+          {{ currency() + (card().availableLimit | customCurrency) }}
+        </label>
       </div>
 
       <div class="current-invoice">
@@ -39,9 +37,9 @@
           {{ "home.current-invoice" | translate }}
         </div>
 
-        <div class="amount">
+        <label class="amount">
           {{ currency() + (card().currentInvoiceAmount | customCurrency) }}
-        </div>
+        </label>
       </div>
     </div>
   </div>

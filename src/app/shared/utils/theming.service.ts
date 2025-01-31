@@ -51,11 +51,11 @@ export class ThemingService {
       defaultAccountLogoColor: '#3f3f3f',
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
-      background: '#fbfcfe',
-      primary: '#046e8f',
-      primaryLight: '#dce3e9',
-      ripple: '#046e8f1e',
-      primaryDark: 'black',
+      background: '#f9fff8',
+      primary: '#176c00',
+      primaryLight: '#dcffd4',
+      ripple: '#1b80001e',
+      primaryDark: '#072100',
       error: '#ba1a1a',
     },
     {
@@ -77,12 +77,12 @@ export class ThemingService {
       defaultAccountLogoColor: '#3f3f3f',
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
-      background: '#1f1f1f',
-      primary: '#ff8c00',
-      primaryLight: '#ff8c00',
-      ripple: '#ff8c001e',
-      primaryDark: 'black',
-      error: '#ba1a1a',
+      background: '#191c1e',
+      primary: '#176c00',
+      primaryLight: '#dcffd4',
+      ripple: '#7efc661e',
+      primaryDark: '#146000',
+      error: '#ffb4ab',
     },
   ];
 
@@ -126,12 +126,12 @@ export class ThemingService {
     this.definedThemes[0].buttonHoverBackgroundColor
   );
 
-  private primary = signal('#046e8f');
-  private primaryLight = signal('#dce3e9');
-  private ripple = signal('#046e8f1e');
-  private primaryDark = signal('black');
-  private background = signal('#fbfcfe');
-  private error = signal('#ba1a1a');
+  public primary = signal(this.definedThemes[0].primary);
+  public primaryLight = signal(this.definedThemes[0].primaryLight);
+  public ripple = signal(this.definedThemes[0].ripple);
+  public primaryDark = signal(this.definedThemes[0].primaryDark);
+  public background = signal(this.definedThemes[0].background);
+  public error = signal(this.definedThemes[0].error);
 
   constructor() {}
 

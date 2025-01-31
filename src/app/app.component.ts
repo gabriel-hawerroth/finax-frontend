@@ -228,5 +228,24 @@ export class AppComponent implements OnInit, OnDestroy {
       `--button-hover-background-color`,
       this._themingService.buttonHoverBackgroundColor()
     );
+
+    document.body.style.setProperty(
+      `--primary`,
+      this._themingService.primary()
+    );
+    document.body.style.setProperty(
+      `--primary-light`,
+      this._themingService.primaryLight()
+    );
+    document.body.style.setProperty(
+      `--primary-dark`,
+      this._themingService.primaryDark()
+    );
+    document.body.style.setProperty(`--ripple`, this._themingService.ripple());
+    document.body.style.setProperty(
+      `--background`,
+      this._themingService.background()
+    );
+    document.body.style.setProperty(`--error`, this._themingService.error());
   });
 }

@@ -1,47 +1,51 @@
-@use 'colors.scss' as *;
+@use "colors.scss" as *;
 
 .simple-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .login-box {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
 
-    .login-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 2rem;
-        max-width: 600px;
-        width: 100%;
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1.3rem;
-        }
-
-        p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .button {
-            margin-top: .5rem;
-        }
-
-        // .footer-links {
-        //     display: flex;
-        //     gap: 0.5rem;
-        //     margin-bottom: 1.5rem;
-
-        //     a {
-        //         color: $primary-font-color;
-        //         text-decoration: none;
-
-        //         &:hover {
-        //             text-decoration: underline;
-        //         }
-        //     }
-        // }
+    * {
+      color: var(--primary-font-color);
     }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.3rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .button {
+      margin-top: 0.5rem;
+    }
+
+    // .footer-links {
+    //     display: flex;
+    //     gap: 0.5rem;
+    //     margin-bottom: 1.5rem;
+
+    //     a {
+    //         color: $primary-font-color;
+    //         text-decoration: none;
+
+    //         &:hover {
+    //             text-decoration: underline;
+    //         }
+    //     }
+    // }
+  }
 }

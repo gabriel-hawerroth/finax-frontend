@@ -1,50 +1,28 @@
-@use 'colors.scss' as *;
+@use "colors.scss" as *;
 
 .simple-page {
-    font-family: "Mallana", "Nunito", "Dosis" !important;
+  font-family: "Mallana", "Nunito", "Dosis" !important;
 
-    .login-box {
-        .top {
-            justify-content: space-evenly !important;
-        }
-
-        form {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly;
-
-            #forgot-password-label {
-                color: $primary-font-color;
-                font-weight: bold;
-                cursor: pointer;
-            }
-        }
-
-        .bottom {
-            height: 18%;
-
-            app-buttons {
-                width: 65%;
-                border-radius: 3rem;
-                padding: 1.5rem 2rem;
-
-                .material-symbols-outlined {
-                    font-variation-settings:
-                        'FILL' 1,
-                        'wght' 400,
-                        'GRAD' 0,
-                        'opsz' 24
-                }
-            }
-        }
+  .login-box {
+    .top {
+      justify-content: space-evenly !important;
     }
 
-    .opt-login-page {
-        .create-one-label {
-            color: $primary-font-color;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    form {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
     }
+
+    .bottom {
+      height: 18%;
+
+      app-buttons {
+        width: 65%;
+        border-radius: 3rem;
+        padding: 1.5rem 2rem;
+      }
+    }
+  }
 }

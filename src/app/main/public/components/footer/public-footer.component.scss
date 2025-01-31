@@ -1,78 +1,82 @@
-@use 'colors.scss' as *;
+@use "colors.scss" as *;
 
 $footer-height: 5.8rem;
 
 @media screen and (max-width: 650px) {
-    .public-footer {
-        padding-right: 1rem;
-        padding-bottom: 1.5rem !important;
-
-        .left {
-            h1 {
-                display: none !important;
-            }
-        }
-
-        .right {
-            display: none !important;
-        }
-    }
-}
-
-.public-footer {
-    height: 5.8rem;
-    display: flex;
-    background-color: $primary-bg;
-    box-shadow: 0 1px 5px #0000007c;
+  .public-footer {
+    padding-right: 1rem;
+    padding-bottom: 1.5rem !important;
 
     .left {
-        height: 100%;
-        padding-left: 3rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        span {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-    }
-
-    .center {
-        height: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        margin-left: 6rem;
-        gap: 2.5rem;
-
-        span {
-            font-size: 1.05rem;
-            padding: .3rem;
-            cursor: pointer;
-        }
+      h1 {
+        display: none !important;
+      }
     }
 
     .right {
-        margin-left: auto;
-        width: 30%;
-        height: 100%;
-        padding-right: 5rem;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 1.4rem;
-
-        a {
-            width: 2.3rem;
-            height: 2.3rem;
-            display: grid;
-            place-items: center;
-        }
+      display: none !important;
     }
+  }
+}
 
-    svg {
-        fill: #000;
+.public-footer {
+  height: 5.8rem;
+  display: flex;
+  background-color: $primary-bg;
+  box-shadow: 0 1px 5px #0000007c;
+  color: #000;
+
+  .left {
+    height: 100%;
+    padding-left: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+  }
+
+  .center {
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 6rem;
+    gap: 2.5rem;
+
+    span {
+      font-size: 1.05rem;
+      padding: 0.3rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .right {
+    margin-left: auto;
+    width: 30%;
+    height: 100%;
+    padding-right: 5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.4rem;
+
+    a {
+      width: 2.3rem;
+      height: 2.3rem;
+      display: grid;
+      place-items: center;
+    }
+  }
+
+  svg {
+    fill: #000;
+  }
 }

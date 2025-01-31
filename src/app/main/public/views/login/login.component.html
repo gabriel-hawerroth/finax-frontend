@@ -57,11 +57,7 @@
           {{ "login.remember-me" | translate }}
         </mat-checkbox>
 
-        <span
-          routerLink="/esqueci-minha-senha"
-          id="forgot-password-label"
-          color="primary"
-        >
+        <span routerLink="/esqueci-minha-senha" id="forgot-password-label">
           {{ "login.forgot-my-password" | translate }}
         </span>
       </div>
@@ -83,11 +79,11 @@
   </div>
 
   <span class="opt-login-page">
-    <span>
+    <label>
       {{ "login.don't-have-account" | translate }}
-    </span>
+    </label>
 
-    <span routerLink="/nova-conta" class="create-one-label">
+    <span routerLink="/nova-conta" class="action">
       {{ "login.create-one" | translate }}
     </span>
   </span>

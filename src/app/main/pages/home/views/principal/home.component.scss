@@ -56,20 +56,20 @@
           transform: scale(0.92);
           box-shadow: var(--default-box-shadow);
 
-          span {
+          .value {
             font-size: 1.5rem;
             font-weight: bold;
           }
         }
 
         .revenue {
-          span {
+          .value {
             color: #15e627;
           }
         }
 
         .expense {
-          span {
+          .value {
             color: red;
           }
         }

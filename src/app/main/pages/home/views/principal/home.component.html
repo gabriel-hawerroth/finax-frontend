@@ -12,17 +12,21 @@
 
       <div class="amounts">
         <div class="item revenue">
-          {{ "home.monthly-revenue" | translate }}
+          <label>
+            {{ "home.monthly-revenue" | translate }}
+          </label>
 
-          <span>
+          <span class="value">
             {{ currency() }}{{ balances().revenues | customCurrency }}
           </span>
         </div>
 
         <div class="item expense">
-          {{ "home.monthly-expense" | translate }}
+          <label>
+            {{ "home.monthly-expense" | translate }}
+          </label>
 
-          <span>
+          <span class="value">
             {{ currency() }}{{ balances().expenses | customCurrency }}
           </span>
         </div>

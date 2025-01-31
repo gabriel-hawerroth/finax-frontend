@@ -1,35 +1,44 @@
 @use "@angular/material" as mat;
 
+@use "./easy-theming.css" as *;
+
 @use "./app/app.component.scss" as *;
 @use "colors.scss" as *;
 @use "generic.scss" as *;
 
+@use "./../m3-theme.scss" as *;
+
 @include mat.core();
 
-$theme: mat.define-theme(
-  (
-    //
-    color:
-      (
-        //
-        theme-type: light,
-        primary: mat.$green-palette
-      ),
-    typography: (
-      //
-      brand-family: "Roboto",
-      bold-weight: 900
-    ),
-    density: (
-      scale: 0,
-    )
-  )
-);
-
-html {
-  @include mat.core-theme($theme);
-  @include mat.all-component-themes($theme);
+:root {
+  @include mat.core-theme($light-theme);
+  @include mat.all-component-themes($light-theme);
 }
+
+// $theme: mat.define-theme(
+//   (
+//     //
+//     color:
+//       (
+//         //
+//         theme-type: light,
+//         primary: mat.$green-palette
+//       ),
+//     typography: (
+//       //
+//       brand-family: "Roboto",
+//       bold-weight: 900
+//     ),
+//     density: (
+//       scale: 0,
+//     )
+//   )
+// );
+
+// html {
+//   @include mat.core-theme($theme);
+//   @include mat.all-component-themes($theme);
+// }
 
 @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
@@ -171,15 +180,15 @@ body {
   color: var(--primary-font-color);
 }
 
-body {
-  --mat-sidenav-container-background-color: var(
-    --sidebar-content-background-color
-  );
-  --mat-sidenav-content-background-color: var(
-    --sidebar-content-background-color
-  );
-  background-color: var(--primary-background-color);
-}
+// body {
+//   --mat-sidenav-container-background-color: var(
+//     --sidebar-content-background-color
+//   );
+//   --mat-sidenav-content-background-color: var(
+//     --sidebar-content-background-color
+//   );
+//   background-color: var(--primary-background-color);
+// }
 
 .material-symbols-outlined {
   display: flex;
@@ -282,18 +291,23 @@ mat-card-title {
   align-items: center !important;
 }
 
-.mdc-button,
-.mdc-icon-button {
-  &:disabled {
-    .btn-content {
-      color: var(--disabled-font-color) !important;
-    }
+// .mdc-button,
+// .mdc-icon-button {
+//   // .btn-content,
+//   // span {
+//   //   color: var(--primary-font-color) !important;
+//   // }
 
-    span {
-      color: var(--disabled-font-color) !important;
-    }
-  }
-}
+//   &:disabled {
+//     .btn-content {
+//       color: var(--disabled-font-color) !important;
+//     }
+
+//     span {
+//       color: var(--disabled-font-color) !important;
+//     }
+//   }
+// }
 
 .mdc-floating-label {
   color: var(--primary-font-color) !important;
@@ -377,10 +391,6 @@ mat-card {
     color: var(--primary-font-color);
   }
 
-  span {
-    color: var(--primary-font-color);
-  }
-
   b {
     color: var(--primary-font-color);
   }
@@ -414,6 +424,7 @@ mat-card {
 
       h1 {
         font-size: 2.2em;
+        color: var(--primary-font-color);
       }
     }
 
@@ -427,6 +438,12 @@ mat-card {
         display: flex;
         justify-content: center;
       }
+
+      #forgot-password-label {
+        color: var(--primary) !important;
+        font-weight: bold;
+        cursor: pointer;
+      }
     }
 
     .bottom {
@@ -435,6 +452,14 @@ mat-card {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+  }
+
+  .opt-login-page {
+    .action {
+      color: var(--primary) !important;
+      font-weight: bold;
+      cursor: pointer;
     }
   }
 }
@@ -509,6 +534,7 @@ mat-card {
 
     h1 {
       font-family: "Dosis";
+      color: var(--primary);
     }
   }
 
@@ -524,6 +550,7 @@ mat-card {
       flex-direction: column;
       align-items: center;
       margin-bottom: 3rem;
+      color: var(--primary-font-color);
 
       h2 {
         font-weight: bold;
@@ -550,6 +577,7 @@ mat-card {
       .sub-title {
         margin: 1.1rem 0;
         font-size: 1.45rem;
+        color: var(--primary-font-color);
       }
 
       ul {
@@ -562,6 +590,7 @@ mat-card {
   .last-update {
     margin-bottom: 0.8rem;
     font-size: 1.1rem;
+    color: var(--primary-font-color);
   }
 
   .link {
