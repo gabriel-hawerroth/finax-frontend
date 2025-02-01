@@ -70,10 +70,9 @@ export class ChangePasswordPage implements OnInit {
     this._userService
       .getById(+this._activatedRoute.snapshot.paramMap.get('userId')!)
       .then((user) => {
-        // if (!user.canChangePassword) {
-        //   this._router.navigateByUrl('');
-        // } else this.user = user;
-        this.user = user;
+        if (!user.canChangePassword) {
+          this._router.navigateByUrl('');
+        } else this.user = user;
       })
       .catch(() => this._router.navigateByUrl(''));
   }
