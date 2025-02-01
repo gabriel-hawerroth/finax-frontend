@@ -22,6 +22,7 @@ type Theme = {
   defaultAccountLogoColor: string;
   categoryOptionColor: string;
   buttonHoverBackgroundColor: string;
+  separator: string;
   background: string;
   primary: string;
   primaryLight: string;
@@ -57,6 +58,7 @@ export class ThemingService {
       defaultAccountLogoColor: '#3f3f3f',
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
+      separator: '1px solid #6161613b',
       background: '#f9fff8',
       primary: '#176c00',
       primaryLight: '#dcffd4',
@@ -86,11 +88,12 @@ export class ThemingService {
       defaultAccountLogoColor: '#3f3f3f',
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
+      separator: '1px solid #6161613b',
       background: '#191c1e',
       primary: '#176c00',
-      primaryLight: '#dcffd4',
+      primaryLight: '#747474',
       ripple: '#7efc661e',
-      primaryDark: '#146000',
+      primaryDark: '#e6e6e6',
       error: '#ffb4ab',
     },
   ];
@@ -139,6 +142,7 @@ export class ThemingService {
   public buttonHoverBackgroundColor = signal(
     this.definedThemes[0].buttonHoverBackgroundColor
   );
+  public separator = signal(this.definedThemes[0].separator);
 
   public primary = signal(this.definedThemes[0].primary);
   public primaryLight = signal(this.definedThemes[0].primaryLight);
@@ -177,6 +181,7 @@ export class ThemingService {
       defaultAccountLogoColor,
       categoryOptionColor,
       buttonHoverBackgroundColor,
+      separator,
       primary,
       primaryLight,
       primaryDark,
@@ -205,6 +210,7 @@ export class ThemingService {
     this.defaultAccountLogoColor.set(defaultAccountLogoColor);
     this.categoryOptionColor.set(categoryOptionColor);
     this.buttonHoverBackgroundColor.set(buttonHoverBackgroundColor);
+    this.separator.set(separator);
 
     this.primary.set(primary);
     this.primaryLight.set(primaryLight);

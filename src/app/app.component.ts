@@ -241,6 +241,10 @@ export class AppComponent implements OnInit, OnDestroy {
       `--button-hover-background-color`,
       this._themingService.buttonHoverBackgroundColor()
     );
+    document.body.style.setProperty(
+      `--separator`,
+      this._themingService.separator()
+    );
 
     document.body.style.setProperty(
       `--primary`,

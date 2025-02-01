@@ -1,77 +1,77 @@
 @media screen and (max-width: 1050px) {
-    .list {
-        max-height: 30vh !important;
-        overflow-y: scroll !important;
-    }
+  .list {
+    max-height: 30vh !important;
+    overflow-y: scroll !important;
+  }
 }
 
 .categories {
-    width: 100%;
-    height: 100%;
-    padding: .5rem 1.5rem 0 1.5rem;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 1.5rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  .top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    button {
+      padding: 1.2rem;
+
+      .btn-content {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+    }
+  }
+
+  .list {
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+    flex: 1;
 
-    .top {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-
-        button {
-            padding: 1.2rem;
-
-            .btn-content {
-                display: flex;
-                align-items: center;
-                gap: .6rem;
-            }
-        }
+    :last-child {
+      border-bottom: none !important;
     }
 
-    .list {
-        display: flex;
-        flex-direction: column;
-        overflow-y: scroll;
-        flex: 1;
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0.8rem;
+      border-radius: 2px;
+      border-bottom: var(--separator);
+      cursor: pointer;
 
-        :last-child {
-            border-bottom: none !important;
+      .material-symbols-outlined {
+        border-radius: 50%;
+        padding: 0.7rem;
+        color: #fff;
+      }
+
+      &:hover {
+        box-shadow: var(--default-box-shadow);
+
+        .delete-btn {
+          display: flex;
         }
+      }
 
-        .item {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: .8rem;
-            border-radius: 2px;
-            border-bottom: 1px solid #6161613b;
+      .delete-btn {
+        margin-left: auto;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        transform: scale(0.92);
 
-            .material-symbols-outlined {
-                border-radius: 50%;
-                padding: .7rem;
-                color: #fff;
-            }
-
-            &:hover {
-                box-shadow: 0 0 4px #d4d4d4;
-                cursor: pointer;
-
-                .delete-btn {
-                    display: flex;
-                }
-            }
-
-            .delete-btn {
-                margin-left: auto;
-                display: none;
-                justify-content: center;
-                align-items: center;
-                transform: scale(0.92);
-
-                .material-symbols-outlined {
-                    color: #969696;
-                }
-            }
+        .material-symbols-outlined {
+          color: var(--primary-font-color);
         }
+      }
     }
+  }
 }

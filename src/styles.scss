@@ -15,31 +15,6 @@
   @include mat.all-component-themes($light-theme);
 }
 
-// $theme: mat.define-theme(
-//   (
-//     //
-//     color:
-//       (
-//         //
-//         theme-type: light,
-//         primary: mat.$green-palette
-//       ),
-//     typography: (
-//       //
-//       brand-family: "Roboto",
-//       bold-weight: 900
-//     ),
-//     density: (
-//       scale: 0,
-//     )
-//   )
-// );
-
-// html {
-//   @include mat.core-theme($theme);
-//   @include mat.all-component-themes($theme);
-// }
-
 @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 // desktop fullhd+
@@ -180,16 +155,6 @@ body {
   color: var(--primary-font-color);
 }
 
-// body {
-//   --mat-sidenav-container-background-color: var(
-//     --sidebar-content-background-color
-//   );
-//   --mat-sidenav-content-background-color: var(
-//     --sidebar-content-background-color
-//   );
-//   background-color: var(--primary-background-color);
-// }
-
 .material-symbols-outlined {
   display: flex;
   justify-content: center;
@@ -290,24 +255,6 @@ mat-card-title {
   display: flex !important;
   align-items: center !important;
 }
-
-// .mdc-button,
-// .mdc-icon-button {
-//   // .btn-content,
-//   // span {
-//   //   color: var(--primary-font-color) !important;
-//   // }
-
-//   &:disabled {
-//     .btn-content {
-//       color: var(--disabled-font-color) !important;
-//     }
-
-//     span {
-//       color: var(--disabled-font-color) !important;
-//     }
-//   }
-// }
 
 .mdc-floating-label {
   color: var(--primary-font-color) !important;

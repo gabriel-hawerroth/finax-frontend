@@ -1,57 +1,53 @@
-@use 'generic.scss' as *;
-
-$separator: 1px solid #6161613b;
-
 @media screen and (max-width: 1050px) {
-    .simple-page {
-        .content {
-            .card {
-                flex-direction: column !important;
-                height: fit-content !important;
-                max-height: fit-content !important;
-                margin-top: 2rem;
+  .simple-page {
+    .content {
+      .card {
+        flex-direction: column !important;
+        height: fit-content !important;
+        max-height: fit-content !important;
+        margin-top: 2rem;
 
-                .categories {
-                    width: 100% !important;
+        .categories {
+          width: 100% !important;
 
-                    &:first-child {
-                        border-right: none !important;
-                        border-bottom: $separator;
-                        padding-bottom: .7rem !important;
-                    }
+          &:first-child {
+            border-right: none !important;
+            border-bottom: var(--separator) !important;
+            padding-bottom: 0.7rem !important;
+          }
 
-                    &:last-child {
-                        margin-top: 1rem;
-                    }
-                }
-            }
+          &:last-child {
+            margin-top: 1rem;
+          }
         }
+      }
     }
+  }
 }
 
 .simple-page {
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    place-items: center;
 
-    .content {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        place-items: center;
+    .card {
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: row;
 
-        .card {
-            padding: 1.5rem 1rem;
-            display: flex;
-            flex-direction: row;
+      .categories {
+        width: 50%;
+        height: 100%;
 
-            .categories {
-                width: 50%;
-                height: 100%;
-
-                &:first-child {
-                    border-right: $separator;
-                }
-            }
+        &:first-child {
+          border-right: var(--separator);
         }
+      }
     }
+  }
 }

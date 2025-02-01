@@ -22,6 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Credentials } from '../../../../../core/entities/auth/credentials';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -35,6 +36,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatProgressSpinnerModule,
     MatTooltipModule,
     TranslateModule,
+    ButtonsComponent,
   ],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',
@@ -133,5 +135,9 @@ export class ChangePasswordDialog implements OnInit {
       .finally(() => {
         this.loading.set(false);
       });
+  }
+
+  onCancel() {
+    this._dialogRef.close();
   }
 }
