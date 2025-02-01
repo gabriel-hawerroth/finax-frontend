@@ -1,6 +1,6 @@
 <div
   id="sidebar"
-  [ngStyle]="{ backgroundColor: darkThemeEnabled() ? '#212121' : '#fafafa' }"
+  [style.background-color]="darkThemeEnabled() ? '#212121' : '#fafafa'"
 >
   @if (!isMobile()) {
   <app-logo-title></app-logo-title>
@@ -11,10 +11,8 @@
       @for (item of routes; track $index) {
       <div
         [routerLink]="item.route"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
-        }"
+        class="nav-ul-item"
+        [class.nav-ul-item-dark]="darkThemeEnabled()"
       >
         <i [innerText]="item.icon" class="material-symbols-outlined"></i>
         <span>{{ item.label | translate }}</span>
@@ -29,11 +27,9 @@
       <div
         (click)="item.onClick?.()"
         [routerLink]="item.route"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'nav-ul-item-dark': darkThemeEnabled(),
-          hidden: !userActionsUl
-        }"
+        class="nav-ul-item"
+        [class.nav-ul-item-dark]="darkThemeEnabled()"
+        [class.hidden]="!userActionsUl"
       >
         <i [innerText]="item.icon" class="material-symbols-outlined"></i>
         <span>{{ item.label | translate }}</span>
@@ -42,11 +38,8 @@
 
       <div
         (click)="userActionsUl = !userActionsUl"
-        [ngClass]="{
-          'nav-ul-item': true,
-          'user-item': true,
-          'nav-ul-item-dark': darkThemeEnabled()
-        }"
+        class="nav-ul-item user-item"
+        [class.nav-ul-item-dark]="darkThemeEnabled()"
       >
         <img
           [ngSrc]="

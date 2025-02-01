@@ -1,7 +1,7 @@
-<div class="release-form-dialog" [ngClass]="{ 'dark-page': darkThemeEnabled }">
+<div class="release-form-dialog" [class.dark-page]="darkThemeEnabled">
   <div
     class="top"
-    [ngStyle]="{ 'margin-bottom': releaseForm.value.id ? '2.7rem' : '1.5rem' }"
+    [style.margin-bottom]="releaseForm.value.id ? '2.7rem' : '1.5rem'"
   >
     @if (darkThemeEnabled) {
     <button
@@ -65,16 +65,15 @@
 
       <div
         class="buttons"
-        [ngStyle]="{
-          'margin-top':
-            showRepeat || showObservation
-              ? isMobileView()
-                ? '0'
-                : '2rem'
-              : isMobileView()
+        [style.margin-top]="
+          showRepeat || showObservation
+            ? isMobileView()
               ? '0'
-              : '.8rem'
-        }"
+              : '2rem'
+            : isMobileView()
+            ? '0'
+            : '.8rem'
+        "
       >
         <input
           type="file"
@@ -87,11 +86,9 @@
         <label
           for="fileInput"
           class="bottom-btn"
-          [ngStyle]="{
-          'background-color': selectedFile ? '#b6b6b673' : 'transparent',
-          'color': selectedFile ? '#fff' : '',
-          'border-color': selectedFile ? 'transparent' : '',
-        }"
+          [style.background-color]="selectedFile ? '#b6b6b673' : 'transparent'"
+          [style.color]="selectedFile ? '#fff' : ''"
+          [style.border-color]="selectedFile ? 'transparent' : ''"
           [matTooltip]="'release-form.attachment' | translate"
           matTooltipPosition="left"
         >
@@ -102,11 +99,9 @@
         <label
           class="bottom-btn"
           (click)="showRepeat = !showRepeat"
-          [ngStyle]="{
-          'background-color': showRepeat ? '#b6b6b673' : 'transparent',
-          'color': showRepeat ? '#fff' : '',
-          'border-color': showRepeat ? 'transparent' : '',
-        }"
+          [style.background-color]="showRepeat ? '#b6b6b673' : 'transparent'"
+          [style.color]="showRepeat ? '#fff' : ''"
+          [style.border-color]="showRepeat ? 'transparent' : ''"
           [matTooltip]="'release-form.repeat' | translate"
           matTooltipPosition="left"
         >
@@ -117,11 +112,11 @@
         <label
           class="bottom-btn"
           (click)="showObservation = !showObservation"
-          [ngStyle]="{
-          'background-color': showObservation ? '#b6b6b673' : 'transparent',
-          'color': showObservation ? '#fff' : '',
-          'border-color': showObservation ? 'transparent' : '',
-        }"
+          [style.background-color]="
+            showObservation ? '#b6b6b673' : 'transparent'
+          "
+          [style.color]="showObservation ? '#fff' : ''"
+          [style.border-color]="showObservation ? 'transparent' : ''"
           [matTooltip]="'generic.observation' | translate"
           matTooltipPosition="left"
         >
@@ -135,7 +130,7 @@
 
     <form [formGroup]="releaseForm" class="extras">
       @if (selectedFile || showObservation) {
-      <div class="file-obs" [ngStyle]="{ width: showRepeat ? '50%' : '100%' }">
+      <div class="file-obs" [style.width]="showRepeat ? '50%' : '100%'">
         @if (selectedFile) {
         <div class="selected-file">
           <div class="file-content">
@@ -174,18 +169,17 @@
       } @if (showRepeat) {
       <div
         class="repeat"
-        [ngStyle]="{
-          width: selectedFile || showObservation ? '50%' : '100%',
-          'border-left':
-            selectedFile || showObservation ? '1px solid #d1d1d1' : 'none'
-        }"
+        [style.width]="selectedFile || showObservation ? '50%' : '100%'"
+        [style.border-left]="
+          selectedFile || showObservation ? '1px solid #d1d1d1' : 'none'
+        "
       >
         <div
           class="choices"
-          [ngStyle]="{
-            'flex-direction': selectedFile || showObservation ? 'column' : 'row',
-            gap: selectedFile || showObservation ? '0' : '4rem',
-          }"
+          [style.flex-direction]="
+            selectedFile || showObservation ? 'column' : 'row'
+          "
+          [style.gap]="selectedFile || showObservation ? '0' : '4rem'"
         >
           <mat-checkbox
             [formControl]="fixedRepeat"
@@ -205,17 +199,14 @@
         @if (releaseForm.value.repeat === 'FIXED') {
         <div
           class="fixed-release"
-          [ngStyle]="{
-            'flex-direction': selectedFile || showObservation ? 'column' : 'row'
-          }"
+          [style.flex-direction]="
+            selectedFile || showObservation ? 'column' : 'row'
+          "
         >
           <mat-form-field
-            [ngStyle]="{
-              width:
-                selectedFile || (showObservation && smallWidth())
-                  ? '85%'
-                  : 'auto'
-            }"
+            [style.width]="
+              selectedFile || (showObservation && smallWidth()) ? '85%' : 'auto'
+            "
           >
             <mat-label></mat-label>
             <mat-select
@@ -230,12 +221,9 @@
 
           <mat-form-field
             [hideRequiredMarker]="true"
-            [ngStyle]="{
-              width:
-                selectedFile || (showObservation && smallWidth())
-                  ? '85%'
-                  : 'auto'
-            }"
+            [style.width]="
+              selectedFile || (showObservation && smallWidth()) ? '85%' : 'auto'
+            "
           >
             <mat-label>{{ "release-form.for" | translate }}:</mat-label>
             <input

@@ -24,14 +24,16 @@ import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynami
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectIconDialog {
-  cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  icons: string[] = this.getIcons;
+  readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
+  readonly icons: string[] = this.getIcons;
 
   closeBtnCfg: ButtonConfig = {
     preConfig: ButtonPreConfig.CLOSE,
   };
 
-  constructor(public readonly utils: UtilsService) {}
+  constructor(private readonly _utils: UtilsService) {}
 
   private get getIcons(): string[] {
     return [

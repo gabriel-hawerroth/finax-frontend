@@ -56,8 +56,8 @@ export class InvoicePaymentDialog implements OnInit {
   readonly data: InvoicePaymentDialogData = inject(MAT_DIALOG_DATA);
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
-  readonly currency = this.utils.getUserConfigs.currency;
+  readonly currency = this._utils.getUserConfigs.currency;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   accounts: BasicAccount[] = this.data.accounts || [];
   defaultPaymmentAccount: number | null =
@@ -74,7 +74,7 @@ export class InvoicePaymentDialog implements OnInit {
   removedFile = false;
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _dialogRef: MatDialogRef<InvoicePaymentDialog>,
     private readonly _invoiceService: InvoiceService
@@ -120,14 +120,14 @@ export class InvoicePaymentDialog implements OnInit {
 
   save() {
     if (this.totalPaymentsValue > this.data.invoiceValue) {
-      this.utils.showMessage('invoice.payment.invalid-amount', 5000);
+      this._utils.showMessage('invoice.payment.invalid-amount', 5000);
       return;
     }
 
     this.saving.set(true);
 
     if (this.selectedFile && this.selectedFile.size > 1.5 * 1024 * 1024) {
-      this.utils.showMessage('generic.this-may-take-few-seconds', 6000);
+      this._utils.showMessage('generic.this-may-take-few-seconds', 6000);
     }
 
     this._invoiceService
@@ -145,14 +145,14 @@ export class InvoicePaymentDialog implements OnInit {
         }
 
         if (!error) {
-          this.utils.showMessage('invoice.payment.saved-successfully');
+          this._utils.showMessage('invoice.payment.saved-successfully');
         } else if (this.removedFile) {
-          this.utils.showMessage(
+          this._utils.showMessage(
             'invoice.payment.error-deleting-attachment',
             6000
           );
         } else {
-          this.utils.showMessage(
+          this._utils.showMessage(
             'invoice.payment.error-saving-attachment',
             6000
           );
@@ -160,7 +160,7 @@ export class InvoicePaymentDialog implements OnInit {
 
         this._dialogRef.close(true);
       })
-      .catch(() => this.utils.showMessage('invoice.payment.error-saving'))
+      .catch(() => this._utils.showMessage('invoice.payment.error-saving'))
       .finally(() => this.saving.set(false));
   }
 
@@ -174,7 +174,7 @@ export class InvoicePaymentDialog implements OnInit {
 
     const maxSize = 3 * 1024 * 1024; // first number(mb) converted to bytes
     if (file.size > maxSize) {
-      this.utils.showMessage('generic.file-too-large', 8000);
+      this._utils.showMessage('generic.file-too-large', 8000);
       return;
     }
 

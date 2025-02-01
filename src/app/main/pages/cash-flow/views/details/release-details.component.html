@@ -1,10 +1,10 @@
-<div class="release-details" [ngClass]="{ 'dark-page': darkThemeEnabled }">
+<div class="release-details" [class.dark-page]="darkThemeEnabled">
   <div class="content">
     <div class="row1">
       <span
         class="material-symbols-outlined"
-        [ngClass]="{ 'margin-top': !release.observation }"
-        [ngStyle]="{ 'background-color': release.category?.color || '#AFAFAF' }"
+        [class.margin-top]="!release.observation"
+        [style.background-color]="release.category?.color || '#AFAFAF'"
       >
         @if (release.isBalanceAdjustment) { edit }
         <!--  -->
@@ -13,7 +13,7 @@
         }
       </span>
 
-      <div class="principal" [ngClass]="{ 'margin-top': !release.observation }">
+      <div class="principal" [class.margin-top]="!release.observation">
         @if (release.type !== 'T') {
         <h2>
           @if (release.isBalanceAdjustment) {
@@ -78,9 +78,7 @@
 
       <div
         class="date"
-        [ngClass]="{
-          up: release.observation && release.observation.length > 40
-        }"
+        [class.up]="release.observation && release.observation.length > 40"
       >
         <span>
           {{ release.date | date : "dd/MM/yyyy" }}

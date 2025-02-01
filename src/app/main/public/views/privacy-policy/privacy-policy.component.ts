@@ -15,14 +15,8 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class PrivacyPolicyPage {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly homeButtonStyle = ButtonType.ICON;
 
-  readonly darkThemeEnabled = signal(
-    this._utilsService.getUserConfigs.theme === 'dark'
-  );
-
-  constructor(private readonly _utilsService: UtilsService) {}
-
-  get getHomeButtonStyle() {
-    return ButtonType.ICON;
-  }
+  constructor(private readonly _utils: UtilsService) {}
 }

@@ -66,7 +66,9 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
 })
 export class CashFlowPage implements OnInit, OnDestroy {
   private readonly _unsubscribeAll = new Subject<void>();
-  readonly currency = this.utils.getUserConfigs.currency;
+
+  readonly currency = this._utils.getUserConfigs.currency;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   currentDate: Date = new Date();
 
@@ -95,7 +97,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
   errorFetchingReleases = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _cashFlowService: ReleaseService,
     private readonly _matDialog: MatDialog,
     private readonly _responsiveService: ResponsiveService
@@ -104,12 +106,12 @@ export class CashFlowPage implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getValues();
 
-    const savedMonth = this.utils.getItemLocalStorage('selectedMonthCashFlow');
+    const savedMonth = this._utils.getItemLocalStorage('selectedMonthCashFlow');
 
     if (savedMonth) {
       this.selectedDate = new Date(savedMonth);
     } else {
-      this.utils.setItemLocalStorage(
+      this._utils.setItemLocalStorage(
         'selectedMonthCashFlow',
         this.selectedDate.toString()
       );
@@ -122,7 +124,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
     this._unsubscribeAll.unsubscribe();
 
-    this.utils.setItemLocalStorage(
+    this._utils.setItemLocalStorage(
       'selectedMonthCashFlow',
       this.selectedDate.toString()
     );
@@ -167,7 +169,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
   addRelease(releaseType: 'E' | 'R' | 'T') {
     const type = toReleaseType(releaseType);
 
-    this.utils
+    this._utils
       .openReleaseFormDialog(<ReleaseFormDialogData>{
         accounts: this.accounts,
         categories: this.categories,
@@ -185,7 +187,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
   }
 
   calculateValues(): CashFlowBalancesComponentData {
-    const doneReleases: MonthlyRelease[] = this.utils.filterList(
+    const doneReleases: MonthlyRelease[] = this._utils.filterList(
       this.monthlyReleases(),
       'done',
       true
@@ -323,16 +325,16 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
       if (this.appliedFilters().description) {
         releases = releases.filter((item) => {
-          const filterValue = this.utils.removeAccents(
+          const filterValue = this._utils.removeAccents(
             this.appliedFilters().description.toLowerCase()
           );
 
           return (
-            this.utils
+            this._utils
               .removeAccents(item.description.toLowerCase())
               .includes(filterValue) ||
             (item.category &&
-              this.utils
+              this._utils
                 .removeAccents(item.category.name.toLowerCase())
                 .includes(filterValue))
           );

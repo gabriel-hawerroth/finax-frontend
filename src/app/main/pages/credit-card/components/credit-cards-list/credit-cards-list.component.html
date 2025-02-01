@@ -1,16 +1,9 @@
-<div
-  class="list"
-  [ngStyle]="{
-    width: getListWidth
-  }"
->
+<div class="list" [style.width]="getListWidth">
   @for (card of creditCards(); track card.id) {
   <div
     class="account"
     (click)="openDetails(card)"
-    [ngStyle]="{
-      'border-bottom': isLastItem($index) ? 'none' : '1px solid #74747437'
-    }"
+    [style.border-bottom]="isLastItem($index) ? 'none' : '1px solid #74747437'"
   >
     @if (card.image) {
     <img

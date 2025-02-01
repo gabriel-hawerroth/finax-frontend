@@ -179,12 +179,7 @@
     </mat-form-field>
   </div>
 
-  <div
-    class="row"
-    [ngStyle]="{
-      'margin-top': isDialog() ? '1rem' : '2rem',
-    }"
-  >
+  <div class="row" [style.margin-top]="isDialog() ? '1rem' : '2rem'">
     <div class="check-boxs">
       @for (item of configs; track $index) {
       <!---->
@@ -201,12 +196,7 @@
       } }
     </div>
 
-    <div
-      id="bank-img-div"
-      [ngStyle]="{
-        'margin-top': '1rem'
-      }"
-    >
+    <div id="bank-img-div" style="margin-top: 1rem">
       @if (!accountForm().value.image) {
       <span class="material-symbols-outlined" (click)="openSelectIconDialog()">
         account_balance

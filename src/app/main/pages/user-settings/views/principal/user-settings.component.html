@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{
-    'simple-page': true,
-    'dark-page': theme() === 'dark'
-  }"
->
+<div class="simple-page" [class.dark-page]="theme() === 'dark'">
   <h1 class="page-title">
     {{ "settings.title" | translate }}
   </h1>
@@ -25,22 +20,6 @@
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-
-    <!-- <mat-divider></mat-divider>
-
-    <div class="config">
-      <span>
-        Somar bens materiais no patrimônio total:
-      </span>
-      <mat-radio-group formControlName="addingMaterialGoodsToPatrimony" class="flex flex-column">
-        <mat-radio-button [value]="true" color="primary">
-          Sim
-        </mat-radio-button>
-        <mat-radio-button [value]="false" color="primary">
-          Não
-        </mat-radio-button>
-      </mat-radio-group>
-    </div> -->
 
     <mat-divider></mat-divider>
 

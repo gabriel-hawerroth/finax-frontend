@@ -1,8 +1,5 @@
 @if (mobileToolbarOpened()) {
-<mat-toolbar
-  id="mobile-toolbar"
-  [ngClass]="{ 'dark-page': darkThemeEnabled() }"
->
+<mat-toolbar id="mobile-toolbar" [class.dark-page]="darkThemeEnabled()">
   <app-logo-title></app-logo-title>
 
   <dynamic-button [config]="toogleSidebarBtnConfig"></dynamic-button>
@@ -10,20 +7,16 @@
 }
 
 <mat-sidenav-container
-  [ngStyle]="{
-    height: mobileToolbarOpened() ? 'calc(100% - 5rem)' : '100%',
-    'max-height': mobileToolbarOpened() ? 'calc(100% - 5rem)' : '100%',
-    position: mobileToolbarOpened() ? 'fixed' : 'relative',
-    bottom: '0'
-  }"
+  style="bottom: 0"
+  [style.height]="mobileToolbarOpened() ? 'calc(100% - 5rem)' : '100%'"
+  [style.max-height]="mobileToolbarOpened() ? 'calc(100% - 5rem)' : '100%'"
+  [style.position]="mobileToolbarOpened() ? 'fixed' : 'relative'"
 >
   <mat-sidenav
     id="sidebar"
     [(opened)]="sidebarOpened"
     [mode]="sidebarMode()"
-    [ngStyle]="{
-      width: mobileToolbarOpened() ? '100vw' : '20rem'
-    }"
+    [style.width]="mobileToolbarOpened() ? '100vw' : '20rem'"
   >
     <app-sidebar />
   </mat-sidenav>

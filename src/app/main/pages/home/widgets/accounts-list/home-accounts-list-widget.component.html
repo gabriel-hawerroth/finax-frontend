@@ -6,14 +6,13 @@
 
     <span
       style="font-size: 2rem; font-weight: bold"
-      [ngStyle]="{
-        color:
-          generalBalance() === 0
-            ? '#3d799c'
-            : generalBalance() > 0
-            ? '#15e627'
-            : 'red'
-      }"
+      [style.color]="
+        generalBalance() === 0
+          ? '#3d799c'
+          : generalBalance() > 0
+          ? '#15e627'
+          : 'red'
+      "
     >
       {{ currency() }}{{ generalBalance() | customCurrency }}
     </span>

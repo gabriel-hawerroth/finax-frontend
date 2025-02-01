@@ -11,7 +11,9 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvestmentsPage implements OnInit {
-  constructor(public readonly utils: UtilsService) {}
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
+  constructor(private readonly _utils: UtilsService) {}
 
   ngOnInit(): void {}
 }

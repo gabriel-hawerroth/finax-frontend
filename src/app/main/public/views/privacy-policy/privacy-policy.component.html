@@ -1,9 +1,4 @@
-<div
-  class="simple-page policy-page"
-  [ngClass]="{
-    'dark-page': darkThemeEnabled()
-  }"
->
+<div class="simple-page policy-page" [class.dark-page]="darkThemeEnabled">
   <div class="logo">
     <img
       [ngSrc]="cloudFireCdnImgsLink + 'money-coin.svg'"
@@ -113,7 +108,7 @@
     id="home-button"
     routerLink="/"
     [showGeneric]="true"
-    [genericStyle]="getHomeButtonStyle"
+    [genericStyle]="homeButtonStyle"
     genericIcon="home"
     [btnStyle]="{
       transform: 'scale(1.5)',

@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{
-    'dark-page': darkThemeEnable
-  }"
-  class="simple-page"
->
+<div class="simple-page" [class.dark-page]="darkThemeEnabled">
   <h1 class="page-title">
     {{ "my-accounts.title" | translate }}
   </h1>

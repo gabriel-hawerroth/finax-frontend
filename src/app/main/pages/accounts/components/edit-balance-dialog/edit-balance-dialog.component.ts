@@ -42,15 +42,16 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class EditBalanceDialog implements OnInit {
   readonly data: EditBalanceDialogData = inject(MAT_DIALOG_DATA);
 
-  readonly currency = this.utils.getUserConfigs.currency;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly currency = this._utils.getUserConfigs.currency;
 
   balanceControl = new FormControl(this.data.account.balance || 0);
 
   loading = signal(false);
 
   constructor(
-    public readonly dialogRef: MatDialogRef<EditBalanceDialog>,
-    public readonly utils: UtilsService,
+    private readonly dialogRef: MatDialogRef<EditBalanceDialog>,
+    private readonly _utils: UtilsService,
     private readonly _accountService: AccountService
   ) {}
 
@@ -66,9 +67,11 @@ export class EditBalanceDialog implements OnInit {
       .adjustBalance(this.data.account.id!, this.balanceControl.value!)
       .then((response) => {
         this.dialogRef.close(response.balance);
-        this.utils.showMessage('my-accounts.balance-changed-successfully');
+        this._utils.showMessage('my-accounts.balance-changed-successfully');
       })
-      .catch(() => this.utils.showMessage('my-accounts.error-changing-balance'))
+      .catch(() =>
+        this._utils.showMessage('my-accounts.error-changing-balance')
+      )
       .finally(() => this.loading.set(false));
   }
 }

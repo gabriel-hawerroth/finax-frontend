@@ -1,7 +1,4 @@
-<div
-  class="category-form-dialog"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
->
+<div class="category-form-dialog" [class.dark-page]="darkThemeEnabled">
   <div class="top">
     <h1>
       {{
@@ -29,9 +26,7 @@
       <div class="row1">
         <span
           class="material-symbols-outlined"
-          [ngStyle]="{
-            'background-color': categoryForm.value.color
-          }"
+          [style.background-color]="categoryForm.value.color"
         >
           {{ categoryForm.value.icon }}
         </span>
@@ -65,7 +60,7 @@
           @for (item of colors; track $index) {
           <div
             class="color"
-            [ngStyle]="{ 'background-color': item }"
+            [style.background-color]="item"
             (click)="pickColor(item)"
           ></div>
           }

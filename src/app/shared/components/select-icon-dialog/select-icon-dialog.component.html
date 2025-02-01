@@ -1,7 +1,4 @@
-<div
-  class="select-icon-dialog"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
->
+<div class="select-icon-dialog" [class.dark-page]="darkThemeEnabled">
   <div class="title">
     <h2>
       {{ "select-icon-dialog.title" | translate }}

@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{
-    'confirm-dialog': true,
-    'dark-page': darkThemeEnabled
-  }"
->
+<div class="confirm-dialog" [class.dark-page]="darkThemeEnabled">
   <div class="title">
     <h3>
       {{ "Selecione as subcontas que deseja reativar junto" | translate }}

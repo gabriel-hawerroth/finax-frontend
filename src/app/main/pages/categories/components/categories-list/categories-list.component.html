@@ -24,7 +24,7 @@
     <div class="item" (click)="onCategoryEdit($event, category)">
       <span
         class="material-symbols-outlined"
-        [ngStyle]="{ 'background-color': category.color }"
+        [style.background-color]="category.color"
       >
         {{ category.icon }}
       </span>

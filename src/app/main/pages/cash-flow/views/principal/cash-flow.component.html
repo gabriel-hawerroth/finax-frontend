@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{
-    'simple-page': true,
-    'dark-page': utils.getUserConfigs.theme === 'dark'
-  }"
->
+<div class="simple-page" [class.dark-page]="darkThemeEnabled">
   <h1 class="page-title">
     {{ "cash-flow.title" | translate }}
 
@@ -90,11 +85,8 @@
 <mat-menu #newReleaseMenu="matMenu">
   <div
     class="new-release-menu"
-    [ngStyle]="{
-      'background-color':
-        utils.getUserConfigs.theme === 'dark' ? '#3b3b3bfd' : '',
-      color: utils.getUserConfigs.theme === 'dark' ? '#dddddd' : ''
-    }"
+    [style.background-color]="darkThemeEnabled ? '#3b3b3bfd' : ''"
+    [style.color]="darkThemeEnabled ? '#dddddd' : ''"
   >
     <span (click)="addRelease('E')">
       {{ "cash-flow.new-expense" | translate }}

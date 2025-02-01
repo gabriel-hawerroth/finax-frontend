@@ -1,9 +1,4 @@
-<div
-  class="cancel-account-dialog"
-  [ngClass]="{
-    'dark-page': darkThemeEnabled()
-  }"
->
+<div class="cancel-account-dialog" [class.dark-page]="darkThemeEnabled()">
   <span class="title" mat-dialog-title>
     {{ "my-profile.cancel-account-dialog.title" | translate }}
   </span>

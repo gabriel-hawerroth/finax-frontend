@@ -1,7 +1,4 @@
-<div
-  class="credit-card-details"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
->
+<div class="credit-card-details" [class.dark-page]="darkThemeEnabled">
   @if (showImage) {
   <img
     id="card-logo"

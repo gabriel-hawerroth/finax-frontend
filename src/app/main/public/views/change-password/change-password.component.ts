@@ -46,7 +46,9 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordPage implements OnInit {
+  readonly passwordRequirementsText = this._utils.passwordRequirementsText;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly getBtnStyle = getBtnStyle;
 
   user!: User;
@@ -54,7 +56,7 @@ export class ChangePasswordPage implements OnInit {
   showLoading = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService,
     private readonly _activatedRoute: ActivatedRoute,
@@ -81,7 +83,7 @@ export class ChangePasswordPage implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern(this.utils.passwordValidator()),
+          Validators.pattern(this._utils.passwordValidator()),
         ],
       ],
       passwordConfirm: ['', Validators.required],
@@ -90,7 +92,7 @@ export class ChangePasswordPage implements OnInit {
 
   changePassword() {
     if (this.changePasswordForm.invalid) {
-      this.utils.showMessage(
+      this._utils.showMessage(
         "generic.password-doesn't-meet-security-requirements"
       );
       return;
@@ -100,7 +102,7 @@ export class ChangePasswordPage implements OnInit {
     const passwordConfirm = this.changePasswordForm.value.passwordConfirm;
 
     if (passwordConfirm !== newPassword) {
-      this.utils.showMessage("change-password.passwords-don't-match");
+      this._utils.showMessage("change-password.passwords-don't-match");
       return;
     }
 
@@ -109,14 +111,14 @@ export class ChangePasswordPage implements OnInit {
     this._userService
       .changeForgetedPassword(this.user.id!, newPassword)
       .then(() => {
-        const savedLogin = this.utils.getItemLocalStorage('savedLoginFinax');
+        const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
 
         if (
-          this.utils.isBrowser &&
+          this._utils.isBrowser &&
           window.innerWidth < 870 &&
           window.innerHeight < 1230
         ) {
-          this.utils.showMessage('change-password.changed-successfully');
+          this._utils.showMessage('change-password.changed-successfully');
           this._router.navigateByUrl('');
         } else {
           const credentials: Credentials = {
@@ -129,7 +131,7 @@ export class ChangePasswordPage implements OnInit {
           this._loginService.login(credentials);
         }
       })
-      .catch(() => this.utils.showMessage('change-password.error-changing'))
+      .catch(() => this._utils.showMessage('change-password.error-changing'))
       .finally(() => this.showLoading.set(false));
   }
 }
