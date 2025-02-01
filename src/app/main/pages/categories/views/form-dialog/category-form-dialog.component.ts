@@ -48,6 +48,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class CategoryFormDialog implements OnInit {
   data: CategoryFormDialogData = inject(MAT_DIALOG_DATA);
 
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
   categoryForm!: FormGroup;
 
   disabled: boolean = false;
@@ -55,7 +57,7 @@ export class CategoryFormDialog implements OnInit {
   saving = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _dialogRef: MatDialogRef<CategoryFormDialog>,
     private readonly _fb: FormBuilder,
     private readonly _categoryService: CategoryService
@@ -83,7 +85,7 @@ export class CategoryFormDialog implements OnInit {
       color: ['', Validators.required],
       icon: ['', Validators.required],
       type: [this.data.type, Validators.required],
-      userId: this.utils.getLoggedUser!.id,
+      userId: this._utils.getLoggedUser!.id,
       active: true,
       essential: false,
     });
@@ -106,9 +108,9 @@ export class CategoryFormDialog implements OnInit {
     this.getSaveRequest(this.categoryForm.getRawValue())
       .then((response) => {
         this._dialogRef.close(response);
-        this.utils.showMessage('categories.saved-successfully');
+        this._utils.showMessage('categories.saved-successfully');
       })
-      .catch(() => this.utils.showMessage('categories.error-saving'))
+      .catch(() => this._utils.showMessage('categories.error-saving'))
       .finally(() => this.saving.set(false));
   }
 

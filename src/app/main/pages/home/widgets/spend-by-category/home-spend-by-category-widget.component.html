@@ -35,9 +35,7 @@
 
   @defer (when finishedFetch()) {
   <mat-card-content
-    [ngStyle]="{
-      'flex-direction': hasMoreThenFourCategories ? 'column' : 'row'
-    }"
+    [style.flex-direction]="hasMoreThenFourCategories ? 'column' : 'row'"
   >
     @if (errorFetching()) {
     <div class="empty">
@@ -48,10 +46,10 @@
     @if (spendsByCategory().length > 0) {
     <div
       class="left"
-      [ngStyle]="{
-        width: hasMoreThenFourCategories ? '100%' : '55%',
-        padding: hasMoreThenFourCategories ? '.5rem 1.5rem' : '1rem 0 0 1.4rem'
-      }"
+      [style.width]="hasMoreThenFourCategories ? '100%' : '55%'"
+      [style.padding]="
+        hasMoreThenFourCategories ? '.5rem 1.5rem' : '1rem 0 0 1.4rem'
+      "
     >
       @for (item of spendsByCategory(); track $index) {
       <div
@@ -62,7 +60,7 @@
       >
         <span
           class="material-symbols-outlined"
-          [ngStyle]="{ 'background-color': item.category.color }"
+          [style.background-color]="item.category.color"
         >
           {{ item.category.icon }}
         </span>
@@ -79,9 +77,7 @@
 
     <div
       class="right"
-      [ngStyle]="{
-        'margin-top': hasMoreThenFourCategories ? '1rem' : '0'
-      }"
+      [style.margin-top]="hasMoreThenFourCategories ? '1rem' : '0'"
     >
       <p-chart
         id="chart"

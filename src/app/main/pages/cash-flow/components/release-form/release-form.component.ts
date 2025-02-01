@@ -46,14 +46,14 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class ReleaseFormComponent implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getDefaultAccountImage = getDefaultAccountImage;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly currency = this._utils.getUserConfigs.currency;
 
   public form = input.required<FormGroup>();
   public accountsList = input.required<BasicAccount[]>();
   public categoriesList = input.required<Category[]>();
   public creditCardsList = input.required<BasicCard[]>();
   public selectedCreditCard = input.required<boolean>();
-
-  currency = this.utils.getUserConfigs.currency;
 
   currentDt: Date = new Date();
 
@@ -63,7 +63,7 @@ export class ReleaseFormComponent implements OnInit {
   selectedTargetAccount: BasicAccount | null = null;
   selectedCategory: Category | null = null;
 
-  constructor(public readonly utils: UtilsService) {}
+  constructor(private readonly _utils: UtilsService) {}
 
   ngOnInit(): void {
     if (this.selectedCreditCard()) {
@@ -83,13 +83,13 @@ export class ReleaseFormComponent implements OnInit {
       this.accountsList().length === 0 &&
       this.creditCardsList().length === 0
     ) {
-      this.utils.showMessage('release-form.no-active-accounts-or-cards', 5000);
+      this._utils.showMessage('release-form.no-active-accounts-or-cards', 5000);
     }
 
     this.form().get('accountId')!.updateValueAndValidity();
     this.accountChanges(this.form().value.accountId);
 
-    this.filteredCategories = this.utils.filterList(
+    this.filteredCategories = this._utils.filterList(
       this.categoriesList(),
       'type',
       this.form().value.type

@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{
-    'invoice-payment-dialog': true,
-    'dark-page': utils.getUserConfigs.theme === 'dark'
-  }"
->
+<div class="invoice-payment-dialog" [class.dark-page]="darkThemeEnabled">
   <div class="title">
     <h2>
       {{
@@ -131,11 +126,9 @@
       <label
         for="fileInput"
         class="bottom-btn"
-        [ngStyle]="{
-            'background-color': selectedFile ? '#b6b6b673' : 'transparent',
-            'color': selectedFile ? '#fff' : '',
-            'border-color': selectedFile ? 'transparent' : '',
-        }"
+        [style.background-color]="selectedFile ? '#b6b6b673' : 'transparent'"
+        [style.color]="selectedFile ? '#fff' : ''"
+        [style.border-color]="selectedFile ? 'transparent' : ''"
       >
         <span id="add-attachment-label">
           {{ "invoice.payment.add-attachment" | translate }}

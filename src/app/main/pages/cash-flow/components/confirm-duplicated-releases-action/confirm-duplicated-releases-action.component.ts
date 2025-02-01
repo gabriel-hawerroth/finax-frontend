@@ -17,5 +17,7 @@ export class ConfirmDuplicatedReleasesActionDialog {
   readonly data: ConfirmDuplicatedReleasesActionDialogData =
     inject(MAT_DIALOG_DATA);
 
-  constructor(public readonly utils: UtilsService) {}
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
+  constructor(private readonly _utils: UtilsService) {}
 }

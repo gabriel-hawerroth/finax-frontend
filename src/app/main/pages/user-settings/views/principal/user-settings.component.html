@@ -1,9 +1,4 @@
-<div
-  [ngClass]="{
-    'simple-page': true,
-    'dark-page': theme() === 'dark'
-  }"
->
+<div class="simple-page" [class.dark-page]="theme() === 'dark'">
   <h1 class="page-title">
     {{ "settings.title" | translate }}
   </h1>

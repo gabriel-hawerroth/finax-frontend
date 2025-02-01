@@ -1,7 +1,4 @@
-<div
-  class="filter-releases-dialog"
-  [ngClass]="{ 'dark-page': darkThemeEnabled }"
->
+<div class="filter-releases-dialog" [class.dark-page]="darkThemeEnabled">
   <div class="title">
     <h1>
       {{ "cash-flow.filter-releases" | translate }}
@@ -89,7 +86,7 @@
                 @if (category.icon) {
                 <span
                   class="material-symbols-outlined"
-                  [ngStyle]="{ 'background-color': category.color }"
+                  [style.background-color]="category.color"
                 >
                   {{ category.icon }}
                 </span>
@@ -107,7 +104,7 @@
                 @if (category.icon) {
                 <span
                   class="material-symbols-outlined"
-                  [ngStyle]="{ 'background-color': category.color }"
+                  [style.background-color]="category.color"
                 >
                   {{ category.icon }}
                 </span>

@@ -1,6 +1,6 @@
 <div
   class="confirm-duplicated-releases-action"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
+  [class.dark-page]="darkThemeEnabled"
 >
   <div class="title">
     <h2>

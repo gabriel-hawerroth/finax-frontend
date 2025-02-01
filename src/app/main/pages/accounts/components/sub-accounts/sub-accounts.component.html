@@ -1,9 +1,9 @@
 @defer (on idle) {
 <div
   class="sub-accounts"
-  [ngStyle]="{
-    'border-bottom': isLastPrimaryAccount() ? 'none' : '1px solid #74747437'
-  }"
+  [style.border-bottom]="
+    isLastPrimaryAccount() ? 'none' : '1px solid #74747437'
+  "
 >
   @if (subAccounts().length > 0) {
   <div class="add-more">
@@ -20,9 +20,9 @@
     <div
       class="account"
       (click)="openDetails(account)"
-      [ngStyle]="{
-        'border-bottom': isLastItem($index) ? 'none' : '1px solid #74747437'
-      }"
+      [style.border-bottom]="
+        isLastItem($index) ? 'none' : '1px solid #74747437'
+      "
     >
       <div class="image-name">
         @if (account.image) {

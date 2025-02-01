@@ -1,9 +1,4 @@
-<div
-  class="bank-account-details"
-  [ngClass]="{
-    'dark-page': darkThemeEnabled
-  }"
->
+<div class="bank-account-details" [class.dark-page]="darkThemeEnabled">
   @if (showImage) {
   <img
     id="account-logo"
@@ -50,10 +45,9 @@
 
     <div
       class="row3"
-      [ngStyle]="{
-        'align-items':
-          account.accountNumber || account.agency ? 'start' : 'center'
-      }"
+      [style.align-items]="
+        account.accountNumber || account.agency ? 'start' : 'center'
+      "
     >
       <div class="left">
         @for (item of configs; track $index) {
@@ -62,7 +56,8 @@
         <span class="item">
           <span
             class="material-symbols-outlined"
-            [ngClass]="{ true: account[item.key], false: !account[item.key] }"
+            [class.true]="account[item.key]"
+            [class.false]="!account[item.key]"
           >
             {{ account[item.key] ? "check" : "close" }}
           </span>

@@ -62,7 +62,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class CreditCardsFormPage implements OnInit, OnDestroy {
   readonly getDefaultAccountImage = getDefaultAccountImage;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly currency = this.utils.getUserConfigs.currency;
+  readonly currency = this._utils.getUserConfigs.currency;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   private readonly unsubscribeAll = new Subject<void>();
 
@@ -85,7 +86,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   changedIcon: boolean = false;
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _dialog: MatDialog,
     private readonly _fb: FormBuilder,
@@ -110,7 +111,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   private buildForm() {
     this.cardForm = this._fb.group({
       id: null,
-      userId: this.utils.getLoggedUser!.id,
+      userId: this._utils.getLoggedUser!.id,
       name: ['', Validators.required],
       cardLimit: [0, Validators.required],
       closeDay: [1, Validators.required],
@@ -134,7 +135,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
           if (card.image) this.selectedIcon.set(card.image);
         })
         .catch(() => {
-          this.utils.showMessage('credit-cards.error-getting-card');
+          this._utils.showMessage('credit-cards.error-getting-card');
           this._location.back();
         });
 
@@ -145,13 +146,13 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
       .getBasicList()
       .then((response) => (this.accounsList = response))
       .catch(() =>
-        this.utils.showMessage('credit-cards.error-getting-accounts')
+        this._utils.showMessage('credit-cards.error-getting-accounts')
       );
   }
 
   public save() {
     if (this.cardForm.value.cardLimit === 0) {
-      this.utils.showMessage('credit-cards.limit-must-be-greater-than-zero');
+      this._utils.showMessage('credit-cards.limit-must-be-greater-than-zero');
       return;
     }
 
@@ -160,10 +161,10 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
 
     this.getSaveRequest(this.cardForm.getRawValue())
       .then(() => {
-        this.utils.showMessage('credit-cards.saved-successfully');
+        this._utils.showMessage('credit-cards.saved-successfully');
         this._router.navigateByUrl('cartoes-de-credito');
       })
-      .catch(() => this.utils.showMessage('credit-cards.error-saving-card'))
+      .catch(() => this._utils.showMessage('credit-cards.error-saving-card'))
       .finally(() => this.saving.set(false));
   }
 

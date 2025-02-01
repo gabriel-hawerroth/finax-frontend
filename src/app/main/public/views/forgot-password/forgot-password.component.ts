@@ -42,6 +42,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class ForgotPasswordPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly getBtnStyle = getBtnStyle;
 
   originalFormValue!: FormGroup;
@@ -50,7 +51,7 @@ export class ForgotPasswordPage implements OnInit {
   emailControl!: FormControl;
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _loginService: LoginService,
     private readonly _matSnackBar: MatSnackBar,
     private readonly _translate: TranslateService
@@ -83,16 +84,19 @@ export class ForgotPasswordPage implements OnInit {
 
         switch (error) {
           case 'invalid email':
-            this.utils.showMessage('generic.invalid-mail', 6000);
+            this._utils.showMessage('generic.invalid-mail', 6000);
             break;
           case 'entity not found':
-            this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
+            this._utils.showMessage("forgot-password.user-doesn't-exist", 4000);
             break;
           case 'error sending email':
-            this.utils.showMessage('forgot-password.error-sending-email', 4500);
+            this._utils.showMessage(
+              'forgot-password.error-sending-email',
+              4500
+            );
             break;
           default:
-            this.utils.showMessage("forgot-password.user-doesn't-exist", 4000);
+            this._utils.showMessage("forgot-password.user-doesn't-exist", 4000);
         }
       })
       .finally(() => this.showLoading.set(false));

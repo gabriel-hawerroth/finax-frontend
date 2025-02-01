@@ -37,6 +37,8 @@ import { CategoryFormDialog } from '../form-dialog/category-form-dialog.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriesPage implements OnInit {
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
   categories = signal<Category[]>([]);
   expenseCategories = signal<Category[]>([]);
   revenueCategories = signal<Category[]>([]);
@@ -45,7 +47,7 @@ export class CategoriesPage implements OnInit {
   errorFetchingCategories = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _matDialog: MatDialog,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _categoryService: CategoryService,
@@ -62,10 +64,10 @@ export class CategoriesPage implements OnInit {
       .then((response) => {
         this.categories.set(response);
         this.expenseCategories.set(
-          this.utils.filterList(this.categories(), 'type', 'E')
+          this._utils.filterList(this.categories(), 'type', 'E')
         );
         this.revenueCategories.set(
-          this.utils.filterList(this.categories(), 'type', 'R')
+          this._utils.filterList(this.categories(), 'type', 'R')
         );
       })
       .catch(() => this.errorFetchingCategories.set(true))
@@ -85,11 +87,11 @@ export class CategoriesPage implements OnInit {
       });
       if (response.type === 'E') {
         this.expenseCategories.set(
-          this.utils.filterList(this.categories(), 'type', 'E')
+          this._utils.filterList(this.categories(), 'type', 'E')
         );
       } else {
         this.revenueCategories.set(
-          this.utils.filterList(this.categories(), 'type', 'R')
+          this._utils.filterList(this.categories(), 'type', 'R')
         );
       }
 
@@ -118,11 +120,11 @@ export class CategoriesPage implements OnInit {
 
       if (response.type === 'E') {
         this.expenseCategories.set(
-          this.utils.filterList(this.categories(), 'type', 'E')
+          this._utils.filterList(this.categories(), 'type', 'E')
         );
       } else {
         this.revenueCategories.set(
-          this.utils.filterList(this.categories(), 'type', 'R')
+          this._utils.filterList(this.categories(), 'type', 'R')
         );
       }
     });
@@ -135,11 +137,11 @@ export class CategoriesPage implements OnInit {
       deletingCategorie?.name === 'Outras despesas' ||
       deletingCategorie?.name === 'Outras receitas'
     ) {
-      this.utils.showMessage("categories.can't-delete-category");
+      this._utils.showMessage("categories.can't-delete-category");
       return;
     }
 
-    this.utils
+    this._utils
       .showConfirmDialog('categories.confirm-delete')
       .then((response) => {
         if (!response) return;
@@ -147,12 +149,12 @@ export class CategoriesPage implements OnInit {
         this._categoryService
           .delete(id)
           .then(() => {
-            this.utils.showMessage('categories.deleted-successfully');
+            this._utils.showMessage('categories.deleted-successfully');
 
             this.getCategories();
           })
           .catch(() => {
-            this.utils.showMessage('categories.error-deleting');
+            this._utils.showMessage('categories.error-deleting');
           });
       });
   }

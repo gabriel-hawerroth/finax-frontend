@@ -16,5 +16,7 @@ import { UtilsService } from '../../utils/utils.service';
 export class ConfirmDialog {
   readonly data: ConfirmDialogData = inject(MAT_DIALOG_DATA);
 
-  constructor(public readonly utils: UtilsService) {}
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+
+  constructor(private readonly _utils: UtilsService) {}
 }

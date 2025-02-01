@@ -1,9 +1,4 @@
-<div
-  class="simple-page home-page"
-  [ngClass]="{
-    'dark-page': theme() === 'dark'
-  }"
->
+<div class="simple-page home-page" [class.dark-page]="theme() === 'dark'">
   <mat-card class="top-card">
     <mat-card-content class="top-card-content">
       <h1 class="card-title">
@@ -38,9 +33,7 @@
     <div class="left-column">
       <app-home-accounts-list-widget
         [currency]="currency()"
-        [ngStyle]="{
-          'border-radius': '5rem !important'
-        }"
+        style="border-radius: 5rem !important"
       ></app-home-accounts-list-widget>
 
       <app-home-payable-accounts-widget

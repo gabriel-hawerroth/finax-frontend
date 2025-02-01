@@ -41,12 +41,15 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordDialog implements OnInit {
+  readonly darkThemeEnabled = this._utils.darkThemeEnable;
+  readonly passwordRequirementsText = this._utils.passwordRequirementsText;
+
   changePasswordForm!: FormGroup;
 
   loading = signal(false);
 
   constructor(
-    public readonly utils: UtilsService,
+    private readonly _utils: UtilsService,
     private readonly _dialogRef: MatDialogRef<ChangePasswordDialog>,
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService
@@ -63,7 +66,7 @@ export class ChangePasswordDialog implements OnInit {
         '',
         [
           Validators.required,
-          Validators.pattern(this.utils.passwordValidator()),
+          Validators.pattern(this._utils.passwordValidator()),
         ],
       ],
       newPasswordConfirm: ['', Validators.required],
@@ -78,12 +81,12 @@ export class ChangePasswordDialog implements OnInit {
     };
 
     if (passwords.newPassword !== passwords.newPasswordConfirm) {
-      this.utils.showMessage("change-password.passwords-don't-match");
+      this._utils.showMessage("change-password.passwords-don't-match");
       return;
     }
 
     if (passwords.currentPassword === passwords.newPassword) {
-      this.utils.showMessage(
+      this._utils.showMessage(
         'change-password-dialog.cannot-be-the-same-as-current'
       );
       return;
@@ -94,12 +97,15 @@ export class ChangePasswordDialog implements OnInit {
     this._userService
       .changePassword(passwords.newPassword, passwords.currentPassword)
       .then((user) => {
-        this.utils.showMessage('change-password.changed-successfully');
+        this._utils.showMessage('change-password.changed-successfully');
         this._dialogRef.close();
 
-        const savedLogin = this.utils.getItemLocalStorage('savedLoginFinax');
+        const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
 
-        this.utils.setItemLocalStorage('userFinax', btoa(JSON.stringify(user)));
+        this._utils.setItemLocalStorage(
+          'userFinax',
+          btoa(JSON.stringify(user))
+        );
 
         if (savedLogin) {
           const credentials: Credentials = {
@@ -107,7 +113,7 @@ export class ChangePasswordDialog implements OnInit {
             password: passwords.newPassword,
             rememberMe: true,
           };
-          this.utils.setItemLocalStorage(
+          this._utils.setItemLocalStorage(
             'savedLoginFinax',
             btoa(JSON.stringify(credentials))
           );
@@ -115,11 +121,11 @@ export class ChangePasswordDialog implements OnInit {
       })
       .catch((err: HttpErrorResponse) => {
         if (err.status === 406) {
-          this.utils.showMessage(
+          this._utils.showMessage(
             'change-password-dialog.incorrect-current-password'
           );
         } else {
-          this.utils.showMessage(
+          this._utils.showMessage(
             'change-password-dialog.unexpected-error-updating-password'
           );
         }

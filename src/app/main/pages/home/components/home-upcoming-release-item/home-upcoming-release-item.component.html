@@ -1,7 +1,7 @@
 <div class="release">
   <span
     class="material-symbols-outlined category-icon"
-    [ngStyle]="{ 'background-color': release().categoryColor }"
+    [style.background-color]="release().categoryColor"
   >
     {{ release().categoryIcon }}
   </span>
@@ -24,9 +24,7 @@
 
   <span
     class="date"
-    [ngStyle]="{
-      'color': isLate ? '#f44336' : isToday ? 'orange' : '#616161',
-    }"
+    [style.color]="isLate ? '#f44336' : isToday ? 'orange' : '#616161'"
   >
     {{ release().date | date : "dd/MM/yyyy" }}
   </span>

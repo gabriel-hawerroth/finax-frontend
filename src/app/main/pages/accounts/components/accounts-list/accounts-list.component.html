@@ -1,19 +1,13 @@
-<div
-  class="list"
-  [ngStyle]="{
-    width: getListWidth
-  }"
->
+<div class="list" [style.width]="getListWidth">
   @for (account of filteredRows(); track account.id) {
   <div
     class="account"
     (click)="openDetails(account)"
-    [ngStyle]="{
-      'border-bottom':
-        isLastItem($index) && !isExpanded(account)
-          ? 'none'
-          : '1px solid #74747437'
-    }"
+    [style.border-bottom]="
+      isLastItem($index) && !isExpanded(account)
+        ? 'none'
+        : '1px solid #74747437'
+    "
   >
     <div class="sub-accounts-expand-btn">
       @if (showSubAccounts(account)) {
@@ -72,9 +66,7 @@
     [showValues]="showValues()"
     [isLastPrimaryAccount]="isLastItem($index)"
     (reloadList)="reloadList.emit($event)"
-    [ngStyle]="{
-      display: isExpanded(account) ? 'flex' : 'none'
-    }"
+    [style.display]="isExpanded(account) ? 'flex' : 'none'"
   ></app-sub-accounts>
   }
   <!---->

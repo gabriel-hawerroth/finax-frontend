@@ -4,9 +4,7 @@
     <div class="category">
       <span
         class="material-symbols-outlined"
-        [ngStyle]="{
-          'background-color': release.category?.color || '#AFAFAF'
-        }"
+        [style.background-color]="release.category?.color || '#AFAFAF'"
       >
         {{
           release.isBalanceAdjustment
@@ -65,10 +63,8 @@
     <div class="situation">
       <span
         class="material-symbols-outlined"
-        [ngClass]="{
-          done: release.done,
-          pending: !release.done
-        }"
+        [class.done]="release.done"
+        [class.pending]="!release.done"
       >
         {{ release.done ? "thumb_up" : "thumb_down" }}
       </span>

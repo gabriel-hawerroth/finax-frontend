@@ -1,7 +1,4 @@
-<div
-  class="release-form"
-  [ngClass]="{ 'dark-page': utils.getUserConfigs.theme === 'dark' }"
->
+<div class="release-form" [class.dark-page]="darkThemeEnabled">
   <form [formGroup]="form()">
     <div class="row row1">
       <mat-form-field [hideRequiredMarker]="true">
@@ -322,7 +319,7 @@
               @if (item.icon) {
               <span
                 class="material-symbols-outlined"
-                [ngStyle]="{ 'background-color': item.color }"
+                [style.background-color]="item.color"
               >
                 {{ item.icon }}
               </span>
@@ -338,7 +335,7 @@
             @if (selectedCategory) {
             <span
               class="material-symbols-outlined"
-              [ngStyle]="{ 'background-color': selectedCategory.color }"
+              [style.background-color]="selectedCategory.color"
             >
               {{ selectedCategory.icon }}
             </span>
