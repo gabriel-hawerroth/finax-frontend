@@ -10,7 +10,7 @@
 
   <form [formGroup]="configsForm" class="content">
     <div class="config theme">
-      <span>{{ "settings.theme" | translate }}:</span>
+      <label>{{ "settings.theme" | translate }}:</label>
 
       <mat-button-toggle-group
         formControlName="theme"
@@ -26,66 +26,45 @@
       </mat-button-toggle-group>
     </div>
 
-    <!-- <mat-divider></mat-divider>
-
-    <div class="config">
-      <span>
-        Somar bens materiais no patrimônio total:
-      </span>
-      <mat-radio-group formControlName="addingMaterialGoodsToPatrimony" class="flex flex-column">
-        <mat-radio-button [value]="true" color="primary">
-          Sim
-        </mat-radio-button>
-        <mat-radio-button [value]="false" color="primary">
-          Não
-        </mat-radio-button>
-      </mat-radio-group>
-    </div> -->
-
     <mat-divider></mat-divider>
 
     <div class="config">
-      <span>{{ "settings.language" | translate }}:</span>
-      <div>
-        <mat-form-field>
-          <mat-select formControlName="language">
-            @for (language of languagesList; track $index) {
-            <mat-option [value]="language">
-              {{ "settings.languages." + language | translate }}
-            </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <label>{{ "settings.language" | translate }}:</label>
+
+      <mat-form-field>
+        <mat-select formControlName="language">
+          @for (language of languagesList; track $index) {
+          <mat-option [value]="language">
+            {{ "settings.languages." + language | translate }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <mat-divider></mat-divider>
 
     <div class="config">
-      <span>{{ "settings.currency" | translate }}:</span>
-      <div>
-        <mat-form-field>
-          <mat-select formControlName="currency">
-            @for (currency of currenciesList; track $index) {
-            <mat-option [value]="currency">
-              {{ currency }}
-              {{ "settings.currencies." + currency | translate }}
-            </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <label>{{ "settings.currency" | translate }}:</label>
+
+      <mat-form-field>
+        <mat-select formControlName="currency">
+          @for (currency of currenciesList; track $index) {
+          <mat-option [value]="currency">
+            {{ currency }}
+            {{ "settings.currencies." + currency | translate }}
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <mat-divider></mat-divider>
 
     <div class="config email-notifications">
-      <span>{{ "settings.email-notifications" | translate }}:</span>
-      <div>
-        <mat-slide-toggle
-          formControlName="emailNotifications"
-        ></mat-slide-toggle>
-      </div>
+      <label>{{ "settings.email-notifications" | translate }}:</label>
+
+      <mat-slide-toggle formControlName="emailNotifications"></mat-slide-toggle>
     </div>
   </form>
 </div>

@@ -4,16 +4,16 @@ body {
   --mat-toolbar-container-text-color: var(--primary-light);
 
   /* Buttons  */
-  --mdc-protected-button-label-text-color: var(--primary);
-  --mat-protected-button-state-layer-color: var(--primary);
-  --mdc-text-button-label-text-color: var(--primary);
-  --mdc-filled-button-container-color: var(--primary);
-  --mdc-outlined-button-label-text-color: var(--primary);
-  --mat-text-button-state-layer-color: var(--primary);
-  --mat-outlined-button-state-layer-color: var(--primary);
+  --mdc-protected-button-label-text-color: var(--button-color);
+  --mat-protected-button-state-layer-color: var(--button-color);
+  --mdc-text-button-label-text-color: var(--button-color);
+  --mdc-filled-button-container-color: var(--button-color);
+  --mdc-outlined-button-label-text-color: var(--button-color);
+  --mat-text-button-state-layer-color: var(--button-color);
+  --mat-outlined-button-state-layer-color: var(--button-color);
   --mdc-protected-button-container-color: var(--background);
   --mdc-filled-button-label-text-color: var(--primary-light);
-  --mdc-outlined-button-outline-color: var(--primary-dark);
+  --mdc-outlined-button-outline-color: var(--button-color);
   --mdc-fab-container-color: var(--primary-light);
   --mdc-fab-small-container-color: var(--primary-light);
   --mat-outlined-button-ripple-color: var(--ripple);
@@ -22,20 +22,20 @@ body {
   --mat-fab-small-ripple-color: var(--ripple);
   --mat-protected-button-ripple-color: var(--ripple);
   --mat-text-button-ripple-color: var(--ripple);
-  --mat-fab-small-foreground-color: var(--primary-dark);
-  --mat-fab-small-state-layer-color: var(--primary-dark);
-  --mdc-icon-button-icon-color: var(--primary-dark);
-  --mat-icon-button-state-layer-color: var(--primary-dark);
-  --mat-fab-foreground-color: var(--primary-dark);
-  --mat-fab-state-layer-color: var(--primary-dark);
-  --mat-text-button-disabled-state-layer-color: var(--primary-dark);
-  --mat-protected-button-disabled-state-layer-color: var(--primary-dark);
-  --mat-filled-button-disabled-state-layer-color: var(--primary-dark);
-  --mat-icon-button-disabled-state-layer-color: var(--primary-dark);
-  --mat-standard-button-toggle-divider-color: var(--primary-dark);
-  --mat-standard-button-toggle-selected-state-text-color: var(--primary-dark);
-  --mat-standard-button-toggle-text-color: var(--primary-dark);
-  --mat-standard-button-toggle-state-layer-color: var(--primary-dark);
+  --mat-fab-small-foreground-color: var(--button-color);
+  --mat-fab-small-state-layer-color: var(--button-color);
+  --mdc-icon-button-icon-color: var(--button-color);
+  --mat-icon-button-state-layer-color: var(--button-color);
+  --mat-fab-foreground-color: var(--button-color);
+  --mat-fab-state-layer-color: var(--button-color);
+  --mat-text-button-disabled-state-layer-color: var(--button-color);
+  --mat-protected-button-disabled-state-layer-color: var(--button-color);
+  --mat-filled-button-disabled-state-layer-color: var(--button-color);
+  --mat-icon-button-disabled-state-layer-color: var(--button-color);
+  --mat-standard-button-toggle-divider-color: var(--button-color);
+  --mat-standard-button-toggle-selected-state-text-color: var(--button-color);
+  --mat-standard-button-toggle-text-color: var(--button-color);
+  --mat-standard-button-toggle-state-layer-color: var(--button-color);
 
   /*Toggle */
   --mat-standard-button-toggle-selected-state-background-color: var(
@@ -255,9 +255,9 @@ body {
   --mat-tab-header-active-hover-label-text-color: var(--primary-dark);
 
   /*Sidenav */
-  --mat-sidenav-container-background-color: var(--background);
+  --mat-sidenav-container-background-color: var(--primary-background-color);
   --mat-sidenav-container-text-color: var(--primary-dark);
-  --mat-sidenav-content-background-color: var(--background);
+  --mat-sidenav-content-background-color: var(--primary-background-color);
   --mat-sidenav-content-text-color: var(--primary-dark);
 
   /*Stepper */

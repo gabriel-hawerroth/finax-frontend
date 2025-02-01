@@ -73,6 +73,9 @@ export class AppComponent implements OnInit, OnDestroy {
     type: ButtonType.ICON,
     icon: 'menu',
     onClick: () => this.toogleSidebar(),
+    contentStyle: {
+      color: 'var(--primary-font-color)',
+    },
   };
 
   constructor(
@@ -158,14 +161,12 @@ export class AppComponent implements OnInit, OnDestroy {
   setTheme = effect(() => {
     if (!this._utils.isBrowser) return;
 
-    console.log('setTheme');
-
     document.body.style.setProperty(
       `--primary-background-color`,
       this._themingService.primaryBackgroundColor()
     );
     document.body.style.setProperty(
-      `--sidebar-content-background-color`,
+      `--sidebar-background-color`,
       this._themingService.sidebarBackgroundColor()
     );
     document.body.style.setProperty(
@@ -173,8 +174,20 @@ export class AppComponent implements OnInit, OnDestroy {
       this._themingService.cardBackgroundColor()
     );
     document.body.style.setProperty(
+      `--background-hover-color`,
+      this._themingService.backgroundHoverColor()
+    );
+    document.body.style.setProperty(
+      `--button-color`,
+      this._themingService.buttonColor()
+    );
+    document.body.style.setProperty(
       `--primary-font-color`,
       this._themingService.primaryFontColor()
+    );
+    document.body.style.setProperty(
+      `--sidebar-font-color`,
+      this._themingService.sidebarFontColor()
     );
     document.body.style.setProperty(
       `--disabled-font-color`,

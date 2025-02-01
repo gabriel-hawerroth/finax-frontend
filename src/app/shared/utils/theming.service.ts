@@ -5,7 +5,10 @@ type Theme = {
   primaryBackgroundColor: string;
   sidebarBackgroundColor: string;
   cardBackgroundColor: string;
+  backgroundHoverColor: string;
+  buttonColor: string;
   primaryFontColor: string;
+  sidebarFontColor: string;
   disabledFontColor: string;
   pageTitleFontColor: string;
   formFieldHintFontColor: string;
@@ -35,9 +38,12 @@ export class ThemingService {
     {
       name: 'light',
       primaryBackgroundColor: '#eff3f8',
-      sidebarBackgroundColor: '#eff3f8',
+      sidebarBackgroundColor: '#fafafa',
       cardBackgroundColor: '#fefefe',
+      backgroundHoverColor: '#f5f5f5',
+      buttonColor: '#176c00',
       primaryFontColor: '#000000da',
+      sidebarFontColor: '#666666',
       disabledFontColor: '#9a9a9a',
       pageTitleFontColor: '#383838',
       formFieldHintFontColor: '#3a3a3a',
@@ -61,9 +67,12 @@ export class ThemingService {
     {
       name: 'dark',
       primaryBackgroundColor: '#383838',
-      sidebarBackgroundColor: '#383838',
+      sidebarBackgroundColor: '#212121',
       cardBackgroundColor: '#212121',
+      backgroundHoverColor: '#383838',
+      buttonColor: '#afafaf',
       primaryFontColor: '#dfdfdf',
+      sidebarFontColor: '#dedede',
       disabledFontColor: '#9a9a9a',
       pageTitleFontColor: '#e6e6e6',
       formFieldHintFontColor: '#999999',
@@ -95,7 +104,12 @@ export class ThemingService {
   public cardBackgroundColor = signal(
     this.definedThemes[0].cardBackgroundColor
   );
+  public backgroundHoverColor = signal(
+    this.definedThemes[0].backgroundHoverColor
+  );
+  public buttonColor = signal(this.definedThemes[0].buttonColor);
   public primaryFontColor = signal(this.definedThemes[0].primaryFontColor);
+  public sidebarFontColor = signal(this.definedThemes[0].sidebarFontColor);
   public disabledFontColor = signal(this.definedThemes[0].disabledFontColor);
   public pageTitleFontColor = signal(this.definedThemes[0].pageTitleFontColor);
   public formFieldHintFontColor = signal(
@@ -146,7 +160,10 @@ export class ThemingService {
       primaryBackgroundColor,
       sidebarBackgroundColor,
       cardBackgroundColor,
+      backgroundHoverColor,
+      buttonColor,
       primaryFontColor,
+      sidebarFontColor,
       disabledFontColor,
       pageTitleFontColor,
       formFieldHintFontColor,
@@ -171,7 +188,10 @@ export class ThemingService {
     this.primaryBackgroundColor.set(primaryBackgroundColor);
     this.sidebarBackgroundColor.set(sidebarBackgroundColor);
     this.cardBackgroundColor.set(cardBackgroundColor);
+    this.backgroundHoverColor.set(backgroundHoverColor);
+    this.buttonColor.set(buttonColor);
     this.primaryFontColor.set(primaryFontColor);
+    this.sidebarFontColor.set(sidebarFontColor);
     this.disabledFontColor.set(disabledFontColor);
     this.pageTitleFontColor.set(pageTitleFontColor);
     this.formFieldHintFontColor.set(formFieldHintFontColor);
