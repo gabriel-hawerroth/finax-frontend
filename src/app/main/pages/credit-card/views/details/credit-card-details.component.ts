@@ -47,9 +47,6 @@ export class CreditCardDetailsComponent {
   editBtnConfig: ButtonConfig = {
     icon: 'edit',
     label: 'actions.edit',
-    contentStyle: {
-      color: '#585858',
-    },
     onClick: () => this.edit(),
   };
 

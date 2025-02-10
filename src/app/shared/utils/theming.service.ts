@@ -6,7 +6,8 @@ type Theme = {
   sidebarBackgroundColor: string;
   cardBackgroundColor: string;
   backgroundHoverColor: string;
-  buttonColor: string;
+  buttonTextColor: string;
+  buttonBorderColor: string;
   primaryFontColor: string;
   sidebarFontColor: string;
   disabledFontColor: string;
@@ -42,7 +43,8 @@ export class ThemingService {
       sidebarBackgroundColor: '#fafafa',
       cardBackgroundColor: '#fefefe',
       backgroundHoverColor: '#f5f5f5',
-      buttonColor: '#176c00',
+      buttonTextColor: '#176c00',
+      buttonBorderColor: '#afafaf',
       primaryFontColor: '#000000da',
       sidebarFontColor: '#666666',
       disabledFontColor: '#9a9a9a',
@@ -59,7 +61,7 @@ export class ThemingService {
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
       separator: '1px solid #6161613b',
-      background: '#f9fff8',
+      background: '#fafafa',
       primary: '#176c00',
       primaryLight: '#dcffd4',
       ripple: '#1b80001e',
@@ -72,7 +74,8 @@ export class ThemingService {
       sidebarBackgroundColor: '#212121',
       cardBackgroundColor: '#212121',
       backgroundHoverColor: '#383838',
-      buttonColor: '#afafaf',
+      buttonTextColor: '#dfdfdf',
+      buttonBorderColor: '#afafaf93',
       primaryFontColor: '#dfdfdf',
       sidebarFontColor: '#dedede',
       disabledFontColor: '#9a9a9a',
@@ -89,7 +92,7 @@ export class ThemingService {
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
       separator: '1px solid #6161613b',
-      background: '#191c1e',
+      background: '#383838',
       primary: '#176c00',
       primaryLight: '#747474',
       ripple: '#7efc661e',
@@ -110,7 +113,8 @@ export class ThemingService {
   public backgroundHoverColor = signal(
     this.definedThemes[0].backgroundHoverColor
   );
-  public buttonColor = signal(this.definedThemes[0].buttonColor);
+  public buttonTextColor = signal(this.definedThemes[0].buttonTextColor);
+  public buttonBorderColor = signal(this.definedThemes[0].buttonBorderColor);
   public primaryFontColor = signal(this.definedThemes[0].primaryFontColor);
   public sidebarFontColor = signal(this.definedThemes[0].sidebarFontColor);
   public disabledFontColor = signal(this.definedThemes[0].disabledFontColor);
@@ -165,7 +169,8 @@ export class ThemingService {
       sidebarBackgroundColor,
       cardBackgroundColor,
       backgroundHoverColor,
-      buttonColor,
+      buttonTextColor,
+      buttonBorderColor,
       primaryFontColor,
       sidebarFontColor,
       disabledFontColor,
@@ -194,7 +199,8 @@ export class ThemingService {
     this.sidebarBackgroundColor.set(sidebarBackgroundColor);
     this.cardBackgroundColor.set(cardBackgroundColor);
     this.backgroundHoverColor.set(backgroundHoverColor);
-    this.buttonColor.set(buttonColor);
+    this.buttonTextColor.set(buttonTextColor);
+    this.buttonBorderColor.set(buttonBorderColor);
     this.primaryFontColor.set(primaryFontColor);
     this.sidebarFontColor.set(sidebarFontColor);
     this.disabledFontColor.set(disabledFontColor);

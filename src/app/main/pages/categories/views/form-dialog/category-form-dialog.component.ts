@@ -48,8 +48,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class CategoryFormDialog implements OnInit {
   data: CategoryFormDialogData = inject(MAT_DIALOG_DATA);
 
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
-
   categoryForm!: FormGroup;
 
   disabled: boolean = false;

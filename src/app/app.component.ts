@@ -24,7 +24,6 @@ import { LoginService } from './core/entities/auth/login.service';
 import { ButtonType } from './core/enums/button-style';
 import { ShowValues } from './core/enums/show-values';
 import { SpendByCategoryInterval } from './core/enums/spend-by-category-interval';
-import { Theme } from './core/enums/theme';
 import { ButtonConfig } from './core/interfaces/button-config';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { DynamicButtonComponent } from './shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
@@ -34,8 +33,8 @@ import {
   LS_SHOW_VALUES,
 } from './shared/utils/local-storage-contants';
 import { ResponsiveService } from './shared/utils/responsive.service';
-import { UtilsService } from './shared/utils/utils.service';
 import { ThemingService } from './shared/utils/theming.service';
+import { UtilsService } from './shared/utils/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -178,8 +177,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this._themingService.backgroundHoverColor()
     );
     document.body.style.setProperty(
-      `--button-color`,
-      this._themingService.buttonColor()
+      `--button-text-color`,
+      this._themingService.buttonTextColor()
+    );
+    document.body.style.setProperty(
+      `--button-border-color`,
+      this._themingService.buttonBorderColor()
     );
     document.body.style.setProperty(
       `--primary-font-color`,

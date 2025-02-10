@@ -3,8 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit,
-  signal,
+  OnInit
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -16,8 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { UserConfigs } from '../../../../../core/entities/user-configs/user-configs';
 import { UserConfigsService } from '../../../../../core/entities/user-configs/user-configs.service';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ThemingService } from '../../../../../shared/utils/theming.service';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -49,8 +48,6 @@ export class UserSettingsPage implements OnInit, OnDestroy {
 
   public configsForm!: FormGroup;
   public userConfigs!: UserConfigs;
-
-  public theme = signal(this._utils.getUserConfigs.theme);
 
   constructor(
     private readonly _utils: UtilsService,
@@ -93,7 +90,6 @@ export class UserSettingsPage implements OnInit, OnDestroy {
     this.configsForm.valueChanges
       .pipe(takeUntil(this._unsubscribeAll), debounceTime(200))
       .subscribe((value) => {
-        this.theme.set(value.theme);
         this._utils.setUserConfigs(value);
         this.saveConfigs();
         this._themingService.applyTheme(value.theme);

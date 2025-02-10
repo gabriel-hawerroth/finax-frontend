@@ -40,7 +40,6 @@ import { MyProfileFormComponent } from '../../components/my-profile-form/my-prof
 })
 export class MyProfilePage implements OnInit, OnDestroy {
   readonly currency: string = this._utils.getUserConfigs.currency;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   private readonly _unsubscribeAll = new Subject<void>();
 

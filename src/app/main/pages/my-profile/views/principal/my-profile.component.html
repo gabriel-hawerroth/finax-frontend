@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "my-profile.title" | translate }}
   </h1>
@@ -90,10 +90,10 @@
       </div>
 
       <button mat-button color="primary" id="change-payment-method">
-        <label>
+        <div class="label">
           <span class="material-symbols-outlined">credit_card</span>
           {{ "my-profile.change-payment-method" | translate }}
-        </label>
+        </div>
       </button>
     </div>
   </div>
