@@ -70,7 +70,9 @@
     [disabled]="disableDelete()"
     [loading]="showLoading()"
     [btnStyle]="btnStyle()"
-    [contentStyle]="{ color: disableDelete() ? '' : 'red' }"
+    [contentStyle]="{
+      color: disableDelete() || darkThemeEnabled() ? '' : 'red'
+    }"
     (onClick)="onDelete.emit()"
   ></styled-button>
   <!---->

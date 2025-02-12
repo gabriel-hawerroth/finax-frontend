@@ -48,7 +48,6 @@
     padding: 1rem 0;
     gap: 8%;
     margin-bottom: 1.5rem;
-    background-color: #fff;
 
     #account-logo {
         position: relative;
@@ -145,11 +144,5 @@
         flex-direction: column;
         align-items: flex-end;
         gap: .8rem;
-    }
-}
-
-.dark-page {
-    .bank-account-details {
-        background-color: $dark-card-bg !important;
     }
 }

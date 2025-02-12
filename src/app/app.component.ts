@@ -221,8 +221,16 @@ export class AppComponent implements OnInit, OnDestroy {
       this._themingService.emptyMessageFontColor()
     );
     document.body.style.setProperty(
+      `--amounts-font-color`,
+      this._themingService.amountsFontColor()
+    );
+    document.body.style.setProperty(
       `--divider-color`,
       this._themingService.dividerColor()
+    );
+    document.body.style.setProperty(
+      `--icon-box-shadow`,
+      this._themingService.iconBoxShadow()
     );
     document.body.style.setProperty(
       `--default-box-shadow`,
@@ -247,6 +255,10 @@ export class AppComponent implements OnInit, OnDestroy {
     document.body.style.setProperty(
       `--separator`,
       this._themingService.separator()
+    );
+    document.body.style.setProperty(
+      `--primary-green`,
+      this._themingService.primaryGreen()
     );
 
     document.body.style.setProperty(

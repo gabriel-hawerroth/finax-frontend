@@ -1,4 +1,4 @@
-<div class="release-details" [class.dark-page]="darkThemeEnabled">
+<div class="release-details">
   <div class="content">
     <div class="row1">
       <span
@@ -28,12 +28,14 @@
           }
         </h2>
 
-        <span class="account-card-name">
+        <div class="account-card-name">
           @if (release.card) {
           <span class="material-symbols-outlined">credit_card</span>
           }
-          {{ release.account?.name || release.card?.name }}
-        </span>
+          <label>
+            {{ release.account?.name || release.card?.name }}
+          </label>
+        </div>
         } @else {
         <h2>
           {{
@@ -43,15 +45,15 @@
           }}
         </h2>
 
-        <span class="transfer">
+        <label class="transfer">
           {{ release.account?.name }}
           <span class="material-symbols-outlined">arrow_right_alt</span>
           {{ release.targetAccount?.name }}
-        </span>
+        </label>
         }
       </div>
 
-      <div class="amount">
+      <label class="amount">
         <h2>
           {{ release.type === "E" ? "-" : "" }}{{ currency
           }}{{ release.amount | customCurrency }}
@@ -62,21 +64,21 @@
         } @else {
         <span class="material-symbols-outlined pending"> thumb_down </span>
         }
-      </div>
+      </label>
     </div>
 
     <div class="row2">
       @if (release.observation) {
-      <div class="observation">
+      <label class="observation">
         <span>{{ "generic.observation" | translate }}:</span>
 
         <span>
           {{ release.observation }}
         </span>
-      </div>
+      </label>
       }
 
-      <div
+      <label
         class="date"
         [class.up]="release.observation && release.observation.length > 40"
       >
@@ -87,7 +89,7 @@
         <span>
           {{ release.time }}
         </span>
-      </div>
+      </label>
     </div>
 
     <div class="row3">
@@ -95,10 +97,6 @@
         [showDownload]="release.attachmentName !== null"
         [btnStyle]="{
           padding: '1.9rem',
-          color: release.isBalanceAdjustment ? 'green !important' : ''
-        }"
-        [contentStyle]="{
-          color: release.isBalanceAdjustment ? 'green !important' : ''
         }"
         (onDownload)="downloadAttachment()"
       ></app-buttons>
@@ -108,10 +106,6 @@
         [disableEdit]="release.isBalanceAdjustment"
         [btnStyle]="{
           padding: '1.9rem',
-          color: release.isBalanceAdjustment ? 'green !important' : ''
-        }"
-        [contentStyle]="{
-          color: release.isBalanceAdjustment ? 'green !important' : ''
         }"
         (onEdit)="edit()"
       ></app-buttons>
@@ -120,10 +114,6 @@
         [showDelete]="release.type !== 'I'"
         [btnStyle]="{
           padding: '1.9rem',
-          color: release.isBalanceAdjustment ? 'green !important' : ''
-        }"
-        [contentStyle]="{
-          color: release.isBalanceAdjustment ? 'green !important' : ''
         }"
         (onDelete)="delete()"
       ></app-buttons>

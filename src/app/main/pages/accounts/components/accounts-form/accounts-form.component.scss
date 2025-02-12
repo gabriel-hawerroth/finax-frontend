@@ -44,14 +44,12 @@
             .material-symbols-outlined {
                 width: 70px;
                 height: 70px;
-                border-radius: 50%;
-                box-shadow: 0 0 2px #5d5d5d;
-                cursor: pointer;
             }
 
-            #bank-img {
+            #bank-img,
+            .material-symbols-outlined {
                 border-radius: 50%;
-                box-shadow: 0 0 2px #5d5d5d;
+                box-shadow: var(--icon-box-shadow);
                 cursor: pointer;
             }
 

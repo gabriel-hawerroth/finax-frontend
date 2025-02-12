@@ -17,13 +17,16 @@ type Theme = {
   snackBarMessageFontColor: string;
   policyPageParagraphFontColor: string;
   emptyMessageFontColor: string;
+  amountsFontColor: string;
   dividerColor: string;
+  iconBoxShadow: string;
   defaultBoxShadow: string;
   defaultAccountLogoBoxShadow: string;
   defaultAccountLogoColor: string;
   categoryOptionColor: string;
   buttonHoverBackgroundColor: string;
   separator: string;
+  primaryGreen: string;
   background: string;
   primary: string;
   primaryLight: string;
@@ -54,13 +57,16 @@ export class ThemingService {
       snackBarMessageFontColor: '#fff',
       policyPageParagraphFontColor: '#343434',
       emptyMessageFontColor: '#818181',
+      amountsFontColor: '#3d799c',
       dividerColor: '#9a9a9a4d',
+      iconBoxShadow: '0 0 2px #5d5d5d',
       defaultBoxShadow: '2px 2px 5px #9292924d',
       defaultAccountLogoBoxShadow: '0 0 0 1px #747474',
       defaultAccountLogoColor: '#3f3f3f',
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
       separator: '1px solid #6161613b',
+      primaryGreen: '#176c00',
       background: '#fafafa',
       primary: '#176c00',
       primaryLight: '#dcffd4',
@@ -85,13 +91,16 @@ export class ThemingService {
       snackBarMessageFontColor: '#fff',
       policyPageParagraphFontColor: '#dfdfdf',
       emptyMessageFontColor: '#818181',
+      amountsFontColor: '#3d799c',
       dividerColor: '#8787872c',
+      iconBoxShadow: '0 0 2px #5d5d5d',
       defaultBoxShadow: '2px 2px 5px #9292924d',
       defaultAccountLogoBoxShadow: '0 0 0 1px #747474',
       defaultAccountLogoColor: '#3f3f3f',
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
       separator: '1px solid #6161613b',
+      primaryGreen: '#176c00',
       background: '#383838',
       primary: '#176c00',
       primaryLight: '#747474',
@@ -132,7 +141,9 @@ export class ThemingService {
   public emptyMessageFontColor = signal(
     this.definedThemes[0].emptyMessageFontColor
   );
+  public amountsFontColor = signal(this.definedThemes[0].amountsFontColor);
   public dividerColor = signal(this.definedThemes[0].dividerColor);
+  public iconBoxShadow = signal(this.definedThemes[0].iconBoxShadow);
   public defaultBoxShadow = signal(this.definedThemes[0].defaultBoxShadow);
   public defaultAccountLogoBoxShadow = signal(
     this.definedThemes[0].defaultAccountLogoBoxShadow
@@ -147,6 +158,7 @@ export class ThemingService {
     this.definedThemes[0].buttonHoverBackgroundColor
   );
   public separator = signal(this.definedThemes[0].separator);
+  public primaryGreen = signal(this.definedThemes[0].primaryGreen);
 
   public primary = signal(this.definedThemes[0].primary);
   public primaryLight = signal(this.definedThemes[0].primaryLight);
@@ -180,13 +192,16 @@ export class ThemingService {
       snackBarMessageFontColor,
       policyPageParagraphFontColor,
       emptyMessageFontColor,
+      amountsFontColor,
       dividerColor,
+      iconBoxShadow,
       defaultBoxShadow,
       defaultAccountLogoBoxShadow,
       defaultAccountLogoColor,
       categoryOptionColor,
       buttonHoverBackgroundColor,
       separator,
+      primaryGreen,
       primary,
       primaryLight,
       primaryDark,
@@ -210,13 +225,16 @@ export class ThemingService {
     this.snackBarMessageFontColor.set(snackBarMessageFontColor);
     this.policyPageParagraphFontColor.set(policyPageParagraphFontColor);
     this.emptyMessageFontColor.set(emptyMessageFontColor);
+    this.amountsFontColor.set(amountsFontColor);
     this.dividerColor.set(dividerColor);
+    this.iconBoxShadow.set(iconBoxShadow);
     this.defaultBoxShadow.set(defaultBoxShadow);
     this.defaultAccountLogoBoxShadow.set(defaultAccountLogoBoxShadow);
     this.defaultAccountLogoColor.set(defaultAccountLogoColor);
     this.categoryOptionColor.set(categoryOptionColor);
     this.buttonHoverBackgroundColor.set(buttonHoverBackgroundColor);
     this.separator.set(separator);
+    this.primaryGreen.set(primaryGreen);
 
     this.primary.set(primary);
     this.primaryLight.set(primaryLight);

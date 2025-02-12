@@ -75,7 +75,7 @@
                 justify-content: center;
                 align-items: center;
                 border-radius: 50%;
-                box-shadow: 0 0 2px #5d5d5d;
+                box-shadow: var(--icon-box-shadow);
             }
 
             .name {
