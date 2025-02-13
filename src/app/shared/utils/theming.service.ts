@@ -100,7 +100,7 @@ export class ThemingService {
       categoryOptionColor: '#fff',
       buttonHoverBackgroundColor: '#74747430',
       separator: '1px solid #6161613b',
-      primaryGreen: '#176c00',
+      primaryGreen: '#dfdfdf',
       background: '#383838',
       primary: '#176c00',
       primaryLight: '#747474',

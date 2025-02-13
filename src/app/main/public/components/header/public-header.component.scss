@@ -42,9 +42,8 @@ $header-height: 5.5rem;
         justify-content: center;
         gap: 20px;
         font-size: 1.7rem;
-        color: $primary-font-color;
 
-        h1 {
+        color: var(--primary-green) h1 {
             font-family: 'Dosis';
         }
     }

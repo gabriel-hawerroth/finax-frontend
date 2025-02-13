@@ -23,7 +23,10 @@ import { AccountService } from '../../../../../core/entities/account/account.ser
 import { AccountChangedEvent } from '../../../../../core/enums/account-changed-event';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { accountChangedEvent } from '../../../../../core/events/events';
-import { ButtonConfig } from '../../../../../core/interfaces/button-config';
+import {
+  ButtonConfig,
+  ButtonPreConfig,
+} from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
@@ -50,7 +53,6 @@ import { SubAccountsActivateDialog } from '../../components/sub-accounts-activat
 })
 export class BankAccountDetailsComponent {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly showValues = this._utils.showValues;
   readonly hideValue = HIDE_VALUE;
 
@@ -65,29 +67,17 @@ export class BankAccountDetailsComponent {
   seeReleasesBtnConfig: ButtonConfig = {
     icon: 'sort',
     label: 'my-accounts.see-releases',
-    contentStyle: {
-      'font-size': '1rem',
-    },
   };
 
   editBtnConfig: ButtonConfig = {
-    icon: 'edit',
-    label: 'actions.edit',
-    contentStyle: {
-      'font-size': '1rem',
-      color: '#585858',
-    },
+    preConfig: ButtonPreConfig.EDIT,
     onClick: () => this.edit(),
   };
 
   changeSituationBtnConfig: ButtonConfig;
 
   deleteBtnConfig: ButtonConfig = {
-    label: 'actions.exclude',
-    style: {},
-    contentStyle: {
-      color: 'red',
-    },
+    preConfig: ButtonPreConfig.DELETE,
     onClick: () => this.onDelete(),
   };
 
@@ -111,9 +101,6 @@ export class BankAccountDetailsComponent {
 
     this.changeSituationBtnConfig = {
       label: this.account.active ? 'generic.inactivate' : 'generic.activate',
-      contentStyle: {
-        color: '#585858',
-      },
       onClick: () =>
         this.account.active ? this.onInactivate() : this.onActivate(),
     };

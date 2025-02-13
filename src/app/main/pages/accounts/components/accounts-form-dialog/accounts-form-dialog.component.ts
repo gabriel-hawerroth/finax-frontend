@@ -37,8 +37,6 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountsFormDialog implements OnInit, AfterViewInit {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
-
   @ViewChild(AccountsFormComponent)
   accountFormComponent!: AccountsFormComponent;
 

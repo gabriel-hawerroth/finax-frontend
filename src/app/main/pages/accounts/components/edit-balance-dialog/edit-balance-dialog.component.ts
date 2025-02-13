@@ -42,7 +42,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class EditBalanceDialog implements OnInit {
   readonly data: EditBalanceDialogData = inject(MAT_DIALOG_DATA);
 
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
 
   balanceControl = new FormControl(this.data.account.balance || 0);

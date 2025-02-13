@@ -45,8 +45,7 @@ $grey: #616161;
             align-items: center;
 
             .card-icon {
-                color: $primary-font-color;
-                margin-right: .5rem;
+                color: var(--primary-green) margin-right: .5rem;
             }
 
             #account {

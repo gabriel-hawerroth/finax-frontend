@@ -6,9 +6,8 @@
 
     .top {
       margin-top: 3rem !important;
-      color: $primary-font-color;
 
-      h1 {
+      color: var(--primary-green) h1 {
         font-size: 3rem;
         color: var(--primary);
       }
