@@ -48,8 +48,6 @@
         </div>
       </header>
 
-      @defer (when !searching()) {
-      <!---->
       @if (errorFetchingReleases()) {
       <div class="empty">
         <span>{{ "cash-flow.error-getting-releases" | translate }}</span>
@@ -71,7 +69,7 @@
           {{ "cash-flow.empty-releases" | translate }}
         </span>
       </div>
-      } } }
+      } }
 
       <app-cash-flow-balances
         class="balances"

@@ -103,15 +103,31 @@
         </div>
       </header>
 
+      @if (errorFetchingReleases()) {
+      <div class="empty">
+        <span style="font-size: 1.2rem">
+          {{ "cash-flow.error-getting-releases" | translate }}
+        </span>
+      </div>
+      } @else {
+      <!---->
+      @if (monthValues().releases.length) {
       <app-releases-list
+        id="releases-list"
         [releases]="monthValues().releases"
         [accounts]="accounts"
         [categories]="categories"
         [creditCards]="creditCards"
         [selectedDate]="selectedDate()"
         (updateList)="getMonthValues()"
-        id="releases-list"
       ></app-releases-list>
+      } @else {
+      <div class="empty">
+        <span style="font-size: 1.2rem">
+          {{ "cash-flow.empty-releases" | translate }}
+        </span>
+      </div>
+      } }
 
       <div class="totals">
         <div class="item">

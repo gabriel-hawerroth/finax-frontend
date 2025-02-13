@@ -89,6 +89,7 @@ export class CreditCardInvoicePage implements OnInit {
   currentYear: string = this.selectedDate().getFullYear().toString();
 
   searching = signal(false);
+  errorFetchingReleases = signal(false);
 
   accounts: BasicAccount[] = [];
   categories: Category[] = [];
@@ -135,9 +136,15 @@ export class CreditCardInvoicePage implements OnInit {
   getMonthValues() {
     const monthYear = format(this.selectedDate(), 'MM/yyyy');
 
+    this.searching.set(true);
     this._invoiceService
       .getMonthValues(this.creditCardId, monthYear)
-      .then((response) => this.monthValues.set(response));
+      .then((response) => {
+        this.monthValues.set(response);
+        this.errorFetchingReleases.set(false);
+      })
+      .catch(() => this.errorFetchingReleases.set(true))
+      .finally(() => this.searching.set(false));
   }
 
   getValues() {
