@@ -29,7 +29,7 @@
     <div class="list">
       @if (errorFetching()) {
       <div class="empty">
-        <span>{{ "home.error-getting-accounts" | translate }}</span>
+        <label>{{ "home.error-getting-accounts" | translate }}</label>
       </div>
       } @else {
       <!--  -->
@@ -45,9 +45,9 @@
       <!---->
       } @empty {
       <div class="empty">
-        <span>
+        <label>
           {{ "home.empty-accounts-list" | translate }}
-        </span>
+        </label>
 
         <app-buttons
           routerLink="/contas/nova"

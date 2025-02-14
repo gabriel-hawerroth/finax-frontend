@@ -11,9 +11,9 @@
   <mat-card-content>
     @if (errorFetching()) {
     <div class="empty">
-      <span>
+      <label>
         {{ "home.error-getting-credit-cards" | translate }}
-      </span>
+      </label>
     </div>
     } @else {
     <!---->
@@ -29,9 +29,9 @@
     <!---->
     } @empty {
     <div class="empty">
-      <span>
+      <label>
         {{ "home.empty-credit-cards-list" | translate }}
-      </span>
+      </label>
     </div>
     } }
   </mat-card-content>

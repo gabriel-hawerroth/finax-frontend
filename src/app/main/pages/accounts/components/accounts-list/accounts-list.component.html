@@ -4,9 +4,7 @@
     class="account"
     (click)="openDetails(account)"
     [style.border-bottom]="
-      isLastItem($index) && !isExpanded(account)
-        ? 'none'
-        : '1px solid #74747437'
+      isLastItem($index) && !isExpanded(account) ? 'none' : 'var(--separator)'
     "
   >
     <div class="sub-accounts-expand-btn">
@@ -40,7 +38,9 @@
         <b>{{ account.name }}</b>
 
         @if (account.primaryAccountId) {
-        <span class="sub-account-info">subconta</span>
+        <span class="sub-account-info">
+          {{ "my-accounts.sub-account" | translate }}
+        </span>
         }
       </span>
     </div>
@@ -72,14 +72,14 @@
   <!---->
   } @empty {
   <div class="empty">
-    <span style="font-size: 1.5rem; margin-bottom: 4rem">
+    <label style="font-size: 1.5rem; margin-bottom: 4rem">
       {{ "my-accounts.no-accounts" | translate }}
       {{
         (situationFilterValue() ? "generic.active" : "generic.inactive")
           | translate
           | lowercase
       }}
-    </span>
+    </label>
   </div>
   }
 </div>

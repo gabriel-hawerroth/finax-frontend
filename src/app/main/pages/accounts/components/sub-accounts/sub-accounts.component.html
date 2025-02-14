@@ -1,9 +1,7 @@
 @defer (on idle) {
 <div
   class="sub-accounts"
-  [style.border-bottom]="
-    isLastPrimaryAccount() ? 'none' : '1px solid #74747437'
-  "
+  [style.border-bottom]="isLastPrimaryAccount() ? 'none' : 'var(--separator)'"
 >
   @if (subAccounts().length > 0) {
   <div class="add-more">
@@ -20,9 +18,7 @@
     <div
       class="account"
       (click)="openDetails(account)"
-      [style.border-bottom]="
-        isLastItem($index) ? 'none' : '1px solid #74747437'
-      "
+      [style.border-bottom]="isLastItem($index) ? 'none' : 'var(--separator)'"
     >
       <div class="image-name">
         @if (account.image) {
@@ -58,7 +54,7 @@
   </div>
   } @else {
   <div class="empty">
-    <span>{{ "my-accounts.no-sub-accounts-registered" | translate }}</span>
+    <label>{{ "my-accounts.no-sub-accounts-registered" | translate }}</label>
 
     <dynamic-button [config]="registerOneBtnConfig"></dynamic-button>
   </div>

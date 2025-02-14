@@ -22,7 +22,7 @@
             (click)="changeMonth('before')"
             [disabled]="searching()"
           >
-            <span class="material-symbols-outlined">chevron_left</span>
+            <label class="material-symbols-outlined">chevron_left</label>
           </button>
 
           <div class="tab">
@@ -34,7 +34,7 @@
             (click)="changeMonth('next')"
             [disabled]="searching()"
           >
-            <span class="material-symbols-outlined">navigate_next</span>
+            <label class="material-symbols-outlined">navigate_next</label>
           </button>
         </div>
 
@@ -50,7 +50,7 @@
 
       @if (errorFetchingReleases()) {
       <div class="empty">
-        <span>{{ "cash-flow.error-getting-releases" | translate }}</span>
+        <label>{{ "cash-flow.error-getting-releases" | translate }}</label>
       </div>
       } @else {
       <!---->
@@ -65,9 +65,9 @@
       ></app-releases-list>
       } @else {
       <div class="empty">
-        <span style="font-size: 1.2rem">
+        <label style="font-size: 1.2rem">
           {{ "cash-flow.empty-releases" | translate }}
-        </span>
+        </label>
       </div>
       } }
 

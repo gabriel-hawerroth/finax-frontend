@@ -27,6 +27,7 @@ type Theme = {
   buttonHoverBackgroundColor: string;
   separator: string;
   primaryGreen: string;
+  primaryGray: string;
   background: string;
   primary: string;
   primaryLight: string;
@@ -64,9 +65,10 @@ export class ThemingService {
       defaultAccountLogoBoxShadow: '0 0 0 1px #747474',
       defaultAccountLogoColor: '#3f3f3f',
       categoryOptionColor: '#fff',
-      buttonHoverBackgroundColor: '#74747430',
+      buttonHoverBackgroundColor: '#74747429',
       separator: '1px solid #6161613b',
       primaryGreen: '#176c00',
+      primaryGray: '#bdbdbd',
       background: '#fafafa',
       primary: '#176c00',
       primaryLight: '#dcffd4',
@@ -101,6 +103,7 @@ export class ThemingService {
       buttonHoverBackgroundColor: '#74747430',
       separator: '1px solid #6161613b',
       primaryGreen: '#dfdfdf',
+      primaryGray: '#bdbdbd',
       background: '#383838',
       primary: '#176c00',
       primaryLight: '#747474',
@@ -159,6 +162,7 @@ export class ThemingService {
   );
   public separator = signal(this.definedThemes[0].separator);
   public primaryGreen = signal(this.definedThemes[0].primaryGreen);
+  public primaryGray = signal(this.definedThemes[0].primaryGray);
 
   public primary = signal(this.definedThemes[0].primary);
   public primaryLight = signal(this.definedThemes[0].primaryLight);
@@ -202,6 +206,7 @@ export class ThemingService {
       buttonHoverBackgroundColor,
       separator,
       primaryGreen,
+      primaryGray,
       primary,
       primaryLight,
       primaryDark,
@@ -235,6 +240,7 @@ export class ThemingService {
     this.buttonHoverBackgroundColor.set(buttonHoverBackgroundColor);
     this.separator.set(separator);
     this.primaryGreen.set(primaryGreen);
+    this.primaryGray.set(primaryGray);
 
     this.primary.set(primary);
     this.primaryLight.set(primaryLight);

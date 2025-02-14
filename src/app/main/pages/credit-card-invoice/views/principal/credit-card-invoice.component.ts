@@ -75,6 +75,7 @@ export class CreditCardInvoicePage implements OnInit {
   readonly currency = this._utils.getUserConfigs.currency;
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly smallWidth = this._responsiveService.smallWidth;
+  readonly iconBtnStyle = ButtonType.ICON;
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
   creditCard = signal<CreditCard | null>(null);
@@ -275,10 +276,6 @@ export class CreditCardInvoicePage implements OnInit {
 
   formatDay(day: number | undefined): string {
     return (day || 1).toString().padStart(2, '0');
-  }
-
-  get iconBtnStyle() {
-    return ButtonType.ICON;
   }
 
   fullyPaid = computed(() => {

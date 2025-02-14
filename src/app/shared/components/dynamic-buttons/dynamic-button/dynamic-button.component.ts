@@ -83,7 +83,7 @@ export class DynamicButtonComponent implements OnInit {
         this.config().label = 'buttons.download-attachment';
         this.config().contentStyle = {
           ...this.config().contentStyle,
-          color: '#585858',
+          color: 'var(--primary-gray)',
         };
         break;
       case ButtonPreConfig.CLOSE:

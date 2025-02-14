@@ -290,7 +290,8 @@
         "grouper-account-description": "Com essa configuração ativada, essa conta servirá apenas para agrupar suas subcontas, não podendo ser utilizada para lançamentos",
         "add-to-cash-flow": "Somar no fluxo de caixa",
         "add-to-cash-flow-description": "Com essa configuração desativada, os lançamentos nessa conta não serão somados nos valores mensais do fluxo de caixa",
-        "grouper-accounts-with-balance-error": "Contas agrupadoras não podem ter saldo. Para corrigir, ajuste o saldo definindo-o como 0"
+        "grouper-accounts-with-balance-error": "Contas agrupadoras não podem ter saldo. Para corrigir, ajuste o saldo definindo-o como 0",
+        "sub-account": "subconta"
     },
     "credit-cards": {
         "title": "Cartões de crédito",

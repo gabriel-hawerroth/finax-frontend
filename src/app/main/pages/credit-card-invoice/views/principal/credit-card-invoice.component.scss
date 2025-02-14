@@ -1,253 +1,236 @@
-@use 'colors.scss' as *;
+@use "colors.scss" as *;
 
 @media screen and (max-width: 1650px) {
-    header {
-        .first-row {
-            .left {
-                position: relative;
-                right: 1rem;
-                transform: scale(0.9);
-            }
+  header {
+    .first-row {
+      .left {
+        position: relative;
+        right: 1rem;
+        transform: scale(0.9);
+      }
 
-            .right {
-                width: 65% !important;
-            }
-        }
+      .right {
+        width: 65% !important;
+      }
     }
+  }
 }
 
 @media screen and (max-width: 1300px) {
-    header {
-        .first-row {
-            .left {
-                position: relative;
-                right: 1.2rem;
-                transform: scale(0.8);
-            }
+  header {
+    .first-row {
+      .left {
+        position: relative;
+        right: 1.2rem;
+        transform: scale(0.8);
+      }
 
-            .right {
-                width: 67% !important;
-            }
-        }
+      .right {
+        width: 67% !important;
+      }
     }
+  }
 }
 
 @media screen and (max-width: 650px) {
-    .simple-page {
-        .content {
-            .totals {
-                padding: 1rem 0 !important;
+  .simple-page {
+    .content {
+      .totals {
+        padding: 1rem 0 !important;
 
-                .item {
-                    padding: 0 .2rem !important;
-                    text-align: center !important;
-                }
-            }
+        .item {
+          padding: 0 0.2rem !important;
+          text-align: center !important;
         }
+      }
     }
+  }
 }
 
 ::-webkit-scrollbar {
-    display: flex;
+  display: flex;
 }
 
 .simple-page {
+  display: flex;
+  flex-direction: column;
+
+  .page-title {
     display: flex;
-    flex-direction: column;
+    align-items: start;
+    gap: 1.5rem;
+    font-size: 2.3rem;
 
-    .page-title {
+    #add-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.3rem;
+      height: 2.3rem;
+    }
+  }
+
+  .content {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .releases-card {
+      height: 85vh;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      top: 0.6rem;
+      padding: 0 !important;
+
+      header {
         display: flex;
-        align-items: start;
-        gap: 1.5rem;
-        font-size: 2.3rem;
+        flex-direction: column;
 
-        #add-btn {
+        .first-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.8rem 1.2rem;
+          height: 8.7rem;
+
+          .left {
+            display: flex;
+            align-items: start;
+            gap: 1.5rem;
+
+            .title {
+              h1 {
+                font-size: 2.3rem;
+              }
+
+              .credit-card {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                cursor: pointer;
+                padding: 0.5rem 0.9rem;
+                border-radius: 1rem;
+
+                &:hover {
+                  background-color: var(
+                    --button-hover-background-color
+                  ) !important;
+                }
+
+                img {
+                  border-radius: 50%;
+                }
+
+                span {
+                  font-size: 1.5rem;
+                }
+              }
+            }
+          }
+
+          .right {
+            width: 58%;
+            height: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
-            width: 2.3rem;
-            height: 2.3rem;
-            background-color: #099e26;
-
-            .material-symbols-outlined {
-                color: #fff;
-            }
-        }
-    }
-
-    .content {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .releases-card {
-            height: 85vh;
-            max-height: 85vh;
-            display: flex;
+            align-items: flex-end;
             flex-direction: column;
-            position: relative;
-            top: .6rem;
-            padding: 0 !important;
+            gap: 1rem;
 
-            header {
-                display: flex;
-                flex-direction: column;
-
-                .first-row {
-                    display: flex;
-                    justify-content: space-between;
-                    padding: .8rem 1.2rem;
-                    height: 8.7rem;
-
-                    .left {
-                        display: flex;
-                        align-items: start;
-                        gap: 1.5rem;
-
-                        .title {
-                            h1 {
-                                font-size: 2.3rem;
-                            }
-
-                            .credit-card {
-                                display: flex;
-                                align-items: center;
-                                gap: .8rem;
-                                cursor: pointer;
-                                padding: .5rem .9rem;
-                                border-radius: 1rem;
-
-                                &:hover {
-                                    background-color: #e2e2e24f !important;
-                                }
-
-                                img {
-                                    border-radius: 50%;
-                                }
-
-                                span {
-                                    font-size: 1.5rem;
-                                }
-                            }
-                        }
-
-                        #add-btn {
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            width: 2.3rem;
-                            height: 2.3rem;
-                            background-color: #099e26;
-
-                            .material-symbols-outlined {
-                                color: #fff;
-                            }
-                        }
-                    }
-
-                    .right {
-                        width: 58%;
-                        height: 100%;
-                        display: flex;
-                        justify-content: center;
-                        align-items: flex-end;
-                        flex-direction: column;
-                        gap: 1rem;
-
-                        #payments-card {
-                            width: 100%;
-                            height: 100%;
-                        }
-
-                        #pay-btn {
-                            padding: 1.5rem 1.7rem;
-                            font-size: 1.1rem;
-                            border-radius: 2.5rem;
-                        }
-                    }
-                }
-
-                .second-row {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 1rem;
-                    color: #464646;
-
-                    .tab {
-                        font-size: 1.3rem;
-                        text-transform: capitalize;
-                        width: 12rem;
-                        display: flex;
-                        justify-content: center;
-                    }
-                }
+            #payments-card {
+              width: 100%;
+              height: 100%;
             }
 
-            #releases-list {
-                flex: 1;
-                overflow-y: scroll;
-                padding: 0 1.2rem;
+            #pay-btn {
+              padding: 1.5rem 1.7rem;
+              font-size: 1.1rem;
+              border-radius: 2.5rem;
             }
-
-            .totals {
-                display: flex;
-                justify-content: space-around;
-                border-top: 1px solid #00000032;
-                padding: 1.3rem 2rem;
-
-                .item {
-                    width: 31%;
-                    height: 7.3rem;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    gap: .2rem;
-                    border: 1px solid #d6d6d6;
-                    border-radius: 3px;
-                    font-size: 1rem;
-
-                    .value {
-                        font-size: 1.3rem !important;
-                    }
-                }
-            }
+          }
         }
+
+        .second-row {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+          color: #464646;
+
+          .tab {
+            font-size: 1.3rem;
+            text-transform: capitalize;
+            width: 12rem;
+            display: flex;
+            justify-content: center;
+          }
+        }
+      }
+
+      #releases-list {
+        flex: 1;
+        overflow-y: scroll;
+        padding: 0 1.2rem;
+      }
+
+      .totals {
+        display: flex;
+        justify-content: space-around;
+        border-top: 1px solid #00000032;
+        padding: 1.3rem 2rem;
+
+        .item {
+          width: 31%;
+          height: 7.3rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 0.2rem;
+          border: 1px solid #d6d6d6;
+          border-radius: 3px;
+          font-size: 1rem;
+
+          .value {
+            font-size: 1.3rem !important;
+          }
+        }
+      }
     }
+  }
 }
 
 .dark-page {
-    .content {
-        .releases-card {
-            header {
-                .first-row {
-
-                    .filter-menu,
-                    .mat-mdc-menu-content {
-                        background-color: $dark-bg !important;
-                    }
-                }
-
-                .second-row {
-                    .tab {
-                        color: $dark-font-color;
-                    }
-
-                    button {
-                        color: #fff;
-                    }
-                }
-            }
-
-            .totals {
-                border-top-color: #ffffff32 !important;
-
-                .item {
-                    border-color: #ffffff32 !important;
-                }
-            }
+  .content {
+    .releases-card {
+      header {
+        .first-row {
+          .filter-menu,
+          .mat-mdc-menu-content {
+            background-color: $dark-bg !important;
+          }
         }
+
+        .second-row {
+          .tab {
+            color: $dark-font-color;
+          }
+
+          button {
+            color: #fff;
+          }
+        }
+      }
+
+      .totals {
+        border-top-color: #ffffff32 !important;
+
+        .item {
+          border-color: #ffffff32 !important;
+        }
+      }
     }
+  }
 }
