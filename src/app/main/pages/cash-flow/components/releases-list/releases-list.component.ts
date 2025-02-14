@@ -43,8 +43,6 @@ export class ReleasesListComponent {
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
-  readonly theme = this._utils.getUserConfigs.theme;
-
   constructor(
     private readonly _utils: UtilsService,
     private readonly _bottomSheet: MatBottomSheet,

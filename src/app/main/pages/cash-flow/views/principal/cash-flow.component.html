@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "cash-flow.title" | translate }}
 
@@ -25,9 +25,9 @@
             <label class="material-symbols-outlined">chevron_left</label>
           </button>
 
-          <div class="tab">
+          <label class="tab">
             {{ selectedDate | releasesMonth }}
-          </div>
+          </label>
 
           <button
             mat-icon-button
@@ -86,16 +86,16 @@
     [style.background-color]="darkThemeEnabled ? '#3b3b3bfd' : ''"
     [style.color]="darkThemeEnabled ? '#dddddd' : ''"
   >
-    <span (click)="addRelease('E')">
+    <label (click)="addRelease('E')">
       {{ "cash-flow.new-expense" | translate }}
-    </span>
+    </label>
 
-    <span (click)="addRelease('R')">
+    <label (click)="addRelease('R')">
       {{ "cash-flow.new-revenue" | translate }}
-    </span>
+    </label>
 
-    <span (click)="addRelease('T')">
+    <label (click)="addRelease('T')">
       {{ "cash-flow.new-transfer" | translate }}
-    </span>
+    </label>
   </div>
 </mat-menu>

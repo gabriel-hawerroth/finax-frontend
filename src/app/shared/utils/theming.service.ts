@@ -28,6 +28,7 @@ type Theme = {
   separator: string;
   primaryGreen: string;
   primaryGray: string;
+  secondaryGray: string;
   background: string;
   primary: string;
   primaryLight: string;
@@ -69,6 +70,7 @@ export class ThemingService {
       separator: '1px solid #6161613b',
       primaryGreen: '#176c00',
       primaryGray: '#bdbdbd',
+      secondaryGray: '#818181',
       background: '#fafafa',
       primary: '#176c00',
       primaryLight: '#dcffd4',
@@ -103,7 +105,8 @@ export class ThemingService {
       buttonHoverBackgroundColor: '#74747430',
       separator: '1px solid #6161613b',
       primaryGreen: '#dfdfdf',
-      primaryGray: '#bdbdbd',
+      primaryGray: '#585858',
+      secondaryGray: '#818181',
       background: '#383838',
       primary: '#176c00',
       primaryLight: '#747474',
@@ -163,6 +166,7 @@ export class ThemingService {
   public separator = signal(this.definedThemes[0].separator);
   public primaryGreen = signal(this.definedThemes[0].primaryGreen);
   public primaryGray = signal(this.definedThemes[0].primaryGray);
+  public secondaryGray = signal(this.definedThemes[0].secondaryGray);
 
   public primary = signal(this.definedThemes[0].primary);
   public primaryLight = signal(this.definedThemes[0].primaryLight);
@@ -207,6 +211,7 @@ export class ThemingService {
       separator,
       primaryGreen,
       primaryGray,
+      secondaryGray,
       primary,
       primaryLight,
       primaryDark,
@@ -241,6 +246,7 @@ export class ThemingService {
     this.separator.set(separator);
     this.primaryGreen.set(primaryGreen);
     this.primaryGray.set(primaryGray);
+    this.secondaryGray.set(secondaryGray);
 
     this.primary.set(primary);
     this.primaryLight.set(primaryLight);

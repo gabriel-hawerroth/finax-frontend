@@ -1,155 +1,158 @@
 @media screen and (max-width: 1050px) {
-    .release-form-dialog {
-        .content {
-            .form-buttons {
-                flex-direction: column !important;
+  .release-form-dialog {
+    .content {
+      .form-buttons {
+        flex-direction: column !important;
 
-                .buttons {
-                    flex-direction: row !important;
-                    justify-content: flex-end !important;
-                    margin-top: .8rem !important;
-                    gap: 1.5rem !important;
+        .buttons {
+          flex-direction: row !important;
+          justify-content: flex-end !important;
+          margin-top: 0.8rem !important;
+          gap: 1.5rem !important;
 
-                    .bottom-btn {
-                        margin-top: 0 !important;
-                    }
-                }
-            }
+          .bottom-btn {
+            margin-top: 0 !important;
+          }
         }
+      }
     }
+  }
 }
 
 button:not(.mdc-icon-button) {
-    padding: 1.6rem;
+  padding: 1.6rem;
 }
 
 .btn-content {
-    display: flex;
-    align-items: center;
-    gap: .6rem;
-    font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.1rem;
 }
 
 .release-form-dialog {
-    padding: .6rem;
-    overflow: hidden;
+  padding: 0.6rem;
+  overflow: hidden;
 
-    .top {
-        display: flex;
-        justify-content: center;
-        margin-top: 1rem;
+  .top {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 
-        .save-btn {
-            position: absolute;
-            top: 1.5rem;
-            left: 1.5rem;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-        }
+    .save-btn {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
     }
 
-    .content {
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+
+    .form-buttons {
+      display: flex;
+      flex: 1;
+
+      .buttons {
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
+        padding: 0 1rem 1rem 0;
 
-        .form-buttons {
-            display: flex;
-            flex: 1;
+        .bottom-btn {
+          width: fit-content;
+          margin-top: 1.8rem;
+          padding: 1.3rem;
+          border: 1px solid var(--button-border-color);
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          aspect-ratio: 1/1;
 
-            .buttons {
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                padding: 0 1rem 1rem 0;
-
-                .bottom-btn {
-                    width: fit-content;
-                    margin-top: 1.8rem;
-                    padding: 1.3rem;
-                    border: 2px solid #d1d1d1;
-                    color: #acacac;
-                    border-radius: 50%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    cursor: pointer;
-                    aspect-ratio: 1/1;
-                }
-            }
+          .material-symbols-outlined {
+            color: var(--secondary-gray);
+          }
         }
-
-        .extras {
-            width: 100%;
-            display: flex;
-            margin-top: .7rem;
-            margin-bottom: 1.5rem;
-
-            .file-obs {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                .selected-file {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-
-                    .file-content {
-                        width: 90%;
-                        padding: 0 1.3rem;
-
-                        .file {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-
-                            .remove-file-btn {
-                                transform: scale(0.8) !important;
-                            }
-                        }
-                    }
-                }
-
-                mat-divider {
-                    width: 90%;
-                    margin-top: 0.25rem;
-                    margin-bottom: 1rem;
-                }
-
-                .observation {
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    padding-top: .8rem;
-                }
-            }
-
-            .repeat {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: .8rem;
-
-                .choices {
-                    display: flex;
-                }
-
-                .fixed-release,
-                .installments-release {
-                    width: 100%;
-                    display: flex;
-                    justify-content: space-evenly;
-                    align-items: center;
-                    gap: 1.5rem;
-                    padding: 0 .8rem;
-                }
-            }
-        }
+      }
     }
+
+    .extras {
+      width: 100%;
+      display: flex;
+      margin-top: 0.7rem;
+      margin-bottom: 1.5rem;
+
+      .file-obs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .selected-file {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .file-content {
+            width: 90%;
+            padding: 0 1.3rem;
+
+            .file {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+
+              .remove-file-btn {
+                transform: scale(0.8) !important;
+              }
+            }
+          }
+        }
+
+        mat-divider {
+          width: 90%;
+          margin-top: 0.25rem;
+          margin-bottom: 1rem;
+        }
+
+        .observation {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding-top: 0.8rem;
+        }
+      }
+
+      .repeat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+
+        .choices {
+          display: flex;
+        }
+
+        .fixed-release,
+        .installments-release {
+          width: 100%;
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          gap: 1.5rem;
+          padding: 0 0.8rem;
+        }
+      }
+    }
+  }
 }

@@ -3,7 +3,7 @@
   <div
     class="account"
     (click)="openDetails(card)"
-    [style.border-bottom]="isLastItem($index) ? 'none' : '1px solid #74747437'"
+    [style.border-bottom]="isLastItem($index) ? 'none' : 'var(--separator)'"
   >
     @if (card.image) {
     <img

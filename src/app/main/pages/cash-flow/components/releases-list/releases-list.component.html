@@ -1,4 +1,4 @@
-<div id="releases-list" [class]="theme">
+<div id="releases-list">
   @for (release of releases(); track release.id) {
   <div class="release" (click)="openDetails(release)">
     <div class="category">
@@ -23,7 +23,9 @@
         } @else {
         <!--  -->
         @if (release.card) {
-        <span class="material-symbols-outlined">credit_card</span>
+        <span style="color: green" class="material-symbols-outlined">
+          credit_card
+        </span>
         }
 
         {{ release.description || release.category?.name }}
