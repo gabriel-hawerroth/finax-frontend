@@ -13,6 +13,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
 import { AccountFormDialogData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
@@ -31,6 +32,7 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
     AccountsFormComponent,
     DynamicButtonComponent,
     MatDialogModule,
+    TranslateModule,
   ],
   templateUrl: './accounts-form-dialog.component.html',
   styleUrl: './accounts-form-dialog.component.scss',

@@ -256,6 +256,7 @@
             "brokerage": "Brokerage",
             "cash": "Cash"
         },
+        "new-account": "New account",
         "code": "Code",
         "balance": "Balance",
         "initial-balance": "Initial Balance",

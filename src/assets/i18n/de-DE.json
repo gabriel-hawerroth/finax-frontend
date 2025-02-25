@@ -256,6 +256,7 @@
             "brokerage": "Maklerkonto",
             "cash": "Geld"
         },
+        "new-account": "Neues Konto",
         "code": "Code",
         "balance": "Bilanz",
         "initial-balance": "Anfangssaldo",

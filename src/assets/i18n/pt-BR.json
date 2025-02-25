@@ -256,6 +256,7 @@
             "brokerage": "Corretora",
             "cash": "Dinheiro em espécie"
         },
+        "new-account": "Nova conta",
         "code": "Código",
         "balance": "Saldo",
         "initial-balance": "Saldo inicial",
