@@ -1,4 +1,4 @@
-<div class="invoice-payment-dialog" [class.dark-page]="darkThemeEnabled">
+<div class="invoice-payment-dialog">
   <div class="title">
     <h2>
       {{
@@ -123,13 +123,7 @@
         </div>
       </div>
       } @else {
-      <label
-        for="fileInput"
-        class="bottom-btn"
-        [style.background-color]="selectedFile ? '#b6b6b673' : 'transparent'"
-        [style.color]="selectedFile ? '#fff' : ''"
-        [style.border-color]="selectedFile ? 'transparent' : ''"
-      >
+      <label for="fileInput" class="bottom-btn">
         <span id="add-attachment-label">
           {{ "invoice.payment.add-attachment" | translate }}
         </span>

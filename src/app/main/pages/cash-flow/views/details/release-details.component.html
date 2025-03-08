@@ -59,11 +59,13 @@
           }}{{ release.amount | customCurrency }}
         </h2>
 
-        @if (release.done) {
-        <span class="material-symbols-outlined done"> thumb_up </span>
-        } @else {
-        <span class="material-symbols-outlined pending"> thumb_down </span>
-        }
+        <span
+          class="material-symbols-outlined"
+          [class.done]="release.done"
+          [class.pending]="!release.done"
+        >
+          {{ release.done ? "thumb_up" : "thumb_down" }}
+        </span>
       </label>
     </div>
 

@@ -1,167 +1,137 @@
-@use 'colors.scss' as *;
-
 @media screen and (max-width: 1050px) {
-    .release-details {
-        width: 80% !important;
-        margin-left: auto;
-        margin-right: auto;
-    }
+  .release-details {
+    width: 80% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @media screen and (max-width: 650px) {
-    .release-details {
-        width: 100% !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
+  .release-details {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 
-        .content {
-            width: 100% !important;
+    .content {
+      width: 100% !important;
 
-            .row3 {
-                flex-wrap: wrap !important;
-            }
-        }
+      .row3 {
+        flex-wrap: wrap !important;
+      }
     }
+  }
 }
 
 .release-details {
-    width: 45vw;
-    overflow-y: hidden !important;
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0;
-    margin-bottom: 2.5rem;
+  width: 45vw;
+  overflow-y: hidden !important;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  margin-bottom: 2.5rem;
 
-    .content {
-        width: 85%;
-        height: 100%;
+  .content {
+    width: 85%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .row1 {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 1.6rem 0 1rem;
+
+      .material-symbols-outlined {
+        padding: 1rem;
+        color: #fff;
+        border-radius: 50%;
+      }
+
+      .principal {
         display: flex;
         flex-direction: column;
+        gap: 0.5rem;
 
-        .row1 {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0 1.6rem 0 1rem;
+        .transfer {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.8rem;
 
-            .material-symbols-outlined {
-                padding: 1rem;
-                color: #fff;
-                border-radius: 50%;
-            }
-
-            .principal {
-                display: flex;
-                flex-direction: column;
-                gap: .5rem;
-
-                .transfer {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    gap: .8rem;
-
-                    .material-symbols-outlined {
-                        color: var(--primary-font-color);
-                        padding: 0.3rem !important;
-                    }
-                }
-
-                .account-card-name {
-                    display: flex;
-                    align-items: center;
-                    gap: .5rem;
-                    font-size: 1.2rem;
-
-                    .material-symbols-outlined {
-                        padding: inherit;
-                        border-radius: 0%;
-                        color: var(--primary-green)
-                    }
-                }
-            }
-
-            .amount {
-                margin-left: auto;
-                display: flex;
-                flex-direction: row;
-                justify-content: end;
-                gap: 1.5rem;
-
-                .material-symbols-outlined {
-                    color: #333333;
-                    padding: 0.3rem !important;
-                }
-
-                .done {
-                    color: green;
-                }
-            }
-
-            .margin-top {
-                position: relative;
-                top: 2rem;
-            }
+          .material-symbols-outlined {
+            color: var(--primary-font-color);
+            padding: 0.3rem !important;
+          }
         }
 
-        .row2 {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 0 5rem 1rem 1rem;
+        .account-card-name {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 1.2rem;
 
-            .observation {
-                display: flex;
-                flex-direction: column;
-                position: relative;
-                top: 2rem;
-            }
+          .material-symbols-outlined {
+            padding: inherit;
+            border-radius: 0%;
+            color: var(--primary);
+          }
+        }
+      }
 
-            .date {
-                margin-left: auto;
-                display: flex;
-                flex-direction: column;
-                align-items: end;
-            }
+      .amount {
+        margin-left: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        gap: 1.5rem;
 
-            .up {
-                position: relative;
-                bottom: 1rem;
-            }
+        .material-symbols-outlined {
+          padding: 0.3rem !important;
         }
 
-        .row3 {
-            margin-top: 4rem;
-            display: flex;
-            justify-content: end;
-            gap: 2rem;
-
-            .delete {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-
-                .btn-content {
-                    color: red;
-                }
-
-                .delete-confirmation {
-                    display: flex;
-                    justify-content: space-around;
-
-                    button {
-                        padding: .1rem !important;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                    }
-                }
-
-                mat-spinner {
-                    margin: 0 2.5rem !important;
-                }
-            }
+        .done {
+          color: var(--primary);
         }
+      }
+
+      .margin-top {
+        position: relative;
+        top: 2rem;
+      }
     }
+
+    .row2 {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 5rem 1rem 1rem;
+
+      .observation {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        top: 2rem;
+      }
+
+      .date {
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+      }
+
+      .up {
+        position: relative;
+        bottom: 1rem;
+      }
+    }
+
+    .row3 {
+      margin-top: 4rem;
+      display: flex;
+      justify-content: end;
+      gap: 2rem;
+    }
+  }
 }

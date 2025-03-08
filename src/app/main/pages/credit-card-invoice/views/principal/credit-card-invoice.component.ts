@@ -73,7 +73,6 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
 export class CreditCardInvoicePage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly smallWidth = this._responsiveService.smallWidth;
   readonly iconBtnStyle = ButtonType.ICON;
 

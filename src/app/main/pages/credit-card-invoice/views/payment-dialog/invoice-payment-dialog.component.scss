@@ -1,117 +1,97 @@
-@use 'colors.scss' as *;
-
 @media screen and (max-width: 1050px) {
-    .invoice-payment-dialog {
-        padding: 1.6rem 2rem !important;
-        max-width: 60vw !important;
+  .invoice-payment-dialog {
+    padding: 1.6rem 2rem !important;
+    max-width: 60vw !important;
 
-        .content {
-
-            .row1,
-            .row2 {
-                gap: 2rem !important;
-            }
-        }
+    .content {
+      .row1,
+      .row2 {
+        gap: 2rem !important;
+      }
     }
+  }
 }
 
 @media screen and (max-width: 650px) {
-    .invoice-payment-dialog {
-        max-width: 95vw !important;
+  .invoice-payment-dialog {
+    max-width: 95vw !important;
 
-        .content {
-
-            .row1,
-            .row2 {
-                gap: 1.8rem !important;
-            }
-        }
+    .content {
+      .row1,
+      .row2 {
+        gap: 1.8rem !important;
+      }
     }
+  }
 }
 
 .invoice-payment-dialog {
-    padding: 1.6rem 2.6rem;
+  padding: 1.6rem 2.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+  }
+
+  .content {
     display: flex;
     flex-direction: column;
-    gap: 2.2rem;
 
-    .title {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
+    mat-form-field {
+      width: 40%;
     }
 
-    .content {
+    .row1,
+    .row2 {
+      display: flex;
+      gap: 3.4rem;
+      align-items: center;
+    }
+
+    .row1 {
+      margin-bottom: 1.2rem;
+
+      .selected-account {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .row2 {
+      margin-bottom: 0.9rem;
+    }
+
+    .row3 {
+      #add-attachment-label {
+        color: var(--primary-green);
+        cursor: pointer;
+      }
+
+      #selected-file {
         display: flex;
         flex-direction: column;
+        gap: 0.6rem;
 
-        mat-form-field {
-            width: 40%;
+        .file {
+          display: flex;
+          justify-content: space-between;
+          align-items: start;
         }
-
-        .row1,
-        .row2 {
-            display: flex;
-            gap: 3.4rem;
-            align-items: center;
-        }
-
-        .row1 {
-            margin-bottom: 1.2rem;
-
-            .selected-account {
-                display: flex;
-                align-items: center;
-                gap: .5rem;
-
-                img {
-                    border-radius: 50%;
-                }
-            }
-        }
-
-        .row2 {
-            margin-bottom: .9rem;
-        }
-
-        .row3 {
-            #add-attachment-label {
-                color: var(--primary-green);
-                cursor: pointer;
-            }
-
-            #selected-file {
-                display: flex;
-                flex-direction: column;
-                gap: .6rem;
-
-                .file {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: start;
-                }
-            }
-        }
+      }
     }
+  }
 
-    .actions {
-        display: flex;
-        justify-content: flex-end;
-    }
-}
-
-.dark-page {
-    .content {
-        .row1 {
-            .selected-account {
-                color: $dark-font-color;
-            }
-        }
-
-        .row3 {
-            #add-attachment-label {
-                color: $dark-font-color;
-            }
-        }
-    }
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

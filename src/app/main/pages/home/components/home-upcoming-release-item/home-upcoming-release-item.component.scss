@@ -1,69 +1,65 @@
-@use 'colors.scss' as *;
-
-$grey: #616161;
-
 @media screen and (max-width: 1050px) {
-    .release {
-        .category-icon {
-            margin-right: 1rem !important;
-        }
-
-        .date {
-            width: 27% !important;
-        }
-    }
-}
-
-.release {
-    padding: .7rem;
-    display: flex;
-    align-items: center;
-
+  .release {
     .category-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 1.5rem;
-    }
-
-    .title-account {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-
-        .release-title {
-            font-size: 1.1rem;
-        }
-
-        .release-account {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            .card-icon {
-                color: var(--primary-green);
-                margin-right: .5rem;
-            }
-
-            #account {
-                font-size: .9rem;
-                color: $grey;
-            }
-        }
+      margin-right: 1rem !important;
     }
 
     .date {
-        width: 20%;
+      width: 27% !important;
+    }
+  }
+}
+
+.release {
+  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+
+  .category-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1.5rem;
+  }
+
+  .title-account {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    .release-title {
+      font-size: 1.1rem;
     }
 
-    .amount {
-        width: 18%;
-        color: $grey;
-        display: flex;
-        justify-content: end;
+    .release-account {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .card-icon {
+        color: var(--primary);
+        margin-right: 0.5rem;
+      }
+
+      #account {
+        font-size: 0.9rem;
+        color: var(--secondary-gray);
+      }
     }
+  }
+
+  .date {
+    width: 20%;
+  }
+
+  .amount {
+    width: 18%;
+    color: var(--secondary-gray);
+    display: flex;
+    justify-content: end;
+  }
 }

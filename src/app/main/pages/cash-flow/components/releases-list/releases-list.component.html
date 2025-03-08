@@ -23,9 +23,7 @@
         } @else {
         <!--  -->
         @if (release.card) {
-        <span style="color: green" class="material-symbols-outlined">
-          credit_card
-        </span>
+        <span class="material-symbols-outlined">credit_card</span>
         }
 
         {{ release.description || release.category?.name }}
@@ -48,13 +46,13 @@
 
     @if (!smallWidth()) {
     <div class="account">
-      <span>{{ release.account?.name || release.card?.name }}</span>
+      <label>{{ release.account?.name || release.card?.name }}</label>
     </div>
     }
 
     <div class="date">
-      <span>{{ release.date | date : "dd/MM/yyyy" }}</span>
-      <span>{{ release.time }}</span>
+      <label>{{ release.date | date : "dd/MM/yyyy" }}</label>
+      <label>{{ release.time }}</label>
     </div>
 
     <div class="amount">

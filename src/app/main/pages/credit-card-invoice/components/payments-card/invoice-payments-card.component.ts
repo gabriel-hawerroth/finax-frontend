@@ -38,7 +38,6 @@ export class InvoicePaymentsCardComponent implements OnInit {
   invoiceValue = input.required<number>();
   fullyPaid = input.required<boolean>();
 
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
 

@@ -26,10 +26,10 @@
       width: 55%;
       padding: 1.6rem 0 !important;
       font-size: 1.15rem !important;
-      box-shadow: 2px 2px 4px #062e08e0;
+      box-shadow: 2px 2px 3px var(--primary);
 
       &:hover {
-        box-shadow: 3px 3px 7px #0a4d0ef6;
+        box-shadow: 3px 3px 5px var(--primary);
       }
     }
   }

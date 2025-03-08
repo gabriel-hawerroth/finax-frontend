@@ -1,278 +1,230 @@
-@use 'colors.scss' as *;
+@use "colors.scss" as *;
 
 @media screen and (max-width: 1300px) {
+  .labels,
+  .payment {
+    .date,
+    .amount,
+    .account,
+    .actions {
+      transform: scale(0.9);
+    }
+  }
 
-    .labels,
-    .payment {
+  .values {
+    .total,
+    .remaining {
+      transform: scale(0.9);
+    }
+  }
+
+  .payment {
+    .account {
+      img {
+        width: 22px !important;
+        height: 22px !important;
+      }
+    }
+
+    .actions {
+      .mat-mdc-icon-button {
+        width: 27px !important;
+        height: 27px !important;
+
+        .material-symbols-outlined {
+          transform: scale(0.7) !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .payments-card {
+    border: none !important;
+
+    .title {
+      padding: 0.4rem 0 !important;
+    }
+
+    .content {
+      padding: 0.5rem !important;
+    }
+  }
+}
+
+.payments-card {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--secondary-green);
+  border-radius: 4px;
+
+  ::-webkit-scrollbar {
+    background-color: transparent !important;
+    width: 4px !important;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #b9b9b9d7 !important;
+    border-radius: 12px !important;
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-green);
+    color: #fff;
+
+    #pay-remaining-btn {
+      height: fit-content !important;
+      border-radius: 1.5rem;
+      position: absolute;
+      right: 2.5rem;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      #pay-remaining-label {
+        font-size: 0.6rem;
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: hidden;
+
+    .payments {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 0 0.4rem;
+      overflow-y: scroll;
+
+      :last-child {
+        border-bottom: none !important;
+      }
+
+      .labels,
+      .payment {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        border-bottom: var(--separator);
+        color: var(--primary-font-color);
 
         .date,
         .amount,
         .account,
         .actions {
-            transform: scale(0.9);
+          width: 25%;
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          overflow-x: hidden;
         }
-    }
+      }
 
-    .values {
+      .labels {
+        font-size: 0.73rem;
+        padding: 0.22rem 0 0.16rem 0;
 
-        .total,
-        .remaining {
-            transform: scale(0.9);
+        .actions {
+          justify-content: center;
         }
-    }
+      }
 
-    .payment {
+      .payment {
+        height: 100%;
+        min-height: 50%;
+
+        .date {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+
+          #hour {
+            font-size: 0.85rem;
+          }
+        }
+
         .account {
-            img {
-                width: 22px !important;
-                height: 22px !important;
-            }
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+
+          img {
+            border-radius: 50%;
+          }
         }
 
         .actions {
-            .mat-mdc-icon-button {
-                width: 27px !important;
-                height: 27px !important;
+          margin-left: auto;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: end !important;
+          gap: 2%;
+          overflow-y: hidden;
+          flex-wrap: wrap;
 
-                .material-symbols-outlined {
-                    transform: scale(0.7) !important;
-                }
+          .mat-mdc-icon-button {
+            width: 32px;
+            height: 32px;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            padding: 0 !important;
+
+            .material-symbols-outlined {
+              transform: scale(0.8);
+              color: var(--primary-font-color);
             }
+
+            .mat-mdc-button-touch-target {
+              width: 100% !important;
+              height: 100% !important;
+              max-width: 100% !important;
+              max-height: 100% !important;
+            }
+          }
         }
-    }
-}
-
-@media screen and (max-width: 650px) {
-    .payments-card {
-        border: none !important;
-
-        .title {
-            padding: .4rem 0 !important;
-        }
-
-        .content {
-            padding: .5rem !important;
-        }
-    }
-}
-
-.payments-card {
-    width: 100%;
-    height: 100%;
-    max-height: 100%;
-    overflow-y: hidden;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid $primary-border-color;
-    border-radius: 4px;
-
-    ::-webkit-scrollbar {
-        background-color: transparent !important;
-        width: 4px !important;
+      }
     }
 
-    ::-webkit-scrollbar-thumb {
-        background-color: #b9b9b9d7 !important;
-        border-radius: 12px !important;
-    }
+    .values {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-left: var(--separator);
+      overflow-y: hidden;
 
-    .title {
+      .total,
+      .remaining {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
-        background-color: $primary-border-color;
-        color: #fff;
 
-        #pay-remaining-btn {
-            height: fit-content !important;
-            border-radius: 1.5rem;
-            position: absolute;
-            right: 2.5rem;
-            margin-bottom: 2px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            #pay-remaining-label {
-                font-size: .6rem;
-            }
+        .label {
+          font-size: 0.7rem;
+          text-align: center;
         }
+
+        .value {
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      }
     }
-
-    .content {
-        display: flex;
-        height: 100%;
-        max-height: 100%;
-        overflow-y: hidden;
-
-        .payments {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 0 .4rem;
-            overflow-y: scroll;
-
-            :last-child {
-                border-bottom: none !important;
-            }
-
-            .labels,
-            .payment {
-                display: flex;
-                align-items: center;
-                width: 100%;
-                border-bottom: 1px solid #d1d1d1b7;
-                color: var(--primary-font-color);
-
-                .date,
-                .amount,
-                .account,
-                .actions {
-                    width: 25%;
-                    display: flex;
-                    justify-content: start;
-                    align-items: center;
-                    overflow-x: hidden;
-                }
-            }
-
-            .labels {
-                font-size: .73rem;
-                padding: .22rem 0 .16rem 0;
-
-                .actions {
-                    justify-content: center;
-                }
-            }
-
-            .payment {
-                height: 100%;
-                min-height: 50%;
-
-                .date {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: start;
-
-                    #hour {
-                        font-size: .85rem;
-                    }
-                }
-
-                .account {
-                    display: flex;
-                    align-items: center;
-                    gap: .3rem;
-
-                    img {
-                        border-radius: 50%;
-                    }
-                }
-
-                .actions {
-                    margin-left: auto;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: end !important;
-                    gap: 2%;
-                    overflow-y: hidden;
-                    flex-wrap: wrap;
-
-                    .mat-mdc-icon-button {
-                        width: 32px;
-                        height: 32px;
-                        display: flex !important;
-                        justify-content: center !important;
-                        align-items: center !important;
-                        padding: 0 !important;
-
-                        .material-symbols-outlined {
-                            transform: scale(0.8);
-                            color: #727272;
-                        }
-
-                        .mat-mdc-button-touch-target {
-                            width: 100% !important;
-                            height: 100% !important;
-                            max-width: 100% !important;
-                            max-height: 100% !important;
-                        }
-                    }
-                }
-            }
-        }
-
-        .values {
-            width: 25%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-left: 1px solid #d1d1d1b7;
-            overflow-y: hidden;
-
-            .total,
-            .remaining {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                .label {
-                    font-size: .7rem;
-                    text-align: center;
-                }
-
-                .value {
-                    font-size: 1rem;
-                    font-weight: bold;
-                }
-            }
-        }
-    }
-}
-
-.dark {
-    border-color: $dark-border-color !important;
-    background-color: $dark-bg !important;
-
-    .title {
-        background-color: $dark-border-color !important;
-
-        #pay-remaining-btn {
-            background-color: $dark-bg !important;
-        }
-    }
-
-    .content {
-        .payments {
-            .labels {
-                color: $dark-font-color !important;
-            }
-
-            .payment {
-                color: $dark-font-color !important;
-
-                .actions {
-                    color: $dark-font-color !important;
-
-                    .material-symbols-outlined {
-                        color: $dark-font-color !important;
-                    }
-                }
-            }
-        }
-
-        .values {
-
-            .total,
-            .remaining {
-
-                .label,
-                .value {
-                    color: $dark-font-color !important;
-                }
-            }
-        }
-    }
+  }
 }

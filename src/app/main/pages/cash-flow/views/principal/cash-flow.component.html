@@ -81,11 +81,7 @@
 </div>
 
 <mat-menu #newReleaseMenu="matMenu">
-  <div
-    class="new-release-menu"
-    [style.background-color]="darkThemeEnabled ? '#3b3b3bfd' : ''"
-    [style.color]="darkThemeEnabled ? '#dddddd' : ''"
-  >
+  <div class="new-release-menu">
     <label (click)="addRelease('E')">
       {{ "cash-flow.new-expense" | translate }}
     </label>

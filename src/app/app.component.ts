@@ -261,6 +261,10 @@ export class AppComponent implements OnInit, OnDestroy {
       this._themingService.primaryGreen()
     );
     document.body.style.setProperty(
+      `--secondary-green`,
+      this._themingService.secondaryGreen()
+    );
+    document.body.style.setProperty(
       `--primary-gray`,
       this._themingService.primaryGray()
     );

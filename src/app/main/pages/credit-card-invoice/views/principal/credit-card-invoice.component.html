@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "invoice.title" | translate }}
 
@@ -90,9 +90,9 @@
             (onGeneric)="changeMonth('before')"
           ></app-buttons>
 
-          <div class="tab">
+          <label class="tab">
             {{ selectedDate() | releasesMonth }}
-          </div>
+          </label>
 
           <app-buttons
             [showGeneric]="true"
