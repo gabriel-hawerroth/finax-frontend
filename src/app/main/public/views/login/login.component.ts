@@ -42,7 +42,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage implements OnInit {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getBtnStyle = getBtnStyle;
 

@@ -48,7 +48,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 export class ChangePasswordPage implements OnInit {
   readonly passwordRequirementsText = this._utils.passwordRequirementsText;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly getBtnStyle = getBtnStyle;
 
   user!: User;

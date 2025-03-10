@@ -21,8 +21,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Credentials } from '../../../../../core/entities/auth/credentials';
 import { UserService } from '../../../../../core/entities/user/user.service';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-change-password-dialog',
@@ -43,7 +43,6 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordDialog implements OnInit {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly passwordRequirementsText = this._utils.passwordRequirementsText;
 
   changePasswordForm!: FormGroup;

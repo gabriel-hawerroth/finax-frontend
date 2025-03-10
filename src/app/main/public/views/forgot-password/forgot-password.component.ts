@@ -42,7 +42,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class ForgotPasswordPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly getBtnStyle = getBtnStyle;
 
   originalFormValue!: FormGroup;

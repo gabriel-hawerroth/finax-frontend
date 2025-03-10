@@ -63,7 +63,6 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   readonly getDefaultAccountImage = getDefaultAccountImage;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   private readonly unsubscribeAll = new Subject<void>();
 

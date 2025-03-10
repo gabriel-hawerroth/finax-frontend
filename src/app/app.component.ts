@@ -64,8 +64,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   showMenu: boolean = false;
 
-  darkThemeEnabled = signal(this._utils.darkThemeEnable);
-
   resizeSubscription!: Subscription;
 
   toogleSidebarBtnConfig: ButtonConfig = {

@@ -4,7 +4,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmDialogData } from '../../../core/entities/generic';
-import { UtilsService } from '../../utils/utils.service';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -16,7 +15,5 @@ import { UtilsService } from '../../utils/utils.service';
 export class ConfirmDialog {
   readonly data: ConfirmDialogData = inject(MAT_DIALOG_DATA);
 
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
-
-  constructor(private readonly _utils: UtilsService) {}
+  constructor() {}
 }

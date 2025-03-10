@@ -1,10 +1,12 @@
-<div class="cancel-account-dialog" [class.dark-page]="darkThemeEnabled()">
+<div class="cancel-account-dialog">
   <span class="title" mat-dialog-title>
     {{ "my-profile.cancel-account-dialog.title" | translate }}
   </span>
 
   <div class="content" mat-dialog-content>
-    <p>{{ "my-profile.cancel-account-dialog.description" | translate }}</p>
+    <label>
+      {{ "my-profile.cancel-account-dialog.description" | translate }}
+    </label>
   </div>
 
   <div class="actions" mat-dialog-actions>
