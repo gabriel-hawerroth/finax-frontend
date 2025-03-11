@@ -1,8 +1,7 @@
 import { CommonModule, DatePipe, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { cloudFireCdnImgsLink } from '../../utils/utils';
-import { UtilsService } from '../../utils/utils.service';
 
 @Component({
   selector: 'app-system-error-warning',
@@ -13,7 +12,6 @@ import { UtilsService } from '../../utils/utils.service';
 })
 export class SystemErrorWarningPage {
   protected readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  protected readonly darkThemeEnable = inject(UtilsService).darkThemeEnable;
 
   private readonly currentDt = new Date();
 

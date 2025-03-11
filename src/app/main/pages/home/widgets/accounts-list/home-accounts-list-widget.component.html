@@ -49,11 +49,10 @@
           {{ "home.empty-accounts-list" | translate }}
         </label>
 
-        <app-buttons
+        <dynamic-button
           routerLink="/contas/nova"
-          [showGeneric]="true"
-          genericLabel="home.register-one"
-        ></app-buttons>
+          [config]="registerOneBtnConfig"
+        ></dynamic-button>
       </div>
       } }
     </div>

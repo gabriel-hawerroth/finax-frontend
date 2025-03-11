@@ -22,8 +22,8 @@ import { PublicPage } from './main/public/views/principal/public.component';
 import { PrivacyPolicyPage } from './main/public/views/privacy-policy/privacy-policy.component';
 import { UseTermsPage } from './main/public/views/use-terms/use-terms.component';
 import { UserActivationPage } from './main/public/views/user-activation/user-activation.component';
-import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
 import { ExpiredLinkComponent } from './shared/components/expired-link/expired-link.component';
+import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
 
 export const routes: Routes = [
   { path: '', component: PublicPage },
@@ -49,7 +49,6 @@ export const routes: Routes = [
   {
     path: 'ativacao-da-conta',
     component: UserActivationPage,
-    canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'esqueci-minha-senha',

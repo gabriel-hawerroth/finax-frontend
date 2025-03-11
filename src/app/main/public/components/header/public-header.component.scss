@@ -1,65 +1,66 @@
-@use 'colors.scss' as *;
+@use "colors.scss" as *;
 
 $left-side-width: 36%;
 $right-side-width: 40%;
 $header-height: 5.5rem;
 
 @media screen and (max-width: 1050px) {
-    .public-header {
-        .left-side {
-            display: none !important;
-        }
+  .public-header {
+    .left-side {
+      display: none !important;
     }
+  }
 }
 
 .public-header {
-    width: 100%;
-    height: $header-height;
+  width: 100%;
+  height: $header-height;
+  display: flex;
+  background-color: #f8f8f8;
+  box-shadow: 0 0 5px #0000005d;
+
+  .left-side {
+    width: $left-side-width;
+    height: 100%;
     display: flex;
-    background-color: #f8f8f8;
-    box-shadow: 0 0 5px #0000005d;
+    align-items: center;
+    padding: 0 1.8em;
+    gap: 15px;
 
-    .left-side {
-        width: $left-side-width;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        padding: 0 1.8em;
-        gap: 15px;
-
-        button {
-            font-size: 1.1rem;
-            padding: 0.9rem 1rem;
-            color: #262626;
-        }
+    button {
+      font-size: 1.1rem;
+      padding: 0.9rem 1rem;
+      color: #262626;
     }
+  }
 
-    .title {
-        flex: 1;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        font-size: 1.7rem;
+  .title {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.7rem;
 
-        color: var(--primary-green) h1 {
-            font-family: 'Dosis';
-        }
+    h1 {
+      font-family: "Dosis";
+      color: var(--primary) !important;
     }
+  }
 
-    .right-side {
-        width: $right-side-width;
-        height: 100%;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-right: 2.5rem;
+  .right-side {
+    width: $right-side-width;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 2.5rem;
 
-        .login-button {
-            padding: 1.5rem 1.7rem;
-            font-size: 1.3rem;
-            font-weight: 500;
-        }
+    .login-button {
+      padding: 1.5rem 1.7rem;
+      font-size: 1.3rem;
+      font-weight: 500;
     }
+  }
 }

@@ -1,5 +1,3 @@
-@use "colors.scss" as *;
-
 .simple-page {
   .login-box {
     display: flex;
@@ -15,7 +13,7 @@
       padding: 1rem 0;
 
       h1 {
-        color: var(--primary-green);
+        color: var(--primary);
         font-size: 2.8rem;
       }
     }

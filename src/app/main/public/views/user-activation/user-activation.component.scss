@@ -1,13 +1,12 @@
-@use "colors.scss" as *;
-
 .login {
   .login-box {
     height: 55%;
 
     .top {
       margin-top: 3rem !important;
+      color: var(--primary-green);
 
-      color: var(--primary-green) h1 {
+      h1 {
         font-size: 3rem;
         color: var(--primary);
       }
@@ -20,11 +19,6 @@
       justify-content: center;
       align-items: center;
       gap: 3.5rem;
-
-      button {
-        border-radius: 2rem;
-        padding: 1.5rem 2rem;
-      }
     }
   }
 }

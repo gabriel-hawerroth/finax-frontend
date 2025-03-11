@@ -1,5 +1,3 @@
-@use "colors.scss" as *;
-
 $footer-height: 5.8rem;
 
 @media screen and (max-width: 650px) {
@@ -22,7 +20,7 @@ $footer-height: 5.8rem;
 .public-footer {
   height: 5.8rem;
   display: flex;
-  background-color: $primary-bg;
+  background-color: #eff3f8;
   box-shadow: 0 1px 5px #0000007c;
   color: #000;
 
@@ -32,6 +30,10 @@ $footer-height: 5.8rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    h1 {
+      color: #1a1c18;
+    }
 
     span {
       display: flex;
