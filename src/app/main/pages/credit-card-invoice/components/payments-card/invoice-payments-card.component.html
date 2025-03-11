@@ -2,7 +2,7 @@
   <div class="title">
     <h3>{{ "invoice.payments-card.title" | translate }}</h3>
 
-    @if (showPayRemainingButton) {
+    @if (showPayRemainingButton()) {
     <button
       mat-raised-button
       color="primary"

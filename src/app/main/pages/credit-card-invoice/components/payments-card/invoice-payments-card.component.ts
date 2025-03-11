@@ -45,7 +45,9 @@ export class InvoicePaymentsCardComponent implements OnInit {
     this.payments().reduce((count, item) => (count += item.paymentAmount), 0)
   );
 
-  showPayRemainingButton!: boolean;
+  showPayRemainingButton = computed(
+    () => !this.fullyPaid() && !this._responsiveService.smallWidth()
+  );
 
   constructor(
     private readonly _utils: UtilsService,
@@ -53,10 +55,7 @@ export class InvoicePaymentsCardComponent implements OnInit {
     private readonly _responsiveService: ResponsiveService
   ) {}
 
-  ngOnInit(): void {
-    this.showPayRemainingButton =
-      !this.fullyPaid() && !this._responsiveService.smallWidth();
-  }
+  ngOnInit(): void {}
 
   deletePayment(invoicePaymentId: number) {
     this._utils
