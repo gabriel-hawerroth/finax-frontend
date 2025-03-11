@@ -29,7 +29,6 @@ import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,
 } from '../../../../../shared/utils/utils';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-filter-releases-dialog',
@@ -50,7 +49,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 })
 export class FilterReleasesDialog implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly getDefaultAccountImage = getDefaultAccountImage;
 
   readonly data: FilterReleasesDialogData = inject(MAT_DIALOG_DATA);
@@ -68,7 +66,6 @@ export class FilterReleasesDialog implements OnInit {
   releaseTypeTransfer = ReleaseType.TRANSFER;
 
   constructor(
-    private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _dialogRef: MatDialogRef<FilterReleasesDialog>
   ) {}

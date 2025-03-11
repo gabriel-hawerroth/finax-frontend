@@ -3,7 +3,7 @@
   <div
     class="account"
     (click)="openDetails(card)"
-    [style.border-bottom]="isLastItem($index) ? 'none' : '1px solid #74747437'"
+    [style.border-bottom]="isLastItem($index) ? 'none' : 'var(--separator)'"
   >
     @if (card.image) {
     <img
@@ -26,14 +26,14 @@
   </div>
   } @empty {
   <div class="empty">
-    <span style="font-size: 1.5rem; margin-bottom: 4rem">
+    <label style="font-size: 1.5rem; margin-bottom: 4rem">
       {{ "credit-cards.no-cards" | translate }}
       {{
         (situationFilterValue() ? "generic.active-m" : "generic.inactive-m")
           | translate
           | lowercase
       }}
-    </span>
+    </label>
   </div>
   }
 </div>

@@ -1,81 +1,81 @@
 @media screen and (max-width: 1050px) {
-    .credit-card {
-        .infos {
-            margin-top: .6rem !important;
+  .credit-card {
+    .infos {
+      margin-top: 0.6rem !important;
 
-            .bottom {
-                width: 150% !important;
-                flex-wrap: nowrap;
-                margin-top: .5rem !important;
+      .bottom {
+        width: 150% !important;
+        flex-wrap: nowrap;
+        margin-top: 0.5rem !important;
 
-                .available,
-                .current-invoice {
-                    font-size: .9rem;
-                }
-            }
+        .available,
+        .current-invoice {
+          font-size: 0.9rem;
         }
+      }
     }
+  }
 }
 
 .credit-card {
+  flex: 1;
+  display: flex;
+  height: auto;
+  padding: 0.8rem 1rem;
+
+  .image {
+    padding-top: 0.3rem;
+    margin-right: 0.5rem;
+
+    img {
+      border-radius: 50%;
+    }
+
+    .default-credit-card-image {
+      width: 55px;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: var(--icon-box-shadow);
+    }
+  }
+
+  .infos {
     flex: 1;
     display: flex;
-    height: auto;
-    padding: .8rem 1rem;
+    flex-direction: column;
+    padding: 0 1.2rem;
 
-    .image {
-        padding-top: .3rem;
-        margin-right: .5rem;
+    .top {
+      margin-bottom: 0.7rem;
 
-        img {
-            border-radius: 50%;
-        }
-
-        .default-credit-card-image {
-            width: 55px;
-            aspect-ratio: 1/1;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 2px #5d5d5d;
-        }
+      .card-name {
+        font-size: 1.2rem;
+      }
     }
 
-    .infos {
-        flex: 1;
+    .bottom {
+      display: flex;
+
+      .available,
+      .current-invoice {
+        width: 50%;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        padding: 0 1.2rem;
+        font-size: 1.05rem;
 
-        .top {
-            margin-bottom: .7rem;
-
-            span {
-                font-size: 1.2rem;
-            }
+        .label {
+          color: var(--secondary-gray);
         }
-
-        .bottom {
-            display: flex;
-
-            .available,
-            .current-invoice {
-                width: 50%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                font-size: 1.05rem;
-
-                .label {
-                    color: #595959;
-                }
-            }
-        }
+      }
     }
+  }
 
-    .action {
-        display: flex;
-        justify-content: flex-end;
-    }
+  .action {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

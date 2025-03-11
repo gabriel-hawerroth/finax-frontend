@@ -40,8 +40,6 @@ import { CreditCardsListComponent } from '../../components/credit-cards-list/cre
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditCardsPage implements OnInit {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
-
   situationFilter = new FormControl(true);
   situationFilterValue: boolean | 'all' = this.situationFilter.getRawValue()!;
 

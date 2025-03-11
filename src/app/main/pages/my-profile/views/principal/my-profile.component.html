@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "my-profile.title" | translate }}
   </h1>
@@ -50,11 +50,9 @@
 
     <div id="plan-box">
       <div id="plan">
-        <div class="title">
-          <h2>
-            {{ "my-profile.early-access" | translate }}
-          </h2>
-        </div>
+        <h2 class="title">
+          {{ "my-profile.early-access" | translate }}
+        </h2>
 
         <div class="content">
           <span id="month-year">
@@ -90,10 +88,10 @@
       </div>
 
       <button mat-button color="primary" id="change-payment-method">
-        <span>
+        <div class="label">
           <span class="material-symbols-outlined">credit_card</span>
           {{ "my-profile.change-payment-method" | translate }}
-        </span>
+        </div>
       </button>
     </div>
   </div>

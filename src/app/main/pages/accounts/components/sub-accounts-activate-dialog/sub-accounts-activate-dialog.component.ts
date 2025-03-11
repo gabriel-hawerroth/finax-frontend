@@ -23,7 +23,6 @@ import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,
 } from '../../../../../shared/utils/utils';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-sub-accounts-activate-dialog',
@@ -42,7 +41,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 })
 export class SubAccountsActivateDialog {
   readonly getDefaultAccountImage = getDefaultAccountImage;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   subAccounts: SelectAccount[];
@@ -65,7 +63,6 @@ export class SubAccountsActivateDialog {
   };
 
   constructor(
-    private _utils: UtilsService,
     private readonly _dialogRef: MatDialogRef<SubAccountsActivateDialog>
   ) {
     const data: SubAccountsActivateDialogData = inject(MAT_DIALOG_DATA);

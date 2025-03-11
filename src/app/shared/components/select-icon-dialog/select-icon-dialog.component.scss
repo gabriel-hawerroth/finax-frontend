@@ -1,5 +1,3 @@
-@use "colors.scss" as *;
-
 ::ng-deep ::-webkit-scrollbar {
   display: none;
 }
@@ -28,25 +26,14 @@
 
     img {
       border-radius: 50%;
-      border: 1px solid rgba(151, 151, 151, 0.33);
       cursor: pointer;
+      background-color: var(--background);
 
       &:hover {
         opacity: 80%;
-        box-shadow: 0 0 4px #ffffff95;
+        box-shadow: var(--default-box-shadow);
         transform: scale(1.1);
       }
-    }
-  }
-}
-
-.dark-page {
-  .icons {
-    background-color: $dark-bg;
-
-    img {
-      background-color: #f8f8f8;
-      border: none !important;
     }
   }
 }

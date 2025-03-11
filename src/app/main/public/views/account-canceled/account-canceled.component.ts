@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import { getBtnStyle } from '../../../../shared/utils/utils';
-import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-account-canceled',
@@ -15,13 +14,9 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountCanceledPage implements OnInit {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   getBtnStyle = getBtnStyle;
 
-  constructor(
-    private readonly _utils: UtilsService,
-    private readonly _loginService: LoginService
-  ) {}
+  constructor(private readonly _loginService: LoginService) {}
 
   ngOnInit(): void {
     if (this._loginService.logged) this._loginService.logout(false, false);

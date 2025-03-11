@@ -37,8 +37,6 @@ import { CategoryFormDialog } from '../form-dialog/category-form-dialog.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriesPage implements OnInit {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
-
   categories = signal<Category[]>([]);
   expenseCategories = signal<Category[]>([]);
   revenueCategories = signal<Category[]>([]);

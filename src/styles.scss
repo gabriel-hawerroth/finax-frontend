@@ -4,37 +4,78 @@
 @use "colors.scss" as *;
 @use "generic.scss" as *;
 
+@use "./../m3-theme.scss" as *;
+
 @include mat.core();
 
-$theme: mat.define-theme(
-  (
-    //
-    color:
-      (
-        //
+$theme: mat.define-theme(( //
+      color: ( //
         theme-type: light,
-        primary: mat.$green-palette
-      ),
-    typography: (
-      //
-      brand-family: "Roboto",
-      bold-weight: 900
-    ),
-    density: (
-      scale: 0,
-    )
-  )
-);
+        primary: mat.$green-palette ),
+      typography: ( //
+        brand-family: "Roboto",
+        bold-weight: 900),
+      density: (scale: 0,
+      )));
 
-html {
+:root {
   @include mat.core-theme($theme);
   @include mat.all-component-themes($theme);
+}
+
+body {
+  /*Sidenav */
+  --mat-sidenav-container-background-color: var(--primary-background-color);
+  --mat-sidenav-container-text-color: var(--primary-dark);
+  --mat-sidenav-content-background-color: var(--primary-background-color);
+  --mat-sidenav-content-text-color: var(--primary-dark);
+
+  /* Buttons  */
+  --mdc-protected-button-label-text-color: var(--button-text-color);
+  --mat-protected-button-state-layer-color: var(--button-text-color);
+  --mdc-text-button-label-text-color: var(--button-text-color);
+  // --mdc-filled-button-container-color: var(--button-text-color);
+  --mdc-outlined-button-label-text-color: var(--button-text-color);
+  --mat-text-button-state-layer-color: var(--button-text-color);
+  --mat-outlined-button-state-layer-color: var(--button-text-color);
+  // --mdc-protected-button-container-color: var(--background);
+  // --mdc-filled-button-label-text-color: var(--primary-light);
+  --mdc-outlined-button-outline-color: var(--button-border-color);
+  --mdc-fab-container-color: var(--primary-light);
+  --mdc-fab-small-container-color: var(--primary-light);
+  --mat-outlined-button-ripple-color: var(--ripple);
+  --mat-icon-button-ripple-color: var(--ripple);
+  --mat-fab-ripple-color: var(--ripple);
+  --mat-fab-small-ripple-color: var(--ripple);
+  --mat-protected-button-ripple-color: var(--ripple);
+  --mat-text-button-ripple-color: var(--ripple);
+  --mat-fab-small-foreground-color: var(--button-text-color);
+  --mat-fab-small-state-layer-color: var(--button-text-color);
+  --mdc-icon-button-icon-color: var(--button-text-color);
+  --mat-icon-button-state-layer-color: var(--button-text-color);
+  --mat-fab-foreground-color: var(--button-text-color);
+  --mat-fab-state-layer-color: var(--button-text-color);
+  --mat-text-button-disabled-state-layer-color: var(--disabled-font-color);
+  --mat-protected-button-disabled-state-layer-color: var(--disabled-font-color);
+  --mat-filled-button-disabled-state-layer-color: var(--disabled-font-color);
+  --mat-icon-button-disabled-state-layer-color: var(--disabled-font-color);
+  --mat-standard-button-toggle-divider-color: var(--button-text-color);
+  --mat-standard-button-toggle-selected-state-text-color: var(--button-text-color);
+  --mat-standard-button-toggle-text-color: var(--button-text-color);
+  --mat-standard-button-toggle-state-layer-color: var(--button-text-color);
+
+  /* Bottom Sheet  */
+  --mat-bottom-sheet-container-background-color: var(--background);
+
+  /* Checkbox  */
+  --mat-checkbox-disabled-label-color: var(--disabled-font-color);
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Mallanna&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
 
 // desktop fullhd+
 @media screen and (min-width: 1750px) and (min-height: 800px) {
+
   html,
   body {
     font-size: 16px !important;
@@ -60,6 +101,7 @@ html {
 
 // desktop
 @media screen and (max-width: 1750px) and (max-height: 800px) {
+
   html,
   body {
     font-size: 15px !important;
@@ -68,6 +110,7 @@ html {
 
 // desktop hd
 @media screen and (max-width: 1400px) and (max-height: 650px) {
+
   html,
   body {
     font-size: 13px !important;
@@ -98,6 +141,7 @@ html {
 
 // tablet
 @media screen and (max-width: 1050px) {
+
   html,
   body {
     font-size: 14px !important;
@@ -115,9 +159,6 @@ html {
         height: $default-mobile-card-height !important;
         max-height: $default-mobile-card-height !important;
         padding: $default-mobile-card-padding !important;
-        background-color: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
 
@@ -129,13 +170,11 @@ html {
     }
   }
 
-  .dark-page {
-    .content {
-      .card.card {
-        background-color: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-      }
+  .content {
+    .card.card {
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
     }
   }
 
@@ -154,6 +193,7 @@ html {
 
 // celular
 @media screen and (max-width: 650px) {
+
   html,
   body {
     font-size: 12px !important;
@@ -173,17 +213,7 @@ body {
   height: 100%;
   font-size: 16px;
   user-select: none;
-  color: rgba(0, 0, 0, 0.856);
-}
-
-body {
-  --mat-sidenav-container-background-color: var(
-    --sidebar-content-background-color
-  );
-  --mat-sidenav-content-background-color: var(
-    --sidebar-content-background-color
-  );
-  background-color: var(--primary-background-color);
+  color: var(--primary-font-color);
 }
 
 .material-symbols-outlined {
@@ -235,13 +265,13 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   mat-hint {
-    color: #3a3a3a !important;
+    color: var(--form-field-hint-font-color) !important;
   }
 }
 
 .mat-mdc-snack-bar-action {
   font-family: "Nunito", system-ui, -apple-system, Roboto !important;
-  color: #fff !important;
+  color: var(--snack-bar-message-font-color) !important;
 }
 
 .mdc-tooltip__surface {
@@ -252,15 +282,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .mat-bottom-sheet-container {
   max-width: 100vw !important;
-  background-color: #fff !important;
-
-  &:has(.dark-page) {
-    background-color: $dark-bg !important;
-  }
 }
 
 .mat-mdc-menu-content {
   padding: 0 !important;
+  background-color: var(--primary-background-color);
 }
 
 .mat-mdc-menu-panel {
@@ -278,12 +304,8 @@ mat-card-title {
   }
 }
 
-.mat-divider {
-  border-top-color: $primary-divider-color !important;
-}
-
 .mat-mdc-dialog-surface {
-  background-color: $primary-card-bg !important;
+  background-color: var(--background) !important;
 }
 
 .mat-button-toggle-button {
@@ -295,17 +317,65 @@ mat-card-title {
   align-items: center !important;
 }
 
+.mdc-floating-label {
+  color: var(--primary-font-color) !important;
+}
+
+.mat-mdc-input-element {
+  color: var(--primary-font-color) !important;
+}
+
+.mdc-form-field {
+  color: var(--primary-font-color) !important;
+}
+
+.mat-mdc-select-value {
+  color: var(--primary-font-color) !important;
+}
+
+.mat-mdc-select-arrow {
+  color: var(--primary-font-color) !important;
+}
+
+.mat-mdc-dialog-title {
+  color: var(--primary-font-color) !important;
+}
+
+.mdc-tab__text-label {
+  color: var(--primary-font-color) !important;
+}
+
+.mdc-tab--active .mdc-tab__text-label {
+  color: var(--primary-font-color) !important;
+}
+
+.mat-datepicker-toggle-default-icon {
+  color: var(--primary-font-color) !important;
+}
+
+.mat-divider {
+  border-top-color: var(--divider-color) !important;
+}
+
+mat-card {
+  background-color: var(--card-background-color) !important;
+
+  .card-title {
+    color: var(--card-title-font-color) !important;
+  }
+}
+
 // END ANGULAR FIX ***********
 
 .simple-page {
   width: 100%;
   height: 100%;
-  background-color: $primary-bg;
+  background-color: var(--primary-background-color) !important;
   padding: 1rem;
   overflow-x: hidden;
 
   .page-title {
-    color: #383838;
+    color: var(--page-title-font-color);
     position: relative;
     left: 1.5rem;
     top: 0.5rem;
@@ -316,116 +386,24 @@ mat-card-title {
     height: $default-card-height;
     max-height: $default-card-height;
     padding: $default-card-padding;
-    background-color: $primary-card-bg !important;
+    color: var(--primary-font-color);
+    background-color: var(--card-background-color);
     border-radius: 1rem !important;
-  }
-}
-
-.dark-page {
-  color: $dark-font-color !important;
-  background-color: $dark-bg !important;
-
-  .content {
-    .card {
-      background-color: $dark-card-bg !important;
-      color: $dark-font-color !important;
-    }
   }
 
   .home-widget {
-    background-color: $dark-card-bg !important;
+    background-color: var(--card-background-color) !important;
   }
 
-  .mdc-button,
-  .mdc-icon-button {
-    .btn-content {
-      color: $dark-font-color !important;
-    }
-
-    span {
-      color: $dark-font-color !important;
-    }
-
-    &:disabled {
-      .btn-content {
-        color: $disabled-font-color !important;
-      }
-
-      span {
-        color: $disabled-font-color !important;
-      }
-    }
+  b {
+    color: var(--primary-font-color);
   }
+}
 
-  .mat-bottom-sheet-container {
-    background-color: $dark-bg !important;
-  }
-
-  label {
-    color: #d5d5d5 !important;
-  }
-
-  .page-title {
-    color: #e6e6e6;
-  }
-
-  .policy {
-    .content {
-      p {
-        color: $dark-font-color !important;
-      }
-    }
-  }
-
-  .mdc-floating-label {
-    color: #e6e6e6 !important;
-  }
-
-  .mat-mdc-input-element {
-    color: #e6e6e6 !important;
-  }
-
-  .mat-mdc-form-field {
-    mat-hint {
-      color: #999999 !important;
-    }
-  }
-
-  .mdc-form-field {
-    color: #e6e6e6 !important;
-  }
-
-  .mat-mdc-select-value {
-    color: #e6e6e6 !important;
-  }
-
-  .mat-mdc-select-arrow {
-    color: #e6e6e6 !important;
-  }
-
-  .mat-mdc-dialog-title {
-    color: #e6e6e6 !important;
-  }
-
-  .mat-mdc-outlined-button {
-    border-color: rgba(198, 198, 198, 0.47) !important;
-  }
-
-  .mdc-tab__text-label {
-    color: #fff !important;
-  }
-
-  .mdc-tab--active .mdc-tab__text-label {
-    color: $primary-font-color !important;
-  }
-
-  .mat-datepicker-toggle-default-icon {
-    color: #dddddd !important;
-  }
-
-  .mat-divider {
-    border-top-color: $dark-divider-color !important;
-  }
+label,
+h1,
+h2 {
+  color: var(--primary-font-color);
 }
 
 .login {
@@ -456,6 +434,7 @@ mat-card-title {
 
       h1 {
         font-size: 2.2em;
+        color: var(--primary-font-color);
       }
     }
 
@@ -469,6 +448,12 @@ mat-card-title {
         display: flex;
         justify-content: center;
       }
+
+      #forgot-password-label {
+        color: var(--primary) !important;
+        font-weight: bold;
+        cursor: pointer;
+      }
     }
 
     .bottom {
@@ -477,6 +462,14 @@ mat-card-title {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+  }
+
+  .opt-login-page {
+    .action {
+      color: var(--primary) !important;
+      font-weight: bold;
+      cursor: pointer;
     }
   }
 }
@@ -508,8 +501,8 @@ mat-card-title {
           justify-content: center;
           align-items: center;
           border-radius: 50%;
-          box-shadow: 0 0 1px #747474;
-          color: #3f3f3f;
+          box-shadow: var(--default-account-logo-box-shadow);
+          color: var(--default-account-logo-color);
         }
       }
 
@@ -525,7 +518,7 @@ mat-card-title {
           align-items: center;
           padding: 0.5rem;
           font-size: 1.1rem;
-          color: #fff;
+          color: var(--category-option-color);
         }
       }
     }
@@ -545,12 +538,13 @@ mat-card-title {
     justify-content: center;
     gap: 20px;
     font-size: 1.7rem;
-    color: $primary-font-color;
+    color: var(--primary-font-color);
     margin-right: 3rem;
     margin-bottom: 5vh;
 
     h1 {
       font-family: "Dosis";
+      color: var(--primary);
     }
   }
 
@@ -566,6 +560,7 @@ mat-card-title {
       flex-direction: column;
       align-items: center;
       margin-bottom: 3rem;
+      color: var(--primary-font-color);
 
       h2 {
         font-weight: bold;
@@ -586,12 +581,13 @@ mat-card-title {
 
       p {
         margin-bottom: 1.2rem;
-        color: #343434;
+        color: var(--policy-page-paragraph-font-color);
       }
 
       .sub-title {
         margin: 1.1rem 0;
         font-size: 1.45rem;
+        color: var(--primary-font-color);
       }
 
       ul {
@@ -604,10 +600,11 @@ mat-card-title {
   .last-update {
     margin-bottom: 0.8rem;
     font-size: 1.1rem;
+    color: var(--primary-font-color);
   }
 
   .link {
-    color: $primary-font-color;
+    color: var(--primary);
     text-decoration: underline;
     font-size: 1.1rem;
     cursor: pointer;
@@ -623,7 +620,7 @@ mat-card-title {
 .home-page {
   .home-widget {
     border-radius: 1rem;
-    background-color: $primary-card-bg;
+    background-color: var(--card-background-color);
   }
 }
 
@@ -635,8 +632,13 @@ mat-card-title {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #818181;
   gap: 1rem;
+  padding: 3rem 0;
+  font-size: 1.15rem;
+
+  label {
+    color: var(--empty-message-font-color) !important;
+  }
 }
 
 .clear-value-button {
@@ -647,6 +649,6 @@ mat-card-title {
   padding: 3px;
 
   &:hover {
-    background-color: #74747430;
+    background-color: var(--button-hover-background-color);
   }
 }

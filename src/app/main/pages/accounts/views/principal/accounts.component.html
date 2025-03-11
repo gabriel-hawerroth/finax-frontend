@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "my-accounts.title" | translate }}
   </h1>
@@ -43,9 +43,9 @@
       <!---->
       @if (errorFetchingAccounts()) {
       <div class="empty">
-        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+        <label style="font-size: 1.5rem; margin-bottom: 4rem">
           {{ "my-accounts.error-getting-accounts" | translate }}
-        </span>
+        </label>
       </div>
       } @else {
       <!---->
@@ -59,9 +59,9 @@
       ></app-accounts-list>
       } @else {
       <div class="empty">
-        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+        <label style="font-size: 1.5rem; margin-bottom: 4rem">
           {{ "my-accounts.no-registered-accounts" | translate }}
-        </span>
+        </label>
       </div>
       } } }
     </mat-card>

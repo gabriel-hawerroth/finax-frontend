@@ -52,8 +52,6 @@ import { AccountsListComponent } from '../../components/accounts-list/accounts-l
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyBankAccountsPage implements OnInit, OnDestroy {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
-
   private readonly _unsubscribeAll = new Subject<void>();
 
   situationFilter = new FormControl(true);

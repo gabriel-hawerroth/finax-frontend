@@ -1,72 +1,62 @@
 @media screen and (max-width: 1050px) {
-    .release-form {
-        form {
-            padding: 0 1.5rem !important;
+  .release-form {
+    form {
+      padding: 0 1.5rem !important;
 
-            .row {
-                gap: 2rem !important;
-            }
-        }
+      .row {
+        gap: 2rem !important;
+      }
     }
+  }
 }
 
 .release-form {
+  height: 100%;
+
+  form {
+    width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 5rem;
 
-    form {
+    .row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+
+      mat-form-field {
         width: 100%;
-        height: 100%;
+      }
+    }
+
+    .row2 {
+      .selected-account {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 5rem;
+        align-items: center;
+        gap: 0.5rem;
 
-        .row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2.5rem;
-
-            mat-form-field {
-                width: 100%;
-            }
+        img {
+          border-radius: 50%;
         }
-
-        .row2 {
-            .selected-account {
-                display: flex;
-                align-items: center;
-                gap: .5rem;
-
-                img {
-                    border-radius: 50%;
-                }
-            }
-        }
-
-        .row4 {
-            .selected-category {
-                display: flex;
-                align-items: center;
-                gap: .5rem;
-
-                .material-symbols-outlined {
-                    border-radius: 50%;
-                    padding: .25rem;
-                    font-size: .85rem;
-                    color: #fff;
-                }
-            }
-        }
-    }
-}
-
-.dark-page {
-    .selected-account {
-        color: #fff !important;
+      }
     }
 
-    .selected-category {
-        color: #fff !important;
+    .row4 {
+      .selected-category {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .material-symbols-outlined {
+          border-radius: 50%;
+          padding: 0.25rem;
+          font-size: 0.85rem;
+          color: #fff;
+        }
+      }
     }
+  }
 }

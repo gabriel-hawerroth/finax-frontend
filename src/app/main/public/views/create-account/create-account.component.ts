@@ -45,7 +45,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class CreateAccountPage implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly passwordRequirementsText = this._utils.passwordRequirementsText;
   readonly getBtnStyle = getBtnStyle;
 

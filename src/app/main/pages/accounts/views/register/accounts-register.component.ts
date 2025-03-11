@@ -49,7 +49,6 @@ import { AccountsFormComponent } from '../../components/accounts-form/accounts-f
 })
 export class AccountsFormPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
 
   private readonly _unsubscribeAll = new Subject<void>();

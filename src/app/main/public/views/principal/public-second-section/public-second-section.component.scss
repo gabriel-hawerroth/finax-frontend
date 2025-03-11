@@ -1,115 +1,116 @@
 @media screen and (max-width: 1050px) {
-    .public-section {
-        padding-bottom: 5rem !important;
-        padding-left: 4% !important;
-        padding-right: 4% !important;
+  .public-section {
+    padding-bottom: 5rem !important;
+    padding-left: 4% !important;
+    padding-right: 4% !important;
 
-        .left {
-            display: none !important;
-        }
+    .left {
+      display: none !important;
     }
+  }
 }
 
 .public-section {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3%;
+  gap: 1rem;
+  background-color: #fff;
+
+  .left {
+    width: 50%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 3%;
-    gap: 1rem;
-    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 
-    .left {
-        width: 50%;
-        height: 90%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
+    img {
+      border-top-right-radius: 90px;
+      border-bottom-left-radius: 90px;
+      width: 80%;
+      height: auto;
+      box-shadow: 0.5px 0.5px 3px #00000052;
+    }
+  }
 
-        img {
-            border-top-right-radius: 90px;
-            border-bottom-left-radius: 90px;
-            width: 80%;
-            height: auto;
-            box-shadow: 0.5px 0.5px 3px #00000052;
-        }
+  .right {
+    flex: 1;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 5rem;
+    gap: 1.2rem;
+
+    h1 {
+      width: 100%;
+      font-size: 2.1rem;
+      color: #1a1c18;
     }
 
-    .right {
-        flex: 1;
-        height: 90%;
+    mat-divider {
+      border-color: #0000009c !important;
+    }
+
+    .list {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .item {
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 5rem;
-        gap: 1.2rem;
+        max-width: 90%;
 
-        h1 {
+        .icon {
+          width: 8%;
+          height: 100%;
+          display: grid;
+          place-items: center;
+        }
+
+        .content {
+          height: 100%;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+
+          .title {
+            height: 50%;
             width: 100%;
-            font-size: 2.1rem;
-        }
+            font-size: 1.1em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+          }
 
-        mat-divider {
-            border-color: #0000009c !important;
-        }
-
-        .list {
+          .detail {
             flex: 1;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-
-            .item {
-                width: 100%;
-                display: flex;
-                max-width: 90%;
-
-                .icon {
-                    width: 8%;
-                    height: 100%;
-                    display: grid;
-                    place-items: center;
-                }
-
-                .content {
-                    height: 100%;
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-
-                    .title {
-                        height: 50%;
-                        width: 100%;
-                        font-size: 1.1em;
-                        font-weight: 600;
-                        display: flex;
-                        align-items: center;
-                    }
-
-                    .detail {
-                        flex: 1;
-                        width: 100%;
-                    }
-                }
-            }
-
-            .margin-top {
-                margin-top: 1rem;
-            }
+          }
         }
+      }
 
-        .button {
-            text-align: end;
-            padding-right: 3em;
-
-            button {
-                box-sizing: initial;
-                padding: 0.4em 1em;
-            }
-        }
+      .margin-top {
+        margin-top: 1rem;
+      }
     }
+
+    .button {
+      text-align: end;
+      padding-right: 3em;
+
+      button {
+        box-sizing: initial;
+        padding: 0.4em 1em;
+      }
+    }
+  }
 }

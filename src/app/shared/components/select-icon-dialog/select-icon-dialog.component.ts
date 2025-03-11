@@ -7,7 +7,6 @@ import {
   ButtonPreConfig,
 } from '../../../core/interfaces/button-config';
 import { cloudFireCdnImgsLink } from '../../utils/utils';
-import { UtilsService } from '../../utils/utils.service';
 import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynamic-button.component';
 
 @Component({
@@ -25,7 +24,6 @@ import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynami
 })
 export class SelectIconDialog {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   readonly icons: string[] = this.getIcons;
 
@@ -33,7 +31,7 @@ export class SelectIconDialog {
     preConfig: ButtonPreConfig.CLOSE,
   };
 
-  constructor(private readonly _utils: UtilsService) {}
+  constructor() {}
 
   private get getIcons(): string[] {
     return [

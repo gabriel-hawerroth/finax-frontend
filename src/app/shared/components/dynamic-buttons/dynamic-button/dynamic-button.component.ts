@@ -39,12 +39,6 @@ export class DynamicButtonComponent implements OnInit {
   constructor(private readonly _utils: UtilsService) {}
 
   ngOnInit(): void {
-    // this._utils
-    //   .getUserConfigsObservable()
-    //   .subscribe((configs) =>
-    //     this.darkThemeEnabled.set(configs.theme == Theme.DARK)
-    //   );
-
     if (this.config().type === undefined) {
       this.config().type = this.darkThemeEnabled()
         ? ButtonType.STROKED
@@ -72,7 +66,7 @@ export class DynamicButtonComponent implements OnInit {
         this.config().label = 'actions.exclude';
         this.config().contentStyle = {
           ...this.config().contentStyle,
-          color: this.config().disabled ? '' : 'red',
+          color: this.config().disabled || this.darkThemeEnabled() ? '' : 'red',
         };
         break;
       case ButtonPreConfig.EDIT:
@@ -89,7 +83,6 @@ export class DynamicButtonComponent implements OnInit {
         this.config().label = 'buttons.download-attachment';
         this.config().contentStyle = {
           ...this.config().contentStyle,
-          color: '#585858',
         };
         break;
       case ButtonPreConfig.CLOSE:

@@ -12,7 +12,8 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomeAccount } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
-import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { ButtonConfig } from '../../../../../core/interfaces/button-config';
+import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { HomeAccountItemComponent } from './home-account-item/home-account-item.component';
@@ -26,8 +27,8 @@ import { HomeAccountItemComponent } from './home-account-item/home-account-item.
     CustomCurrencyPipe,
     MatDividerModule,
     RouterModule,
-    ButtonsComponent,
     HomeAccountItemComponent,
+    DynamicButtonComponent,
   ],
   templateUrl: './home-accounts-list-widget.component.html',
   styleUrl: './home-accounts-list-widget.component.scss',
@@ -43,6 +44,10 @@ export class HomeAccountsListWidget implements OnInit {
 
   finishedFetch = signal(false);
   errorFetching = signal(false);
+
+  registerOneBtnConfig: ButtonConfig = {
+    label: 'home.register-one',
+  };
 
   constructor(private readonly _homeService: HomeService) {}
 

@@ -36,7 +36,6 @@ import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseDetailsComponent {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
 
   release: MonthlyRelease;

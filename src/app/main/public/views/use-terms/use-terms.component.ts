@@ -1,11 +1,10 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { ButtonType } from '../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
-import { UtilsService } from '../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-use-terms',
@@ -22,8 +21,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 })
 export class UseTermsPage {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly homeButtonStyle = ButtonType.ICON;
 
-  constructor(private readonly _utils: UtilsService) {}
+  constructor() {}
 }

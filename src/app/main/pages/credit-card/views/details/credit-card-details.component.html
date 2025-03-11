@@ -1,4 +1,4 @@
-<div class="credit-card-details" [class.dark-page]="darkThemeEnabled">
+<div class="credit-card-details">
   @if (showImage) {
   <img
     id="card-logo"
@@ -11,10 +11,14 @@
 
   <div class="content">
     <div class="row1">
-      <h1 class="name">{{ card.name }}</h1>
+      <h1 class="name">
+        <label>
+          {{ card.name }}
+        </label>
+      </h1>
 
       <div class="limit">
-        <span>{{ "credit-cards.limit" | translate }}:</span>
+        <label>{{ "credit-cards.limit" | translate }}:</label>
         <h1>{{ currency }}{{ card.cardLimit | customCurrency }}</h1>
       </div>
     </div>
@@ -22,9 +26,9 @@
     <div class="row2">
       <div class="left">
         <div class="standard_payment_account">
-          <span>
+          <label>
             {{ "credit-cards.standard-payment-account" | translate }}:
-          </span>
+          </label>
 
           <span class="account">
             @if (card.accountImage) {
@@ -36,7 +40,7 @@
             />
             }
 
-            {{ card.accountName }}
+            <label>{{ card.accountName }}</label>
           </span>
         </div>
 
@@ -46,11 +50,11 @@
           } @else {
           <span class="material-symbols-outlined false">close</span>
           }
-          {{ "generic.active" | translate }}
+          <label>{{ "generic.active" | translate }}</label>
         </div>
       </div>
 
-      <div class="right">
+      <label class="right">
         <div class="item">
           <span>{{ "credit-cards.close-day" | translate }}:</span>
 
@@ -62,7 +66,7 @@
 
           <span>{{ card.expiresDay }}</span>
         </div>
-      </div>
+      </label>
     </div>
   </div>
 

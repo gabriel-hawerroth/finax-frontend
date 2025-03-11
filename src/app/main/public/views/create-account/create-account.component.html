@@ -1,4 +1,4 @@
-<div class="simple-page login" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page login">
   <div class="login-box">
     <div class="top">
       <img
@@ -127,9 +127,9 @@
   </div>
 
   <span class="opt-login-page">
-    <span>{{ "create-account.already-have-account" | translate }}</span>
+    <label>{{ "create-account.already-have-account" | translate }}</label>
 
-    <span routerLink="/login" class="login-label">
+    <span routerLink="/login" class="action">
       {{ "create-account.do-login" | translate }}
     </span>
   </span>

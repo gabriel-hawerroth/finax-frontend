@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Credentials } from '../../../../../core/entities/auth/credentials';
 import { UserService } from '../../../../../core/entities/user/user.service';
+import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
@@ -35,13 +36,13 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatProgressSpinnerModule,
     MatTooltipModule,
     TranslateModule,
+    ButtonsComponent,
   ],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordDialog implements OnInit {
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly passwordRequirementsText = this._utils.passwordRequirementsText;
 
   changePasswordForm!: FormGroup;
@@ -133,5 +134,9 @@ export class ChangePasswordDialog implements OnInit {
       .finally(() => {
         this.loading.set(false);
       });
+  }
+
+  onCancel() {
+    this._dialogRef.close();
   }
 }

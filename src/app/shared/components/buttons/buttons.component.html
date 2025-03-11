@@ -33,7 +33,6 @@
     [disabled]="disableDownload()"
     [loading]="showLoading()"
     [btnStyle]="btnStyle()"
-    [contentStyle]="{ color: '#585858' }"
     (onClick)="onDownload.emit()"
   ></styled-button>
   <!---->
@@ -70,7 +69,9 @@
     [disabled]="disableDelete()"
     [loading]="showLoading()"
     [btnStyle]="btnStyle()"
-    [contentStyle]="{ color: disableDelete() ? '' : 'red' }"
+    [contentStyle]="{
+      color: disableDelete() || darkThemeEnabled() ? '' : 'red'
+    }"
     (onClick)="onDelete.emit()"
   ></styled-button>
   <!---->

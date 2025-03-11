@@ -1,204 +1,178 @@
-@use 'colors.scss' as *;
-@use 'generic.scss' as *;
+@use "generic.scss" as *;
 
 ::-webkit-scrollbar {
-    display: flex;
+  display: flex;
 }
 
 @media screen and (max-width: 1050px) {
-    .simple-page {
-        .content {
-            .card {
-                height: $default-mobile-card-height !important;
-                max-height: $default-mobile-card-height !important;
-            }
-        }
+  .simple-page {
+    .content {
+      .card {
+        height: $default-mobile-card-height !important;
+        max-height: $default-mobile-card-height !important;
+      }
     }
+  }
 }
 
 @media screen and (max-width: 650px) {
-    .simple-page {
-        .content {
-            .card {
-                header {
-                    flex-direction: column-reverse !important;
-                    margin-bottom: 0 !important;
+  .simple-page {
+    .content {
+      .card {
+        header {
+          flex-direction: column-reverse !important;
+          margin-bottom: 0 !important;
 
-                    .center {
-                        margin-top: 1.5rem !important;
-                    }
+          .center {
+            margin-top: 1.5rem !important;
+          }
 
-                    .right {
-                        position: absolute !important;
-                        right: 0 !important;
-                        margin-bottom: 4rem !important;
-                    }
-                }
-
-                app-releases-list {
-                    width: 100% !important;
-                    padding: 0 !important;
-                }
-            }
+          .right {
+            position: absolute !important;
+            right: 0 !important;
+            margin-bottom: 4rem !important;
+          }
         }
+
+        app-releases-list {
+          width: 100% !important;
+          padding: 0 !important;
+        }
+      }
     }
+  }
 }
 
 .simple-page {
+  display: flex;
+  flex-direction: column;
+
+  .page-title {
     display: flex;
-    flex-direction: column;
+    align-items: start;
+    gap: 1.5rem;
+    font-size: 2.3rem;
 
-    .page-title {
+    #add-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.3rem;
+      height: 2.3rem;
+      background-color: #099e26;
+
+      .material-symbols-outlined {
+        color: #fff;
+      }
+    }
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    place-items: center;
+
+    .card {
+      height: 85vh;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      top: 0.6rem;
+      padding: 0 !important;
+      padding-top: 1rem !important;
+
+      header {
         display: flex;
-        align-items: start;
-        gap: 1.5rem;
-        font-size: 2.3rem;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2rem;
+        margin-bottom: 1rem;
 
-        #add-btn {
+        .left,
+        .center,
+        .right {
+          display: flex;
+          align-items: center;
+          flex: 1;
+        }
+
+        .center {
+          justify-content: center;
+          gap: 1rem;
+          color: var(--primary-font-color);
+
+          .tab {
+            font-size: 1.3rem;
+            text-transform: capitalize;
+            width: 12rem;
             display: flex;
             justify-content: center;
-            align-items: center;
-            width: 2.3rem;
-            height: 2.3rem;
-            background-color: #099e26;
-
-            .material-symbols-outlined {
-                color: #fff;
-            }
+          }
         }
-    }
 
-    .content {
+        .right {
+          justify-content: flex-end;
+          padding-right: 2rem;
+        }
+      }
+
+      app-releases-list {
+        padding: 0 1.2rem;
+      }
+
+      app-releases-list,
+      .empty {
         flex: 1;
-        display: flex;
-        justify-content: center;
-        place-items: center;
+        overflow-y: scroll;
+      }
 
-        .card {
-            height: 85vh;
-            max-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            top: .6rem;
-            padding: 0 !important;
-            padding-top: 1rem !important;
-
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 1rem 2rem;
-                margin-bottom: 1rem;
-
-                .left,
-                .center,
-                .right {
-                    display: flex;
-                    align-items: center;
-                    flex: 1;
-                }
-
-                .center {
-                    justify-content: center;
-                    gap: 1rem;
-                    color: #464646;
-
-                    .tab {
-                        font-size: 1.3rem;
-                        text-transform: capitalize;
-                        width: 12rem;
-                        display: flex;
-                        justify-content: center;
-                    }
-                }
-
-                .right {
-                    justify-content: flex-end;
-                    padding-right: 2rem;
-                }
-            }
-
-            app-releases-list {
-                padding: 0 1.2rem;
-            }
-
-            app-releases-list,
-            .empty {
-                flex: 1;
-                overflow-y: scroll;
-            }
-
-            .balances {
-                margin-top: auto;
-            }
-        }
+      .balances {
+        border-top: 1px solid var(--primary-background-color);
+        margin-top: auto;
+      }
     }
+  }
 }
 
 .change-view-mode {
+  display: flex;
+  flex-direction: column;
+  padding: 0.8rem;
+  padding-top: 0;
+
+  #title {
+    width: 28rem;
     display: flex;
-    flex-direction: column;
-    padding: .8rem;
-    padding-top: 0;
+    justify-content: center;
+    padding: 1.6rem 0;
+    font-size: 1.3rem;
+  }
 
-    #title {
-        width: 28rem;
-        display: flex;
-        justify-content: center;
-        padding: 1.6rem 0;
-        font-size: 1.3rem;
+  .mat-button-toggle-group {
+    width: 100% !important;
+
+    .mat-button-toggle {
+      width: 50%;
     }
-
-    .mat-button-toggle-group {
-        width: 100% !important;
-
-        .mat-button-toggle {
-            width: 50%;
-        }
-    }
+  }
 }
 
 .new-release-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 0 !important;
-    padding: .5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0 !important;
+  padding: 0.5rem 0;
+  background-color: var(--primary-background-color);
+  color: var(--primary-font-color);
 
-    span {
-        padding: .7rem 1.2rem;
+  label {
+    padding: 0.7rem 1.2rem;
 
-        &:hover {
-            background-color: #8080802a;
-            cursor: pointer;
-        }
+    &:hover {
+      background-color: var(--button-hover-background-color);
+      cursor: pointer;
     }
-}
-
-.dark-page {
-    .content {
-        .card {
-            background-color: $dark-card-bg;
-
-            header {
-
-                .filter-menu,
-                .mat-mdc-menu-content {
-                    background-color: $dark-bg !important;
-                }
-
-                .tab {
-                    color: $dark-font-color;
-                }
-
-                button {
-                    color: #fff;
-                }
-            }
-
-            .balances {
-                border-top: 1px solid #ffffff32 !important;
-            }
-        }
-    }
+  }
 }

@@ -7,9 +7,9 @@
   </span>
 
   <div class="title-account">
-    <span class="release-title">
+    <label class="release-title">
       {{ release().description || release().categoryName }}
-    </span>
+    </label>
 
     <div class="release-account">
       @if (release().isCreditCardRelease) {
@@ -24,7 +24,7 @@
 
   <span
     class="date"
-    [style.color]="isLate ? '#f44336' : isToday ? 'orange' : '#616161'"
+    [style.color]="isLate ? '#f44336' : isToday ? 'orange' : ''"
   >
     {{ release().date | date : "dd/MM/yyyy" }}
   </span>

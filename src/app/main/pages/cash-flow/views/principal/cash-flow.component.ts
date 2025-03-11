@@ -68,7 +68,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
   private readonly _unsubscribeAll = new Subject<void>();
 
   readonly currency = this._utils.getUserConfigs.currency;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   currentDate: Date = new Date();
 

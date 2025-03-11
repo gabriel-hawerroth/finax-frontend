@@ -30,7 +30,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 })
 export class CreditCardDetailsComponent {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
 
   card: UserCreditCard = inject(MAT_BOTTOM_SHEET_DATA).card;
@@ -47,9 +46,6 @@ export class CreditCardDetailsComponent {
   editBtnConfig: ButtonConfig = {
     icon: 'edit',
     label: 'actions.edit',
-    contentStyle: {
-      color: '#585858',
-    },
     onClick: () => this.edit(),
   };
 

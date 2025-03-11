@@ -57,7 +57,6 @@ export class InvoicePaymentDialog implements OnInit {
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
 
   accounts: BasicAccount[] = this.data.accounts || [];
   defaultPaymmentAccount: number | null =

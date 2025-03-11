@@ -1,85 +1,85 @@
-@use '../../../components/header/public-header.component.scss' as *;
-
 @media screen and (max-width: 1050px) {
-    .public-section {
-        padding-bottom: 8rem;
+  .public-section {
+    padding-bottom: 8rem;
 
-        #fs-img-container {
-            display: none !important;
-        }
+    #fs-img-container {
+      display: none !important;
     }
+  }
 }
 
 .public-section {
-    width: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  #first-section-background-image {
+    object-fit: cover;
+  }
+
+  .content {
+    width: 85%;
     height: 100%;
     display: flex;
-    justify-content: center;
-    position: relative;
+    align-items: center;
 
-    #first-section-background-image {
-        object-fit: cover;
-    }
+    .left-side {
+      flex: 1;
+      height: 100%;
+      padding: 4.5em 2em 0 2em;
 
-    .content {
-        width: 85%;
-        height: 100%;
+      .title {
+        font-size: 2.7rem;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      p {
+        font-size: 1.1rem;
+        margin-bottom: 3rem;
+        color: #fff;
+
+        .benefits {
+          font-size: 1.45rem;
+          font-weight: bold;
+          color: #00ff5e;
+        }
+      }
+
+      .call-action {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
 
-        .left-side {
-            flex: 1;
-            height: 100%;
-            padding: 4.5em 2em 0 2em;
-            color: #fff;
-
-            .title {
-                font-size: 2.7rem;
-                margin-bottom: 20px;
-            }
-
-            p {
-                font-size: 1.1rem;
-                margin-bottom: 3rem;
-
-                .benefits {
-                    font-size: 1.45rem;
-                    font-weight: bold;
-                    color: #00ff5e;
-                }
-            }
-
-            .call-action {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-
-                span {
-                    font-size: 1.15rem;
-                }
-
-                button {
-                    box-sizing: initial;
-                    width: 45%;
-                    padding: 0.6rem 0.5rem;
-                    font-size: 1.25rem;
-                }
-            }
+        span {
+          font-size: 1.15rem;
+          color: #fff;
         }
 
-        .right-side {
-            width: 45%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            img {
-                border-radius: 5px;
-                width: 80%;
-                height: auto;
-            }
+        button {
+          box-sizing: initial;
+          width: 45%;
+          padding: 0.6rem 0.5rem;
+          font-size: 1.25rem;
         }
+      }
     }
+
+    .right-side {
+      width: 45%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        border-radius: 5px;
+        width: 80%;
+        height: auto;
+      }
+    }
+  }
 }

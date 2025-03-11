@@ -1,15 +1,8 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject, takeUntil } from 'rxjs';
 import { LoginService } from '../../core/entities/auth/login.service';
 import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
 import { UserService } from '../../core/entities/user/user.service';
@@ -36,10 +29,8 @@ import { UtilsService } from '../../shared/utils/utils.service';
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SidebarComponent implements OnInit, OnDestroy {
+export class SidebarComponent implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
-
-  private readonly _unsubscribeAll = new Subject<void>();
 
   userAccess: UserAccess | null = this.utils.getLoggedUser?.access || null;
 
@@ -47,8 +38,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   noticesUl: boolean = false;
   moreUl: boolean = false;
   userActionsUl: boolean = false;
-
-  darkThemeEnabled = signal(false);
 
   isMobile = this._responsiveService.isMobileView;
 
@@ -61,17 +50,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscribeUserConfigs();
-
     if (this._loginService.logged) {
       this.getUserConfigs();
       this.getUserImage();
     }
-  }
-
-  ngOnDestroy(): void {
-    this._unsubscribeAll.complete();
-    this._unsubscribeAll.unsubscribe();
   }
 
   getUserConfigs() {
@@ -82,13 +64,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
         JSON.stringify(response)
       );
     });
-  }
-
-  subscribeUserConfigs() {
-    this.utils
-      .getUserConfigsObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((value) => this.darkThemeEnabled.set(value.theme === 'dark'));
   }
 
   getUserImage() {

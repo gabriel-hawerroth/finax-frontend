@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "credit-cards.title" | translate }}
   </h1>
@@ -44,9 +44,9 @@
       <!---->
       @if (errorFetchingCards()) {
       <div class="empty">
-        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+        <label style="font-size: 1.5rem; margin-bottom: 4rem">
           {{ "credit-cards.error-getting-cards" | translate }}
-        </span>
+        </label>
       </div>
       } @else {
       <!---->
@@ -58,9 +58,9 @@
       ></app-credit-cards-list>
       } @else {
       <div class="empty">
-        <span style="font-size: 1.5rem; margin-bottom: 4rem">
+        <label style="font-size: 1.5rem; margin-bottom: 4rem">
           {{ "credit-cards.empty-credit-cards" | translate }}
-        </span>
+        </label>
       </div>
       } } }
     </mat-card>

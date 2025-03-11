@@ -1,5 +1,4 @@
 @use 'generic.scss' as *;
-@use 'colors.scss' as *;
 
 .cancel-account-dialog {
     font-family: $default-font-family !important;
@@ -17,12 +16,5 @@
         font-size: 1.1rem;
         overflow: hidden;
         margin: 1rem;
-        color: #000;
-    }
-}
-
-.dark-page {
-    .content {
-        color: $dark-font-color;
     }
 }

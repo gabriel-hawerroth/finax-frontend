@@ -1,23 +1,27 @@
-<div class="simple-page home-page" [class.dark-page]="theme() === 'dark'">
+<div class="simple-page home-page">
   <mat-card class="top-card">
     <mat-card-content class="top-card-content">
-      <h1>
+      <h1 class="card-title">
         {{ title }}
       </h1>
 
       <div class="amounts">
         <div class="item revenue">
-          {{ "home.monthly-revenue" | translate }}
+          <label>
+            {{ "home.monthly-revenue" | translate }}
+          </label>
 
-          <span>
+          <span class="value">
             {{ currency() }}{{ balances().revenues | customCurrency }}
           </span>
         </div>
 
         <div class="item expense">
-          {{ "home.monthly-expense" | translate }}
+          <label>
+            {{ "home.monthly-expense" | translate }}
+          </label>
 
-          <span>
+          <span class="value">
             {{ currency() }}{{ balances().expenses | customCurrency }}
           </span>
         </div>

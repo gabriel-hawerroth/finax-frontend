@@ -14,17 +14,13 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CancelAccountDialog {
-  darkThemeEnabled = signal(false);
-
   loading = signal(false);
 
   constructor(
     private readonly _dialogRef: MatDialogRef<CancelAccountDialog>,
     private readonly _loginService: LoginService,
     private readonly _utils: UtilsService
-  ) {
-    this.darkThemeEnabled.set(_utils.getUserConfigs.theme === 'dark');
-  }
+  ) {}
 
   onCancel() {
     this._dialogRef.close();

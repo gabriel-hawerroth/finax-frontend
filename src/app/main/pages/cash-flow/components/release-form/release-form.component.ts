@@ -46,7 +46,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 export class ReleaseFormComponent implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getDefaultAccountImage = getDefaultAccountImage;
-  readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly currency = this._utils.getUserConfigs.currency;
 
   public form = input.required<FormGroup>();

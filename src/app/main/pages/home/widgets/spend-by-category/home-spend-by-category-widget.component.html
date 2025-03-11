@@ -1,7 +1,7 @@
 <mat-card class="home-widget">
   <mat-card-header>
     <mat-card-title>
-      <h3>
+      <h3 class="card-title">
         {{ "home.spend-by-category" | translate }}
       </h3>
 
@@ -39,7 +39,7 @@
   >
     @if (errorFetching()) {
     <div class="empty">
-      <span>{{ "home.error-getting-expenses-by-category" | translate }}</span>
+      <label>{{ "home.error-getting-expenses-by-category" | translate }}</label>
     </div>
     } @else {
     <!---->
@@ -65,9 +65,9 @@
           {{ item.category.icon }}
         </span>
 
-        <span id="category-name">{{ item.category.name }}</span>
+        <label id="category-name">{{ item.category.name }}</label>
 
-        <span id="percent">{{ item.percent }}%</span>
+        <label id="percent">{{ item.percent }}%</label>
       </div>
 
       @if (isntLastItem($index)) {
@@ -88,7 +88,7 @@
     </div>
     } @else {
     <div class="empty">
-      <span>{{ "home.no-expense-in-selected-interval" | translate }}</span>
+      <label>{{ "home.no-expense-in-selected-interval" | translate }}</label>
     </div>
     } }
   </mat-card-content>

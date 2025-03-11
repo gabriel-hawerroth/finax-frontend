@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "cash-flow.title" | translate }}
 
@@ -22,19 +22,19 @@
             (click)="changeMonth('before')"
             [disabled]="searching()"
           >
-            <span class="material-symbols-outlined">chevron_left</span>
+            <label class="material-symbols-outlined">chevron_left</label>
           </button>
 
-          <div class="tab">
+          <label class="tab">
             {{ selectedDate | releasesMonth }}
-          </div>
+          </label>
 
           <button
             mat-icon-button
             (click)="changeMonth('next')"
             [disabled]="searching()"
           >
-            <span class="material-symbols-outlined">navigate_next</span>
+            <label class="material-symbols-outlined">navigate_next</label>
           </button>
         </div>
 
@@ -48,11 +48,9 @@
         </div>
       </header>
 
-      @defer (when !searching()) {
-      <!---->
       @if (errorFetchingReleases()) {
       <div class="empty">
-        <span>{{ "cash-flow.error-getting-releases" | translate }}</span>
+        <label>{{ "cash-flow.error-getting-releases" | translate }}</label>
       </div>
       } @else {
       <!---->
@@ -67,11 +65,11 @@
       ></app-releases-list>
       } @else {
       <div class="empty">
-        <span style="font-size: 1.2rem">
+        <label style="font-size: 1.2rem">
           {{ "cash-flow.empty-releases" | translate }}
-        </span>
+        </label>
       </div>
-      } } }
+      } }
 
       <app-cash-flow-balances
         class="balances"
@@ -83,21 +81,17 @@
 </div>
 
 <mat-menu #newReleaseMenu="matMenu">
-  <div
-    class="new-release-menu"
-    [style.background-color]="darkThemeEnabled ? '#3b3b3bfd' : ''"
-    [style.color]="darkThemeEnabled ? '#dddddd' : ''"
-  >
-    <span (click)="addRelease('E')">
+  <div class="new-release-menu">
+    <label (click)="addRelease('E')">
       {{ "cash-flow.new-expense" | translate }}
-    </span>
+    </label>
 
-    <span (click)="addRelease('R')">
+    <label (click)="addRelease('R')">
       {{ "cash-flow.new-revenue" | translate }}
-    </span>
+    </label>
 
-    <span (click)="addRelease('T')">
+    <label (click)="addRelease('T')">
       {{ "cash-flow.new-transfer" | translate }}
-    </span>
+    </label>
   </div>
 </mat-menu>

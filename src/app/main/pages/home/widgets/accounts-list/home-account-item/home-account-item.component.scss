@@ -1,29 +1,27 @@
-@use 'colors.scss' as *;
-
 .account {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 1.2rem;
+  padding: 0 10px;
+
+  img {
+    border-radius: 50%;
+  }
+
+  .default-bank-account {
+    width: 55px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 1.5rem;
-    font-size: 1.2rem;
-    padding: 0 10px;
+    box-shadow: var(--icon-box-shadow);
+  }
 
-    img {
-        border-radius: 50%;
-    }
-
-    .default-bank-account {
-        width: 55px;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 0 2px #5d5d5d;
-    }
-
-    .account-balance {
-        margin-left: auto;
-        font-size: 1.1rem;
-        color: $balance-blue-color;
-    }
+  .account-balance {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: var(--amounts-font-color);
+  }
 }

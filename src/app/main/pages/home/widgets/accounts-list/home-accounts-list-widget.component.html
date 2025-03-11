@@ -1,6 +1,6 @@
 <mat-card class="home-widget">
   <mat-card-header>
-    <h3 style="font-weight: 500">
+    <h3 class="card-title" style="font-weight: 500">
       {{ "home.general-balance" | translate }}
     </h3>
 
@@ -8,7 +8,7 @@
       style="font-size: 2rem; font-weight: bold"
       [style.color]="
         generalBalance() === 0
-          ? '#3d799c'
+          ? 'var(--amounts-font-color)'
           : generalBalance() > 0
           ? '#15e627'
           : 'red'
@@ -21,7 +21,7 @@
   <mat-divider></mat-divider>
 
   <mat-card-content>
-    <span class="my-accounts-title">
+    <span class="my-accounts-title card-title">
       {{ "home.my-accounts" | translate }}
     </span>
 
@@ -29,7 +29,7 @@
     <div class="list">
       @if (errorFetching()) {
       <div class="empty">
-        <span>{{ "home.error-getting-accounts" | translate }}</span>
+        <label>{{ "home.error-getting-accounts" | translate }}</label>
       </div>
       } @else {
       <!--  -->
@@ -45,15 +45,14 @@
       <!---->
       } @empty {
       <div class="empty">
-        <span>
+        <label>
           {{ "home.empty-accounts-list" | translate }}
-        </span>
+        </label>
 
-        <app-buttons
+        <dynamic-button
           routerLink="/contas/nova"
-          [showGeneric]="true"
-          genericLabel="home.register-one"
-        ></app-buttons>
+          [config]="registerOneBtnConfig"
+        ></dynamic-button>
       </div>
       } }
     </div>

@@ -1,5 +1,3 @@
-@use 'colors.scss' as *;
-
 @media screen and (min-width: 1750px) and (min-height: 800px) {
     .bank-account-details {
         width: 98.5vw !important;
@@ -48,7 +46,6 @@
     padding: 1rem 0;
     gap: 8%;
     margin-bottom: 1.5rem;
-    background-color: #fff;
 
     #account-logo {
         position: relative;
@@ -75,13 +72,9 @@
                     color: #00b300;
                 }
 
-                span {
+                label {
                     cursor: pointer;
                     font-size: .9rem;
-
-                    &:hover {
-                        color: $primary-font-color;
-                    }
                 }
             }
         }
@@ -145,11 +138,5 @@
         flex-direction: column;
         align-items: flex-end;
         gap: .8rem;
-    }
-}
-
-.dark-page {
-    .bank-account-details {
-        background-color: $dark-card-bg !important;
     }
 }

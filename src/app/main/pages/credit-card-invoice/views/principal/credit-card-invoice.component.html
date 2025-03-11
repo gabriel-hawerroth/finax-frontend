@@ -1,4 +1,4 @@
-<div class="simple-page" [class.dark-page]="darkThemeEnabled">
+<div class="simple-page">
   <h1 class="page-title">
     {{ "invoice.title" | translate }}
 
@@ -7,10 +7,10 @@
       genericIcon="add"
       [genericStyle]="iconBtnStyle"
       [btnStyle]="{
-      'background-color': '#099e26',
-      width: '2.3rem',
-      height: '2.3rem',
-    }"
+        'background-color': '#099e26',
+        width: '2.3rem',
+        height: '2.3rem',
+      }"
       [contentStyle]="{
         color: '#fff'
       }"
@@ -86,32 +86,50 @@
             genericIcon="chevron_left"
             [genericStyle]="iconBtnStyle"
             [disableGeneric]="searching()"
+            [contentStyle]="{ color: 'var(--primary-font-color)' }"
             (onGeneric)="changeMonth('before')"
           ></app-buttons>
 
-          <div class="tab">
+          <label class="tab">
             {{ selectedDate() | releasesMonth }}
-          </div>
+          </label>
 
           <app-buttons
             [showGeneric]="true"
             genericIcon="navigate_next"
             [genericStyle]="iconBtnStyle"
             [disableGeneric]="searching()"
+            [contentStyle]="{ color: 'var(--primary-font-color)' }"
             (onGeneric)="changeMonth('next')"
           ></app-buttons>
         </div>
       </header>
 
+      @if (errorFetchingReleases()) {
+      <div class="empty">
+        <label style="font-size: 1.2rem">
+          {{ "cash-flow.error-getting-releases" | translate }}
+        </label>
+      </div>
+      } @else {
+      <!---->
+      @if (monthValues().releases.length) {
       <app-releases-list
+        id="releases-list"
         [releases]="monthValues().releases"
         [accounts]="accounts"
         [categories]="categories"
         [creditCards]="creditCards"
         [selectedDate]="selectedDate()"
         (updateList)="getMonthValues()"
-        id="releases-list"
       ></app-releases-list>
+      } @else {
+      <div class="empty">
+        <label style="font-size: 1.2rem">
+          {{ "cash-flow.empty-releases" | translate }}
+        </label>
+      </div>
+      } }
 
       <div class="totals">
         <div class="item">

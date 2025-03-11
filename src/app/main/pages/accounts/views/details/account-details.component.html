@@ -1,4 +1,4 @@
-<div class="bank-account-details" [class.dark-page]="darkThemeEnabled">
+<div class="bank-account-details">
   @if (showImage) {
   <img
     id="account-logo"
@@ -22,24 +22,24 @@
         </h1>
 
         @if (!account.grouper) {
-        <span (click)="adjustBalance()">
+        <label (click)="adjustBalance()">
           {{ "my-accounts.adjust-balance" | translate }}
-        </span>
+        </label>
         }
       </div>
     </div>
 
     <div class="row2">
       @if (account.accountNumber) {
-      <span>
+      <label>
         {{ "my-accounts.account-number" | translate }}:
         {{ account.accountNumber }}
-      </span>
+      </label>
       } @if (account.agency) {
-      <span>
+      <label>
         {{ "my-accounts.agency" | translate }}:
         {{ account.agency }}
-      </span>
+      </label>
       }
     </div>
 
@@ -62,23 +62,23 @@
             {{ account[item.key] ? "check" : "close" }}
           </span>
 
-          {{ item.label | translate }}
+          <label>{{ item.label | translate }}</label>
         </span>
         } }
       </div>
 
       <div class="right">
         @if (account.type) {
-        <span>
+        <label>
           {{ getAccountType | translate }}
-        </span>
+        </label>
         }
 
         <br />
 
         @if (account.primaryAccountId) {
         <div class="primary-account">
-          <span> {{ "my-accounts.sub-account-of" | translate }}: </span>
+          <label> {{ "my-accounts.sub-account-of" | translate }}: </label>
 
           <div class="primary-account-details">
             @if (primaryAccount?.image) {
@@ -89,9 +89,9 @@
               alt="bank account logo"
             />
             }
-            <span>
+            <label>
               {{ primaryAccount?.name }}
-            </span>
+            </label>
           </div>
         </div>
         }

@@ -1,4 +1,4 @@
-<div id="releases-list" [class]="theme">
+<div id="releases-list">
   @for (release of releases(); track release.id) {
   <div class="release" (click)="openDetails(release)">
     <div class="category">
@@ -46,13 +46,13 @@
 
     @if (!smallWidth()) {
     <div class="account">
-      <span>{{ release.account?.name || release.card?.name }}</span>
+      <label>{{ release.account?.name || release.card?.name }}</label>
     </div>
     }
 
     <div class="date">
-      <span>{{ release.date | date : "dd/MM/yyyy" }}</span>
-      <span>{{ release.time }}</span>
+      <label>{{ release.date | date : "dd/MM/yyyy" }}</label>
+      <label>{{ release.time }}</label>
     </div>
 
     <div class="amount">
