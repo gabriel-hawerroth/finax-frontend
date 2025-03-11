@@ -4,8 +4,6 @@
 @use "colors.scss" as *;
 @use "generic.scss" as *;
 
-@use "./../m3-theme.scss" as *;
-
 @include mat.core();
 
 $theme: mat.define-theme(( //
