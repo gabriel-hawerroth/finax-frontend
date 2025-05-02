@@ -77,9 +77,12 @@ export class AccountService {
     );
   }
 
-  getBasicList(): Promise<BasicAccount[]> {
+  getBasicList(showSubAccounts: boolean): Promise<BasicAccount[]> {
+    let params = new HttpParams();
+    params = params.append('showSubAccounts', showSubAccounts);
+
     return lastValueFrom(
-      this._http.get<BasicAccount[]>(`${this.apiUrl}/basic-list`)
+      this._http.get<BasicAccount[]>(`${this.apiUrl}/basic-list`, { params })
     );
   }
 

@@ -122,9 +122,11 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   }
 
   private getValues() {
+    const showSubAccounts = false;
+
     if (this.cardId) {
       Promise.all([
-        this._accountService.getBasicList(),
+        this._accountService.getBasicList(showSubAccounts),
         this._creditCardService.getById(this.cardId),
       ])
         .then(([accounts, card]) => {
@@ -142,7 +144,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
     }
 
     this._accountService
-      .getBasicList()
+      .getBasicList(showSubAccounts)
       .then((response) => (this.accounsList = response))
       .catch(() =>
         this._utils.showMessage('credit-cards.error-getting-accounts')
