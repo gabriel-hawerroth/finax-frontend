@@ -28,7 +28,7 @@
     "@ngx-translate/http-loader": "^16.0.1",
     "chart.js": "^4.4.9",
     "date-fns": "^4.1.0",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "ngx-currency": "^19.0.0",
     "ngx-mask": "^19.0.6",
     "primeng": "^19.1.2",
