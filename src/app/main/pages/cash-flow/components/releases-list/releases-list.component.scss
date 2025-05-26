@@ -1,124 +1,26 @@
+::-webkit-scrollbar {
+  display: block;
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.releases-viewport {
+  height: 100%;
+  overflow: auto;
+}
+
 @media screen and (max-width: 650px) {
-  #releases-list {
+  :host ::ng-deep .cdk-virtual-scroll-content-wrapper {
     padding: 0 !important;
-
-    .release {
-      .category {
-        width: fit-content !important;
-        margin-right: 0.5rem;
-      }
-
-      .description {
-        padding-right: 0.8rem !important;
-
-        h3 {
-          gap: 0 !important;
-
-          .material-symbols-outlined {
-            transform: scale(0.7);
-          }
-        }
-      }
-
-      .amount {
-        width: 27% !important;
-        max-width: 27% !important;
-        padding-right: 0.9rem !important;
-      }
-
-      .situation {
-        width: fit-content !important;
-      }
-    }
   }
 }
 
-#releases-list {
-  width: 100% !important;
-  height: 100%;
+:host ::ng-deep .cdk-virtual-scroll-content-wrapper {
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
-  .release {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0.8rem 0;
-    border-radius: 5px;
-
-    &:hover {
-      background-color: #adffea25;
-      cursor: pointer;
-    }
-
-    .category {
-      width: 8%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .material-symbols-outlined {
-        border-radius: 50%;
-        padding: 0.5rem;
-        color: #fff;
-      }
-    }
-
-    .description {
-      flex: 1;
-      overflow-x: hidden;
-
-      h3 {
-        display: flex;
-        align-items: center;
-        gap: 0.7rem;
-
-        .material-symbols-outlined {
-          color: var(--primary);
-        }
-      }
-
-      .description-sub-title {
-        color: var(--secondary-gray);
-        font-size: 0.9rem;
-      }
-    }
-
-    .account {
-      width: 22%;
-    }
-
-    .date {
-      width: 11%;
-      font-size: 0.8rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .amount {
-      width: 15%;
-      max-width: 15%;
-      overflow-x: hidden;
-      display: flex;
-      justify-content: flex-end;
-      padding-right: 1.2rem;
-    }
-
-    .situation {
-      width: 6%;
-      display: flex;
-      justify-content: center;
-
-      span {
-        font-size: 1.5rem;
-      }
-
-      .done {
-        color: var(--primary);
-      }
-    }
-  }
 }

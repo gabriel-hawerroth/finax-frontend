@@ -1,3 +1,4 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
@@ -6,7 +7,6 @@ import {
   output,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { TranslateModule } from '@ngx-translate/core';
 import { lastValueFrom } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
@@ -17,16 +17,15 @@ import {
   ReleaseDetailsData,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
-import { ReleaseType } from '../../../../../core/enums/release-enums';
-import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleaseDetailsComponent } from '../../views/details/release-details.component';
+import { ReleaseItemComponent } from './release-item/release-item.component';
 
 @Component({
   selector: 'app-releases-list',
-  imports: [CommonModule, TranslateModule, CustomCurrencyPipe],
+  imports: [CommonModule, ReleaseItemComponent, ScrollingModule],
   templateUrl: './releases-list.component.html',
   styleUrl: './releases-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -111,7 +110,7 @@ export class ReleasesListComponent {
     };
   }
 
-  isTransfer(release: MonthlyRelease): boolean {
-    return release.type === ReleaseType.TRANSFER;
+  trackByRelease(_: number, r: MonthlyRelease) {
+    return r.id;
   }
 }

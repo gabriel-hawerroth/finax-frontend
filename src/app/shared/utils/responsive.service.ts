@@ -22,11 +22,17 @@ export class ResponsiveService {
     ])
   );
 
-  smallWidth = computed(() => this.screenWith()?.breakpoints[this.small]);
-  mediumWidth = computed(() => this.screenWith()?.breakpoints[this.medium]);
-  largeWidth = computed(() => this.screenWith()?.breakpoints[this.large]);
+  smallWidth = computed(
+    () => this.screenWith()?.breakpoints[this.small] || false
+  );
+  mediumWidth = computed(
+    () => this.screenWith()?.breakpoints[this.medium] || false
+  );
+  largeWidth = computed(
+    () => this.screenWith()?.breakpoints[this.large] || false
+  );
   veryLargeWith = computed(
-    () => this.screenWith()?.breakpoints[this.veryLarge]
+    () => this.screenWith()?.breakpoints[this.veryLarge] || false
   );
 
   isMobileView = computed(

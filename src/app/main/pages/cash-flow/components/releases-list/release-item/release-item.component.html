@@ -1,0 +1,66 @@
+<div class="release" (click)="open.emit(release())">
+  <div class="category">
+    <span
+      class="material-symbols-outlined"
+      [style.background-color]="categoryBgColor()"
+    >
+      {{ categoryIcon() }}
+    </span>
+  </div>
+
+  <div class="description">
+    <h3>
+      @if (isBalanceAdjustment()) {
+      {{ "cash-flow.balance-adjustment" | translate }}
+      } @else if (isTransfer()) {
+      {{ transferDescription() }}
+      } @else {
+      <!--  -->
+      @if (isCard()) {
+      <span class="material-symbols-outlined">credit_card</span>
+      }
+
+      {{ description() }}
+      }
+    </h3>
+
+    @if (isTransfer() || smallWidth()) {
+    <span class="description-sub-title">
+      @if (isTransfer()) {
+      {{ "generic.from" | translate }}
+      {{ transferAccountName() }}
+      {{ "generic.to" | translate }}
+      {{ targetAccountName() }}
+      } @else {
+      {{ descriptionSubTitle() }}
+      }
+    </span>
+    }
+  </div>
+
+  @if (!smallWidth()) {
+  <div class="account">
+    <label>{{ accountName() }}</label>
+  </div>
+  }
+
+  <div class="date">
+    <label>{{ release().date | date : "dd/MM/yyyy" }}</label>
+    <label>{{ release().time }}</label>
+  </div>
+
+  <div class="amount">
+    {{ amountOperator() }}
+    <span> {{ release().amount | customCurrency }}</span>
+  </div>
+
+  <div class="situation">
+    <span
+      class="material-symbols-outlined"
+      [class.done]="isDone()"
+      [class.pending]="!isDone()"
+    >
+      {{ isDone() ? "thumb_up" : "thumb_down" }}
+    </span>
+  </div>
+</div>

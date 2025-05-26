@@ -1,74 +1,11 @@
-<div id="releases-list">
-  @for (release of releases(); track release.id) {
-  <div class="release" (click)="openDetails(release)">
-    <div class="category">
-      <span
-        class="material-symbols-outlined"
-        [style.background-color]="release.category?.color || '#AFAFAF'"
-      >
-        {{
-          release.isBalanceAdjustment
-            ? "edit"
-            : release.category?.icon || "swap_horiz"
-        }}
-      </span>
-    </div>
-
-    <div class="description">
-      <h3>
-        @if (release.isBalanceAdjustment) {
-        {{ "cash-flow.balance-adjustment" | translate }}
-        } @else if (isTransfer(release)) {
-        {{ release.description || ("cash-flow.transfer" | translate) }}
-        } @else {
-        <!--  -->
-        @if (release.card) {
-        <span class="material-symbols-outlined">credit_card</span>
-        }
-
-        {{ release.description || release.category?.name }}
-        }
-      </h3>
-
-      @if (isTransfer(release) || smallWidth()) {
-      <span class="description-sub-title">
-        @if (isTransfer(release)) {
-        {{ "generic.from" | translate }}
-        {{ release.account?.name }}
-        {{ "generic.to" | translate }}
-        {{ release.targetAccount!.name }}
-        } @else {
-        {{ release.account?.name || release.card?.name }}
-        }
-      </span>
-      }
-    </div>
-
-    @if (!smallWidth()) {
-    <div class="account">
-      <label>{{ release.account?.name || release.card?.name }}</label>
-    </div>
-    }
-
-    <div class="date">
-      <label>{{ release.date | date : "dd/MM/yyyy" }}</label>
-      <label>{{ release.time }}</label>
-    </div>
-
-    <div class="amount">
-      {{ release.type === "E" ? "-" : "+" }}
-      <span> {{ release.amount | customCurrency }}</span>
-    </div>
-
-    <div class="situation">
-      <span
-        class="material-symbols-outlined"
-        [class.done]="release.done"
-        [class.pending]="!release.done"
-      >
-        {{ release.done ? "thumb_up" : "thumb_down" }}
-      </span>
-    </div>
-  </div>
-  }
-</div>
+<cdk-virtual-scroll-viewport itemSize="65" class="releases-viewport">
+  <ng-container
+    *cdkVirtualFor="let release of releases(); trackBy: trackByRelease"
+  >
+    <app-release-item
+      [release]="release"
+      [smallWidth]="smallWidth()"
+      (open)="openDetails($event)"
+    ></app-release-item>
+  </ng-container>
+</cdk-virtual-scroll-viewport>
