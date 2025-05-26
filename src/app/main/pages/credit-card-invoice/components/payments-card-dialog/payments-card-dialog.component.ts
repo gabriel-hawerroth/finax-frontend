@@ -4,6 +4,7 @@ import {
   Component,
   inject,
   OnInit,
+  signal,
 } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { InvoicePaymentPerson } from '../../../../../core/entities/invoice/invoice-payment-dto';
@@ -25,7 +26,7 @@ export class InvoicePaymentsCardDialog implements OnInit {
   editPayment!: (invoicePayment?: InvoicePaymentPerson) => void;
   updateValues!: () => void;
 
-  loadData: boolean = false;
+  loadData = signal(false);
 
   constructor(
     private readonly _dialogRef: MatDialogRef<InvoicePaymentsCardDialog>
@@ -38,7 +39,7 @@ export class InvoicePaymentsCardDialog implements OnInit {
     this.editPayment = this.data.editPayment;
     this.updateValues = this.data.updateValues;
 
-    this.loadData = true;
+    this.loadData.set(true);
   }
 
   onEdit(event: any) {

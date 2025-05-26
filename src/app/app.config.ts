@@ -19,7 +19,7 @@ import {
 } from '@angular/material/core';
 import {
   provideClientHydration,
-  withI18nSupport,
+  withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
@@ -56,7 +56,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideRouter(routes),
-    provideClientHydration(withI18nSupport()),
+    provideClientHydration(withIncrementalHydration()),
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideNgxMask(),

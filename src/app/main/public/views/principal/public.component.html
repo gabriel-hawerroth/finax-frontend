@@ -10,14 +10,14 @@
     class="public-section"
   ></app-public-first-section>
 
-  @defer {
+  @defer (hydrate on viewport) {
   <app-public-second-section
     #secondSection
     id="second-section"
     class="public-section"
   ></app-public-second-section>
 
-  @defer {
+  @defer (hydrate on viewport) {
   <app-public-third-section
     #thirdSection
     id="third-section"
