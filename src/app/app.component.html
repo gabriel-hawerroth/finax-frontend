@@ -17,6 +17,7 @@
     [(opened)]="sidebarOpened"
     [mode]="sidebarMode()"
     [style.width]="mobileToolbarOpened() ? '100vw' : '20rem'"
+    [disableClose]="true"
   >
     <app-sidebar />
   </mat-sidenav>
