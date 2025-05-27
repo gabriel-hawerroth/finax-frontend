@@ -1,4 +1,6 @@
 import { Injectable, signal } from '@angular/core';
+import { ResponsiveService } from './responsive.service';
+import { UtilsService } from './utils.service';
 
 type Theme = {
   name: string;
@@ -179,7 +181,14 @@ export class ThemingService {
   public background = signal(this.definedThemes[0].background);
   public error = signal(this.definedThemes[0].error);
 
-  constructor() {}
+  constructor(
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _utils: UtilsService
+  ) {}
+
+  public reload() {
+    this.applyTheme(this._utils.getUserConfigs.theme);
+  }
 
   public applyTheme(themeName: string) {
     const theme = this.definedThemes.find((t) => t.name === themeName);
@@ -225,7 +234,12 @@ export class ThemingService {
       error,
     } = theme;
 
-    this.primaryBackgroundColor.set(primaryBackgroundColor);
+    if (this._responsiveService.isMobileView()) {
+      this.primaryBackgroundColor.set(cardBackgroundColor);
+    } else {
+      this.primaryBackgroundColor.set(primaryBackgroundColor);
+    }
+
     this.sidebarBackgroundColor.set(sidebarBackgroundColor);
     this.cardBackgroundColor.set(cardBackgroundColor);
     this.backgroundHoverColor.set(backgroundHoverColor);
