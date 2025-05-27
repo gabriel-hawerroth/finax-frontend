@@ -16,10 +16,6 @@
       {{ transferDescription() }}
       } @else {
       <!--  -->
-      @if (isCard()) {
-      <span class="material-symbols-outlined">credit_card</span>
-      }
-
       {{ description() }}
       }
     </h3>
@@ -33,7 +29,9 @@
       {{ targetAccountName() }}
       } @else {
       {{ descriptionSubTitle() }}
-      }
+      @if (isCard()) {
+      <span class="material-symbols-outlined">credit_card</span>
+      } }
     </span>
     }
   </div>
@@ -41,6 +39,9 @@
   @if (!smallWidth()) {
   <div class="account">
     <label>{{ accountName() }}</label>
+    @if (isCard()) {
+    <span class="material-symbols-outlined">credit_card</span>
+    }
   </div>
   }
 
