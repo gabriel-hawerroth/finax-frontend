@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
-  OnInit,
   output,
-  signal,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import moment from 'moment';
@@ -34,7 +33,7 @@ import { ReleaseItemComponent } from './release-item/release-item.component';
   styleUrl: './releases-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleasesListComponent implements OnInit {
+export class ReleasesListComponent {
   readonly smallWidth = this._responsiveService.smallWidth;
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
@@ -45,17 +44,15 @@ export class ReleasesListComponent implements OnInit {
   selectedDate = input.required<Date>();
   updateList = output<void>();
 
-  releasesByDay = signal<MonthlyReleasesByDay[]>([]);
+  releasesByDay = computed((): MonthlyReleasesByDay[] =>
+    this.groupReleasesByDay(this.releases())
+  );
 
   constructor(
     private readonly _utils: UtilsService,
     private readonly _bottomSheet: MatBottomSheet,
     private readonly _responsiveService: ResponsiveService
   ) {}
-
-  ngOnInit(): void {
-    this.releasesByDay.set(this.groupReleasesByDay(this.releases()));
-  }
 
   openDetails(release: MonthlyRelease) {
     lastValueFrom(
