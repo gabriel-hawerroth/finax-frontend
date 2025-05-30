@@ -6,25 +6,15 @@
 
 @include mat.core();
 
-$theme: mat.define-theme(
-  (
-    //
-    color:
-      (
-        //
+$theme: mat.define-theme(( //
+      color: ( //
         theme-type: light,
-        primary: mat.$green-palette
-      ),
-    typography: (
-      //
-      brand-family: "Roboto",
-      bold-weight: 900
-    ),
-    density: (
-      scale: 0,
-    )
-  )
-);
+        primary: mat.$green-palette ),
+      typography: ( //
+        brand-family: "Roboto",
+        bold-weight: 900),
+      density: (scale: 0,
+      )));
 
 :root {
   @include mat.core-theme($theme);
@@ -68,9 +58,7 @@ body {
   --mat-filled-button-disabled-state-layer-color: var(--disabled-font-color);
   --mat-icon-button-disabled-state-layer-color: var(--disabled-font-color);
   --mat-standard-button-toggle-divider-color: var(--button-text-color);
-  --mat-standard-button-toggle-selected-state-text-color: var(
-    --button-text-color
-  );
+  --mat-standard-button-toggle-selected-state-text-color: var(--button-text-color);
   --mat-standard-button-toggle-text-color: var(--button-text-color);
   --mat-standard-button-toggle-state-layer-color: var(--button-text-color);
 
@@ -85,6 +73,7 @@ body {
 
 // desktop fullhd+
 @media screen and (min-width: 1750px) and (min-height: 800px) {
+
   html,
   body {
     font-size: 16px !important;
@@ -110,6 +99,7 @@ body {
 
 // desktop
 @media screen and (max-width: 1750px) and (max-height: 800px) {
+
   html,
   body {
     font-size: 15px !important;
@@ -118,6 +108,7 @@ body {
 
 // desktop hd
 @media screen and (max-width: 1400px) and (max-height: 650px) {
+
   html,
   body {
     font-size: 13px !important;
@@ -148,6 +139,7 @@ body {
 
 // tablet
 @media screen and (max-width: 1050px) {
+
   html,
   body {
     font-size: 14px !important;
@@ -199,6 +191,7 @@ body {
 
 // celular
 @media screen and (max-width: 650px) {
+
   html,
   body {
     font-size: 12px !important;
@@ -394,7 +387,7 @@ mat-card {
     padding: $default-card-padding;
     color: var(--primary-font-color);
     background-color: var(--card-background-color);
-    border-radius: 1rem !important;
+    border-radius: 2rem !important;
   }
 
   .home-widget {

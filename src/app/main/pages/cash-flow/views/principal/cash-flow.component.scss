@@ -7,9 +7,21 @@
 @media screen and (max-width: 1050px) {
   .simple-page {
     .content {
+      flex-direction: column-reverse !important;
+
       .card {
         height: $default-mobile-card-height !important;
         max-height: $default-mobile-card-height !important;
+      }
+
+      #balances {
+        width: 100% !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+
+        .balance {
+          gap: 1rem;
+        }
       }
     }
   }
@@ -37,6 +49,24 @@
         app-releases-list {
           width: 100% !important;
           padding: 0 !important;
+        }
+      }
+
+      #balances {
+        gap: 0 !important;
+        margin-bottom: 2rem !important;
+
+        .balance {
+          width: 50% !important;
+          transform: scale(0.9);
+          padding: 0.8rem !important;
+          gap: 0rem !important;
+
+          .icon {
+            .material-symbols-outlined {
+              padding: 0.5rem !important;
+            }
+          }
         }
       }
     }
@@ -70,16 +100,17 @@
   .content {
     flex: 1;
     display: flex;
-    justify-content: center;
-    place-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    place-items: flex-start;
+    padding-top: 5%;
 
     .card {
-      height: 85vh;
-      max-height: 85vh;
+      width: 65%;
+      height: 75vh;
+      max-height: 75vh;
       display: flex;
       flex-direction: column;
-      position: relative;
-      top: 0.6rem;
       padding: 0 !important;
       padding-top: 1rem !important;
 
@@ -131,6 +162,51 @@
       .balances {
         border-top: 1px solid var(--primary-background-color);
         margin-top: auto;
+      }
+    }
+
+    #balances {
+      width: 22%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      .balance {
+        display: flex;
+        flex-direction: row;
+        padding: 1.3rem;
+        border-radius: 2rem;
+
+        .balance-content {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          flex: 1;
+          gap: 0.6rem;
+          padding: 0 1rem;
+
+          .title {
+            font-size: 1.1rem;
+            color: #7d7d7d;
+          }
+
+          .amount {
+            font-size: 1.5rem;
+          }
+        }
+
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .material-symbols-outlined {
+            background-color: #2692c3;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 50%;
+          }
+        }
       }
     }
   }

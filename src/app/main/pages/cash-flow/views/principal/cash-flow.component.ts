@@ -32,6 +32,7 @@ import {
   toReleaseType,
 } from '../../../../../core/enums/release-enums';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -59,6 +60,7 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     CashFlowBalancesComponent,
     MatBadgeModule,
     ButtonsComponent,
+    CustomCurrencyPipe,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -94,6 +96,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
   totalAppliedFilters = signal(0);
 
   errorFetchingReleases = signal(false);
+
+  smallWidth = this._responsiveService.smallWidth;
 
   constructor(
     private readonly _utils: UtilsService,

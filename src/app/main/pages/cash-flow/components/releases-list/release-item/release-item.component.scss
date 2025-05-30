@@ -17,6 +17,10 @@
       }
     }
 
+    .date {
+      display: none;
+    }
+
     .amount {
       width: 27% !important;
       max-width: 27% !important;
@@ -90,7 +94,7 @@
   }
 
   .date {
-    width: 11%;
+    width: 13%;
     font-size: 0.8rem;
     display: flex;
     flex-direction: column;
