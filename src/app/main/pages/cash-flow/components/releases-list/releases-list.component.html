@@ -2,7 +2,7 @@
   @for (day of releasesByDay(); track $index) {
   <h3>{{ day.day }}</h3>
 
-  <div id="day-releases">
+  <div class="day-releases">
     @for (item of day.releases; track item.id) {
     <app-release-item
       class="release-item"
