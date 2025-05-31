@@ -1,29 +1,35 @@
-<div class="balances">
-  <span>
-    {{ "cash-flow.revenues" | translate }}: {{ currency()
-    }}{{ balances().revenues | customCurrency }}
-  </span>
+<div id="balances">
+  <app-balance
+    title="cash-flow.revenues"
+    [value]="balances().revenues"
+    [currency]="currency()"
+    icon="arrow_upward"
+    [iconColor]="'#28ca49 !important'"
+  ></app-balance>
 
-  <span>
-    {{ "cash-flow.expenses" | translate }}: {{ currency()
-    }}{{ balances().expenses | customCurrency }}
-  </span>
+  <app-balance
+    title="cash-flow.expenses"
+    [value]="balances().expenses"
+    [currency]="currency()"
+    icon="arrow_downward"
+    [iconColor]="'#ca2828 !important'"
+  ></app-balance>
 
-  <span>
-    {{ "cash-flow.actual-balance" | translate }}:
-    <!--  -->
-    @if (smallWidth()) {
-    <br />
-    }
-    {{ currency() }}{{ balances().balance | customCurrency }}
-  </span>
-
-  <span>
-    {{ "cash-flow.expected-balance" | translate }}:
-    <!--  -->
-    @if (smallWidth()) {
-    <br />
-    }
-    {{ currency() }}{{ balances().expectedBalance | customCurrency }}
-  </span>
+  @if (!smallWidth()) {
+  <app-balance
+    title="cash-flow.monthly-balance"
+    [value]="balances().balance"
+    [currency]="currency()"
+    icon="balance"
+    [iconColor]="'#2692c3 !important'"
+  ></app-balance>
+  } @if (!isMobileView()) {
+  <app-balance
+    title="cash-flow.expected-balance"
+    [value]="balances().expectedBalance"
+    [currency]="currency()"
+    icon="compare_arrows"
+    [iconColor]="'#00796b !important'"
+  ></app-balance>
+  }
 </div>

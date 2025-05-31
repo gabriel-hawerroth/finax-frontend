@@ -5,11 +5,22 @@
 }
 
 @media screen and (max-width: 1050px) {
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
   .simple-page {
+    overflow-y: hidden !important;
+
     .content {
+      flex-direction: column-reverse !important;
+
       .card {
-        height: $default-mobile-card-height !important;
-        max-height: $default-mobile-card-height !important;
+        width: 100% !important;
+      }
+
+      #balances-component {
+        width: 100% !important;
       }
     }
   }
@@ -17,10 +28,19 @@
 
 @media screen and (max-width: 650px) {
   .simple-page {
+    .page-title {
+      #filter-button-title {
+        right: 2.3rem !important;
+      }
+    }
+
     .content {
-      .card {
+      .card.card {
+        padding-top: 0 !important;
+
         header {
           flex-direction: column-reverse !important;
+          padding-top: 0 !important;
           margin-bottom: 0 !important;
 
           .center {
@@ -65,43 +85,48 @@
         color: #fff;
       }
     }
+
+    #filter-button-title {
+      position: absolute;
+      right: 3rem;
+    }
   }
 
   .content {
     flex: 1;
     display: flex;
-    justify-content: center;
-    place-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    place-items: flex-start;
+    padding-top: 5%;
 
     .card {
-      height: 85vh;
-      max-height: 85vh;
+      width: 65%;
+      height: 75vh;
+      max-height: 75vh;
       display: flex;
       flex-direction: column;
-      position: relative;
-      top: 0.6rem;
       padding: 0 !important;
       padding-top: 1rem !important;
 
       header {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding: 1rem 2rem;
         margin-bottom: 1rem;
 
-        .left,
         .center,
         .right {
           display: flex;
           align-items: center;
-          flex: 1;
         }
 
         .center {
           justify-content: center;
           gap: 1rem;
           color: var(--primary-font-color);
+          margin: 0 auto;
 
           .tab {
             font-size: 1.3rem;
@@ -115,6 +140,8 @@
         .right {
           justify-content: flex-end;
           padding-right: 2rem;
+          position: absolute;
+          right: 0;
         }
       }
 
@@ -127,11 +154,10 @@
         flex: 1;
         overflow-y: scroll;
       }
+    }
 
-      .balances {
-        border-top: 1px solid var(--primary-background-color);
-        margin-top: auto;
-      }
+    #balances-component {
+      width: 22%;
     }
   }
 }

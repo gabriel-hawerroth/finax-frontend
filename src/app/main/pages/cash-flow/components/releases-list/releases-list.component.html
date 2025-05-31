@@ -1,11 +1,16 @@
-<cdk-virtual-scroll-viewport itemSize="65" class="releases-viewport">
-  <ng-container
-    *cdkVirtualFor="let release of releases(); trackBy: trackByRelease"
-  >
+<div id="releases-list">
+  @for (day of releasesByDay(); track $index) {
+  <h3>{{ day.day }}</h3>
+
+  <div class="day-releases">
+    @for (item of day.releases; track item.id) {
     <app-release-item
-      [release]="release"
+      class="release-item"
+      [release]="item"
       [smallWidth]="smallWidth()"
       (open)="openDetails($event)"
     ></app-release-item>
-  </ng-container>
-</cdk-virtual-scroll-viewport>
+    }
+  </div>
+  }
+</div>

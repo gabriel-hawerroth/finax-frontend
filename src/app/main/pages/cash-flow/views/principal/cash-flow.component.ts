@@ -95,6 +95,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
   errorFetchingReleases = signal(false);
 
+  isMobileView = this._responsiveService.isMobileView;
+
   constructor(
     private readonly _utils: UtilsService,
     private readonly _cashFlowService: ReleaseService,

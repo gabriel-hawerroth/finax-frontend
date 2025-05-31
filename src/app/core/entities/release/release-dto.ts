@@ -4,13 +4,18 @@ import { Category } from '../category/category';
 import { BasicCard } from '../credit-card/credit-card-dto';
 import { Release } from './release';
 
+export interface MonthlyReleasesByDay {
+  day: string;
+  releases: MonthlyRelease[];
+}
+
 export interface MonthlyRelease {
   id: number;
   userId: number;
   type: ReleaseType;
   description: string;
   amount: number;
-  date: Date;
+  date: Date | string;
   time: string;
   done: boolean;
   account?: MonthlyReleaseAccount;
