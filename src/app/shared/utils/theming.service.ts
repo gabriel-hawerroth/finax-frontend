@@ -47,7 +47,7 @@ export class ThemingService {
   public definedThemes: Theme[] = [
     {
       name: 'light',
-      primaryBackgroundColor: '#eaeff6',
+      primaryBackgroundColor: '#e7ecf4',
       sidebarBackgroundColor: '#fafafa',
       cardBackgroundColor: '#fefefe',
       backgroundHoverColor: '#f5f5f5',

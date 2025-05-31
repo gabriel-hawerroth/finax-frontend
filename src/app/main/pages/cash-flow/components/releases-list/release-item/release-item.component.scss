@@ -1,13 +1,13 @@
 @media screen and (max-width: 650px) {
   .release {
+    padding-left: 1rem !important;
+
     .category {
       width: fit-content !important;
-      margin-right: 0.5rem;
+      margin-right: 1.5rem;
     }
 
     .description {
-      padding-right: 0.8rem !important;
-
       h3 {
         gap: 0 !important;
 
@@ -18,13 +18,14 @@
     }
 
     .date {
-      display: none;
+      width: 0 !important;
+      display: none !important;
     }
 
     .amount {
       width: 27% !important;
       max-width: 27% !important;
-      padding-right: 0.9rem !important;
+      margin-right: 1.2rem !important;
     }
 
     .situation {
@@ -97,8 +98,7 @@
     width: 13%;
     font-size: 0.8rem;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
   }
 
   .amount {

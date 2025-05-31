@@ -1,0 +1,16 @@
+<mat-card class="balance">
+  <div class="balance-content">
+    <div class="title">{{ title() | translate }}</div>
+
+    <div class="amount">{{ currency() }} {{ value() | customCurrency }}</div>
+  </div>
+
+  <div class="icon">
+    <span
+      class="material-symbols-outlined"
+      [style.background-color]="iconColor()"
+    >
+      {{ icon() }}
+    </span>
+  </div>
+</mat-card>

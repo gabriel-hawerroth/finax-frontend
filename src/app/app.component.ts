@@ -82,10 +82,10 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly _router: Router,
     private readonly _themingService: ThemingService
   ) {
+    _themingService.applyTheme(_utils.getUserConfigs.theme);
     _utils.setUserConfigs(_utils.getUserConfigs);
     this.subscribeShowMenuChanges();
     this.subscribeWindowResize();
-    _themingService.applyTheme(_utils.getUserConfigs.theme);
   }
 
   ngOnInit(): void {

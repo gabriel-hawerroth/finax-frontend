@@ -137,7 +137,7 @@
         "title": "Kassenfluss",
         "revenues": "Einnahmen",
         "expenses": "Ausgaben",
-        "actual-balance": "Aktuelle Bilanz",
+        "monthly-balance": "Monatssaldo",
         "expected-balance": "Erwarteter Bilanz",
         "general-account-balance": "Gesamtbilanz",
         "expected-account-balance": "Erwartetes Gleichgewicht",

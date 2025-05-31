@@ -9,13 +9,17 @@
     >
       <span class="material-symbols-outlined">add</span>
     </button>
+
+    @if (isMobileView()) {
+    <div id="filter-button-title">
+      <ng-container *ngTemplateOutlet="filterButton" />
+    </div>
+    }
   </h1>
 
   <div class="content">
     <mat-card class="card">
       <header>
-        <div class="left"></div>
-
         <div class="center">
           <button
             mat-icon-button
@@ -38,14 +42,11 @@
           </button>
         </div>
 
+        @if (!isMobileView()) {
         <div class="right">
-          <app-buttons
-            [showGeneric]="true"
-            genericIcon="filter_list"
-            genericLabel="filters.filter"
-            (onGeneric)="openFilterDialog()"
-          ></app-buttons>
+          <ng-container *ngTemplateOutlet="filterButton" />
         </div>
+        }
       </header>
 
       @if (errorFetchingReleases()) {
@@ -70,72 +71,13 @@
         </label>
       </div>
       } }
-
-      <!-- <app-cash-flow-balances
-        class="balances"
-        [currency]="currency"
-        [balances]="balances()"
-      ></app-cash-flow-balances> -->
     </mat-card>
 
-    <div id="balances">
-      <mat-card class="balance">
-        <div class="balance-content">
-          <div class="title">Receitas</div>
-
-          <div class="amount">
-            R$ {{ balances().revenues | customCurrency }}
-          </div>
-        </div>
-
-        <div class="icon">
-          <span
-            class="material-symbols-outlined"
-            [style.background-color]="'#28ca49 !important'"
-          >
-            arrow_upward
-          </span>
-        </div>
-      </mat-card>
-
-      <mat-card class="balance">
-        <div class="balance-content">
-          <div class="title">Despesas</div>
-
-          <div class="amount">
-            R$ {{ balances().expenses | customCurrency }}
-          </div>
-        </div>
-
-        <div class="icon">
-          <span
-            class="material-symbols-outlined"
-            [style.background-color]="'#ee3c3c'"
-          >
-            arrow_downward
-          </span>
-        </div>
-      </mat-card>
-
-      @if (!smallWidth()) {
-      <mat-card class="balance">
-        <div class="balance-content">
-          <div class="title">Balanço mensal</div>
-
-          <div class="amount">R$ {{ balances().balance | customCurrency }}</div>
-        </div>
-
-        <div class="icon">
-          <span
-            class="material-symbols-outlined"
-            [style.background-color]="'#2692c3'"
-          >
-            balance
-          </span>
-        </div>
-      </mat-card>
-      }
-    </div>
+    <app-cash-flow-balances
+      id="balances-component"
+      [balances]="balances()"
+      [currency]="currency"
+    ></app-cash-flow-balances>
   </div>
 </div>
 
@@ -154,3 +96,12 @@
     </label>
   </div>
 </mat-menu>
+
+<ng-template #filterButton>
+  <app-buttons
+    [showGeneric]="true"
+    genericIcon="filter_list"
+    genericLabel="filters.filter"
+    (onGeneric)="openFilterDialog()"
+  ></app-buttons>
+</ng-template>
