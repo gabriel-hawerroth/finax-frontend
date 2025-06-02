@@ -17,6 +17,10 @@
 
       .card {
         width: 100% !important;
+
+        app-releases-list {
+          margin-bottom: 7rem !important;
+        }
       }
 
       #balances-component {
