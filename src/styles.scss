@@ -203,6 +203,13 @@ body {
   body {
     font-size: 12px !important;
   }
+
+  .simple-page {
+    .home-widget {
+      box-shadow: none !important;
+      border: var(--separator) !important;
+    }
+  }
 }
 
 * {
@@ -399,6 +406,12 @@ mat-card {
 
   .home-widget {
     background-color: var(--card-background-color) !important;
+    border-radius: 2rem !important;
+    box-shadow: var(--default-box-shadow);
+
+    mat-card-header {
+      padding-left: 1.3rem;
+    }
   }
 
   b {
