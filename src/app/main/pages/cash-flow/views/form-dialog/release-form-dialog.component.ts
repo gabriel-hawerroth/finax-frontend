@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  Injector,
   OnInit,
   signal,
 } from '@angular/core';
@@ -13,6 +14,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import {
   MatCheckboxChange,
@@ -58,6 +63,7 @@ import {
 } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
+import { FilterReleasesDialog } from '../../components/filter-releases-dialog/filter-releases-dialog.component';
 import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
 
 @Component({
@@ -83,12 +89,38 @@ import { ReleaseFormComponent } from '../../components/release-form/release-form
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReleaseFormDialog implements OnInit {
-  readonly data: ReleaseFormDialogData = inject(MAT_DIALOG_DATA);
-
   readonly getBtnStyle = getBtnStyle;
   readonly darkThemeEnabled = this._utils.darkThemeEnable;
   readonly isMobileView = this._responsiveService.isMobileView;
   readonly smallWidth = this._responsiveService.smallWidth;
+
+  private readonly injector = inject(Injector);
+
+  readonly data: ReleaseFormDialogData =
+    this.injector.get(MAT_DIALOG_DATA, null) ||
+    this.injector.get(MAT_BOTTOM_SHEET_DATA, null);
+
+  private readonly dialogRef =
+    this.injector.get<MatDialogRef<FilterReleasesDialog> | null>(
+      MatDialogRef,
+      null
+    );
+
+  private readonly bottomSheetRef =
+    this.injector.get<MatBottomSheetRef<FilterReleasesDialog> | null>(
+      MatBottomSheetRef,
+      null
+    );
+
+  readonly control: ReleasesFormControl = {
+    close: (result?: boolean) => {
+      if (this.dialogRef) {
+        this.dialogRef.close(result);
+      } else if (this.bottomSheetRef) {
+        this.bottomSheetRef.dismiss(result);
+      }
+    },
+  };
 
   releaseForm!: FormGroup;
 
@@ -114,7 +146,6 @@ export class ReleaseFormDialog implements OnInit {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _matDialogRef: MatDialogRef<ReleaseFormDialog>,
     private readonly _translate: TranslateService,
     private readonly _matDialog: MatDialog,
     private readonly _fb: FormBuilder,
@@ -292,7 +323,7 @@ export class ReleaseFormDialog implements OnInit {
     }
 
     this._utils.showMessage('release-form.release-saved-successfully');
-    this._matDialogRef.close(true);
+    this.control.close(true);
 
     this.saving.set(false);
   }
@@ -571,4 +602,8 @@ interface SaveDto {
 enum SaveAction {
   INSERT,
   UPDATE,
+}
+
+interface ReleasesFormControl {
+  close(result?: boolean): void;
 }

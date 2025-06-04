@@ -1,4 +1,4 @@
-<div class="release-form-dialog">
+<div id="release-form-dialog">
   <div
     class="top"
     [style.margin-bottom]="releaseForm.value.id ? '2.7rem' : '1.5rem'"
@@ -47,7 +47,7 @@
 
     <h2>{{ getDialogTitle }}</h2>
 
-    <button mat-icon-button mat-dialog-close class="close-btn">
+    <button mat-icon-button (click)="control.close()" class="close-btn">
       <span class="material-symbols-outlined">close</span>
     </button>
   </div>

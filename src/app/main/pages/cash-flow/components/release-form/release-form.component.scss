@@ -10,6 +10,14 @@
   }
 }
 
+@media screen and (max-width: 650px) {
+  .release-form {
+    form {
+      padding: 0 0.5rem !important;
+    }
+  }
+}
+
 .release-form {
   height: 100%;
 

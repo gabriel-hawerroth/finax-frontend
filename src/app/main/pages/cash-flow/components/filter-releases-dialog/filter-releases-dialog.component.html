@@ -1,10 +1,10 @@
-<div class="filter-releases-dialog">
+<div id="filter-releases">
   <div class="title">
     <h1>
       {{ "cash-flow.filter-releases" | translate }}
     </h1>
 
-    <app-buttons [showClose]="true" mat-dialog-close></app-buttons>
+    <app-buttons [showClose]="true" (onClose)="control.close()"></app-buttons>
   </div>
 
   <form class="filters" [formGroup]="filterForm">

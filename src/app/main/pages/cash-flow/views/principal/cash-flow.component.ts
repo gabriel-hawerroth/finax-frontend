@@ -9,14 +9,22 @@ import {
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheet,
+  MatBottomSheetConfig,
+  MatBottomSheetModule,
+} from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogConfig,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
@@ -101,6 +109,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     private readonly _utils: UtilsService,
     private readonly _cashFlowService: ReleaseService,
     private readonly _matDialog: MatDialog,
+    private readonly _bottomSheet: MatBottomSheet,
     private readonly _responsiveService: ResponsiveService
   ) {}
 
@@ -250,26 +259,55 @@ export class CashFlowPage implements OnInit, OnDestroy {
       ? '60vw'
       : '42vw';
 
-    this._matDialog
-      .open(FilterReleasesDialog, {
-        data: <FilterReleasesDialogData>{
-          accounts: this.accounts,
-          creditCards: this.creditCards,
-          categories: this.categories,
-          filters: this.appliedFilters(),
-        },
-        panelClass: 'filter-releases-dialog',
-        width: width,
-        minWidth: width,
-        autoFocus: false,
-      })
-      .afterClosed()
-      .subscribe((response: ReleaseFilters | undefined) => {
-        if (!response) return;
+    const config = this.getFilterDialogConfig();
 
-        this.appliedFilters.set(response);
-        this.applyFilters();
-      });
+    let observable: Observable<ReleaseFilters | undefined>;
+
+    if (this._responsiveService.smallWidth()) {
+      observable = this._bottomSheet
+        .open(FilterReleasesDialog, config as MatBottomSheetConfig)
+        .afterDismissed();
+    } else {
+      observable = this._matDialog
+        .open(FilterReleasesDialog, config)
+        .afterClosed();
+    }
+
+    observable.subscribe((response: ReleaseFilters | undefined) => {
+      if (!response) return;
+
+      this.appliedFilters.set(response);
+      this.applyFilters();
+    });
+  }
+
+  private getFilterDialogConfig():
+    | MatBottomSheetConfig<FilterReleasesDialogData>
+    | MatDialogConfig<FilterReleasesDialogData> {
+    const width = this._responsiveService.smallWidth()
+      ? '100vw'
+      : this._responsiveService.mediumWidth()
+      ? '60vw'
+      : '42vw';
+
+    const config = {
+      data: <FilterReleasesDialogData>{
+        accounts: this.accounts,
+        creditCards: this.creditCards,
+        categories: this.categories,
+        filters: this.appliedFilters(),
+      },
+      panelClass: 'filter-releases-dialog',
+      width: width,
+      minWidth: width,
+      autoFocus: false,
+    };
+
+    if (this._responsiveService.smallWidth()) {
+      return <MatBottomSheetConfig>config;
+    }
+
+    return <MatDialogConfig>config;
   }
 
   applyFilters() {

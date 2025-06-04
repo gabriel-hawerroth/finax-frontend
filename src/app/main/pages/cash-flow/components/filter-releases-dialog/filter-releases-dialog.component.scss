@@ -1,7 +1,9 @@
 @use "generic.scss" as *;
 
 @media screen and (max-width: 650px) {
-  .filter-releases-dialog {
+  #filter-releases {
+    margin-bottom: 2rem !important;
+
     .filters {
       .row {
         gap: 0.6rem !important;
@@ -14,7 +16,7 @@
   }
 }
 
-.filter-releases-dialog {
+#filter-releases {
   display: flex;
   flex-direction: column;
 

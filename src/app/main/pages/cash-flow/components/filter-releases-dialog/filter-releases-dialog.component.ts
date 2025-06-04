@@ -3,15 +3,16 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  Injector,
   OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
@@ -34,7 +35,6 @@ import {
   selector: 'app-filter-releases-dialog',
   imports: [
     CommonModule,
-    MatDialogModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
@@ -51,7 +51,33 @@ export class FilterReleasesDialog implements OnInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getDefaultAccountImage = getDefaultAccountImage;
 
-  readonly data: FilterReleasesDialogData = inject(MAT_DIALOG_DATA);
+  private readonly injector = inject(Injector);
+
+  readonly data: FilterReleasesDialogData =
+    this.injector.get(MAT_DIALOG_DATA, null) ||
+    this.injector.get(MAT_BOTTOM_SHEET_DATA, null);
+
+  private readonly dialogRef =
+    this.injector.get<MatDialogRef<FilterReleasesDialog> | null>(
+      MatDialogRef,
+      null
+    );
+
+  private readonly bottomSheetRef =
+    this.injector.get<MatBottomSheetRef<FilterReleasesDialog> | null>(
+      MatBottomSheetRef,
+      null
+    );
+
+  readonly control: FilterReleasesControl = {
+    close: (result?: ReleaseFilters) => {
+      if (this.dialogRef) {
+        this.dialogRef.close(result);
+      } else if (this.bottomSheetRef) {
+        this.bottomSheetRef.dismiss(result);
+      }
+    },
+  };
 
   filterForm!: FormGroup;
 
@@ -65,10 +91,7 @@ export class FilterReleasesDialog implements OnInit {
   releaseTypeRevenue = ReleaseType.REVENUE;
   releaseTypeTransfer = ReleaseType.TRANSFER;
 
-  constructor(
-    private readonly _fb: FormBuilder,
-    private readonly _dialogRef: MatDialogRef<FilterReleasesDialog>
-  ) {}
+  constructor(private readonly _fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -99,7 +122,8 @@ export class FilterReleasesDialog implements OnInit {
     if (this.filterForm.invalid) return;
 
     const filters: ReleaseFilters = this.filterForm.getRawValue();
-    this._dialogRef.close(filters);
+
+    this.control.close(filters);
   }
 
   get expenseCategories(): Category[] {
@@ -138,4 +162,8 @@ export class FilterReleasesDialog implements OnInit {
 
     return selectedValues.map((category) => category.name).join(', ');
   }
+}
+
+interface FilterReleasesControl {
+  close(result?: ReleaseFilters): void;
 }

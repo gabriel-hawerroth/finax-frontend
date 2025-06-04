@@ -1,5 +1,5 @@
 @media screen and (max-width: 1050px) {
-  .release-form-dialog {
+  #release-form-dialog {
     .content {
       .form-buttons {
         flex-direction: column !important;
@@ -19,6 +19,14 @@
   }
 }
 
+@media screen and (max-width: 650px) {
+  #release-form-dialog {
+    margin-bottom: 2rem;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
 button:not(.mdc-icon-button) {
   padding: 1.6rem;
 }
@@ -30,7 +38,7 @@ button:not(.mdc-icon-button) {
   font-size: 1.1rem;
 }
 
-.release-form-dialog {
+#release-form-dialog {
   padding: 0.6rem;
   overflow: hidden;
 

@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,6 +28,7 @@ export class UtilsService {
   constructor(
     private readonly _snackBar: MatSnackBar,
     private readonly _matDialog: MatDialog,
+    private readonly _bottomSheet: MatBottomSheet,
     private readonly _translateService: TranslateService,
     private readonly _responsiveService: ResponsiveService
   ) {
@@ -339,19 +341,25 @@ export class UtilsService {
   }
 
   openReleaseFormDialog(data: ReleaseFormDialogData): Promise<boolean> {
+    const config = {
+      data,
+      panelClass: 'release-form-dialog',
+      autoFocus: false,
+      minWidth: this._responsiveService.smallWidth()
+        ? '100vw'
+        : this._responsiveService.veryLargeWith()
+        ? '47vw'
+        : '55vw',
+    };
+
+    if (this._responsiveService.smallWidth()) {
+      return lastValueFrom(
+        this._bottomSheet.open(ReleaseFormDialog, config).afterDismissed()
+      );
+    }
+
     return lastValueFrom(
-      this._matDialog
-        .open(ReleaseFormDialog, {
-          data,
-          panelClass: 'release-form-dialog',
-          autoFocus: false,
-          minWidth: this._responsiveService.smallWidth()
-            ? '100vw'
-            : this._responsiveService.veryLargeWith()
-            ? '47vw'
-            : '55vw',
-        })
-        .afterClosed()
+      this._matDialog.open(ReleaseFormDialog, config).afterClosed()
     );
   }
 }
