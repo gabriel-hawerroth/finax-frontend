@@ -4,7 +4,7 @@
       {{ "select-icon-dialog.title" | translate }}
     </h2>
 
-    <dynamic-button mat-dialog-close [config]="closeBtnCfg"></dynamic-button>
+    <dynamic-button [config]="closeBtnCfg"></dynamic-button>
   </div>
 
   <div mat-dialog-content class="icons">
@@ -13,8 +13,8 @@
       [ngSrc]="cloudFireCdnImgsLink + 'banks/' + icon"
       width="65"
       height="65"
-      [mat-dialog-close]="icon"
       alt="bank account image"
+      (click)="control.close(icon)"
     />
     }
   </div>

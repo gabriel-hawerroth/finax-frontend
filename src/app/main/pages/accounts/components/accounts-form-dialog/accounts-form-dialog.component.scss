@@ -1,23 +1,33 @@
+@media screen and (max-width: 650px) {
+  .account-form-dialog {
+    padding: 1.5rem 0 3rem 0 !important;
+  }
+  
+  .header {
+    margin-bottom: .5rem !important;
+  }
+}
+
 .account-form-dialog {
-    padding: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+
+  .header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
 
-    .header {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 1rem;
-        margin-bottom: 1rem;
-
-        h1 {
-            font-size: 1.6rem;
-        }
+    h1 {
+      font-size: 1.6rem;
     }
+  }
 
-    .bottom {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2rem;
-    }
+  .bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+  }
 }

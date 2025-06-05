@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   Injector,
   OnInit,
   signal,
@@ -55,6 +54,7 @@ import {
   ReleaseType,
 } from '../../../../../core/enums/release-enums';
 import { ReleasedOn } from '../../../../../core/enums/released-on';
+import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   getBtnStyle,
@@ -63,7 +63,6 @@ import {
 } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-duplicated-releases-action/confirm-duplicated-releases-action.component';
-import { FilterReleasesDialog } from '../../components/filter-releases-dialog/filter-releases-dialog.component';
 import { ReleaseFormComponent } from '../../components/release-form/release-form.component';
 
 @Component({
@@ -94,33 +93,11 @@ export class ReleaseFormDialog implements OnInit {
   readonly isMobileView = this._responsiveService.isMobileView;
   readonly smallWidth = this._responsiveService.smallWidth;
 
-  private readonly injector = inject(Injector);
-
   readonly data: ReleaseFormDialogData =
-    this.injector.get(MAT_DIALOG_DATA, null) ||
-    this.injector.get(MAT_BOTTOM_SHEET_DATA, null);
+    this._injector.get(MAT_DIALOG_DATA, null) ||
+    this._injector.get(MAT_BOTTOM_SHEET_DATA, null);
 
-  private readonly dialogRef =
-    this.injector.get<MatDialogRef<FilterReleasesDialog> | null>(
-      MatDialogRef,
-      null
-    );
-
-  private readonly bottomSheetRef =
-    this.injector.get<MatBottomSheetRef<FilterReleasesDialog> | null>(
-      MatBottomSheetRef,
-      null
-    );
-
-  readonly control: ReleasesFormControl = {
-    close: (result?: boolean) => {
-      if (this.dialogRef) {
-        this.dialogRef.close(result);
-      } else if (this.bottomSheetRef) {
-        this.bottomSheetRef.dismiss(result);
-      }
-    },
-  };
+  readonly control: DialogControls<boolean>;
 
   releaseForm!: FormGroup;
 
@@ -145,13 +122,31 @@ export class ReleaseFormDialog implements OnInit {
   selectedCreditCard = this.data.creditCardId !== undefined;
 
   constructor(
+    private readonly _injector: Injector,
     private readonly _utils: UtilsService,
     private readonly _translate: TranslateService,
     private readonly _matDialog: MatDialog,
     private readonly _fb: FormBuilder,
     private readonly _cashFlowService: ReleaseService,
     private readonly _responsiveService: ResponsiveService
-  ) {}
+  ) {
+    const ref =
+      _injector.get<MatDialogRef<ReleaseFormDialog> | null>(
+        MatDialogRef,
+        null
+      ) ||
+      _injector.get<MatBottomSheetRef<ReleaseFormDialog> | null>(
+        MatBottomSheetRef,
+        null
+      );
+
+    this.control = {
+      close: (result) => {
+        if (ref instanceof MatDialogRef) ref.close(result);
+        else if (ref instanceof MatBottomSheetRef) ref.dismiss(result);
+      },
+    };
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -602,8 +597,4 @@ interface SaveDto {
 enum SaveAction {
   INSERT,
   UPDATE,
-}
-
-interface ReleasesFormControl {
-  close(result?: boolean): void;
 }

@@ -74,17 +74,19 @@ export class SubAccountsComponent {
   ) {}
 
   openAccountFormDialog(): void {
-    lastValueFrom(
-      this._matDialog
-        .open(AccountsFormDialog, {
-          data: <AccountFormDialogData>{
-            primaryAccount: this.primaryAccount(),
-          },
-          minWidth: this.isMobileView() ? '100vw' : '45vw',
-          autoFocus: false,
-        })
-        .afterClosed()
-    ).then((result) => {
+    const config = {
+      data: <AccountFormDialogData>{
+        primaryAccount: this.primaryAccount(),
+      },
+      minWidth: this.isMobileView() ? '100vw' : '45vw',
+      autoFocus: false,
+    };
+
+    const observable = this._responsiveService.smallWidth()
+      ? this._bottomSheet.open(AccountsFormDialog, config).afterDismissed()
+      : this._matDialog.open(AccountsFormDialog, config).afterClosed();
+
+    lastValueFrom(observable).then((result) => {
       if (!result) return;
 
       this.reloadList.emit(result);

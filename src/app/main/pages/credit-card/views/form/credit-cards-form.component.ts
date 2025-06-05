@@ -15,20 +15,18 @@ import {
 } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
@@ -87,7 +85,6 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _activatedRoute: ActivatedRoute,
-    private readonly _dialog: MatDialog,
     private readonly _fb: FormBuilder,
     private readonly _router: Router,
     private readonly _creditCardService: CreditCardService,
@@ -175,15 +172,13 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   }
 
   public selectIcon() {
-    lastValueFrom(this._dialog.open(SelectIconDialog).afterClosed()).then(
-      (value) => {
-        if (!value) return;
+    this._utils.openSelectIconDialog().then((value) => {
+      if (!value) return;
 
-        this.selectedIcon.set(value);
-        this.cardForm.get('image')!.setValue(value);
-        this.cardForm.markAsDirty();
-      }
-    );
+      this.selectedIcon.set(value);
+      this.cardForm.get('image')!.setValue(value);
+      this.cardForm.markAsDirty();
+    });
   }
 
   private subscribeValueChanges() {

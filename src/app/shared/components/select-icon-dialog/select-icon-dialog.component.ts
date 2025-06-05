@@ -1,11 +1,18 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  Injector,
+} from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   ButtonConfig,
   ButtonPreConfig,
 } from '../../../core/interfaces/button-config';
+import { DialogControls } from '../../../core/interfaces/dialogs-controls';
 import { cloudFireCdnImgsLink } from '../../utils/utils';
 import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynamic-button.component';
 
@@ -29,9 +36,28 @@ export class SelectIconDialog {
 
   closeBtnCfg: ButtonConfig = {
     preConfig: ButtonPreConfig.CLOSE,
+    onClick: () => this.control.close(),
   };
 
-  constructor() {}
+  readonly control: DialogControls<string>;
+
+  constructor() {
+    const injector = inject(Injector);
+
+    const ref =
+      injector.get<MatDialogRef<SelectIconDialog> | null>(MatDialogRef, null) ||
+      injector.get<MatBottomSheetRef<SelectIconDialog> | null>(
+        MatBottomSheetRef,
+        null
+      );
+
+    this.control = {
+      close: (result?: string) => {
+        if (ref instanceof MatDialogRef) ref.close(result);
+        else if (ref instanceof MatBottomSheetRef) ref.dismiss(result);
+      },
+    };
+  }
 
   private get getIcons(): string[] {
     return [

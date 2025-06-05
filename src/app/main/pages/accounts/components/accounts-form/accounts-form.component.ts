@@ -9,18 +9,16 @@ import {
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { lastValueFrom, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { AccountConfigs } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
-import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
@@ -63,7 +61,6 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _dialog: MatDialog,
     private readonly _accountService: AccountService,
     private readonly _responsiveService: ResponsiveService
   ) {}
@@ -84,9 +81,7 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
   }
 
   public openSelectIconDialog() {
-    lastValueFrom(
-      this._dialog.open(SelectIconDialog, { autoFocus: false }).afterClosed()
-    ).then((value) => {
+    this._utils.openSelectIconDialog().then((value) => {
       if (!value) return;
       this.selectIcon(value);
     });

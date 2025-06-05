@@ -4,10 +4,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  Injector,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import {
   MAT_DIALOG_DATA,
   MatDialogModule,
@@ -21,6 +26,7 @@ import {
   ButtonConfig,
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
+import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { AccountsFormComponent } from '../accounts-form/accounts-form.component';
@@ -48,6 +54,7 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
 
   closeBtnConfig: ButtonConfig = {
     preConfig: ButtonPreConfig.CLOSE,
+    onClick: () => this.control.close(),
   };
 
   saveBtnConfig: ButtonConfig = {
@@ -55,13 +62,36 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
     onClick: () => this.save(),
   };
 
+  readonly control: DialogControls<Account>;
+
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _accountService: AccountService,
-    private readonly _matDialogRef: MatDialogRef<AccountsFormDialog>
+    private readonly _accountService: AccountService
   ) {
-    const data: AccountFormDialogData = inject(MAT_DIALOG_DATA);
+    const injector = inject(Injector);
+
+    const data: AccountFormDialogData =
+      injector.get(MAT_DIALOG_DATA, null) ||
+      injector.get(MAT_BOTTOM_SHEET_DATA, null);
+
     this.primaryAccount = data.primaryAccount;
+
+    const ref =
+      injector.get<MatDialogRef<AccountsFormDialog> | null>(
+        MatDialogRef,
+        null
+      ) ||
+      injector.get<MatBottomSheetRef<AccountsFormDialog> | null>(
+        MatBottomSheetRef,
+        null
+      );
+
+    this.control = {
+      close: (result) => {
+        if (ref instanceof MatDialogRef) ref.close(result);
+        else if (ref instanceof MatBottomSheetRef) ref.dismiss(result);
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -99,7 +129,7 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
       .createNew(this.accountForm.getRawValue())
       .then((response) => {
         this._utils.showMessage('my-accounts.saved-successfully');
-        this._matDialogRef.close(response);
+        this.control.close(response);
       })
       .catch(() => this._utils.showMessage('my-accounts.error-saving-account'));
   }
