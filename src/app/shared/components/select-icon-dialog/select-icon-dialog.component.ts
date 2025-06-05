@@ -52,7 +52,7 @@ export class SelectIconDialog {
       );
 
     this.control = {
-      close: (result?: string) => {
+      close: (result) => {
         if (ref instanceof MatDialogRef) ref.close(result);
         else if (ref instanceof MatBottomSheetRef) ref.dismiss(result);
       },

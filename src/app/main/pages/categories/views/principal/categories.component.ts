@@ -6,6 +6,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
@@ -47,6 +48,7 @@ export class CategoriesPage implements OnInit {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _matDialog: MatDialog,
+    private readonly _bottomSheet: MatBottomSheet,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _categoryService: CategoryService,
     private readonly _responsiveService: ResponsiveService
@@ -160,17 +162,23 @@ export class CategoriesPage implements OnInit {
   openCategoryFormDialog(data: CategoryFormDialogData): Promise<any> {
     const width = getResponsiveDialogWidth('40vw')(this._responsiveService);
 
+    const config = {
+      data,
+      panelClass: 'category-form-dialog',
+      minWidth: width,
+      width: width,
+      maxHeight: '95vh',
+      autoFocus: false,
+    };
+
+    if (this._responsiveService.smallWidth()) {
+      return lastValueFrom(
+        this._bottomSheet.open(CategoryFormDialog, config).afterDismissed()
+      );
+    }
+
     return lastValueFrom(
-      this._matDialog
-        .open(CategoryFormDialog, {
-          data,
-          panelClass: 'category-form-dialog',
-          minWidth: width,
-          width: width,
-          maxHeight: '95vh',
-          autoFocus: false,
-        })
-        .afterClosed()
+      this._matDialog.open(CategoryFormDialog, config).afterClosed()
     );
   }
 }

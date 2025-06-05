@@ -107,11 +107,26 @@
 
 @media screen and (max-width: 650px) {
   .category-form-dialog {
+    margin-bottom: 2rem !important;
+
     .content {
       form {
+        mat-divider {
+          width: 95% !important;
+        }
+
         .row1 {
           gap: 1rem !important;
           margin-right: 1rem !important;
+          padding-left: 1.5rem !important;
+        }
+
+        .row2 {
+          padding: 0 1.2rem !important;
+        }
+
+        .row3 {
+          padding: 0 1.2rem !important;
         }
       }
     }
@@ -173,7 +188,7 @@
       }
 
       mat-divider {
-        width: 85% !important;
+        width: 85%;
         background-color: #a2a2a249 !important;
       }
 

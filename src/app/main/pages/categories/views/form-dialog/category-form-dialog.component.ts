@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Injector,
   OnInit,
-  inject,
   signal,
 } from '@angular/core';
 import {
@@ -12,6 +12,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
   MAT_DIALOG_DATA,
@@ -25,6 +29,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Category } from '../../../../../core/entities/category/category';
 import { CategoryFormDialogData } from '../../../../../core/entities/category/category-dto';
 import { CategoryService } from '../../../../../core/entities/category/category.service';
+import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
@@ -46,7 +51,11 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoryFormDialog implements OnInit {
-  data: CategoryFormDialogData = inject(MAT_DIALOG_DATA);
+  readonly data: CategoryFormDialogData =
+    this._injector.get(MAT_DIALOG_DATA, null) ||
+    this._injector.get(MAT_BOTTOM_SHEET_DATA, null);
+
+  readonly control: DialogControls<Category>;
 
   categoryForm!: FormGroup;
 
@@ -55,11 +64,28 @@ export class CategoryFormDialog implements OnInit {
   saving = signal(false);
 
   constructor(
+    private readonly _injector: Injector,
     private readonly _utils: UtilsService,
-    private readonly _dialogRef: MatDialogRef<CategoryFormDialog>,
     private readonly _fb: FormBuilder,
     private readonly _categoryService: CategoryService
-  ) {}
+  ) {
+    const ref =
+      _injector.get<MatDialogRef<CategoryFormDialog> | null>(
+        MatDialogRef,
+        null
+      ) ||
+      _injector.get<MatBottomSheetRef<CategoryFormDialog> | null>(
+        MatBottomSheetRef,
+        null
+      );
+
+    this.control = {
+      close: (result) => {
+        if (ref instanceof MatDialogRef) ref.close(result);
+        else if (ref instanceof MatBottomSheetRef) ref.dismiss(result);
+      },
+    };
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -105,7 +131,7 @@ export class CategoryFormDialog implements OnInit {
 
     this.getSaveRequest(this.categoryForm.getRawValue())
       .then((response) => {
-        this._dialogRef.close(response);
+        this.control.close(response);
         this._utils.showMessage('categories.saved-successfully');
       })
       .catch(() => this._utils.showMessage('categories.error-saving'))

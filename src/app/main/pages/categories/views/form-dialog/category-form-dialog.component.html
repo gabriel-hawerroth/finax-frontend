@@ -16,7 +16,7 @@
 
     <app-buttons
       [showClose]="true"
-      mat-dialog-close
+      (onClose)="control.close()"
       class="close-btn"
     ></app-buttons>
   </div>
