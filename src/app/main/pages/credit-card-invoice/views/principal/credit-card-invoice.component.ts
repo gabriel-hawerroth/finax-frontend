@@ -7,6 +7,7 @@ import {
   computed,
   signal,
 } from '@angular/core';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -100,6 +101,7 @@ export class CreditCardInvoicePage implements OnInit {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _matDialog: MatDialog,
+    private readonly _bottomSheet: MatBottomSheet,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _invoiceService: InvoiceService,
     private readonly _creditCardService: CreditCardService,
@@ -183,33 +185,41 @@ export class CreditCardInvoicePage implements OnInit {
   }
 
   payInvoice(invoicePayment?: InvoicePaymentPerson) {
-    lastValueFrom(
-      this._matDialog
-        .open(InvoicePaymentDialog, {
-          panelClass: 'invoice-payment-dialog',
-          autoFocus: false,
-          data: <InvoicePaymentDialogData>{
-            accounts: this.accounts,
-            creditCardId: this.creditCardId,
-            defaultPaymmentAccount: this.creditCard()!.standardPaymentAccountId,
-            defaultPaymentAmount:
-              this.invoiceValues().value -
-              this.monthValues().payments.reduce(
-                (amount, item) => (amount += item.paymentAmount),
-                0
-              ),
-            monthYear: format(this.selectedDate(), 'MM/yyyy'),
-            payment: invoicePayment,
-            expireDate: this.invoiceValues().expire,
-            invoiceValue: this.invoiceValues().value,
-            invoicePayments: this.monthValues().payments,
-          },
-        })
-        .afterClosed()
-    ).then((response) => {
-      if (response === true) {
-        this.getMonthValues();
-      }
+    const config = {
+      panelClass: 'invoice-payment-dialog',
+      autoFocus: false,
+      data: <InvoicePaymentDialogData>{
+        accounts: this.accounts,
+        creditCardId: this.creditCardId,
+        defaultPaymmentAccount: this.creditCard()!.standardPaymentAccountId,
+        defaultPaymentAmount:
+          this.invoiceValues().value -
+          this.monthValues().payments.reduce(
+            (amount, item) => (amount += item.paymentAmount),
+            0
+          ),
+        monthYear: format(this.selectedDate(), 'MM/yyyy'),
+        payment: invoicePayment,
+        expireDate: this.invoiceValues().expire,
+        invoiceValue: this.invoiceValues().value,
+        invoicePayments: this.monthValues().payments,
+      },
+    };
+
+    let observable;
+
+    if (this._responsiveService.smallWidth()) {
+      observable = this._bottomSheet
+        .open(InvoicePaymentDialog, config)
+        .afterDismissed();
+    } else {
+      observable = this._matDialog
+        .open(InvoicePaymentDialog, config)
+        .afterClosed();
+    }
+
+    lastValueFrom(observable).then((response) => {
+      if (response === true) this.getMonthValues();
     });
   }
 

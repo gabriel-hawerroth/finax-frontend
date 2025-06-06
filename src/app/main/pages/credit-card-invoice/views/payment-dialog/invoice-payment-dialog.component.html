@@ -9,7 +9,7 @@
       }}
     </h2>
 
-    <app-buttons [showClose]="true" mat-dialog-close></app-buttons>
+    <app-buttons [showClose]="true" (onClose)="control.close()"></app-buttons>
   </div>
 
   <form class="content" [formGroup]="form">

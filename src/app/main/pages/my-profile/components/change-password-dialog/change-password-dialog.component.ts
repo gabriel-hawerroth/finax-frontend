@@ -3,6 +3,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
+  Injector,
   OnInit,
   signal,
 } from '@angular/core';
@@ -12,6 +14,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,6 +24,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Credentials } from '../../../../../core/entities/auth/credentials';
 import { UserService } from '../../../../../core/entities/user/user.service';
+import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
@@ -49,12 +53,32 @@ export class ChangePasswordDialog implements OnInit {
 
   loading = signal(false);
 
+  readonly control: DialogControls<void>;
+
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _dialogRef: MatDialogRef<ChangePasswordDialog>,
     private readonly _fb: FormBuilder,
     private readonly _userService: UserService
-  ) {}
+  ) {
+    const injector = inject(Injector);
+
+    const ref =
+      injector.get<MatDialogRef<ChangePasswordDialog> | null>(
+        MatDialogRef,
+        null
+      ) ||
+      injector.get<MatBottomSheetRef<ChangePasswordDialog> | null>(
+        MatBottomSheetRef,
+        null
+      );
+
+    this.control = {
+      close: (result) => {
+        if (ref instanceof MatDialogRef) ref.close(result);
+        else if (ref instanceof MatBottomSheetRef) ref.dismiss(result);
+      },
+    };
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -99,7 +123,7 @@ export class ChangePasswordDialog implements OnInit {
       .changePassword(passwords.newPassword, passwords.currentPassword)
       .then((user) => {
         this._utils.showMessage('change-password.changed-successfully');
-        this._dialogRef.close();
+        this.control.close();
 
         const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
 
@@ -131,12 +155,10 @@ export class ChangePasswordDialog implements OnInit {
           );
         }
       })
-      .finally(() => {
-        this.loading.set(false);
-      });
+      .finally(() => this.loading.set(false));
   }
 
   onCancel() {
-    this._dialogRef.close();
+    this.control.close();
   }
 }

@@ -1,6 +1,7 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   input,
   OnDestroy,
@@ -59,18 +60,22 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
 
   configs!: AccountConfigs[];
 
+  isSubAccount!: boolean;
+
   constructor(
     private readonly _utils: UtilsService,
     private readonly _accountService: AccountService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.accountForm().controls['active'].disable();
 
-    this.configs = this._accountService.getConfigs(
-      Boolean(this.accountForm().controls['primaryAccountId'].getRawValue())
+    this.isSubAccount = Boolean(
+      this.accountForm().controls['primaryAccountId'].getRawValue()
     );
+    this.configs = this._accountService.getConfigs(this.isSubAccount);
 
     this.subscribeToFormChanges();
   }
@@ -81,7 +86,7 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
   }
 
   public openSelectIconDialog() {
-    this._utils.openSelectIconDialog().then((value) => {
+    this._utils.openSelectIconDialog(this.isDialog()).then((value) => {
       if (!value) return;
       this.selectIcon(value);
     });
@@ -91,6 +96,7 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
     this.accountForm().get('image')!.setValue(icon);
     this.accountForm().markAsDirty();
     this.selectedIcon.emit();
+    this._cdr.markForCheck();
   }
 
   removeAccountType(event: MouseEvent) {

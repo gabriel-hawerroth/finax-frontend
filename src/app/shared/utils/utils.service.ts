@@ -1,8 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { MatBottomSheet } from '@angular/material/bottom-sheet';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MatBottomSheet,
+  MatBottomSheetConfig,
+} from '@angular/material/bottom-sheet';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
@@ -364,17 +367,26 @@ export class UtilsService {
     );
   }
 
-  openSelectIconDialog(): Promise<string | undefined> {
-    if (this._responsiveService.smallWidth()) {
+  openSelectIconDialog(
+    isSubAccountDialog: boolean = false
+  ): Promise<string | undefined> {
+    const config: MatDialogConfig | MatBottomSheetConfig = {
+      panelClass: 'select-icon-dialog',
+      autoFocus: false,
+      width: this._responsiveService.smallWidth() ? '100vw' : undefined,
+      minWidth: this._responsiveService.smallWidth() ? '100vw' : undefined,
+    };
+
+    if (!isSubAccountDialog && this._responsiveService.smallWidth()) {
       return lastValueFrom(
         this._bottomSheet
-          .open(SelectIconDialog, { autoFocus: false })
+          .open(SelectIconDialog, config as MatBottomSheetConfig)
           .afterDismissed()
       );
     }
 
     return lastValueFrom(
-      this._matDialog.open(SelectIconDialog, { autoFocus: false }).afterClosed()
+      this._matDialog.open(SelectIconDialog, config).afterClosed()
     );
   }
 }

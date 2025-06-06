@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
@@ -60,6 +61,7 @@ export class MyProfilePage implements OnInit, OnDestroy {
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _matDialog: MatDialog,
+    private readonly _matBottomSheet: MatBottomSheet,
     private readonly _userService: UserService,
     private readonly _responsiveService: ResponsiveService
   ) {}
@@ -162,15 +164,16 @@ export class MyProfilePage implements OnInit, OnDestroy {
   openChangePasswordDialog() {
     const width = getResponsiveDialogWidth('40vw')(this._responsiveService);
 
-    this._matDialog.open(ChangePasswordDialog, {
-      data: {
-        userId: this._utils.getLoggedUser!.id,
-      },
+    const config = {
       panelClass: 'change-password-dialog',
       width: width,
       minWidth: width,
       autoFocus: true,
-    });
+    };
+
+    if (this._responsiveService.smallWidth())
+      this._matBottomSheet.open(ChangePasswordDialog, config);
+    else this._matDialog.open(ChangePasswordDialog, config);
   }
 
   openCancelAccountDialog() {

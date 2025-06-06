@@ -2,11 +2,15 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Injector,
   OnInit,
-  inject,
   signal,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  MAT_BOTTOM_SHEET_DATA,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -25,6 +29,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { InvoicePaymentDialogData } from '../../../../../core/entities/invoice/invoice-payment-dto';
 import { InvoiceService } from '../../../../../core/entities/invoice/invoice.service';
+import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -53,10 +58,14 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InvoicePaymentDialog implements OnInit {
-  readonly data: InvoicePaymentDialogData = inject(MAT_DIALOG_DATA);
-
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
+
+  readonly data: InvoicePaymentDialogData =
+    this._injector.get(MAT_DIALOG_DATA, null) ||
+    this._injector.get(MAT_BOTTOM_SHEET_DATA, null);
+
+  readonly control: DialogControls<boolean>;
 
   accounts: BasicAccount[] = this.data.accounts || [];
   defaultPaymmentAccount: number | null =
@@ -73,11 +82,28 @@ export class InvoicePaymentDialog implements OnInit {
   removedFile = false;
 
   constructor(
+    private readonly _injector: Injector,
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
-    private readonly _dialogRef: MatDialogRef<InvoicePaymentDialog>,
     private readonly _invoiceService: InvoiceService
-  ) {}
+  ) {
+    const ref =
+      _injector.get<MatDialogRef<InvoicePaymentDialog> | null>(
+        MatDialogRef,
+        null
+      ) ||
+      _injector.get<MatBottomSheetRef<InvoicePaymentDialog> | null>(
+        MatBottomSheetRef,
+        null
+      );
+
+    this.control = {
+      close: (result) => {
+        if (ref instanceof MatDialogRef) ref.close(result);
+        else if (ref instanceof MatBottomSheetRef) ref.dismiss(result);
+      },
+    };
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -157,7 +183,7 @@ export class InvoicePaymentDialog implements OnInit {
           );
         }
 
-        this._dialogRef.close(true);
+        this.control.close(true);
       })
       .catch(() => this._utils.showMessage('invoice.payment.error-saving'))
       .finally(() => this.saving.set(false));
