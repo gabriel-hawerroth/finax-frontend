@@ -373,8 +373,6 @@ export class UtilsService {
     const config: MatDialogConfig | MatBottomSheetConfig = {
       panelClass: 'select-icon-dialog',
       autoFocus: false,
-      width: this._responsiveService.smallWidth() ? '100vw' : undefined,
-      minWidth: this._responsiveService.smallWidth() ? '100vw' : undefined,
     };
 
     if (!isSubAccountDialog && this._responsiveService.smallWidth()) {
