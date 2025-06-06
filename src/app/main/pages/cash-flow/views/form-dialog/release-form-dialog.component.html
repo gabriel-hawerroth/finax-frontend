@@ -3,53 +3,11 @@
     class="top"
     [style.margin-bottom]="releaseForm.value.id ? '2.7rem' : '1.5rem'"
   >
-    @if (darkThemeEnabled) {
-    <button
-      mat-stroked-button
-      [disabled]="disableSave()"
-      (click)="save()"
-      class="save-btn"
-    >
-      @if (saving()) {
-      <mat-spinner [diameter]="30"></mat-spinner>
-      } @else {
-      <div class="btn-content">
-        <span class="material-symbols-outlined">save</span>
-        @if (!isMobileView()) {
-        <span>
-          {{ "actions.save" | translate }}
-        </span>
-        }
-      </div>
-      }
-    </button>
-    } @else {
-    <button
-      mat-raised-button
-      [disabled]="disableSave()"
-      (click)="save()"
-      class="save-btn"
-    >
-      @if (saving()) {
-      <mat-spinner [diameter]="30"></mat-spinner>
-      } @else {
-      <div class="btn-content">
-        <span class="material-symbols-outlined">save</span>
-        @if (!isMobileView()) {
-        <span>
-          {{ "actions.save" | translate }}
-        </span>
-        }
-      </div>
-      }
-    </button>
-    }
+    <ng-container *ngTemplateOutlet="saveButton"></ng-container>
 
     <h2>{{ getDialogTitle }}</h2>
 
-    <button mat-icon-button (click)="control.close()" class="close-btn">
-      <span class="material-symbols-outlined">close</span>
-    </button>
+    <ng-container *ngTemplateOutlet="closeButton"></ng-container>
   </div>
 
   <div class="content">
@@ -134,10 +92,12 @@
         @if (selectedFile) {
         <div class="selected-file">
           <div class="file-content">
-            <h3>{{ "release-form.attachments" | translate }}</h3>
+            <label id="file-content-title">{{
+              "release-form.attachments" | translate
+            }}</label>
 
             <div class="file">
-              <span>{{ selectedFile.name }}</span>
+              <label>{{ selectedFile.name }}</label>
 
               <button
                 mat-icon-button
@@ -149,7 +109,7 @@
             </div>
           </div>
         </div>
-        } @if (selectedFile && showObservation) {
+        } @if (selectedFile && showObservation && !smallWidth()) {
         <mat-divider></mat-divider>
         } @if (showObservation) {
         <div class="observation">
@@ -171,7 +131,9 @@
         class="repeat"
         [style.width]="selectedFile || showObservation ? '50%' : '100%'"
         [style.border-left]="
-          selectedFile || showObservation ? '1px solid #d1d1d1' : 'none'
+          (selectedFile || showObservation) && !smallWidth()
+            ? '1px solid #d1d1d1'
+            : 'none'
         "
       >
         <div
@@ -286,3 +248,53 @@
     }
   </div>
 </div>
+
+<ng-template #saveButton>
+  @if (darkThemeEnabled) {
+  <button
+    mat-stroked-button
+    [disabled]="disableSave()"
+    (click)="save()"
+    class="save-btn"
+  >
+    @if (saving()) {
+    <mat-spinner [diameter]="30"></mat-spinner>
+    } @else {
+    <div class="btn-content">
+      <span class="material-symbols-outlined">save</span>
+      @if (!isMobileView()) {
+      <span>
+        {{ "actions.save" | translate }}
+      </span>
+      }
+    </div>
+    }
+  </button>
+  } @else {
+  <button
+    mat-raised-button
+    [disabled]="disableSave()"
+    (click)="save()"
+    class="save-btn"
+  >
+    @if (saving()) {
+    <mat-spinner [diameter]="30"></mat-spinner>
+    } @else {
+    <div class="btn-content">
+      <span class="material-symbols-outlined">save</span>
+      @if (!isMobileView()) {
+      <span>
+        {{ "actions.save" | translate }}
+      </span>
+      }
+    </div>
+    }
+  </button>
+  }
+</ng-template>
+
+<ng-template #closeButton>
+  <button mat-icon-button (click)="control.close()" class="close-btn">
+    <span class="material-symbols-outlined">close</span>
+  </button>
+</ng-template>
