@@ -20,6 +20,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AccountConfigs } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
+import { AppService } from '../../../../../shared/services/app.service';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
@@ -66,7 +67,8 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
     private readonly _utils: UtilsService,
     private readonly _accountService: AccountService,
     private readonly _responsiveService: ResponsiveService,
-    private readonly _cdr: ChangeDetectorRef
+    private readonly _cdr: ChangeDetectorRef,
+    private readonly _appService: AppService
   ) {}
 
   ngOnInit(): void {
@@ -86,10 +88,15 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
   }
 
   public openSelectIconDialog() {
-    this._utils.openSelectIconDialog(this.isDialog()).then((value) => {
-      if (!value) return;
-      this.selectIcon(value);
-    });
+    try {
+      this._utils.openSelectIconDialog(this.isDialog()).then((value) => {
+        if (!value) return;
+        this.selectIcon(value);
+      });
+    } catch (error) {
+      this._appService.logAppError(error);
+      console.error('Error opening SelectIconDialog:', error);
+    }
   }
 
   public selectIcon(icon: string) {
