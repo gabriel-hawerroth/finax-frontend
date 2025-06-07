@@ -19,6 +19,7 @@ import { Theme } from '../../core/enums/theme';
 import { ReleaseFormDialog } from '../../main/pages/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
 import { SelectIconDialog } from '../components/select-icon-dialog/select-icon-dialog.component';
+import { AppService } from '../services/app.service';
 import { LS_SHOW_VALUES } from './local-storage-contants';
 import { ResponsiveService } from './responsive.service';
 import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
@@ -34,7 +35,8 @@ export class UtilsService {
     private readonly _matDialog: MatDialog,
     private readonly _bottomSheet: MatBottomSheet,
     private readonly _translateService: TranslateService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _appService: AppService
   ) {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -375,16 +377,22 @@ export class UtilsService {
       autoFocus: false,
     };
 
-    if (!isSubAccountDialog && this._responsiveService.smallWidth()) {
-      return lastValueFrom(
-        this._bottomSheet
-          .open(SelectIconDialog, config as MatBottomSheetConfig)
-          .afterDismissed()
-      );
-    }
+    try {
+      if (!isSubAccountDialog && this._responsiveService.smallWidth()) {
+        return lastValueFrom(
+          this._bottomSheet
+            .open(SelectIconDialog, config as MatBottomSheetConfig)
+            .afterDismissed()
+        );
+      }
 
-    return lastValueFrom(
-      this._matDialog.open(SelectIconDialog, config).afterClosed()
-    );
+      return lastValueFrom(
+        this._matDialog.open(SelectIconDialog, config).afterClosed()
+      );
+    } catch (error) {
+      this._appService.logAppError(error);
+      console.error('Error opening SelectIconDialog:', error);
+      return Promise.resolve(undefined);
+    }
   }
 }
