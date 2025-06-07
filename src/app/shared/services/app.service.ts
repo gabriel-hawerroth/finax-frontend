@@ -8,7 +8,7 @@ import { AppErrorLog } from '../../core/interfaces/app-error-log';
   providedIn: 'root',
 })
 export class AppService {
-  private readonly apiUrl = `${environment.baseApiUrl}user`;
+  private readonly apiUrl = `${environment.baseApiUrl}service`;
 
   constructor(private readonly _http: HttpClient) {}
 
