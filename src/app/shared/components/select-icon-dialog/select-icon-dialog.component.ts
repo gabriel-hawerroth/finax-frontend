@@ -5,7 +5,10 @@ import {
   inject,
   Injector,
 } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import {
+  MatBottomSheetModule,
+  MatBottomSheetRef,
+} from '@angular/material/bottom-sheet';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -23,6 +26,7 @@ import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynami
     NgOptimizedImage,
     TranslateModule,
     MatDialogModule,
+    MatBottomSheetModule,
     DynamicButtonComponent,
   ],
   templateUrl: './select-icon-dialog.component.html',
