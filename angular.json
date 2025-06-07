@@ -77,6 +77,11 @@
           },
           "configurations": {
             "production": {
+              "sourceMap": {
+                "scripts": true,
+                "styles": true,
+                "vendor": false
+              },
               "optimization": true,
               "budgets": [
                 {
