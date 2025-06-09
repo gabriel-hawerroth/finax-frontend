@@ -63,6 +63,11 @@ export class SelectIconDialog {
     };
   }
 
+  selectIcon(icon: string): void {
+    if (!this.control) return;
+    this.control.close(icon);
+  }
+
   private get getIcons(): string[] {
     return [
       'money.png',

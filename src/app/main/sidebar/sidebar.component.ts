@@ -8,7 +8,7 @@ import { UserConfigsService } from '../../core/entities/user-configs/user-config
 import { UserService } from '../../core/entities/user/user.service';
 import { UserAccess } from '../../core/enums/user-enums';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
-import { ResponsiveService } from '../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../shared/services/responsive.service';
 import {
   cloudFireCdnImgsLink,
   cloudFireCdnLink,

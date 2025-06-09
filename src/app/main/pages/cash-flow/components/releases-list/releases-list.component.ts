@@ -20,7 +20,7 @@ import {
   ReleaseDetailsData,
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleaseDetailsComponent } from '../../views/details/release-details.component';

@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UserCreditCard } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   getResponsiveFieldWidth,
   Widths,

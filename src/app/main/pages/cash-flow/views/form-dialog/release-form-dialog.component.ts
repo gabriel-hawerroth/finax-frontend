@@ -55,7 +55,7 @@ import {
 } from '../../../../../core/enums/release-enums';
 import { ReleasedOn } from '../../../../../core/enums/released-on';
 import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   getBtnStyle,
   getResponsiveFieldWidth,

@@ -18,7 +18,7 @@ import {
 } from '../../../../../core/entities/account/account-dto';
 import { AccountType } from '../../../../../core/enums/account-enums';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,

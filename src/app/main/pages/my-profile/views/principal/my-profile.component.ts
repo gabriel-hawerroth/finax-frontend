@@ -19,7 +19,7 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 import {
   getResponsiveDialogWidth,
   ResponsiveService,
-} from '../../../../../shared/utils/responsive.service';
+} from '../../../../../shared/services/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CancelAccountDialog } from '../../components/cancel-account-dialog/cancel-account-dialog.component';
 import { ChangePasswordDialog } from '../../components/change-password-dialog/change-password-dialog.component';

@@ -6,7 +6,7 @@ import {
   CreditCardDetailsData,
   UserCreditCard,
 } from '../../../../../core/entities/credit-card/credit-card-dto';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { CreditCardDetailsComponent } from '../../views/details/credit-card-details.component';
 

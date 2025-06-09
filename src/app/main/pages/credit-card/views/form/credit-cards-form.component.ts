@@ -13,22 +13,28 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import {
+  MatBottomSheet,
+  MatBottomSheetConfig,
+} from '@angular/material/bottom-sheet';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { Subject, takeUntil } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,
@@ -90,7 +96,9 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
     private readonly _creditCardService: CreditCardService,
     private readonly _accountService: AccountService,
     private readonly _location: Location,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _matDialog: MatDialog,
+    private readonly _bottomSheet: MatBottomSheet
   ) {}
 
   ngOnInit(): void {
@@ -172,7 +180,28 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   }
 
   public selectIcon() {
-    this._utils.openSelectIconDialog().then((value) => {
+    const config: MatDialogConfig | MatBottomSheetConfig = {
+      panelClass: 'select-icon-dialog',
+      autoFocus: false,
+    };
+
+    let observable;
+
+    if (this._responsiveService.smallWidth()) {
+      observable = lastValueFrom(
+        this._bottomSheet
+          .open(SelectIconDialog, config as MatBottomSheetConfig)
+          .afterDismissed()
+      );
+    } else {
+      observable = lastValueFrom(
+        this._matDialog
+          .open(SelectIconDialog, config as MatDialogConfig)
+          .afterClosed()
+      );
+    }
+
+    observable.then((value) => {
       if (!value) return;
 
       this.selectedIcon.set(value);

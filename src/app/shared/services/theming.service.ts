@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
-import { ResponsiveService } from './responsive.service';
-import { UtilsService } from './utils.service';
+import { ResponsiveService } from '../services/responsive.service';
+import { UtilsService } from '../utils/utils.service';
 
 type Theme = {
   name: string;
