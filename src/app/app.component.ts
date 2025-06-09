@@ -24,10 +24,12 @@ import { LoginService } from './core/entities/auth/login.service';
 import { ButtonType } from './core/enums/button-style';
 import { ShowValues } from './core/enums/show-values';
 import { SpendByCategoryInterval } from './core/enums/spend-by-category-interval';
-import { ButtonConfig } from './core/interfaces/button-config';
+import {
+  AppButtonsConfig,
+  ButtonConfig,
+} from './core/interfaces/button-config';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
-import { DynamicButtonComponent } from './shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
-import { LogoTitleComponent } from './shared/components/logo-title/logo-title.component';
+import { DynamicButtonsComponent } from './shared/components/dynamic-buttons/dynamic-buttons.component';
 import { ResponsiveService } from './shared/services/responsive.service';
 import { ThemingService } from './shared/services/theming.service';
 import {
@@ -44,8 +46,7 @@ import { UtilsService } from './shared/utils/utils.service';
     SidebarComponent,
     MatSidenavModule,
     MatToolbarModule,
-    LogoTitleComponent,
-    DynamicButtonComponent,
+    DynamicButtonsComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -73,6 +74,32 @@ export class AppComponent implements OnInit, OnDestroy {
     contentStyle: {
       color: 'var(--primary-font-color)',
     },
+  };
+
+  homeBtnConfig: ButtonConfig = {
+    type: ButtonType.ICON,
+    icon: 'home',
+    onClick: () => {},
+    contentStyle: {
+      color: 'var(--primary-font-color)',
+    },
+  };
+
+  releasesBtnConfig: ButtonConfig = {
+    type: ButtonType.ICON,
+    icon: 'home',
+    onClick: () => {},
+    contentStyle: {
+      color: 'var(--primary-font-color)',
+    },
+  };
+
+  mobileToolbarButtonsConfig: AppButtonsConfig = {
+    buttons: [
+      this.homeBtnConfig,
+      this.releasesBtnConfig,
+      this.toogleSidebarBtnConfig,
+    ],
   };
 
   constructor(
