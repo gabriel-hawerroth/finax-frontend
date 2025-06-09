@@ -30,8 +30,7 @@ export class UtilsService {
     private readonly _matDialog: MatDialog,
     private readonly _bottomSheet: MatBottomSheet,
     private readonly _translateService: TranslateService,
-    private readonly _responsiveService: ResponsiveService,
-    private readonly _appService: AppService
+    private readonly _responsiveService: ResponsiveService
   ) {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
