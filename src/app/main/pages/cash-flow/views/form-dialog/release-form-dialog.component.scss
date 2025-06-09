@@ -34,19 +34,18 @@
       .extras {
         flex-direction: column !important;
         width: 100% !important;
+        margin-bottom: 0 !important;
 
         .file-obs {
           width: 100% !important;
 
           .observation {
-            border-top: 1px var(--divider-color) solid;
             padding: 1.3rem 0 !important;
           }
         }
 
         .repeat {
           width: 100% !important;
-          border-top: 1px var(--divider-color) solid;
           padding-top: 1rem !important;
         }
       }
