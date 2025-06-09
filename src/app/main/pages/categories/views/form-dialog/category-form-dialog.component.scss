@@ -110,6 +110,8 @@
     margin-bottom: 2rem !important;
 
     .content {
+      font-size: 1.1rem !important;
+
       form {
         mat-divider {
           width: 95% !important;
@@ -123,11 +125,27 @@
 
         .row2 {
           padding: 0 1.2rem !important;
+
+          .colors {
+            .color {
+              width: 2.9rem !important;
+            }
+          }
         }
 
         .row3 {
           padding: 0 1.2rem !important;
+
+          .icons {
+            .material-symbols-outlined {
+              width: 2.9rem !important;
+            }
+          }
         }
+      }
+
+      .row4 {
+        margin-top: 0.5rem !important;
       }
     }
   }
