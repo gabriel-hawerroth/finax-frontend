@@ -1,26 +1,46 @@
-.simple-page {
-    display: flex;
-    flex-direction: column;
-
+@media screen and (max-width: 650px) {
+  .simple-page {
     .content {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      .card {
+        flex-direction: column-reverse !important;
+        height: auto !important;
+        gap: 2.5rem !important;
 
-        .card {
-            width: 74%;
-            height: fit-content;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            display: flex;
-            flex-direction: column;
+        .card-header {
+          justify-content: center !important;
 
-            .card-header {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: .8rem;
-            }
+          #back-btn {
+            display: none;
+          }
         }
+      }
     }
+  }
+}
+
+.simple-page {
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+      width: 74%;
+      height: fit-content;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+      }
+    }
+  }
 }
