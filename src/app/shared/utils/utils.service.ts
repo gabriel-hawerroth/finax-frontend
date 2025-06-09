@@ -1,11 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import {
-  MatBottomSheet,
-  MatBottomSheetConfig,
-} from '@angular/material/bottom-sheet';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
@@ -18,7 +15,6 @@ import { ShowValues } from '../../core/enums/show-values';
 import { Theme } from '../../core/enums/theme';
 import { ReleaseFormDialog } from '../../main/pages/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
-import { SelectIconDialog } from '../components/select-icon-dialog/select-icon-dialog.component';
 import { LS_SHOW_VALUES } from './local-storage-contants';
 import { ResponsiveService } from './responsive.service';
 import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
@@ -364,27 +360,6 @@ export class UtilsService {
 
     return lastValueFrom(
       this._matDialog.open(ReleaseFormDialog, config).afterClosed()
-    );
-  }
-
-  openSelectIconDialog(
-    isSubAccountDialog: boolean = false
-  ): Promise<string | undefined> {
-    const config: MatDialogConfig | MatBottomSheetConfig = {
-      panelClass: 'select-icon-dialog',
-      autoFocus: false,
-    };
-
-    if (!isSubAccountDialog && this._responsiveService.smallWidth()) {
-      return lastValueFrom(
-        this._bottomSheet
-          .open(SelectIconDialog, config as MatBottomSheetConfig)
-          .afterDismissed()
-      );
-    }
-
-    return lastValueFrom(
-      this._matDialog.open(SelectIconDialog, config).afterClosed()
     );
   }
 }

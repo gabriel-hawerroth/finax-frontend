@@ -9,18 +9,23 @@ import {
   output,
 } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatBottomSheet,
+  MatBottomSheetConfig,
+} from '@angular/material/bottom-sheet';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxCurrencyDirective } from 'ngx-currency';
-import { Subject, takeUntil } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { AccountConfigs } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
-import { AppService } from '../../../../../shared/services/app.service';
+import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   cloudFireCdnImgsLink,
@@ -68,7 +73,8 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
     private readonly _accountService: AccountService,
     private readonly _responsiveService: ResponsiveService,
     private readonly _cdr: ChangeDetectorRef,
-    private readonly _appService: AppService
+    private readonly _matDialog: MatDialog,
+    private readonly _bottomSheet: MatBottomSheet
   ) {}
 
   ngOnInit(): void {
@@ -88,15 +94,29 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
   }
 
   public openSelectIconDialog() {
-    try {
-      this._utils.openSelectIconDialog(this.isDialog()).then((value) => {
-        if (!value) return;
-        this.selectIcon(value);
-      });
-    } catch (error) {
-      this._appService.logAppError(error);
-      console.error('Error opening SelectIconDialog:', error);
+    const config: MatDialogConfig | MatBottomSheetConfig = {
+      panelClass: 'select-icon-dialog',
+      autoFocus: false,
+    };
+
+    let observable;
+
+    if (!this.isDialog() && this._responsiveService.smallWidth()) {
+      observable = lastValueFrom(
+        this._bottomSheet
+          .open(SelectIconDialog, config as MatBottomSheetConfig)
+          .afterDismissed()
+      );
+    } else {
+      observable = lastValueFrom(
+        this._matDialog.open(SelectIconDialog, config).afterClosed()
+      );
     }
+
+    observable.then((value) => {
+      if (!value) return;
+      this.selectIcon(value);
+    });
   }
 
   public selectIcon(icon: string) {
