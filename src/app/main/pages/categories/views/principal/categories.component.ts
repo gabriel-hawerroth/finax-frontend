@@ -20,7 +20,7 @@ import { CategoryService } from '../../../../../core/entities/category/category.
 import {
   getResponsiveDialogWidth,
   ResponsiveService,
-} from '../../../../../shared/utils/responsive.service';
+} from '../../../../../shared/services/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CategoriesListComponent } from '../../components/categories-list/categories-list.component';
 import { CategoryFormDialog } from '../form-dialog/category-form-dialog.component';

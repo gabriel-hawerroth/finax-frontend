@@ -28,12 +28,12 @@ import { ButtonConfig } from './core/interfaces/button-config';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { DynamicButtonComponent } from './shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { LogoTitleComponent } from './shared/components/logo-title/logo-title.component';
+import { ResponsiveService } from './shared/services/responsive.service';
+import { ThemingService } from './shared/services/theming.service';
 import {
   LS_DATE_INTERVAL_SPENDS_BY_CATEGORY,
   LS_SHOW_VALUES,
 } from './shared/utils/local-storage-contants';
-import { ResponsiveService } from './shared/utils/responsive.service';
-import { ThemingService } from './shared/utils/theming.service';
 import { UtilsService } from './shared/utils/utils.service';
 
 @Component({

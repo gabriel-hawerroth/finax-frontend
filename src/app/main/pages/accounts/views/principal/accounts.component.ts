@@ -25,8 +25,8 @@ import {
   ButtonPreConfig,
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import { LS_SHOW_VALUES } from '../../../../../shared/utils/local-storage-contants';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
 import {
   getResponsiveFieldWidth,
   Widths,

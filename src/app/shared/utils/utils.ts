@@ -4,7 +4,7 @@ import { BasicAccount } from '../../core/entities/account/account-dto';
 import { HomeAccount } from '../../core/entities/home-p/home-dto';
 import { AccountType } from '../../core/enums/account-enums';
 import { ButtonType } from '../../core/enums/button-style';
-import { ResponsiveService } from './responsive.service';
+import { ResponsiveService } from '../services/responsive.service';
 
 export const cloudFireCdnLink: string = environment.cloudFrontUrl;
 export const cloudFireCdnImgsLink: string = `${cloudFireCdnLink}/imgs/`;

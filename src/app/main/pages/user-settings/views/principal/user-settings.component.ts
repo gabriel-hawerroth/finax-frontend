@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subject, debounceTime, takeUntil } from 'rxjs';
 import { UserConfigs } from '../../../../../core/entities/user-configs/user-configs';
 import { UserConfigsService } from '../../../../../core/entities/user-configs/user-configs.service';
-import { ThemingService } from '../../../../../shared/utils/theming.service';
+import { ThemingService } from '../../../../../shared/services/theming.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({

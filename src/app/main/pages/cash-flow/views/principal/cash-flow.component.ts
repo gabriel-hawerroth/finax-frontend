@@ -41,7 +41,7 @@ import {
 } from '../../../../../core/enums/release-enums';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import {
   CashFlowBalancesComponent,

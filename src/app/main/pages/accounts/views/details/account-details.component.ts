@@ -29,7 +29,7 @@ import {
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   cloudFireCdnImgsLink,
   HIDE_VALUE,

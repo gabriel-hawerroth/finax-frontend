@@ -34,7 +34,7 @@ import { CreditCardService } from '../../../../../core/entities/credit-card/cred
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
 import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   cloudFireCdnImgsLink,
   getDefaultAccountImage,

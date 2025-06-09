@@ -26,7 +26,7 @@ import { AccountConfigs } from '../../../../../core/entities/account/account-dto
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
-import { ResponsiveService } from '../../../../../shared/utils/responsive.service';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   cloudFireCdnImgsLink,
   getResponsiveFieldWidth,

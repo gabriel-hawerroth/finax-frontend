@@ -15,8 +15,8 @@ import { ShowValues } from '../../core/enums/show-values';
 import { Theme } from '../../core/enums/theme';
 import { ReleaseFormDialog } from '../../main/pages/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
+import { ResponsiveService } from '../services/responsive.service';
 import { LS_SHOW_VALUES } from './local-storage-contants';
-import { ResponsiveService } from './responsive.service';
 import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
 
 @Injectable({
