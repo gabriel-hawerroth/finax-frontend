@@ -26,34 +26,50 @@ export class SpeedDialService {
 
   public loadAccounts(accounts?: Account[]): void {
     if (accounts) {
-      this.accounts = accounts;
+      this.setAccounts(accounts);
       return;
     }
 
     this._accountService
       .getByUser()
-      .then((accounts) => (this.accounts = accounts));
+      .then((accounts) => this.setAccounts(accounts));
   }
 
   public loadCreditCards(creditCards?: CreditCard[]): void {
     if (creditCards) {
-      this.creditCards = creditCards;
+      this.setCreditCards(creditCards);
       return;
     }
 
     this._creditCardService
       .getByUser()
-      .then((creditCards) => (this.creditCards = creditCards));
+      .then((creditCards) => this.setCreditCards(creditCards));
   }
 
   public loadCategories(categories?: Category[]): void {
     if (categories) {
-      this.categories = categories;
+      this.setCategories(categories);
       return;
     }
 
     this._categoryService
       .getByUser()
-      .then((categories) => (this.categories = categories));
+      .then((categories) => this.setCategories(categories));
+  }
+
+  private setAccounts(accounts: Account[]): void {
+    this.accounts = accounts.filter(
+      (account) => account.active === true && account.grouper === false
+    );
+  }
+
+  private setCreditCards(creditCards: CreditCard[]): void {
+    this.creditCards = creditCards.filter(
+      (creditCard) => creditCard.active === true
+    );
+  }
+
+  private setCategories(categories: Category[]): void {
+    this.categories = categories.filter((category) => category.active === true);
   }
 }
