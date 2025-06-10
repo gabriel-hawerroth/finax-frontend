@@ -21,6 +21,7 @@ import {
   getResponsiveDialogWidth,
   ResponsiveService,
 } from '../../../../../shared/services/responsive.service';
+import { SpeedDialService } from '../../../../../shared/services/speed-dial.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { CategoriesListComponent } from '../../components/categories-list/categories-list.component';
 import { CategoryFormDialog } from '../form-dialog/category-form-dialog.component';
@@ -51,7 +52,8 @@ export class CategoriesPage implements OnInit {
     private readonly _bottomSheet: MatBottomSheet,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private readonly _categoryService: CategoryService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _speedDialService: SpeedDialService
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +71,7 @@ export class CategoriesPage implements OnInit {
         this.revenueCategories.set(
           this._utils.filterList(this.categories(), 'type', 'R')
         );
+        this._speedDialService.loadCategories(this.categories());
       })
       .catch(() => this.errorFetchingCategories.set(true))
       .finally(() => this.finishedFetchingCategories.set(true));

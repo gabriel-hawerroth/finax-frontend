@@ -24,19 +24,34 @@ export class SpeedDialService {
     this.loadCategories();
   }
 
-  private loadAccounts(): void {
+  public loadAccounts(accounts?: Account[]): void {
+    if (accounts) {
+      this.accounts = accounts;
+      return;
+    }
+
     this._accountService
       .getByUser()
       .then((accounts) => (this.accounts = accounts));
   }
 
-  private loadCreditCards(): void {
+  public loadCreditCards(creditCards?: CreditCard[]): void {
+    if (creditCards) {
+      this.creditCards = creditCards;
+      return;
+    }
+
     this._creditCardService
       .getByUser()
       .then((creditCards) => (this.creditCards = creditCards));
   }
 
-  private loadCategories(): void {
+  public loadCategories(categories?: Category[]): void {
+    if (categories) {
+      this.categories = categories;
+      return;
+    }
+
     this._categoryService
       .getByUser()
       .then((categories) => (this.categories = categories));
