@@ -6,3 +6,5 @@ export const accountChangedEvent = new Subject<{
   event: AccountChangedEvent;
   newBalance?: number;
 }>();
+
+export const releaseCreatedEvent = new Subject<void>();

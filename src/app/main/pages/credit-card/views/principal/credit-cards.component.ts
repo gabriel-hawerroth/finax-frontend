@@ -15,6 +15,7 @@ import { UserCreditCard } from '../../../../../core/entities/credit-card/credit-
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
+import { SpeedDialService } from '../../../../../shared/services/speed-dial.service';
 import {
   getResponsiveFieldWidth,
   Widths,
@@ -53,7 +54,8 @@ export class CreditCardsPage implements OnInit {
     private readonly _utils: UtilsService,
     private readonly _router: Router,
     private readonly _creditCardService: CreditCardService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _speedDialService: SpeedDialService
   ) {}
 
   ngOnInit(): void {
@@ -66,6 +68,7 @@ export class CreditCardsPage implements OnInit {
       .then((response) => {
         this.rows = response;
         this.filterList(this.situationFilter.value!);
+        this._speedDialService.loadCreditCards(this.rows);
       })
       .catch(() => this.errorFetchingCards.set(true))
       .finally(() => this.finishedFetchingCards.set(true));
