@@ -10,9 +10,9 @@ import { CreditCardService } from '../../core/entities/credit-card/credit-card.s
   providedIn: 'root',
 })
 export class SpeedDialService {
-  public accounts?: Account[] = undefined;
-  public creditCards?: CreditCard[] = undefined;
-  public categories?: Category[] = undefined;
+  public accounts?: Account[];
+  public creditCards?: CreditCard[];
+  public categories?: Category[];
 
   constructor(
     private readonly _accountService: AccountService,
