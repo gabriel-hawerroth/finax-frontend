@@ -66,40 +66,37 @@ export class AppComponent implements OnInit, OnDestroy {
 
   resizeSubscription!: Subscription;
 
+  contentStyle = {
+    color: 'var(--primary-font-color)',
+    transform: 'scale(1.1)',
+  };
+
   HOME_TOOLBAR_ITEM_CONFIG: ButtonConfig = {
     type: ButtonType.ICON,
     icon: 'home',
     onClick: () => this._router.navigateByUrl('/home'),
-    contentStyle: {
-      color: 'var(--primary-font-color)',
-    },
+    style: this.contentStyle,
   };
 
   RELEASES_TOOLBAR_ITEM_CONFIG: ButtonConfig = {
     type: ButtonType.ICON,
     icon: 'format_list_bulleted',
     onClick: () => this._router.navigateByUrl('/fluxo-de-caixa'),
-    contentStyle: {
-      color: 'var(--primary-font-color)',
-    },
+    style: this.contentStyle,
   };
 
   MONITORING_TOOLBAR_ITEM_CONFIG: ButtonConfig = {
     type: ButtonType.ICON,
     icon: 'monitoring',
     onClick: () => {},
-    contentStyle: {
-      color: 'var(--primary-font-color)',
-    },
+    style: this.contentStyle,
   };
 
   MORE_TOOLBAR_ITEM_CONFIG: ButtonConfig = {
     type: ButtonType.ICON,
     icon: 'more_horiz',
     onClick: () => this.toogleSidebar(),
-    contentStyle: {
-      color: 'var(--primary-font-color)',
-    },
+    style: this.contentStyle,
   };
 
   constructor(
