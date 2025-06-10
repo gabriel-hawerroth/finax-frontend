@@ -27,6 +27,7 @@
 .list {
   height: 100%;
   padding-left: 2rem;
+  overflow-y: scroll;
 
   .account {
     display: flex;

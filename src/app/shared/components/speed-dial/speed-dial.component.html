@@ -1,0 +1,24 @@
+@if (isOpen()) {
+<div class="backdrop" (click)="toggle()"></div>
+}
+
+<div class="speed-dial-container">
+  @if (isOpen()) {
+  <div class="actions-container">
+    @for (item of options; track $index) {
+    <div class="action-wrapper" [id]="item.id" (click)="item.onClick()">
+      <button class="action" [style.color]="item.color">
+        <span class="material-symbols-outlined">{{ item.icon }}</span>
+      </button>
+      <span class="label">{{ item.label | translate }}</span>
+    </div>
+    }
+  </div>
+  }
+
+  <button class="fab" (click)="toggle()">
+    <span class="material-symbols-outlined">
+      {{ isOpen() ? "close" : "add" }}
+    </span>
+  </button>
+</div>

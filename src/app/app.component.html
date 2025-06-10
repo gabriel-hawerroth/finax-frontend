@@ -20,8 +20,20 @@
 
 @if (mobileToolbarOpened()) {
 <mat-toolbar id="mobile-toolbar">
-  <dynamic-buttons [config]="mobileToolbarButtonsConfig" />
+  <dynamic-button class="toolbar-item" [config]="HOME_TOOLBAR_ITEM_CONFIG" />
 
-  <!-- <dynamic-button [config]="toogleSidebarBtnConfig" /> -->
+  <dynamic-button
+    class="toolbar-item"
+    [config]="RELEASES_TOOLBAR_ITEM_CONFIG"
+  />
+
+  <app-speed-dial></app-speed-dial>
+
+  <dynamic-button
+    class="toolbar-item"
+    [config]="MONITORING_TOOLBAR_ITEM_CONFIG"
+  />
+
+  <dynamic-button class="toolbar-item" [config]="MORE_TOOLBAR_ITEM_CONFIG" />
 </mat-toolbar>
 }

@@ -157,7 +157,7 @@ body {
     width: 100vw !important;
     padding: 0rem !important;
     padding-top: 1rem !important;
-    padding-bottom: 2rem !important;
+    padding-bottom: 1rem !important;
 
     .content {
       .card {
@@ -208,6 +208,15 @@ body {
     .home-widget {
       box-shadow: none !important;
       border: var(--separator) !important;
+    }
+
+    .content {
+      height: 100% !important;
+      max-height: 100% !important;
+
+      .card {
+        height: 100% !important;
+      }
     }
   }
 }
