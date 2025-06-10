@@ -24,7 +24,7 @@ import {
 } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { TranslateModule } from '@ngx-translate/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';
@@ -39,6 +39,7 @@ import {
   ReleaseType,
   toReleaseType,
 } from '../../../../../core/enums/release-enums';
+import { releaseCreatedEvent } from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
@@ -128,6 +129,11 @@ export class CashFlowPage implements OnInit, OnDestroy {
     }
 
     this.getReleases();
+
+    releaseCreatedEvent
+      .asObservable()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(() => this.getReleases());
   }
 
   ngOnDestroy(): void {
@@ -191,7 +197,6 @@ export class CashFlowPage implements OnInit, OnDestroy {
       })
       .then((response) => {
         if (!response) return;
-
         this.getReleases();
       });
   }

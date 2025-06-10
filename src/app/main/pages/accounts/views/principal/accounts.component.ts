@@ -26,6 +26,7 @@ import {
 } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
+import { SpeedDialService } from '../../../../../shared/services/speed-dial.service';
 import { LS_SHOW_VALUES } from '../../../../../shared/utils/local-storage-contants';
 import {
   getResponsiveFieldWidth,
@@ -81,7 +82,8 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
     private readonly _utils: UtilsService,
     private readonly _router: Router,
     private readonly _accountService: AccountService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _speedDialService: SpeedDialService
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +101,7 @@ export class MyBankAccountsPage implements OnInit, OnDestroy {
       .getByUser()
       .then((result: Account[]) => {
         this.rows.set(result);
+        this._speedDialService.loadAccounts(result);
       })
       .catch(() => this.errorFetchingAccounts.set(true))
       .finally(() => this.finishedFetchingAccounts.set(true));

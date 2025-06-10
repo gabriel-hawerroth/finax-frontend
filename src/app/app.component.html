@@ -1,13 +1,4 @@
-@if (mobileToolbarOpened()) {
-<mat-toolbar id="mobile-toolbar">
-  <app-logo-title></app-logo-title>
-
-  <dynamic-button [config]="toogleSidebarBtnConfig"></dynamic-button>
-</mat-toolbar>
-}
-
 <mat-sidenav-container
-  style="bottom: 0"
   [style.height]="mobileToolbarOpened() ? 'calc(100% - 5rem)' : '100%'"
   [style.max-height]="mobileToolbarOpened() ? 'calc(100% - 5rem)' : '100%'"
   [style.position]="mobileToolbarOpened() ? 'fixed' : 'relative'"
@@ -26,3 +17,23 @@
     <router-outlet />
   </div>
 </mat-sidenav-container>
+
+@if (mobileToolbarOpened()) {
+<mat-toolbar id="mobile-toolbar">
+  <dynamic-button class="toolbar-item" [config]="HOME_TOOLBAR_ITEM_CONFIG" />
+
+  <dynamic-button
+    class="toolbar-item"
+    [config]="RELEASES_TOOLBAR_ITEM_CONFIG"
+  />
+
+  <app-speed-dial></app-speed-dial>
+
+  <dynamic-button
+    class="toolbar-item"
+    [config]="MONITORING_TOOLBAR_ITEM_CONFIG"
+  />
+
+  <dynamic-button class="toolbar-item" [config]="MORE_TOOLBAR_ITEM_CONFIG" />
+</mat-toolbar>
+}

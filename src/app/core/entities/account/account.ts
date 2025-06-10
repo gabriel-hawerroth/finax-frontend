@@ -8,7 +8,6 @@ export interface Account {
   investments: boolean;
   addOverallBalance: boolean;
   active: boolean;
-  archived: boolean;
   image?: string;
   accountNumber?: string;
   agency?: number;

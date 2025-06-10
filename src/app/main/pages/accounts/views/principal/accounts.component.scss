@@ -1,56 +1,55 @@
 @media screen and (max-width: 650px) {
-    .simple-page {
-        .content {
-            .card {
-                .card-header {
-                    .left {
-                        width: fit-content !important;
-                        gap: .8rem !important;
-                        padding-right: 0 !important;
-                    }
+  .simple-page {
+    .content {
+      .card {
+        .card-header {
+          .left {
+            width: fit-content !important;
+            gap: 0.8rem !important;
+            padding-right: 0 !important;
+          }
 
-                    #new-btn {
-                        position: relative;
-                        right: .5rem;
-                    }
-                }
-            }
+          #new-btn {
+            position: relative;
+            right: 0.5rem;
+          }
         }
+      }
     }
+  }
 }
 
 .simple-page {
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+    place-items: center;
 
-    .content {
-        flex: 1;
+    .card {
+      display: flex;
+      flex-direction: column;
+
+      .card-header {
         display: flex;
-        justify-content: center;
-        place-items: center;
+        justify-content: space-between;
+        align-items: center;
 
-        .card {
-            display: flex;
-            flex-direction: column;
-
-            .card-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-
-                .left {
-                    display: flex;
-                    align-items: center;
-                    gap: 5rem;
-                }
-            }
-
-            .list-component {
-                width: 100%;
-                height: 100%;
-                margin: 1rem 0;
-                overflow-y: scroll;
-            }
+        .left {
+          display: flex;
+          align-items: center;
+          gap: 5rem;
         }
+      }
+
+      .list-component {
+        width: 100%;
+        height: 100%;
+        margin: 1rem 0;
+      }
     }
+  }
 }
