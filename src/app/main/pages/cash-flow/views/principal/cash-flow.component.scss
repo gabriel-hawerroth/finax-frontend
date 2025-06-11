@@ -12,15 +12,15 @@
   .simple-page {
     overflow-y: hidden !important;
 
+    .page-title {
+      margin-bottom: 2rem !important;
+    }
+
     .content {
       flex-direction: column-reverse !important;
 
       .card {
         width: 100% !important;
-
-        app-releases-list {
-          margin-bottom: 9rem !important;
-        }
       }
 
       #balances-component {
@@ -57,12 +57,6 @@
             margin-bottom: 4rem !important;
           }
         }
-
-        app-releases-list {
-          width: 100% !important;
-          padding: 0 !important;
-          margin-bottom: 4rem !important;
-        }
       }
     }
   }
@@ -98,12 +92,10 @@
   }
 
   .content {
-    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     place-items: flex-start;
-    padding-top: 5%;
 
     .card {
       width: 65%;
@@ -152,7 +144,6 @@
 
       app-releases-list {
         padding: 0 1.2rem;
-        margin-bottom: 1.5rem;
       }
 
       app-releases-list,
