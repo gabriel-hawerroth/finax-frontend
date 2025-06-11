@@ -18,6 +18,7 @@
 
     .content {
       flex-direction: column-reverse !important;
+      padding-top: 0 !important;
 
       .card {
         width: 100% !important;
@@ -96,6 +97,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     place-items: flex-start;
+    padding-top: 5%;
 
     .card {
       width: 65%;
