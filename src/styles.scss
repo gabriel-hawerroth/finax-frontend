@@ -32,6 +32,8 @@ $theme: mat.define-theme(
 }
 
 body {
+  --primary: #176c00;
+
   /*Sidenav */
   --mat-sidenav-container-background-color: var(--primary-background-color);
   --mat-sidenav-container-text-color: var(--primary-dark);
