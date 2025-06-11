@@ -2,6 +2,12 @@
   display: block;
 }
 
+@media screen and (max-width: 650px) {
+  #releases-list {
+    padding: 0 0.3rem !important;
+  }
+}
+
 #releases-list {
   padding: 0 2rem;
 
