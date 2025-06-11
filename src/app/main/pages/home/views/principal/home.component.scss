@@ -25,6 +25,10 @@
 
 @media screen and (max-width: 650px) {
   .simple-page {
+    .content {
+      margin-bottom: 1rem !important;
+    }
+
     .top-card {
       box-shadow: none !important;
       border: var(--separator) !important;

@@ -10,7 +10,6 @@ import {
   ApplicationConfig,
   ErrorHandler,
   importProvidersFrom,
-  inject,
   isDevMode,
   provideAppInitializer,
   provideExperimentalZonelessChangeDetection,
@@ -36,6 +35,7 @@ import {
 } from 'ngx-currency';
 import { provideNgxMask } from 'ngx-mask';
 import { routes } from './app.routes';
+import appInitializer from './core/initializers/app.initializer';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const MY_FORMATS = {
@@ -104,8 +104,6 @@ export const appConfig: ApplicationConfig = {
       provide: Sentry.TraceService,
       deps: [Router],
     },
-    provideAppInitializer(() => {
-      inject(Sentry.TraceService);
-    }),
+    provideAppInitializer(appInitializer),
   ],
 };

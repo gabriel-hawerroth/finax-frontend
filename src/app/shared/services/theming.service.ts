@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { ResponsiveService } from '../services/responsive.service';
 import { UtilsService } from '../utils/utils.service';
 
@@ -275,4 +275,107 @@ export class ThemingService {
     this.ripple.set(ripple);
     this.error.set(error);
   }
+
+  setTheme = effect(() => {
+    if (!this._utils.isBrowser) return;
+
+    document.body.style.setProperty(`--primary`, this.primary());
+    document.body.style.setProperty(`--primary-light`, this.primaryLight());
+    document.body.style.setProperty(`--primary-dark`, this.primaryDark());
+    document.body.style.setProperty(`--ripple`, this.ripple());
+    document.body.style.setProperty(`--background`, this.background());
+    document.body.style.setProperty(`--error`, this.error());
+
+    document.body.style.setProperty(
+      `--primary-background-color`,
+      this.primaryBackgroundColor()
+    );
+    document.body.style.setProperty(
+      `--sidebar-background-color`,
+      this.sidebarBackgroundColor()
+    );
+    document.body.style.setProperty(
+      `--card-background-color`,
+      this.cardBackgroundColor()
+    );
+    document.body.style.setProperty(
+      `--background-hover-color`,
+      this.backgroundHoverColor()
+    );
+    document.body.style.setProperty(
+      `--button-text-color`,
+      this.buttonTextColor()
+    );
+    document.body.style.setProperty(
+      `--button-border-color`,
+      this.buttonBorderColor()
+    );
+    document.body.style.setProperty(
+      `--primary-font-color`,
+      this.primaryFontColor()
+    );
+    document.body.style.setProperty(
+      `--sidebar-font-color`,
+      this.sidebarFontColor()
+    );
+    document.body.style.setProperty(
+      `--disabled-font-color`,
+      this.disabledFontColor()
+    );
+    document.body.style.setProperty(
+      `--page-title-font-color`,
+      this.pageTitleFontColor()
+    );
+    document.body.style.setProperty(
+      `--form-field-hint-font-color`,
+      this.formFieldHintFontColor()
+    );
+    document.body.style.setProperty(
+      `--card-title-font-color`,
+      this.cardTitleFontColor()
+    );
+    document.body.style.setProperty(
+      `--snack-bar-message-font-color`,
+      this.snackBarMessageFontColor()
+    );
+    document.body.style.setProperty(
+      `--policy-page-paragraph-font-color`,
+      this.policyPageParagraphFontColor()
+    );
+    document.body.style.setProperty(
+      `--empty-message-font-color`,
+      this.emptyMessageFontColor()
+    );
+    document.body.style.setProperty(
+      `--amounts-font-color`,
+      this.amountsFontColor()
+    );
+    document.body.style.setProperty(`--divider-color`, this.dividerColor());
+    document.body.style.setProperty(`--icon-box-shadow`, this.iconBoxShadow());
+    document.body.style.setProperty(
+      `--default-box-shadow`,
+      this.defaultBoxShadow()
+    );
+    document.body.style.setProperty(
+      `--default-account-logo-box-shadow`,
+      this.defaultAccountLogoBoxShadow()
+    );
+    document.body.style.setProperty(
+      `--default-account-logo-color`,
+      this.defaultAccountLogoColor()
+    );
+    document.body.style.setProperty(
+      `--category-option-color`,
+      this.categoryOptionColor()
+    );
+    document.body.style.setProperty(
+      `--button-hover-background-color`,
+      this.buttonHoverBackgroundColor()
+    );
+    document.body.style.setProperty(`--separator`, this.separator());
+    document.body.style.setProperty(`--primary-green`, this.primaryGreen());
+    document.body.style.setProperty(`--secondary-green`, this.secondaryGreen());
+    document.body.style.setProperty(`--primary-gray`, this.primaryGray());
+    document.body.style.setProperty(`--secondary-gray`, this.secondaryGray());
+  });
 }
