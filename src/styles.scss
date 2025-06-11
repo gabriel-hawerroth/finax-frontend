@@ -157,13 +157,12 @@ body {
     width: 100vw !important;
     padding: 0rem !important;
     padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
 
     .content {
       .card {
         width: $default-mobile-card-width !important;
-        height: $default-mobile-card-height !important;
-        max-height: $default-mobile-card-height !important;
+        // height: $default-mobile-card-height !important;
+        // max-height: $default-mobile-card-height !important;
         padding: $default-mobile-card-padding !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
@@ -208,15 +207,6 @@ body {
     .home-widget {
       box-shadow: none !important;
       border: var(--separator) !important;
-    }
-
-    .content {
-      height: 100% !important;
-      max-height: 100% !important;
-
-      .card {
-        height: 100% !important;
-      }
     }
   }
 }
