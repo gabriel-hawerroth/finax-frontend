@@ -7,7 +7,9 @@ import {
 } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import {
+  APP_INITIALIZER,
   ApplicationConfig,
+  ErrorHandler,
   importProvidersFrom,
   isDevMode,
   provideExperimentalZonelessChangeDetection,
@@ -22,10 +24,11 @@ import {
   withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import * as Sentry from '@sentry/angular';
 import {
   NgxCurrencyInputMode,
   provideEnvironmentNgxCurrency,
@@ -92,5 +95,19 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: 'TIMEZONE', useValue: 'America/Sao_Paulo' },
     DatePipe,
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler(),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
   ],
 };
