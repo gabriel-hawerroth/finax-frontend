@@ -2,90 +2,113 @@ import { Routes } from '@angular/router';
 import { BasicTierGuard } from './core/guards/basic-tier.guard';
 import { FreeTierGuard } from './core/guards/free-tier.guard';
 import { UnauthenticatedUserGuard } from './core/guards/unauthenticated-user.guard';
-import { MyBankAccountsPage } from './main/pages/accounts/views/principal/accounts.component';
-import { AccountsFormPage } from './main/pages/accounts/views/register/accounts-register.component';
-import { CashFlowPage } from './main/pages/cash-flow/views/principal/cash-flow.component';
-import { CategoriesPage } from './main/pages/categories/views/principal/categories.component';
-import { CreditCardInvoicePage } from './main/pages/credit-card-invoice/views/principal/credit-card-invoice.component';
-import { CreditCardsFormPage } from './main/pages/credit-card/views/form/credit-cards-form.component';
-import { CreditCardsPage } from './main/pages/credit-card/views/principal/credit-cards.component';
-import { HomePage } from './main/pages/home/views/principal/home.component';
-import { MyProfilePage } from './main/pages/my-profile/views/principal/my-profile.component';
-import { UserSettingsPage } from './main/pages/user-settings/views/principal/user-settings.component';
-import { AccountCanceledPage } from './main/public/views/account-canceled/account-canceled.component';
-import { CancelationErrorPage } from './main/public/views/cancelation-error/cancelation-error.component';
-import { ChangePasswordPage } from './main/public/views/change-password/change-password.component';
-import { CreateAccountPage } from './main/public/views/create-account/create-account.component';
-import { ForgotPasswordPage } from './main/public/views/forgot-password/forgot-password.component';
-import { LoginPage } from './main/public/views/login/login.component';
-import { PublicPage } from './main/public/views/principal/public.component';
-import { PrivacyPolicyPage } from './main/public/views/privacy-policy/privacy-policy.component';
-import { UseTermsPage } from './main/public/views/use-terms/use-terms.component';
-import { UserActivationPage } from './main/public/views/user-activation/user-activation.component';
-import { ExpiredLinkComponent } from './shared/components/expired-link/expired-link.component';
-import { SystemErrorWarningPage } from './shared/components/system-error-warning/system-error-warning.component';
 
 export const routes: Routes = [
-  { path: '', component: PublicPage },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./main/public/views/principal/public.component').then(
+        (m) => m.PublicPage
+      ),
+  },
   {
     path: 'fora-do-ar',
-    component: SystemErrorWarningPage,
+    loadComponent: () =>
+      import(
+        './shared/components/system-error-warning/system-error-warning.component'
+      ).then((m) => m.SystemErrorWarningPage),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'link-expirado',
-    component: ExpiredLinkComponent,
+    loadComponent: () =>
+      import('./shared/components/expired-link/expired-link.component').then(
+        (m) => m.ExpiredLinkComponent
+      ),
   },
   {
     path: 'login',
-    component: LoginPage,
+    loadComponent: () =>
+      import('./main/public/views/login/login.component').then(
+        (m) => m.LoginPage
+      ),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'nova-conta',
-    component: CreateAccountPage,
+    loadComponent: () =>
+      import(
+        './main/public/views/create-account/create-account.component'
+      ).then((m) => m.CreateAccountPage),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'ativacao-da-conta',
-    component: UserActivationPage,
+    loadComponent: () =>
+      import(
+        './main/public/views/user-activation/user-activation.component'
+      ).then((m) => m.UserActivationPage),
   },
   {
     path: 'esqueci-minha-senha',
-    component: ForgotPasswordPage,
+    loadComponent: () =>
+      import(
+        './main/public/views/forgot-password/forgot-password.component'
+      ).then((m) => m.ForgotPasswordPage),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'recuperacao-da-senha/:userId',
-    component: ChangePasswordPage,
+    loadComponent: () =>
+      import(
+        './main/public/views/change-password/change-password.component'
+      ).then((m) => m.ChangePasswordPage),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'conta-cancelada',
-    component: AccountCanceledPage,
+    loadComponent: () =>
+      import(
+        './main/public/views/account-canceled/account-canceled.component'
+      ).then((m) => m.AccountCanceledPage),
   },
   {
     path: 'erro-cancelamento',
-    component: CancelationErrorPage,
+    loadComponent: () =>
+      import(
+        './main/public/views/cancelation-error/cancelation-error.component'
+      ).then((m) => m.CancelationErrorPage),
   },
   {
     path: 'politica-de-privacidade',
-    component: PrivacyPolicyPage,
+    loadComponent: () =>
+      import(
+        './main/public/views/privacy-policy/privacy-policy.component'
+      ).then((m) => m.PrivacyPolicyPage),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'termos-de-uso',
-    component: UseTermsPage,
+    loadComponent: () =>
+      import('./main/public/views/use-terms/use-terms.component').then(
+        (m) => m.UseTermsPage
+      ),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'home',
-    component: HomePage,
+    loadComponent: () =>
+      import('./main/pages/home/views/principal/home.component').then(
+        (m) => m.HomePage
+      ),
     canActivate: [FreeTierGuard],
   },
   {
     path: 'fluxo-de-caixa',
-    component: CashFlowPage,
+    loadComponent: () =>
+      import('./main/pages/cash-flow/views/principal/cash-flow.component').then(
+        (m) => m.CashFlowPage
+      ),
     canActivate: [FreeTierGuard],
   },
   // {
@@ -130,32 +153,50 @@ export const routes: Routes = [
   // },
   {
     path: 'contas',
-    component: MyBankAccountsPage,
+    loadComponent: () =>
+      import('./main/pages/accounts/views/principal/accounts.component').then(
+        (m) => m.MyBankAccountsPage
+      ),
     canActivate: [FreeTierGuard],
   },
   {
     path: 'contas/:id',
-    component: AccountsFormPage,
+    loadComponent: () =>
+      import(
+        './main/pages/accounts/views/register/accounts-register.component'
+      ).then((m) => m.AccountsFormPage),
     canActivate: [FreeTierGuard],
   },
   {
     path: 'cartoes-de-credito',
-    component: CreditCardsPage,
+    loadComponent: () =>
+      import(
+        './main/pages/credit-card/views/principal/credit-cards.component'
+      ).then((m) => m.CreditCardsPage),
     canActivate: [BasicTierGuard],
   },
   {
     path: 'cartoes-de-credito/:id',
-    component: CreditCardsFormPage,
+    loadComponent: () =>
+      import(
+        './main/pages/credit-card/views/form/credit-cards-form.component'
+      ).then((m) => m.CreditCardsFormPage),
     canActivate: [BasicTierGuard],
   },
   {
     path: 'cartoes-de-credito/fatura/:id',
-    component: CreditCardInvoicePage,
+    loadComponent: () =>
+      import(
+        './main/pages/credit-card-invoice/views/principal/credit-card-invoice.component'
+      ).then((m) => m.CreditCardInvoicePage),
     canActivate: [BasicTierGuard],
   },
   {
     path: 'categorias',
-    component: CategoriesPage,
+    loadComponent: () =>
+      import(
+        './main/pages/categories/views/principal/categories.component'
+      ).then((m) => m.CategoriesPage),
     canActivate: [FreeTierGuard],
   },
   // {
@@ -165,12 +206,18 @@ export const routes: Routes = [
   // },
   {
     path: 'meu-perfil',
-    component: MyProfilePage,
+    loadComponent: () =>
+      import(
+        './main/pages/my-profile/views/principal/my-profile.component'
+      ).then((m) => m.MyProfilePage),
     canActivate: [FreeTierGuard],
   },
   {
     path: 'configuracoes',
-    component: UserSettingsPage,
+    loadComponent: () =>
+      import(
+        './main/pages/user-settings/views/principal/user-settings.component'
+      ).then((m) => m.UserSettingsPage),
     canActivate: [FreeTierGuard],
   },
   {
