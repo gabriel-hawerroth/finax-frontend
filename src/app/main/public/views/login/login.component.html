@@ -9,7 +9,7 @@
         alt="company logo"
       />
 
-      <h1>{{ "login.title" | translate }}</h1>
+      <h1 (click)="throwTestError()">{{ "login.title" | translate }}</h1>
     </div>
 
     <form [formGroup]="loginForm">

@@ -80,4 +80,8 @@ export class LoginPage implements OnInit {
       .login(credentials)
       .finally(() => this.showLoading.set(false));
   }
+
+  public throwTestError(): void {
+    throw new Error('Sentry Test Error');
+  }
 }
