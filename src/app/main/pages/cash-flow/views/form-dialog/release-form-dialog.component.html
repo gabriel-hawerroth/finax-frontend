@@ -14,9 +14,9 @@
     <div class="form-buttons">
       <app-release-form
         [form]="releaseForm"
-        [accountsList]="data.accounts"
-        [categoriesList]="data.categories"
-        [creditCardsList]="data.creditCards"
+        [accountsList]="data.accounts || []"
+        [categoriesList]="data.categories || []"
+        [creditCardsList]="data.creditCards || []"
         [selectedCreditCard]="selectedCreditCard"
         style="flex: 1"
       ></app-release-form>
