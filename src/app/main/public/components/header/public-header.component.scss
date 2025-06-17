@@ -16,16 +16,34 @@ $header-height: 5.5rem;
   width: 100%;
   height: $header-height;
   display: flex;
-  background-color: #f8f8f8;
+  justify-content: space-between;
+  background-color: #eff3f8;
   box-shadow: 0 0 5px #0000005d;
+  padding: 0 2.8rem;
+  position: relative;
 
-  .left-side {
-    width: $left-side-width;
+  .left {
     height: 100%;
     display: flex;
     align-items: center;
-    padding: 0 1.8em;
-    gap: 15px;
+    gap: 20px;
+    font-size: 1.5rem;
+
+    h1 {
+      font-family: "Dosis";
+      color: var(--primary) !important;
+    }
+  }
+
+  .center {
+    position: absolute;
+    left: 48%;
+    transform: translateX(-50%);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
 
     button {
       font-size: 1.1rem;
@@ -34,32 +52,16 @@ $header-height: 5.5rem;
     }
   }
 
-  .title {
-    flex: 1;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    font-size: 1.7rem;
-
-    h1 {
-      font-family: "Dosis";
-      color: var(--primary) !important;
-    }
-  }
-
-  .right-side {
-    width: $right-side-width;
+  .right {
     height: 100%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 2.5rem;
+    gap: 1.2rem;
 
-    .login-button {
-      padding: 1.5rem 1.7rem;
-      font-size: 1.3rem;
+    button {
+      padding: 1.5rem 1.5rem;
+      font-size: 1.2rem;
       font-weight: 500;
     }
   }
