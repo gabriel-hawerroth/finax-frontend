@@ -91,4 +91,6 @@ Este projeto é de propriedade exclusiva do autor. É permitido rodar localmente
   <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/tela-inicial.png" alt="Dashboard" width="600"/>
   <br/>
   <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/fluxo-caixa.png" alt="Dashboard" width="600"/>
+  <br/>
+  <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/categorias.png" alt="Dashboard" width="600"/>
 </div>
