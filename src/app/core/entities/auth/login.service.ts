@@ -86,7 +86,7 @@ export class LoginService {
             this._utils.showJoinedMessages(
               '. ',
               4500,
-              'generic.server-error',
+              'generic.server-down',
               'generic.try-again-later'
             );
             break;
