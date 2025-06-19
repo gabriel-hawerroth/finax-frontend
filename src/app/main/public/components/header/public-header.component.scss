@@ -17,7 +17,7 @@ $header-height: 5.5rem;
   height: $header-height;
   display: flex;
   justify-content: space-between;
-  background-color: #eff3f8;
+  background-color: #fff;
   box-shadow: 0 0 5px #0000005d;
   padding: 0 2.8rem;
   position: relative;
@@ -63,6 +63,11 @@ $header-height: 5.5rem;
       padding: 1.5rem 1.5rem;
       font-size: 1.2rem;
       font-weight: 500;
+    }
+
+    #register-btn {
+      background-image: linear-gradient(to right, #22c55e, #3b82f6);
+      background-color: hsl(172 70% 45%);
     }
   }
 }
