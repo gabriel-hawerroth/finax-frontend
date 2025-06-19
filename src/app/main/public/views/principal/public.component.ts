@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 import { isAfter } from 'date-fns';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { UtilsService } from '../../../../shared/utils/utils.service';
@@ -18,6 +19,7 @@ import { PublicThirdSectionComponent } from './public-third-section/public-third
     PublicSecondSectionComponent,
     PublicThirdSectionComponent,
     PublicFooterComponent,
+    MatDividerModule,
   ],
   templateUrl: './public.component.html',
   styleUrl: './public.component.scss',
