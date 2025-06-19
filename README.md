@@ -32,16 +32,6 @@ O **Finax** é um sistema web para controle financeiro pessoal, desenvolvido em 
 
 ---
 
-## 📸 Screenshots
-
-<div align="center">
-  <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/landing-page.png" alt="Tela Principal" width="600"/>
-  <br/>
-  <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/tela-inicial.png" alt="Dashboard" width="600"/>
-</div>
-
----
-
 ## 🛠️ Como rodar o projeto localmente
 
 1. **Clone o repositório:**
@@ -90,3 +80,15 @@ finax-frontend/
 Este projeto é de propriedade exclusiva do autor. É permitido rodar localmente para fins de avaliação e testes pessoais.
 
 **Não é permitida** a distribuição, publicação, modificação ou uso comercial sem autorização prévia do autor.
+
+---
+
+## 📸 Screenshots
+
+<div align="center">
+  <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/landing-page.png" alt="Tela Principal" width="600"/>
+  <br/>
+  <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/tela-inicial.png" alt="Dashboard" width="600"/>
+  <br/>
+  <img src="https://d3dpbaewouik5z.cloudfront.net/imgs/demonstracao/fluxo-caixa.png" alt="Dashboard" width="600"/>
+</div>
