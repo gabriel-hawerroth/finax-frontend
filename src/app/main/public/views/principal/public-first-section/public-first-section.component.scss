@@ -46,7 +46,7 @@
       p {
         font-size: 1.2rem;
         margin-bottom: 2.5rem;
-        color: #000;
+        color: var(--secondary-gray);
 
         .benefits {
           font-size: 1.45rem;
@@ -70,7 +70,6 @@
             gap: 1rem;
             box-sizing: initial;
             font-size: 1.25rem;
-            color: #fff;
           }
         }
 
@@ -84,10 +83,10 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 1.05rem;
-            color: #5a5a5a;
+            color: var(--secondary-gray);
 
             .material-symbols-outlined {
-              color: #00d64e;
+              color: var(--secondary-green);
             }
           }
         }
@@ -154,7 +153,7 @@
             height: 2.5rem;
             border-radius: 50%;
             color: #fff;
-            background-color: rgb(34 197 94 / 1);
+            background-color: var(--secondary-green);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -175,7 +174,7 @@
 
           #percentage {
             font-size: 1.1rem;
-            color: #25d365;
+            color: var(--secondary-green);
           }
         }
 
@@ -199,7 +198,7 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
 
             h4 {
-              color: #6e6e6e;
+              color: var(--secondary-gray);
               font-size: 0.9rem;
               font-weight: 300;
             }

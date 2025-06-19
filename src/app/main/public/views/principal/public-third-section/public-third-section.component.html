@@ -1,137 +1,58 @@
 <div class="public-section">
-  <div class="top">
-    <h1>Nossos planos</h1>
-    <span>
-      Mensal
-      <mat-slide-toggle [formControl]="switchPlansControl"></mat-slide-toggle>
-      Anual
-    </span>
+  <div class="left">
+    <h1>Interface <span class="text-gradient">intuitiva</span></h1>
+
+    <p>
+      Design moderno e funcional que torna o controle financeiro uma
+      <br />
+      experiência agradável.
+    </p>
+
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListItemIcon class="material-symbols-outlined">
+          task_alt
+        </mat-icon>
+        Dashboard personalizável
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListItemIcon class="material-symbols-outlined">
+          task_alt
+        </mat-icon>
+        Gráficos interativos em tempo real
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListItemIcon class="material-symbols-outlined">
+          task_alt
+        </mat-icon>
+        Relatórios detalhados e exportáveis
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon matListItemIcon class="material-symbols-outlined">
+          task_alt
+        </mat-icon>
+        Acesso via web e mobile
+      </mat-list-item>
+    </mat-list>
   </div>
 
-  <div class="content">
-    <div class="plan free">
-      <div class="title">
-        <h3>Gratuito</h3>
+  <div class="right">
+    @for (card of cards(); track $index) {
+    <div class="card card-gradient">
+      <span
+        class="material-symbols-outlined"
+        [style.background-color]="card.iconBackgroundColor"
+      >
+        {{ card.icon }}
+      </span>
 
-        <div class="plan-value">
-          <span class="amount">R$0</span>
-          <span class="by-month"> / mês</span>
-        </div>
-      </div>
+      <h3>{{ card.title }}</h3>
 
-      <div class="services">
-        <h4>Módulos liberados</h4>
-
-        <ul>
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Fluxo de caixa</span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Metas de gasto</span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Contas de banco</span>
-          </li>
-        </ul>
-
-        <button routerLink="/nova-conta" mat-raised-button>
-          Assinar agora
-        </button>
-      </div>
+      <span>{{ card.description }}</span>
     </div>
-
-    <div class="plan basic">
-      <div class="title">
-        <h3>Básico</h3>
-
-        <div class="plan-value">
-          <span class="amount">
-            R${{ switchPlansControl.value ? "7,90" : "11,90" }}
-          </span>
-          <span class="by-month"> / mês</span>
-        </div>
-      </div>
-
-      <div class="services">
-        <h4>Módulos liberados</h4>
-
-        <ul>
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Todos do plano gratuito</span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Controle de investimentos</span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Relatórios</span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Calculadora de juros</span>
-          </li>
-        </ul>
-
-        <button routerLink="/nova-conta" mat-raised-button>
-          Assinar agora
-        </button>
-      </div>
-    </div>
-
-    <div class="plan premium">
-      <div class="title">
-        <h3>Premium</h3>
-
-        <div class="plan-value">
-          <span class="amount">
-            R${{ switchPlansControl.value ? "29,90" : "39,90" }}
-          </span>
-          <span class="by-month"> / mês</span>
-        </div>
-      </div>
-
-      <div class="services">
-        <h4>Módulos liberados</h4>
-
-        <ul>
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Todos do plano básico</span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Newsletter (B3, internacional, cripto)</span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>
-              + de 20 índices de mercado em <br />
-              tempo real
-            </span>
-          </li>
-
-          <li>
-            <span class="material-symbols-outlined">attach_money</span>
-            <span>Cálculo de rendimentos automático</span>
-          </li>
-        </ul>
-
-        <button routerLink="/nova-conta" mat-raised-button>
-          Assinar agora
-        </button>
-      </div>
-    </div>
+    }
   </div>
 </div>
