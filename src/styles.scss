@@ -672,3 +672,16 @@ h2 {
     background-color: var(--button-hover-background-color);
   }
 }
+
+.rotating {
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

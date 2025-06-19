@@ -21,6 +21,7 @@ $header-height: 5.5rem;
   box-shadow: 0 0 5px #0000005d;
   padding: 0 2.8rem;
   position: relative;
+  animation: grow 0.5s ease-out forwards;
 
   .left {
     height: 100%;
@@ -69,5 +70,14 @@ $header-height: 5.5rem;
       background-image: linear-gradient(to right, #22c55e, #3b82f6);
       background-color: hsl(172 70% 45%);
     }
+  }
+}
+
+@keyframes grow {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: $header-height;
   }
 }
