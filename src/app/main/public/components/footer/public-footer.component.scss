@@ -55,12 +55,17 @@
         color: var(--secondary-gray);
         font-size: 1.1rem;
 
+        a {
+          text-decoration: none;
+        }
+
         .column-title {
           color: #000;
           margin-bottom: 1rem;
         }
 
         span:not(.column-title) {
+          color: var(--secondary-gray);
           cursor: pointer;
           transition: color 0.2s ease-out;
 

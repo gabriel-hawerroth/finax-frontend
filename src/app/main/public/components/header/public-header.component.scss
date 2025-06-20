@@ -23,11 +23,12 @@ $header-height: 5.5rem;
   height: $header-height;
   display: flex;
   justify-content: space-between;
-  background-color: #fff;
-  box-shadow: 0 0 5px #0000005d;
   padding: 0 2.8rem;
   position: relative;
-  animation: grow 0.5s ease-out forwards;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 
   .left {
     height: 100%;
@@ -50,12 +51,17 @@ $header-height: 5.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 3rem;
+    font-size: 1.1rem;
 
-    button {
-      font-size: 1.1rem;
-      padding: 0.9rem 1rem;
-      color: #262626;
+    span {
+      color: var(--secondary-gray);
+      cursor: pointer;
+      transition: color 0.2s ease-out;
+
+      &:hover {
+        color: #232323;
+      }
     }
   }
 
@@ -72,6 +78,10 @@ $header-height: 5.5rem;
       font-weight: 500;
     }
   }
+}
+
+.grow {
+  animation: grow 0.5s ease-out forwards;
 }
 
 @keyframes grow {

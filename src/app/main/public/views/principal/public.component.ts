@@ -46,15 +46,15 @@ export class PublicPage implements OnInit {
     }
   }
 
-  navigateToOurServices() {
-    const element = document.getElementById('second-section');
+  navigateToResources() {
+    const element = document.getElementById('third-section');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
-  navigateToPlans() {
-    const element = document.getElementById('third-section');
+  navigateToPrices() {
+    const element = document.getElementById('fourth-section');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
