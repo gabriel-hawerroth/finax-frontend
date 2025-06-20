@@ -1,6 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-public-five-section',
@@ -9,4 +15,10 @@ import { RouterModule } from '@angular/router';
   styleUrl: './public-five-section.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicFiveSectionComponent {}
+export class PublicFiveSectionComponent implements AfterViewInit {
+  private readonly _utilsService = inject(UtilsService);
+
+  ngAfterViewInit(): void {
+    this._utilsService.addInViewAnimation('.appear-in-view');
+  }
+}

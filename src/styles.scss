@@ -693,8 +693,36 @@ h2 {
   }
 }
 
+.fade-in-left-in-view,
+.fade-in-right-in-view,
+.fade-in-down-in-view {
+  opacity: 0;
+}
+
+.fade-in-left-in-view {
+  &.in-view {
+    opacity: 1;
+    animation: fadeInLeft 0.8s ease-out forwards;
+  }
+}
+
+.fade-in-right-in-view {
+  &.in-view {
+    opacity: 1;
+    animation: fadeInRight 1.5s ease-out forwards;
+  }
+}
+
+.fade-in-down-in-view {
+  &.in-view {
+    opacity: 1;
+    animation: fadeInDown 0.8s ease-out forwards;
+  }
+}
+
 .fade-in-right {
   animation: fadeInRight 1.5s ease-out forwards;
+  transform: translateX(70px);
 }
 
 @keyframes fadeInRight {
