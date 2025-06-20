@@ -1,32 +1,33 @@
-<div class="public-header">
-  <div class="left-side">
-    <button (click)="navigateToOurServices()" mat-button>
-      Nossos serviços
-    </button>
-
-    <button (click)="navigateToPlans()" mat-button>Planos</button>
-  </div>
-
-  <div class="title">
+<div class="public-header grow">
+  <div class="left">
     <img
       priority
-      [ngSrc]="cloudFireCdnImgsLink + 'money-coin.svg'"
+      [ngSrc]="cloudFireCdnImgsLink + 'logo.svg'"
       width="45"
       height="45"
       alt="company logo"
     />
 
-    <h1>Finax</h1>
+    <h1 class="text-gradient">Finax</h1>
   </div>
 
-  <div class="right-side">
+  <div class="center">
+    <span (click)="navigateToResources()">Recursos</span>
+
+    <span (click)="navigateToPrices()">Preços</span>
+  </div>
+
+  <div class="right">
     <button
-      mat-flat-button
-      color="primary"
+      mat-button
       [routerLink]="loginService.logged ? 'home' : 'login'"
       class="login-button"
     >
       Entrar
+    </button>
+
+    <button mat-flat-button routerLink="nova-conta" class="button-gradient">
+      Começe grátis
     </button>
   </div>
 </div>

@@ -1,208 +1,57 @@
-// desktop fullhd+
-@media screen and (min-width: 1800px) and (min-height: 800px) {
-  .public-section {
-    .content {
-      .plan {
-        height: 78% !important;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1050px) {
-  .public-section {
-    gap: 2rem;
-    padding-bottom: 3rem;
-
-    .content {
-      flex-direction: column;
-      gap: 2rem;
-
-      .plan {
-        width: 82vw !important;
-        height: fit-content !important;
-
-        .services {
-          button {
-            margin-top: 1.5rem !important;
-          }
-        }
-      }
-    }
-  }
-}
-
 .public-section {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  padding-top: 1rem;
-  background-color: #eff3f8;
+  justify-content: center;
+  padding: 10vh 0;
+  gap: 10rem;
 
-  .top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+  .left {
+    position: relative;
+    bottom: 1.5rem;
 
     h1 {
-      color: #1a1c18;
+      color: #000;
+      font-size: 3.2rem;
     }
 
-    form {
-      span {
-        display: flex;
-        align-items: center;
-        gap: 20px;
+    p {
+      color: var(--secondary-gray);
+      margin-top: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    mat-list {
+      mat-list-item {
+        .material-symbols-outlined {
+          color: var(--secondary-green);
+        }
       }
     }
   }
 
-  .content {
-    flex: 1;
-    padding: 0 6rem;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  .right {
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    gap: 3rem;
 
-    .plan {
-      width: 22rem;
-      height: 85%;
-      border-radius: 4px;
+    .card {
       display: flex;
       flex-direction: column;
-      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-        Helvetica, Arial, sans-serif;
+      align-items: flex-start;
+      gap: 0.8rem;
+      height: fit-content;
+      padding: 1.5rem;
+      padding-right: 10rem;
 
-      .title {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1.2rem 0;
-        font-size: 1.4rem;
-        gap: 4px;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-
-        h3 {
-          font-size: 1.5rem;
-        }
-
-        .plan-value {
-          .amount {
-            font-weight: bold;
-            font-size: 1.75rem;
-          }
-
-          .by-month {
-            color: #7e96a1;
-          }
-        }
+      .material-symbols-outlined {
+        border-radius: 0.7rem;
+        color: #fff;
+        padding: 0.5rem;
       }
 
-      .services {
-        width: 100%;
-        flex: 1;
-        box-shadow: inset 0px 2px 8px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        padding: 1.5rem;
-
-        h4 {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          position: relative;
-          bottom: 0.8rem;
-          margin-bottom: 0.4rem;
-        }
-
-        ul {
-          list-style: none;
-          display: flex;
-          flex-direction: column;
-          gap: 0.8rem;
-
-          li {
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-          }
-        }
-
-        button {
-          font-size: 1.3rem;
-          width: 100%;
-          padding: 1.5rem 0;
-          border-radius: 3px;
-          margin-top: auto;
-        }
-      }
-    }
-
-    .free {
-      background-color: #eff3f8;
-
-      .title {
-        background-color: #dadee3;
-      }
-
-      .services {
-        h4,
-        ul {
-          color: #556376;
-        }
-
-        button {
-          background-color: #64748b;
-          color: #ffffff;
-          border: 1px solid #64748b;
-        }
-      }
-    }
-
-    .basic {
-      background-color: #282e38;
-
-      .title {
-        background-color: #37404c;
-        color: white;
-      }
-
-      .services {
-        h4,
-        ul {
-          color: #dadee3;
-        }
-
-        button {
-          background-color: #1b9f4b;
-          color: #ffffff;
-          border: 1px solid #1b9f4b;
-        }
-      }
-    }
-
-    .premium {
-      background-color: #183462;
-
-      .title {
-        background-color: #204887;
-        color: white;
-      }
-
-      .services {
-        h4,
-        ul {
-          color: #d0e1fd;
-        }
-
-        button {
-          background-color: transparent;
-          color: #6366f1;
-          border: 1px solid;
-        }
+      span {
+        color: var(--secondary-gray);
       }
     }
   }

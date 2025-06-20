@@ -1,48 +1,81 @@
 <div class="public-section">
-  <img
-    id="first-section-background-image"
-    [ngSrc]="cloudFireCdnImgsLink + 'bg-first-section.webp'"
-    fill
-    priority
-    style="z-index: -1"
-    alt="background image"
-  />
-
   <div class="content">
-    <div class="left-side">
-      <h1 class="title">
-        Maximizando seu potencial <br />
-        financeiro
-      </h1>
+    <div class="left">
+      <div class="title fade-in-left">
+        <span>Controle suas</span>
+        <span class="text-gradient">finanças com IA</span>
+      </div>
 
-      <p>
-        Acompanhe suas despesas, crie orçamentos e planeje seus investimentos
-        com facilidade. Nossa plataforma conta com gráficos, relatórios, índices
-        de mercado, controle de investimentos e muito mais.
-        <br /><br />
-        Tornando-se a principal escolha para quem quer
+      <p class="fade-in-left">
+        A plataforma mais inteligente para gerenciar suas finanças pessoais.
         <br />
-        <span class="benefits">Previsibilidade, Segurança e Controle</span>
+        Conecte suas contas, acompanhe seus investimentos e receba insights
         <br />
-        sobre suas finanças!
+        personalizados.
       </p>
 
-      <div class="call-action">
-        <span>Não tem uma conta ainda?</span>
+      <div class="call-action fade-in-left-slow">
+        <button
+          mat-fab
+          extended
+          routerLink="/nova-conta"
+          class="button-gradient"
+        >
+          <div class="btn-content">
+            Começar gratuitamente
 
-        <button mat-flat-button color="primary" routerLink="/nova-conta">
-          Comece já
+            <span class="material-symbols-outlined">arrow_forward</span>
+          </div>
         </button>
+
+        <div class="checks">
+          <div class="info">
+            <span class="material-symbols-outlined">task_alt</span>
+            Grátis para começar
+          </div>
+
+          <div class="info">
+            <span class="material-symbols-outlined">task_alt</span>
+            Sem cartão de crédito
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="right-side" id="fs-img-container">
-      <img
-        [ngSrc]="cloudFireCdnImgsLink + 'img-first-section.svg'"
-        width="537"
-        height="610"
-        alt="fantasy image"
-      />
+    <div class="right fade-in-right" id="fs-img-container">
+      <div class="left-icon material-symbols-outlined floating-icons">
+        finance_mode
+      </div>
+
+      <div class="card floating">
+        <div class="title">
+          <h1>Saldo total</h1>
+
+          <span class="material-symbols-outlined">moving</span>
+        </div>
+
+        <div class="balance">
+          <span id="amount">R$ 47.350</span>
+
+          <span id="percentage"> +12,5% este mês </span>
+        </div>
+
+        <div id="revenue-expense">
+          <div id="revenue">
+            <h4>Receitas</h4>
+
+            <span>R$ 8.500</span>
+          </div>
+
+          <div id="expense">
+            <h4>Despesas</h4>
+
+            <span>R$ 3.200</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-icon material-symbols-outlined rotating">neurology</div>
     </div>
   </div>
 </div>
