@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { MatListModule } from '@angular/material/list';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-public-third-section',
@@ -8,7 +15,15 @@ import { MatListModule } from '@angular/material/list';
   styleUrl: './public-third-section.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicThirdSectionComponent {
+export class PublicThirdSectionComponent implements AfterViewInit {
+  private readonly _utilsService = inject(UtilsService);
+
+  ngAfterViewInit(): void {
+    this._utilsService.addInViewAnimation(
+      '.fade-in-left-in-view, .fade-in-right-in-view'
+    );
+  }
+
   cards = signal<ThirdSectionCard[]>([
     {
       icon: 'credit_card',

@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-public-fourth-section',
@@ -10,4 +16,10 @@ import { RouterModule } from '@angular/router';
   styleUrl: './public-fourth-section.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicFourthSectionComponent {}
+export class PublicFourthSectionComponent implements AfterViewInit {
+  private readonly _utilsService = inject(UtilsService);
+
+  ngAfterViewInit(): void {
+    this._utilsService.addInViewAnimation('.fade-in-down-in-view');
+  }
+}

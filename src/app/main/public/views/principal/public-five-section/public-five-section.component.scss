@@ -88,8 +88,13 @@
   }
 }
 
-.appear {
-  animation: appear 0.8s ease-in-out forwards;
+.appear-in-view {
+  opacity: 0;
+
+  &.in-view {
+    opacity: 1;
+    animation: appear 0.8s ease-in-out forwards;
+  }
 }
 
 @keyframes appear {
