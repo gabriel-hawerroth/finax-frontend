@@ -3,13 +3,13 @@
     (onNavigateToOurServices)="navigateToOurServices()"
     (onNavigateToPlans)="navigateToPlans()"
     style="z-index: 10"
-  ></app-public-header>
+  />
 
   <app-public-first-section
     #firstSection
     id="first-section"
     class="public-section"
-  ></app-public-first-section>
+  />
 
   <mat-divider />
 
@@ -18,18 +18,22 @@
     #secondSection
     id="second-section"
     class="public-section"
-  ></app-public-second-section>
+  />
 
   <mat-divider />
 
-  @defer (hydrate on viewport) {
   <app-public-third-section
     #thirdSection
     id="third-section"
     class="public-section"
-  ></app-public-third-section>
-  }
+  />
 
-  <app-public-footer></app-public-footer>
+  <app-public-fourth-section
+    #fourthSection
+    id="fourth-section"
+    class="public-section"
+  />
+
+  <app-public-footer />
   }
 </div>

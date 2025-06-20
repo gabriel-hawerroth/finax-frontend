@@ -258,36 +258,6 @@
   }
 }
 
-.fade-in-right {
-  animation: fadeInRight 1.5s ease-out forwards;
-}
-
-@keyframes fadeInRight {
-  0% {
-    transform: translateX(70px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.fade-in-left {
-  animation: fadeInLeft 0.8s ease-out forwards;
-}
-
-@keyframes fadeInLeft {
-  0% {
-    transform: translateX(-30px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
 .fade-in-left-slow {
   animation: fadeInLeft 1.2s ease-out forwards;
 }

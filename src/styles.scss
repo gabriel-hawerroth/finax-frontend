@@ -237,6 +237,13 @@ body {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
+.material-symbols-rounded {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -686,6 +693,51 @@ h2 {
   }
 }
 
+.fade-in-right {
+  animation: fadeInRight 1.5s ease-out forwards;
+}
+
+@keyframes fadeInRight {
+  0% {
+    transform: translateX(70px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-in-left {
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-in-down {
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+@keyframes fadeInDown {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .card-gradient {
   background: linear-gradient(
     135deg,
@@ -695,7 +747,7 @@ h2 {
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 0 #0000, 0 0 #0000, 0 10px 15px -3px rgb(0 0 0 / 0.1),
     0 4px 6px -4px rgb(0 0 0 / 0.1);
-    border-radius: 1rem;
+  border-radius: 1rem;
 }
 
 .text-gradient {
@@ -709,4 +761,10 @@ h2 {
   background-image: linear-gradient(to right, #22c55e, #3b82f6) !important;
   background-color: hsl(172 70% 45%) !important;
   color: #fff !important;
+}
+
+.btn-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
