@@ -16,7 +16,7 @@
 
     .card {
       width: 85% !important;
-      padding: 1rem !important;
+      padding: 1.7rem !important;
 
       .left {
         max-width: 100% !important;
@@ -98,9 +98,9 @@
         gap: 0.5rem;
         font-size: 1rem;
         margin-bottom: 0.8rem;
-        color: rgb(250 204 21);
-        background-color: rgb(250 204 21 / 0.1);
-        border: 1px solid rgb(250 204 21 / 0.3);
+        color: rgb(65, 65, 65);
+        background-color: rgba(110, 110, 110, 0.1);
+        border: 1px solid rgba(121, 121, 121, 0.3);
         border-radius: 10rem;
         padding: 0.25rem 0.75rem;
 
@@ -113,6 +113,7 @@
         font-size: 3rem;
         line-height: 1.1;
         margin-bottom: 1.5rem;
+        color: #000000da;
       }
 
       p {
