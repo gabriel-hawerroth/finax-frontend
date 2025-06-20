@@ -1,3 +1,24 @@
+@media screen and (max-width: 650px) {
+  .public-section {
+    padding: 6vh 0 !important;
+
+    .card {
+      width: 85% !important;
+      padding: 2rem !important;
+
+      .cta {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+
+        #talk-to-specialist {
+          font-size: 1rem !important;
+          padding: 1rem 1.8rem !important;
+        }
+      }
+    }
+  }
+}
+
 .public-section {
   display: flex;
   justify-content: center;

@@ -1,3 +1,48 @@
+@media screen and (max-width: 1050px) {
+  .public-section {
+    .card {
+      padding: 3.5rem !important;
+
+      .right {
+        flex: none !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .public-section {
+    padding-bottom: 4vh !important;
+
+    .card {
+      width: 85% !important;
+      padding: 1rem !important;
+
+      .left {
+        max-width: 100% !important;
+
+        h1 {
+          font-size: 2rem !important;
+        }
+
+        .features-list {
+          width: 100% !important;
+          position: relative;
+          left: -1rem;
+        }
+
+        #btn-guarantee-access {
+          padding: 1rem 1.8rem !important;
+        }
+      }
+
+      .right {
+        display: none !important;
+      }
+    }
+  }
+}
+
 .public-section {
   display: flex;
   justify-content: center;
@@ -66,8 +111,6 @@
 
       h1 {
         font-size: 3rem;
-        display: flex;
-        flex-direction: column;
         line-height: 1.1;
         margin-bottom: 1.5rem;
       }
@@ -76,12 +119,23 @@
         color: var(--secondary-gray);
         font-size: 1.25rem;
         margin-bottom: 0.7rem;
+        max-width: 35rem;
       }
 
-      mat-list {
+      .features-list {
         margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.4rem;
+        margin: 1.3rem;
+        margin-bottom: 2.7rem;
 
-        mat-list-item {
+        div {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 1rem;
+
           .material-symbols-rounded {
             color: var(--secondary-green);
           }
