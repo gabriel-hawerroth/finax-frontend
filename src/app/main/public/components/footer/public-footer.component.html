@@ -1,55 +1,46 @@
 <div class="public-footer">
-  <div class="left">
-    <h1>Finax</h1>
+  <div class="top">
+    <div class="about">
+      <div class="logo">
+        <img
+          [ngSrc]="cloudFireCdnImgsLink + 'logo.svg'"
+          width="35"
+          height="35"
+          alt="company logo"
+        />
 
-    <span>
-      <img
-        ngSrc="assets/imgs/copyright.svg"
-        width="16"
-        height="16"
-        alt="copyright logo"
-      />
+        <h1 class="text-gradient">Finax</h1>
+      </div>
 
-      2024 Finax, Inc.
-    </span>
+      <p>
+        A plataforma mais inteligente para controle
+        <br />
+        financeiro pessoal.
+      </p>
+    </div>
+
+    <div class="links">
+      <div class="column">
+        <span class="column-title">Suporte</span>
+
+        <a href="mailto:suporte@appfinax.com.br" aria-label="E-mail finax">
+          <span>Contato</span>
+        </a>
+      </div>
+    </div>
   </div>
 
-  <div class="center">
-    <span routerLink="/politica-de-privacidade">Política de privacidade</span>
+  <mat-divider />
 
-    <span routerLink="/termos-de-uso">Termos de uso</span>
-  </div>
+  <div class="bottom">
+    <div class="left">
+      <span>© 2025 Finax. Todos os direitos reservados.</span>
+    </div>
 
-  <div class="right">
-    <a
-      href="https://www.linkedin.com/in/gabriel-hawerroth/"
-      target="_blank"
-      aria-label="Linkedin finax"
-    >
-      <img
-        ngSrc="assets/imgs/linkedin.svg"
-        width="22"
-        height="22"
-        alt="Linkedin logo"
-      />
-    </a>
+    <div class="right">
+      <span routerLink="/politica-de-privacidade">Privacidade</span>
 
-    <a href="" aria-label="Facebook finax">
-      <img
-        ngSrc="assets/imgs/facebook.svg"
-        width="22"
-        height="22"
-        alt="Facebook logo"
-      />
-    </a>
-
-    <a href="mailto:suporte@appfinax.com.br" aria-label="E-mail finax">
-      <img
-        ngSrc="assets/imgs/email.svg"
-        width="22"
-        height="22"
-        alt="Email logo"
-      />
-    </a>
+      <span routerLink="/termos-de-uso">Termos</span>
+    </div>
   </div>
 </div>

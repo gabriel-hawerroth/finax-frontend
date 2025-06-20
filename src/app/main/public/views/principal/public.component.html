@@ -1,30 +1,45 @@
 <div id="public-page">
   <app-public-header
-    (onNavigateToOurServices)="navigateToOurServices()"
-    (onNavigateToPlans)="navigateToPlans()"
-  ></app-public-header>
+    (onNavigateToResources)="navigateToResources()"
+    (onNavigateToPrices)="navigateToPrices()"
+    style="z-index: 10"
+  />
 
   <app-public-first-section
     #firstSection
     id="first-section"
     class="public-section"
-  ></app-public-first-section>
+  />
+
+  <mat-divider />
 
   @defer (hydrate on viewport) {
   <app-public-second-section
     #secondSection
     id="second-section"
     class="public-section"
-  ></app-public-second-section>
+  />
 
-  @defer (hydrate on viewport) {
   <app-public-third-section
     #thirdSection
     id="third-section"
     class="public-section"
-  ></app-public-third-section>
-  }
+  />
 
-  <app-public-footer></app-public-footer>
+  <app-public-fourth-section
+    #fourthSection
+    id="fourth-section"
+    class="public-section"
+  />
+
+  <app-public-five-section
+    #fiveSection
+    id="five-section"
+    class="public-section"
+  />
+
+  <mat-divider />
+
+  <app-public-footer />
   }
 </div>

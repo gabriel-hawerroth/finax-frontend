@@ -13,18 +13,18 @@ import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicHeaderComponent {
-  onNavigateToOurServices = output<void>();
-  onNavigateToPlans = output<void>();
+  onNavigateToResources = output<void>();
+  onNavigateToPrices = output<void>();
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   constructor(public loginService: LoginService) {}
 
-  navigateToOurServices(): void {
-    this.onNavigateToOurServices.emit();
+  navigateToResources(): void {
+    this.onNavigateToResources.emit();
   }
 
-  navigateToPlans(): void {
-    this.onNavigateToPlans.emit();
+  navigateToPrices(): void {
+    this.onNavigateToPrices.emit();
   }
 }
