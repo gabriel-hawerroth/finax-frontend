@@ -1,8 +1,10 @@
 @media screen and (max-width: 1050px) {
   .public-section {
-    padding-bottom: 8rem;
+    .left {
+      max-width: 100% !important;
+    }
 
-    #fs-img-container {
+    .right {
       display: none !important;
     }
   }
@@ -27,12 +29,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 7rem;
+    gap: 5rem;
     padding-bottom: 4%;
 
     .left {
       display: flex;
       flex-direction: column;
+      max-width: 40%;
 
       .title {
         font-size: 4rem;
