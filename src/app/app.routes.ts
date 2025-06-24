@@ -2,14 +2,12 @@ import { Routes } from '@angular/router';
 import { BasicTierGuard } from './core/guards/basic-tier.guard';
 import { FreeTierGuard } from './core/guards/free-tier.guard';
 import { UnauthenticatedUserGuard } from './core/guards/unauthenticated-user.guard';
+import { PublicPage } from './main/public/views/principal/public.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () =>
-      import('./main/public/views/principal/public.component').then(
-        (m) => m.PublicPage
-      ),
+    component: PublicPage,
   },
   {
     path: 'fora-do-ar',
