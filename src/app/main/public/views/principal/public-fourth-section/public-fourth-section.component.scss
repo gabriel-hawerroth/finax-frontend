@@ -3,6 +3,10 @@
     .card {
       padding: 3.5rem !important;
 
+      #circle-bottom-right {
+        display: none !important;
+      }
+
       .right {
         flex: none !important;
       }
@@ -57,14 +61,14 @@
     display: flex;
     overflow: hidden;
 
-    .circle-bottom-right,
-    .circle-top-left {
+    #circle-bottom-right,
+    #circle-top-left {
       position: absolute;
       border-radius: 50%;
     }
 
-    .circle-bottom-right {
-      right: -3rem;
+    #circle-bottom-right {
+      right: -2rem;
       bottom: -4rem;
       width: 16rem;
       height: 16rem;
@@ -72,7 +76,7 @@
       opacity: 0.2;
     }
 
-    .circle-top-left {
+    #circle-top-left {
       left: -3rem;
       top: -4rem;
       width: 12rem;
