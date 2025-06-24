@@ -10,6 +10,20 @@
   }
 }
 
+@media screen and (max-width: 650px) {
+  .public-section {
+    padding-top: 20vh !important;
+
+    .content {
+      .left {
+        .title {
+          font-size: 3rem !important;
+        }
+      }
+    }
+  }
+}
+
 .public-section {
   width: 100%;
   height: 100%;
@@ -18,10 +32,6 @@
   position: relative;
   padding-top: 15vh;
   padding-bottom: 8vh;
-
-  #first-section-background-image {
-    object-fit: cover;
-  }
 
   .content {
     width: 85%;
