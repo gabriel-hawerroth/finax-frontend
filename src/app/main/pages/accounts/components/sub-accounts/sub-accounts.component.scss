@@ -86,7 +86,7 @@
         display: flex;
         justify-content: center;
 
-        .material-symbols-outlined {
+        .material-symbols-rounded {
           color: var(--primary-gray);
           display: none;
         }
@@ -94,7 +94,7 @@
 
       &:hover {
         .navigate-icon {
-          .material-symbols-outlined {
+          .material-symbols-rounded {
             display: block;
           }
         }

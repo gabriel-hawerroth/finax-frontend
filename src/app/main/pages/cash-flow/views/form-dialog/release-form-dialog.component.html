@@ -50,7 +50,7 @@
           [matTooltip]="'release-form.attachment' | translate"
           matTooltipPosition="left"
         >
-          <span class="material-symbols-outlined">attach_file_add</span>
+          <span class="material-symbols-rounded">attach_file_add</span>
         </label>
 
         @if (!releaseForm.value.id) {
@@ -63,7 +63,7 @@
           [matTooltip]="'release-form.repeat' | translate"
           matTooltipPosition="left"
         >
-          <span class="material-symbols-outlined">repeat</span>
+          <span class="material-symbols-rounded">repeat</span>
         </label>
         }
 
@@ -78,7 +78,7 @@
           [matTooltip]="'generic.observation' | translate"
           matTooltipPosition="left"
         >
-          <span class="material-symbols-outlined">speaker_notes</span>
+          <span class="material-symbols-rounded">speaker_notes</span>
         </label>
       </div>
     </div>
@@ -104,7 +104,7 @@
                 (click)="removeFile()"
                 class="remove-file-btn"
               >
-                <span class="material-symbols-outlined">close</span>
+                <span class="material-symbols-rounded">close</span>
               </button>
             </div>
           </div>
@@ -261,7 +261,7 @@
     <mat-spinner [diameter]="30"></mat-spinner>
     } @else {
     <div class="btn-content">
-      <span class="material-symbols-outlined">save</span>
+      <span class="material-symbols-rounded">save</span>
       @if (!isMobileView()) {
       <span>
         {{ "actions.save" | translate }}
@@ -281,7 +281,7 @@
     <mat-spinner [diameter]="30"></mat-spinner>
     } @else {
     <div class="btn-content">
-      <span class="material-symbols-outlined">save</span>
+      <span class="material-symbols-rounded">save</span>
       @if (!isMobileView()) {
       <span>
         {{ "actions.save" | translate }}
@@ -295,6 +295,6 @@
 
 <ng-template #closeButton>
   <button mat-icon-button (click)="control.close()" class="close-btn">
-    <span class="material-symbols-outlined">close</span>
+    <span class="material-symbols-rounded">close</span>
   </button>
 </ng-template>

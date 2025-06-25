@@ -47,7 +47,7 @@
       border-bottom: var(--separator);
       cursor: pointer;
 
-      .material-symbols-outlined {
+      .material-symbols-rounded {
         border-radius: 50%;
         padding: 0.7rem;
         color: #fff;
@@ -68,7 +68,7 @@
         align-items: center;
         transform: scale(0.92);
 
-        .material-symbols-outlined {
+        .material-symbols-rounded {
           color: var(--primary-font-color);
         }
       }

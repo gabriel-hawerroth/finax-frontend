@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { inject, isDevMode } from '@angular/core';
 import { TraceService } from '@sentry/angular';
 import { ThemingService } from '../../shared/services/theming.service';
 import {
@@ -13,7 +13,7 @@ export default async function appInitializer(
   _utils = inject(UtilsService),
   _themingService = inject(ThemingService)
 ): Promise<void> {
-  inject(TraceService);
+  if (!isDevMode()) inject(TraceService);
 
   _themingService.applyTheme(_utils.getUserConfigs.theme);
   _utils.setUserConfigs(_utils.getUserConfigs);

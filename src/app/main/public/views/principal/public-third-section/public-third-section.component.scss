@@ -66,7 +66,7 @@
 
     mat-list {
       mat-list-item {
-        .material-symbols-outlined {
+        .material-symbols-rounded {
           color: var(--secondary-green);
         }
       }
@@ -87,7 +87,7 @@
       padding: 1.5rem;
       padding-right: 10rem;
 
-      .material-symbols-outlined {
+      .material-symbols-rounded {
         border-radius: 0.7rem;
         color: #fff;
         padding: 0.5rem;

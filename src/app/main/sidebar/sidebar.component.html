@@ -7,7 +7,7 @@
     <div class="nav-ul">
       @for (item of routes; track $index) {
       <div [routerLink]="item.route" class="nav-ul-item">
-        <i [innerText]="item.icon" class="material-symbols-outlined"></i>
+        <i [innerText]="item.icon" class="material-symbols-rounded"></i>
         <span>{{ item.label | translate }}</span>
       </div>
       }
@@ -23,7 +23,7 @@
         class="nav-ul-item"
         [class.hidden]="!userActionsUl"
       >
-        <i [innerText]="item.icon" class="material-symbols-outlined"></i>
+        <i [innerText]="item.icon" class="material-symbols-rounded"></i>
         <span>{{ item.label | translate }}</span>
       </div>
       }
@@ -46,7 +46,7 @@
         <span>{{ utils.username | async }}</span>
 
         <div style="margin-left: auto">
-          <i class="material-symbols-outlined">
+          <i class="material-symbols-rounded">
             {{ userActionsUl ? "expand_more" : "expand_less" }}
           </i>
         </div>

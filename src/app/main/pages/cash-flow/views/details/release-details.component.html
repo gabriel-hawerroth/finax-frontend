@@ -2,7 +2,7 @@
   <div class="content">
     <div class="row1">
       <span
-        class="material-symbols-outlined"
+        class="material-symbols-rounded"
         [class.margin-top]="!release.observation"
         [style.background-color]="release.category?.color || '#AFAFAF'"
       >
@@ -30,7 +30,7 @@
 
         <div class="account-card-name">
           @if (release.card) {
-          <span class="material-symbols-outlined">credit_card</span>
+          <span class="material-symbols-rounded">credit_card</span>
           }
           <label>
             {{ release.account?.name || release.card?.name }}
@@ -47,7 +47,7 @@
 
         <label class="transfer">
           {{ release.account?.name }}
-          <span class="material-symbols-outlined">arrow_right_alt</span>
+          <span class="material-symbols-rounded">arrow_right_alt</span>
           {{ release.targetAccount?.name }}
         </label>
         }
@@ -60,7 +60,7 @@
         </h2>
 
         <span
-          class="material-symbols-outlined"
+          class="material-symbols-rounded"
           [class.done]="release.done"
           [class.pending]="!release.done"
         >

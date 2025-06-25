@@ -56,6 +56,19 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+const sentryProviders = isDevMode()
+  ? [] // não adiciona nada em dev
+  : [
+      {
+        provide: ErrorHandler,
+        useValue: Sentry.createErrorHandler(),
+      },
+      {
+        provide: Sentry.TraceService,
+        deps: [Router],
+      },
+    ];
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
@@ -96,14 +109,7 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: 'TIMEZONE', useValue: 'America/Sao_Paulo' },
     DatePipe,
-    {
-      provide: ErrorHandler,
-      useValue: Sentry.createErrorHandler(),
-    },
-    {
-      provide: Sentry.TraceService,
-      deps: [Router],
-    },
+    ...sentryProviders,
     provideAppInitializer(appInitializer),
   ],
 };
