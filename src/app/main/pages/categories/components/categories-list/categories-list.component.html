@@ -23,7 +23,7 @@
     @for (category of categories(); track category.id) {
     <div class="item" (click)="onCategoryEdit($event, category)">
       <span
-        class="material-symbols-outlined"
+        class="material-symbols-rounded"
         [style.background-color]="category.color"
       >
         {{ category.icon }}
@@ -36,7 +36,7 @@
         class="delete-btn"
         (click)="onDelete.emit(category.id!)"
       >
-        <span class="material-symbols-outlined">delete</span>
+        <span class="material-symbols-rounded">delete</span>
       </button>
     </div>
     }

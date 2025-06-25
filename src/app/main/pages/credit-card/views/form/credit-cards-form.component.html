@@ -113,7 +113,7 @@
                     alt="bank account logo"
                   />
                   } @else {
-                  <span class="material-symbols-outlined default-account-logo">
+                  <span class="material-symbols-rounded default-account-logo">
                     {{ getDefaultAccountImage(account) }}
                   </span>
                   }
@@ -159,7 +159,7 @@
 
         <div id="img-div">
           @if (!selectedIcon()) {
-          <span class="material-symbols-outlined" (click)="selectIcon()">
+          <span class="material-symbols-rounded" (click)="selectIcon()">
             credit_card
           </span>
           } @else {

@@ -25,7 +25,7 @@
     <form [formGroup]="categoryForm">
       <div class="row1">
         <span
-          class="material-symbols-outlined"
+          class="material-symbols-rounded"
           [style.background-color]="categoryForm.value.color"
         >
           {{ categoryForm.value.icon }}
@@ -74,7 +74,7 @@
 
         <div class="icons">
           @for (item of icons; track $index) {
-          <span class="material-symbols-outlined" (click)="pickIcon(item)">
+          <span class="material-symbols-rounded" (click)="pickIcon(item)">
             {{ item }}
           </span>
           }

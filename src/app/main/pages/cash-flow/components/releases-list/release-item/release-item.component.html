@@ -1,7 +1,7 @@
 <div class="release" (click)="open.emit(release())">
   <div class="category">
     <span
-      class="material-symbols-outlined"
+      class="material-symbols-rounded"
       [style.background-color]="categoryBgColor()"
     >
       {{ categoryIcon() }}
@@ -30,7 +30,7 @@
       } @else {
       {{ descriptionSubTitle() }}
       @if (isCard()) {
-      <span class="material-symbols-outlined">credit_card</span>
+      <span class="material-symbols-rounded">credit_card</span>
       } }
     </span>
     }
@@ -40,7 +40,7 @@
   <div class="account">
     <label>{{ accountName() }}</label>
     @if (isCard()) {
-    <span class="material-symbols-outlined">credit_card</span>
+    <span class="material-symbols-rounded">credit_card</span>
     }
   </div>
   }
@@ -56,7 +56,7 @@
 
   <div class="situation">
     <span
-      class="material-symbols-outlined"
+      class="material-symbols-rounded"
       [class.done]="isDone()"
       [class.pending]="!isDone()"
     >

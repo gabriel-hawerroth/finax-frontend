@@ -43,14 +43,14 @@
       display: flex;
       justify-content: center;
 
-      .material-symbols-outlined {
+      .material-symbols-rounded {
         color: var(--primary-gray);
         border-radius: 50%;
         padding: 0.5rem;
       }
 
       &:hover {
-        .material-symbols-outlined {
+        .material-symbols-rounded {
           background-color: var(--button-hover-background-color);
         }
       }
@@ -100,7 +100,7 @@
       display: flex;
       justify-content: center;
 
-      .material-symbols-outlined {
+      .material-symbols-rounded {
         color: var(--primary-gray);
         display: none;
       }
@@ -108,7 +108,7 @@
 
     &:hover {
       .navigate-icon {
-        .material-symbols-outlined {
+        .material-symbols-rounded {
           display: block;
         }
       }

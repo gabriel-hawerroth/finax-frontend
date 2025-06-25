@@ -8,7 +8,7 @@
     @for (item of options; track $index) {
     <div class="action-wrapper" [id]="item.id" (click)="item.onClick()">
       <button class="action" [style.color]="item.color">
-        <span class="material-symbols-outlined">{{ item.icon }}</span>
+        <span class="material-symbols-rounded">{{ item.icon }}</span>
       </button>
       <span class="label">{{ item.label | translate }}</span>
     </div>
@@ -17,7 +17,7 @@
   }
 
   <button class="fab" (click)="toggle()">
-    <span class="material-symbols-outlined">
+    <span class="material-symbols-rounded">
       {{ isOpen() ? "close" : "add" }}
     </span>
   </button>

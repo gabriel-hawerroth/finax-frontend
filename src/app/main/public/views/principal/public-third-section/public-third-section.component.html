@@ -9,28 +9,28 @@
 
     <mat-list>
       <mat-list-item>
-        <mat-icon matListItemIcon class="material-symbols-outlined">
+        <mat-icon matListItemIcon class="material-symbols-rounded">
           task_alt
         </mat-icon>
         Dashboard personalizável
       </mat-list-item>
 
       <mat-list-item>
-        <mat-icon matListItemIcon class="material-symbols-outlined">
+        <mat-icon matListItemIcon class="material-symbols-rounded">
           task_alt
         </mat-icon>
         Gráficos interativos em tempo real
       </mat-list-item>
 
       <mat-list-item>
-        <mat-icon matListItemIcon class="material-symbols-outlined">
+        <mat-icon matListItemIcon class="material-symbols-rounded">
           task_alt
         </mat-icon>
         Relatórios detalhados e exportáveis
       </mat-list-item>
 
       <mat-list-item>
-        <mat-icon matListItemIcon class="material-symbols-outlined">
+        <mat-icon matListItemIcon class="material-symbols-rounded">
           task_alt
         </mat-icon>
         Acesso via web e mobile
@@ -42,7 +42,7 @@
     @for (card of cards(); track $index) {
     <div class="card card-gradient">
       <span
-        class="material-symbols-outlined"
+        class="material-symbols-rounded"
         [style.background-color]="card.iconBackgroundColor"
       >
         {{ card.icon }}

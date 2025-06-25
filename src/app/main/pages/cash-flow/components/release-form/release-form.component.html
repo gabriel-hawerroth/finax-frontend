@@ -49,7 +49,7 @@
                 alt="bank account logo"
               />
               } @else {
-              <span class="material-symbols-outlined default-account-logo">
+              <span class="material-symbols-rounded default-account-logo">
                 {{ getDefaultAccountImage(account) }}
               </span>
               }
@@ -74,7 +74,7 @@
                 alt="bank account logo"
               />
               } @else {
-              <span class="material-symbols-outlined default-account-logo">
+              <span class="material-symbols-rounded default-account-logo">
                 credit_card
               </span>
               }
@@ -98,7 +98,7 @@
                   alt="bank account logo"
                 />
                 } @else {
-                <span class="material-symbols-outlined default-account-logo">
+                <span class="material-symbols-rounded default-account-logo">
                   {{ getDefaultAccountImage(account) }}
                 </span>
                 }
@@ -120,7 +120,7 @@
                   alt="bank credit card logo"
                 />
                 } @else {
-                <span class="material-symbols-outlined default-account-logo">
+                <span class="material-symbols-rounded default-account-logo">
                   credit_card
                 </span>
                 }
@@ -192,7 +192,7 @@
                 alt="bank account logo"
               />
               } @else {
-              <span class="material-symbols-outlined default-account-logo">
+              <span class="material-symbols-rounded default-account-logo">
                 {{ getDefaultAccountImage(account) }}
               </span>
               }
@@ -242,7 +242,7 @@
                 alt="bank account logo"
               />
               } @else {
-              <span class="material-symbols-outlined default-account-logo">
+              <span class="material-symbols-rounded default-account-logo">
                 {{ getDefaultAccountImage(account) }}
               </span>
               }
@@ -318,7 +318,7 @@
             <div class="category-opt">
               @if (item.icon) {
               <span
-                class="material-symbols-outlined"
+                class="material-symbols-rounded"
                 [style.background-color]="item.color"
               >
                 {{ item.icon }}
@@ -334,7 +334,7 @@
           <div class="selected-category">
             @if (selectedCategory) {
             <span
-              class="material-symbols-outlined"
+              class="material-symbols-rounded"
               [style.background-color]="selectedCategory.color"
             >
               {{ selectedCategory.icon }}

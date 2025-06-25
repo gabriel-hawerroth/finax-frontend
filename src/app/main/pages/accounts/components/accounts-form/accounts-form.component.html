@@ -72,7 +72,7 @@
       @if (accountForm().value.type) {
       <div matSuffix>
         <span
-          class="material-symbols-outlined clear-value-button"
+          class="material-symbols-rounded clear-value-button"
           (click)="removeAccountType($event)"
         >
           close
@@ -198,7 +198,7 @@
 
     <div id="bank-img-div" style="margin-top: 1rem">
       @if (!accountForm().value.image) {
-      <span class="material-symbols-outlined" (click)="openSelectIconDialog()">
+      <span class="material-symbols-rounded" (click)="openSelectIconDialog()">
         account_balance
       </span>
       } @else {

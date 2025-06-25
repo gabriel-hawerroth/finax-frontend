@@ -1,66 +1,66 @@
 .home-widget {
-    padding-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
 
-    mat-card-header {
-        margin-bottom: 0.8rem;
+  mat-card-header {
+    margin-bottom: 0.8rem;
 
-        #period {
-            font-size: .9rem;
-            color: var(--secondary-gray);
-            position: relative;
-            bottom: .3rem;
-        }
-
-        .date-interval {
-            margin-left: auto;
-            padding-right: 2rem;
-        }
+    #period {
+      font-size: 0.9rem;
+      color: var(--secondary-gray);
+      position: relative;
+      bottom: 0.3rem;
     }
 
-    mat-card-content {
+    .date-interval {
+      margin-left: auto;
+      padding-right: 2rem;
+    }
+  }
+
+  mat-card-content {
+    width: 100%;
+    display: flex;
+    padding: 0 !important;
+    max-height: 40vh;
+    overflow-y: scroll;
+
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding-top: 1rem;
+
+      .category {
         width: 100%;
         display: flex;
-        padding: 0 !important;
-        max-height: 40vh;
-        overflow-y: scroll;
+        flex-direction: row;
+        align-items: center;
+        font-size: 1.08rem;
 
-        .left {
-            display: flex;
-            flex-direction: column;
-            gap: .65rem;
-            padding-top: 1rem;
-
-            .category {
-                width: 100%;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                font-size: 1.08rem;
-
-                .material-symbols-outlined {
-                    border-radius: 50%;
-                    padding: 0.45rem;
-                    color: #fff;
-                    margin-right: 1.2rem;
-                }
-
-                #percent {
-                    margin-left: auto;
-                    font-weight: bold;
-                }
-            }
+        .material-symbols-rounded {
+          border-radius: 50%;
+          padding: 0.45rem;
+          color: #fff;
+          margin-right: 1.2rem;
         }
 
-        .right {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: start;
-            align-items: center;
-
-            #chart {
-                max-width: 93%;
-            }
+        #percent {
+          margin-left: auto;
+          font-weight: bold;
         }
+      }
     }
+
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+
+      #chart {
+        max-width: 93%;
+      }
+    }
+  }
 }

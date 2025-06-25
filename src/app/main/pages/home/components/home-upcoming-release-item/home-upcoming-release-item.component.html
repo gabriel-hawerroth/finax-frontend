@@ -1,6 +1,6 @@
 <div class="release">
   <span
-    class="material-symbols-outlined category-icon"
+    class="material-symbols-rounded category-icon"
     [style.background-color]="release().categoryColor"
   >
     {{ release().categoryIcon }}
@@ -13,7 +13,7 @@
 
     <div class="release-account">
       @if (release().isCreditCardRelease) {
-      <span class="material-symbols-outlined card-icon">credit_card</span>
+      <span class="material-symbols-rounded card-icon">credit_card</span>
 
       <span id="account">{{ release().creditCardName }}</span>
       } @else {

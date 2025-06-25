@@ -42,7 +42,7 @@
       gap: 1rem;
       padding: 0 1.6rem 0 1rem;
 
-      .material-symbols-outlined {
+      .material-symbols-rounded {
         padding: 1rem;
         color: #fff;
         border-radius: 50%;
@@ -59,7 +59,7 @@
           align-items: center;
           gap: 0.8rem;
 
-          .material-symbols-outlined {
+          .material-symbols-rounded {
             color: var(--primary-font-color);
             padding: 0.3rem !important;
           }
@@ -71,7 +71,7 @@
           gap: 0.5rem;
           font-size: 1.2rem;
 
-          .material-symbols-outlined {
+          .material-symbols-rounded {
             padding: inherit;
             border-radius: 0%;
             color: var(--primary);
@@ -86,7 +86,7 @@
         justify-content: end;
         gap: 1.5rem;
 
-        .material-symbols-outlined {
+        .material-symbols-rounded {
           padding: 0.3rem !important;
         }
 
