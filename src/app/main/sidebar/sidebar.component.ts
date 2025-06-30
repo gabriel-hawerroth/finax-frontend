@@ -1,5 +1,10 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -41,6 +46,8 @@ export class SidebarComponent implements OnInit {
 
   isMobile = this._responsiveService.isMobileView;
 
+  selectedRoutes = signal<string[]>([]);
+
   constructor(
     public readonly utils: UtilsService,
     private readonly _loginService: LoginService,
@@ -80,6 +87,22 @@ export class SidebarComponent implements OnInit {
     this._loginService.logout(false);
   }
 
+  onItemClick(item: NavItem) {
+    item.onClick?.();
+
+    console.log('Item clicked:', item.icon);
+
+    if (!item.childs?.length) return;
+
+    console.log('Item has children');
+
+    if (this.selectedRoutes().includes(item.icon))
+      this.selectedRoutes.update((routes) =>
+        routes.filter((route) => route !== item.icon)
+      );
+    else this.selectedRoutes.update((routes) => [...routes, item.icon]);
+  }
+
   routes: NavItem[] = [
     {
       route: 'home',
@@ -106,6 +129,16 @@ export class SidebarComponent implements OnInit {
       icon: 'sell',
       label: 'sidebar.categories',
     },
+    {
+      icon: 'finance',
+      label: 'sidebar.reports',
+      childs: [
+        {
+          icon: 'bar_chart',
+          label: 'sidebar.financial-reports',
+        },
+      ],
+    },
   ];
 
   bottomRoutes: NavItem[] = [
@@ -120,7 +153,6 @@ export class SidebarComponent implements OnInit {
       label: 'sidebar.settings',
     },
     {
-      route: '',
       icon: 'logout',
       label: 'sidebar.logout',
       onClick: () => this.logout(),
@@ -129,8 +161,9 @@ export class SidebarComponent implements OnInit {
 }
 
 interface NavItem {
-  route: string;
+  route?: string;
   icon: string;
   label: string;
+  childs?: NavItem[];
   onClick?: () => void;
 }

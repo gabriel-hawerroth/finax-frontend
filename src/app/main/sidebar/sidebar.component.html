@@ -6,9 +6,21 @@
   <div class="navigation">
     <div class="nav-ul">
       @for (item of routes; track $index) {
-      <div [routerLink]="item.route" class="nav-ul-item">
+      <div
+        [routerLink]="item.route"
+        class="nav-ul-item"
+        (click)="onItemClick(item)"
+      >
         <i [innerText]="item.icon" class="material-symbols-rounded"></i>
         <span>{{ item.label | translate }}</span>
+
+        @if (item.childs) {
+        <i class="expand material-symbols-rounded">
+          {{
+            selectedRoutes().includes(item.icon) ? "expand_less" : "expand_more"
+          }}
+        </i>
+        }
       </div>
       }
     </div>
