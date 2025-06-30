@@ -1,0 +1,26 @@
+@for (item of items(); track $index) {
+<div [routerLink]="item.route" class="nav-ul-item" (click)="onItemClick(item)">
+  <i [innerText]="item.icon" class="material-symbols-rounded"></i>
+  <span>{{ item.label | translate }}</span>
+
+  @if (item.childs) {
+  <i class="expand material-symbols-rounded">
+    {{ selectedRoutes().includes(item.icon) ? "expand_less" : "expand_more" }}
+  </i>
+  }
+</div>
+
+@if (item.childs && selectedRoutes().includes(item.icon)) {
+<div class="nav-ul-childs">
+  @for (child of item.childs; track $index) {
+  <div
+    [routerLink]="child.route"
+    class="nav-ul-item"
+    (click)="onItemClick(child)"
+  >
+    <i [innerText]="child.icon" class="material-symbols-rounded"></i>
+    <span>{{ child.label | translate }}</span>
+  </div>
+  }
+</div>
+} }

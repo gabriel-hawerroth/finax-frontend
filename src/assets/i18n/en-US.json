@@ -101,6 +101,10 @@
     "credit-cards": "Credit Cards",
     "categories": "Categories",
     "reports": "Reports",
+    "expenses-by-category": "Expenses by category",
+    "revenues-by-category": "Revenues by category",
+    "expenses-by-account": "Expenses by account",
+    "revenues-by-account": "Revenues by account",
     "my-profile": "My Profile",
     "settings": "Settings",
     "logout": "Logout"

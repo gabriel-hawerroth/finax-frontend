@@ -101,6 +101,10 @@
     "credit-cards": "Cartões de crédito",
     "categories": "Categorias",
     "reports": "Relatórios",
+    "expenses-by-category": "Despesas por categoria",
+    "revenues-by-category": "Receitas por categoria",
+    "expenses-by-account": "Despesas por conta",
+    "revenues-by-account": "Receitas por conta",
     "my-profile": "Meu perfil",
     "settings": "Configurações",
     "logout": "Sair"

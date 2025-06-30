@@ -1,10 +1,5 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,6 +7,7 @@ import { LoginService } from '../../core/entities/auth/login.service';
 import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
 import { UserService } from '../../core/entities/user/user.service';
 import { UserAccess } from '../../core/enums/user-enums';
+import { NavItem } from '../../core/interfaces/nav-item';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { ResponsiveService } from '../../shared/services/responsive.service';
 import {
@@ -19,6 +15,7 @@ import {
   cloudFireCdnLink,
 } from '../../shared/utils/utils';
 import { UtilsService } from '../../shared/utils/utils.service';
+import { SidebarItensComponent } from './sidebar-itens/sidebar-itens.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,6 +26,7 @@ import { UtilsService } from '../../shared/utils/utils.service';
     TranslateModule,
     MatListModule,
     LogoTitleComponent,
+    SidebarItensComponent,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
@@ -45,8 +43,6 @@ export class SidebarComponent implements OnInit {
   userActionsUl: boolean = false;
 
   isMobile = this._responsiveService.isMobileView;
-
-  selectedRoutes = signal<string[]>([]);
 
   constructor(
     public readonly utils: UtilsService,
@@ -87,22 +83,6 @@ export class SidebarComponent implements OnInit {
     this._loginService.logout(false);
   }
 
-  onItemClick(item: NavItem) {
-    item.onClick?.();
-
-    console.log('Item clicked:', item.icon);
-
-    if (!item.childs?.length) return;
-
-    console.log('Item has children');
-
-    if (this.selectedRoutes().includes(item.icon))
-      this.selectedRoutes.update((routes) =>
-        routes.filter((route) => route !== item.icon)
-      );
-    else this.selectedRoutes.update((routes) => [...routes, item.icon]);
-  }
-
   routes: NavItem[] = [
     {
       route: 'home',
@@ -134,8 +114,20 @@ export class SidebarComponent implements OnInit {
       label: 'sidebar.reports',
       childs: [
         {
-          icon: 'bar_chart',
-          label: 'sidebar.financial-reports',
+          icon: 'data_usage',
+          label: 'sidebar.expenses-by-category',
+        },
+        {
+          icon: 'data_usage',
+          label: 'sidebar.revenues-by-category',
+        },
+        {
+          icon: 'equalizer',
+          label: 'sidebar.expenses-by-account',
+        },
+        {
+          icon: 'equalizer',
+          label: 'sidebar.revenues-by-account',
         },
       ],
     },
@@ -158,12 +150,4 @@ export class SidebarComponent implements OnInit {
       onClick: () => this.logout(),
     },
   ];
-}
-
-interface NavItem {
-  route?: string;
-  icon: string;
-  label: string;
-  childs?: NavItem[];
-  onClick?: () => void;
 }
