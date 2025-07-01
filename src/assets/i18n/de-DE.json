@@ -101,10 +101,8 @@
     "credit-cards": "Kreditkarten",
     "categories": "Kategorien",
     "reports": "Berichte",
-    "expenses-by-category": "Ausgaben nach Kategorie",
-    "revenues-by-category": "Einnahmen nach Kategorie",
-    "expenses-by-account": "Ausgaben nach Konto",
-    "revenues-by-account": "Einnahmen nach Konto",
+    "by-category": "Nach Kategorie",
+    "by-account": "Nach Konto",
     "my-profile": "Mein Profil",
     "settings": "Einstellungen",
     "logout": "Ausloggen"

@@ -101,10 +101,8 @@
     "credit-cards": "Tarjetas de crédito",
     "categories": "Categorías",
     "reports": "Informes",
-    "expenses-by-category": "Despesas por categoria",
-    "revenues-by-category": "Receitas por categoria",
-    "expenses-by-account": "Despesas por conta",
-    "revenues-by-account": "Receitas por conta",
+    "by-category": "Por categoría",
+    "by-account": "Por cuenta",
     "my-profile": "Mi perfil",
     "settings": "Configuraciones",
     "logout": "Salir"

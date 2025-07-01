@@ -101,10 +101,8 @@
     "credit-cards": "Cartões de crédito",
     "categories": "Categorias",
     "reports": "Relatórios",
-    "expenses-by-category": "Despesas por categoria",
-    "revenues-by-category": "Receitas por categoria",
-    "expenses-by-account": "Despesas por conta",
-    "revenues-by-account": "Receitas por conta",
+    "by-category": "Por categoria",
+    "by-account": "Por conta",
     "my-profile": "Meu perfil",
     "settings": "Configurações",
     "logout": "Sair"
@@ -424,5 +422,14 @@
     "reason-3": "Problema de conexão com o servidor",
     "try-again-later": "Por favor, tente novamente mais tarde ou entre em contato com nosso suporte para assistência.",
     "go-back": "Voltar à Página Inicial"
+  },
+  "reports": {
+    "releases-by-category": {
+      "title": "Lançamentos por categoria",
+      "no-releases": "Nenhum lançamento realizado no intervalo selecionado",
+      "error-getting-releases": "Erro ao obter os lançamentos",
+      "expenses-by-category": "Despesas por categoria",
+      "revenues-by-category": "Receitas por categoria"
+    }
   }
 }

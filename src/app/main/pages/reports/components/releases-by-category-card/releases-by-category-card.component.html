@@ -1,0 +1,14 @@
+<mat-card class="releases-by-category-card">
+  <mat-card-header>
+    <mat-card-title>
+      {{ cardTitle() | translate }}
+    </mat-card-title>
+  </mat-card-header>
+
+  <p-chart
+    id="chart"
+    type="pie"
+    [data]="chartData()"
+    [options]="options"
+  ></p-chart>
+</mat-card>

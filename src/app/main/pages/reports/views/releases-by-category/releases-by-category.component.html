@@ -1,0 +1,33 @@
+<div class="simple-page">
+  <h1 class="page-title">
+    {{ "reports.releases-by-category.title" | translate }}
+  </h1>
+
+  <div class="date-interval">
+    <dynamic-button [config]="navigateBackBtnConfig" />
+
+    <label class="tab">
+      {{ selectedDate | releasesMonth }}
+    </label>
+
+    <dynamic-button [config]="navigateNextBtnConfig" />
+  </div>
+
+  @defer (when finishedFetch()) {
+  <div class="content">
+    <app-releases-by-category-card
+      cardTitle="reports.releases-by-category.expenses-by-category"
+      [theme]="theme()"
+      [currency]="currency()"
+      [chartData]="spendsByCategoryChartData"
+    />
+
+    <app-releases-by-category-card
+      cardTitle="reports.releases-by-category.revenues-by-category"
+      [theme]="theme()"
+      [currency]="currency()"
+      [chartData]="revenuesByCategoryChartData"
+    />
+  </div>
+  }
+</div>

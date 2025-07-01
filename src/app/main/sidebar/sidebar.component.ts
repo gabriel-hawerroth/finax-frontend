@@ -114,20 +114,14 @@ export class SidebarComponent implements OnInit {
       label: 'sidebar.reports',
       childs: [
         {
+          route: 'relatorios/por-categoria',
           icon: 'data_usage',
-          label: 'sidebar.expenses-by-category',
+          label: 'sidebar.by-category',
         },
         {
-          icon: 'data_usage',
-          label: 'sidebar.revenues-by-category',
-        },
-        {
+          route: 'relatorios/por-conta',
           icon: 'equalizer',
-          label: 'sidebar.expenses-by-account',
-        },
-        {
-          icon: 'equalizer',
-          label: 'sidebar.revenues-by-account',
+          label: 'sidebar.by-account',
         },
       ],
     },
