@@ -20,7 +20,7 @@ import { ButtonConfig } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
-import { ReleasesByCategoryCardComponent } from '../../components/releases-by-category-card/releases-by-category-card.component';
+import { ReleasesByCardComponent } from '../../components/releases-by-card/releases-by-card.component';
 
 @Component({
   selector: 'app-releases-by-category',
@@ -28,7 +28,7 @@ import { ReleasesByCategoryCardComponent } from '../../components/releases-by-ca
     CommonModule,
     TranslateModule,
     DynamicButtonComponent,
-    ReleasesByCategoryCardComponent,
+    ReleasesByCardComponent,
     ReleasesMonthPipe,
     ReactiveFormsModule,
     MatSelectModule,

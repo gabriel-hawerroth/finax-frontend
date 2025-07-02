@@ -12,7 +12,7 @@ import { ChartData, ChartOptions } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-  selector: 'app-releases-by-category-card',
+  selector: 'app-releases-by-card',
   imports: [
     CommonModule,
     TranslateModule,
@@ -20,11 +20,11 @@ import { ChartModule } from 'primeng/chart';
     ChartModule,
     MatProgressSpinnerModule,
   ],
-  templateUrl: './releases-by-category-card.component.html',
-  styleUrl: './releases-by-category-card.component.scss',
+  templateUrl: './releases-by-card.component.html',
+  styleUrl: './releases-by-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleasesByCategoryCardComponent implements OnInit {
+export class ReleasesByCardComponent implements OnInit {
   theme = input.required<string>();
   currency = input.required<string>();
   chartData = input.required<ChartData>();
