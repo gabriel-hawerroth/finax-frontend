@@ -7,6 +7,7 @@ import { LoginService } from '../../core/entities/auth/login.service';
 import { UserConfigsService } from '../../core/entities/user-configs/user-configs.service';
 import { UserService } from '../../core/entities/user/user.service';
 import { UserAccess } from '../../core/enums/user-enums';
+import { NavItem } from '../../core/interfaces/nav-item';
 import { LogoTitleComponent } from '../../shared/components/logo-title/logo-title.component';
 import { ResponsiveService } from '../../shared/services/responsive.service';
 import {
@@ -14,6 +15,7 @@ import {
   cloudFireCdnLink,
 } from '../../shared/utils/utils';
 import { UtilsService } from '../../shared/utils/utils.service';
+import { SidebarItensComponent } from './sidebar-itens/sidebar-itens.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,6 +26,7 @@ import { UtilsService } from '../../shared/utils/utils.service';
     TranslateModule,
     MatListModule,
     LogoTitleComponent,
+    SidebarItensComponent,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
@@ -106,6 +109,22 @@ export class SidebarComponent implements OnInit {
       icon: 'sell',
       label: 'sidebar.categories',
     },
+    {
+      icon: 'finance',
+      label: 'sidebar.reports',
+      childs: [
+        {
+          route: 'relatorios/por-categoria',
+          icon: 'data_usage',
+          label: 'sidebar.by-category',
+        },
+        {
+          route: 'relatorios/por-conta',
+          icon: 'equalizer',
+          label: 'sidebar.by-account',
+        },
+      ],
+    },
   ];
 
   bottomRoutes: NavItem[] = [
@@ -120,17 +139,9 @@ export class SidebarComponent implements OnInit {
       label: 'sidebar.settings',
     },
     {
-      route: '',
       icon: 'logout',
       label: 'sidebar.logout',
       onClick: () => this.logout(),
     },
   ];
-}
-
-interface NavItem {
-  route: string;
-  icon: string;
-  label: string;
-  onClick?: () => void;
 }

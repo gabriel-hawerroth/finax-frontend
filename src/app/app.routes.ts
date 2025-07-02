@@ -111,46 +111,6 @@ export const routes: Routes = [
       ),
     canActivate: [FreeTierGuard],
   },
-  // {
-  //   path: 'investimentos',
-  //   component: InvestmentsComponent,
-  //   canActivate: [BasicTierGuard],
-  // },
-  // {
-  //   path: 'relatorio/fluxo-de-caixa',
-  //   component: ReportCashFlowComponent,
-  //   canActivate: [BasicTierGuard],
-  // },
-  // {
-  //   path: 'relatorio/investimentos',
-  //   component: ReportInvestmentsComponent,
-  //   canActivate: [BasicTierGuard],
-  // },
-  // {
-  //   path: 'indicadores',
-  //   component: MarketIndicatorsComponent,
-  //   canActivate: [PremiumTierGuard],
-  // },
-  // {
-  //   path: 'noticias/b3',
-  //   component: NoticesBrazilComponent,
-  //   canActivate: [PremiumTierGuard],
-  // },
-  // {
-  //   path: 'noticias/internacional',
-  //   component: NoticesInternationalComponent,
-  //   canActivate: [PremiumTierGuard],
-  // },
-  // {
-  //   path: 'noticias/criptos',
-  //   component: NoticesCriptoComponent,
-  //   canActivate: [PremiumTierGuard],
-  // },
-  // {
-  //   path: 'metas-de-gasto',
-  //   component: SpendingGoalsComponent,
-  //   canActivate: [FreeTierGuard],
-  // },
   {
     path: 'contas',
     loadComponent: () =>
@@ -199,11 +159,26 @@ export const routes: Routes = [
       ).then((m) => m.CategoriesPage),
     canActivate: [FreeTierGuard],
   },
-  // {
-  //   path: 'calculadora-de-juros',
-  //   component: InterestCalculatorComponent,
-  //   canActivate: [BasicTierGuard],
-  // },
+  {
+    path: 'relatorios',
+    canActivate: [FreeTierGuard],
+    children: [
+      {
+        path: 'por-categoria',
+        loadComponent: () =>
+          import(
+            './main/pages/reports/views/releases-by-category/releases-by-category.component'
+          ).then((m) => m.ReleasesByCategoryComponent),
+      },
+      {
+        path: 'por-conta',
+        loadComponent: () =>
+          import(
+            './main/pages/reports/views/releases-by-account/releases-by-account.component'
+          ).then((m) => m.ReleasesByAccountComponent),
+      },
+    ],
+  },
   {
     path: 'meu-perfil',
     loadComponent: () =>

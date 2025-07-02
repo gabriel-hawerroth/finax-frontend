@@ -1,0 +1,23 @@
+.releases-by-card {
+  min-height: 30rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 3rem;
+
+  .card-title {
+    margin-bottom: 1.5rem;
+  }
+
+  #chart {
+    margin: 0 auto;
+    width: 60%;
+  }
+
+  .empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+}

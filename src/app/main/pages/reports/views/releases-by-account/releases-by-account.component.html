@@ -1,0 +1,60 @@
+<div class="simple-page">
+  <h1 class="page-title">
+    {{ "reports.releases-by-account.title" | translate }}
+  </h1>
+
+  <div class="date-interval">
+    @if (showChangeMonthButtons()) {
+    <div class="center">
+      <dynamic-button [config]="navigateBackBtnConfig" />
+
+      <label class="tab">
+        {{ selectedDate | releasesMonth }}
+      </label>
+
+      <dynamic-button [config]="navigateNextBtnConfig" />
+    </div>
+    }
+
+    <mat-form-field>
+      <mat-label>
+        {{ "home.date-interval" | translate }}
+      </mat-label>
+
+      <mat-select
+        [formControl]="dateInterval"
+        (valueChange)="onChangeDateInterval($event)"
+      >
+        <mat-option [value]="getIntervalEnum('LAST_30_DAYS')">
+          {{ "home.last-30-days" | translate }}
+        </mat-option>
+
+        <mat-option [value]="getIntervalEnum('MONTHLY')">
+          {{ "reports.monthly" | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="content">
+    <app-releases-by-card
+      cardTitle="cash-flow.expenses"
+      [theme]="theme()"
+      [currency]="currency()"
+      [chartData]="spendsByAccountChartData"
+      [completedInitialFetch]="completedInitialFetchExpenses()"
+      [searching]="searchingExpenses()"
+      [error]="errorFetchingExpenses()"
+    />
+
+    <app-releases-by-card
+      cardTitle="cash-flow.revenues"
+      [theme]="theme()"
+      [currency]="currency()"
+      [chartData]="revenuesByAccountChartData"
+      [completedInitialFetch]="completedInitialFetchRevenues()"
+      [searching]="searchingRevenues()"
+      [error]="errorFetchingRevenues()"
+    />
+  </div>
+</div>

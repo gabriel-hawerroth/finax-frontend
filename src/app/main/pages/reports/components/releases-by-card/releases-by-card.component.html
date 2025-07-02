@@ -1,0 +1,28 @@
+<mat-card class="releases-by-card">
+  <div class="card-title">
+    <h2>{{ cardTitle() | translate }}</h2>
+  </div>
+
+  @defer (hydrate when completedInitialFetch()) {
+  <!---->
+  @if (searching()) {
+  <div class="empty">
+    <mat-spinner />
+  </div>
+  } @else if (error()) {
+  <div class="empty">
+    <label>{{ "reports.error-getting-releases" | translate }}</label>
+  </div>
+  } @else if (chartData().labels?.length === 0) {
+  <div class="empty">
+    <label>{{ "reports.no-releases" | translate }}</label>
+  </div>
+  } @else {
+  <p-chart
+    id="chart"
+    type="pie"
+    [data]="chartData()"
+    [options]="options"
+  ></p-chart>
+  } }
+</mat-card>

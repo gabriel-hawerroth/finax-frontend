@@ -5,28 +5,16 @@
 
   <div class="navigation">
     <div class="nav-ul">
-      @for (item of routes; track $index) {
-      <div [routerLink]="item.route" class="nav-ul-item">
-        <i [innerText]="item.icon" class="material-symbols-rounded"></i>
-        <span>{{ item.label | translate }}</span>
-      </div>
-      }
+      <app-sidebar-itens [items]="routes" />
     </div>
   </div>
 
   <div class="user-options">
     <div class="nav-ul">
-      @for (item of bottomRoutes; track $index) {
-      <div
-        (click)="item.onClick?.()"
-        [routerLink]="item.route"
-        class="nav-ul-item"
+      <app-sidebar-itens
         [class.hidden]="!userActionsUl"
-      >
-        <i [innerText]="item.icon" class="material-symbols-rounded"></i>
-        <span>{{ item.label | translate }}</span>
-      </div>
-      }
+        [items]="bottomRoutes"
+      />
 
       <div
         class="nav-ul-item user-item"
