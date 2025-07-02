@@ -1,13 +1,30 @@
 import { ReleaseType } from '../../enums/release-enums';
 import { ReportReleasesByInterval } from '../../enums/report-releases-by-interval';
-import { ReleasesByCategory } from '../home-p/home-dto';
+import { Account } from '../account/account';
+import { Category } from '../category/category';
 
-export interface ReleasesByCategoryParams {
+export interface ReportReleasesByParams {
   interval: ReportReleasesByInterval;
   releaseType: ReleaseType;
   monthYear?: string;
 }
 
+export interface ReleasesByCategory {
+  category: Category;
+  percent: number;
+  value: number;
+}
+
 export interface ReportReleasesByCategoryOutput {
-  spendByCategories: ReleasesByCategory[];
+  releasesByCategories: ReleasesByCategory[];
+}
+
+export interface ReleasesByAccount {
+  account: Account;
+  percent: number;
+  value: number;
+}
+
+export interface ReportReleasesByAccountOutput {
+  releasesByAccounts: ReleasesByAccount[];
 }

@@ -429,6 +429,9 @@
     "error-getting-releases": "Fehler beim Abrufen der Veröffentlichungen",
     "releases-by-category": {
       "title": "Veröffentlichungen nach Kategorie"
+    },
+    "releases-by-account": {
+      "title": "Veröffentlichungen nach Konto"
     }
   }
 }

@@ -429,6 +429,9 @@
     "error-getting-releases": "Erro ao obter os lançamentos",
     "releases-by-category": {
       "title": "Lançamentos por categoria"
+    },
+    "releases-by-account": {
+      "title": "Lançamentos por conta"
     }
   }
 }

@@ -429,6 +429,9 @@
     "error-getting-releases": "Error getting releases",
     "releases-by-category": {
       "title": "Releases by category"
+    },
+    "releases-by-account": {
+      "title": "Releases by account"
     }
   }
 }

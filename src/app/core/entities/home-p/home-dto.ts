@@ -1,6 +1,6 @@
 import { AccountType } from '../../enums/account-enums';
-import { Category } from '../category/category';
 import { MonthlyRelease } from '../release/release-dto';
+import { ReleasesByCategory } from '../reports/reports-dtos';
 
 export interface HomeBalances {
   revenues: number;
@@ -31,12 +31,6 @@ export interface SpendByCategoryOutput {
   spendByCategories: ReleasesByCategory[];
   startDate: Date;
   endDate: Date;
-}
-
-export interface ReleasesByCategory {
-  category: Category;
-  percent: number;
-  value: number;
 }
 
 export interface EssentialExpenses {

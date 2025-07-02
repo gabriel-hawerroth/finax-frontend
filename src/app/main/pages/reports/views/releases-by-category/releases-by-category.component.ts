@@ -10,8 +10,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartData } from 'chart.js';
 import moment from 'moment';
-import { ReleasesByCategory } from '../../../../../core/entities/home-p/home-dto';
-import { ReleasesByCategoryParams } from '../../../../../core/entities/reports/reports-dtos';
+import {
+  ReleasesByCategory,
+  ReportReleasesByParams,
+} from '../../../../../core/entities/reports/reports-dtos';
 import { ReportsService } from '../../../../../core/entities/reports/reports.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ReleaseType } from '../../../../../core/enums/release-enums';
@@ -116,12 +118,12 @@ export class ReleasesByCategoryComponent implements OnInit {
     const dateInterval = newInterval || this.dateInterval.getRawValue();
     if (!dateInterval) return;
 
-    const expenseParams: ReleasesByCategoryParams = {
+    const expenseParams: ReportReleasesByParams = {
       interval: dateInterval,
       releaseType: ReleaseType.EXPENSE,
     };
 
-    const revenueParams: ReleasesByCategoryParams = {
+    const revenueParams: ReportReleasesByParams = {
       interval: dateInterval,
       releaseType: ReleaseType.REVENUE,
     };
@@ -136,7 +138,7 @@ export class ReleasesByCategoryComponent implements OnInit {
     this._reportsService
       .getReleasesByCategory(expenseParams)
       .then((response) => {
-        this.spendsByCategory.set(response.spendByCategories);
+        this.spendsByCategory.set(response.releasesByCategories);
         this.spendsByCategoryChartData = this.getChartData(
           this.spendsByCategory()
         );
@@ -152,7 +154,7 @@ export class ReleasesByCategoryComponent implements OnInit {
     this._reportsService
       .getReleasesByCategory(revenueParams)
       .then((response) => {
-        this.revenuesByCategory.set(response.spendByCategories);
+        this.revenuesByCategory.set(response.releasesByCategories);
         this.revenuesByCategoryChartData = this.getChartData(
           this.revenuesByCategory()
         );
