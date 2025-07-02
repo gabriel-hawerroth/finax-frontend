@@ -28,12 +28,12 @@ export interface HomeUpcomingRelease {
 }
 
 export interface SpendByCategoryOutput {
-  spendByCategories: SpendByCategory[];
+  spendByCategories: ReleasesByCategory[];
   startDate: Date;
   endDate: Date;
 }
 
-export interface SpendByCategory {
+export interface ReleasesByCategory {
   category: Category;
   percent: number;
   value: number;

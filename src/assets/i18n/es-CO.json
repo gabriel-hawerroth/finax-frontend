@@ -422,5 +422,13 @@
     "reason-3": "Problema de conexión con el servidor",
     "try-again-later": "Por favor, inténtelo de nuevo más tarde o contacte a nuestro soporte para asistencia.",
     "go-back": "Volver a la página principal"
+  },
+  "reports": {
+    "monthly": "Mensual",
+    "no-releases": "No se han realizado lanzamientos en el intervalo seleccionado",
+    "error-getting-releases": "Error al obtener los lanzamientos",
+    "releases-by-category": {
+      "title": "Lanzamientos por categoría"
+    }
   }
 }

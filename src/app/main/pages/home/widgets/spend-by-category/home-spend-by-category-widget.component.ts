@@ -14,7 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
-import { SpendByCategory } from '../../../../../core/entities/home-p/home-dto';
+import { ReleasesByCategory } from '../../../../../core/entities/home-p/home-dto';
 import { HomeService } from '../../../../../core/entities/home-p/home.service';
 import { SpendByCategoryInterval } from '../../../../../core/enums/spend-by-category-interval';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
@@ -42,7 +42,7 @@ export class HomeSpendByCategoryWidget implements OnInit {
   theme = input.required<string>();
   currency = input.required<string>();
 
-  spendsByCategory = signal<SpendByCategory[]>([]);
+  spendsByCategory = signal<ReleasesByCategory[]>([]);
 
   currentDt = new Date();
   firstDt = signal(new Date());
@@ -106,6 +106,7 @@ export class HomeSpendByCategoryWidget implements OnInit {
           ],
           labels: this.spendsByCategory().map((exp) => exp.category.name),
         };
+        this.errorFetching.set(false);
       })
       .catch(() => this.errorFetching.set(true))
       .finally(() => this.finishedFetch.set(true));

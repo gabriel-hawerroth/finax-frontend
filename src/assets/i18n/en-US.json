@@ -422,5 +422,13 @@
     "reason-3": "Server connection issue",
     "try-again-later": "Please try again later or contact our support for assistance.",
     "go-back": "Return to Home Page"
+  },
+  "reports": {
+    "monthly": "Monthly",
+    "no-releases": "No releases made in the selected time frame",
+    "error-getting-releases": "Error getting releases",
+    "releases-by-category": {
+      "title": "Releases by category"
+    }
   }
 }

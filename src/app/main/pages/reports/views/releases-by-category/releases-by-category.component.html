@@ -4,30 +4,57 @@
   </h1>
 
   <div class="date-interval">
-    <dynamic-button [config]="navigateBackBtnConfig" />
+    @if (showChangeMonthButtons()) {
+    <div class="center">
+      <dynamic-button [config]="navigateBackBtnConfig" />
 
-    <label class="tab">
-      {{ selectedDate | releasesMonth }}
-    </label>
+      <label class="tab">
+        {{ selectedDate | releasesMonth }}
+      </label>
 
-    <dynamic-button [config]="navigateNextBtnConfig" />
+      <dynamic-button [config]="navigateNextBtnConfig" />
+    </div>
+    }
+
+    <mat-form-field>
+      <mat-label>
+        {{ "home.date-interval" | translate }}
+      </mat-label>
+
+      <mat-select
+        [formControl]="dateInterval"
+        (valueChange)="onChangeDateInterval($event)"
+      >
+        <mat-option [value]="getIntervalEnum('LAST_30_DAYS')">
+          {{ "home.last-30-days" | translate }}
+        </mat-option>
+
+        <mat-option [value]="getIntervalEnum('MONTHLY')">
+          {{ "reports.monthly" | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
-  @defer (when finishedFetch()) {
   <div class="content">
     <app-releases-by-category-card
-      cardTitle="reports.releases-by-category.expenses-by-category"
+      cardTitle="cash-flow.expenses"
       [theme]="theme()"
       [currency]="currency()"
       [chartData]="spendsByCategoryChartData"
+      [completedInitialFetch]="completedInitialFetchExpenses()"
+      [searching]="searchingExpenses()"
+      [error]="errorFetchingExpenses()"
     />
 
     <app-releases-by-category-card
-      cardTitle="reports.releases-by-category.revenues-by-category"
+      cardTitle="cash-flow.revenues"
       [theme]="theme()"
       [currency]="currency()"
       [chartData]="revenuesByCategoryChartData"
+      [completedInitialFetch]="completedInitialFetchRevenues()"
+      [searching]="searchingRevenues()"
+      [error]="errorFetchingRevenues()"
     />
   </div>
-  }
 </div>

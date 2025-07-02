@@ -422,5 +422,13 @@
     "reason-3": "Serververbindungsproblem",
     "try-again-later": "Bitte versuchen Sie es später erneut oder kontaktieren Sie unseren Support für Unterstützung.",
     "go-back": "Zurück zur Startseite"
+  },
+  "reports": {
+    "monthly": "Monatlich",
+    "no-releases": "Keine Veröffentlichungen im ausgewählten Zeitraum",
+    "error-getting-releases": "Fehler beim Abrufen der Veröffentlichungen",
+    "releases-by-category": {
+      "title": "Veröffentlichungen nach Kategorie"
+    }
   }
 }
