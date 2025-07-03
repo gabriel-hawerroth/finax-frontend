@@ -20,12 +20,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxCurrencyDirective } from 'ngx-currency';
 import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { AccountConfigs } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
+import { CurrencyMaskDirective } from '../../../../../shared/directives/currency-mask.directive';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import {
   cloudFireCdnImgsLink,
@@ -43,7 +43,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
-    NgxCurrencyDirective,
+    CurrencyMaskDirective,
     NgOptimizedImage,
     TranslateModule,
     MatTooltipModule,
