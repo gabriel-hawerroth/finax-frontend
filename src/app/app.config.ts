@@ -29,13 +29,10 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import * as Sentry from '@sentry/angular';
-import {
-  NgxCurrencyInputMode,
-  provideEnvironmentNgxCurrency,
-} from 'ngx-currency';
 import { routes } from './app.routes';
 import appInitializer from './core/initializers/app.initializer';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
+import { provideAppCurrencyMask } from './shared/directives/currency-mask.directive';
 
 export const MY_FORMATS = {
   parse: {
@@ -80,7 +77,7 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    provideEnvironmentNgxCurrency({
+    provideAppCurrencyMask({
       align: 'right',
       allowNegative: true,
       allowZero: true,
@@ -92,7 +89,7 @@ export const appConfig: ApplicationConfig = {
       nullable: false,
       min: null,
       max: 999999999999.99,
-      inputMode: NgxCurrencyInputMode.Financial,
+      inputMode: 'financial',
     }),
     importProvidersFrom(
       TranslateModule.forRoot({
