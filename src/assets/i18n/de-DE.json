@@ -425,8 +425,12 @@
   },
   "reports": {
     "monthly": "Monatlich",
+    "custom": "Benutzerdefiniert",
     "no-releases": "Keine Veröffentlichungen im ausgewählten Zeitraum",
     "error-getting-releases": "Fehler beim Abrufen der Veröffentlichungen",
+    "select-range-date": "Wählen Sie einen Datumsbereich",
+    "start-date": "Startdatum",
+    "end-date": "Enddatum",
     "releases-by-category": {
       "title": "Veröffentlichungen nach Kategorie"
     },

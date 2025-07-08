@@ -5,7 +5,14 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartData } from 'chart.js';
@@ -34,6 +41,9 @@ import { ReleasesByCardComponent } from '../../components/releases-by-card/relea
     ReleasesMonthPipe,
     ReactiveFormsModule,
     MatSelectModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatDatepickerModule,
   ],
   templateUrl: './releases-by-category.component.html',
   styleUrl: './releases-by-category.component.scss',
@@ -74,13 +84,22 @@ export class ReleasesByCategoryComponent implements OnInit {
   revenuesByCategory = signal<ReleasesByCategory[]>([]);
   revenuesByCategoryChartData!: ChartData;
 
-  dateInterval = new FormControl<ReportReleasesByInterval>(
+  readonly dateInterval = new FormControl<ReportReleasesByInterval>(
     ReportReleasesByInterval.MONTHLY
   );
 
   showChangeMonthButtons = signal(
     this.dateInterval.value === ReportReleasesByInterval.MONTHLY
   );
+
+  showCustomDatePicker = signal(
+    this.dateInterval.value === ReportReleasesByInterval.CUSTOM
+  );
+
+  readonly range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   constructor(
     private readonly _utils: UtilsService,
@@ -108,9 +127,14 @@ export class ReleasesByCategoryComponent implements OnInit {
   onChangeDateInterval(newInterval?: ReportReleasesByInterval) {
     if (!newInterval) return;
     this.dateInterval.setValue(newInterval);
+
     this.showChangeMonthButtons.set(
       newInterval === ReportReleasesByInterval.MONTHLY
     );
+    this.showCustomDatePicker.set(
+      newInterval === ReportReleasesByInterval.CUSTOM
+    );
+
     this.getChartsData(newInterval);
   }
 
@@ -180,7 +204,7 @@ export class ReleasesByCategoryComponent implements OnInit {
     };
   }
 
-  getIntervalEnum(interval: 'LAST_30_DAYS' | 'MONTHLY') {
+  getIntervalEnum(interval: 'LAST_30_DAYS' | 'MONTHLY' | 'CUSTOM') {
     return ReportReleasesByInterval[interval];
   }
 }
