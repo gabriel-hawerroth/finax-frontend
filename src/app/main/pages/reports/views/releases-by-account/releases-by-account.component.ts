@@ -129,9 +129,13 @@ export class ReleasesByAccountComponent implements OnInit {
     };
 
     if (dateInterval === ReportReleasesByInterval.MONTHLY) {
-      const monthYear = moment(this.selectedDate).format('YYYY-MM');
-      expenseParams.monthYear = monthYear;
-      revenueParams.monthYear = monthYear;
+      const initialDate = moment(this.selectedDate).startOf('month').toDate();
+      const finalDate = moment(this.selectedDate).endOf('month').toDate();
+
+      expenseParams.initialDate = initialDate;
+      expenseParams.finalDate = finalDate;
+      revenueParams.initialDate = initialDate;
+      revenueParams.finalDate = finalDate;
     }
 
     this.searchingExpenses.set(true);

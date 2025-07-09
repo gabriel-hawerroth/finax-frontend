@@ -142,6 +142,17 @@ export class ReleasesByCategoryComponent implements OnInit {
     const dateInterval = newInterval || this.dateInterval.getRawValue();
     if (!dateInterval) return;
 
+    if (
+      dateInterval === ReportReleasesByInterval.CUSTOM &&
+      (!this.range.value.start || !this.range.value.end)
+    ) {
+      this.range.setErrors({
+        required: true,
+      });
+      this.range.updateValueAndValidity();
+      return;
+    }
+
     const expenseParams: ReportReleasesByParams = {
       interval: dateInterval,
       releaseType: ReleaseType.EXPENSE,
@@ -152,10 +163,21 @@ export class ReleasesByCategoryComponent implements OnInit {
       releaseType: ReleaseType.REVENUE,
     };
 
-    if (dateInterval === ReportReleasesByInterval.MONTHLY) {
-      const monthYear = moment(this.selectedDate).format('YYYY-MM');
-      expenseParams.monthYear = monthYear;
-      revenueParams.monthYear = monthYear;
+    switch (dateInterval) {
+      case ReportReleasesByInterval.MONTHLY:
+        const initialDate = moment(this.selectedDate).startOf('month').toDate();
+        const finalDate = moment(this.selectedDate).endOf('month').toDate();
+        expenseParams.initialDate = initialDate;
+        expenseParams.finalDate = finalDate;
+        revenueParams.initialDate = initialDate;
+        revenueParams.finalDate = finalDate;
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        expenseParams.initialDate = this.range.value.start!;
+        expenseParams.finalDate = this.range.value.end!;
+        revenueParams.initialDate = this.range.value.start!;
+        revenueParams.finalDate = this.range.value.end!;
+        break;
     }
 
     this.searchingExpenses.set(true);
@@ -206,5 +228,23 @@ export class ReleasesByCategoryComponent implements OnInit {
 
   getIntervalEnum(interval: 'LAST_30_DAYS' | 'MONTHLY' | 'CUSTOM') {
     return ReportReleasesByInterval[interval];
+  }
+
+  onChangeDateRange() {
+    console.log('Date range changed:', this.range.value);
+
+    if (
+      !this.range.value.start ||
+      !this.range.value.end ||
+      this.range.value.start > this.range.value.end
+    ) {
+      this.range.setErrors({
+        required: true,
+      });
+      this.range.updateValueAndValidity();
+      return;
+    }
+
+    this.getChartsData(ReportReleasesByInterval.CUSTOM);
   }
 }

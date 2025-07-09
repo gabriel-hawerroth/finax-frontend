@@ -23,11 +23,13 @@
             matStartDate
             formControlName="start"
             [placeholder]="'reports.start-date' | translate"
+            (change)="onChangeDateRange()"
           />
           <input
             matEndDate
             formControlName="end"
             [placeholder]="'reports.end-date' | translate"
+            (change)="onChangeDateRange()"
           />
         </mat-date-range-input>
         <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
