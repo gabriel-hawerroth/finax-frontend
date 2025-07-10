@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
@@ -32,6 +33,7 @@ import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pi
 import {
   LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
   LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
+  LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY,
 } from '../../../../../shared/utils/local-storage-contants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesByCardComponent } from '../../components/releases-by-card/releases-by-card.component';
@@ -54,7 +56,7 @@ import { ReleasesByCardComponent } from '../../components/releases-by-card/relea
   styleUrl: './releases-by-category.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleasesByCategoryComponent implements OnInit {
+export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
   searchingExpenses = signal(false);
   errorFetchingExpenses = signal(false);
   completedInitialFetchExpenses = signal(false);
@@ -77,8 +79,7 @@ export class ReleasesByCategoryComponent implements OnInit {
     onClick: () => this.changeMonth('next'),
   };
 
-  private currentDate = new Date();
-  selectedDate = new Date(this.currentDate.setDate(15));
+  selectedDate = moment().day(15).toDate();
 
   theme = signal(this._utils.getUserConfigs.theme);
   currency = signal(this._utils.getUserConfigs.currency);
@@ -114,18 +115,62 @@ export class ReleasesByCategoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.currentDate.getDay() <= 5) this.changeMonth('before');
-
     this.range.valueChanges
       .pipe(debounceTime(200))
       .subscribe(() => this.onChangeDateRange());
 
-    const savedRange = this._utils.getItemLocalStorage(
-      LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
-    );
-    if (savedRange) this.range.patchValue(JSON.parse(savedRange));
+    switch (this.dateInterval.getRawValue()) {
+      case ReportReleasesByInterval.MONTHLY:
+        this.showChangeMonthButtons.set(true);
+        this.showCustomDatePicker.set(false);
+
+        const savedMonth = this._utils.getItemLocalStorage(
+          LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY
+        );
+        if (savedMonth) this.selectedDate = new Date(savedMonth);
+        else if (new Date().getDay() <= 5) this.changeMonth('before');
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        this.showChangeMonthButtons.set(false);
+        this.showCustomDatePicker.set(true);
+
+        const savedRange = this._utils.getItemLocalStorage(
+          LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
+        );
+        if (savedRange) this.range.patchValue(JSON.parse(savedRange));
+        else this.setDefaultRange();
+        break;
+    }
 
     this.getChartsData();
+  }
+
+  ngOnDestroy(): void {
+    this._utils.setItemLocalStorage(
+      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
+      this.dateInterval.getRawValue()!.toString()
+    );
+
+    switch (this.dateInterval.getRawValue()) {
+      case ReportReleasesByInterval.MONTHLY:
+        this._utils.setItemLocalStorage(
+          LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY,
+          this.selectedDate.toDateString()
+        );
+        this._utils.removeItemLocalStorage(
+          LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
+        );
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        this._utils.setItemLocalStorage(
+          LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
+          JSON.stringify(this.range.getRawValue())
+        );
+        this._utils.removeItemLocalStorage(
+          LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY
+        );
+        break;
+    }
   }
 
   changeMonth(direction: 'before' | 'next') {
@@ -144,10 +189,6 @@ export class ReleasesByCategoryComponent implements OnInit {
   onChangeDateInterval(newInterval?: ReportReleasesByInterval) {
     if (!newInterval) return;
     this.dateInterval.setValue(newInterval);
-    this._utils.setItemLocalStorage(
-      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
-      newInterval
-    );
 
     this.showChangeMonthButtons.set(
       newInterval === ReportReleasesByInterval.MONTHLY
@@ -155,6 +196,9 @@ export class ReleasesByCategoryComponent implements OnInit {
     this.showCustomDatePicker.set(
       newInterval === ReportReleasesByInterval.CUSTOM
     );
+
+    if (!this.range.value.start && !this.range.value.end)
+      this.setDefaultRange();
 
     this.getChartsData(newInterval);
   }
@@ -260,10 +304,12 @@ export class ReleasesByCategoryComponent implements OnInit {
       return;
 
     this.getChartsData(ReportReleasesByInterval.CUSTOM);
+  }
 
-    this._utils.setItemLocalStorage(
-      LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
-      JSON.stringify(this.range.getRawValue())
-    );
+  private setDefaultRange() {
+    this.range.patchValue({
+      start: moment().startOf('month').toDate(),
+      end: moment().endOf('month').toDate(),
+    });
   }
 }

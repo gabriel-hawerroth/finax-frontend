@@ -14,9 +14,32 @@
 
       <dynamic-button [config]="navigateNextBtnConfig" />
     </div>
+    } @else if (showCustomDatePicker()) {
+    <div class="center">
+      <mat-form-field>
+        <mat-label>{{ "reports.select-range-date" | translate }}</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input
+            matStartDate
+            formControlName="start"
+            [placeholder]="'reports.start-date' | translate"
+          />
+          <input
+            matEndDate
+            formControlName="end"
+            [placeholder]="'reports.end-date' | translate"
+          />
+        </mat-date-range-input>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+    </div>
     }
 
-    <mat-form-field>
+    <mat-form-field id="date-interval-select">
       <mat-label>
         {{ "home.date-interval" | translate }}
       </mat-label>
@@ -31,6 +54,10 @@
 
         <mat-option [value]="getIntervalEnum('MONTHLY')">
           {{ "reports.monthly" | translate }}
+        </mat-option>
+
+        <mat-option [value]="getIntervalEnum('CUSTOM')">
+          {{ "reports.custom" | translate }}
         </mat-option>
       </mat-select>
     </mat-form-field>

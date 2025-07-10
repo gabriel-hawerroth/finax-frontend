@@ -2,14 +2,22 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartData } from 'chart.js';
 import moment from 'moment';
+import { debounceTime } from 'rxjs';
 import {
   ReleasesByAccount,
   ReportReleasesByParams,
@@ -21,6 +29,11 @@ import { ReportReleasesByInterval } from '../../../../../core/enums/report-relea
 import { ButtonConfig } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
+import {
+  LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT,
+  LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT,
+  LS_LAST_MONTH_REPORT_RELEASES_BY_ACCOUNT,
+} from '../../../../../shared/utils/local-storage-contants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesByCardComponent } from '../../components/releases-by-card/releases-by-card.component';
 
@@ -33,13 +46,15 @@ import { ReleasesByCardComponent } from '../../components/releases-by-card/relea
     ReleasesByCardComponent,
     ReleasesMonthPipe,
     ReactiveFormsModule,
+    FormsModule,
     MatSelectModule,
+    MatDatepickerModule,
   ],
   templateUrl: './releases-by-account.component.html',
   styleUrl: './releases-by-account.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleasesByAccountComponent implements OnInit {
+export class ReleasesByAccountComponent implements OnInit, OnDestroy {
   searchingExpenses = signal(false);
   errorFetchingExpenses = signal(false);
   completedInitialFetchExpenses = signal(false);
@@ -74,13 +89,24 @@ export class ReleasesByAccountComponent implements OnInit {
   revenuesByAccount = signal<ReleasesByAccount[]>([]);
   revenuesByAccountChartData!: ChartData;
 
-  dateInterval = new FormControl<ReportReleasesByInterval>(
-    ReportReleasesByInterval.MONTHLY
+  readonly dateInterval = new FormControl<ReportReleasesByInterval>(
+    (this._utils.getItemLocalStorage(
+      LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT
+    ) as ReportReleasesByInterval) || ReportReleasesByInterval.MONTHLY
   );
 
   showChangeMonthButtons = signal(
     this.dateInterval.value === ReportReleasesByInterval.MONTHLY
   );
+
+  showCustomDatePicker = signal(
+    this.dateInterval.value === ReportReleasesByInterval.CUSTOM
+  );
+
+  readonly range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   constructor(
     private readonly _utils: UtilsService,
@@ -88,8 +114,62 @@ export class ReleasesByAccountComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.currentDate.getDay() <= 5) this.changeMonth('before');
-    else this.getChartsData();
+    this.range.valueChanges
+      .pipe(debounceTime(200))
+      .subscribe(() => this.onChangeDateRange());
+
+    switch (this.dateInterval.getRawValue()) {
+      case ReportReleasesByInterval.MONTHLY:
+        this.showChangeMonthButtons.set(true);
+        this.showCustomDatePicker.set(false);
+
+        const savedMonth = this._utils.getItemLocalStorage(
+          LS_LAST_MONTH_REPORT_RELEASES_BY_ACCOUNT
+        );
+        if (savedMonth) this.selectedDate = new Date(savedMonth);
+        else if (new Date().getDay() <= 5) this.changeMonth('before');
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        this.showChangeMonthButtons.set(false);
+        this.showCustomDatePicker.set(true);
+
+        const savedRange = this._utils.getItemLocalStorage(
+          LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT
+        );
+        if (savedRange) this.range.patchValue(JSON.parse(savedRange));
+        else this.setDefaultRange();
+        break;
+    }
+
+    this.getChartsData();
+  }
+
+  ngOnDestroy(): void {
+    this._utils.setItemLocalStorage(
+      LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT,
+      this.dateInterval.getRawValue()!.toString()
+    );
+
+    switch (this.dateInterval.getRawValue()) {
+      case ReportReleasesByInterval.MONTHLY:
+        this._utils.setItemLocalStorage(
+          LS_LAST_MONTH_REPORT_RELEASES_BY_ACCOUNT,
+          this.selectedDate.toDateString()
+        );
+        this._utils.removeItemLocalStorage(
+          LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT
+        );
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        this._utils.setItemLocalStorage(
+          LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT,
+          JSON.stringify(this.range.getRawValue())
+        );
+        this._utils.removeItemLocalStorage(
+          LS_LAST_MONTH_REPORT_RELEASES_BY_ACCOUNT
+        );
+        break;
+    }
   }
 
   changeMonth(direction: 'before' | 'next') {
@@ -108,15 +188,34 @@ export class ReleasesByAccountComponent implements OnInit {
   onChangeDateInterval(newInterval?: ReportReleasesByInterval) {
     if (!newInterval) return;
     this.dateInterval.setValue(newInterval);
+
     this.showChangeMonthButtons.set(
       newInterval === ReportReleasesByInterval.MONTHLY
     );
+    this.showCustomDatePicker.set(
+      newInterval === ReportReleasesByInterval.CUSTOM
+    );
+
+    if (!this.range.value.start && !this.range.value.end)
+      this.setDefaultRange();
+
     this.getChartsData(newInterval);
   }
 
   getChartsData(newInterval?: ReportReleasesByInterval) {
     const dateInterval = newInterval || this.dateInterval.getRawValue();
     if (!dateInterval) return;
+
+    if (
+      dateInterval === ReportReleasesByInterval.CUSTOM &&
+      (!this.range.value.start || !this.range.value.end)
+    ) {
+      this.range.setErrors({
+        required: true,
+      });
+      this.range.updateValueAndValidity();
+      return;
+    }
 
     const expenseParams: ReportReleasesByParams = {
       interval: dateInterval,
@@ -128,14 +227,21 @@ export class ReleasesByAccountComponent implements OnInit {
       releaseType: ReleaseType.REVENUE,
     };
 
-    if (dateInterval === ReportReleasesByInterval.MONTHLY) {
-      const initialDate = moment(this.selectedDate).startOf('month').toDate();
-      const finalDate = moment(this.selectedDate).endOf('month').toDate();
-
-      expenseParams.initialDate = initialDate;
-      expenseParams.finalDate = finalDate;
-      revenueParams.initialDate = initialDate;
-      revenueParams.finalDate = finalDate;
+    switch (dateInterval) {
+      case ReportReleasesByInterval.MONTHLY:
+        const initialDate = moment(this.selectedDate).startOf('month').toDate();
+        const finalDate = moment(this.selectedDate).endOf('month').toDate();
+        expenseParams.initialDate = initialDate;
+        expenseParams.finalDate = finalDate;
+        revenueParams.initialDate = initialDate;
+        revenueParams.finalDate = finalDate;
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        expenseParams.initialDate = this.range.value.start!;
+        expenseParams.finalDate = this.range.value.end!;
+        revenueParams.initialDate = this.range.value.start!;
+        revenueParams.finalDate = this.range.value.end!;
+        break;
     }
 
     this.searchingExpenses.set(true);
@@ -186,8 +292,26 @@ export class ReleasesByAccountComponent implements OnInit {
     };
   }
 
-  getIntervalEnum(interval: 'LAST_30_DAYS' | 'MONTHLY') {
+  getIntervalEnum(interval: 'LAST_30_DAYS' | 'MONTHLY' | 'CUSTOM') {
     return ReportReleasesByInterval[interval];
+  }
+
+  onChangeDateRange() {
+    if (
+      !this.range.value.start ||
+      !this.range.value.end ||
+      this.range.value.start > this.range.value.end
+    )
+      return;
+
+    this.getChartsData(ReportReleasesByInterval.CUSTOM);
+  }
+
+  private setDefaultRange() {
+    this.range.patchValue({
+      start: moment().startOf('month').toDate(),
+      end: moment().endOf('month').toDate(),
+    });
   }
 
   PIE_CHART_COLORS: string[] = [
