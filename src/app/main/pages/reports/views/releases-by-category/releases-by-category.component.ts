@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartData } from 'chart.js';
 import moment from 'moment';
+import { debounceTime } from 'rxjs';
 import {
   ReleasesByCategory,
   ReportReleasesByParams,
@@ -28,6 +29,10 @@ import { ReportReleasesByInterval } from '../../../../../core/enums/report-relea
 import { ButtonConfig } from '../../../../../core/interfaces/button-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
+import {
+  LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
+  LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
+} from '../../../../../shared/utils/local-storage-contants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesByCardComponent } from '../../components/releases-by-card/releases-by-card.component';
 
@@ -85,7 +90,9 @@ export class ReleasesByCategoryComponent implements OnInit {
   revenuesByCategoryChartData!: ChartData;
 
   readonly dateInterval = new FormControl<ReportReleasesByInterval>(
-    ReportReleasesByInterval.MONTHLY
+    (this._utils.getItemLocalStorage(
+      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY
+    ) as ReportReleasesByInterval) || ReportReleasesByInterval.MONTHLY
   );
 
   showChangeMonthButtons = signal(
@@ -108,7 +115,17 @@ export class ReleasesByCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.currentDate.getDay() <= 5) this.changeMonth('before');
-    else this.getChartsData();
+
+    this.range.valueChanges
+      .pipe(debounceTime(200))
+      .subscribe(() => this.onChangeDateRange());
+
+    const savedRange = this._utils.getItemLocalStorage(
+      LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
+    );
+    if (savedRange) this.range.patchValue(JSON.parse(savedRange));
+
+    this.getChartsData();
   }
 
   changeMonth(direction: 'before' | 'next') {
@@ -127,6 +144,10 @@ export class ReleasesByCategoryComponent implements OnInit {
   onChangeDateInterval(newInterval?: ReportReleasesByInterval) {
     if (!newInterval) return;
     this.dateInterval.setValue(newInterval);
+    this._utils.setItemLocalStorage(
+      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
+      newInterval
+    );
 
     this.showChangeMonthButtons.set(
       newInterval === ReportReleasesByInterval.MONTHLY
@@ -231,20 +252,18 @@ export class ReleasesByCategoryComponent implements OnInit {
   }
 
   onChangeDateRange() {
-    console.log('Date range changed:', this.range.value);
-
     if (
       !this.range.value.start ||
       !this.range.value.end ||
       this.range.value.start > this.range.value.end
-    ) {
-      this.range.setErrors({
-        required: true,
-      });
-      this.range.updateValueAndValidity();
+    )
       return;
-    }
 
     this.getChartsData(ReportReleasesByInterval.CUSTOM);
+
+    this._utils.setItemLocalStorage(
+      LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
+      JSON.stringify(this.range.getRawValue())
+    );
   }
 }

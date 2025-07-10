@@ -23,27 +23,18 @@
             matStartDate
             formControlName="start"
             [placeholder]="'reports.start-date' | translate"
-            (change)="onChangeDateRange()"
           />
           <input
             matEndDate
             formControlName="end"
             [placeholder]="'reports.end-date' | translate"
-            (change)="onChangeDateRange()"
           />
         </mat-date-range-input>
-        <mat-hint>DD/MM/YYYY - DD/MM/YYYY</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="picker"
         ></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
-
-        @if (range.controls.start.hasError('matStartDateInvalid')) {
-        <mat-error>Invalid start date</mat-error>
-        } @if (range.controls.end.hasError('matEndDateInvalid')) {
-        <mat-error>Invalid end date</mat-error>
-        }
       </mat-form-field>
     </div>
     }
