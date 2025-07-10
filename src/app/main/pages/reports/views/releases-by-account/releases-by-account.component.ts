@@ -12,6 +12,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
@@ -49,6 +50,7 @@ import { ReleasesByCardComponent } from '../../components/releases-by-card/relea
     FormsModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatCardModule,
   ],
   templateUrl: './releases-by-account.component.html',
   styleUrl: './releases-by-account.component.scss',
