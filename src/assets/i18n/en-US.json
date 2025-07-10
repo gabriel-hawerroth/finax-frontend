@@ -425,8 +425,12 @@
   },
   "reports": {
     "monthly": "Monthly",
+    "custom": "Custom",
     "no-releases": "No releases made in the selected time frame",
     "error-getting-releases": "Error getting releases",
+    "select-range-date": "Select a date range",
+    "start-date": "Start date",
+    "end-date": "End date",
     "releases-by-category": {
       "title": "Releases by category"
     },

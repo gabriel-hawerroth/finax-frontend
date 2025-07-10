@@ -10,26 +10,41 @@
   .date-interval {
     display: flex;
     align-items: center;
-    height: 3.2rem;
+    justify-content: center;
+    height: 8rem;
+    margin: 0 4rem;
+    border-radius: 3rem;
 
-    .center {
+    .date-interval-content {
       display: flex;
       align-items: center;
-      margin: 0 auto;
-      gap: 1rem;
 
-      label {
-        font-size: 1.3rem;
-        text-transform: capitalize;
-        width: 12rem;
+      .center {
         display: flex;
         justify-content: center;
-      }
-    }
+        align-items: center;
+        margin: 0 auto;
+        gap: 1rem;
 
-    mat-form-field {
-      position: absolute;
-      right: 6rem;
+        label {
+          font-size: 1.3rem;
+          text-transform: capitalize;
+          width: 12rem;
+          display: flex;
+          justify-content: center;
+        }
+
+        mat-form-field {
+          width: 18rem;
+          margin: 0;
+        }
+      }
+
+      #date-interval-select {
+        position: absolute;
+        right: 6rem;
+        bottom: 1.5rem;
+      }
     }
   }
 

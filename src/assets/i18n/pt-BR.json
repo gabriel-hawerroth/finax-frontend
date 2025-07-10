@@ -425,8 +425,12 @@
   },
   "reports": {
     "monthly": "Mensal",
+    "custom": "Personalizado",
     "no-releases": "Nenhum lançamento realizado no intervalo selecionado",
     "error-getting-releases": "Erro ao obter os lançamentos",
+    "select-range-date": "Selecione um intervalo de datas",
+    "start-date": "Data inicial",
+    "end-date": "Data final",
     "releases-by-category": {
       "title": "Lançamentos por categoria"
     },

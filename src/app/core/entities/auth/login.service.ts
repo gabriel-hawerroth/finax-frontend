@@ -5,6 +5,12 @@ import { Router } from '@angular/router';
 import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import {
+  LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT,
+  LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
+  LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT,
+  LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
+} from '../../../shared/utils/local-storage-contants';
 import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { UtilsService } from '../../../shared/utils/utils.service';
 import { UserConfigsService } from '../user-configs/user-configs.service';
@@ -127,12 +133,28 @@ export class LoginService {
 
     if (redirectToPublicPage) this._router.navigateByUrl('login');
 
+    this.clearLocalStorage();
+
+    if (showMessage) this._utils.showMessage('login.access-expired', 5000);
+  }
+
+  private clearLocalStorage() {
     this._utils.removeItemLocalStorage('userFinax');
     this._utils.removeItemLocalStorage('tokenFinax');
     this._utils.removeItemLocalStorage('tokenExpiration');
     this._utils.removeItemLocalStorage('selectedMonthCashFlow');
-
-    if (showMessage) this._utils.showMessage('login.access-expired', 5000);
+    this._utils.removeItemLocalStorage(
+      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY
+    );
+    this._utils.removeItemLocalStorage(
+      LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
+    );
+    this._utils.removeItemLocalStorage(
+      LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT
+    );
+    this._utils.removeItemLocalStorage(
+      LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT
+    );
   }
 
   sendChangePasswordEmail(email: string): Promise<void> {
