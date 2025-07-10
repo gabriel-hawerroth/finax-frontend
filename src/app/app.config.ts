@@ -33,7 +33,6 @@ import {
   NgxCurrencyInputMode,
   provideEnvironmentNgxCurrency,
 } from 'ngx-currency';
-import { provideNgxMask } from 'ngx-mask';
 import { routes } from './app.routes';
 import appInitializer from './core/initializers/app.initializer';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
@@ -76,7 +75,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withIncrementalHydration()),
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
-    provideNgxMask(),
     provideNativeDateAdapter(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),

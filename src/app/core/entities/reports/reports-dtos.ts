@@ -6,7 +6,8 @@ import { Category } from '../category/category';
 export interface ReportReleasesByParams {
   interval: ReportReleasesByInterval;
   releaseType: ReleaseType;
-  monthYear?: string;
+  initialDate?: Date;
+  finalDate?: Date;
 }
 
 export interface ReleasesByCategory {

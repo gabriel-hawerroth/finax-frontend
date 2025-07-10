@@ -1,7 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import moment from 'moment';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { ReportReleasesByInterval } from '../../enums/report-releases-by-interval';
 import {
   ReportReleasesByAccountOutput,
   ReportReleasesByCategoryOutput,
@@ -19,13 +21,7 @@ export class ReportsService {
   getReleasesByCategory(
     params: ReportReleasesByParams
   ): Promise<ReportReleasesByCategoryOutput> {
-    let httpParams = new HttpParams()
-      .set('interval', params.interval)
-      .set('releaseType', params.releaseType);
-
-    if (params.monthYear) {
-      httpParams = httpParams.set('monthYear', params.monthYear);
-    }
+    let httpParams = this.createHttpParams(params);
 
     return lastValueFrom(
       this._http.get<ReportReleasesByCategoryOutput>(
@@ -40,13 +36,7 @@ export class ReportsService {
   getReleasesByAccount(
     params: ReportReleasesByParams
   ): Promise<ReportReleasesByAccountOutput> {
-    let httpParams = new HttpParams()
-      .set('interval', params.interval)
-      .set('releaseType', params.releaseType);
-
-    if (params.monthYear) {
-      httpParams = httpParams.set('monthYear', params.monthYear);
-    }
+    let httpParams = this.createHttpParams(params);
 
     return lastValueFrom(
       this._http.get<ReportReleasesByAccountOutput>(
@@ -56,5 +46,37 @@ export class ReportsService {
         }
       )
     );
+  }
+
+  private createHttpParams(params: ReportReleasesByParams) {
+    let httpParams = new HttpParams()
+      .set('interval', params.interval)
+      .set('releaseType', params.releaseType);
+
+    httpParams = this.applyDateFilters(params, httpParams);
+    return httpParams;
+  }
+
+  private applyDateFilters(
+    params: ReportReleasesByParams,
+    httpParams: HttpParams
+  ) {
+    if (params.interval !== ReportReleasesByInterval.LAST_30_DAYS) {
+      if (!params.initialDate || !params.finalDate) {
+        throw new Error(
+          'Initial and final dates are required for intervals other than LAST_30_DAYS.'
+        );
+      }
+
+      httpParams = httpParams.set(
+        'initialDate',
+        moment(params.initialDate).format('YYYY-MM-DD')
+      );
+      httpParams = httpParams.set(
+        'finalDate',
+        moment(params.finalDate).format('YYYY-MM-DD')
+      );
+    }
+    return httpParams;
   }
 }
