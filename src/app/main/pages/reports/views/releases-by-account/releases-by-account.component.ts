@@ -250,7 +250,7 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
     this._reportsService
       .getReleasesByAccount(expenseParams)
       .then((response) => {
-        this.spendsByAccount.set(response.releasesByAccounts);
+        this.spendsByAccount.set(response);
         this.spendsByAccountChartData = this.getChartData(
           this.spendsByAccount()
         );
@@ -266,7 +266,7 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
     this._reportsService
       .getReleasesByAccount(revenueParams)
       .then((response) => {
-        this.revenuesByAccount.set(response.releasesByAccounts);
+        this.revenuesByAccount.set(response);
         this.revenuesByAccountChartData = this.getChartData(
           this.revenuesByAccount()
         );
@@ -290,7 +290,7 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
           borderColor: this.theme() === 'dark' ? '#dededeea' : '#fff',
         },
       ],
-      labels: list.map((exp) => exp.account.name),
+      labels: list.map((exp) => exp.accountName),
     };
   }
 

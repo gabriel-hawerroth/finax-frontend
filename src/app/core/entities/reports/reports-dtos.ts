@@ -1,7 +1,5 @@
 import { ReleaseType } from '../../enums/release-enums';
 import { ReportReleasesByInterval } from '../../enums/report-releases-by-interval';
-import { Account } from '../account/account';
-import { Category } from '../category/category';
 
 export interface ReportReleasesByParams {
   interval: ReportReleasesByInterval;
@@ -10,22 +8,20 @@ export interface ReportReleasesByParams {
   finalDate?: Date;
 }
 
-export interface ReleasesByCategory {
-  category: Category;
-  percent: number;
-  value: number;
+export interface CategoryRec {
+  name: string;
+  color: string;
+  icon: string;
 }
 
-export interface ReportReleasesByCategoryOutput {
-  releasesByCategories: ReleasesByCategory[];
+export interface ReleasesByCategory {
+  category: CategoryRec;
+  percent: number;
+  value: number;
 }
 
 export interface ReleasesByAccount {
-  account: Account;
+  accountName: string;
   percent: number;
   value: number;
-}
-
-export interface ReportReleasesByAccountOutput {
-  releasesByAccounts: ReleasesByAccount[];
 }

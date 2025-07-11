@@ -5,8 +5,8 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ReportReleasesByInterval } from '../../enums/report-releases-by-interval';
 import {
-  ReportReleasesByAccountOutput,
-  ReportReleasesByCategoryOutput,
+  ReleasesByAccount,
+  ReleasesByCategory,
   ReportReleasesByParams,
 } from './reports-dtos';
 
@@ -20,11 +20,11 @@ export class ReportsService {
 
   getReleasesByCategory(
     params: ReportReleasesByParams
-  ): Promise<ReportReleasesByCategoryOutput> {
+  ): Promise<ReleasesByCategory[]> {
     let httpParams = this.createHttpParams(params);
 
     return lastValueFrom(
-      this._http.get<ReportReleasesByCategoryOutput>(
+      this._http.get<ReleasesByCategory[]>(
         `${this.apiUrl}/releases-by-category`,
         {
           params: httpParams,
@@ -35,11 +35,11 @@ export class ReportsService {
 
   getReleasesByAccount(
     params: ReportReleasesByParams
-  ): Promise<ReportReleasesByAccountOutput> {
+  ): Promise<ReleasesByAccount[]> {
     let httpParams = this.createHttpParams(params);
 
     return lastValueFrom(
-      this._http.get<ReportReleasesByAccountOutput>(
+      this._http.get<ReleasesByAccount[]>(
         `${this.apiUrl}/releases-by-account`,
         {
           params: httpParams,
