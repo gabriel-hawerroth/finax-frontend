@@ -251,7 +251,7 @@ export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
     this._reportsService
       .getReleasesByCategory(expenseParams)
       .then((response) => {
-        this.spendsByCategory.set(response.releasesByCategories);
+        this.spendsByCategory.set(response);
         this.spendsByCategoryChartData = this.getChartData(
           this.spendsByCategory()
         );
@@ -267,7 +267,7 @@ export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
     this._reportsService
       .getReleasesByCategory(revenueParams)
       .then((response) => {
-        this.revenuesByCategory.set(response.releasesByCategories);
+        this.revenuesByCategory.set(response);
         this.revenuesByCategoryChartData = this.getChartData(
           this.revenuesByCategory()
         );
