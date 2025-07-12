@@ -116,10 +116,6 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.range.valueChanges
-      .pipe(debounceTime(200))
-      .subscribe(() => this.onChangeDateRange());
-
     switch (this.dateInterval.getRawValue()) {
       case ReportReleasesByInterval.MONTHLY:
         this.showChangeMonthButtons.set(true);
@@ -142,6 +138,10 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
         else this.setDefaultRange();
         break;
     }
+
+    this.range.valueChanges
+      .pipe(debounceTime(200))
+      .subscribe(() => this.onChangeDateRange());
 
     this.getChartsData();
   }
@@ -253,9 +253,7 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
       .getReleasesByAccount(expenseParams)
       .then((response) => {
         this.spendsByAccount.set(response);
-        this.spendsByAccountChartData = this.getChartData(
-          this.spendsByAccount()
-        );
+        this.spendsByAccountChartData = this.getChartData(response);
         this.errorFetchingExpenses.set(false);
       })
       .catch(() => this.errorFetchingExpenses.set(true))
@@ -269,9 +267,7 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
       .getReleasesByAccount(revenueParams)
       .then((response) => {
         this.revenuesByAccount.set(response);
-        this.revenuesByAccountChartData = this.getChartData(
-          this.revenuesByAccount()
-        );
+        this.revenuesByAccountChartData = this.getChartData(response);
         this.errorFetchingRevenues.set(false);
       })
       .catch(() => this.errorFetchingRevenues.set(true))
