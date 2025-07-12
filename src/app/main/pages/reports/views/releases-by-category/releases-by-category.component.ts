@@ -206,6 +206,8 @@ export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
   }
 
   getChartsData(newInterval?: ReportReleasesByInterval) {
+    if (this.searchingExpenses() || this.searchingRevenues()) return;
+
     const dateInterval = newInterval || this.dateInterval.getRawValue();
     if (!dateInterval) return;
 
