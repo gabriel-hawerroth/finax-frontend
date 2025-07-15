@@ -7,3 +7,6 @@
 - Don't add standalone properties to decorators, this is enabled by default
 - Import rxjs operators from 'rxjs' instead of 'rxjs/operators'
 - Prefer reactive forms
+
+# Angular 19 documentation
+- https://v19.material.angular.dev/components/categories
