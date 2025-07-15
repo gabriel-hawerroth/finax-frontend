@@ -12,6 +12,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
@@ -51,6 +52,7 @@ import { ReleasesByCardComponent } from '../../components/releases-by-card/relea
     MatSelectModule,
     MatDatepickerModule,
     MatCardModule,
+    MatButtonToggleModule,
   ],
   templateUrl: './releases-by-account.component.html',
   styleUrl: './releases-by-account.component.scss',
@@ -109,6 +111,8 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
+
+  readonly chartTypeControl = new FormControl<'pie' | 'bar'>('pie');
 
   constructor(
     private readonly _utils: UtilsService,

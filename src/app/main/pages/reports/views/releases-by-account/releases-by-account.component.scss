@@ -8,7 +8,7 @@
   }
 
   .date-interval {
-    height: 8rem;
+    height: 20rem;
     margin: 0 4rem;
     border-radius: 3rem;
 
@@ -17,6 +17,15 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      .left {
+        margin-left: 3rem;
+
+        .mat-button-toggle-group {
+          width: 7.5rem;
+          height: 2.7rem;
+        }
+      }
 
       .center {
         position: absolute;

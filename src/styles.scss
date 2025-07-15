@@ -329,8 +329,38 @@ mat-card-title {
   background-color: var(--background) !important;
 }
 
-.mat-button-toggle-button {
+.mat-button-toggle {
+  width: 100% !important;
   display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+  .mat-button-toggle-button {
+    display: flex !important;
+
+    .mat-button-toggle-label-content {
+      width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+  }
+}
+
+.mat-button-toggle-appearance-standard {
+  background-color: #fff !important;
+
+  .material-symbols-rounded {
+    color: #3b3b3b;
+  }
+}
+
+.mat-button-toggle-checked {
+  background-color: #4caf50 !important;
+
+  .material-symbols-rounded {
+    color: #fff !important;
+  }
 }
 
 .mat-mdc-list-item-unscoped-content {
