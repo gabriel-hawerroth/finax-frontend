@@ -12,6 +12,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,13 +30,10 @@ import { ButtonType } from '../../../../../core/enums/button-style';
 import { ReleaseType } from '../../../../../core/enums/release-enums';
 import { ReportReleasesByInterval } from '../../../../../core/enums/report-releases-by-interval';
 import { ButtonConfig } from '../../../../../core/interfaces/button-config';
+import { ReportReleasesByConfig } from '../../../../../core/interfaces/report-releases-by-config';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
-import {
-  LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
-  LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
-  LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY,
-} from '../../../../../shared/utils/local-storage-contants';
+import { LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS } from '../../../../../shared/utils/local-storage-contants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesByCardComponent } from '../../components/releases-by-card/releases-by-card.component';
 
@@ -53,6 +51,7 @@ import { ReleasesByCardComponent } from '../../components/releases-by-card/relea
     FormsModule,
     MatDatepickerModule,
     MatCardModule,
+    MatButtonToggleModule,
   ],
   templateUrl: './releases-by-category.component.html',
   styleUrl: './releases-by-category.component.scss',
@@ -93,23 +92,19 @@ export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
   revenuesByCategoryChartData!: ChartData;
 
   readonly dateInterval = new FormControl<ReportReleasesByInterval>(
-    (this._utils.getItemLocalStorage(
-      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY
-    ) as ReportReleasesByInterval) || ReportReleasesByInterval.MONTHLY
+    ReportReleasesByInterval.MONTHLY
   );
 
-  showChangeMonthButtons = signal(
-    this.dateInterval.value === ReportReleasesByInterval.MONTHLY
-  );
+  showChangeMonthButtons = signal(false);
 
-  showCustomDatePicker = signal(
-    this.dateInterval.value === ReportReleasesByInterval.CUSTOM
-  );
+  showCustomDatePicker = signal(false);
 
   readonly range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
+
+  readonly chartTypeControl = new FormControl<'pie' | 'bar'>('pie');
 
   constructor(
     private readonly _utils: UtilsService,
@@ -117,28 +112,8 @@ export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    switch (this.dateInterval.getRawValue()) {
-      case ReportReleasesByInterval.MONTHLY:
-        this.showChangeMonthButtons.set(true);
-        this.showCustomDatePicker.set(false);
-
-        const savedMonth = this._utils.getItemLocalStorage(
-          LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY
-        );
-        if (savedMonth) this.selectedDate = new Date(savedMonth);
-        else if (new Date().getDay() <= 5) this.changeMonth('before');
-        break;
-      case ReportReleasesByInterval.CUSTOM:
-        this.showChangeMonthButtons.set(false);
-        this.showCustomDatePicker.set(true);
-
-        const savedRange = this._utils.getItemLocalStorage(
-          LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
-        );
-        if (savedRange) this.range.patchValue(JSON.parse(savedRange));
-        else this.setDefaultRange();
-        break;
-    }
+    this.setSavedConfigs();
+    this.setCenterButtons();
 
     this.range.valueChanges
       .pipe(debounceTime(200))
@@ -148,29 +123,68 @@ export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._utils.setItemLocalStorage(
-      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
-      this.dateInterval.getRawValue()!.toString()
-    );
+    this.saveConfigs();
+  }
 
+  private saveConfigs() {
+    const dateInterval = this.dateInterval.getRawValue()!;
+    const defaultRange = this.getDefaultRange();
+
+    const configs: ReportReleasesByConfig = {
+      dateInterval: dateInterval,
+      chartType: this.chartTypeControl.getRawValue()!,
+      selectedMonth:
+        dateInterval === ReportReleasesByInterval.MONTHLY
+          ? this.selectedDate
+          : undefined,
+      dateRange:
+        dateInterval === ReportReleasesByInterval.CUSTOM
+          ? {
+              start: this.range.value.start || defaultRange.start,
+              end: this.range.value.end || defaultRange.end,
+            }
+          : undefined,
+    };
+
+    this._utils.setItemLocalStorage(
+      LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS,
+      JSON.stringify(configs)
+    );
+  }
+
+  private setSavedConfigs() {
+    const savedConfigs = this._utils.getItemLocalStorage(
+      LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS
+    );
+    if (!savedConfigs) return;
+
+    const configs: ReportReleasesByConfig = JSON.parse(savedConfigs);
+    this.dateInterval.setValue(configs.dateInterval);
+    this.chartTypeControl.setValue(configs.chartType);
+
+    if (configs.selectedMonth) {
+      this.selectedDate = new Date(configs.selectedMonth);
+    } else if (configs.dateRange) {
+      this.range.patchValue(configs.dateRange);
+    }
+
+    if (
+      configs.dateInterval === ReportReleasesByInterval.CUSTOM &&
+      !configs.dateRange
+    ) {
+      this.setDefaultRange();
+    }
+  }
+
+  private setCenterButtons() {
     switch (this.dateInterval.getRawValue()) {
       case ReportReleasesByInterval.MONTHLY:
-        this._utils.setItemLocalStorage(
-          LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY,
-          this.selectedDate.toDateString()
-        );
-        this._utils.removeItemLocalStorage(
-          LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
-        );
+        this.showChangeMonthButtons.set(true);
+        this.showCustomDatePicker.set(false);
         break;
       case ReportReleasesByInterval.CUSTOM:
-        this._utils.setItemLocalStorage(
-          LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
-          JSON.stringify(this.range.getRawValue())
-        );
-        this._utils.removeItemLocalStorage(
-          LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY
-        );
+        this.showChangeMonthButtons.set(false);
+        this.showCustomDatePicker.set(true);
         break;
     }
   }
@@ -307,9 +321,13 @@ export class ReleasesByCategoryComponent implements OnInit, OnDestroy {
   }
 
   private setDefaultRange() {
-    this.range.patchValue({
+    this.range.patchValue(this.getDefaultRange());
+  }
+
+  private getDefaultRange() {
+    return {
       start: moment().startOf('month').toDate(),
       end: moment().endOf('month').toDate(),
-    });
+    };
   }
 }

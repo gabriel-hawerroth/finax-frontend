@@ -78,8 +78,7 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
     onClick: () => this.changeMonth('next'),
   };
 
-  private currentDate = new Date();
-  selectedDate = new Date(this.currentDate.setDate(15));
+  selectedDate = moment().day(15).toDate();
 
   theme = signal(this._utils.getUserConfigs.theme);
   currency = signal(this._utils.getUserConfigs.currency);
@@ -125,6 +124,32 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
     this.saveConfigs();
   }
 
+  private saveConfigs() {
+    const dateInterval = this.dateInterval.getRawValue()!;
+    const defaultRange = this.getDefaultRange();
+
+    const configs: ReportReleasesByConfig = {
+      dateInterval: dateInterval,
+      chartType: this.chartTypeControl.getRawValue()!,
+      selectedMonth:
+        dateInterval === ReportReleasesByInterval.MONTHLY
+          ? this.selectedDate
+          : undefined,
+      dateRange:
+        dateInterval === ReportReleasesByInterval.CUSTOM
+          ? {
+              start: this.range.value.start || defaultRange.start,
+              end: this.range.value.end || defaultRange.end,
+            }
+          : undefined,
+    };
+
+    this._utils.setItemLocalStorage(
+      LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS,
+      JSON.stringify(configs)
+    );
+  }
+
   private setSavedConfigs() {
     const savedConfigs = this._utils.getItemLocalStorage(
       LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS
@@ -160,32 +185,6 @@ export class ReleasesByAccountComponent implements OnInit, OnDestroy {
         this.showCustomDatePicker.set(true);
         break;
     }
-  }
-
-  private saveConfigs() {
-    const dateInterval = this.dateInterval.getRawValue()!;
-    const defaultRange = this.getDefaultRange();
-
-    const configs: ReportReleasesByConfig = {
-      dateInterval: dateInterval,
-      chartType: this.chartTypeControl.getRawValue()!,
-      selectedMonth:
-        dateInterval === ReportReleasesByInterval.MONTHLY
-          ? this.selectedDate
-          : undefined,
-      dateRange:
-        dateInterval === ReportReleasesByInterval.CUSTOM
-          ? {
-              start: this.range.value.start || defaultRange.start,
-              end: this.range.value.end || defaultRange.end,
-            }
-          : undefined,
-    };
-
-    this._utils.setItemLocalStorage(
-      LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS,
-      JSON.stringify(configs)
-    );
   }
 
   changeMonth(direction: 'before' | 'next') {

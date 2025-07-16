@@ -6,10 +6,8 @@ import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import {
-  LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT,
-  LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY,
-  LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT,
-  LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY,
+  LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS,
+  LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS,
 } from '../../../shared/utils/local-storage-contants';
 import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { UtilsService } from '../../../shared/utils/utils.service';
@@ -143,18 +141,8 @@ export class LoginService {
     this._utils.removeItemLocalStorage('tokenFinax');
     this._utils.removeItemLocalStorage('tokenExpiration');
     this._utils.removeItemLocalStorage('selectedMonthCashFlow');
-    this._utils.removeItemLocalStorage(
-      LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY
-    );
-    this._utils.removeItemLocalStorage(
-      LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY
-    );
-    this._utils.removeItemLocalStorage(
-      LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT
-    );
-    this._utils.removeItemLocalStorage(
-      LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT
-    );
+    this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS);
+    this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS);
   }
 
   sendChangePasswordEmail(email: string): Promise<void> {
