@@ -27,28 +27,6 @@
         width: fit-content !important;
         height: 2.5rem;
         border: none !important;
-
-        .mat-button-toggle {
-          display: flex !important;
-          justify-content: center !important;
-          align-items: center !important;
-        }
-
-        .mat-button-toggle-appearance-standard {
-          background-color: #fff !important;
-
-          .material-symbols-rounded {
-            color: #3b3b3b;
-          }
-        }
-
-        .mat-button-toggle-checked {
-          background-color: #4caf50 !important;
-
-          .material-symbols-rounded {
-            color: #fff !important;
-          }
-        }
       }
     }
 

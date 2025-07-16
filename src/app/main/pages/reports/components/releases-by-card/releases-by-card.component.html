@@ -18,11 +18,14 @@
     <label>{{ "reports.no-releases" | translate }}</label>
   </div>
   } @else {
+  <!---->
+  @if (renderChart()) {
   <p-chart
     id="chart"
-    type="pie"
+    [style.width]="chartType() === 'bar' ? '90%' : '60%'"
+    [type]="chartType()"
     [data]="chartData()"
-    [options]="options"
+    [options]="options()"
   ></p-chart>
-  } }
+  } } }
 </mat-card>

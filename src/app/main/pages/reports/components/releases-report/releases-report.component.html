@@ -1,11 +1,24 @@
 <div class="simple-page">
   <h1 class="page-title">
-    {{ "reports.releases-by-account.title" | translate }}
+    {{ titleTranslationKey() | translate }}
   </h1>
 
   <mat-card class="date-interval">
     <mat-card-content class="date-interval-content">
-      <div class="left"></div>
+      <div class="left">
+        <mat-button-toggle-group
+          [formControl]="chartTypeControl"
+          hideSingleSelectionIndicator="true"
+        >
+          <mat-button-toggle value="pie">
+            <i class="material-symbols-rounded">pie_chart</i>
+          </mat-button-toggle>
+
+          <mat-button-toggle value="bar">
+            <i class="material-symbols-rounded">bar_chart</i>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
 
       @if (showChangeMonthButtons()) {
       <div class="center">
@@ -72,20 +85,22 @@
       cardTitle="cash-flow.expenses"
       [theme]="theme()"
       [currency]="currency()"
-      [chartData]="spendsByAccountChartData"
       [completedInitialFetch]="completedInitialFetchExpenses()"
       [searching]="searchingExpenses()"
       [error]="errorFetchingExpenses()"
+      [chartType]="chartTypeControl.value || 'pie'"
+      [chartData]="expensesData().chartData()"
     />
 
     <app-releases-by-card
       cardTitle="cash-flow.revenues"
       [theme]="theme()"
       [currency]="currency()"
-      [chartData]="revenuesByAccountChartData"
       [completedInitialFetch]="completedInitialFetchRevenues()"
       [searching]="searchingRevenues()"
       [error]="errorFetchingRevenues()"
+      [chartType]="chartTypeControl.value || 'pie'"
+      [chartData]="revenuesData().chartData()"
     />
   </div>
 </div>

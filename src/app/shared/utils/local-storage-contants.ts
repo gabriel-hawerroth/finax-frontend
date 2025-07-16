@@ -3,20 +3,8 @@ export const LS_DATE_INTERVAL_SPENDS_BY_CATEGORY =
 
 export const LS_SHOW_VALUES = 'showValues';
 
-export const LS_DATE_INTERVAL_REPORT_RELEASES_BY_CATEGORY =
-  'dateIntervalReportReleasesByCategory';
+export const LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS =
+  'reportReleasesByCategoryConfigs';
 
-export const LS_LAST_MONTH_REPORT_RELEASES_BY_CATEGORY =
-  'lastMonthReportReleasesByCategory';
-
-export const LS_DATE_RANGE_REPORT_RELEASES_BY_CATEGORY =
-  'dateRangeReportReleasesByCategory';
-
-export const LS_DATE_INTERVAL_REPORT_RELEASES_BY_ACCOUNT =
-  'dateIntervalReportReleasesByAccount';
-
-export const LS_LAST_MONTH_REPORT_RELEASES_BY_ACCOUNT =
-  'lastMonthReportReleasesByAccount';
-
-export const LS_DATE_RANGE_REPORT_RELEASES_BY_ACCOUNT =
-  'dateRangeReportReleasesByAccount';
+export const LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS =
+  'reportReleasesByAccountConfigs';

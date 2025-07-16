@@ -8,15 +8,24 @@
   }
 
   .date-interval {
-    height: 8rem;
+    height: 9rem;
     margin: 0 4rem;
     border-radius: 3rem;
 
     .date-interval-content {
       height: 100%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+
+      .left {
+        margin-left: 3rem;
+
+        .mat-button-toggle-group {
+          width: 7.5rem;
+          height: 2.7rem;
+        }
+      }
 
       .center {
         position: absolute;
@@ -25,6 +34,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: 0 auto;
         gap: 1rem;
 
         label {
@@ -63,6 +73,22 @@
 
     app-releases-by-card {
       width: 42%;
+    }
+  }
+
+  /* Responsive styling for smaller screens */
+  @media (max-width: 992px) {
+    .content {
+      flex-direction: column;
+      gap: 3rem;
+
+      app-releases-by-card {
+        width: 85%;
+      }
+    }
+
+    .date-interval {
+      margin: 0 1rem;
     }
   }
 }
