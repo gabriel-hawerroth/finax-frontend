@@ -1,6 +1,6 @@
 <div class="simple-page">
   <h1 class="page-title">
-    {{ "reports.releases-by-account.title" | translate }}
+    {{ titleTranslationKey() | translate }}
   </h1>
 
   <mat-card class="date-interval">
@@ -89,7 +89,7 @@
       [searching]="searchingExpenses()"
       [error]="errorFetchingExpenses()"
       [chartType]="chartTypeControl.value || 'pie'"
-      [chartData]="spendsByAccountChartData"
+      [chartData]="expensesData().chartData()"
     />
 
     <app-releases-by-card
@@ -100,7 +100,7 @@
       [searching]="searchingRevenues()"
       [error]="errorFetchingRevenues()"
       [chartType]="chartTypeControl.value || 'pie'"
-      [chartData]="revenuesByAccountChartData"
+      [chartData]="revenuesData().chartData()"
     />
   </div>
 </div>
