@@ -14,6 +14,7 @@ import { ReleasesReportComponent } from '../../components/releases-report/releas
   imports: [CommonModule, TranslateModule, ReleasesReportComponent],
   template: `
     <app-releases-report
+      defaultChartType="bar"
       titleTranslationKey="reports.releases-by-account.title"
       [expensesData]="expensesData"
       [revenuesData]="revenuesData"

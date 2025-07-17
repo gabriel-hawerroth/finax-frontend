@@ -37,4 +37,5 @@ export class ReleasesReportComponent extends AbstractReleasesReportComponent {
   titleTranslationKey = input.required<string>();
   expensesData = input.required<ReleasesReportData<any>>();
   revenuesData = input.required<ReleasesReportData<any>>();
+  defaultChartType = input.required<'pie' | 'bar'>();
 }
