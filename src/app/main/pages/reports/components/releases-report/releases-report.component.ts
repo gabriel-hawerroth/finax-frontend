@@ -9,8 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
-import { AbstractReleasesReportComponent } from '../common/abstract-releases-report.component';
-import { ReleasesReportData } from '../common/releases-report-data.interface';
+import { AbstractReleasesReportComponent } from '../../common/abstract-releases-report.component';
+import { ReleasesReportData } from '../../common/releases-report-data.interface';
 import { ReleasesByCardComponent } from '../releases-by-card/releases-by-card.component';
 
 @Component({

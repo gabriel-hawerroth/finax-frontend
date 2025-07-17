@@ -9,14 +9,14 @@ import {
 import { FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
 import { debounceTime } from 'rxjs';
-import { ReportReleasesByParams } from '../../../../../core/entities/reports/reports-dtos';
-import { ReportsService } from '../../../../../core/entities/reports/reports.service';
-import { ButtonType } from '../../../../../core/enums/button-style';
-import { ReleaseType } from '../../../../../core/enums/release-enums';
-import { ReportReleasesByInterval } from '../../../../../core/enums/report-releases-by-interval';
-import { ButtonConfig } from '../../../../../core/interfaces/button-config';
-import { ReportReleasesByConfig } from '../../../../../core/interfaces/report-releases-by-config';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { ReportReleasesByParams } from '../../../../core/entities/reports/reports-dtos';
+import { ReportsService } from '../../../../core/entities/reports/reports.service';
+import { ButtonType } from '../../../../core/enums/button-style';
+import { ReleaseType } from '../../../../core/enums/release-enums';
+import { ReportReleasesByInterval } from '../../../../core/enums/report-releases-by-interval';
+import { ButtonConfig } from '../../../../core/interfaces/button-config';
+import { ReportReleasesByConfig } from '../../../../core/interfaces/report-releases-by-config';
+import { UtilsService } from '../../../../shared/utils/utils.service';
 import { ReleasesReportData } from './releases-report-data.interface';
 
 @Directive()

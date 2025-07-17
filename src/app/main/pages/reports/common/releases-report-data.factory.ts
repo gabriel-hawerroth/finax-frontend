@@ -4,8 +4,8 @@ import {
   ReleasesByAccount,
   ReleasesByCategory,
   ReportReleasesByParams,
-} from '../../../../../core/entities/reports/reports-dtos';
-import { ReportsService } from '../../../../../core/entities/reports/reports.service';
+} from '../../../../core/entities/reports/reports-dtos';
+import { ReportsService } from '../../../../core/entities/reports/reports.service';
 import { ReleasesReportData } from './releases-report-data.interface';
 
 export class ReleasesReportDataFactory {
