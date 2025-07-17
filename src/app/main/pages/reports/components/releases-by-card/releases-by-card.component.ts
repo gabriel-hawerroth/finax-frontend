@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChartData, ChartOptions } from 'chart.js';
 import { ChartModule } from 'primeng/chart';
+import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 
 @Component({
   selector: 'app-releases-by-card',
@@ -38,9 +39,13 @@ export class ReleasesByCardComponent {
   chartType = input.required<'pie' | 'bar'>();
   chartData = input.required<ChartData>();
 
-  cardMinHeight = computed(() =>
-    this.chartType() === 'pie' ? 'fit-content' : 'fit-content'
-  );
+  cardHeight = computed(() => {
+    if (this._responsiveService.isMobileView()) {
+      return this.chartType() === 'pie' ? '34rem' : '20rem';
+    }
+
+    return '30rem';
+  });
 
   options = computed<ChartOptions>(() => {
     const baseOptions: ChartOptions = {
@@ -109,7 +114,7 @@ export class ReleasesByCardComponent {
 
   renderChart = signal(true);
 
-  constructor() {
+  constructor(private readonly _responsiveService: ResponsiveService) {
     effect(() => {
       this.chartType();
 

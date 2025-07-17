@@ -8,7 +8,6 @@
     }
 
     .date-interval {
-      height: 14.5rem !important;
       margin: 0 1.5rem !important;
       flex-shrink: 0 !important;
 
@@ -48,6 +47,20 @@
   }
 }
 
+@media screen and (max-width: 650px) {
+  .simple-page {
+    .date-interval {
+      .date-interval-content {
+        .center {
+          #range-date-picker {
+            top: -1rem !important;
+          }
+        }
+      }
+    }
+  }
+}
+
 .simple-page {
   display: flex;
   flex-direction: column;
@@ -58,7 +71,6 @@
   }
 
   .date-interval {
-    height: 9rem;
     margin: 0 4rem;
     border-radius: 3rem;
 
