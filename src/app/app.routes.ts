@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { BasicTierGuard } from './core/guards/basic-tier.guard';
 import { FreeTierGuard } from './core/guards/free-tier.guard';
+import { mobileGuard } from './core/guards/mobile.guard';
 import { UnauthenticatedUserGuard } from './core/guards/unauthenticated-user.guard';
+import { webGuard } from './core/guards/web.guard';
 
 export const routes: Routes = [
   {
@@ -164,18 +166,28 @@ export const routes: Routes = [
     canActivate: [FreeTierGuard],
     children: [
       {
+        path: 'mobile',
+        loadComponent: () =>
+          import(
+            './main/pages/reports/views/mobile-reports/mobile-reports.component'
+          ).then((m) => m.MobileReportsPage),
+        canActivate: [mobileGuard],
+      },
+      {
         path: 'por-categoria',
         loadComponent: () =>
           import(
             './main/pages/reports/views/releases-by-category/releases-by-category.component'
-          ).then((m) => m.ReleasesByCategoryComponent),
+          ).then((m) => m.ReleasesByCategoryPage),
+        canActivate: [webGuard],
       },
       {
         path: 'por-conta',
         loadComponent: () =>
           import(
             './main/pages/reports/views/releases-by-account/releases-by-account.component'
-          ).then((m) => m.ReleasesByAccountComponent),
+          ).then((m) => m.ReleasesByAccountPage),
+        canActivate: [webGuard],
       },
     ],
   },

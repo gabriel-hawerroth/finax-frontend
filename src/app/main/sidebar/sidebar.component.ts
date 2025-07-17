@@ -112,6 +112,7 @@ export class SidebarComponent implements OnInit {
     {
       icon: 'finance',
       label: 'sidebar.reports',
+      classes: 'hide-mobile',
       childs: [
         {
           route: 'relatorios/por-categoria',

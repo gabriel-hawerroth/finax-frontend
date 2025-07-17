@@ -4,4 +4,5 @@ export interface NavItem {
   label: string;
   childs?: NavItem[];
   onClick?: () => void;
+  classes?: string;
 }

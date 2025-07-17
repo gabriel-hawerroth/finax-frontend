@@ -22,7 +22,7 @@ import { ReleasesReportComponent } from '../../components/releases-report/releas
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReleasesByCategoryComponent {
+export class ReleasesByCategoryPage {
   expensesData: ReleasesReportData<ReleasesByCategory>;
   revenuesData: ReleasesReportData<ReleasesByCategory>;
 

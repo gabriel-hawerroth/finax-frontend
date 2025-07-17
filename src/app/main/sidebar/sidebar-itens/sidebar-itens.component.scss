@@ -1,3 +1,9 @@
+@media screen and (max-width: 1050px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
 .nav-ul-item {
   display: flex;
   align-items: center;
