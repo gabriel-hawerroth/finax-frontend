@@ -256,7 +256,7 @@ export abstract class AbstractReleasesReportComponent
 
   onChangeDateRange(): void {
     if (
-      this.dateInterval.getRawValue() === ReportReleasesByInterval.CUSTOM ||
+      this.dateInterval.getRawValue() !== ReportReleasesByInterval.CUSTOM ||
       !this.range.value.start ||
       !this.range.value.end ||
       this.range.value.start > this.range.value.end
