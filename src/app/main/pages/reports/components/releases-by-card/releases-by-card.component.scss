@@ -1,5 +1,12 @@
+@media screen and (max-width: 650px) {
+  .releases-by-card {
+    #chart {
+      width: 95% !important;
+    }
+  }
+}
+
 .releases-by-card {
-  min-height: 30rem;
   display: flex;
   flex-direction: column;
   padding: 2rem;

@@ -1,5 +1,9 @@
 @for (item of items(); track $index) {
-<div [routerLink]="item.route" class="nav-ul-item" (click)="onItemClick(item)">
+<div
+  [routerLink]="item.route"
+  [class]="'nav-ul-item ' + (item.classes || '')"
+  (click)="onItemClick(item)"
+>
   <i [innerText]="item.icon" class="material-symbols-rounded"></i>
   <span>{{ item.label | translate }}</span>
 

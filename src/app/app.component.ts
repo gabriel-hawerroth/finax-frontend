@@ -75,7 +75,7 @@ export class AppComponent implements OnDestroy {
   MONITORING_TOOLBAR_ITEM_CONFIG: ButtonConfig = {
     type: ButtonType.ICON,
     icon: 'monitoring',
-    onClick: () => {},
+    onClick: () => this._router.navigateByUrl('/relatorios/mobile'),
     style: this.contentStyle,
   };
 

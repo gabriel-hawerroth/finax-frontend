@@ -1,3 +1,53 @@
+@media screen and (max-width: 1050px) {
+  .simple-page {
+    overflow-y: scroll !important;
+    gap: 2.5rem !important;
+
+    .page-title {
+      margin-bottom: 1rem !important;
+    }
+
+    .date-interval {
+      height: 14.5rem !important;
+      margin: 0 1.5rem !important;
+      flex-shrink: 0 !important;
+
+      .date-interval-content {
+        align-items: baseline !important;
+
+        .left {
+          margin-left: 0 !important;
+
+          .mat-button-toggle-group {
+            width: 8.2rem !important;
+            height: 3rem !important;
+          }
+        }
+
+        .center {
+          margin-top: 7.5rem !important;
+        }
+
+        #date-interval-select {
+          margin-right: 0.5rem !important;
+          width: 52%;
+          top: 0 !important;
+        }
+      }
+    }
+
+    .content {
+      flex-direction: column !important;
+      gap: 3rem !important;
+
+      app-releases-by-card {
+        width: 92% !important;
+        flex: none !important;
+      }
+    }
+  }
+}
+
 .simple-page {
   display: flex;
   flex-direction: column;
@@ -15,8 +65,8 @@
     .date-interval-content {
       height: 100%;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
 
       .left {
         margin-left: 3rem;
@@ -65,7 +115,6 @@
   }
 
   .content {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -73,22 +122,6 @@
 
     app-releases-by-card {
       width: 42%;
-    }
-  }
-
-  /* Responsive styling for smaller screens */
-  @media (max-width: 992px) {
-    .content {
-      flex-direction: column;
-      gap: 3rem;
-
-      app-releases-by-card {
-        width: 85%;
-      }
-    }
-
-    .date-interval {
-      margin: 0 1rem;
     }
   }
 }

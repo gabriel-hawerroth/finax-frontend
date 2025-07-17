@@ -9,14 +9,14 @@ import {
 import { FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
 import { debounceTime } from 'rxjs';
-import { ReportReleasesByParams } from '../../../../../core/entities/reports/reports-dtos';
-import { ReportsService } from '../../../../../core/entities/reports/reports.service';
-import { ButtonType } from '../../../../../core/enums/button-style';
-import { ReleaseType } from '../../../../../core/enums/release-enums';
-import { ReportReleasesByInterval } from '../../../../../core/enums/report-releases-by-interval';
-import { ButtonConfig } from '../../../../../core/interfaces/button-config';
-import { ReportReleasesByConfig } from '../../../../../core/interfaces/report-releases-by-config';
-import { UtilsService } from '../../../../../shared/utils/utils.service';
+import { ReportReleasesByParams } from '../../../../core/entities/reports/reports-dtos';
+import { ReportsService } from '../../../../core/entities/reports/reports.service';
+import { ButtonType } from '../../../../core/enums/button-style';
+import { ReleaseType } from '../../../../core/enums/release-enums';
+import { ReportReleasesByInterval } from '../../../../core/enums/report-releases-by-interval';
+import { ButtonConfig } from '../../../../core/interfaces/button-config';
+import { ReportReleasesByConfig } from '../../../../core/interfaces/report-releases-by-config';
+import { UtilsService } from '../../../../shared/utils/utils.service';
 import { ReleasesReportData } from './releases-report-data.interface';
 
 @Directive()
@@ -29,6 +29,7 @@ export abstract class AbstractReleasesReportComponent
   // Abstract input signals that must be implemented by child components
   abstract expensesData: InputSignal<ReleasesReportData<any>>;
   abstract revenuesData: InputSignal<ReleasesReportData<any>>;
+  abstract defaultChartType: InputSignal<'pie' | 'bar'>;
 
   // UI state signals
   searchingExpenses = signal(false);
@@ -68,8 +69,8 @@ export abstract class AbstractReleasesReportComponent
   showCustomDatePicker = signal(false);
 
   readonly range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
+    start: new FormControl<Date>(moment().startOf('month').toDate()),
+    end: new FormControl<Date>(moment().endOf('month').toDate()),
   });
 
   readonly chartTypeControl = new FormControl<'pie' | 'bar'>('pie');
@@ -120,7 +121,10 @@ export abstract class AbstractReleasesReportComponent
     const savedConfigs = this._utils.getItemLocalStorage(
       this.expensesData().localStorageKey
     );
-    if (!savedConfigs) return;
+    if (!savedConfigs) {
+      this.chartTypeControl.setValue(this.defaultChartType());
+      return;
+    }
 
     const configs: ReportReleasesByConfig = JSON.parse(savedConfigs);
     this.dateInterval.setValue(configs.dateInterval);
@@ -131,8 +135,6 @@ export abstract class AbstractReleasesReportComponent
     } else if (configs.dateRange) {
       this.range.patchValue(configs.dateRange);
     }
-
-    if (!configs.dateRange) this.setDefaultRange();
   }
 
   protected setCenterButtons(): void {
