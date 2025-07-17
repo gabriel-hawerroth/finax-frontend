@@ -35,8 +35,12 @@ export class ReleasesByCardComponent {
   searching = input.required<boolean>();
   error = input.required<boolean>();
 
-  chartType = input<'pie' | 'bar'>('pie');
+  chartType = input.required<'pie' | 'bar'>();
   chartData = input.required<ChartData>();
+
+  cardMinHeight = computed(() =>
+    this.chartType() === 'pie' ? 'fit-content' : 'fit-content'
+  );
 
   options = computed<ChartOptions>(() => {
     const baseOptions: ChartOptions = {
