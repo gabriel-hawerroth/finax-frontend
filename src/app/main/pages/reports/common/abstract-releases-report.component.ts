@@ -16,6 +16,7 @@ import { ReleaseType } from '../../../../core/enums/release-enums';
 import { ReportReleasesByInterval } from '../../../../core/enums/report-releases-by-interval';
 import { ButtonConfig } from '../../../../core/interfaces/button-config';
 import { ReportReleasesByConfig } from '../../../../core/interfaces/report-releases-by-config';
+import { ResponsiveService } from '../../../../shared/services/responsive.service';
 import { UtilsService } from '../../../../shared/utils/utils.service';
 import { ReleasesReportData } from './releases-report-data.interface';
 
@@ -25,6 +26,7 @@ export abstract class AbstractReleasesReportComponent
 {
   protected _utils = inject(UtilsService);
   protected _reportsService = inject(ReportsService);
+  protected _responsiveService = inject(ResponsiveService);
 
   // Abstract input signals that must be implemented by child components
   abstract expensesData: InputSignal<ReleasesReportData<any>>;
@@ -39,6 +41,8 @@ export abstract class AbstractReleasesReportComponent
   searchingRevenues = signal(false);
   errorFetchingRevenues = signal(false);
   completedInitialFetchRevenues = signal(false);
+
+  dateIntervalCardHeight = signal('9rem');
 
   // Navigation buttons
   navigateBackBtnConfig: ButtonConfig = {
@@ -78,6 +82,7 @@ export abstract class AbstractReleasesReportComponent
   ngOnInit(): void {
     this.setSavedConfigs();
     this.setCenterButtons();
+    this.setDateIntervalCardHeight();
 
     this.range.valueChanges
       .pipe(debounceTime(200))
@@ -165,7 +170,6 @@ export abstract class AbstractReleasesReportComponent
 
   onChangeDateInterval(newInterval?: ReportReleasesByInterval): void {
     if (!newInterval) return;
-    this.dateInterval.setValue(newInterval);
 
     this.showChangeMonthButtons.set(
       newInterval === ReportReleasesByInterval.MONTHLY
@@ -173,6 +177,8 @@ export abstract class AbstractReleasesReportComponent
     this.showCustomDatePicker.set(
       newInterval === ReportReleasesByInterval.CUSTOM
     );
+
+    this.setDateIntervalCardHeight();
 
     if (
       newInterval === ReportReleasesByInterval.CUSTOM &&
@@ -182,6 +188,18 @@ export abstract class AbstractReleasesReportComponent
       this.setDefaultRange();
 
     this.getChartsData(newInterval);
+  }
+
+  private setDateIntervalCardHeight(): void {
+    if (!this._responsiveService.isMobileView()) return;
+
+    this.dateIntervalCardHeight.set(
+      this.showCustomDatePicker()
+        ? '15rem'
+        : this.showChangeMonthButtons()
+        ? '15rem'
+        : '8rem'
+    );
   }
 
   getChartsData(newInterval?: ReportReleasesByInterval): void {
@@ -254,9 +272,9 @@ export abstract class AbstractReleasesReportComponent
     return ReportReleasesByInterval[interval];
   }
 
-  onChangeDateRange(): void {
+  private onChangeDateRange(): void {
     if (
-      this.dateInterval.getRawValue() === ReportReleasesByInterval.CUSTOM ||
+      this.dateInterval.getRawValue() !== ReportReleasesByInterval.CUSTOM ||
       !this.range.value.start ||
       !this.range.value.end ||
       this.range.value.start > this.range.value.end

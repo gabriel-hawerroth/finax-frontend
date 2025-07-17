@@ -3,7 +3,7 @@
     {{ titleTranslationKey() | translate }}
   </h1>
 
-  <mat-card class="date-interval">
+  <mat-card class="date-interval" [style.height]="dateIntervalCardHeight()">
     <mat-card-content class="date-interval-content">
       <div class="left">
         <mat-button-toggle-group
