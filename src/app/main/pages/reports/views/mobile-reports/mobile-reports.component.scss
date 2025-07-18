@@ -1,0 +1,25 @@
+.simple-page {
+  .title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .center {
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+
+      label {
+        font-size: 1.3rem;
+        width: 58%;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}

@@ -1,1 +1,23 @@
-<app-releases-by-category />
+<div class="simple-page">
+  <div class="title">
+    <div class="center">
+      <dynamic-button [config]="navigateBackBtnConfig" />
+
+      <label class="tab">
+        {{ "reports." + selectedReport() + ".title" | translate }}
+      </label>
+
+      <dynamic-button [config]="navigateNextBtnConfig" />
+    </div>
+  </div>
+
+  @switch (selectedReport()) {
+  <!---->
+  @case ('releases-by-category') {
+  <app-releases-by-category />
+  }
+  <!---->
+  @case ('releases-by-account') {
+  <app-releases-by-account />
+  } }
+</div>
