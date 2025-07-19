@@ -25,7 +25,13 @@
         <dynamic-button [config]="navigateBackBtnConfig" />
 
         <label class="tab">
+          @switch (dateInterval$()) {
+          <!---->
+          @case ('MONTHLY') {
           {{ selectedDate | releasesMonth }}
+          } @case ('YEARLY') {
+          {{ selectedDate | date : "yyyy" }}
+          } }
         </label>
 
         <dynamic-button [config]="navigateNextBtnConfig" />
@@ -68,8 +74,16 @@
             {{ "home.last-30-days" | translate }}
           </mat-option>
 
+          <mat-option [value]="getIntervalEnum('LAST_12_MONTHS')">
+            {{ "reports.last-12-months" | translate }}
+          </mat-option>
+
           <mat-option [value]="getIntervalEnum('MONTHLY')">
             {{ "reports.monthly" | translate }}
+          </mat-option>
+
+          <mat-option [value]="getIntervalEnum('YEARLY')">
+            {{ "reports.yearly" | translate }}
           </mat-option>
 
           <mat-option [value]="getIntervalEnum('CUSTOM')">

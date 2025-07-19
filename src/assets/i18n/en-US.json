@@ -425,6 +425,8 @@
   },
   "reports": {
     "monthly": "Monthly",
+    "yearly": "Yearly",
+    "last-12-months": "Last 12 months",
     "custom": "Custom",
     "no-releases": "No releases made in the selected time frame",
     "error-getting-releases": "Error getting releases",
