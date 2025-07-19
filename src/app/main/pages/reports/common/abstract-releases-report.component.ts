@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import moment from 'moment';
-import { debounceTime } from 'rxjs';
+import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { ReportReleasesByParams } from '../../../../core/entities/reports/reports-dtos';
 import { ReportsService } from '../../../../core/entities/reports/reports.service';
 import { ButtonType } from '../../../../core/enums/button-style';
@@ -44,6 +44,9 @@ export abstract class AbstractReleasesReportComponent
 
   dateIntervalCardHeight = signal('9rem');
 
+  showChangeMonthButtons = signal(false);
+  showCustomDatePicker = signal(false);
+
   // Navigation buttons
   navigateBackBtnConfig: ButtonConfig = {
     icon: 'chevron_left',
@@ -65,12 +68,13 @@ export abstract class AbstractReleasesReportComponent
   theme = signal(this._utils.getUserConfigs.theme);
   currency = signal(this._utils.getUserConfigs.currency);
 
+  // Form controls
   readonly dateInterval = new FormControl<ReportReleasesByInterval>(
     ReportReleasesByInterval.MONTHLY
   );
-
-  showChangeMonthButtons = signal(false);
-  showCustomDatePicker = signal(false);
+  readonly dateInterval$ = signal(
+    this.dateInterval.getRawValue() || ReportReleasesByInterval.MONTHLY
+  );
 
   readonly range = new FormGroup({
     start: new FormControl<Date>(moment().startOf('month').toDate()),
@@ -79,20 +83,29 @@ export abstract class AbstractReleasesReportComponent
 
   readonly chartTypeControl = new FormControl<'pie' | 'bar'>('pie');
 
+  private readonly ngUnsubscribe = new Subject<void>();
+
   ngOnInit(): void {
     this.setSavedConfigs();
     this.setCenterButtons();
     this.setDateIntervalCardHeight();
 
-    this.range.valueChanges
-      .pipe(debounceTime(200))
-      .subscribe(() => this.onChangeDateRange());
+    this.subscribeValueChanges();
 
     this.getChartsData();
   }
 
   ngOnDestroy(): void {
     this.saveConfigs();
+
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  private subscribeValueChanges() {
+    this.range.valueChanges
+      .pipe(debounceTime(200), takeUntil(this.ngUnsubscribe))
+      .subscribe(() => this.onChangeDateRange());
   }
 
   protected saveConfigs(): void {
@@ -156,14 +169,15 @@ export abstract class AbstractReleasesReportComponent
   }
 
   changeMonth(direction: 'before' | 'next'): void {
-    this.selectedDate = new Date(
-      this.selectedDate.setMonth(
-        direction === 'before'
-          ? this.selectedDate.getMonth() - 1
-          : this.selectedDate.getMonth() + 1
-      )
-    );
-    this.selectedDate.setDate(15);
+    const unitTime =
+      this.dateInterval$() === ReportReleasesByInterval.MONTHLY
+        ? 'month'
+        : 'year';
+
+    this.selectedDate = moment(this.selectedDate)
+      [direction === 'before' ? 'subtract' : 'add'](1, unitTime)
+      .day(15)
+      .toDate();
 
     this.getChartsData();
   }
@@ -171,12 +185,23 @@ export abstract class AbstractReleasesReportComponent
   onChangeDateInterval(newInterval?: ReportReleasesByInterval): void {
     if (!newInterval) return;
 
-    this.showChangeMonthButtons.set(
-      newInterval === ReportReleasesByInterval.MONTHLY
-    );
-    this.showCustomDatePicker.set(
-      newInterval === ReportReleasesByInterval.CUSTOM
-    );
+    this.dateInterval$.set(newInterval);
+
+    switch (newInterval) {
+      case ReportReleasesByInterval.MONTHLY:
+      case ReportReleasesByInterval.YEARLY:
+        this.showChangeMonthButtons.set(true);
+        this.showCustomDatePicker.set(false);
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        this.showChangeMonthButtons.set(false);
+        this.showCustomDatePicker.set(true);
+        break;
+      default:
+        this.showChangeMonthButtons.set(false);
+        this.showCustomDatePicker.set(false);
+        break;
+    }
 
     this.setDateIntervalCardHeight();
 
@@ -187,7 +212,7 @@ export abstract class AbstractReleasesReportComponent
     )
       this.setDefaultRange();
 
-    this.getChartsData(newInterval);
+    this.getChartsData();
   }
 
   private setDateIntervalCardHeight(): void {
@@ -202,16 +227,17 @@ export abstract class AbstractReleasesReportComponent
     );
   }
 
-  getChartsData(newInterval?: ReportReleasesByInterval): void {
+  getChartsData(): void {
     if (this.searchingExpenses() || this.searchingRevenues()) return;
 
-    const dateInterval = newInterval || this.dateInterval.getRawValue();
-    if (!dateInterval) return;
+    console.log('Fetching charts data...');
+    console.log('Date Interval:', this.dateInterval$());
 
     if (
-      dateInterval === ReportReleasesByInterval.CUSTOM &&
+      this.dateInterval$() === ReportReleasesByInterval.CUSTOM &&
       (!this.range.value.start || !this.range.value.end)
     ) {
+      console.log('Invalid date range selected');
       this.range.setErrors({
         required: true,
       });
@@ -220,37 +246,32 @@ export abstract class AbstractReleasesReportComponent
     }
 
     const expenseParams: ReportReleasesByParams = {
-      interval: dateInterval,
+      interval: this.dateInterval$(),
       releaseType: ReleaseType.EXPENSE,
     };
 
     const revenueParams: ReportReleasesByParams = {
-      interval: dateInterval,
+      interval: this.dateInterval$(),
       releaseType: ReleaseType.REVENUE,
     };
 
-    // Set date parameters based on interval type
-    switch (dateInterval) {
-      case ReportReleasesByInterval.MONTHLY:
-        const initialDate = moment(this.selectedDate).startOf('month').toDate();
-        const finalDate = moment(this.selectedDate).endOf('month').toDate();
-        expenseParams.initialDate = initialDate;
-        expenseParams.finalDate = finalDate;
-        revenueParams.initialDate = initialDate;
-        revenueParams.finalDate = finalDate;
-        break;
-      case ReportReleasesByInterval.CUSTOM:
-        expenseParams.initialDate = this.range.value.start!;
-        expenseParams.finalDate = this.range.value.end!;
-        revenueParams.initialDate = this.range.value.start!;
-        revenueParams.finalDate = this.range.value.end!;
-        break;
-    }
+    console.log('Expense Params:', expenseParams);
+    console.log('Revenue Params:', revenueParams);
+
+    console.log('Setting date parameters');
+
+    this.setDateParameters(expenseParams, revenueParams);
+
+    console.log('Expense Params:', expenseParams);
+    console.log('Revenue Params:', revenueParams);
 
     this.searchingExpenses.set(true);
     this.expensesData()
       .fetchReleases(expenseParams)
-      .catch(() => this.errorFetchingExpenses.set(true))
+      .catch((error) => {
+        console.error('Error fetching expenses:', error);
+        this.errorFetchingExpenses.set(true);
+      })
       .finally(() => {
         this.searchingExpenses.set(false);
         this.completedInitialFetchExpenses.set(true);
@@ -266,8 +287,44 @@ export abstract class AbstractReleasesReportComponent
       });
   }
 
+  private setDateParameters(
+    expenseParams: ReportReleasesByParams,
+    revenueParams: ReportReleasesByParams
+  ): void {
+    switch (this.dateInterval$()) {
+      case ReportReleasesByInterval.MONTHLY:
+        const initialDate = moment(this.selectedDate).startOf('month').toDate();
+        const finalDate = moment(this.selectedDate).endOf('month').toDate();
+        expenseParams.initialDate = initialDate;
+        expenseParams.finalDate = finalDate;
+        revenueParams.initialDate = initialDate;
+        revenueParams.finalDate = finalDate;
+        break;
+      case ReportReleasesByInterval.YEARLY:
+        const year = this.selectedDate.getFullYear();
+        const initialYearDate = new Date(year, 0, 1);
+        const finalYearDate = new Date(year, 11, 31);
+        expenseParams.initialDate = initialYearDate;
+        expenseParams.finalDate = finalYearDate;
+        revenueParams.initialDate = initialYearDate;
+        revenueParams.finalDate = finalYearDate;
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        expenseParams.initialDate = this.range.value.start!;
+        expenseParams.finalDate = this.range.value.end!;
+        revenueParams.initialDate = this.range.value.start!;
+        revenueParams.finalDate = this.range.value.end!;
+        break;
+    }
+  }
+
   getIntervalEnum(
-    interval: 'LAST_30_DAYS' | 'MONTHLY' | 'CUSTOM'
+    interval:
+      | 'LAST_30_DAYS'
+      | 'LAST_12_MONTHS'
+      | 'MONTHLY'
+      | 'YEARLY'
+      | 'CUSTOM'
   ): ReportReleasesByInterval {
     return ReportReleasesByInterval[interval];
   }
@@ -281,7 +338,7 @@ export abstract class AbstractReleasesReportComponent
     )
       return;
 
-    this.getChartsData(ReportReleasesByInterval.CUSTOM);
+    this.getChartsData();
   }
 
   protected setDefaultRange(): void {

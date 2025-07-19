@@ -425,6 +425,8 @@
   },
   "reports": {
     "monthly": "Mensual",
+    "yearly": "Anual",
+    "last-12-months": "Últimos 12 meses",
     "custom": "Personalizado",
     "no-releases": "No se han realizado lanzamientos en el intervalo seleccionado",
     "error-getting-releases": "Error al obtener los lanzamientos",

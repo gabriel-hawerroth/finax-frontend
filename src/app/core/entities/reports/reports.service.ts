@@ -61,11 +61,16 @@ export class ReportsService {
     params: ReportReleasesByParams,
     httpParams: HttpParams
   ) {
-    if (params.interval !== ReportReleasesByInterval.LAST_30_DAYS) {
+    if (
+      ![
+        ReportReleasesByInterval.LAST_30_DAYS,
+        ReportReleasesByInterval.LAST_12_MONTHS,
+      ].includes(params.interval)
+    ) {
       if (!params.initialDate || !params.finalDate) {
-        throw new Error(
-          'Initial and final dates are required for intervals other than LAST_30_DAYS.'
-        );
+        const message = `Initial and final dates are required for interval: ${params.interval}`;
+        console.error(message);
+        throw new Error(message);
       }
 
       httpParams = httpParams.set(
