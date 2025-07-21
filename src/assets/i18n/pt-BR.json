@@ -103,6 +103,7 @@
     "reports": "Relatórios",
     "by-category": "Por categoria",
     "by-account": "Por conta",
+    "balance-evolution": "Evolução do saldo",
     "my-profile": "Meu perfil",
     "settings": "Configurações",
     "logout": "Sair"
@@ -438,6 +439,9 @@
     },
     "releases-by-account": {
       "title": "Lançamentos por conta"
+    },
+    "balance-evolution": {
+      "title": "Evolução do saldo"
     }
   }
 }

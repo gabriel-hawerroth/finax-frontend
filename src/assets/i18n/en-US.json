@@ -103,6 +103,7 @@
     "reports": "Reports",
     "by-category": "By Category",
     "by-account": "By Account",
+    "balance-evolution": "Balance Evolution",
     "my-profile": "My Profile",
     "settings": "Settings",
     "logout": "Logout"
@@ -438,6 +439,9 @@
     },
     "releases-by-account": {
       "title": "Releases by account"
+    },
+    "balance-evolution": {
+      "title": "Balance Evolution"
     }
   }
 }

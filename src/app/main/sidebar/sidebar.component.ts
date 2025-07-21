@@ -124,6 +124,11 @@ export class SidebarComponent implements OnInit {
           icon: 'equalizer',
           label: 'sidebar.by-account',
         },
+        {
+          route: 'relatorios/evolucao-saldo',
+          icon: 'timeline',
+          label: 'sidebar.balance-evolution',
+        },
       ],
     },
   ];

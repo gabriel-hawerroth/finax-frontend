@@ -103,6 +103,7 @@
     "reports": "Informes",
     "by-category": "Por categoría",
     "by-account": "Por cuenta",
+    "balance-evolution": "Evolución del saldo",
     "my-profile": "Mi perfil",
     "settings": "Configuraciones",
     "logout": "Salir"
@@ -438,6 +439,9 @@
     },
     "releases-by-account": {
       "title": "Lanzamientos por cuenta"
+    },
+    "balance-evolution": {
+      "title": "Evolución del saldo"
     }
   }
 }
