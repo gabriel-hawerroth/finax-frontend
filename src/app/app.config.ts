@@ -30,6 +30,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import * as Sentry from '@sentry/angular';
 import { routes } from './app.routes';
+import { CustomErrorHandler } from './core/handlers/custom-error.handler';
 import appInitializer from './core/initializers/app.initializer';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { provideAppCurrencyMask } from './shared/directives/currency-mask.directive';
@@ -53,11 +54,11 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 const sentryProviders = isDevMode()
-  ? [] // não adiciona nada em dev
+  ? []
   : [
       {
         provide: ErrorHandler,
-        useValue: Sentry.createErrorHandler(),
+        useClass: CustomErrorHandler,
       },
       {
         provide: Sentry.TraceService,

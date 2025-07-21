@@ -48,6 +48,9 @@ export const authInterceptor: HttpInterceptorFn = (
             undefined;
         }
 
+        const isAuthError = error.status === 401 || error.status === 403;
+        if (isAuthError) error.skipSentry = true;
+
         return throwError(() => error);
       })
     );
