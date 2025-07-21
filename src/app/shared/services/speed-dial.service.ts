@@ -72,4 +72,30 @@ export class SpeedDialService {
   private setCategories(categories: Category[]): void {
     this.categories = categories.filter((category) => category.active === true);
   }
+
+  public onSaveAccount(account: Account): void {
+    if (!this.accounts) {
+      this.accounts = [];
+    }
+
+    const existingAccountIndex = this.accounts.findIndex(
+      (a) => a.id === account.id
+    );
+
+    if (existingAccountIndex > -1) {
+      if (account.active === false) {
+        this.onDeleteAccount(account.id!);
+        return;
+      }
+      this.accounts[existingAccountIndex] = account;
+    } else if (account.active && !account.grouper) {
+      this.accounts = [...this.accounts, account];
+    }
+  }
+
+  public onDeleteAccount(accountId: number): void {
+    if (!this.accounts) return;
+
+    this.accounts = this.accounts.filter((account) => account.id !== accountId);
+  }
 }
