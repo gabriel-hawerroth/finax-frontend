@@ -7,6 +7,54 @@
 		margin-bottom: 3.5rem;
 	}
 
+	.filters {
+		margin: 0 4rem;
+		border-radius: 3rem;
+		padding: 1rem 2rem;
+
+		.filters-content {
+			height: 100%;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			.center {
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 0 auto;
+				gap: 1rem;
+
+				label {
+					font-size: 1.3rem;
+					text-transform: capitalize;
+					width: 12rem;
+					display: flex;
+					justify-content: center;
+				}
+
+				mat-form-field {
+					width: 18rem;
+					margin: 0;
+				}
+
+				#range-date-picker {
+					position: relative;
+					top: 0.7rem;
+				}
+			}
+
+			#date-interval-select {
+				margin-right: 3rem;
+				position: relative;
+				top: 0.7rem;
+			}
+		}
+	}
+
 	.content {
 		display: flex;
 		align-items: center;

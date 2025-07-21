@@ -3,5 +3,125 @@
     {{ "reports.balance-evolution.title" | translate }}
   </h1>
 
+  <mat-card class="filters" [style.height]="dateIntervalCardHeight()">
+    <mat-card-content class="filters-content" [formGroup]="filtersForm">
+      <mat-form-field id="account-select">
+        <mat-label>
+          {{ "reports.balance-evolution.account" | translate }}
+        </mat-label>
+
+        <mat-select formControlName="accounts">
+          <mat-select-trigger>
+            <div class="selected-account">
+              @if (selectedAccount && selectedAccount.image) {
+              <img
+                [ngSrc]="
+                  cloudFireCdnImgsLink + 'banks/' + selectedAccount.image
+                "
+                width="20"
+                height="20"
+                alt="bank account logo"
+              />
+              }
+              <span>{{ selectedAccount?.name }}</span>
+            </div>
+          </mat-select-trigger>
+
+          @for (account of accounts; track account.id) {
+          <mat-option [value]="account.id" class="bank-account-item">
+            <div class="account-opt">
+              @if (account.image) {
+              <img
+                [ngSrc]="cloudFireCdnImgsLink + 'banks/' + account.image"
+                width="30"
+                height="30"
+                alt="bank account logo"
+              />
+              } @else {
+              <span class="material-symbols-rounded default-account-logo">
+                {{ getDefaultAccountImage(account) }}
+              </span>
+              }
+              <span>{{ account.name }}</span>
+            </div>
+          </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      @if (showChangeMonthButtons()) {
+      <div class="center">
+        <dynamic-button [config]="navigateBackBtnConfig" />
+
+        <label class="tab">
+          @switch (dateInterval()) {
+          <!---->
+          @case ('MONTHLY') {
+          {{ selectedDate | releasesMonth }}
+          } @case ('YEARLY') {
+          {{ selectedDate | date : "yyyy" }}
+          } }
+        </label>
+
+        <dynamic-button [config]="navigateNextBtnConfig" />
+      </div>
+      } @else if (showCustomDatePicker()) {
+      <div class="center">
+        <mat-form-field id="range-date-picker">
+          <mat-label>{{ "reports.select-range-date" | translate }}</mat-label>
+          <mat-date-range-input formGroupName="range" [rangePicker]="picker">
+            <input
+              matStartDate
+              formControlName="start"
+              [placeholder]="'reports.start-date' | translate"
+            />
+            <input
+              matEndDate
+              formControlName="end"
+              [placeholder]="'reports.end-date' | translate"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+      }
+
+      <mat-form-field id="date-interval-select">
+        <mat-label>
+          {{ "home.date-interval" | translate }}
+        </mat-label>
+
+        <mat-select
+          formControlName="dateInterval"
+          (valueChange)="onChangeDateInterval($event)"
+        >
+          <mat-option [value]="getIntervalEnum('LAST_30_DAYS')">
+            {{ "home.last-30-days" | translate }}
+          </mat-option>
+
+          <mat-option [value]="getIntervalEnum('LAST_12_MONTHS')">
+            {{ "reports.last-12-months" | translate }}
+          </mat-option>
+
+          <mat-option [value]="getIntervalEnum('MONTHLY')">
+            {{ "reports.monthly" | translate }}
+          </mat-option>
+
+          <mat-option [value]="getIntervalEnum('YEARLY')">
+            {{ "reports.yearly" | translate }}
+          </mat-option>
+
+          <mat-option [value]="getIntervalEnum('CUSTOM')">
+            {{ "reports.custom" | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
   <div class="content"></div>
 </div>

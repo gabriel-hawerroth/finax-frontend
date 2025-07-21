@@ -441,7 +441,8 @@
       "title": "Lanzamientos por cuenta"
     },
     "balance-evolution": {
-      "title": "Evolución del saldo"
+      "title": "Evolución del saldo",
+      "account": "Cuenta"
     }
   }
 }
