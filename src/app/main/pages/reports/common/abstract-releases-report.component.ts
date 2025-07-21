@@ -158,6 +158,7 @@ export abstract class AbstractReleasesReportComponent
   protected setCenterButtons(): void {
     switch (this.dateInterval.getRawValue()) {
       case ReportReleasesByInterval.MONTHLY:
+        case ReportReleasesByInterval.YEARLY:
         this.showChangeMonthButtons.set(true);
         this.showCustomDatePicker.set(false);
         break;
