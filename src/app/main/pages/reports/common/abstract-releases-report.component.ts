@@ -231,14 +231,10 @@ export abstract class AbstractReleasesReportComponent
   getChartsData(): void {
     if (this.searchingExpenses() || this.searchingRevenues()) return;
 
-    console.log('Fetching charts data...');
-    console.log('Date Interval:', this.dateInterval$());
-
     if (
       this.dateInterval$() === ReportReleasesByInterval.CUSTOM &&
       (!this.range.value.start || !this.range.value.end)
     ) {
-      console.log('Invalid date range selected');
       this.range.setErrors({
         required: true,
       });
@@ -256,15 +252,7 @@ export abstract class AbstractReleasesReportComponent
       releaseType: ReleaseType.REVENUE,
     };
 
-    console.log('Expense Params:', expenseParams);
-    console.log('Revenue Params:', revenueParams);
-
-    console.log('Setting date parameters');
-
     this.setDateParameters(expenseParams, revenueParams);
-
-    console.log('Expense Params:', expenseParams);
-    console.log('Revenue Params:', revenueParams);
 
     this.searchingExpenses.set(true);
     this.expensesData()
