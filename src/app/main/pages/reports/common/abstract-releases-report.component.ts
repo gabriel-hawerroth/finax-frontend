@@ -63,7 +63,7 @@ export abstract class AbstractReleasesReportComponent
   };
 
   // Date and display settings
-  selectedDate = moment().day(15).toDate();
+  selectedDate = new Date(new Date().setDate(15));
 
   theme = signal(this._utils.getUserConfigs.theme);
   currency = signal(this._utils.getUserConfigs.currency);
@@ -177,8 +177,9 @@ export abstract class AbstractReleasesReportComponent
 
     this.selectedDate = moment(this.selectedDate)
       [direction === 'before' ? 'subtract' : 'add'](1, unitTime)
-      .day(15)
       .toDate();
+
+    console.log('Selected date changed to:', this.selectedDate);
 
     this.getChartsData();
   }

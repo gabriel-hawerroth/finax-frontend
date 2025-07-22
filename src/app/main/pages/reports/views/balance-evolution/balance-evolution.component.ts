@@ -83,7 +83,7 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
   };
 
   // Date and display settings
-  selectedDate = moment().day(15).toDate();
+  selectedDate = new Date(new Date().setDate(15));
 
   theme = signal(this._utils.getUserConfigs.theme);
   currency = signal(this._utils.getUserConfigs.currency);
@@ -168,8 +168,6 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
     this.filtersForm.controls['account'].valueChanges
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe((account: number | 'all') => {
-        console.log('Selected account:', account);
-
         if (account === 'all') {
           this.selectedAccount = null;
           return;
@@ -189,7 +187,6 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
 
     this.selectedDate = moment(this.selectedDate)
       [direction === 'before' ? 'subtract' : 'add'](1, unitTime)
-      .day(15)
       .toDate();
 
     this.getChartData();
