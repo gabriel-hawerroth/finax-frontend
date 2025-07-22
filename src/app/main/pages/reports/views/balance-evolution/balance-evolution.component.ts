@@ -13,7 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
-import { debounceTime, Subject, takeUntil } from 'rxjs';
+import { combineLatest, debounceTime, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonType } from '../../../../../core/enums/button-style';
@@ -97,14 +97,16 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
     private readonly _responsiveService: ResponsiveService
   ) {
     this.filtersForm = this._fb.group({
-      accounts: [{ value: null, disabled: true }],
-      dateInterval: [null],
-      range: [null],
+      account: [{ value: 'all', disabled: true }],
+      dateInterval: [ReportReleasesByInterval.MONTHLY],
+      rangeStart: [null],
+      rangeEnd: [null],
     });
   }
 
   ngOnInit(): void {
     this.getValues();
+    this.setCenterButtons();
     this.setDateIntervalCardHeight();
 
     this.subscribeValueChanges();
@@ -120,17 +122,62 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
       .getBasicList(true)
       .then((response) => {
         this.accounts = response;
-        this.filtersForm.get('accounts')!.enable();
+        this.filtersForm.get('account')!.enable();
       })
       .catch(() =>
         this._utils.showMessage('credit-cards.error-getting-accounts')
       );
   }
 
+  private setDateIntervalCardHeight(): void {
+    if (!this._responsiveService.isMobileView()) return;
+
+    this.dateIntervalCardHeight.set(
+      this.showCustomDatePicker()
+        ? '15rem'
+        : this.showChangeMonthButtons()
+        ? '15rem'
+        : '8rem'
+    );
+  }
+
+  private setCenterButtons(): void {
+    switch (this.dateInterval()) {
+      case ReportReleasesByInterval.MONTHLY:
+      case ReportReleasesByInterval.YEARLY:
+        this.showChangeMonthButtons.set(true);
+        this.showCustomDatePicker.set(false);
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        this.showChangeMonthButtons.set(false);
+        this.showCustomDatePicker.set(true);
+        break;
+    }
+  }
+
   private subscribeValueChanges() {
-    this.filtersForm.controls['range'].valueChanges
+    const rangeStartChanges =
+      this.filtersForm.controls['rangeStart'].valueChanges;
+
+    const rangeEndChanges = this.filtersForm.controls['rangeEnd'].valueChanges;
+
+    combineLatest([rangeStartChanges, rangeEndChanges])
       .pipe(debounceTime(200), takeUntil(this.ngUnsubscribe))
       .subscribe(() => this.onChangeDateRange());
+
+    this.filtersForm.controls['account'].valueChanges
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((account: number | 'all') => {
+        console.log('Selected account:', account);
+
+        if (account === 'all') {
+          this.selectedAccount = null;
+          return;
+        }
+
+        this.selectedAccount =
+          this.accounts.find((acc) => acc.id === account) || null;
+      });
   }
 
   changeMonth(direction: 'before' | 'next'): void {
@@ -149,7 +196,10 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
   }
 
   private onChangeDateRange(): void {
-    const range = this.filtersForm.controls['range'].value;
+    const range = {
+      start: this.filtersForm.controls['rangeStart'].value,
+      end: this.filtersForm.controls['rangeEnd'].value,
+    };
 
     if (
       this.dateInterval() !== ReportReleasesByInterval.CUSTOM ||
@@ -189,31 +239,22 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
 
     if (
       interval === ReportReleasesByInterval.CUSTOM &&
-      !this.filtersForm.controls['range'].value.start &&
-      !this.filtersForm.controls['range'].value.end
+      !this.filtersForm.controls['rangeStart'].value &&
+      !this.filtersForm.controls['rangeEnd'].value
     )
       this.setDefaultRange();
 
     this.getChartData();
   }
 
-  private setDateIntervalCardHeight(): void {
-    if (!this._responsiveService.isMobileView()) return;
-
-    this.dateIntervalCardHeight.set(
-      this.showCustomDatePicker()
-        ? '15rem'
-        : this.showChangeMonthButtons()
-        ? '15rem'
-        : '8rem'
-    );
-  }
-
   private setDefaultRange(): void {
-    this.filtersForm.controls['range'].patchValue(this.getDefaultRange());
+    const defaultRange = this.getDefaultRange();
+
+    this.filtersForm.controls['rangeStart'].patchValue(defaultRange.start);
+    this.filtersForm.controls['rangeEnd'].patchValue(defaultRange.end);
   }
 
-  protected getDefaultRange(): { start: Date; end: Date } {
+  private getDefaultRange(): { start: Date; end: Date } {
     return {
       start: moment().startOf('month').toDate(),
       end: moment().endOf('month').toDate(),

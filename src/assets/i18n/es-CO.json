@@ -442,7 +442,8 @@
     },
     "balance-evolution": {
       "title": "Evolución del saldo",
-      "account": "Cuenta"
+      "account": "Cuenta",
+      "all": "Todas"
     }
   }
 }

@@ -442,7 +442,8 @@
     },
     "balance-evolution": {
       "title": "Balance Evolution",
-      "account": "Account"
+      "account": "Account",
+      "all": "All"
     }
   }
 }

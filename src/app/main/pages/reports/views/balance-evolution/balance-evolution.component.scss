@@ -18,6 +18,24 @@
 			justify-content: space-between;
 			align-items: center;
 
+			#date-interval-select,
+			#account-select {
+				position: relative;
+				top: 0.7rem;
+			}
+
+			#account-select {
+				.selected-account {
+					display: flex;
+					align-items: center;
+					gap: 0.5rem;
+
+					img {
+						border-radius: 50%;
+					}
+				}
+			}
+
 			.center {
 				position: absolute;
 				left: 50%;
@@ -49,8 +67,6 @@
 
 			#date-interval-select {
 				margin-right: 3rem;
-				position: relative;
-				top: 0.7rem;
 			}
 		}
 	}

@@ -10,10 +10,11 @@
           {{ "reports.balance-evolution.account" | translate }}
         </mat-label>
 
-        <mat-select formControlName="accounts">
+        <mat-select formControlName="account">
           <mat-select-trigger>
+            @if (selectedAccount) {
             <div class="selected-account">
-              @if (selectedAccount && selectedAccount.image) {
+              @if (selectedAccount.image) {
               <img
                 [ngSrc]="
                   cloudFireCdnImgsLink + 'banks/' + selectedAccount.image
@@ -23,9 +24,23 @@
                 alt="bank account logo"
               />
               }
-              <span>{{ selectedAccount?.name }}</span>
+              <span>{{ selectedAccount.name }}</span>
             </div>
+            } @else {
+            <span>{{ "reports.balance-evolution.all" | translate }}</span>
+            }
           </mat-select-trigger>
+
+          <mat-option value="all" class="bank-account-item">
+            <div class="account-opt">
+              <span class="material-symbols-rounded default-account-logo">
+                account_balance
+              </span>
+              <span>
+                {{ "reports.balance-evolution.all" | translate }}
+              </span>
+            </div>
+          </mat-option>
 
           @for (account of accounts; track account.id) {
           <mat-option [value]="account.id" class="bank-account-item">
@@ -69,15 +84,15 @@
       <div class="center">
         <mat-form-field id="range-date-picker">
           <mat-label>{{ "reports.select-range-date" | translate }}</mat-label>
-          <mat-date-range-input formGroupName="range" [rangePicker]="picker">
+          <mat-date-range-input [rangePicker]="picker">
             <input
               matStartDate
-              formControlName="start"
+              formControlName="rangeStart"
               [placeholder]="'reports.start-date' | translate"
             />
             <input
               matEndDate
-              formControlName="end"
+              formControlName="rangeEnd"
               [placeholder]="'reports.end-date' | translate"
             />
           </mat-date-range-input>
