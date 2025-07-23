@@ -6,16 +6,24 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
+import { ChartModule } from 'primeng/chart';
 import { combineLatest, debounceTime, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
+import { BalanceEvolutionGrouping } from '../../../../../core/enums/balance-evolution-grouping';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ReportReleasesByInterval } from '../../../../../core/enums/report-releases-by-interval';
 import { ButtonConfig } from '../../../../../core/interfaces/button-config';
@@ -41,6 +49,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     DynamicButtonComponent,
     ReleasesMonthPipe,
     MatDatepickerModule,
+    MatRadioModule,
+    ChartModule,
   ],
   templateUrl: './balance-evolution.component.html',
   styleUrl: './balance-evolution.component.scss',
@@ -51,9 +61,13 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   filtersForm: FormGroup;
+  groupingControl: FormControl<BalanceEvolutionGrouping>;
 
   accounts: BasicAccount[] = [];
   selectedAccount: BasicAccount | null = null;
+
+  data: any;
+  options: any;
 
   // UI state signals
   searching = signal(false);
@@ -102,6 +116,56 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
       rangeStart: [null],
       rangeEnd: [null],
     });
+
+    this.groupingControl = _fb.control<BalanceEvolutionGrouping>(
+      BalanceEvolutionGrouping.DAILY,
+      { nonNullable: true }
+    );
+
+    this.data = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'First Dataset',
+          data: [28, 48, 40, 34, 68, 27, 75],
+          fill: false,
+          borderColor: '#B0BEC5',
+          tension: 0.4,
+        },
+      ],
+    };
+
+    this.options = {
+      maintainAspectRatio: false,
+      aspectRatio: 0.8,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#000',
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#757575',
+          },
+          grid: {
+            color: '#BDBDBD',
+            drawBorder: false,
+          },
+        },
+        y: {
+          ticks: {
+            color: '#757575',
+          },
+          grid: {
+            color: '#BDBDBD',
+            drawBorder: false,
+          },
+        },
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -267,5 +331,11 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
       | 'CUSTOM'
   ): ReportReleasesByInterval {
     return ReportReleasesByInterval[interval];
+  }
+
+  getGroupingEnum(
+    grouping: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'BY_RELEASE'
+  ): BalanceEvolutionGrouping {
+    return BalanceEvolutionGrouping[grouping];
   }
 }

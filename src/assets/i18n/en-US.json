@@ -443,7 +443,12 @@
     "balance-evolution": {
       "title": "Balance Evolution",
       "account": "Account",
-      "all": "All"
+      "all": "All",
+      "grouping": "Grouping",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "by-release": "By Release"
     }
   }
 }

@@ -138,5 +138,36 @@
     </mat-card-content>
   </mat-card>
 
-  <div class="content"></div>
+  <div class="content">
+    <div class="grouping">
+      <label> {{ "reports.balance-evolution.grouping" | translate }}: </label>
+
+      <mat-radio-group class="radio-group" [formControl]="groupingControl">
+        <mat-radio-button [value]="getGroupingEnum('DAILY')">
+          {{ "reports.balance-evolution.daily" | translate }}
+        </mat-radio-button>
+
+        <mat-radio-button [value]="getGroupingEnum('WEEKLY')">
+          {{ "reports.balance-evolution.weekly" | translate }}
+        </mat-radio-button>
+
+        <mat-radio-button [value]="getGroupingEnum('MONTHLY')">
+          {{ "reports.balance-evolution.monthly" | translate }}
+        </mat-radio-button>
+
+        <mat-radio-button [value]="getGroupingEnum('BY_RELEASE')">
+          {{ "reports.balance-evolution.by-release" | translate }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-card>
+      <p-chart
+        type="line"
+        [data]="data"
+        [options]="options"
+        id="evolution-chart"
+      />
+    </mat-card>
+  </div>
 </div>

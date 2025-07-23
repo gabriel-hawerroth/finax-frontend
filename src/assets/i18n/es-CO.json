@@ -443,7 +443,12 @@
     "balance-evolution": {
       "title": "Evolución del saldo",
       "account": "Cuenta",
-      "all": "Todas"
+      "all": "Todas",
+      "grouping": "Agrupamiento",
+      "daily": "Diario",
+      "weekly": "Semanal",
+      "monthly": "Mensual",
+      "by-release": "Por lanzamiento"
     }
   }
 }
