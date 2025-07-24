@@ -1,6 +1,6 @@
 export enum BalanceEvolutionGrouping {
-  DAILY = 'daily',
-  WEEKLY = 'weekly',
-  MONTHLY = 'monthly',
-  BY_RELEASE = 'by-release',
+  DAILY = 'DAILY',
+  WEEKLY = 'WEEKLY',
+  MONTHLY = 'MONTHLY',
+  BY_RELEASE = 'BY_RELEASE',
 }

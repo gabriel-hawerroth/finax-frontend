@@ -448,7 +448,8 @@
       "daily": "Diario",
       "weekly": "Semanal",
       "monthly": "Mensual",
-      "by-release": "Por lanzamiento"
+      "by-release": "Por lanzamiento",
+      "all-accounts": "Todas las cuentas"
     }
   }
 }

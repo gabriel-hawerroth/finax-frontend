@@ -162,12 +162,28 @@
     </div>
 
     <mat-card>
+      @defer (when completedInitialFetch()) {
+      <!---->
+      @if (searching()) {
+      <div class="empty">
+        <mat-spinner />
+      </div>
+      } @else if (errorFetching()) {
+      <div class="empty">
+        <label>{{ "reports.error-getting-releases" | translate }}</label>
+      </div>
+      } @else if (chartData().labels?.length === 0) {
+      <div class="empty">
+        <label>{{ "reports.no-releases" | translate }}</label>
+      </div>
+      } @else {
       <p-chart
         type="line"
-        [data]="data"
+        [data]="chartData()"
         [options]="options"
         id="evolution-chart"
       />
+      }}
     </mat-card>
   </div>
 </div>

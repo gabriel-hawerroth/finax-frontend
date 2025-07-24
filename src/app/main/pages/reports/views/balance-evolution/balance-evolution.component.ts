@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   signal,
+  WritableSignal,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -15,14 +16,20 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import moment from 'moment';
 import { ChartModule } from 'primeng/chart';
 import { combineLatest, debounceTime, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
+import {
+  BalanceEvolutionItem,
+  ReportBalanceEvolutionParams,
+} from '../../../../../core/entities/reports/reports-dtos';
+import { ReportsService } from '../../../../../core/entities/reports/reports.service';
 import { BalanceEvolutionGrouping } from '../../../../../core/enums/balance-evolution-grouping';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ReportReleasesByInterval } from '../../../../../core/enums/report-releases-by-interval';
@@ -51,6 +58,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatDatepickerModule,
     MatRadioModule,
     ChartModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './balance-evolution.component.html',
   styleUrl: './balance-evolution.component.scss',
@@ -66,7 +74,7 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
   accounts: BasicAccount[] = [];
   selectedAccount: BasicAccount | null = null;
 
-  data: any;
+  chartData: WritableSignal<any>;
   options: any;
 
   // UI state signals
@@ -108,7 +116,9 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
     private readonly _fb: FormBuilder,
     private readonly _accountService: AccountService,
     private readonly _utils: UtilsService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _reportsService: ReportsService,
+    private readonly _translate: TranslateService
   ) {
     this.filtersForm = this._fb.group({
       account: [{ value: 'all', disabled: true }],
@@ -122,18 +132,18 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
       { nonNullable: true }
     );
 
-    this.data = {
+    this.chartData = signal({
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
           label: 'First Dataset',
-          data: [28, 48, 40, 34, 68, 27, 75],
-          fill: false,
+          data: [40, 40, 40, 40, 40, 40, 60],
+          fill: true,
           borderColor: '#B0BEC5',
           tension: 0.4,
         },
       ],
-    };
+    });
 
     this.options = {
       maintainAspectRatio: false,
@@ -174,6 +184,8 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
     this.setDateIntervalCardHeight();
 
     this.subscribeValueChanges();
+
+    this.getChartData();
   }
 
   ngOnDestroy(): void {
@@ -239,7 +251,16 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
 
         this.selectedAccount =
           this.accounts.find((acc) => acc.id === account) || null;
+
+        this.onChangeDateRange();
       });
+
+    const filtersFormChanges = this.filtersForm.valueChanges;
+    const groupingControlChanges = this.groupingControl.valueChanges;
+
+    combineLatest([filtersFormChanges, groupingControlChanges])
+      .pipe(debounceTime(200), takeUntil(this.ngUnsubscribe))
+      .subscribe(() => this.getChartData());
   }
 
   changeMonth(direction: 'before' | 'next'): void {
@@ -273,7 +294,59 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
     this.getChartData();
   }
 
-  private getChartData(): void {}
+  private getChartData(): void {
+    if (this.searching()) return;
+
+    if (this.dateInterval() === ReportReleasesByInterval.CUSTOM) {
+      const range = {
+        start: this.filtersForm.controls['rangeStart'].value,
+        end: this.filtersForm.controls['rangeEnd'].value,
+      };
+
+      if (!range.start || !range.end || range.start > range.end) {
+        this._utils.showMessage('reports.invalid-date-range');
+        return;
+      }
+    }
+
+    const params: ReportBalanceEvolutionParams = {
+      interval: this.dateInterval(),
+      accountId: this.selectedAccount?.id || undefined,
+      grouper: this.groupingControl.value,
+    };
+
+    this.setDateParameters(params);
+
+    this.searching.set(true);
+    this._reportsService
+      .getBalanceEvolution(params)
+      .then((response) => this.mapChartData(response))
+      .catch(() => this.errorFetching.set(true))
+      .finally(() => {
+        this.searching.set(false);
+        this.completedInitialFetch.set(true);
+      });
+  }
+
+  private mapChartData(data: BalanceEvolutionItem[]): void {
+    this.chartData.update((prevData) => ({
+      ...prevData,
+      labels: data.map((item) => moment(item.date).format('DD/MM/YYYY')),
+      datasets: [
+        {
+          ...prevData.datasets[0],
+          label:
+            this.selectedAccount?.name ||
+            this._translate.instant('reports.balance-evolution.all-accounts'),
+          data: data.map((item) => item.amount),
+        },
+      ],
+    }));
+
+    this.options.scales!.x.ticks!.callback = (value: string) => {
+      return moment(value, 'DD/MM/YYYY').format('DD/MM');
+    };
+  }
 
   public onChangeDateInterval(interval: ReportReleasesByInterval): void {
     if (!interval) return;
@@ -306,6 +379,28 @@ export class BalanceEvolutionPage implements OnInit, OnDestroy {
       this.setDefaultRange();
 
     this.getChartData();
+  }
+
+  private setDateParameters(params: ReportBalanceEvolutionParams): void {
+    switch (this.dateInterval()) {
+      case ReportReleasesByInterval.MONTHLY:
+        const initialDate = moment(this.selectedDate).startOf('month').toDate();
+        const finalDate = moment(this.selectedDate).endOf('month').toDate();
+        params.initialDate = initialDate;
+        params.finalDate = finalDate;
+        break;
+      case ReportReleasesByInterval.YEARLY:
+        const year = this.selectedDate.getFullYear();
+        const initialYearDate = new Date(year, 0, 1);
+        const finalYearDate = new Date(year, 11, 31);
+        params.initialDate = initialYearDate;
+        params.finalDate = finalYearDate;
+        break;
+      case ReportReleasesByInterval.CUSTOM:
+        params.initialDate = this.filtersForm.controls['rangeStart'].value!;
+        params.finalDate = this.filtersForm.controls['rangeEnd'].value!;
+        break;
+    }
   }
 
   private setDefaultRange(): void {

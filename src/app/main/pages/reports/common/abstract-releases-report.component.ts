@@ -258,10 +258,7 @@ export abstract class AbstractReleasesReportComponent
     this.searchingExpenses.set(true);
     this.expensesData()
       .fetchReleases(expenseParams)
-      .catch((error) => {
-        console.error('Error fetching expenses:', error);
-        this.errorFetchingExpenses.set(true);
-      })
+      .catch(() => this.errorFetchingExpenses.set(true))
       .finally(() => {
         this.searchingExpenses.set(false);
         this.completedInitialFetchExpenses.set(true);

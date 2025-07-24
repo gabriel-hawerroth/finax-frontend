@@ -448,7 +448,8 @@
       "daily": "Täglich",
       "weekly": "Wöchentlich",
       "monthly": "Monatlich",
-      "by-release": "Nach Veröffentlichung"
+      "by-release": "Nach Veröffentlichung",
+      "all-accounts": "Alle Konten"
     }
   }
 }

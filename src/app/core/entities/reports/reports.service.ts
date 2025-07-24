@@ -5,8 +5,10 @@ import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ReportReleasesByInterval } from '../../enums/report-releases-by-interval';
 import {
+  BalanceEvolutionItem,
   ReleasesByAccount,
   ReleasesByCategory,
+  ReportBalanceEvolutionParams,
   ReportReleasesByParams,
 } from './reports-dtos';
 
@@ -48,6 +50,29 @@ export class ReportsService {
     );
   }
 
+  getBalanceEvolution(
+    params: ReportBalanceEvolutionParams
+  ): Promise<BalanceEvolutionItem[]> {
+    let httpParams = new HttpParams()
+      .set('interval', params.interval)
+      .set('grouper', params.grouper);
+
+    if (params.accountId) {
+      httpParams = httpParams.set('accountId', params.accountId.toString());
+    }
+
+    httpParams = this.applyDateFilters(params, httpParams);
+
+    return lastValueFrom(
+      this._http.get<BalanceEvolutionItem[]>(
+        `${this.apiUrl}/balance-evolution`,
+        {
+          params: httpParams,
+        }
+      )
+    );
+  }
+
   private createHttpParams(params: ReportReleasesByParams) {
     let httpParams = new HttpParams()
       .set('interval', params.interval)
@@ -58,7 +83,7 @@ export class ReportsService {
   }
 
   private applyDateFilters(
-    params: ReportReleasesByParams,
+    params: ReportReleasesByParams | ReportBalanceEvolutionParams,
     httpParams: HttpParams
   ) {
     if (
