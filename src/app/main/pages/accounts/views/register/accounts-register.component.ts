@@ -24,6 +24,7 @@ import {
 } from '../../../../../core/interfaces/button-config';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { BackButtonDirective } from '../../../../../shared/directives/back-button.directive';
+import { SpeedDialService } from '../../../../../shared/services/speed-dial.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { AccountsFormComponent } from '../../components/accounts-form/accounts-form.component';
@@ -70,7 +71,8 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     private readonly _utils: UtilsService,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _router: Router,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
+    private readonly _speedDialService: SpeedDialService,
   ) {}
 
   ngOnInit() {
@@ -112,9 +114,10 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     this.accountForm.markAsPristine();
 
     this.getSaveRequest(this.accountForm.getRawValue())
-      .then(() => {
+      .then((account) => {
         this._utils.showMessage('my-accounts.saved-successfully');
         this._router.navigateByUrl('contas');
+        this._speedDialService.onSaveAccount(account);
       })
       .catch((err) => {
         if (

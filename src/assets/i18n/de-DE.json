@@ -103,6 +103,7 @@
     "reports": "Berichte",
     "by-category": "Nach Kategorie",
     "by-account": "Nach Konto",
+    "balance-evolution": "Saldoentwicklung",
     "my-profile": "Mein Profil",
     "settings": "Einstellungen",
     "logout": "Ausloggen"
@@ -438,6 +439,17 @@
     },
     "releases-by-account": {
       "title": "Veröffentlichungen nach Konto"
+    },
+    "balance-evolution": {
+      "title": "Saldoentwicklung",
+      "account": "Konto",
+      "all": "Alle",
+      "grouping": "Gruppierung",
+      "daily": "Täglich",
+      "weekly": "Wöchentlich",
+      "monthly": "Monatlich",
+      "by-release": "Nach Veröffentlichung",
+      "all-accounts": "Alle Konten"
     }
   }
 }

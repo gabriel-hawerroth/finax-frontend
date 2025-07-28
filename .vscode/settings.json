@@ -4,5 +4,6 @@
     "source.removeUnusedImports": "always",
     "source.organizeImports": "always"
   },
-  "files.trimFinalNewlines": true
+  "files.trimFinalNewlines": true,
+  "editor.tabSize": 2
 }

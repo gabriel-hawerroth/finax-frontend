@@ -63,7 +63,7 @@ export abstract class AbstractReleasesReportComponent
   };
 
   // Date and display settings
-  selectedDate = moment().day(15).toDate();
+  selectedDate = new Date(new Date().setDate(15));
 
   theme = signal(this._utils.getUserConfigs.theme);
   currency = signal(this._utils.getUserConfigs.currency);
@@ -158,6 +158,7 @@ export abstract class AbstractReleasesReportComponent
   protected setCenterButtons(): void {
     switch (this.dateInterval.getRawValue()) {
       case ReportReleasesByInterval.MONTHLY:
+      case ReportReleasesByInterval.YEARLY:
         this.showChangeMonthButtons.set(true);
         this.showCustomDatePicker.set(false);
         break;
@@ -176,8 +177,9 @@ export abstract class AbstractReleasesReportComponent
 
     this.selectedDate = moment(this.selectedDate)
       [direction === 'before' ? 'subtract' : 'add'](1, unitTime)
-      .day(15)
       .toDate();
+
+    console.log('Selected date changed to:', this.selectedDate);
 
     this.getChartsData();
   }
@@ -230,14 +232,10 @@ export abstract class AbstractReleasesReportComponent
   getChartsData(): void {
     if (this.searchingExpenses() || this.searchingRevenues()) return;
 
-    console.log('Fetching charts data...');
-    console.log('Date Interval:', this.dateInterval$());
-
     if (
       this.dateInterval$() === ReportReleasesByInterval.CUSTOM &&
       (!this.range.value.start || !this.range.value.end)
     ) {
-      console.log('Invalid date range selected');
       this.range.setErrors({
         required: true,
       });
@@ -255,23 +253,12 @@ export abstract class AbstractReleasesReportComponent
       releaseType: ReleaseType.REVENUE,
     };
 
-    console.log('Expense Params:', expenseParams);
-    console.log('Revenue Params:', revenueParams);
-
-    console.log('Setting date parameters');
-
     this.setDateParameters(expenseParams, revenueParams);
-
-    console.log('Expense Params:', expenseParams);
-    console.log('Revenue Params:', revenueParams);
 
     this.searchingExpenses.set(true);
     this.expensesData()
       .fetchReleases(expenseParams)
-      .catch((error) => {
-        console.error('Error fetching expenses:', error);
-        this.errorFetchingExpenses.set(true);
-      })
+      .catch(() => this.errorFetchingExpenses.set(true))
       .finally(() => {
         this.searchingExpenses.set(false);
         this.completedInitialFetchExpenses.set(true);

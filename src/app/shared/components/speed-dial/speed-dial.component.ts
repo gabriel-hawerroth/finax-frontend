@@ -1,9 +1,20 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ReleaseFormDialogData } from '../../../core/entities/release/release-dto';
+import { AccountChangedEvent } from '../../../core/enums/account-changed-event';
 import { ReleaseType } from '../../../core/enums/release-enums';
-import { releaseCreatedEvent } from '../../../core/events/events';
+import {
+  accountChangedEvent,
+  releaseCreatedEvent,
+} from '../../../core/events/events';
 import { SpeedDialService } from '../../services/speed-dial.service';
 import { UtilsService } from '../../utils/utils.service';
 
@@ -14,13 +25,38 @@ import { UtilsService } from '../../utils/utils.service';
   styleUrl: './speed-dial.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpeedDialComponent {
+export class SpeedDialComponent implements OnInit, OnDestroy {
   isOpen = signal(false);
+
+  private readonly _unsubscribeAll = new Subject<void>();
 
   constructor(
     private readonly _speedDialService: SpeedDialService,
     private readonly _utils: UtilsService
   ) {}
+
+  ngOnInit(): void {
+    accountChangedEvent
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((event) => {
+        if (
+          event.event === AccountChangedEvent.DELETED ||
+          event.event === AccountChangedEvent.INACTIVATED
+        ) {
+          const accountId =
+            event.accountsId instanceof Array
+              ? event.accountsId[0]
+              : event.accountsId;
+
+          this._speedDialService.onDeleteAccount(accountId);
+        }
+      });
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.next();
+    this._unsubscribeAll.complete();
+  }
 
   toggle() {
     this.isOpen.set(!this.isOpen());

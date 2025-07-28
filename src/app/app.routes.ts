@@ -189,6 +189,14 @@ export const routes: Routes = [
           ).then((m) => m.ReleasesByAccountPage),
         canActivate: [webGuard],
       },
+      {
+        path: 'evolucao-saldo',
+        loadComponent: () =>
+          import(
+            './main/pages/reports/views/balance-evolution/balance-evolution.component'
+          ).then((m) => m.BalanceEvolutionPage),
+        canActivate: [webGuard],
+      },
     ],
   },
   {

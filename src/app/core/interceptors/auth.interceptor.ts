@@ -15,43 +15,43 @@ export const authInterceptor: HttpInterceptorFn = (
   const requestUrl: Array<string> = request.url.split('/');
   const apiUrl: Array<string> = environment.baseApiUrl.split('/');
 
-  if (requestUrl[2] === apiUrl[2]) {
-    const token: string | null = loginService.getUserToken;
+  if (requestUrl[2] !== apiUrl[2]) return next(request);
 
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }
+  const token: string | null = loginService.getUserToken;
 
-    return next(request).pipe(
-      catchError((error) => {
-        console.log('Error: ', error);
-
-        switch (error.status) {
-          case 401:
-            loginService.logout(true);
-            break;
-          case 403:
-            loginService.logout(true);
-            break;
-          case 0:
-            loginService.logout(false);
-            utilsService.showMessage('generic.update-in-progress');
-        }
-
-        if (error?.error?.errorDescription) {
-          error.error.errorDescription =
-            (error.error.errorDescription as string)?.toLowerCase() ||
-            undefined;
-        }
-
-        return throwError(() => error);
-      })
-    );
-  } else {
-    return next(request);
+  if (token) {
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
+
+  return next(request).pipe(
+    catchError((error) => {
+      console.log('Error: ', error);
+
+      switch (error.status) {
+        case 401:
+          loginService.logout(true);
+          break;
+        case 403:
+          loginService.logout(true);
+          break;
+        case 0:
+          loginService.logout(false);
+          utilsService.showMessage('generic.update-in-progress');
+      }
+
+      if (error?.error?.errorDescription) {
+        error.error.errorDescription =
+          (error.error.errorDescription as string)?.toLowerCase() || undefined;
+      }
+
+      const isAuthError = error.status === 401 || error.status === 403;
+      if (isAuthError) error.skipSentry = true;
+
+      return throwError(() => error);
+    })
+  );
 };

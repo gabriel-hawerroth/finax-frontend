@@ -30,6 +30,7 @@ import {
 import { DynamicButtonComponent } from '../../../../../shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
+import { SpeedDialService } from '../../../../../shared/services/speed-dial.service';
 import {
   cloudFireCdnImgsLink,
   HIDE_VALUE,
@@ -90,7 +91,8 @@ export class BankAccountDetailsComponent {
     private readonly _dialog: MatDialog,
     private readonly _router: Router,
     private readonly _accountService: AccountService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
+    private readonly _speedDialService: SpeedDialService
   ) {
     const data: BankAccountDetailsData = inject(MAT_BOTTOM_SHEET_DATA);
     this.account = data.account;
@@ -273,6 +275,16 @@ export class BankAccountDetailsComponent {
           accountsId: [this.account.id!, ...accountsId],
           event: AccountChangedEvent.ACTIVATED,
         });
+
+        this.account.active = true;
+        this._speedDialService.onSaveAccount(this.account);
+
+        this.subAccounts
+          ?.filter((subAccount) => accountsId.includes(subAccount.id!))
+          .forEach((subAccount) => {
+            subAccount.active = true;
+            this._speedDialService.onSaveAccount(subAccount);
+          });
 
         this._bottomSheetRef.dismiss();
       });
