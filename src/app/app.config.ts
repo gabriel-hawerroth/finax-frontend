@@ -1,6 +1,5 @@
 import { DatePipe, registerLocaleData } from '@angular/common';
 import {
-  HttpClient,
   provideHttpClient,
   withFetch,
   withInterceptors,
@@ -9,10 +8,9 @@ import localePt from '@angular/common/locales/pt';
 import {
   ApplicationConfig,
   ErrorHandler,
-  importProvidersFrom,
   isDevMode,
   provideAppInitializer,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import {
@@ -21,13 +19,14 @@ import {
 } from '@angular/material/core';
 import {
   provideClientHydration,
+  withEventReplay,
   withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, Router } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import * as Sentry from '@sentry/angular';
 import { routes } from './app.routes';
 import { CustomErrorHandler } from './core/handlers/custom-error.handler';
@@ -49,10 +48,6 @@ export const MY_FORMATS = {
 
 registerLocaleData(localePt, 'pt-BR');
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
 const sentryProviders = isDevMode()
   ? []
   : [
@@ -68,9 +63,9 @@ const sentryProviders = isDevMode()
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideClientHydration(withIncrementalHydration()),
+    provideClientHydration(withIncrementalHydration(), withEventReplay()),
     provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideNativeDateAdapter(),
@@ -92,15 +87,13 @@ export const appConfig: ApplicationConfig = {
       max: 999999999999.99,
       inputMode: 'financial',
     }),
-    importProvidersFrom(
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient],
-        },
-      })
-    ),
+    provideTranslateService({
+      fallbackLang: 'pt-BR',
+      loader: provideTranslateHttpLoader({
+        prefix: './assets/i18n/',
+        suffix: '.json',
+      }),
+    }),
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: 'TIMEZONE', useValue: 'America/Sao_Paulo' },

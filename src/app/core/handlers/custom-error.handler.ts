@@ -1,9 +1,9 @@
 import { ErrorHandler, Injectable } from '@angular/core';
-import * as Sentry from '@sentry/angular';
+import { createErrorHandler } from '@sentry/angular';
 
 @Injectable()
 export class CustomErrorHandler implements ErrorHandler {
-  private sentryErrorHandler = Sentry.createErrorHandler();
+  private sentryErrorHandler = createErrorHandler();
 
   handleError(error: any): void {
     if (error?.skipSentry || error?.rejection?.skipSentry) return;

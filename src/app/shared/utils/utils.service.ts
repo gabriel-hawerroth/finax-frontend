@@ -97,8 +97,8 @@ export class UtilsService {
     return this.getItemLocalStorage(LS_SHOW_VALUES) === ShowValues.ON;
   }
 
-  setDefaultLanguage() {
-    this._translateService.setDefaultLang(this.getUserConfigs.language);
+  setFallbackLanguage() {
+    this._translateService.setFallbackLang(this.getUserConfigs.language);
     this._translateService.use(this.getUserConfigs.language);
   }
 
