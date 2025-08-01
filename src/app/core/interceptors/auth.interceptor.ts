@@ -4,12 +4,11 @@ import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { UtilsService } from '../../shared/utils/utils.service';
-import { LoginService } from '../entities/auth/login.service';
+import { onLogoutEvent } from '../events/events';
 
 export const authInterceptor: HttpInterceptorFn = (
   request,
   next,
-  loginService = inject(LoginService),
   utilsService = inject(UtilsService)
 ) => {
   const requestUrl: Array<string> = request.url.split('/');
@@ -17,7 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (
 
   if (requestUrl[2] !== apiUrl[2]) return next(request);
 
-  const token: string | null = loginService.getUserToken;
+  const token: string | null = utilsService.getUserToken;
 
   if (token) {
     request = request.clone({
@@ -33,13 +32,13 @@ export const authInterceptor: HttpInterceptorFn = (
 
       switch (error.status) {
         case 401:
-          loginService.logout(true);
+          onLogoutEvent.next({ showMessage: true });
           break;
         case 403:
-          loginService.logout(true);
+          onLogoutEvent.next({ showMessage: true });
           break;
         case 0:
-          loginService.logout(false);
+          onLogoutEvent.next({ showMessage: false });
           utilsService.showMessage('generic.update-in-progress');
       }
 

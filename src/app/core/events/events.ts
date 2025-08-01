@@ -8,3 +8,8 @@ export const accountChangedEvent = new Subject<{
 }>();
 
 export const releaseCreatedEvent = new Subject<void>();
+
+export const onLogoutEvent = new Subject<{
+  showMessage: boolean;
+  redirectToPublicPage?: boolean;
+}>();
