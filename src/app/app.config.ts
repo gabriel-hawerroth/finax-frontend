@@ -63,11 +63,11 @@ const sentryProviders = isDevMode()
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withIncrementalHydration(), withEventReplay()),
     provideAnimations(),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     provideNativeDateAdapter(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
@@ -88,10 +88,12 @@ export const appConfig: ApplicationConfig = {
       inputMode: 'financial',
     }),
     provideTranslateService({
+      lang: 'pt-BR',
       fallbackLang: 'pt-BR',
       loader: provideTranslateHttpLoader({
         prefix: './assets/i18n/',
         suffix: '.json',
+        useHttpBackend: true,
       }),
     }),
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
