@@ -59,8 +59,7 @@
               type="text"
               matInput
               formControlName="cardLimit"
-              currencyMask
-              [options]="{ prefix: currency + ' ' }"
+              [currencyMask]="{ prefix: currency + ' ' }"
               placeholder="0"
             />
           </mat-form-field>

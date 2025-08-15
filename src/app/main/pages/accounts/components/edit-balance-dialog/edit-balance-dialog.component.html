@@ -19,8 +19,7 @@
       <input
         matInput
         placeholder="0"
-        currencyMask
-        [options]="{ prefix: currency + ' ' }"
+        [currencyMask]="{ prefix: currency + ' ' }"
         [formControl]="balanceControl"
       />
       <mat-hint>

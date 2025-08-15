@@ -19,13 +19,12 @@
         <input
           type="text"
           matInput
-          currencyMask
-          placeholder="0"
-          [options]="{
+          [currencyMask]="{
             prefix: currency + ' ',
             allowNegative: false,
             min: 0,
           }"
+          placeholder="0"
           formControlName="paymentAmount"
         />
       </mat-form-field>
