@@ -95,8 +95,7 @@
         matInput
         type="text"
         formControlName="code"
-        appCurrencyMask
-        [options]="{
+        [currencyMask]="{
           align: 'left',
           precision: 0,
           allowNegative: false,
@@ -130,8 +129,7 @@
       <input
         matInput
         placeholder="0"
-        appCurrencyMask
-        [options]="{
+        [currencyMask]="{
           prefix: currency + ' '
         }"
         formControlName="balance"
