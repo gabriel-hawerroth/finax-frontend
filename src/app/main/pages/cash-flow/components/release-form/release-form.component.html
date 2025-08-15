@@ -160,8 +160,7 @@
           type="text"
           formControlName="amount"
           placeholder="0"
-          currencyMask
-          [options]="{ prefix: currency + ' ', allowNegative: false }"
+          [currencyMask]="{ prefix: currency + ' ', allowNegative: false }"
         />
       </mat-form-field>
       } @else {
@@ -355,8 +354,7 @@
           type="text"
           formControlName="amount"
           placeholder="0"
-          currencyMask
-          [options]="{ prefix: currency + ' ', allowNegative: false }"
+          [currencyMask]="{ prefix: currency + ' ', allowNegative: false }"
         />
       </mat-form-field>
       }
