@@ -46,7 +46,9 @@ export const MY_FORMATS = {
   },
 };
 
-registerLocaleData(localePt, 'pt-BR');
+export const APP_LANGUAGE = 'pt-BR';
+
+registerLocaleData(localePt, APP_LANGUAGE);
 
 const sentryProviders = isDevMode()
   ? []
@@ -88,15 +90,15 @@ export const appConfig: ApplicationConfig = {
       inputMode: 'financial',
     }),
     provideTranslateService({
-      lang: 'pt-BR',
-      fallbackLang: 'pt-BR',
+      lang: APP_LANGUAGE,
+      fallbackLang: APP_LANGUAGE,
       loader: provideTranslateHttpLoader({
         prefix: './assets/i18n/',
         suffix: '.json',
         useHttpBackend: true,
       }),
     }),
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: MAT_DATE_LOCALE, useValue: APP_LANGUAGE },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: 'TIMEZONE', useValue: 'America/Sao_Paulo' },
     DatePipe,
