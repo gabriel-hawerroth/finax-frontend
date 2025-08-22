@@ -25,7 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxCurrencyDirective } from 'ngx-currency-v2';
 import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';

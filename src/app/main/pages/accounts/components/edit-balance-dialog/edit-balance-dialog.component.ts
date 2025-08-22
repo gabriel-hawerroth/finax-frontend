@@ -16,7 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxCurrencyDirective } from 'ngx-currency-v2';
 import { EditBalanceDialogData } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
