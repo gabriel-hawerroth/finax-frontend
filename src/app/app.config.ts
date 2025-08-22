@@ -31,7 +31,7 @@ import * as Sentry from '@sentry/angular';
 import {
   NgxCurrencyInputMode,
   provideEnvironmentNgxCurrency,
-} from 'ngx-currency';
+} from 'ngx-currency-v2';
 import { routes } from './app.routes';
 import { CustomErrorHandler } from './core/handlers/custom-error.handler';
 import appInitializer from './core/initializers/app.initializer';
