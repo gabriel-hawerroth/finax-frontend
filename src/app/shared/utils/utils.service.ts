@@ -97,8 +97,14 @@ export class UtilsService {
     return this.getItemLocalStorage(LS_SHOW_VALUES) === ShowValues.ON;
   }
 
-  setDefaultLanguage() {
-    this._translateService.setDefaultLang(this.getUserConfigs.language);
+  get getUserToken(): string | null {
+    return this.getItemLocalStorage('tokenFinax')
+      ? JSON.parse(atob(this.getItemLocalStorage('tokenFinax')!))
+      : null;
+  }
+
+  setFallbackLanguage() {
+    this._translateService.setFallbackLang(this.getUserConfigs.language);
     this._translateService.use(this.getUserConfigs.language);
   }
 

@@ -22,7 +22,7 @@ export default async function appInitializer(
 }
 
 function setDefaults(_utils: UtilsService) {
-  _utils.setDefaultLanguage();
+  _utils.setFallbackLanguage();
 
   if (!_utils.getItemLocalStorage(LS_SHOW_VALUES))
     _utils.setItemLocalStorage(LS_SHOW_VALUES, ShowValues.ON);

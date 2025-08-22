@@ -25,7 +25,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import { addHours } from 'date-fns';
-import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxCurrencyDirective } from 'ngx-currency-v2';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { InvoicePaymentDialogData } from '../../../../../core/entities/invoice/invoice-payment-dto';
 import { InvoiceService } from '../../../../../core/entities/invoice/invoice.service';

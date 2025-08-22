@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
-import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxCurrencyDirective } from 'ngx-currency-v2';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';

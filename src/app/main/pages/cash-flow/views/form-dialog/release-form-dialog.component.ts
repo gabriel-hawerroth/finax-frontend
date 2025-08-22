@@ -37,7 +37,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { isAfter, setHours } from 'date-fns';
 import moment from 'moment';
-import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxCurrencyDirective } from 'ngx-currency-v2';
 import { lastValueFrom } from 'rxjs';
 import { Category } from '../../../../../core/entities/category/category';
 import { BasicCard } from '../../../../../core/entities/credit-card/credit-card-dto';

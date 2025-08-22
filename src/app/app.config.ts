@@ -1,6 +1,5 @@
 import { DatePipe, registerLocaleData } from '@angular/common';
 import {
-  HttpClient,
   provideHttpClient,
   withFetch,
   withInterceptors,
@@ -9,10 +8,9 @@ import localePt from '@angular/common/locales/pt';
 import {
   ApplicationConfig,
   ErrorHandler,
-  importProvidersFrom,
   isDevMode,
   provideAppInitializer,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import {
@@ -21,13 +19,14 @@ import {
 } from '@angular/material/core';
 import {
   provideClientHydration,
+  withEventReplay,
   withIncrementalHydration,
 } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, Router } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import * as Sentry from '@sentry/angular';
 import {
   NgxCurrencyInputMode,
@@ -50,11 +49,9 @@ export const MY_FORMATS = {
   },
 };
 
-registerLocaleData(localePt, 'pt-BR');
+export const APP_LANGUAGE = 'pt-BR';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+registerLocaleData(localePt, APP_LANGUAGE);
 
 const sentryProviders = isDevMode()
   ? []
@@ -71,11 +68,11 @@ const sentryProviders = isDevMode()
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
-    provideRouter(routes),
-    provideClientHydration(withIncrementalHydration()),
-    provideAnimations(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    provideClientHydration(withIncrementalHydration(), withEventReplay()),
+    provideAnimations(),
     provideNativeDateAdapter(),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
@@ -95,16 +92,16 @@ export const appConfig: ApplicationConfig = {
       max: 999999999999.99,
       inputMode: NgxCurrencyInputMode.Financial,
     }),
-    importProvidersFrom(
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient],
-        },
-      })
-    ),
-    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    provideTranslateService({
+      lang: APP_LANGUAGE,
+      fallbackLang: APP_LANGUAGE,
+      loader: provideTranslateHttpLoader({
+        prefix: './assets/i18n/',
+        suffix: '.json',
+        useHttpBackend: true,
+      }),
+    }),
+    { provide: MAT_DATE_LOCALE, useValue: APP_LANGUAGE },
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
     { provide: 'TIMEZONE', useValue: 'America/Sao_Paulo' },
     DatePipe,

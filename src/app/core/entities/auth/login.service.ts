@@ -11,6 +11,7 @@ import {
 } from '../../../shared/utils/local-storage-contants';
 import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { UtilsService } from '../../../shared/utils/utils.service';
+import { onLogoutEvent } from '../../events/events';
 import { UserConfigsService } from '../user-configs/user-configs.service';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
@@ -32,7 +33,11 @@ export class LoginService {
     private readonly _authService: AuthService,
     private readonly _userConfigsService: UserConfigsService,
     private readonly _userService: UserService
-  ) {}
+  ) {
+    onLogoutEvent.subscribe((event) =>
+      this.logout(event.showMessage, event.redirectToPublicPage)
+    );
+  }
 
   async login(credentials: Credentials) {
     await this._authService
