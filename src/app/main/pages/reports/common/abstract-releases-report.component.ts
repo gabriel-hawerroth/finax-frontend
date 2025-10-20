@@ -146,6 +146,7 @@ export abstract class AbstractReleasesReportComponent
 
     const configs: ReportReleasesByConfig = JSON.parse(savedConfigs);
     this.dateInterval.setValue(configs.dateInterval);
+    this.dateInterval$.set(configs.dateInterval);
     this.chartTypeControl.setValue(configs.chartType);
 
     if (configs.selectedMonth) {
