@@ -106,8 +106,6 @@ export class CreditCardInvoicePage implements OnInit {
 
   invoiceValues!: Signal<CreditCardInvoiceValues>;
 
-  isMobileView = this._responsiveService.isMobileView;
-
   constructor(
     private readonly _utils: UtilsService,
     private readonly _matDialog: MatDialog,
