@@ -15,7 +15,6 @@
     [iconColor]="'#ca2828 !important'"
   />
 
-  @if (!smallWidth()) {
   <app-invoice-balance
     title="invoice.amount"
     [value]="balances().balance"
@@ -23,7 +22,6 @@
     icon="balance"
     [iconColor]="'#2692c3 !important'"
   />
-  } @if (!isMobileView()) {
   <app-invoice-balance
     title="invoice.expected-amount"
     [value]="balances().expectedBalance"
@@ -31,5 +29,4 @@
     icon="upcoming"
     [iconColor]="'#00796b !important'"
   />
-  }
 </div>
