@@ -37,15 +37,21 @@ import {
   InvoicePaymentPerson,
 } from '../../../../../core/entities/invoice/invoice-payment-dto';
 import { InvoiceService } from '../../../../../core/entities/invoice/invoice.service';
-import { ReleaseFormDialogData } from '../../../../../core/entities/release/release-dto';
+import {
+  MonthlyRelease,
+  ReleaseFormDialogData,
+} from '../../../../../core/entities/release/release-dto';
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
-import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import { ReleasesListComponent } from '../../../cash-flow/components/releases-list/releases-list.component';
+import {
+  InvoiceBalancesComponent,
+  InvoiceBalancesComponentData,
+} from '../../components/invoice-balances/invoice-balances.component';
 import {
   InvoicePaymentsCardDialog,
   InvoicePaymentsCardDialogData,
@@ -58,7 +64,6 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
   imports: [
     CommonModule,
     MatCardModule,
-    CustomCurrencyPipe,
     NgOptimizedImage,
     TranslateModule,
     ReleasesListComponent,
@@ -66,6 +71,7 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
     RouterModule,
     InvoicePaymentsCardComponent,
     ButtonsComponent,
+    InvoiceBalancesComponent,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
@@ -76,6 +82,8 @@ export class CreditCardInvoicePage implements OnInit {
   readonly currency = this._utils.getUserConfigs.currency;
   readonly smallWidth = this._responsiveService.smallWidth;
   readonly iconBtnStyle = ButtonType.ICON;
+
+  balances = computed(() => this.calculateValues());
 
   creditCardId: number = +this._activatedRoute.snapshot.paramMap.get('id')!;
   creditCard = signal<CreditCard | null>(null);
@@ -295,4 +303,27 @@ export class CreditCardInvoicePage implements OnInit {
 
     return paymentsAmount >= this.invoiceValues().value;
   });
+
+  calculateValues(): InvoiceBalancesComponentData {
+    const undoneReleases: MonthlyRelease[] = this._utils.filterList(
+      this.monthValues().releases,
+      'done',
+      false
+    );
+
+    const allUndoneExpensesAmount = undoneReleases.reduce(
+      (count, item) => (count += item.amount),
+      0
+    );
+
+    const expectedBalance =
+      this.invoiceValues().value + allUndoneExpensesAmount;
+
+    return <InvoiceBalancesComponentData>{
+      closing: this.invoiceValues().close,
+      expiration: this.invoiceValues().expire,
+      balance: this.invoiceValues().value,
+      expectedBalance,
+    };
+  }
 }

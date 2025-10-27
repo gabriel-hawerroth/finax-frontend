@@ -1,34 +1,29 @@
-@media screen and (max-width: 1650px) {
-  header {
-    .first-row {
-      .left {
-        position: relative;
-        right: 1rem;
-        transform: scale(0.9);
-      }
-
-      .right {
-        width: 65% !important;
-      }
-    }
-  }
+::-webkit-scrollbar {
+  display: flex;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1050px) {
   ::-webkit-scrollbar {
     display: none !important;
   }
 
-  header {
-    .first-row {
-      .left {
-        position: relative;
-        right: 1.2rem;
-        transform: scale(0.8);
+  .simple-page {
+    overflow-y: hidden !important;
+
+    .page-title {
+      margin-bottom: 2rem !important;
+    }
+
+    .content {
+      flex-direction: column-reverse !important;
+      padding-top: 0 !important;
+
+      .card {
+        width: 100% !important;
       }
 
-      .right {
-        width: 67% !important;
+      #balances-component {
+        width: 100vw !important;
       }
     }
   }
@@ -36,27 +31,28 @@
 
 @media screen and (max-width: 650px) {
   .simple-page {
+    .page-title {
+      #filter-button-title {
+        right: 2.3rem !important;
+      }
+    }
+
     .content {
-      .releases-card {
+      .card.card {
+        padding-top: 0 !important;
+
         header {
-          margin-bottom: 0.8rem !important;
+          flex-direction: column-reverse !important;
+          padding-top: 0 !important;
+          margin-bottom: 0 !important;
         }
       }
 
-      .totals {
-        padding: 1rem 0 !important;
-
-        .item {
-          padding: 0 0.2rem !important;
-          text-align: center !important;
-        }
+      #balances-component {
+        width: 100vw !important;
       }
     }
   }
-}
-
-::-webkit-scrollbar {
-  display: flex;
 }
 
 .simple-page {
@@ -79,19 +75,20 @@
   }
 
   .content {
-    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    place-items: flex-start;
+    padding-top: 5%;
 
     .releases-card {
-      height: 85vh;
-      max-height: 85vh;
+      width: 65%;
+      height: 75vh;
+      max-height: 75vh;
       display: flex;
       flex-direction: column;
-      position: relative;
-      top: 0.6rem;
       padding: 0 !important;
+      padding-top: 1rem !important;
 
       header {
         display: flex;
@@ -176,34 +173,19 @@
         }
       }
 
-      #releases-list {
+      app-releases-list {
+        padding: 0 1.2rem;
+      }
+
+      app-releases-list,
+      .empty {
         flex: 1;
         overflow-y: scroll;
       }
+    }
 
-      .totals {
-        display: flex;
-        justify-content: space-around;
-        border-top: 1px solid var(--primary-gray);
-        padding: 1.3rem 2rem;
-
-        .item {
-          width: 31%;
-          height: 7.3rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          gap: 0.2rem;
-          border: 1px solid var(--primary-gray);
-          border-radius: 3px;
-          font-size: 1rem;
-
-          .value {
-            font-size: 1.3rem !important;
-          }
-        }
-      }
+    #balances-component {
+      width: 22%;
     }
   }
 }

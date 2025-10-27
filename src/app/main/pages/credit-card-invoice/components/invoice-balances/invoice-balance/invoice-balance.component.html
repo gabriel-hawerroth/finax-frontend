@@ -1,0 +1,22 @@
+<mat-card class="balance">
+  <div class="balance-content">
+    <div class="title">{{ title() | translate }}</div>
+
+    <div class="value">
+      @if (valueIsNumber()) {
+      {{ currency() }} {{ +value() | customCurrency }}
+      } @else {
+      {{ value() | date : "dd/MM" }}
+      }
+    </div>
+  </div>
+
+  <div class="icon">
+    <span
+      class="material-symbols-rounded"
+      [style.background-color]="iconColor()"
+    >
+      {{ icon() }}
+    </span>
+  </div>
+</mat-card>
