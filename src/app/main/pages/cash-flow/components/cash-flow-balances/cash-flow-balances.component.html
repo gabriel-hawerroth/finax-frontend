@@ -5,7 +5,7 @@
     [currency]="currency()"
     icon="arrow_upward"
     [iconColor]="'#28ca49 !important'"
-  ></app-balance>
+  />
 
   <app-balance
     title="cash-flow.expenses"
@@ -13,23 +13,21 @@
     [currency]="currency()"
     icon="arrow_downward"
     [iconColor]="'#ca2828 !important'"
-  ></app-balance>
+  />
 
-  @if (!smallWidth()) {
   <app-balance
     title="cash-flow.monthly-balance"
     [value]="balances().balance"
     [currency]="currency()"
     icon="balance"
     [iconColor]="'#2692c3 !important'"
-  ></app-balance>
-  } @if (!isMobileView()) {
+  />
+
   <app-balance
     title="cash-flow.expected-balance"
     [value]="balances().expectedBalance"
     [currency]="currency()"
     icon="compare_arrows"
     [iconColor]="'#00796b !important'"
-  ></app-balance>
-  }
+  />
 </div>
