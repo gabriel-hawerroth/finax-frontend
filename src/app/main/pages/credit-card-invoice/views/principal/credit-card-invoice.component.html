@@ -131,7 +131,7 @@
       </div>
       } }
 
-      <div class="totals">
+      <!-- <div class="totals">
         <div class="item">
           <span>{{ "invoice.closing" | translate }}:</span>
 
@@ -155,7 +155,13 @@
             {{ currency }}{{ invoiceValues().value | customCurrency }}
           </span>
         </div>
-      </div>
+      </div> -->
     </mat-card>
+
+    <app-invoice-balances
+      id="balances-component"
+      [balances]="balances()"
+      [currency]="currency"
+    />
   </div>
 </div>

@@ -79,19 +79,20 @@
   }
 
   .content {
-    height: 100%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    place-items: flex-start;
+    padding-top: 5%;
 
     .releases-card {
-      height: 85vh;
-      max-height: 85vh;
+      width: 65%;
+      height: 75vh;
+      max-height: 75vh;
       display: flex;
       flex-direction: column;
-      position: relative;
-      top: 0.6rem;
       padding: 0 !important;
+      padding-top: 1rem !important;
 
       header {
         display: flex;
@@ -204,6 +205,10 @@
           }
         }
       }
+    }
+
+    #balances-component {
+      width: 22%;
     }
   }
 }

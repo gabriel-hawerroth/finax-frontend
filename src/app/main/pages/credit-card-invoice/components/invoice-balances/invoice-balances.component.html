@@ -1,0 +1,35 @@
+<div id="balances">
+  <app-invoice-balance
+    title="invoice.closing"
+    [value]="balances().closing"
+    [currency]="currency()"
+    icon="event_available"
+    [iconColor]="'#28ca49 !important'"
+  />
+
+  <app-invoice-balance
+    title="invoice.expiration"
+    [value]="balances().expiration"
+    [currency]="currency()"
+    icon="calendar_clock"
+    [iconColor]="'#ca2828 !important'"
+  />
+
+  @if (!smallWidth()) {
+  <app-invoice-balance
+    title="invoice.amount"
+    [value]="balances().balance"
+    [currency]="currency()"
+    icon="balance"
+    [iconColor]="'#2692c3 !important'"
+  />
+  } @if (!isMobileView()) {
+  <app-invoice-balance
+    title="invoice.expected-amount"
+    [value]="balances().expectedBalance"
+    [currency]="currency()"
+    icon="upcoming"
+    [iconColor]="'#00796b !important'"
+  />
+  }
+</div>

@@ -315,9 +315,10 @@
   },
   "invoice": {
     "title": "Invoice",
-    "closing": "CLOSING",
-    "expiration": "EXPIRATION",
-    "amount": "INVOICE AMOUNT",
+    "closing": "Closing",
+    "expiration": "Expiration",
+    "amount": "Invoice Amount",
+    "expected-amount": "Expected Amount",
     "pay": "Pay",
     "payment": {
       "title": "Pay invoice",

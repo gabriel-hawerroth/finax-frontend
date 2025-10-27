@@ -315,9 +315,10 @@
   },
   "invoice": {
     "title": "Rechnung",
-    "closing": "ABSCHLUSS",
-    "expiration": "VERFALL",
-    "amount": "RECHNUNGSBETRAG",
+    "closing": "Abschluss",
+    "expiration": "Verfall",
+    "amount": "Rechnungsbetrag",
+    "expected-amount": "Erwarteter Betrag",
     "pay": "Bezahlen",
     "payment": {
       "title": "Rechnung bezahlen",

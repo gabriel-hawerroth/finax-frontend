@@ -315,9 +315,10 @@
   },
   "invoice": {
     "title": "Fatura",
-    "closing": "FECHAMENTO",
-    "expiration": "VENCIMENTO",
-    "amount": "VALOR DA FATURA",
+    "closing": "Fechamento",
+    "expiration": "Vencimento",
+    "amount": "Valor da fatura",
+    "expected-amount": "Valor previsto",
     "pay": "Pagar",
     "payment": {
       "title": "Pagar fatura",
