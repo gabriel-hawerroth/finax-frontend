@@ -311,7 +311,11 @@
     "error-saving-card": "Error al guardar la tarjeta de crédito",
     "error-getting-cards": "Error al obtener las tarjetas de crédito",
     "empty-credit-cards": "No hay tarjetas registradas",
-    "no-cards": "Ninguna tarjeta"
+    "no-cards": "Ninguna tarjeta",
+    "error-excluding-linked-registers-inactivate": "Esta tarjeta tiene registros vinculados y no se puede eliminar. ¿Desea desactivarla?",
+    "error-excluding-linked-registers": "Esta tarjeta tiene registros vinculados y no se puede eliminar",
+    "confirm-action": "¿Realmente desea {{action}} esta tarjeta?",
+    "action-success": "Tarjeta {{action}} con éxito"
   },
   "invoice": {
     "title": "Factura",

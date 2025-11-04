@@ -4,3 +4,9 @@ export enum AccountChangedEvent {
   INACTIVATED,
   ACTIVATED,
 }
+
+export enum CreditCardChangedEvent {
+  DELETED,
+  INACTIVATED,
+  ACTIVATED,
+}

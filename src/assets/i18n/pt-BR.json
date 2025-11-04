@@ -311,7 +311,11 @@
     "error-saving-card": "Erro ao salvar o cartão de crédito",
     "error-getting-cards": "Erro ao obter os cartões de crédito",
     "empty-credit-cards": "Nenhum cartão cadastrado",
-    "no-cards": "Nenhum cartão"
+    "no-cards": "Nenhum cartão",
+    "error-excluding-linked-registers-inactivate": "Esse cartão possui registros vinculados e não pode ser excluído. Deseja inativá-lo?",
+    "error-excluding-linked-registers": "Esse cartão possui registros vinculados e não pode ser excluído",
+    "confirm-action": "Deseja realmente {{action}} esse cartão?",
+    "action-success": "Cartão {{action}} com sucesso"
   },
   "invoice": {
     "title": "Fatura",

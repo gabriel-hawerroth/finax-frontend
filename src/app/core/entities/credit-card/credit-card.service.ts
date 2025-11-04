@@ -37,4 +37,20 @@ export class CreditCardService {
       this._http.get<BasicCard[]>(`${this.apiUrl}/basic-list`)
     );
   }
+
+  deleteById(id: number): Promise<void> {
+    return lastValueFrom(this._http.delete<void>(`${this.apiUrl}/${id}`));
+  }
+
+  inactivateCard(id: number): Promise<void> {
+    return lastValueFrom(
+      this._http.patch<void>(`${this.apiUrl}/inactivate/${id}`, null)
+    );
+  }
+
+  activateCard(id: number): Promise<void> {
+    return lastValueFrom(
+      this._http.patch<void>(`${this.apiUrl}/activate/${id}`, null)
+    );
+  }
 }

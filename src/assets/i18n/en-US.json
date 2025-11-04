@@ -311,7 +311,11 @@
     "error-saving-card": "Error saving the credit card",
     "error-getting-cards": "Error getting credit cards",
     "empty-credit-cards": "No cards registered",
-    "no-cards": "No cards"
+    "no-cards": "No cards",
+    "error-excluding-linked-registers-inactivate": "This card has linked records and cannot be deleted. Do you want to deactivate it?",
+    "error-excluding-linked-registers": "This card has linked records and cannot be deleted",
+    "confirm-action": "Do you really want to {{action}} this card?",
+    "action-success": "Card {{action}} successfully"
   },
   "invoice": {
     "title": "Invoice",

@@ -9,10 +9,14 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ReleaseFormDialogData } from '../../../core/entities/release/release-dto';
-import { AccountChangedEvent } from '../../../core/enums/account-changed-event';
+import {
+  AccountChangedEvent,
+  CreditCardChangedEvent,
+} from '../../../core/enums/entity-changed-events';
 import { ReleaseType } from '../../../core/enums/release-enums';
 import {
   accountChangedEvent,
+  creditCardChangedEvent,
   releaseCreatedEvent,
 } from '../../../core/events/events';
 import { SpeedDialService } from '../../services/speed-dial.service';
@@ -50,6 +54,16 @@ export class SpeedDialComponent implements OnInit, OnDestroy {
 
           this._speedDialService.onDeleteAccount(accountId);
         }
+      });
+
+    creditCardChangedEvent
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((event) => {
+        if (
+          event.event === CreditCardChangedEvent.DELETED ||
+          event.event === CreditCardChangedEvent.INACTIVATED
+        )
+          this._speedDialService.onDeleteCreditCard(event.creditCardId);
       });
   }
 

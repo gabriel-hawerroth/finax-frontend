@@ -1,5 +1,5 @@
 <div class="credit-card-details">
-  @if (showImage) {
+  @if (showImage()) {
   <img
     id="card-logo"
     [ngSrc]="cloudFireCdnImgsLink + 'banks/' + card.image"
@@ -74,5 +74,9 @@
     <dynamic-button [config]="seeInvoiceBtnConfig"></dynamic-button>
 
     <dynamic-button [config]="editBtnConfig"></dynamic-button>
+
+    <dynamic-button [config]="changeSituationBtnConfig"></dynamic-button>
+
+    <dynamic-button [config]="deleteBtnConfig"></dynamic-button>
   </div>
 </div>

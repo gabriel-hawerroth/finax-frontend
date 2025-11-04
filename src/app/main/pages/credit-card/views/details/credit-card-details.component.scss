@@ -1,143 +1,149 @@
-@use 'colors.scss' as *;
-
 @media screen and (min-width: 1750px) and (min-height: 800px) {
-    .credit-card-details {
-        width: 98.5vw !important;
-    }
+  .credit-card-details {
+    width: 98.5vw !important;
+  }
 }
 
 @media screen and (max-width: 1050px) {
-    .credit-card-details {
-        flex-direction: column !important;
-        gap: 0 !important;
-
-        .content {
-            width: 92vw !important;
-
-            .row1,
-            .row2 {
-                justify-content: space-around !important;
-            }
-        }
-
-        .actions {
-            width: 80vw !important;
-            flex-direction: row-reverse !important;
-            justify-content: flex-start !important;
-        }
-    }
-}
-
-@media screen and (max-width: 650px) {
-    .credit-card-details {
-        .actions {
-            width: 85vw !important;
-            margin-top: 1rem;
-        }
-    }
-}
-
-.credit-card-details {
-    width: 98vw;
-    overflow-y: hidden !important;
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0;
-    gap: 8%;
-    padding-bottom: 4rem;
-
-    img {
-        border-radius: 50%;
-    }
-
-    #card-logo {
-        position: relative;
-        top: 5rem;
-    }
+  .credit-card-details {
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 0 !important;
 
     .content {
-        height: 100%;
-        width: 32%;
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
+      width: 92vw !important;
 
-        .row1 {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-
-            .limit {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-
-                h1 {
-                    font-size: 1.7rem;
-                    color: var(--amounts-font-color);
-                }
-            }
-        }
-
-        .row2 {
-            display: flex;
-            justify-content: space-between;
-            gap: .8rem;
-
-            .left {
-                display: flex;
-                flex-direction: column;
-                gap: 2rem;
-
-                .standard_payment_account {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: start;
-                    gap: 0;
-
-                    .account {
-                        display: flex;
-                        align-items: center;
-                        gap: .8rem;
-                    }
-                }
-
-                .active {
-                    display: flex;
-                    align-items: center;
-                    gap: 1rem;
-
-                    .true {
-                        color: #00de34;
-                    }
-
-                    .false {
-                        color: rgb(225, 0, 0);
-                    }
-                }
-            }
-
-            .right {
-                display: flex;
-                flex-direction: column;
-                align-items: end;
-                position: relative;
-                top: 2rem;
-
-                .item {
-                    display: flex;
-                    align-items: center;
-                    gap: .8rem;
-                }
-            }
-        }
+      .row1,
+      .row2 {
+        justify-content: space-around !important;
+      }
     }
 
     .actions {
-        height: 100%;
+      width: 70% !important;
+      flex-direction: row-reverse !important;
+      flex-wrap: wrap !important;
+      padding-left: 30% !important;
+      margin-top: 2rem !important;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .credit-card-details {
+    .content {
+      width: 100% !important;
+    }
+
+    .actions {
+      width: 100% !important;
+      padding-left: 10% !important;
+    }
+  }
+}
+
+.credit-card-details {
+  width: 98vw;
+  overflow-y: hidden !important;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  gap: 8%;
+  margin-bottom: 1.5rem;
+
+  img {
+    border-radius: 50%;
+  }
+
+  #card-logo {
+    position: relative;
+    top: 5rem;
+  }
+
+  .content {
+    height: 100%;
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+
+    .row1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+
+      .limit {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        gap: 1.5rem;
+
+        h1 {
+          font-size: 1.7rem;
+          color: var(--amounts-font-color);
+        }
+      }
     }
+
+    .row2 {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.8rem;
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        .standard_payment_account {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          gap: 0;
+
+          .account {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+          }
+        }
+
+        .active {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+
+          .true {
+            color: #00de34;
+          }
+
+          .false {
+            color: rgb(225, 0, 0);
+          }
+        }
+      }
+
+      .right {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        position: relative;
+        top: 2rem;
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .actions {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.8rem;
+  }
 }

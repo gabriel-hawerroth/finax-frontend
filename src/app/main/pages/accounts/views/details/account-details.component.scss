@@ -1,142 +1,141 @@
 @media screen and (min-width: 1750px) and (min-height: 800px) {
-    .bank-account-details {
-        width: 98.5vw !important;
-    }
+  .bank-account-details {
+    width: 98.5vw !important;
+  }
 }
 
 @media screen and (max-width: 1050px) {
-    .bank-account-details {
-        width: 100% !important;
-        flex-direction: column !important;
-        align-items: center !important;
-
-        .content {
-            width: 70% !important;
-        }
-
-        .actions {
-            width: 70% !important;
-            flex-direction: row-reverse !important;
-            flex-wrap: wrap !important;
-            padding-left: 30% !important;
-            margin-top: 2rem !important;
-        }
-    }
-}
-
-@media screen and (max-width: 650px) {
-    .bank-account-details {
-
-        .content {
-            width: 100% !important;
-        }
-
-        .actions {
-            width: 100% !important;
-            padding-left: 10% !important;
-        }
-    }
-}
-
-.bank-account-details {
-    width: 98vw;
-    overflow-y: hidden !important;
-    display: flex;
-    justify-content: center;
-    padding: 1rem 0;
-    gap: 8%;
-    margin-bottom: 1.5rem;
-
-    #account-logo {
-        position: relative;
-        border-radius: 50%;
-        top: 5rem;
-    }
+  .bank-account-details {
+    width: 100% !important;
+    flex-direction: column !important;
+    align-items: center !important;
 
     .content {
-        height: 100%;
-        width: 32%;
-
-        .row1 {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-
-            .balance {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-
-                h1 {
-                    font-size: 1.7rem;
-                    color: #00b300;
-                }
-
-                label {
-                    cursor: pointer;
-                    font-size: .9rem;
-                }
-            }
-        }
-
-        .row2 {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 2rem;
-        }
-
-        .row3 {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-
-            .left {
-                display: flex;
-                flex-direction: column;
-                gap: .8rem;
-
-                .item {
-                    display: flex;
-                    align-items: center;
-                    gap: .8rem;
-
-                    .true {
-                        color: #00de34;
-                    }
-
-                    .false {
-                        color: rgb(225, 0, 0);
-                    }
-                }
-            }
-
-            .right {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-
-                .primary-account {
-                    display: flex;
-                    flex-direction: column;
-
-                    .primary-account-details {
-                        display: flex;
-                        gap: .6rem;
-
-                        img {
-                            border-radius: 50%;
-                        }
-                    }
-                }
-            }
-        }
+      width: 70% !important;
     }
 
     .actions {
-        height: 100%;
+      width: 70% !important;
+      flex-direction: row-reverse !important;
+      flex-wrap: wrap !important;
+      padding-left: 30% !important;
+      margin-top: 2rem !important;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .bank-account-details {
+    .content {
+      width: 100% !important;
+    }
+
+    .actions {
+      width: 100% !important;
+      padding-left: 10% !important;
+    }
+  }
+}
+
+.bank-account-details {
+  width: 98vw;
+  overflow-y: hidden !important;
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0;
+  gap: 8%;
+  margin-bottom: 1.5rem;
+
+  #account-logo {
+    position: relative;
+    border-radius: 50%;
+    top: 5rem;
+  }
+
+  .content {
+    height: 100%;
+    width: 32%;
+
+    .row1 {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+
+      .balance {
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-        gap: .8rem;
+
+        h1 {
+          font-size: 1.7rem;
+          color: #00b300;
+        }
+
+        label {
+          cursor: pointer;
+          font-size: 0.9rem;
+        }
+      }
     }
+
+    .row2 {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+    }
+
+    .row3 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+
+          .true {
+            color: #00de34;
+          }
+
+          .false {
+            color: rgb(225, 0, 0);
+          }
+        }
+      }
+
+      .right {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .primary-account {
+          display: flex;
+          flex-direction: column;
+
+          .primary-account-details {
+            display: flex;
+            gap: 0.6rem;
+
+            img {
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .actions {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.8rem;
+  }
 }

@@ -78,8 +78,6 @@ export class AccountsFormComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.accountForm().controls['active'].disable();
-
     this.isSubAccount = Boolean(
       this.accountForm().controls['primaryAccountId'].getRawValue()
     );

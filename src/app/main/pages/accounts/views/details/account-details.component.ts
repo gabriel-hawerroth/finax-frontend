@@ -20,8 +20,8 @@ import {
   SubAccountsActivateDialogData,
 } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
-import { AccountChangedEvent } from '../../../../../core/enums/account-changed-event';
 import { ButtonType } from '../../../../../core/enums/button-style';
+import { AccountChangedEvent } from '../../../../../core/enums/entity-changed-events';
 import { accountChangedEvent } from '../../../../../core/events/events';
 import {
   ButtonConfig,

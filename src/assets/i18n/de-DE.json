@@ -311,7 +311,11 @@
     "error-saving-card": "Fehler beim Speichern der Kreditkarte",
     "error-getting-cards": "Fehler beim Abrufen der Kreditkarten",
     "empty-credit-cards": "Keine registrierten Karten",
-    "no-cards": "Keine Karten"
+    "no-cards": "Keine Karten",
+    "error-excluding-linked-registers-inactivate": "Diese Karte hat verknüpfte Einträge und kann nicht gelöscht werden. Möchten Sie sie deaktivieren?",
+    "error-excluding-linked-registers": "Diese Karte hat verknüpfte Einträge und kann nicht gelöscht werden",
+    "confirm-action": "Möchten Sie diese Karte wirklich {{action}}?",
+    "action-success": "Karte {{action}} erfolgreich"
   },
   "invoice": {
     "title": "Rechnung",

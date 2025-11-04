@@ -31,7 +31,7 @@ export class AccountService {
       addOverallBalance: true,
       grouper: false,
       addToCashFlow: true,
-      active: true,
+      active: { value: true, disabled: true },
       archived: false,
       image: null,
       primaryAccountId: primaryAccountId || null,

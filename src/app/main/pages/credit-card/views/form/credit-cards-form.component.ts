@@ -122,7 +122,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
       expiresDay: [1, Validators.required],
       image: null,
       standardPaymentAccountId: [null, Validators.required],
-      active: true,
+      active: { value: true, disabled: true },
     });
   }
 

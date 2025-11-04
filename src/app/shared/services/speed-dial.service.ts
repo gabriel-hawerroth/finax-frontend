@@ -98,4 +98,30 @@ export class SpeedDialService {
 
     this.accounts = this.accounts.filter((account) => account.id !== accountId);
   }
+
+  public onSaveCreditCard(card: CreditCard): void {
+    if (!this.creditCards) {
+      this.creditCards = [];
+    }
+
+    const existingCardIndex = this.creditCards.findIndex(
+      (c) => c.id === card.id
+    );
+
+    if (existingCardIndex > -1) {
+      if (card.active === false) {
+        this.onDeleteCreditCard(card.id!);
+        return;
+      }
+      this.creditCards[existingCardIndex] = card;
+    } else if (card.active) {
+      this.creditCards = [...this.creditCards, card];
+    }
+  }
+
+  public onDeleteCreditCard(cardId: number): void {
+    if (!this.creditCards) return;
+
+    this.creditCards = this.creditCards.filter((card) => card.id !== cardId);
+  }
 }

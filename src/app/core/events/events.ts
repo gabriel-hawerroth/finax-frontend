@@ -1,5 +1,8 @@
 import { Subject } from 'rxjs';
-import { AccountChangedEvent } from '../enums/account-changed-event';
+import {
+  AccountChangedEvent,
+  CreditCardChangedEvent,
+} from '../enums/entity-changed-events';
 
 export const accountChangedEvent = new Subject<{
   accountsId: number | number[];
@@ -12,4 +15,9 @@ export const releaseCreatedEvent = new Subject<void>();
 export const onLogoutEvent = new Subject<{
   showMessage: boolean;
   redirectToPublicPage?: boolean;
+}>();
+
+export const creditCardChangedEvent = new Subject<{
+  creditCardId: number;
+  event: CreditCardChangedEvent;
 }>();
