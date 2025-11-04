@@ -62,7 +62,7 @@
   },
   "forgot-password": {
     "title": "Passwortwiederherstellung",
-    "recovery": "Wiederherstellen",
+    "recovery": "E-Mail senden",
     "sended-recovery-link": "Der Wiederherstellungslink wurde an die E-Mail gesendet",
     "user-doesn't-exist": "Dieser Benutzer existiert nicht",
     "error-sending-email": "Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns"

@@ -62,7 +62,7 @@
   },
   "forgot-password": {
     "title": "Password recovery",
-    "recovery": "Recover",
+    "recovery": "Send email",
     "sended-recovery-link": "Recovery link sent to the email",
     "user-doesn't-exist": "This user doesn't exist",
     "error-sending-email": "An error occurred while sending the email. Please try again later or contact us"
