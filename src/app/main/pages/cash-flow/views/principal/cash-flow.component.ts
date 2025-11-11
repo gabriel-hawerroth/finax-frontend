@@ -412,4 +412,14 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     return accountId;
   }
+
+  updateItem(updatedRelease: MonthlyRelease) {
+    const allIndex = this.allMonthlyReleases.findIndex(
+      (item) => item.id === updatedRelease.id
+    );
+    if (allIndex > -1) {
+      this.allMonthlyReleases[allIndex] = updatedRelease;
+      this.applyFilters();
+    }
+  }
 }

@@ -43,6 +43,7 @@ export class ReleasesListComponent {
   creditCards = input.required<BasicCard[]>();
   selectedDate = input.required<Date>();
   updateList = output<void>();
+  updateItem = output<MonthlyRelease>();
 
   releasesByDay = computed((): MonthlyReleasesByDay[] =>
     this.groupReleasesByDay(this.releases())
@@ -73,7 +74,7 @@ export class ReleasesListComponent {
     });
   }
 
-  editRelease(release: MonthlyRelease) {
+  private editRelease(release: MonthlyRelease) {
     this._utils
       .openReleaseFormDialog(<ReleaseFormDialogData>{
         accounts: this.accounts(),
@@ -92,7 +93,7 @@ export class ReleasesListComponent {
       });
   }
 
-  mapToRelease(release: MonthlyRelease): Release {
+  private mapToRelease(release: MonthlyRelease): Release {
     return {
       id: release.id,
       userId: release.userId,
@@ -120,12 +121,12 @@ export class ReleasesListComponent {
     return r.id;
   }
 
-  groupReleasesByDay(releases: MonthlyRelease[]): MonthlyReleasesByDay[] {
+  private groupReleasesByDay(
+    releases: MonthlyRelease[]
+  ): MonthlyReleasesByDay[] {
     const releasesByDay = new Map<string, MonthlyRelease[]>();
 
-    // Group releases by day
     releases.forEach((release) => {
-      // Format the date as dd/mm/yyyy
       const day = this.formatDate(release.date);
       if (!releasesByDay.has(day)) {
         releasesByDay.set(day, []);
@@ -156,5 +157,9 @@ export class ReleasesListComponent {
 
   formatDate(dateString: string | Date): string {
     return moment(dateString).format('DD/MM/YYYY');
+  }
+
+  itemUpdated(item: MonthlyRelease) {
+    this.updateItem.emit(item);
   }
 }

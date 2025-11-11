@@ -110,4 +110,15 @@ export class ReleaseService {
       })
     );
   }
+
+  updateDone(id: number, done: boolean): Promise<void> {
+    let params = new HttpParams();
+    params = params.append('done', done);
+
+    return lastValueFrom(
+      this._http.patch<void>(`${this.apiUrl}/update-done/${id}`, null, {
+        params,
+      })
+    );
+  }
 }

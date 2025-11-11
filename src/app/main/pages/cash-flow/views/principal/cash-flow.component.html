@@ -63,6 +63,7 @@
         [creditCards]="creditCards"
         [selectedDate]="selectedDate"
         (updateList)="getReleases()"
+        (updateItem)="updateItem($event)"
       ></app-releases-list>
       } @else {
       <div class="empty">

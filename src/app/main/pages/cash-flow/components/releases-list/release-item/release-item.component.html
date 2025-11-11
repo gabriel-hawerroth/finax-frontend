@@ -1,4 +1,4 @@
-<div class="release" (click)="open.emit(release())">
+<div class="release" (click)="onClickRelease($event)">
   <div class="category">
     <span
       class="material-symbols-rounded"
@@ -55,12 +55,13 @@
   </div>
 
   <div class="situation">
-    <span
-      class="material-symbols-rounded"
-      [class.done]="isDone()"
-      [class.pending]="!isDone()"
-    >
-      {{ isDone() ? "thumb_up" : "thumb_down" }}
-    </span>
+    <app-buttons
+      id="situation-icon"
+      [showGeneric]="true"
+      [genericIcon]="isDone() ? 'thumb_up' : 'thumb_down'"
+      [genericStyle]="updateDoneBtnStyle"
+      [contentStyle]="updateDoneBtnContentStyle()"
+      (onGeneric)="updateDone()"
+    ></app-buttons>
   </div>
 </div>
