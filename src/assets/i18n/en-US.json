@@ -163,7 +163,8 @@
     "balance-adjustment": "Balance Adjustment",
     "filter-releases": "Filter Releases",
     "release-type": "Release Type",
-    "empty-releases": "No releases made in the selected month"
+    "empty-releases": "No releases made in the selected month",
+    "installment": "Installment"
   },
   "release-form": {
     "description": "Description",

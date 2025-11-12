@@ -174,4 +174,33 @@ export class ReleaseDetailsComponent {
         });
       });
   }
+
+  hasObservationOrInstallmentNumber = computed(
+    () => !this.release().observation && !this.release().installmentNumber
+  );
+
+  marginTopPrincipal = computed(() => {
+    if (this.release().observation && this.release().installmentNumber) {
+      return '1rem';
+    }
+
+    if (
+      this.isEmpty(this.release().observation) !==
+      this.isEmpty(this.release().installmentNumber)
+    ) {
+      return '0.8rem';
+    }
+
+    return '2rem';
+  });
+
+  isEmpty(value: string | number | null | undefined): boolean {
+    if (value === null || value === undefined) {
+      return true;
+    }
+    if (typeof value === 'number') {
+      return false;
+    }
+    return value.trim().length === 0;
+  }
 }

@@ -28,10 +28,22 @@
       {{ "generic.to" | translate }}
       {{ targetAccountName() }}
       } @else {
+      <!---->
+      @if (release().installmentNumber) {
+      {{
+        release().installmentNumber + "/" + release().totalInstallments + " - "
+      }}
+      }
+      <!---->
       {{ descriptionSubTitle() }}
       @if (isCard()) {
       <span class="material-symbols-rounded">credit_card</span>
       } }
+    </span>
+    } @else if (!isTransfer() && !smallWidth() && release().installmentNumber) {
+    <span class="description-sub-title">
+      {{ "cash-flow.installment" | translate }}
+      {{ release().installmentNumber + "/" + release().totalInstallments }}
     </span>
     }
   </div>

@@ -163,7 +163,8 @@
     "balance-adjustment": "Balance-Anpassung",
     "filter-releases": "Veröffentlichungen filtern",
     "release-type": "Art der Veröffentlichung",
-    "empty-releases": "Keine Veröffentlichungen im ausgewählten Monat"
+    "empty-releases": "Keine Veröffentlichungen im ausgewählten Monat",
+    "installment": "Rate"
   },
   "release-form": {
     "description": "Beschreibung",

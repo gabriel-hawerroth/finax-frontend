@@ -28,6 +28,8 @@ export interface MonthlyRelease {
   duplicatedReleaseId?: number;
   isDuplicatedRelease: boolean;
   isBalanceAdjustment: boolean;
+  installmentNumber?: number;
+  totalInstallments?: number;
 }
 
 export interface MonthlyReleaseAccount {

@@ -3,7 +3,7 @@
     <div class="row1">
       <span
         class="material-symbols-rounded"
-        [class.margin-top]="!release().observation"
+        [style.top]="marginTopPrincipal()"
         [style.background-color]="release().category?.color || '#AFAFAF'"
       >
         @if (release().isBalanceAdjustment) { edit }
@@ -13,7 +13,7 @@
         }
       </span>
 
-      <div class="principal" [class.margin-top]="!release().observation">
+      <div class="principal" [style.top]="marginTopPrincipal()">
         @if (release().type !== 'T') {
         <h2>
           @if (release().isBalanceAdjustment) {
@@ -71,15 +71,22 @@
     </div>
 
     <div class="row2">
-      @if (release().observation) {
-      <label class="observation">
-        <span>{{ "generic.observation" | translate }}:</span>
+      <div class="left">
+        @if (release().installmentNumber) {
+        <label class="installment">
+          {{ "cash-flow.installment" | translate }}
+          {{ release().installmentNumber + "/" + release().totalInstallments }}
+        </label>
+        } @if (release().observation) {
+        <label class="observation">
+          <span>{{ "generic.observation" | translate }}:</span>
 
-        <span>
-          {{ release().observation }}
-        </span>
-      </label>
-      }
+          <span>
+            {{ release().observation }}
+          </span>
+        </label>
+        }
+      </div>
 
       <label
         class="date"

@@ -46,12 +46,14 @@
         padding: 1rem;
         color: #fff;
         border-radius: 50%;
+        position: relative;
       }
 
       .principal {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        position: relative;
 
         .transfer {
           display: flex;
@@ -86,11 +88,6 @@
         justify-content: end;
         gap: 1.5rem;
       }
-
-      .margin-top {
-        position: relative;
-        top: 2rem;
-      }
     }
 
     .row2 {
@@ -99,11 +96,21 @@
       gap: 1rem;
       padding: 0 5rem 1rem 1rem;
 
-      .observation {
+      .left {
         display: flex;
         flex-direction: column;
         position: relative;
         top: 2rem;
+        gap: 0.5rem;
+        max-width: 65%;
+        word-wrap: break-word;
+        max-height: 8rem;
+        overflow-y: hidden;
+
+        .observation {
+          display: flex;
+          flex-direction: column;
+        }
       }
 
       .date {
