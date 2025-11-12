@@ -209,7 +209,7 @@ export class ReleaseFormDialog implements OnInit {
       repeat: null,
       fixedBy: 'MONTHLY',
       repeatFor: '12',
-      installmentsBy: '2',
+      installmentsBy: [2, Validators.min(2)],
     });
   }
 
@@ -572,6 +572,22 @@ export class ReleaseFormDialog implements OnInit {
         !this.releaseForm.value.installmentsBy) ||
       this.saving()
     );
+  }
+
+  onInstallmentsBlur(event: FocusEvent): void {
+    const input = event.target as HTMLInputElement | null;
+    const raw = input?.value ?? '';
+    // captura o primeiro número inteiro no texto (ex: "1 MONTHLY" => 1)
+    const match = raw.match(/-?\d+/);
+    const value = match ? Number(match[0]) : NaN;
+
+    const control = this.releaseForm.get('installmentsBy');
+    if (!control) return;
+
+    if (value === 1) {
+      // atualiza o controle (silencia eventos se quiser evitar loops)
+      control.setValue(2);
+    }
   }
 
   getResponsiveFieldWidth(
