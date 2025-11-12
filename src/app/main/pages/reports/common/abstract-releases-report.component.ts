@@ -180,8 +180,6 @@ export abstract class AbstractReleasesReportComponent
       [direction === 'before' ? 'subtract' : 'add'](1, unitTime)
       .toDate();
 
-    console.log('Selected date changed to:', this.selectedDate);
-
     this.getChartsData();
   }
 

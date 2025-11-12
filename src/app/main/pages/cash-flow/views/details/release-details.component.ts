@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {
   MAT_BOTTOM_SHEET_DATA,
   MatBottomSheetRef,
@@ -15,7 +22,9 @@ import {
   ReleaseDetailsData,
 } from '../../../../../core/entities/release/release-dto';
 import { ReleaseService } from '../../../../../core/entities/release/release.service';
+import { ButtonType } from '../../../../../core/enums/button-style';
 import { DuplicatedReleaseAction } from '../../../../../core/enums/duplicated-release-action';
+import { updateDoneReleaseEvent } from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { CustomCurrencyPipe } from '../../../../../shared/pipes/custom-currency.pipe';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -37,8 +46,9 @@ import { ConfirmDuplicatedReleasesActionDialog } from '../../components/confirm-
 })
 export class ReleaseDetailsComponent {
   readonly currency = this._utils.getUserConfigs.currency;
+  readonly updateDoneBtnStyle = ButtonType.ICON;
 
-  release: MonthlyRelease;
+  release: WritableSignal<MonthlyRelease>;
 
   confirmDelete: boolean = false;
   excluding: boolean = false;
@@ -47,15 +57,16 @@ export class ReleaseDetailsComponent {
     private readonly _utils: UtilsService,
     private readonly _bottomSheet: MatBottomSheetRef,
     private readonly _matDialog: MatDialog,
-    private readonly _cashFlowService: ReleaseService
+    private readonly _cashFlowService: ReleaseService,
+    private readonly _releaseService: ReleaseService
   ) {
     const data: ReleaseDetailsData = inject(MAT_BOTTOM_SHEET_DATA);
-    this.release = data.release;
+    this.release = signal(data.release);
   }
 
   downloadAttachment() {
     this._cashFlowService
-      .getAttachment(this.release.id!)
+      .getAttachment(this.release().id!)
       .then((response) => {
         if (response.size === 0) throw new Error('Attachment not found');
 
@@ -66,7 +77,7 @@ export class ReleaseDetailsComponent {
         const blobUrl = URL.createObjectURL(blob);
         const anchor = document.createElement('a');
         anchor.href = blobUrl;
-        anchor.download = this.release.attachmentName!;
+        anchor.download = this.release().attachmentName!;
         document.body.appendChild(anchor);
         anchor.click();
         document.body.removeChild(anchor);
@@ -86,7 +97,7 @@ export class ReleaseDetailsComponent {
       DuplicatedReleaseAction.UNNECESSARY;
     let confirmedDelete: boolean = false;
 
-    if (this.release.isDuplicatedRelease) {
+    if (this.release().isDuplicatedRelease) {
       await lastValueFrom(
         this._matDialog
           .open(ConfirmDuplicatedReleasesActionDialog, {
@@ -114,7 +125,7 @@ export class ReleaseDetailsComponent {
     }
 
     if (
-      this.release.isDuplicatedRelease &&
+      this.release().isDuplicatedRelease &&
       duplicatedReleasesAction === DuplicatedReleaseAction.UNNECESSARY
     )
       return;
@@ -124,7 +135,7 @@ export class ReleaseDetailsComponent {
     this.confirmDelete = false;
 
     this._cashFlowService
-      .delete(this.release.id!, duplicatedReleasesAction)
+      .delete(this.release().id!, duplicatedReleasesAction)
       .then(() => {
         this._bottomSheet.dismiss('delete');
         this._utils.showMessage('cash-flow.deleted-successfully');
@@ -135,6 +146,32 @@ export class ReleaseDetailsComponent {
       .finally(() => {
         this.confirmDelete = false;
         this.excluding = false;
+      });
+  }
+
+  updateDoneBtnContentStyle = computed(() => {
+    return this.release().done
+      ? {
+          color: 'var(--primary)',
+        }
+      : {
+          color: 'var(--primary-font-color)',
+        };
+  });
+
+  updateDone() {
+    this._releaseService
+      .updateDone(this.release().id, !this.release().done)
+      .then(() => {
+        this.release.update((release) => ({
+          ...release,
+          done: !release.done,
+        }));
+
+        updateDoneReleaseEvent.next({
+          releaseId: this.release().id,
+          done: this.release().done,
+        });
       });
   }
 }

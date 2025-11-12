@@ -39,7 +39,10 @@ import {
   ReleaseType,
   toReleaseType,
 } from '../../../../../core/enums/release-enums';
-import { releaseCreatedEvent } from '../../../../../core/events/events';
+import {
+  releaseCreatedEvent,
+  updateDoneReleaseEvent,
+} from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
@@ -129,11 +132,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     }
 
     this.getReleases();
-
-    releaseCreatedEvent
-      .asObservable()
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(() => this.getReleases());
+    this.subscribeEvents();
   }
 
   ngOnDestroy(): void {
@@ -325,7 +324,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
       ).length
     );
 
-    this.monthlyReleases.update((values) => {
+    this.monthlyReleases.update(() => {
       let releases = this.allMonthlyReleases;
 
       if (this.appliedFilters().accountIds?.length) {
@@ -418,8 +417,31 @@ export class CashFlowPage implements OnInit, OnDestroy {
       (item) => item.id === updatedRelease.id
     );
     if (allIndex > -1) {
-      this.allMonthlyReleases[allIndex] = updatedRelease;
+      this.allMonthlyReleases[allIndex] = { ...updatedRelease };
       this.applyFilters();
     }
+  }
+
+  subscribeEvents() {
+    releaseCreatedEvent
+      .asObservable()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(() => this.getReleases());
+
+    updateDoneReleaseEvent
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe((event) => {
+        const releaseIndex = this.allMonthlyReleases.findIndex(
+          (item) => item.id === event.releaseId
+        );
+        if (releaseIndex === -1) return;
+
+        const updatedRelease = {
+          ...this.allMonthlyReleases[releaseIndex],
+          done: event.done,
+        };
+
+        this.updateItem(updatedRelease);
+      });
   }
 }

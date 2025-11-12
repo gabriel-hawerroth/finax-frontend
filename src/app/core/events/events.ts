@@ -21,3 +21,8 @@ export const creditCardChangedEvent = new Subject<{
   creditCardId: number;
   event: CreditCardChangedEvent;
 }>();
+
+export const updateDoneReleaseEvent = new Subject<{
+  releaseId: number;
+  done: boolean;
+}>();

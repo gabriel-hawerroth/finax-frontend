@@ -64,6 +64,7 @@ export class ReleasesListComponent {
             isDuplicatedRelease: release.isDuplicatedRelease,
           },
           panelClass: 'release-details',
+          autoFocus: false,
         })
         .afterDismissed()
     ).then((response) => {

@@ -3,25 +3,25 @@
     <div class="row1">
       <span
         class="material-symbols-rounded"
-        [class.margin-top]="!release.observation"
-        [style.background-color]="release.category?.color || '#AFAFAF'"
+        [class.margin-top]="!release().observation"
+        [style.background-color]="release().category?.color || '#AFAFAF'"
       >
-        @if (release.isBalanceAdjustment) { edit }
+        @if (release().isBalanceAdjustment) { edit }
         <!--  -->
         @else {
-        {{ release.category?.icon || "list" }}
+        {{ release().category?.icon || "list" }}
         }
       </span>
 
-      <div class="principal" [class.margin-top]="!release.observation">
-        @if (release.type !== 'T') {
+      <div class="principal" [class.margin-top]="!release().observation">
+        @if (release().type !== 'T') {
         <h2>
-          @if (release.isBalanceAdjustment) {
+          @if (release().isBalanceAdjustment) {
           {{ "cash-flow.balance-adjustment" | translate }}
           } @else {
-          {{ release.description || release.category?.name }}
+          {{ release().description || release().category?.name }}
 
-          @if (!release.description && !release.category?.name) {
+          @if (!release().description && !release().category?.name) {
           {{ "cash-flow.others" | translate }}
           }
           <!---->
@@ -29,74 +29,75 @@
         </h2>
 
         <div class="account-card-name">
-          @if (release.card) {
+          @if (release().card) {
           <span class="material-symbols-rounded">credit_card</span>
           }
           <label>
-            {{ release.account?.name || release.card?.name }}
+            {{ release().account?.name || release().card?.name }}
           </label>
         </div>
         } @else {
         <h2>
           {{
-            release.description
-              ? release.description
+            release().description
+              ? release().description
               : ("cash-flow.transfer" | translate)
           }}
         </h2>
 
         <label class="transfer">
-          {{ release.account?.name }}
+          {{ release().account?.name }}
           <span class="material-symbols-rounded">arrow_right_alt</span>
-          {{ release.targetAccount?.name }}
+          {{ release().targetAccount?.name }}
         </label>
         }
       </div>
 
       <label class="amount">
         <h2>
-          {{ release.type === "E" ? "-" : "" }}{{ currency
-          }}{{ release.amount | customCurrency }}
+          {{ release().type === "E" ? "-" : "" }}{{ currency
+          }}{{ release().amount | customCurrency }}
         </h2>
 
-        <span
-          class="material-symbols-rounded"
-          [class.done]="release.done"
-          [class.pending]="!release.done"
-        >
-          {{ release.done ? "thumb_up" : "thumb_down" }}
-        </span>
+        <app-buttons
+          id="situation-icon"
+          [showGeneric]="true"
+          [genericIcon]="release().done ? 'thumb_up' : 'thumb_down'"
+          [genericStyle]="updateDoneBtnStyle"
+          [contentStyle]="updateDoneBtnContentStyle()"
+          (onGeneric)="updateDone()"
+        ></app-buttons>
       </label>
     </div>
 
     <div class="row2">
-      @if (release.observation) {
+      @if (release().observation) {
       <label class="observation">
         <span>{{ "generic.observation" | translate }}:</span>
 
         <span>
-          {{ release.observation }}
+          {{ release().observation }}
         </span>
       </label>
       }
 
       <label
         class="date"
-        [class.up]="release.observation && release.observation.length > 40"
+        [class.up]="release().observation && release().observation!.length > 40"
       >
         <span>
-          {{ release.date | date : "dd/MM/yyyy" }}
+          {{ release().date | date : "dd/MM/yyyy" }}
         </span>
 
         <span>
-          {{ release.time }}
+          {{ release().time }}
         </span>
       </label>
     </div>
 
     <div class="row3">
       <app-buttons
-        [showDownload]="release.attachmentName !== null"
+        [showDownload]="release().attachmentName !== null"
         [btnStyle]="{
           padding: '1.9rem',
         }"
@@ -104,8 +105,8 @@
       ></app-buttons>
 
       <app-buttons
-        [showEdit]="release.type !== 'I'"
-        [disableEdit]="release.isBalanceAdjustment"
+        [showEdit]="release().type !== 'I'"
+        [disableEdit]="release().isBalanceAdjustment"
         [btnStyle]="{
           padding: '1.9rem',
         }"
@@ -113,7 +114,7 @@
       ></app-buttons>
 
       <app-buttons
-        [showDelete]="release.type !== 'I'"
+        [showDelete]="release().type !== 'I'"
         [btnStyle]="{
           padding: '1.9rem',
         }"
