@@ -5,7 +5,7 @@
   <p>Sistema de controle financeiro pessoal, focado em fluxo de caixa.</p>
   
   <a href="https://appfinax.com.br"><img src="https://img.shields.io/badge/Online-Demo-green?style=flat-square" alt="Demo Online"></a>
-  <img src="https://img.shields.io/badge/Angular-19-red?style=flat-square" alt="Angular 19">
+  <img src="https://img.shields.io/badge/Angular-20-red?style=flat-square" alt="Angular 20">
   <img src="https://img.shields.io/badge/SSR-Ativo-blue?style=flat-square" alt="SSR Ativo">
 </div>
 
@@ -13,7 +13,7 @@
 
 ## ✨ Sobre o Projeto
 
-O **Finax** é um sistema web para controle financeiro pessoal, desenvolvido em Angular 19 com Server-Side Rendering (SSR). Permite gerenciar receitas, despesas, investimentos, cartões de crédito, metas de gastos e muito mais, com uma interface moderna e responsiva.
+O **Finax** é um sistema web para controle financeiro pessoal, desenvolvido em Angular 20 com Server-Side Rendering (SSR). Permite gerenciar receitas, despesas, investimentos, cartões de crédito, metas de gastos e muito mais, com uma interface moderna e responsiva.
 
 > **Este repositório refere-se apenas ao frontend do projeto.**
 
@@ -21,7 +21,7 @@ O **Finax** é um sistema web para controle financeiro pessoal, desenvolvido em 
 
 ## 🚀 Tecnologias Utilizadas
 
-- [Angular 19](https://angular.dev/)
+- [Angular 20](https://angular.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [SCSS](https://sass-lang.com/)
 - [SSR](https://angular.dev/guide/performance) (Server-Side Rendering)
