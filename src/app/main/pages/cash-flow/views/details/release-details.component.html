@@ -55,8 +55,11 @@
 
       <label class="amount">
         <h2>
-          {{ release().type === "E" ? "-" : "" }}{{ currency
-          }}{{ release().amount | customCurrency }}
+          {{
+            (release().type === "E" ? "-" : "") +
+              currency +
+              (release().amount | customCurrency)
+          }}
         </h2>
 
         <app-buttons
@@ -88,10 +91,7 @@
         }
       </div>
 
-      <label
-        class="date"
-        [class.up]="release().observation && release().observation!.length > 40"
-      >
+      <label class="date">
         <span>
           {{ release().date | date : "dd/MM/yyyy" }}
         </span>
