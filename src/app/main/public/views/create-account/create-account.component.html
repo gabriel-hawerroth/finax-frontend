@@ -95,16 +95,46 @@
     <!---->
     @if (accountCreated()) {
     <div id="account-created">
-      <h2>Conta criada com sucesso</h2>
+      <h2>{{ "create-account.account-created-title" | translate }}</h2>
 
       <span>
-        Um email de ativação foi enviado para o endereço cadastrado.
+        {{ "create-account.email-sent-message" | translate }}
         <br /><br />
-        O link de ativação será válido por duas horas.
-        <br />
-        Caso a ativação não seja concluída dentro desse prazo, sua conta será
-        excluída automaticamente, e será necessário realizar um novo cadastro.
+        {{ "create-account.activation-link-validity" | translate }}
       </span>
+
+      <!-- Resend Controls -->
+      <div class="resend-controls">
+        @if (!isBlocked()) {
+          <app-buttons
+            [showGeneric]="true"
+            [genericStyle]="getBtnStyle('flat')"
+            genericLabel="create-account.resend-email"
+            genericIcon="email"
+            [disableGeneric]="!resendAvailable() || showLoading()"
+            (onGeneric)="resendConfirmationEmail()"
+          ></app-buttons>
+
+          @if (!resendAvailable() && remainingTime() > 0) {
+            <p class="timer-text">
+              {{ "create-account.available-in" | translate }}: {{ formatTime(remainingTime()) }}
+            </p>
+          }
+
+          @if (resendAttempts() > 0) {
+            <p class="attempts-text">
+              {{ "create-account.attempts-remaining" | translate }}: {{ 2 - resendAttempts() }}
+            </p>
+          }
+        } @else {
+          <p class="blocked-message">
+            {{ "create-account.resend-blocked-message" | translate }}
+          </p>
+          <p class="timer-text">
+            {{ "create-account.try-again-in" | translate }}: {{ formatTime(remainingTime()) }}
+          </p>
+        }
+      </div>
     </div>
     }
     <!---->

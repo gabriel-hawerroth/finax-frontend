@@ -2,6 +2,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   signal,
 } from '@angular/core';
@@ -24,6 +25,10 @@ import {
   getBtnStyle,
 } from '../../../../shared/utils/utils';
 import { UtilsService } from '../../../../shared/utils/utils.service';
+import {
+  EmailResendTimerService,
+  ResendEmailFlowType,
+} from '../../../../shared/services/email-resend-timer.service';
 
 @Component({
   selector: 'app-create-account',
@@ -43,7 +48,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   styleUrl: './create-account.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateAccountPage implements OnInit {
+export class CreateAccountPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly passwordRequirementsText = this._utils.passwordRequirementsText;
   readonly getBtnStyle = getBtnStyle;
@@ -53,14 +58,43 @@ export class CreateAccountPage implements OnInit {
 
   accountCreated = signal(false);
 
+  // Resend timer signals
+  resendAvailable = signal(false);
+  remainingTime = signal(0);
+  isBlocked = signal(false);
+  resendAttempts = signal(0);
+
+  private timerInterval?: ReturnType<typeof setInterval>;
+  private registeredEmail?: string;
+
   constructor(
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
-    private readonly _authService: AuthService
+    private readonly _authService: AuthService,
+    private readonly _timerService: EmailResendTimerService
   ) {}
 
   ngOnInit(): void {
     this.buildForm();
+    this.checkExistingTimerState();
+  }
+
+  ngOnDestroy(): void {
+    this.clearTimerInterval();
+  }
+
+  private checkExistingTimerState(): void {
+    const state = this._timerService.getTimerState();
+    if (
+      state &&
+      state.flowType === ResendEmailFlowType.CREATE_ACCOUNT
+    ) {
+      // Restore UI state if timer exists
+      this.accountCreated.set(true);
+      this.registeredEmail = state.email;
+      this.updateTimerUI();
+      this.startTimerInterval();
+    }
   }
 
   buildForm() {
@@ -83,10 +117,20 @@ export class CreateAccountPage implements OnInit {
     if (!this.isValidForm()) return;
 
     this.showLoading.set(true);
+    this.registeredEmail = this.userRegisterForm.value.email;
 
     this._authService
       .registerNewUser(this.userRegisterForm.value)
-      .then(() => this.accountCreated.set(true))
+      .then(() => {
+        this.accountCreated.set(true);
+        // Start the resend timer
+        this._timerService.startTimer(
+          this.registeredEmail!,
+          ResendEmailFlowType.CREATE_ACCOUNT
+        );
+        this.updateTimerUI();
+        this.startTimerInterval();
+      })
       .catch((err) => {
         if (err.error.errorDescription === 'this email is already in use')
           this._utils.showMessage(
@@ -119,5 +163,83 @@ export class CreateAccountPage implements OnInit {
     }
 
     return true;
+  }
+
+  resendConfirmationEmail(): void {
+    if (!this._timerService.canResend() || !this.registeredEmail) return;
+
+    this.showLoading.set(true);
+
+    this._authService
+      .resendActivationEmail(this.registeredEmail)
+      .then(() => {
+        this._timerService.incrementAttempt();
+        this.updateTimerUI();
+        this._utils.showMessage('create-account.email-resent-successfully');
+      })
+      .catch((err) => {
+        // If user already active, clear timer
+        if (err.error?.errorDescription === 'user already active') {
+          this._timerService.reset();
+          this._utils.showMessage('create-account.user-already-active', 5000);
+        } else {
+          this._utils.showMessage('create-account.error-resending-email');
+        }
+      })
+      .finally(() => this.showLoading.set(false));
+  }
+
+  private startTimerInterval(): void {
+    this.clearTimerInterval();
+
+    this.timerInterval = setInterval(() => {
+      this.updateTimerUI();
+    }, 1000);
+  }
+
+  private clearTimerInterval(): void {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+      this.timerInterval = undefined;
+    }
+  }
+
+  private updateTimerUI(): void {
+    const state = this._timerService.getTimerState();
+    if (!state) {
+      this.resendAvailable.set(false);
+      this.remainingTime.set(0);
+      this.isBlocked.set(false);
+      this.resendAttempts.set(0);
+      return;
+    }
+
+    const remaining = this._timerService.getRemainingTime();
+    const canResend = this._timerService.canResend();
+    const blocked = this._timerService.isBlocked();
+
+    this.remainingTime.set(remaining);
+    this.resendAvailable.set(canResend);
+    this.isBlocked.set(blocked);
+    this.resendAttempts.set(state.attemptCount);
+
+    // Clear interval if no longer needed
+    if (remaining === 0 && !blocked) {
+      this.clearTimerInterval();
+    }
+  }
+
+  formatTime(seconds: number): string {
+    if (seconds >= 3600) {
+      // Show hours and minutes for 1-hour block
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      return `${hours}h ${minutes}m`;
+    } else {
+      // Show minutes and seconds for shorter waits
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    }
   }
 }

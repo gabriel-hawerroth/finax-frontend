@@ -30,4 +30,12 @@ export class AuthService {
       this._http.post<User>(`${this.apiUrl}/register`, user)
     );
   }
+
+  resendActivationEmail(email: string): Promise<void> {
+    return lastValueFrom(
+      this._http.post<void>(`${this.apiUrl}/resend-account-confirmation`, {
+        email,
+      })
+    );
+  }
 }
