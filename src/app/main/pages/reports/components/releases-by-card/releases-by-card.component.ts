@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,12 +17,11 @@ import { ResponsiveService } from '../../../../../shared/services/responsive.ser
 @Component({
   selector: 'app-releases-by-card',
   imports: [
-    CommonModule,
     TranslateModule,
     MatCardModule,
     ChartModule,
-    MatProgressSpinnerModule,
-  ],
+    MatProgressSpinnerModule
+],
   templateUrl: './releases-by-card.component.html',
   styleUrl: './releases-by-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -62,7 +62,6 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
 @Component({
   selector: 'app-credit-card-invoice',
   imports: [
-    CommonModule,
     MatCardModule,
     NgOptimizedImage,
     TranslateModule,
@@ -71,8 +70,8 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
     RouterModule,
     InvoicePaymentsCardComponent,
     ButtonsComponent,
-    InvoiceBalancesComponent,
-  ],
+    InvoiceBalancesComponent
+],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

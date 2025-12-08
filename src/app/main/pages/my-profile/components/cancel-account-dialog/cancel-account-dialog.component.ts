@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
@@ -8,7 +8,7 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
   selector: 'app-cancel-account-dialog',
-  imports: [CommonModule, MatDialogModule, TranslateModule, ButtonsComponent],
+  imports: [MatDialogModule, TranslateModule, ButtonsComponent],
   templateUrl: './cancel-account-dialog.component.html',
   styleUrl: './cancel-account-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

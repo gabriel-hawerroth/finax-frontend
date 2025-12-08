@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,7 +36,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-category-form-dialog',
   imports: [
-    CommonModule,
     MatDialogModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -44,8 +43,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatDividerModule,
     ButtonsComponent,
     MatCheckboxModule,
-    TranslateModule,
-  ],
+    TranslateModule
+],
   templateUrl: './category-form-dialog.component.html',
   styleUrl: './category-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

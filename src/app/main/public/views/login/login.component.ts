@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,7 +27,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-login',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatProgressSpinnerModule,
@@ -35,8 +34,8 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     MatCheckboxModule,
     RouterModule,
     TranslateModule,
-    ButtonsComponent,
-  ],
+    ButtonsComponent
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

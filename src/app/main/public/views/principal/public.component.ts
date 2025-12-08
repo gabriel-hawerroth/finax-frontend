@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { isAfter } from 'date-fns';
@@ -15,7 +15,6 @@ import { PublicThirdSectionComponent } from './public-third-section/public-third
 @Component({
   selector: 'app-public',
   imports: [
-    CommonModule,
     PublicHeaderComponent,
     PublicFirstSectionComponent,
     PublicSecondSectionComponent,
@@ -23,8 +22,8 @@ import { PublicThirdSectionComponent } from './public-third-section/public-third
     PublicFourthSectionComponent,
     PublicFiveSectionComponent,
     PublicFooterComponent,
-    MatDividerModule,
-  ],
+    MatDividerModule
+],
   templateUrl: './public.component.html',
   styleUrl: './public.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

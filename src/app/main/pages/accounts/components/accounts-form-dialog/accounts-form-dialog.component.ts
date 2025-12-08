@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -34,12 +34,11 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
 @Component({
   selector: 'app-accounts-form-dialog',
   imports: [
-    CommonModule,
     AccountsFormComponent,
     DynamicButtonComponent,
     MatDialogModule,
-    TranslateModule,
-  ],
+    TranslateModule
+],
   templateUrl: './accounts-form-dialog.component.html',
   styleUrl: './accounts-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

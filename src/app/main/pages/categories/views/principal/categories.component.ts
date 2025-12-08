@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -29,11 +29,10 @@ import { CategoryFormDialog } from '../form-dialog/category-form-dialog.componen
 @Component({
   selector: 'app-categories',
   imports: [
-    CommonModule,
     MatCardModule,
     TranslateModule,
-    CategoriesListComponent,
-  ],
+    CategoriesListComponent
+],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

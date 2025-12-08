@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReleasesByCategory } from '../../../../../core/entities/reports/reports-dtos';
@@ -11,7 +11,7 @@ import { ReleasesReportComponent } from '../../components/releases-report/releas
 @Component({
   selector: 'app-releases-by-category',
   standalone: true,
-  imports: [CommonModule, TranslateModule, ReleasesReportComponent],
+  imports: [TranslateModule, ReleasesReportComponent],
   template: `
     <app-releases-report
       defaultChartType="pie"

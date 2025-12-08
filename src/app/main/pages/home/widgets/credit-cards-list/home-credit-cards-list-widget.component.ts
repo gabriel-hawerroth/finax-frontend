@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -17,13 +17,12 @@ import { HomeCreditCardItemComponent } from './home-credit-card-item/home-credit
 @Component({
   selector: 'app-home-credit-cards-list-widget',
   imports: [
-    CommonModule,
     MatCardModule,
     TranslateModule,
     MatDividerModule,
     RouterModule,
-    HomeCreditCardItemComponent,
-  ],
+    HomeCreditCardItemComponent
+],
   templateUrl: './home-credit-cards-list-widget.component.html',
   styleUrl: './home-credit-cards-list-widget.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

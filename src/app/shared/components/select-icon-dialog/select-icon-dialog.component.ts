@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,13 +22,12 @@ import { DynamicButtonComponent } from '../dynamic-buttons/dynamic-button/dynami
 @Component({
   selector: 'app-select-icon-dialog',
   imports: [
-    CommonModule,
     NgOptimizedImage,
     TranslateModule,
     MatDialogModule,
     MatBottomSheetModule,
-    DynamicButtonComponent,
-  ],
+    DynamicButtonComponent
+],
   templateUrl: './select-icon-dialog.component.html',
   styleUrl: './select-icon-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

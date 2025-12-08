@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { InvoiceBalanceComponent } from './invoice-balance/invoice-balance.component';
 
 @Component({
   selector: 'app-invoice-balances',
-  imports: [CommonModule, InvoiceBalanceComponent, TranslateModule],
+  imports: [InvoiceBalanceComponent, TranslateModule],
   templateUrl: './invoice-balances.component.html',
   styleUrl: './invoice-balances.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -30,7 +30,6 @@ import { CreditCardsListComponent } from '../../components/credit-cards-list/cre
 @Component({
   selector: 'app-credit-cards',
   imports: [
-    CommonModule,
     MatCardModule,
     ButtonsComponent,
     MatFormFieldModule,
@@ -38,8 +37,8 @@ import { CreditCardsListComponent } from '../../components/credit-cards-list/cre
     RouterModule,
     ReactiveFormsModule,
     TranslateModule,
-    CreditCardsListComponent,
-  ],
+    CreditCardsListComponent
+],
   templateUrl: './credit-cards.component.html',
   styleUrl: './credit-cards.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

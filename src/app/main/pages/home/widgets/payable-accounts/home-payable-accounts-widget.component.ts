@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -9,12 +9,11 @@ import { HomeUpcomingReleaseItemComponent } from '../../components/home-upcoming
 @Component({
   selector: 'app-home-payable-accounts-widget',
   imports: [
-    CommonModule,
     MatCardModule,
     TranslateModule,
     MatDividerModule,
-    HomeUpcomingReleaseItemComponent,
-  ],
+    HomeUpcomingReleaseItemComponent
+],
   templateUrl: './home-payable-accounts-widget.component.html',
   styleUrl: './home-payable-accounts-widget.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

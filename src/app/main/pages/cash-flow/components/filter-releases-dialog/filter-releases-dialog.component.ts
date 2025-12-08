@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -34,15 +34,14 @@ import {
 @Component({
   selector: 'app-filter-releases-dialog',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
     MatCheckboxModule,
     ButtonsComponent,
     TranslateModule,
-    NgOptimizedImage,
-  ],
+    NgOptimizedImage
+],
   templateUrl: './filter-releases-dialog.component.html',
   styleUrl: './filter-releases-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

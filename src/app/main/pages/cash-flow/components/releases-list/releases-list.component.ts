@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -28,7 +28,7 @@ import { ReleaseItemComponent } from './release-item/release-item.component';
 
 @Component({
   selector: 'app-releases-list',
-  imports: [CommonModule, ReleaseItemComponent, ScrollingModule],
+  imports: [ReleaseItemComponent, ScrollingModule],
   templateUrl: './releases-list.component.html',
   styleUrl: './releases-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

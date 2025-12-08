@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,7 +12,7 @@ import { InvoicePaymentsCardComponent } from '../payments-card/invoice-payments-
 
 @Component({
   selector: 'app-payments-card-dialog',
-  imports: [CommonModule, InvoicePaymentsCardComponent],
+  imports: [InvoicePaymentsCardComponent],
   templateUrl: './payments-card-dialog.component.html',
   styleUrl: './payments-card-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

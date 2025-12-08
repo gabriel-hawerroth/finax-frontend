@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -26,14 +26,13 @@ import { UtilsService } from './shared/utils/utils.service';
 @Component({
   selector: 'app-root',
   imports: [
-    CommonModule,
     RouterOutlet,
     SidebarComponent,
     MatSidenavModule,
     MatToolbarModule,
     DynamicButtonComponent,
-    SpeedDialComponent,
-  ],
+    SpeedDialComponent
+],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {

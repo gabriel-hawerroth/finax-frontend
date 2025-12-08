@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -28,7 +28,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-create-account',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatTooltipModule,
@@ -37,8 +36,8 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     NgOptimizedImage,
     TranslateModule,
     ButtonsComponent,
-    MatCheckboxModule,
-  ],
+    MatCheckboxModule
+],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

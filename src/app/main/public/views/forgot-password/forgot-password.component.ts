@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,15 +27,14 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-forgot-password',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     NgOptimizedImage,
     MatProgressSpinnerModule,
     TranslateModule,
     RouterModule,
-    ButtonsComponent,
-  ],
+    ButtonsComponent
+],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

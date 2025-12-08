@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
@@ -8,7 +8,7 @@ import { getBtnStyle } from '../../../../shared/utils/utils';
 
 @Component({
   selector: 'app-account-canceled',
-  imports: [CommonModule, ButtonsComponent, RouterModule, MatCardModule],
+  imports: [ButtonsComponent, RouterModule, MatCardModule],
   templateUrl: './account-canceled.component.html',
   styleUrl: './account-canceled.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

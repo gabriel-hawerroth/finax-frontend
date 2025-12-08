@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -26,7 +26,6 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
 @Component({
   selector: 'app-home',
   imports: [
-    CommonModule,
     MatCardModule,
     CustomCurrencyPipe,
     MatDividerModule,
@@ -35,8 +34,8 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
     HomePayableAccountsWidget,
     HomeReceivableAccountsWidget,
     HomeSpendByCategoryWidget,
-    HomeCreditCardsListWidget,
-  ],
+    HomeCreditCardsListWidget
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

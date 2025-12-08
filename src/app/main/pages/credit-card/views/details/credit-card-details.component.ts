@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -29,12 +29,11 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-credit-card-details',
   imports: [
-    CommonModule,
     NgOptimizedImage,
     CustomCurrencyPipe,
     TranslateModule,
-    DynamicButtonComponent,
-  ],
+    DynamicButtonComponent
+],
   templateUrl: './credit-card-details.component.html',
   styleUrl: './credit-card-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
