@@ -11,6 +11,7 @@ import {
 } from '../../../shared/utils/local-storage-contants';
 import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { UtilsService } from '../../../shared/utils/utils.service';
+import { EmailResendTimerService } from '../../../shared/services/email-resend-timer.service';
 import { onLogoutEvent } from '../../events/events';
 import { UserConfigsService } from '../user-configs/user-configs.service';
 import { UserService } from '../user/user.service';
@@ -32,7 +33,8 @@ export class LoginService {
     private readonly _utils: UtilsService,
     private readonly _authService: AuthService,
     private readonly _userConfigsService: UserConfigsService,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
+    private readonly _timerService: EmailResendTimerService
   ) {
     onLogoutEvent.subscribe((event) =>
       this.logout(event.showMessage, event.redirectToPublicPage)
@@ -63,6 +65,9 @@ export class LoginService {
 
         this.getUserConfigs();
         this.getUserImage();
+
+        // Clear email resend timer on successful login
+        this._timerService.reset();
 
         if (!credentials.changedPassword) {
           this._utils.showMessage('login.login-successfully');

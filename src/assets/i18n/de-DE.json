@@ -65,7 +65,15 @@
     "recovery": "E-Mail senden",
     "sended-recovery-link": "Der Wiederherstellungslink wurde an die E-Mail gesendet",
     "user-doesn't-exist": "Dieser Benutzer existiert nicht",
-    "error-sending-email": "Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns"
+    "error-sending-email": "Beim Senden der E-Mail ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns",
+    "email-sent-message": "Eine E-Mail zum Zurücksetzen des Passworts wurde an die registrierte Adresse gesendet.",
+    "resend-email": "E-Mail erneut senden",
+    "available-in": "Verfügbar in",
+    "attempts-remaining": "Verbleibende Versuche",
+    "try-again-in": "Versuchen Sie es erneut in",
+    "resend-blocked-message": "Wenn die E-Mail noch nicht in Ihrem Posteingang eingegangen ist, versuchen Sie es bitte später erneut oder kontaktieren Sie unseren Support.",
+    "email-resent-successfully": "E-Mail erfolgreich erneut gesendet",
+    "error-resending-email": "Fehler beim erneuten Senden der E-Mail"
   },
   "create-account": {
     "title": "Erstelle dein Konto",
@@ -79,7 +87,18 @@
     "error-creating-user": "Fehler beim Erstellen des Benutzers, kontaktieren Sie unseren Support",
     "read-and-agree": "Ich habe die gelesen und bin damit einverstanden",
     "use-terms": "Nutzungsbedingungen",
-    "accept-terms": "Sie müssen die Nutzungsbedingungen akzeptieren"
+    "accept-terms": "Sie müssen die Nutzungsbedingungen akzeptieren",
+    "account-created-title": "Konto erfolgreich erstellt",
+    "email-sent-message": "Eine Bestätigungs-E-Mail wurde an die registrierte Adresse gesendet. Der Aktivierungslink ist zwei Stunden lang gültig. Wenn die Aktivierung nicht innerhalb dieses Zeitraums abgeschlossen wird, wird Ihr Konto automatisch gelöscht und Sie müssen sich erneut registrieren.",
+    "activation-link-validity": "Der Aktivierungslink ist zwei Stunden lang gültig.",
+    "resend-email": "E-Mail erneut senden",
+    "available-in": "Verfügbar in",
+    "attempts-remaining": "Verbleibende Versuche",
+    "try-again-in": "Versuchen Sie es erneut in",
+    "resend-blocked-message": "Wenn die E-Mail noch nicht in Ihrem Posteingang eingegangen ist, versuchen Sie es bitte später erneut oder kontaktieren Sie unseren Support.",
+    "email-resent-successfully": "E-Mail erfolgreich erneut gesendet",
+    "error-resending-email": "Fehler beim erneuten Senden der E-Mail",
+    "user-already-active": "Benutzer ist bereits aktiv"
   },
   "change-password": {
     "title": "Setze dein neues Passwort",
