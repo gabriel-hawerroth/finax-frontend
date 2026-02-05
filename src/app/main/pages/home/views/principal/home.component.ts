@@ -2,6 +2,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   OnDestroy,
   OnInit,
   signal,
@@ -56,6 +57,14 @@ export class HomePage implements OnInit, OnDestroy {
   });
   upcomingReleases = signal<HomeUpcomingRelease[]>([]);
 
+  // ⚡ Bolt: Memoize filtered releases to prevent unnecessary re-renders in child components
+  payableReleases = computed(() =>
+    this._utils.filterList(this.upcomingReleases(), 'type', 'E')
+  );
+  receivableReleases = computed(() =>
+    this._utils.filterList(this.upcomingReleases(), 'type', 'R')
+  );
+
   generalBalance: number = 0;
 
   finishedFetchPayableReceivableAccounts = signal(false);
@@ -96,7 +105,4 @@ export class HomePage implements OnInit, OnDestroy {
       .finally(() => this.finishedFetchPayableReceivableAccounts.set(true));
   }
 
-  getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingRelease[] {
-    return this._utils.filterList(this.upcomingReleases(), 'type', type);
-  }
 }

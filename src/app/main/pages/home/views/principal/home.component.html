@@ -37,14 +37,14 @@
       ></app-home-accounts-list-widget>
 
       <app-home-payable-accounts-widget
-        [releasesList]="getUpcomingReleases('E')"
+        [releasesList]="payableReleases()"
         [currency]="currency()"
         [finishedFetch]="finishedFetchPayableReceivableAccounts()"
         [errorFetching]="errorFetchingPayableReceivableAccounts()"
       ></app-home-payable-accounts-widget>
 
       <app-home-receivable-accounts-widget
-        [releasesList]="getUpcomingReleases('R')"
+        [releasesList]="receivableReleases()"
         [currency]="currency()"
         [finishedFetch]="finishedFetchPayableReceivableAccounts()"
         [errorFetching]="errorFetchingPayableReceivableAccounts()"
