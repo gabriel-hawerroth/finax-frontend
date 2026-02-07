@@ -154,6 +154,7 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
       .then(() => {
         this._timerService.incrementAttempt();
         this.updateTimerUI();
+        this.startTimerInterval(); // Restart interval after resend
         this._utils.showMessage('forgot-password.email-resent-successfully');
       })
       .catch((err) => {

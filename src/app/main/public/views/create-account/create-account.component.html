@@ -115,23 +115,28 @@
             (onGeneric)="resendConfirmationEmail()"
           ></app-buttons>
 
-          @if (!resendAvailable() && remainingTime() > 0) {
-            <p class="timer-text">
-              {{ "create-account.available-in" | translate }}: {{ formatTime(remainingTime()) }}
-            </p>
-          }
+          <div class="timer-info">
+            @if (!resendAvailable() && remainingTime() > 0) {
+              <p class="timer-text">
+                <span class="timer-label">{{ "create-account.available-in" | translate }}:</span>
+                <span class="timer-value">{{ formatTime(remainingTime()) }}</span>
+              </p>
+            }
 
-          @if (resendAttempts() > 0) {
-            <p class="attempts-text">
-              {{ "create-account.attempts-remaining" | translate }}: {{ 2 - resendAttempts() }}
-            </p>
-          }
+            @if (resendAttempts() > 0) {
+              <p class="attempts-text">
+                <span class="attempts-label">{{ "create-account.attempts-remaining" | translate }}:</span>
+                <span class="attempts-value">{{ 2 - resendAttempts() }}</span>
+              </p>
+            }
+          </div>
         } @else {
           <p class="blocked-message">
             {{ "create-account.resend-blocked-message" | translate }}
           </p>
-          <p class="timer-text">
-            {{ "create-account.try-again-in" | translate }}: {{ formatTime(remainingTime()) }}
+          <p class="timer-text blocked">
+            <span class="timer-label">{{ "create-account.try-again-in" | translate }}:</span>
+            <span class="timer-value">{{ formatTime(remainingTime()) }}</span>
           </p>
         }
       </div>

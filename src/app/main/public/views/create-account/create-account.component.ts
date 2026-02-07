@@ -175,6 +175,7 @@ export class CreateAccountPage implements OnInit, OnDestroy {
       .then(() => {
         this._timerService.incrementAttempt();
         this.updateTimerUI();
+        this.startTimerInterval(); // Restart interval after resend
         this._utils.showMessage('create-account.email-resent-successfully');
       })
       .catch((err) => {
