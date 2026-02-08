@@ -103,39 +103,11 @@
         {{ "create-account.activation-link-validity" | translate }}
       </span>
 
-      <!-- Resend Controls -->
-      <div class="resend-controls">
-        @if (!timerUI.isBlocked()) {
-          <app-buttons
-            [showGeneric]="true"
-            [genericStyle]="getBtnStyle('flat')"
-            genericLabel="create-account.resend-email"
-            genericIcon="email"
-            [disableGeneric]="!timerUI.resendAvailable() || showLoading()"
-            [showLoading]="showLoading()"
-            (onGeneric)="resendConfirmationEmail()"
-          ></app-buttons>
-
-          @if (!timerUI.resendAvailable() && timerUI.remainingTime() > 0) {
-            <p class="timer-text">
-              {{ "create-account.available-in" | translate }}: {{ timerUI.formatTime(timerUI.remainingTime()) }}
-            </p>
-          }
-
-          @if (timerUI.resendAttempts() > 0) {
-            <p class="attempts-text">
-              {{ "create-account.attempts-remaining" | translate }}: {{ 2 - timerUI.resendAttempts() }}
-            </p>
-          }
-        } @else {
-          <p class="blocked-message">
-            {{ "create-account.resend-blocked-message" | translate }}
-          </p>
-          <p class="timer-text">
-            {{ "create-account.try-again-in" | translate }}: {{ timerUI.formatTime(timerUI.remainingTime()) }}
-          </p>
-        }
-      </div>
+      <app-email-resend-controls
+        [timerUI]="timerUI"
+        [showLoading]="showLoading()"
+        (resend)="resendConfirmationEmail()"
+      />
     </div>
     }
     <!---->

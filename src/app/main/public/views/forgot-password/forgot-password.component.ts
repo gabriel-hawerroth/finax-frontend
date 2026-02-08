@@ -1,9 +1,11 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   OnDestroy,
   OnInit,
+  PLATFORM_ID,
   signal,
 } from '@angular/core';
 import {
@@ -18,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
+import { EmailResendControlsComponent } from '../../../../shared/components/email-resend-controls/email-resend-controls.component';
 import { EmailResendTimerUI } from '../../../../shared/services/email-resend-timer-ui';
 import {
   EmailResendTimerService,
@@ -40,6 +43,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     TranslateModule,
     RouterModule,
     ButtonsComponent,
+    EmailResendControlsComponent,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
@@ -70,15 +74,14 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
       ResendEmailFlowType.FORGOT_PASSWORD
     );
 
-    // Check timer state synchronously in constructor to prevent
-    // flash of form view on page reload when email was already sent
-    const existingEmail = this.timerUI.checkExistingState();
-    if (existingEmail) {
-      this.emailSent.set(true);
-      this.sentEmail = existingEmail;
+    if (isPlatformBrowser(inject(PLATFORM_ID))) {
+      const existingEmail = this.timerUI.checkExistingState();
+      if (existingEmail) {
+        this.emailSent.set(true);
+        this.sentEmail = existingEmail;
+      }
+      this.isViewReady.set(true);
     }
-
-    this.isViewReady.set(true);
   }
 
   ngOnInit(): void {

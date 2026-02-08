@@ -1,0 +1,32 @@
+<div class="resend-controls">
+  @if (!timerUI().isBlocked()) {
+    <app-buttons
+      [showGeneric]="true"
+      [genericStyle]="getBtnStyle('flat')"
+      genericLabel="email-resend.resend-email"
+      genericIcon="email"
+      [disableGeneric]="!timerUI().resendAvailable() || showLoading()"
+      [showLoading]="showLoading()"
+      (onGeneric)="resend.emit()"
+    ></app-buttons>
+
+    @if (!timerUI().resendAvailable() && timerUI().remainingTime() > 0) {
+      <p class="timer-text">
+        {{ "email-resend.available-in" | translate }}: {{ timerUI().formatTime(timerUI().remainingTime()) }}
+      </p>
+    }
+
+    @if (timerUI().resendAttempts() > 0) {
+      <p class="attempts-text">
+        {{ "email-resend.attempts-remaining" | translate }}: {{ 2 - timerUI().resendAttempts() }}
+      </p>
+    }
+  } @else {
+    <p class="blocked-message">
+      {{ "email-resend.resend-blocked-message" | translate }}
+    </p>
+    <p class="timer-text">
+      {{ "email-resend.try-again-in" | translate }}: {{ timerUI().formatTime(timerUI().remainingTime()) }}
+    </p>
+  }
+</div>

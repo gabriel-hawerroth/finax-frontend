@@ -22,6 +22,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../../core/entities/auth/auth.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
+import { EmailResendControlsComponent } from '../../../../shared/components/email-resend-controls/email-resend-controls.component';
 import { EmailResendTimerUI } from '../../../../shared/services/email-resend-timer-ui';
 import {
   EmailResendTimerService,
@@ -46,6 +47,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     TranslateModule,
     ButtonsComponent,
     MatCheckboxModule,
+    EmailResendControlsComponent,
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss',

@@ -67,13 +67,15 @@
     "user-doesn't-exist": "Esse usuário não existe",
     "error-sending-email": "Erro ao enviar o email. Por favor tente novamente mais tarde ou entre em contato conosco",
     "email-sent-message": "Um email de recuperação de senha foi enviado para o endereço cadastrado.",
+    "email-resent-successfully": "Email reenviado com sucesso",
+    "error-resending-email": "Erro ao reenviar email"
+  },
+  "email-resend": {
     "resend-email": "Reenviar Email",
     "available-in": "Disponível em",
     "attempts-remaining": "Tentativas restantes",
     "try-again-in": "Tente novamente em",
-    "resend-blocked-message": "Se o email ainda não chegou na sua caixa de entrada, por favor tente novamente mais tarde ou entre em contato com nosso suporte.",
-    "email-resent-successfully": "Email reenviado com sucesso",
-    "error-resending-email": "Erro ao reenviar email"
+    "resend-blocked-message": "Se o email ainda não chegou na sua caixa de entrada, por favor tente novamente mais tarde ou entre em contato com nosso suporte."
   },
   "create-account": {
     "title": "Crie sua conta",
@@ -91,11 +93,6 @@
     "account-created-title": "Conta criada com sucesso",
     "email-sent-message": "Um email de confirmação foi enviado para o endereço cadastrado. O link de ativação será válido por duas horas. Caso a ativação não seja concluída dentro desse prazo, sua conta será excluída automaticamente, e será necessário realizar um novo cadastro.",
     "activation-link-validity": "O link de ativação será válido por duas horas.",
-    "resend-email": "Reenviar Email",
-    "available-in": "Disponível em",
-    "attempts-remaining": "Tentativas restantes",
-    "try-again-in": "Tente novamente em",
-    "resend-blocked-message": "Se o email ainda não chegou na sua caixa de entrada, por favor tente novamente mais tarde ou entre em contato com nosso suporte.",
     "email-resent-successfully": "Email reenviado com sucesso",
     "error-resending-email": "Erro ao reenviar email",
     "user-already-active": "Usuário já está ativo"

@@ -1,0 +1,41 @@
+:host {
+  display: flex;
+  width: 100%;
+}
+
+.resend-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+  width: 100%;
+
+  app-buttons {
+    width: 65%;
+    display: flex;
+    border-radius: 3rem;
+  }
+
+  .timer-text {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+  }
+
+  .attempts-text {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .blocked-message {
+    text-align: center;
+    margin: 0.5rem 0;
+    padding: 1.25rem;
+  }
+}
