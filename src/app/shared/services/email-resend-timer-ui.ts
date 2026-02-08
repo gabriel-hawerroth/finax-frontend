@@ -19,7 +19,7 @@ export class EmailResendTimerUI {
   ) {}
 
   checkExistingState(): string | null {
-    const state = this.timerService.getTimerState();
+    const state = this.timerService.getTimerState(this.flowType);
     if (state && state.flowType === this.flowType) {
       return state.email;
     }
@@ -33,13 +33,13 @@ export class EmailResendTimerUI {
   }
 
   onResendSuccess(): void {
-    this.timerService.incrementAttempt();
+    this.timerService.incrementAttempt(this.flowType);
     this.updateUI();
     this.startInterval();
   }
 
   canResend(): boolean {
-    return this.timerService.canResend();
+    return this.timerService.canResend(this.flowType);
   }
 
   setOnBlockExpired(callback: () => void): void {
@@ -47,7 +47,8 @@ export class EmailResendTimerUI {
   }
 
   reset(): void {
-    this.timerService.reset();
+    this.timerService.resetFlow(this.flowType);
+    this.updateUI();
   }
 
   startInterval(): void {
@@ -65,8 +66,8 @@ export class EmailResendTimerUI {
   updateUI(): void {
     const wasBlocked = this.isBlocked();
 
-    const blocked = this.timerService.isBlocked();
-    const state = this.timerService.getTimerState();
+    const blocked = this.timerService.isBlocked(this.flowType);
+    const state = this.timerService.getTimerState(this.flowType);
 
     if (!state) {
       this.resendAvailable.set(false);
@@ -81,8 +82,8 @@ export class EmailResendTimerUI {
       return;
     }
 
-    const remaining = this.timerService.getRemainingTime();
-    const canResend = this.timerService.canResend();
+    const remaining = this.timerService.getRemainingTime(this.flowType);
+    const canResend = this.timerService.canResend(this.flowType);
 
     this.remainingTime.set(remaining);
     this.resendAvailable.set(canResend);
