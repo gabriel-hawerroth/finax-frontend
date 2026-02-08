@@ -53,7 +53,7 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
   readonly getBtnStyle = getBtnStyle;
 
   showLoading = signal(false);
-  readonly isViewReady = signal(true);
+  readonly isViewReady = signal(false);
 
   emailControl!: FormControl;
   emailSent = signal(false);
@@ -84,6 +84,7 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
         this.emailSent.set(true);
         this.sentEmail = existingEmail;
       }
+      this.isViewReady.set(true);
     }
   }
 

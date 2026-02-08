@@ -61,7 +61,7 @@ export class CreateAccountPage implements OnInit, OnDestroy {
   showLoading = signal(false);
 
   accountCreated = signal(false);
-  viewReady = signal(true);
+  viewReady = signal(false);
 
   readonly timerUI: EmailResendTimerUI;
   private registeredEmail?: string;
@@ -88,6 +88,7 @@ export class CreateAccountPage implements OnInit, OnDestroy {
         this.accountCreated.set(true);
         this.registeredEmail = existingEmail;
       }
+      this.viewReady.set(true);
     }
   }
 
