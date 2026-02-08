@@ -11,6 +11,7 @@ export class EmailResendTimerUI {
   readonly resendAttempts = signal(0);
 
   private timerInterval?: ReturnType<typeof setInterval>;
+  private _onBlockExpired?: () => void;
 
   constructor(
     private readonly timerService: EmailResendTimerService,
@@ -41,6 +42,10 @@ export class EmailResendTimerUI {
     return this.timerService.canResend();
   }
 
+  setOnBlockExpired(callback: () => void): void {
+    this._onBlockExpired = callback;
+  }
+
   reset(): void {
     this.timerService.reset();
   }
@@ -58,18 +63,26 @@ export class EmailResendTimerUI {
   }
 
   updateUI(): void {
+    const wasBlocked = this.isBlocked();
+
+    const blocked = this.timerService.isBlocked();
     const state = this.timerService.getTimerState();
+
     if (!state) {
       this.resendAvailable.set(false);
       this.remainingTime.set(0);
       this.isBlocked.set(false);
       this.resendAttempts.set(0);
+      this.clearInterval();
+
+      if (wasBlocked) {
+        this._onBlockExpired?.();
+      }
       return;
     }
 
     const remaining = this.timerService.getRemainingTime();
     const canResend = this.timerService.canResend();
-    const blocked = this.timerService.isBlocked();
 
     this.remainingTime.set(remaining);
     this.resendAvailable.set(canResend);

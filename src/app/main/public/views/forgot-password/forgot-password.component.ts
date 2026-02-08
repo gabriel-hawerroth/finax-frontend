@@ -74,6 +74,11 @@ export class ForgotPasswordPage implements OnInit, OnDestroy {
       ResendEmailFlowType.FORGOT_PASSWORD
     );
 
+    this.timerUI.setOnBlockExpired(() => {
+      this.emailSent.set(false);
+      this.sentEmail = undefined;
+    });
+
     if (isPlatformBrowser(inject(PLATFORM_ID))) {
       const existingEmail = this.timerUI.checkExistingState();
       if (existingEmail) {

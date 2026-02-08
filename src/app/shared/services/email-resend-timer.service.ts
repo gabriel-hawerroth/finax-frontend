@@ -1,5 +1,5 @@
-import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 export enum ResendEmailFlowType {
   CREATE_ACCOUNT = 'CREATE_ACCOUNT',
@@ -144,19 +144,7 @@ export class EmailResendTimerService {
    * Reset timer state after 1-hour block expires
    */
   private resetAfterBlock(): void {
-    if (!this.isBrowser) return;
-
-    const state = this.getTimerState();
-    if (!state) return;
-
-    const now = new Date();
-    state.attemptCount = 0;
-    state.blockedUntil = undefined;
-    state.nextResendAvailableAt = new Date(
-      now.getTime() + FIRST_WAIT_TIME
-    ).toISOString();
-
-    this.saveTimerState(state);
+    this.reset();
   }
 
   /**

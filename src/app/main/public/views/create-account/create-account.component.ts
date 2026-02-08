@@ -78,6 +78,11 @@ export class CreateAccountPage implements OnInit, OnDestroy {
       ResendEmailFlowType.CREATE_ACCOUNT
     );
 
+    this.timerUI.setOnBlockExpired(() => {
+      this.accountCreated.set(false);
+      this.registeredEmail = undefined;
+    });
+
     if (isPlatformBrowser(inject(PLATFORM_ID))) {
       const existingEmail = this.timerUI.checkExistingState();
       if (existingEmail) {
