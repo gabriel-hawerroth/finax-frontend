@@ -15,7 +15,7 @@ export interface ResendTimerState {
   createdAt: string; // ISO timestamp
 }
 
-const STORAGE_KEY = 'finax_email_resend_timer';
+const STORAGE_KEY_PREFIX = 'finax_email_resend_timer';
 const FIRST_WAIT_TIME = 2 * 60 * 1000; // 2 minutes in ms
 const SECOND_WAIT_TIME = 3 * 60 * 1000; // 3 minutes in ms
 const BLOCK_TIME = 60 * 60 * 1000; // 1 hour in ms
@@ -28,6 +28,10 @@ export class EmailResendTimerService {
 
   constructor() {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  }
+
+  private storageKey(flowType: ResendEmailFlowType): string {
+    return `${STORAGE_KEY_PREFIX}_${flowType}`;
   }
 
   /**
@@ -53,14 +57,14 @@ export class EmailResendTimerService {
   /**
    * Check if resend is currently allowed
    */
-  canResend(): boolean {
+  canResend(flowType: ResendEmailFlowType): boolean {
     if (!this.isBrowser) return false;
 
-    const state = this.getTimerState();
+    const state = this.getTimerState(flowType);
     if (!state) return false;
 
     // Check if blocked
-    if (this.isBlocked()) return false;
+    if (this.isBlocked(flowType)) return false;
 
     // Check if timer has expired
     const now = new Date().getTime();
@@ -72,10 +76,10 @@ export class EmailResendTimerService {
   /**
    * Get remaining time in seconds until resend is available
    */
-  getRemainingTime(): number {
+  getRemainingTime(flowType: ResendEmailFlowType): number {
     if (!this.isBrowser) return 0;
 
-    const state = this.getTimerState();
+    const state = this.getTimerState(flowType);
     if (!state) return 0;
 
     // If blocked, return time until block expires
@@ -96,10 +100,10 @@ export class EmailResendTimerService {
   /**
    * Increment attempt counter and set next timer
    */
-  incrementAttempt(): void {
+  incrementAttempt(flowType: ResendEmailFlowType): void {
     if (!this.isBrowser) return;
 
-    const state = this.getTimerState();
+    const state = this.getTimerState(flowType);
     if (!state) return;
 
     const now = new Date();
@@ -122,10 +126,10 @@ export class EmailResendTimerService {
   /**
    * Check if in 1-hour block period
    */
-  isBlocked(): boolean {
+  isBlocked(flowType: ResendEmailFlowType): boolean {
     if (!this.isBrowser) return false;
 
-    const state = this.getTimerState();
+    const state = this.getTimerState(flowType);
     if (!state || !state.blockedUntil) return false;
 
     const now = new Date().getTime();
@@ -133,7 +137,7 @@ export class EmailResendTimerService {
 
     // If block has expired, reset the state
     if (now >= blockExpiry) {
-      this.resetAfterBlock();
+      this.resetFlow(flowType);
       return false;
     }
 
@@ -141,28 +145,31 @@ export class EmailResendTimerService {
   }
 
   /**
-   * Reset timer state after 1-hour block expires
+   * Clear timer state for a specific flow
    */
-  private resetAfterBlock(): void {
-    this.reset();
+  resetFlow(flowType: ResendEmailFlowType): void {
+    if (!this.isBrowser) return;
+    localStorage.removeItem(this.storageKey(flowType));
   }
 
   /**
-   * Clear timer state completely
+   * Clear timer state for all flows
    */
   reset(): void {
     if (!this.isBrowser) return;
-    localStorage.removeItem(STORAGE_KEY);
+    for (const flow of Object.values(ResendEmailFlowType)) {
+      localStorage.removeItem(this.storageKey(flow));
+    }
   }
 
   /**
    * Get current state from localStorage
    */
-  getTimerState(): ResendTimerState | null {
+  getTimerState(flowType: ResendEmailFlowType): ResendTimerState | null {
     if (!this.isBrowser) return null;
 
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(this.storageKey(flowType));
       if (!stored) return null;
 
       const state = JSON.parse(stored) as ResendTimerState;
@@ -175,13 +182,40 @@ export class EmailResendTimerService {
         !state.nextResendAvailableAt ||
         !state.createdAt
       ) {
-        this.reset();
+        this.resetFlow(flowType);
+        return null;
+      }
+
+      // Validate attemptCount is a finite integer within expected range (0–2)
+      const attemptCount = Number(state.attemptCount);
+      if (
+        !Number.isFinite(attemptCount) ||
+        !Number.isInteger(attemptCount) ||
+        attemptCount < 0 ||
+        attemptCount > 2
+      ) {
+        this.resetFlow(flowType);
+        return null;
+      }
+
+      // Validate timestamps parse to valid dates
+      const createdAtMs = Date.parse(state.createdAt);
+      const nextResendMs = Date.parse(state.nextResendAvailableAt);
+      const blockedUntilMs =
+        state.blockedUntil !== undefined ? Date.parse(state.blockedUntil) : null;
+
+      if (
+        Number.isNaN(createdAtMs) ||
+        Number.isNaN(nextResendMs) ||
+        (blockedUntilMs !== null && Number.isNaN(blockedUntilMs))
+      ) {
+        this.resetFlow(flowType);
         return null;
       }
 
       return state;
     } catch {
-      this.reset();
+      this.resetFlow(flowType);
       return null;
     }
   }
@@ -195,7 +229,7 @@ export class EmailResendTimerService {
   ): boolean {
     if (!this.isBrowser) return false;
 
-    const state = this.getTimerState();
+    const state = this.getTimerState(flowType);
     if (!state) return false;
 
     return state.email === email && state.flowType === flowType;
@@ -208,16 +242,7 @@ export class EmailResendTimerService {
     if (!this.isBrowser) return;
 
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-
-      // Dispatch storage event for cross-tab sync
-      window.dispatchEvent(
-        new StorageEvent('storage', {
-          key: STORAGE_KEY,
-          newValue: JSON.stringify(state),
-          url: window.location.href,
-        })
-      );
+      localStorage.setItem(this.storageKey(state.flowType), JSON.stringify(state));
     } catch (error) {
       console.error('Failed to save timer state:', error);
     }
