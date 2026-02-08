@@ -29,6 +29,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'erro-ativacao',
+    loadComponent: () =>
+      import(
+        './shared/components/activation-error/activation-error.component'
+      ).then((m) => m.ActivationErrorComponent),
+  },
+  {
     path: 'login',
     loadComponent: () =>
       import('./main/public/views/login/login.component').then(

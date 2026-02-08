@@ -33,7 +33,7 @@ export class AuthService {
 
   resendActivationEmail(email: string): Promise<void> {
     return lastValueFrom(
-      this._http.post<void>(`${this.apiUrl}/resend-account-confirmation`, {
+      this._http.post<void>(`${this.apiUrl}/resend-activation-email`, {
         email,
       })
     );

@@ -9,14 +9,14 @@
         alt="company logo"
       />
 
-      @if (!accountCreated()) {
+      @if (viewReady() && !accountCreated()) {
       <h1>
         {{ "create-account.title" | translate }}
       </h1>
       }
     </div>
 
-    @if (!accountCreated()) {
+    @if (viewReady() && !accountCreated()) {
     <form [formGroup]="userRegisterForm">
       <div class="row">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
@@ -93,7 +93,7 @@
     }
 
     <!---->
-    @if (accountCreated()) {
+    @if (viewReady() && accountCreated()) {
     <div id="account-created">
       <h2>{{ "create-account.account-created-title" | translate }}</h2>
 
@@ -105,38 +105,34 @@
 
       <!-- Resend Controls -->
       <div class="resend-controls">
-        @if (!isBlocked()) {
+        @if (!timerUI.isBlocked()) {
           <app-buttons
             [showGeneric]="true"
             [genericStyle]="getBtnStyle('flat')"
             genericLabel="create-account.resend-email"
             genericIcon="email"
-            [disableGeneric]="!resendAvailable() || showLoading()"
+            [disableGeneric]="!timerUI.resendAvailable() || showLoading()"
+            [showLoading]="showLoading()"
             (onGeneric)="resendConfirmationEmail()"
           ></app-buttons>
 
-          <div class="timer-info">
-            @if (!resendAvailable() && remainingTime() > 0) {
-              <p class="timer-text">
-                <span class="timer-label">{{ "create-account.available-in" | translate }}:</span>
-                <span class="timer-value">{{ formatTime(remainingTime()) }}</span>
-              </p>
-            }
+          @if (!timerUI.resendAvailable() && timerUI.remainingTime() > 0) {
+            <p class="timer-text">
+              {{ "create-account.available-in" | translate }}: {{ timerUI.formatTime(timerUI.remainingTime()) }}
+            </p>
+          }
 
-            @if (resendAttempts() > 0) {
-              <p class="attempts-text">
-                <span class="attempts-label">{{ "create-account.attempts-remaining" | translate }}:</span>
-                <span class="attempts-value">{{ 2 - resendAttempts() }}</span>
-              </p>
-            }
-          </div>
+          @if (timerUI.resendAttempts() > 0) {
+            <p class="attempts-text">
+              {{ "create-account.attempts-remaining" | translate }}: {{ 2 - timerUI.resendAttempts() }}
+            </p>
+          }
         } @else {
           <p class="blocked-message">
             {{ "create-account.resend-blocked-message" | translate }}
           </p>
-          <p class="timer-text blocked">
-            <span class="timer-label">{{ "create-account.try-again-in" | translate }}:</span>
-            <span class="timer-value">{{ formatTime(remainingTime()) }}</span>
+          <p class="timer-text">
+            {{ "create-account.try-again-in" | translate }}: {{ timerUI.formatTime(timerUI.remainingTime()) }}
           </p>
         }
       </div>
@@ -144,7 +140,7 @@
     }
     <!---->
 
-    @if (!accountCreated()) {
+    @if (viewReady() && !accountCreated()) {
     <div class="row bottom">
       @if (showLoading()) {
       <mat-spinner [diameter]="40" color="primary"></mat-spinner>

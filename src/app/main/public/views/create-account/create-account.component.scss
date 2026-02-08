@@ -13,6 +13,11 @@
 }
 
 .login {
+  .login-box:has(#account-created) {
+    height: auto;
+    min-height: 510px;
+  }
+
   .login-box {
     #account-created {
       display: flex;
@@ -23,7 +28,7 @@
       padding: 2rem;
       gap: 1.5rem;
       font-size: 1.1rem;
-      margin-bottom: 15%;
+      flex: 1;
 
       .resend-controls {
         display: flex;
@@ -49,7 +54,7 @@
 
         .timer-text {
           font-size: 1rem;
-          color: var(--text-primary);
+          color: var(--text-secondary);
           margin: 0;
           display: flex;
           align-items: center;
@@ -98,11 +103,10 @@
         }
 
         .blocked-message {
-          font-size: 1rem;
           color: var(--text-primary);
           text-align: center;
-          margin: 0.5rem 0;
-          padding: 1.25rem;
+          margin-bottom: 1rem;
+          padding: 1rem;
           background-color: var(--background-secondary);
           border-radius: 0.75rem;
           border-left: 4px solid var(--warn-color);
