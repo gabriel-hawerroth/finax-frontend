@@ -59,7 +59,7 @@ export class LoginService {
           this._utils.removeItemLocalStorage('savedLoginFinax');
         }
 
-        this.setToken(response.token);
+        // Token is now handled by httpOnly cookie
 
         this.getUserConfigs();
         this.getUserImage();
@@ -123,15 +123,12 @@ export class LoginService {
     });
   }
 
-  setToken(token: string) {
-    this._utils.setItemLocalStorage('tokenFinax', btoa(JSON.stringify(token)));
-    this._utils.setItemLocalStorage(
-      'tokenExpiration',
-      addHours(new Date(), 2).toString()
-    );
-  }
-
   logout(showMessage: boolean, redirectToPublicPage: boolean = true) {
+    // Call logout API to clear cookie
+    this._http.post(`${environment.baseApiUrl}logout`, {}).subscribe({
+      error: () => console.warn('Logout API call failed')
+    });
+
     this.isLogged.set(false);
 
     if (redirectToPublicPage) this._router.navigateByUrl('login');
@@ -143,8 +140,8 @@ export class LoginService {
 
   private clearLocalStorage() {
     this._utils.removeItemLocalStorage('userFinax');
-    this._utils.removeItemLocalStorage('tokenFinax');
-    this._utils.removeItemLocalStorage('tokenExpiration');
+    this._utils.removeItemLocalStorage('tokenFinax'); // cleanup old token
+    this._utils.removeItemLocalStorage('tokenExpiration'); // cleanup old expiration
     this._utils.removeItemLocalStorage('selectedMonthCashFlow');
     this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS);
     this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS);
@@ -161,14 +158,8 @@ export class LoginService {
     );
   }
 
-  get getUserToken(): string | null {
-    return this._utils.getItemLocalStorage('tokenFinax')
-      ? JSON.parse(atob(this._utils.getItemLocalStorage('tokenFinax')!))
-      : null;
-  }
-
   get logged(): boolean {
-    return this._utils.getItemLocalStorage('tokenFinax') ? true : false;
+    return this._utils.getItemLocalStorage('userFinax') ? true : false;
   }
 
   sendCancelUserAccountEmail(): Promise<void> {

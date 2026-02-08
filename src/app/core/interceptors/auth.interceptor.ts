@@ -11,21 +11,6 @@ export const authInterceptor: HttpInterceptorFn = (
   next,
   utilsService = inject(UtilsService)
 ) => {
-  const requestUrl: Array<string> = request.url.split('/');
-  const apiUrl: Array<string> = environment.baseApiUrl.split('/');
-
-  if (requestUrl[2] !== apiUrl[2]) return next(request);
-
-  const token: string | null = utilsService.getUserToken;
-
-  if (token) {
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  }
-
   return next(request).pipe(
     catchError((error) => {
       console.log('Error: ', error);
