@@ -29,9 +29,9 @@
       <mat-form-field>
         <mat-select formControlName="language">
           @for (language of languagesList; track $index) {
-          <mat-option [value]="language">
-            {{ "settings.languages." + language | translate }}
-          </mat-option>
+            <mat-option [value]="language">
+              {{ "settings.languages." + language | translate }}
+            </mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -45,21 +45,21 @@
       <mat-form-field>
         <mat-select formControlName="currency">
           @for (currency of currenciesList; track $index) {
-          <mat-option [value]="currency">
-            {{ currency }}
-            {{ "settings.currencies." + currency | translate }}
-          </mat-option>
+            <mat-option [value]="currency">
+              {{ currency }}
+              {{ "settings.currencies." + currency | translate }}
+            </mat-option>
           }
         </mat-select>
       </mat-form-field>
     </div>
 
-    <mat-divider></mat-divider>
+    <!-- <mat-divider></mat-divider>
 
     <div class="config email-notifications">
       <label>{{ "settings.email-notifications" | translate }}:</label>
 
       <mat-slide-toggle formControlName="emailNotifications"></mat-slide-toggle>
-    </div>
+    </div> -->
   </form>
 </div>

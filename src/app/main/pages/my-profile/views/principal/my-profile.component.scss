@@ -74,7 +74,7 @@
       #plan {
         width: 100%;
         box-shadow: 0 0 2px #00000034;
-        border-radius: 0.2rem;
+        border-radius: 2rem;
         color: #fff;
         background-color: #2e5491;
 
@@ -110,7 +110,7 @@
         .actions {
           padding: 1rem 1.5rem 1rem 0.7rem;
           display: flex;
-          justify-content: space-between;
+          justify-content: end;
 
           .change-plan {
             span {

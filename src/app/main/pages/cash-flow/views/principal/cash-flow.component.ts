@@ -23,6 +23,7 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
@@ -71,6 +72,7 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     CashFlowBalancesComponent,
     MatBadgeModule,
     ButtonsComponent,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
@@ -114,7 +116,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     private readonly _cashFlowService: ReleaseService,
     private readonly _matDialog: MatDialog,
     private readonly _bottomSheet: MatBottomSheet,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
   ) {}
 
   ngOnInit(): void {
@@ -127,7 +129,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     } else {
       this._utils.setItemLocalStorage(
         'selectedMonthCashFlow',
-        this.selectedDate.toString()
+        this.selectedDate.toString(),
       );
     }
 
@@ -141,7 +143,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
     this._utils.setItemLocalStorage(
       'selectedMonthCashFlow',
-      this.selectedDate.toString()
+      this.selectedDate.toString(),
     );
   }
 
@@ -173,8 +175,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
       this.selectedDate.setMonth(
         direction === 'before'
           ? this.selectedDate.getMonth() - 1
-          : this.selectedDate.getMonth() + 1
-      )
+          : this.selectedDate.getMonth() + 1,
+      ),
     );
     this.selectedDate.setDate(15);
 
@@ -204,17 +206,17 @@ export class CashFlowPage implements OnInit, OnDestroy {
     const doneReleases: MonthlyRelease[] = this._utils.filterList(
       this.monthlyReleases(),
       'done',
-      true
+      true,
     );
 
     const revenues = this.getAmountByReleaseType(
       doneReleases,
-      ReleaseType.REVENUE
+      ReleaseType.REVENUE,
     );
 
     const expenses = this.getAmountByReleaseType(
       doneReleases,
-      ReleaseType.EXPENSE
+      ReleaseType.EXPENSE,
     );
 
     const expectedBalance = this.allRevenuesAmount - this.allExpensesAmount;
@@ -229,14 +231,14 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
   private getAmountByReleaseType(
     releases: MonthlyRelease[],
-    type: ReleaseType
+    type: ReleaseType,
   ): number {
     return (
       releases
         .filter(
           (item) =>
             item.type === type &&
-            (item.account ? item.account.addToCashFlow : true)
+            (item.account ? item.account.addToCashFlow : true),
         )
         .reduce((count, item) => count + item.amount, 0) || 0
     );
@@ -245,14 +247,14 @@ export class CashFlowPage implements OnInit, OnDestroy {
   get allRevenuesAmount(): number {
     return this.getAmountByReleaseType(
       this.monthlyReleases(),
-      ReleaseType.REVENUE
+      ReleaseType.REVENUE,
     );
   }
 
   get allExpensesAmount(): number {
     return this.getAmountByReleaseType(
       this.monthlyReleases(),
-      ReleaseType.EXPENSE
+      ReleaseType.EXPENSE,
     );
   }
 
@@ -260,8 +262,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
     const width = this._responsiveService.smallWidth()
       ? '100vw'
       : this._responsiveService.mediumWidth()
-      ? '60vw'
-      : '42vw';
+        ? '60vw'
+        : '42vw';
 
     const config = this.getFilterDialogConfig();
 
@@ -291,8 +293,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
     const width = this._responsiveService.smallWidth()
       ? '100vw'
       : this._responsiveService.mediumWidth()
-      ? '60vw'
-      : '42vw';
+        ? '60vw'
+        : '42vw';
 
     const config = {
       data: <FilterReleasesDialogData>{
@@ -320,8 +322,8 @@ export class CashFlowPage implements OnInit, OnDestroy {
         (item) =>
           item &&
           item != 'all' &&
-          (typeof item === 'boolean' ? true : item.length > 0)
-      ).length
+          (typeof item === 'boolean' ? true : item.length > 0),
+      ).length,
     );
 
     this.monthlyReleases.update(() => {
@@ -344,7 +346,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
         const cardReleases = this.allMonthlyReleases.filter((item) =>
           item.card?.id
             ? this.appliedFilters().creditCardIds.includes(item.card.id)
-            : false
+            : false,
         );
 
         if (releases.length === this.allMonthlyReleases.length)
@@ -356,20 +358,20 @@ export class CashFlowPage implements OnInit, OnDestroy {
         releases = releases.filter((item) =>
           item.category
             ? this.appliedFilters().categoryIds.includes(item.category.id)
-            : false
+            : false,
         );
       }
 
       if (this.appliedFilters().releaseTypes !== 'all') {
         releases = releases.filter((item) =>
-          this.appliedFilters().releaseTypes.includes(item.type)
+          this.appliedFilters().releaseTypes.includes(item.type),
         );
       }
 
       if (this.appliedFilters().description) {
         releases = releases.filter((item) => {
           const filterValue = this._utils.removeAccents(
-            this.appliedFilters().description.toLowerCase()
+            this.appliedFilters().description.toLowerCase(),
           );
 
           return (
@@ -386,7 +388,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
       if (this.appliedFilters().done !== 'all') {
         releases = releases.filter(
-          (item) => item.done === this.appliedFilters().done
+          (item) => item.done === this.appliedFilters().done,
         );
       }
 
@@ -414,7 +416,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
 
   updateItem(updatedRelease: MonthlyRelease) {
     const allIndex = this.allMonthlyReleases.findIndex(
-      (item) => item.id === updatedRelease.id
+      (item) => item.id === updatedRelease.id,
     );
     if (allIndex > -1) {
       this.allMonthlyReleases[allIndex] = { ...updatedRelease };
@@ -432,7 +434,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((event) => {
         const releaseIndex = this.allMonthlyReleases.findIndex(
-          (item) => item.id === event.releaseId
+          (item) => item.id === event.releaseId,
         );
         if (releaseIndex === -1) return;
 

@@ -65,7 +65,6 @@
 .simple-page {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
 
   .page-title {
     margin-bottom: 3.5rem;
@@ -73,6 +72,7 @@
 
   .date-interval {
     margin: 0 4rem;
+    margin-bottom: 2rem;
     border-radius: 3rem;
 
     .date-interval-content {

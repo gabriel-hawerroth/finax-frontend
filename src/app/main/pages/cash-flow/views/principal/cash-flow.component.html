@@ -3,17 +3,17 @@
     {{ "cash-flow.title" | translate }}
 
     @if (isMobileView()) {
-    <div id="filter-button-title">
-      <ng-container *ngTemplateOutlet="filterButton" />
-    </div>
+      <div id="filter-button-title">
+        <ng-container *ngTemplateOutlet="filterButton" />
+      </div>
     } @else {
-    <button
-      id="add-btn"
-      mat-icon-button
-      [mat-menu-trigger-for]="newReleaseMenu"
-    >
-      <span class="material-symbols-rounded">add</span>
-    </button>
+      <button
+        id="add-btn"
+        mat-icon-button
+        [mat-menu-trigger-for]="newReleaseMenu"
+      >
+        <span class="material-symbols-rounded">add</span>
+      </button>
     }
   </h1>
 
@@ -43,35 +43,40 @@
         </div>
 
         @if (!isMobileView()) {
-        <div class="right">
-          <ng-container *ngTemplateOutlet="filterButton" />
-        </div>
+          <div class="right">
+            <ng-container *ngTemplateOutlet="filterButton" />
+          </div>
         }
       </header>
 
       @if (errorFetchingReleases()) {
-      <div class="empty">
-        <label>{{ "cash-flow.error-getting-releases" | translate }}</label>
-      </div>
+        <div class="empty">
+          <label>{{ "cash-flow.error-getting-releases" | translate }}</label>
+        </div>
+      } @else if (searching()) {
+        <div class="empty">
+          <mat-spinner [diameter]="40"></mat-spinner>
+        </div>
       } @else {
-      <!---->
-      @if (monthlyReleases().length) {
-      <app-releases-list
-        [releases]="monthlyReleases()"
-        [accounts]="accounts"
-        [categories]="categories"
-        [creditCards]="creditCards"
-        [selectedDate]="selectedDate"
-        (updateList)="getReleases()"
-        (updateItem)="updateItem($event)"
-      ></app-releases-list>
-      } @else {
-      <div class="empty">
-        <label style="font-size: 1.2rem">
-          {{ "cash-flow.empty-releases" | translate }}
-        </label>
-      </div>
-      } }
+        <!---->
+        @if (monthlyReleases().length) {
+          <app-releases-list
+            [releases]="monthlyReleases()"
+            [accounts]="accounts"
+            [categories]="categories"
+            [creditCards]="creditCards"
+            [selectedDate]="selectedDate"
+            (updateList)="getReleases()"
+            (updateItem)="updateItem($event)"
+          ></app-releases-list>
+        } @else {
+          <div class="empty">
+            <label style="font-size: 1.2rem">
+              {{ "cash-flow.empty-releases" | translate }}
+            </label>
+          </div>
+        }
+      }
     </mat-card>
 
     <app-cash-flow-balances
