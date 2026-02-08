@@ -43,3 +43,18 @@ export type AccountConfigs = {
   show: boolean;
   tooltip?: string;
 };
+
+export interface SaveAccountDTO {
+  name: string;
+  balance: number;
+  investments: boolean;
+  addOverallBalance: boolean;
+  image?: string;
+  accountNumber?: string;
+  agency?: number;
+  code?: number;
+  type?: AccountType;
+  grouper: boolean;
+  addToCashFlow: boolean;
+  primaryAccountId?: number;
+}

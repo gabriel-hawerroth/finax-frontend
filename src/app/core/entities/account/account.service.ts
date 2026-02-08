@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Account } from './account';
-import { AccountConfigs, BasicAccount, GetAccountById } from './account-dto';
+import { AccountConfigs, BasicAccount, GetAccountById, SaveAccountDTO } from './account-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -86,13 +86,15 @@ export class AccountService {
     );
   }
 
-  createNew(data: Account): Promise<Account> {
-    data.id = undefined;
+  createNew(data: SaveAccountDTO): Promise<Account> {
     return lastValueFrom(this._http.post<Account>(this.apiUrl, data));
   }
 
-  edit(data: Account): Promise<Account> {
-    return lastValueFrom(this._http.put<Account>(this.apiUrl, data));
+  edit(accountId: number, data: SaveAccountDTO): Promise<Account> {
+    let params = new HttpParams();
+    params = params.append('accountId', accountId);
+
+    return lastValueFrom(this._http.put<Account>(this.apiUrl, data, { params }));
   }
 
   adjustBalance(accountId: number, newBalance: number): Promise<Account> {

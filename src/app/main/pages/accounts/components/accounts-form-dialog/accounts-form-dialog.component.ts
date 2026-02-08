@@ -1,4 +1,3 @@
-
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -20,7 +19,10 @@ import {
 } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { Account } from '../../../../../core/entities/account/account';
-import { AccountFormDialogData } from '../../../../../core/entities/account/account-dto';
+import {
+  AccountFormDialogData,
+  SaveAccountDTO,
+} from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import {
   ButtonConfig,
@@ -37,8 +39,8 @@ import { AccountsFormComponent } from '../accounts-form/accounts-form.component'
     AccountsFormComponent,
     DynamicButtonComponent,
     MatDialogModule,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   templateUrl: './accounts-form-dialog.component.html',
   styleUrl: './accounts-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,7 +67,7 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _accountService: AccountService
+    private readonly _accountService: AccountService,
   ) {
     const injector = inject(Injector);
 
@@ -78,11 +80,11 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
     const ref =
       injector.get<MatDialogRef<AccountsFormDialog> | null>(
         MatDialogRef,
-        null
+        null,
       ) ||
       injector.get<MatBottomSheetRef<AccountsFormDialog> | null>(
         MatBottomSheetRef,
-        null
+        null,
       );
 
     this.control = {
@@ -95,7 +97,7 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.accountForm = this._accountService.getFormGroup(
-      this.primaryAccount.id
+      this.primaryAccount.id,
     );
 
     if (this.primaryAccount.grouper) {
@@ -105,7 +107,7 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
       formControls['addToCashFlow'].disable();
 
       formControls['addOverallBalance'].setValue(
-        this.primaryAccount.addOverallBalance
+        this.primaryAccount.addOverallBalance,
       );
       formControls['addOverallBalance'].disable();
     }
@@ -125,11 +127,31 @@ export class AccountsFormDialog implements OnInit, AfterViewInit {
     this.accountForm.markAsPristine();
 
     this._accountService
-      .createNew(this.accountForm.getRawValue())
+      .createNew(this.getSaveAccountDTO())
       .then((response) => {
         this._utils.showMessage('my-accounts.saved-successfully');
         this.control.close(response);
       })
       .catch(() => this._utils.showMessage('my-accounts.error-saving-account'));
+  }
+
+  private getSaveAccountDTO(): SaveAccountDTO {
+    const formValue = this.accountForm.getRawValue();
+    const data: SaveAccountDTO = {
+      name: formValue.name,
+      balance: formValue.balance,
+      investments: formValue.investments,
+      addOverallBalance: formValue.addOverallBalance,
+      image: formValue.image,
+      accountNumber: formValue.accountNumber,
+      agency: formValue.agency,
+      code: formValue.code,
+      type: formValue.type,
+      grouper: formValue.grouper,
+      addToCashFlow: formValue.addToCashFlow,
+      primaryAccountId: formValue.primaryAccountId,
+    };
+
+    return data;
   }
 }

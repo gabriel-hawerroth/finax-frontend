@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject, takeUntil } from 'rxjs';
 import { Account } from '../../../../../core/entities/account/account';
+import { SaveAccountDTO } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
 import { AccountType } from '../../../../../core/enums/account-enums';
 import {
@@ -112,7 +113,7 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     this.saving.set(true);
     this.accountForm.markAsPristine();
 
-    this.getSaveRequest(this.accountForm.getRawValue())
+    this.getSaveRequest(this.accountId, this.getSaveAccountDTO())
       .then((account) => {
         this._utils.showMessage('my-accounts.saved-successfully');
         this._router.navigateByUrl('contas');
@@ -137,8 +138,8 @@ export class AccountsFormPage implements OnInit, OnDestroy {
       .finally(() => this.saving.set(false));
   }
 
-  private getSaveRequest(data: Account) {
-    if (data.id) return this._accountService.edit(data);
+  private getSaveRequest(accountId: number | null, data: SaveAccountDTO): Promise<Account> {
+    if (accountId) return this._accountService.edit(accountId, data);
     else return this._accountService.createNew(data);
   }
 
@@ -179,5 +180,25 @@ export class AccountsFormPage implements OnInit, OnDestroy {
           formControls['balance'].enable({ emitEvent: false });
         });
     }
+  }
+
+  private getSaveAccountDTO(): SaveAccountDTO {
+    const formValue = this.accountForm.getRawValue();
+    const data: SaveAccountDTO = {
+      name: formValue.name,
+      balance: formValue.balance,
+      investments: formValue.investments,
+      addOverallBalance: formValue.addOverallBalance,
+      image: formValue.image,
+      accountNumber: formValue.accountNumber,
+      agency: formValue.agency,
+      code: formValue.code,
+      type: formValue.type,
+      grouper: formValue.grouper,
+      addToCashFlow: formValue.addToCashFlow,
+      primaryAccountId: formValue.primaryAccountId,
+    };
+
+    return data;
   }
 }
