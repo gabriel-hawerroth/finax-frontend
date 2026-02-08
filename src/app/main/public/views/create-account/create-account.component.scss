@@ -13,6 +13,11 @@
 }
 
 .login {
+  .login-box:has(#account-created) {
+    height: auto;
+    min-height: 510px;
+  }
+
   .login-box {
     #account-created {
       display: flex;
@@ -23,7 +28,7 @@
       padding: 2rem;
       gap: 1.5rem;
       font-size: 1.1rem;
-      margin-bottom: 15%;
+      flex: 1;
     }
 
     .bottom {

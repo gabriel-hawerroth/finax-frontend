@@ -65,7 +65,17 @@
     "recovery": "Send email",
     "sended-recovery-link": "Recovery link sent to the email",
     "user-doesn't-exist": "This user doesn't exist",
-    "error-sending-email": "An error occurred while sending the email. Please try again later or contact us"
+    "error-sending-email": "An error occurred while sending the email. Please try again later or contact us",
+    "email-sent-message": "A password reset email has been sent to the registered address.",
+    "email-resent-successfully": "Email resent successfully",
+    "error-resending-email": "Error resending email"
+  },
+  "email-resend": {
+    "resend-email": "Resend Email",
+    "available-in": "Available in",
+    "attempts-remaining": "Attempts remaining",
+    "try-again-in": "Try again in",
+    "resend-blocked-message": "If the email still hasn't reached your inbox, please try again later or contact our support."
   },
   "create-account": {
     "title": "Create your account",
@@ -79,7 +89,13 @@
     "error-creating-user": "Error creating the user, contact our support",
     "read-and-agree": "I read and agree with the",
     "use-terms": "Terms of use",
-    "accept-terms": "You must accept the terms of use"
+    "accept-terms": "You must accept the terms of use",
+    "account-created-title": "Account created successfully",
+    "email-sent-message": "A confirmation email has been sent to the registered address. The activation link will be valid for two hours. If activation is not completed within this period, your account will be automatically deleted, and you will need to register again.",
+    "activation-link-validity": "The activation link will be valid for two hours.",
+    "email-resent-successfully": "Email resent successfully",
+    "error-resending-email": "Error resending email",
+    "user-already-active": "User is already active"
   },
   "change-password": {
     "title": "Set your new password",

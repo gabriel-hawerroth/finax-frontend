@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
+import { EmailResendTimerService } from '../../../../shared/services/email-resend-timer.service';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
@@ -27,10 +28,13 @@ export class UserActivationPage implements OnInit {
 
   constructor(
     private readonly _utils: UtilsService,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _timerService: EmailResendTimerService
   ) {}
 
   ngOnInit(): void {
+    this._timerService.reset();
+
     if (
       this._utils.isBrowser &&
       window.innerWidth <= 870 &&

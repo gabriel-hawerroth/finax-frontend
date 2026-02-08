@@ -1,13 +1,15 @@
-import { NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
+  OnDestroy,
   OnInit,
+  PLATFORM_ID,
   signal,
 } from '@angular/core';
 import {
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -18,6 +20,12 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
+import { EmailResendControlsComponent } from '../../../../shared/components/email-resend-controls/email-resend-controls.component';
+import { EmailResendTimerUI } from '../../../../shared/services/email-resend-timer-ui';
+import {
+  EmailResendTimerService,
+  ResendEmailFlowType,
+} from '../../../../shared/services/email-resend-timer.service';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
@@ -33,49 +41,84 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     MatProgressSpinnerModule,
     TranslateModule,
     RouterModule,
-    ButtonsComponent
-],
+    ButtonsComponent,
+    EmailResendControlsComponent,
+  ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ForgotPasswordPage implements OnInit {
+export class ForgotPasswordPage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getBtnStyle = getBtnStyle;
 
-  originalFormValue!: FormGroup;
   showLoading = signal(false);
+  readonly isViewReady = signal(false);
 
   emailControl!: FormControl;
+  emailSent = signal(false);
+
+  readonly timerUI: EmailResendTimerUI;
+  private sentEmail?: string;
 
   constructor(
     private readonly _utils: UtilsService,
     private readonly _loginService: LoginService,
     private readonly _matSnackBar: MatSnackBar,
-    private readonly _translate: TranslateService
-  ) {}
+    private readonly _translate: TranslateService,
+    _timerService: EmailResendTimerService
+  ) {
+    this.timerUI = new EmailResendTimerUI(
+      _timerService,
+      ResendEmailFlowType.FORGOT_PASSWORD
+    );
+
+    this.timerUI.setOnBlockExpired(() => {
+      this.emailSent.set(false);
+      this.sentEmail = undefined;
+    });
+
+    if (isPlatformBrowser(inject(PLATFORM_ID))) {
+      const existingEmail = this.timerUI.checkExistingState();
+      if (existingEmail) {
+        this.emailSent.set(true);
+        this.sentEmail = existingEmail;
+      }
+      this.isViewReady.set(true);
+    }
+  }
 
   ngOnInit(): void {
     this.emailControl = new FormControl('', [
       Validators.required,
       Validators.email,
     ]);
+    if (this.emailSent()) {
+      this.timerUI.updateUI();
+      this.timerUI.startInterval();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.timerUI.destroy();
   }
 
   sendChangePasswordEmail() {
     this.showLoading.set(true);
     const email: string = this.emailControl.value;
+    this.sentEmail = email;
 
     this._loginService
       .sendChangePasswordEmail(email)
       .then(() => {
-        this.emailControl.reset('');
+        this.emailSent.set(true);
         this._matSnackBar.open(
           `${this._translate.instant(
             'forgot-password.sended-recovery-link'
           )}: ${email}`,
           'OK'
         );
+        this.timerUI.startNewTimer(email);
       })
       .catch((err) => {
         const error = err.error.errorDescription;
@@ -96,6 +139,23 @@ export class ForgotPasswordPage implements OnInit {
           default:
             this._utils.showMessage("forgot-password.user-doesn't-exist", 4000);
         }
+      })
+      .finally(() => this.showLoading.set(false));
+  }
+
+  resendPasswordResetEmail(): void {
+    if (!this.timerUI.canResend() || !this.sentEmail) return;
+
+    this.showLoading.set(true);
+
+    this._loginService
+      .sendChangePasswordEmail(this.sentEmail)
+      .then(() => {
+        this.timerUI.onResendSuccess();
+        this._utils.showMessage('forgot-password.email-resent-successfully');
+      })
+      .catch(() => {
+        this._utils.showMessage('forgot-password.error-resending-email');
       })
       .finally(() => this.showLoading.set(false));
   }

@@ -65,7 +65,17 @@
     "recovery": "Enviar correo",
     "sended-recovery-link": "El enlace de recuperación ha sido enviado al correo electrónico",
     "user-doesn't-exist": "Este usuario no existe",
-    "error-sending-email": "Se ha producido un error al enviar el correo electrónico. Por favor, inténtelo de nuevo más tarde o póngase en contacto con nosotros"
+    "error-sending-email": "Se ha producido un error al enviar el correo electrónico. Por favor, inténtelo de nuevo más tarde o póngase en contacto con nosotros",
+    "email-sent-message": "Se ha enviado un correo de recuperación de contraseña a la dirección registrada.",
+    "email-resent-successfully": "Email reenviado exitosamente",
+    "error-resending-email": "Error al reenviar email"
+  },
+  "email-resend": {
+    "resend-email": "Reenviar Email",
+    "available-in": "Disponible en",
+    "attempts-remaining": "Intentos restantes",
+    "try-again-in": "Intente nuevamente en",
+    "resend-blocked-message": "Si el correo aún no ha llegado a su bandeja de entrada, por favor intente nuevamente más tarde o contacte nuestro soporte."
   },
   "create-account": {
     "title": "Crea tu cuenta",
@@ -79,7 +89,13 @@
     "error-creating-user": "Error al crear el usuario, contacta a nuestro soporte",
     "read-and-agree": "He leído y estoy de acuerdo con el",
     "use-terms": "Condiciones de uso",
-    "accept-terms": "Debes aceptar los términos de uso"
+    "accept-terms": "Debes aceptar los términos de uso",
+    "account-created-title": "Cuenta creada exitosamente",
+    "email-sent-message": "Se ha enviado un correo de confirmación a la dirección registrada. El enlace de activación será válido por dos horas. Si la activación no se completa dentro de este período, su cuenta será eliminada automáticamente y será necesario registrarse nuevamente.",
+    "activation-link-validity": "El enlace de activación será válido por dos horas.",
+    "email-resent-successfully": "Email reenviado exitosamente",
+    "error-resending-email": "Error al reenviar email",
+    "user-already-active": "Usuario ya está activo"
   },
   "change-password": {
     "title": "Define tu nueva contraseña",

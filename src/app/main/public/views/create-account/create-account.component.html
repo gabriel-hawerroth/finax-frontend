@@ -9,14 +9,14 @@
         alt="company logo"
       />
 
-      @if (!accountCreated()) {
+      @if (viewReady() && !accountCreated()) {
       <h1>
         {{ "create-account.title" | translate }}
       </h1>
       }
     </div>
 
-    @if (!accountCreated()) {
+    @if (viewReady() && !accountCreated()) {
     <form [formGroup]="userRegisterForm">
       <div class="row">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
@@ -93,23 +93,24 @@
     }
 
     <!---->
-    @if (accountCreated()) {
+    @if (viewReady() && accountCreated()) {
     <div id="account-created">
-      <h2>Conta criada com sucesso</h2>
+      <h2>{{ "create-account.account-created-title" | translate }}</h2>
 
       <span>
-        Um email de ativação foi enviado para o endereço cadastrado.
-        <br /><br />
-        O link de ativação será válido por duas horas.
-        <br />
-        Caso a ativação não seja concluída dentro desse prazo, sua conta será
-        excluída automaticamente, e será necessário realizar um novo cadastro.
+        {{ "create-account.email-sent-message" | translate }}
       </span>
+
+      <app-email-resend-controls
+        [timerUI]="timerUI"
+        [showLoading]="showLoading()"
+        (resend)="resendConfirmationEmail()"
+      />
     </div>
     }
     <!---->
 
-    @if (!accountCreated()) {
+    @if (viewReady() && !accountCreated()) {
     <div class="row bottom">
       @if (showLoading()) {
       <mat-spinner [diameter]="40" color="primary"></mat-spinner>
