@@ -22,6 +22,7 @@ import { LoginService } from '../../../../core/entities/auth/login.service';
 import { User } from '../../../../core/entities/user/user';
 import { UserService } from '../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
+import { EmailResendTimerService } from '../../../../shared/services/email-resend-timer.service';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
@@ -60,7 +61,8 @@ export class ChangePasswordPage implements OnInit {
     private readonly _userService: UserService,
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _router: Router,
-    private readonly _loginService: LoginService
+    private readonly _loginService: LoginService,
+    private readonly _timerService: EmailResendTimerService
   ) {}
 
   ngOnInit(): void {
@@ -110,6 +112,8 @@ export class ChangePasswordPage implements OnInit {
     this._userService
       .changeForgetedPassword(this.user.id!, newPassword)
       .then(() => {
+        this._timerService.reset();
+
         const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
 
         if (
