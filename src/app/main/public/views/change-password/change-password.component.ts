@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -32,7 +32,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-change-password',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
@@ -40,8 +39,8 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     MatTooltipModule,
     NgOptimizedImage,
     TranslateModule,
-    ButtonsComponent,
-  ],
+    ButtonsComponent
+],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

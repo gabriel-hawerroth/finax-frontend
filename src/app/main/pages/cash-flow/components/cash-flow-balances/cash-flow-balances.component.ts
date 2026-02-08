@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
@@ -6,7 +6,7 @@ import { BalanceComponent } from './balance/balance.component';
 
 @Component({
   selector: 'app-cash-flow-balances',
-  imports: [CommonModule, BalanceComponent, TranslateModule],
+  imports: [BalanceComponent, TranslateModule],
   templateUrl: './cash-flow-balances.component.html',
   styleUrl: './cash-flow-balances.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

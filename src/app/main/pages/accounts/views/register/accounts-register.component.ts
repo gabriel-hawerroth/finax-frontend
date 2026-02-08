@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -32,7 +32,6 @@ import { AccountsFormComponent } from '../../components/accounts-form/accounts-f
 @Component({
   selector: 'accounts-register-page',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -42,8 +41,8 @@ import { AccountsFormComponent } from '../../components/accounts-form/accounts-f
     TranslateModule,
     BackButtonDirective,
     MatCardModule,
-    AccountsFormComponent,
-  ],
+    AccountsFormComponent
+],
   templateUrl: './accounts-register.component.html',
   styleUrl: './accounts-register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -27,14 +27,13 @@ import {
 @Component({
   selector: 'app-sub-accounts-activate-dialog',
   imports: [
-    CommonModule,
     TranslateModule,
     MatDialogModule,
     MatButtonModule,
     MatCheckboxModule,
     NgOptimizedImage,
-    DynamicButtonComponent,
-  ],
+    DynamicButtonComponent
+],
   templateUrl: './sub-accounts-activate-dialog.component.html',
   styleUrl: './sub-accounts-activate-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -25,7 +25,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-edit-balance-dialog',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -33,8 +32,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatProgressSpinnerModule,
     MatDialogModule,
     ButtonsComponent,
-    TranslateModule,
-  ],
+    TranslateModule
+],
   templateUrl: './edit-balance-dialog.component.html',
   styleUrl: './edit-balance-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

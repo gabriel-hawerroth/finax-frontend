@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -18,11 +18,10 @@ import { CustomCurrencyPipe } from '../../../../../../shared/pipes/custom-curren
 @Component({
   selector: 'app-release-item',
   imports: [
-    CommonModule,
     TranslateModule,
     CustomCurrencyPipe,
-    ButtonsComponent,
-  ],
+    ButtonsComponent
+],
   templateUrl: './release-item.component.html',
   styleUrl: './release-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

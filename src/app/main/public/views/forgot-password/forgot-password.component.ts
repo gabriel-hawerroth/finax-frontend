@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -35,7 +35,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-forgot-password',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     NgOptimizedImage,

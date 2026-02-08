@@ -1,4 +1,4 @@
-import { CommonModule, Location, NgOptimizedImage } from '@angular/common';
+import { Location, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -46,7 +46,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-credit-cards-form',
   imports: [
-    CommonModule,
     ButtonsComponent,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -57,8 +56,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgOptimizedImage,
     MatCheckboxModule,
     TranslateModule,
-    BackButtonDirective,
-  ],
+    BackButtonDirective
+],
   templateUrl: './credit-cards-form.component.html',
   styleUrl: './credit-cards-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

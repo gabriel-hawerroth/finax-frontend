@@ -1,7 +1,8 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   OnDestroy,
   OnInit,
   signal,
@@ -26,7 +27,6 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
 @Component({
   selector: 'app-home',
   imports: [
-    CommonModule,
     MatCardModule,
     CustomCurrencyPipe,
     MatDividerModule,
@@ -35,8 +35,8 @@ import { HomeSpendByCategoryWidget } from '../../widgets/spend-by-category/home-
     HomePayableAccountsWidget,
     HomeReceivableAccountsWidget,
     HomeSpendByCategoryWidget,
-    HomeCreditCardsListWidget,
-  ],
+    HomeCreditCardsListWidget
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,6 +56,14 @@ export class HomePage implements OnInit, OnDestroy {
     expenses: 0,
   });
   upcomingReleases = signal<HomeUpcomingRelease[]>([]);
+
+  // ⚡ Bolt: Memoize filtered releases to prevent unnecessary re-renders in child components
+  payableReleases = computed(() =>
+    this._utils.filterList(this.upcomingReleases(), 'type', 'E')
+  );
+  receivableReleases = computed(() =>
+    this._utils.filterList(this.upcomingReleases(), 'type', 'R')
+  );
 
   generalBalance: number = 0;
 
@@ -97,7 +105,4 @@ export class HomePage implements OnInit, OnDestroy {
       .finally(() => this.finishedFetchPayableReceivableAccounts.set(true));
   }
 
-  getUpcomingReleases(type: 'R' | 'E'): HomeUpcomingRelease[] {
-    return this._utils.filterList(this.upcomingReleases(), 'type', type);
-  }
 }

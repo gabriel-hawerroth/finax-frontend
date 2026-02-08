@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -37,7 +37,6 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-create-account',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatInputModule,
     MatTooltipModule,

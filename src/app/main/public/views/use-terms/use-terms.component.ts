@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
@@ -9,12 +9,11 @@ import { cloudFireCdnImgsLink } from '../../../../shared/utils/utils';
 @Component({
   selector: 'app-use-terms',
   imports: [
-    CommonModule,
     NgOptimizedImage,
     RouterModule,
     ButtonsComponent,
-    MatDividerModule,
-  ],
+    MatDividerModule
+],
   templateUrl: './use-terms.component.html',
   styleUrl: './use-terms.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

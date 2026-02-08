@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
@@ -31,7 +31,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-change-password-dialog',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -40,8 +39,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatProgressSpinnerModule,
     MatTooltipModule,
     TranslateModule,
-    ButtonsComponent,
-  ],
+    ButtonsComponent
+],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

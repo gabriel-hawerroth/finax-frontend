@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,7 +6,7 @@ import { CustomCurrencyPipe } from '../../../../../../shared/pipes/custom-curren
 
 @Component({
   selector: 'app-balance',
-  imports: [CommonModule, MatCardModule, CustomCurrencyPipe, TranslateModule],
+  imports: [MatCardModule, CustomCurrencyPipe, TranslateModule],
   templateUrl: './balance.component.html',
   styleUrl: './balance.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

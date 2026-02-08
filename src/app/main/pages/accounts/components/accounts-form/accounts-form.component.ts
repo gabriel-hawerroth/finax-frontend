@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -37,7 +37,6 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-accounts-form',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -46,8 +45,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgxCurrencyDirective,
     NgOptimizedImage,
     TranslateModule,
-    MatTooltipModule,
-  ],
+    MatTooltipModule
+],
   templateUrl: './accounts-form.component.html',
   styleUrl: './accounts-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

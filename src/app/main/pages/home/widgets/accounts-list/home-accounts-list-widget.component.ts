@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,15 +21,14 @@ import { HomeAccountItemComponent } from './home-account-item/home-account-item.
 @Component({
   selector: 'app-home-accounts-list-widget',
   imports: [
-    CommonModule,
     MatCardModule,
     TranslateModule,
     CustomCurrencyPipe,
     MatDividerModule,
     RouterModule,
     HomeAccountItemComponent,
-    DynamicButtonComponent,
-  ],
+    DynamicButtonComponent
+],
   templateUrl: './home-accounts-list-widget.component.html',
   styleUrl: './home-accounts-list-widget.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

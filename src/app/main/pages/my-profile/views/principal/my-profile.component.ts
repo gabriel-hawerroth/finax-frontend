@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -28,13 +28,12 @@ import { MyProfileFormComponent } from '../../components/my-profile-form/my-prof
 @Component({
   selector: 'app-my-profile',
   imports: [
-    CommonModule,
     MatButtonModule,
     ButtonsComponent,
     TranslateModule,
     MyProfileFormComponent,
-    NgOptimizedImage,
-  ],
+    NgOptimizedImage
+],
   templateUrl: './my-profile.component.html',
   styleUrl: './my-profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -42,12 +42,11 @@ import { SubAccountsActivateDialog } from '../../components/sub-accounts-activat
 @Component({
   selector: 'app-account-details',
   imports: [
-    CommonModule,
     CustomCurrencyPipe,
     NgOptimizedImage,
     TranslateModule,
-    DynamicButtonComponent,
-  ],
+    DynamicButtonComponent
+],
   templateUrl: './account-details.component.html',
   styleUrl: './account-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +13,7 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 
 @Component({
   selector: 'app-categories-list',
-  imports: [CommonModule, MatButtonModule, TranslateModule, ButtonsComponent],
+  imports: [MatButtonModule, TranslateModule, ButtonsComponent],
   templateUrl: './categories-list.component.html',
   styleUrl: './categories-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

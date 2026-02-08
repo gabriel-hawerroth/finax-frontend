@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,12 +13,11 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
 @Component({
   selector: 'app-user-activation',
   imports: [
-    CommonModule,
     NgOptimizedImage,
     RouterModule,
     TranslateModule,
-    ButtonsComponent,
-  ],
+    ButtonsComponent
+],
   templateUrl: './user-activation.component.html',
   styleUrl: './user-activation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -14,7 +14,7 @@ import { StyledButtonComponent } from './styled-button/styled-button.component';
 
 @Component({
   selector: 'app-buttons',
-  imports: [CommonModule, StyledButtonComponent],
+  imports: [StyledButtonComponent],
   templateUrl: './buttons.component.html',
   styleUrl: './buttons.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

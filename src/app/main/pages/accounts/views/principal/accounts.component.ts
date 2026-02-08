@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -38,7 +38,6 @@ import { AccountsListComponent } from '../../components/accounts-list/accounts-l
 @Component({
   selector: 'app-accounts',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -46,8 +45,8 @@ import { AccountsListComponent } from '../../components/accounts-list/accounts-l
     MatCardModule,
     TranslateModule,
     DynamicButtonComponent,
-    AccountsListComponent,
-  ],
+    AccountsListComponent
+],
   templateUrl: './accounts.component.html',
   styleUrl: './accounts.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

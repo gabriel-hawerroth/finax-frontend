@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
@@ -7,7 +7,7 @@ import { ConfirmDuplicatedReleasesActionDialogData } from '../../../../../core/e
 
 @Component({
   selector: 'app-confirm-duplicated-releases-action',
-  imports: [CommonModule, MatDialogModule, MatButtonModule, TranslateModule],
+  imports: [MatDialogModule, MatButtonModule, TranslateModule],
   templateUrl: './confirm-duplicated-releases-action.component.html',
   styleUrl: './confirm-duplicated-releases-action.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
