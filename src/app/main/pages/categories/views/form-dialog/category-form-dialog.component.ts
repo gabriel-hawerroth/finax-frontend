@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,7 +26,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { Category } from '../../../../../core/entities/category/category';
-import { CategoryFormDialogData } from '../../../../../core/entities/category/category-dto';
+import {
+  CategoryFormDialogData,
+  SaveCategoryDTO,
+} from '../../../../../core/entities/category/category-dto';
 import { CategoryService } from '../../../../../core/entities/category/category.service';
 import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
@@ -43,8 +45,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatDividerModule,
     ButtonsComponent,
     MatCheckboxModule,
-    TranslateModule
-],
+    TranslateModule,
+  ],
   templateUrl: './category-form-dialog.component.html',
   styleUrl: './category-form-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,16 +68,16 @@ export class CategoryFormDialog implements OnInit {
     private readonly _injector: Injector,
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
-    private readonly _categoryService: CategoryService
+    private readonly _categoryService: CategoryService,
   ) {
     const ref =
       _injector.get<MatDialogRef<CategoryFormDialog> | null>(
         MatDialogRef,
-        null
+        null,
       ) ||
       _injector.get<MatBottomSheetRef<CategoryFormDialog> | null>(
         MatBottomSheetRef,
-        null
+        null,
       );
 
     this.control = {
@@ -108,7 +110,6 @@ export class CategoryFormDialog implements OnInit {
       color: ['', Validators.required],
       icon: ['', Validators.required],
       type: [this.data.type, Validators.required],
-      userId: this._utils.getLoggedUser!.id,
       active: true,
       essential: false,
     });
@@ -128,7 +129,7 @@ export class CategoryFormDialog implements OnInit {
     this.saving.set(true);
     this.categoryForm.markAllAsTouched();
 
-    this.getSaveRequest(this.categoryForm.getRawValue())
+    this.getSaveRequest(this.getSaveDTO())
       .then((response) => {
         this.control.close(response);
         this._utils.showMessage('categories.saved-successfully');
@@ -137,9 +138,21 @@ export class CategoryFormDialog implements OnInit {
       .finally(() => this.saving.set(false));
   }
 
-  private getSaveRequest(data: Category): Promise<Category> {
-    if (data.id) return this._categoryService.edit(data);
+  private getSaveRequest(data: SaveCategoryDTO): Promise<Category> {
+    const id = this.categoryForm.get('id')!.value;
+    if (id) return this._categoryService.edit(id, data);
     else return this._categoryService.createNew(data);
+  }
+
+  private getSaveDTO(): SaveCategoryDTO {
+    const formValue = this.categoryForm.getRawValue();
+    return {
+      name: formValue.name,
+      color: formValue.color,
+      icon: formValue.icon,
+      type: formValue.type,
+      essential: formValue.essential,
+    };
   }
 
   readonly colors: string[] = [

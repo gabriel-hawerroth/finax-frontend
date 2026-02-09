@@ -9,3 +9,11 @@ export interface OnCategoryEditDto {
   event: MouseEvent;
   category: Category;
 }
+
+export interface SaveCategoryDTO {
+  name: string;
+  color: string;
+  icon: string;
+  type: string;
+  essential: boolean;
+}

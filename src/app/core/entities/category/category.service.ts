@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Category } from './category';
+import { SaveCategoryDTO } from './category-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -18,17 +19,18 @@ export class CategoryService {
 
   getByUser(): Promise<Category[]> {
     return lastValueFrom(
-      this._http.get<Category[]>(`${this.apiUrl}/get-by-user`)
+      this._http.get<Category[]>(`${this.apiUrl}/get-by-user`),
     );
   }
 
-  createNew(category: Category): Promise<Category> {
-    category.id = undefined;
-    return lastValueFrom(this._http.post<Category>(`${this.apiUrl}`, category));
+  createNew(category: SaveCategoryDTO): Promise<Category> {
+    return lastValueFrom(this._http.post<Category>(this.apiUrl, category));
   }
 
-  edit(category: Category): Promise<Category> {
-    return lastValueFrom(this._http.put<Category>(`${this.apiUrl}`, category));
+  edit(categoryId: number, category: SaveCategoryDTO): Promise<Category> {
+    return lastValueFrom(
+      this._http.put<Category>(`${this.apiUrl}/${categoryId}`, category),
+    );
   }
 
   delete(id: number): Promise<void> {
