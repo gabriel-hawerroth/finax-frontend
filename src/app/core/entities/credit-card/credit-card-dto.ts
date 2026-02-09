@@ -21,3 +21,12 @@ export interface BasicCard {
 export interface CreditCardDetailsData {
   card: UserCreditCard;
 }
+
+export interface SaveCreditCardDTO {
+  name: string;
+  cardLimit: number;
+  closeDay: number;
+  expiresDay: number;
+  image: string;
+  standardPaymentAccountId: number;
+}

@@ -4,7 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { Account } from './account';
-import { AccountConfigs, BasicAccount, GetAccountById, SaveAccountDTO } from './account-dto';
+import {
+  AccountConfigs,
+  BasicAccount,
+  GetAccountById,
+  SaveAccountDTO,
+} from './account-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +19,7 @@ export class AccountService {
 
   constructor(
     private readonly _http: HttpClient,
-    private readonly _fb: FormBuilder
+    private readonly _fb: FormBuilder,
   ) {}
 
   getFormGroup(primaryAccountId?: number): FormGroup {
@@ -67,13 +72,13 @@ export class AccountService {
 
   getByUser(): Promise<Account[]> {
     return lastValueFrom(
-      this._http.get<Account[]>(`${this.apiUrl}/get-by-user`)
+      this._http.get<Account[]>(`${this.apiUrl}/get-by-user`),
     );
   }
 
   getById(id: number): Promise<GetAccountById> {
     return lastValueFrom(
-      this._http.get<GetAccountById>(`${this.apiUrl}/${id}`)
+      this._http.get<GetAccountById>(`${this.apiUrl}/${id}`),
     );
   }
 
@@ -82,7 +87,7 @@ export class AccountService {
     params = params.append('showSubAccounts', showSubAccounts);
 
     return lastValueFrom(
-      this._http.get<BasicAccount[]>(`${this.apiUrl}/basic-list`, { params })
+      this._http.get<BasicAccount[]>(`${this.apiUrl}/basic-list`, { params }),
     );
   }
 
@@ -91,10 +96,9 @@ export class AccountService {
   }
 
   edit(accountId: number, data: SaveAccountDTO): Promise<Account> {
-    let params = new HttpParams();
-    params = params.append('accountId', accountId);
-
-    return lastValueFrom(this._http.put<Account>(this.apiUrl, data, { params }));
+    return lastValueFrom(
+      this._http.put<Account>(`${this.apiUrl}/${accountId}`, data),
+    );
   }
 
   adjustBalance(accountId: number, newBalance: number): Promise<Account> {
@@ -107,8 +111,8 @@ export class AccountService {
         null,
         {
           params,
-        }
-      )
+        },
+      ),
     );
   }
 
@@ -118,7 +122,7 @@ export class AccountService {
 
   inactivateAccount(id: number): Promise<void> {
     return lastValueFrom(
-      this._http.patch<void>(`${this.apiUrl}/inactivate/${id}`, null)
+      this._http.patch<void>(`${this.apiUrl}/inactivate/${id}`, null),
     );
   }
 
@@ -127,7 +131,7 @@ export class AccountService {
     params = params.append('subAccounts', subAccountIds.toString());
 
     return lastValueFrom(
-      this._http.patch<void>(`${this.apiUrl}/activate/${id}`, null, { params })
+      this._http.patch<void>(`${this.apiUrl}/activate/${id}`, null, { params }),
     );
   }
 }

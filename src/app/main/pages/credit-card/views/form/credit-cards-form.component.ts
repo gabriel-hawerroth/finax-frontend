@@ -29,7 +29,7 @@ import { NgxCurrencyDirective } from 'ngx-currency-v2';
 import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { AccountService } from '../../../../../core/entities/account/account.service';
-import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
+import { SaveCreditCardDTO } from '../../../../../core/entities/credit-card/credit-card-dto';
 import { CreditCardService } from '../../../../../core/entities/credit-card/credit-card.service';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { SelectIconDialog } from '../../../../../shared/components/select-icon-dialog/select-icon-dialog.component';
@@ -56,8 +56,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     NgOptimizedImage,
     MatCheckboxModule,
     TranslateModule,
-    BackButtonDirective
-],
+    BackButtonDirective,
+  ],
   templateUrl: './credit-cards-form.component.html',
   styleUrl: './credit-cards-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -97,7 +97,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
     private readonly _location: Location,
     private readonly _responsiveService: ResponsiveService,
     private readonly _matDialog: MatDialog,
-    private readonly _bottomSheet: MatBottomSheet
+    private readonly _bottomSheet: MatBottomSheet,
   ) {}
 
   ngOnInit(): void {
@@ -114,7 +114,6 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   private buildForm() {
     this.cardForm = this._fb.group({
       id: null,
-      userId: this._utils.getLoggedUser!.id,
       name: ['', Validators.required],
       cardLimit: [0, Validators.required],
       closeDay: [1, Validators.required],
@@ -151,7 +150,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
       .getBasicList(showSubAccounts)
       .then((response) => (this.accounsList = response))
       .catch(() =>
-        this._utils.showMessage('credit-cards.error-getting-accounts')
+        this._utils.showMessage('credit-cards.error-getting-accounts'),
       );
   }
 
@@ -164,7 +163,7 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
     this.saving.set(true);
     this.cardForm.markAsPristine();
 
-    this.getSaveRequest(this.cardForm.getRawValue())
+    this.getSaveRequest(this.getSaveCreditCardDTO())
       .then(() => {
         this._utils.showMessage('credit-cards.saved-successfully');
         this._router.navigateByUrl('cartoes-de-credito');
@@ -173,8 +172,8 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
       .finally(() => this.saving.set(false));
   }
 
-  private getSaveRequest(card: CreditCard) {
-    if (card.id) return this._creditCardService.edit(card);
+  private getSaveRequest(card: SaveCreditCardDTO) {
+    if (this.cardId) return this._creditCardService.edit(this.cardId, card);
     else return this._creditCardService.createNew(card);
   }
 
@@ -190,13 +189,13 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
       observable = lastValueFrom(
         this._bottomSheet
           .open(SelectIconDialog, config as MatBottomSheetConfig)
-          .afterDismissed()
+          .afterDismissed(),
       );
     } else {
       observable = lastValueFrom(
         this._matDialog
           .open(SelectIconDialog, config as MatDialogConfig)
-          .afterClosed()
+          .afterClosed(),
       );
     }
 
@@ -223,12 +222,24 @@ export class CreditCardsFormPage implements OnInit, OnDestroy {
   getResponsiveFieldWidth(
     widths: Widths,
     defaultWidth?: string,
-    minWidth?: string
+    minWidth?: string,
   ) {
     return getResponsiveFieldWidth(
       widths,
       defaultWidth,
-      minWidth
+      minWidth,
     )(this._responsiveService);
+  }
+
+  private getSaveCreditCardDTO(): SaveCreditCardDTO {
+    const formValue = this.cardForm.getRawValue();
+    return {
+      name: formValue.name,
+      cardLimit: formValue.cardLimit,
+      closeDay: formValue.closeDay,
+      expiresDay: formValue.expiresDay,
+      image: formValue.image,
+      standardPaymentAccountId: formValue.standardPaymentAccountId,
+    };
   }
 }

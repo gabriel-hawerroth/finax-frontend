@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -42,8 +41,8 @@ import { AccountsFormComponent } from '../../components/accounts-form/accounts-f
     TranslateModule,
     BackButtonDirective,
     MatCardModule,
-    AccountsFormComponent
-],
+    AccountsFormComponent,
+  ],
   templateUrl: './accounts-register.component.html',
   styleUrl: './accounts-register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -113,7 +112,7 @@ export class AccountsFormPage implements OnInit, OnDestroy {
     this.saving.set(true);
     this.accountForm.markAsPristine();
 
-    this.getSaveRequest(this.accountId, this.getSaveAccountDTO())
+    this.getSaveRequest(this.getSaveAccountDTO())
       .then((account) => {
         this._utils.showMessage('my-accounts.saved-successfully');
         this._router.navigateByUrl('contas');
@@ -122,12 +121,12 @@ export class AccountsFormPage implements OnInit, OnDestroy {
       .catch((err) => {
         if (
           err.error.errorDescription.includes(
-            'grouping accounts cannot have a balance'
+            'grouping accounts cannot have a balance',
           )
         ) {
           this._utils.showMessage(
             'my-accounts.grouper-accounts-with-balance-error',
-            4000
+            4000,
           );
           this.accountForm.controls['grouper'].setValue(false);
           this.accountForm.markAsDirty();
@@ -138,8 +137,8 @@ export class AccountsFormPage implements OnInit, OnDestroy {
       .finally(() => this.saving.set(false));
   }
 
-  private getSaveRequest(accountId: number | null, data: SaveAccountDTO): Promise<Account> {
-    if (accountId) return this._accountService.edit(accountId, data);
+  private getSaveRequest(data: SaveAccountDTO): Promise<Account> {
+    if (this.accountId) return this._accountService.edit(this.accountId, data);
     else return this._accountService.createNew(data);
   }
 
@@ -184,7 +183,7 @@ export class AccountsFormPage implements OnInit, OnDestroy {
 
   private getSaveAccountDTO(): SaveAccountDTO {
     const formValue = this.accountForm.getRawValue();
-    const data: SaveAccountDTO = {
+    return {
       name: formValue.name,
       balance: formValue.balance,
       investments: formValue.investments,
@@ -198,7 +197,5 @@ export class AccountsFormPage implements OnInit, OnDestroy {
       addToCashFlow: formValue.addToCashFlow,
       primaryAccountId: formValue.primaryAccountId,
     };
-
-    return data;
   }
 }
