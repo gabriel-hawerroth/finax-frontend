@@ -21,13 +21,13 @@ export class AuthService {
     };
 
     return lastValueFrom(
-      this._http.post<AuthResponse>(`${this.apiUrl}/login`, authDTO)
+      this._http.post<AuthResponse>(`${this.apiUrl}/login`, authDTO),
     );
   }
 
   registerNewUser(user: User): Promise<User> {
     return lastValueFrom(
-      this._http.post<User>(`${this.apiUrl}/register`, user)
+      this._http.post<User>(`${this.apiUrl}/register`, user),
     );
   }
 
@@ -35,7 +35,11 @@ export class AuthService {
     return lastValueFrom(
       this._http.post<void>(`${this.apiUrl}/resend-activation-email`, {
         email,
-      })
+      }),
     );
+  }
+
+  doLogout(): Promise<void> {
+    return lastValueFrom(this._http.post<void>(`${this.apiUrl}/logout`, null));
   }
 }

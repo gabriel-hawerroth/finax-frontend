@@ -9,22 +9,16 @@ import { onLogoutEvent } from '../events/events';
 export const authInterceptor: HttpInterceptorFn = (
   request,
   next,
-  utilsService = inject(UtilsService)
+  utilsService = inject(UtilsService),
 ) => {
   const requestUrl: Array<string> = request.url.split('/');
   const apiUrl: Array<string> = environment.baseApiUrl.split('/');
 
   if (requestUrl[2] !== apiUrl[2]) return next(request);
 
-  const token: string | null = utilsService.getUserToken;
-
-  if (token) {
-    request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  }
+  request = request.clone({
+    withCredentials: true,
+  });
 
   return next(request).pipe(
     catchError((error) => {
@@ -51,6 +45,6 @@ export const authInterceptor: HttpInterceptorFn = (
       if (isAuthError) error.skipSentry = true;
 
       return throwError(() => error);
-    })
+    }),
   );
 };
