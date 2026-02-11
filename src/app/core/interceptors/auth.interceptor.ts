@@ -16,9 +16,14 @@ export const authInterceptor: HttpInterceptorFn = (
 
   if (requestUrl[2] !== apiUrl[2]) return next(request);
 
-  request = request.clone({
-    withCredentials: true,
-  });
+  if (
+    environment.baseApiUrl.includes('localhost:8080') ||
+    environment.baseApiUrl.includes('api.appfinax.com.br')
+  ) {
+    request = request.clone({
+      withCredentials: true,
+    });
+  }
 
   return next(request).pipe(
     catchError((error) => {

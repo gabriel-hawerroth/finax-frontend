@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { User } from '../user/user';
-import { AuthResponse } from './auth-response';
 import { Credentials } from './credentials';
 
 @Injectable({
@@ -14,14 +13,14 @@ export class AuthService {
 
   constructor(private readonly _http: HttpClient) {}
 
-  doLogin(credentials: Credentials): Promise<AuthResponse> {
+  doLogin(credentials: Credentials): Promise<User> {
     const authDTO = {
       login: credentials.email,
       password: credentials.password,
     };
 
     return lastValueFrom(
-      this._http.post<AuthResponse>(`${this.apiUrl}/login`, authDTO),
+      this._http.post<User>(`${this.apiUrl}/login`, authDTO),
     );
   }
 

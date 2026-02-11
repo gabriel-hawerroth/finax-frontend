@@ -43,13 +43,13 @@ export class LoginService {
   async login(credentials: Credentials) {
     await this._authService
       .doLogin(credentials)
-      .then(async (response) => {
-        if (!response.user) {
+      .then((user) => {
+        if (!user) {
           this._utils.showMessage('login.error-getting-user');
           return;
         }
 
-        this._utils.updateLoggedUser(response.user);
+        this._utils.updateLoggedUser(user);
 
         if (credentials.rememberMe) {
           this._utils.setItemLocalStorage(
