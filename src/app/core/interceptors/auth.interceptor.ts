@@ -9,20 +9,19 @@ import { onLogoutEvent } from '../events/events';
 export const authInterceptor: HttpInterceptorFn = (
   request,
   next,
-  utilsService = inject(UtilsService)
+  utilsService = inject(UtilsService),
 ) => {
   const requestUrl: Array<string> = request.url.split('/');
   const apiUrl: Array<string> = environment.baseApiUrl.split('/');
 
   if (requestUrl[2] !== apiUrl[2]) return next(request);
 
-  const token: string | null = utilsService.getUserToken;
-
-  if (token) {
+  if (
+    environment.baseApiUrl.includes('localhost:8080') ||
+    environment.baseApiUrl.includes('api.appfinax.com.br')
+  ) {
     request = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
+      withCredentials: true,
     });
   }
 
@@ -51,6 +50,6 @@ export const authInterceptor: HttpInterceptorFn = (
       if (isAuthError) error.skipSentry = true;
 
       return throwError(() => error);
-    })
+    }),
   );
 };

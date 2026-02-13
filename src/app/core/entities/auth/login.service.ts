@@ -2,16 +2,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
-import { addHours } from 'date-fns';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { EmailResendTimerService } from '../../../shared/services/email-resend-timer.service';
 import {
   LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS,
   LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS,
 } from '../../../shared/utils/local-storage-contants';
 import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { UtilsService } from '../../../shared/utils/utils.service';
-import { EmailResendTimerService } from '../../../shared/services/email-resend-timer.service';
 import { onLogoutEvent } from '../../events/events';
 import { UserConfigsService } from '../user-configs/user-configs.service';
 import { UserService } from '../user/user.service';
@@ -34,34 +33,32 @@ export class LoginService {
     private readonly _authService: AuthService,
     private readonly _userConfigsService: UserConfigsService,
     private readonly _userService: UserService,
-    private readonly _timerService: EmailResendTimerService
+    private readonly _timerService: EmailResendTimerService,
   ) {
     onLogoutEvent.subscribe((event) =>
-      this.logout(event.showMessage, event.redirectToPublicPage)
+      this.logout(event.showMessage, event.redirectToPublicPage),
     );
   }
 
   async login(credentials: Credentials) {
     await this._authService
       .doLogin(credentials)
-      .then(async (response) => {
-        if (!response.token || !response.user) {
+      .then((user) => {
+        if (!user) {
           this._utils.showMessage('login.error-getting-user');
           return;
         }
 
-        this._utils.updateLoggedUser(response.user);
+        this._utils.updateLoggedUser(user);
 
         if (credentials.rememberMe) {
           this._utils.setItemLocalStorage(
             'savedLoginFinax',
-            btoa(JSON.stringify(credentials))
+            btoa(JSON.stringify(credentials)),
           );
         } else {
           this._utils.removeItemLocalStorage('savedLoginFinax');
         }
-
-        this.setToken(response.token);
 
         this.getUserConfigs();
         this.getUserImage();
@@ -84,7 +81,7 @@ export class LoginService {
             '. ',
             4500,
             'generic.server-down',
-            'generic.try-again-later'
+            'generic.try-again-later',
           );
           return;
         }
@@ -101,7 +98,7 @@ export class LoginService {
               '. ',
               4500,
               'generic.server-down',
-              'generic.try-again-later'
+              'generic.try-again-later',
             );
             break;
         }
@@ -113,7 +110,7 @@ export class LoginService {
       this._utils.setUserConfigs(response);
       this._utils.setItemLocalStorage(
         'savedUserConfigsFinax',
-        JSON.stringify(response)
+        JSON.stringify(response),
       );
     });
   }
@@ -123,20 +120,14 @@ export class LoginService {
       if (!response) return;
 
       this._utils.userImage.next(
-        `${cloudFireCdnLink}/user/profile-image/${response}`
+        `${cloudFireCdnLink}/user/profile-image/${response}`,
       );
     });
   }
 
-  setToken(token: string) {
-    this._utils.setItemLocalStorage('tokenFinax', btoa(JSON.stringify(token)));
-    this._utils.setItemLocalStorage(
-      'tokenExpiration',
-      addHours(new Date(), 2).toString()
-    );
-  }
-
   logout(showMessage: boolean, redirectToPublicPage: boolean = true) {
+    this._authService.doLogout().catch(() => {});
+
     this.isLogged.set(false);
 
     if (redirectToPublicPage) this._router.navigateByUrl('login');
@@ -148,8 +139,6 @@ export class LoginService {
 
   private clearLocalStorage() {
     this._utils.removeItemLocalStorage('userFinax');
-    this._utils.removeItemLocalStorage('tokenFinax');
-    this._utils.removeItemLocalStorage('tokenExpiration');
     this._utils.removeItemLocalStorage('selectedMonthCashFlow');
     this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS);
     this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS);
@@ -162,18 +151,12 @@ export class LoginService {
     return lastValueFrom(
       this._http.post<void>(`${this.apiUrl}/send-change-password-email`, null, {
         params,
-      })
+      }),
     );
   }
 
-  get getUserToken(): string | null {
-    return this._utils.getItemLocalStorage('tokenFinax')
-      ? JSON.parse(atob(this._utils.getItemLocalStorage('tokenFinax')!))
-      : null;
-  }
-
   get logged(): boolean {
-    return this._utils.getItemLocalStorage('tokenFinax') ? true : false;
+    return !!this._utils.getItemLocalStorage('userFinax');
   }
 
   sendCancelUserAccountEmail(): Promise<void> {
@@ -185,8 +168,8 @@ export class LoginService {
     return lastValueFrom(
       this._http.post<void>(
         `${this.apiUrl}/send-cancel-account-email/${userId}`,
-        null
-      )
+        null,
+      ),
     );
   }
 }

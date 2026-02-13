@@ -1,9 +1,5 @@
-
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { isAfter } from 'date-fns';
-import { LoginService } from '../../../../core/entities/auth/login.service';
-import { UtilsService } from '../../../../shared/utils/utils.service';
 import { PublicFooterComponent } from '../../components/footer/public-footer.component';
 import { PublicHeaderComponent } from '../../components/header/public-header.component';
 import { PublicFirstSectionComponent } from './public-first-section/public-first-section.component';
@@ -22,29 +18,13 @@ import { PublicThirdSectionComponent } from './public-third-section/public-third
     PublicFourthSectionComponent,
     PublicFiveSectionComponent,
     PublicFooterComponent,
-    MatDividerModule
-],
+    MatDividerModule,
+  ],
   templateUrl: './public.component.html',
   styleUrl: './public.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicPage implements OnInit {
-  constructor(
-    private readonly _utils: UtilsService,
-    private readonly _loginService: LoginService
-  ) {}
-
-  ngOnInit(): void {
-    if (
-      isAfter(
-        new Date(),
-        this._utils.getItemLocalStorage('tokenExpiration') || new Date()
-      )
-    ) {
-      this._loginService.logout(false);
-    }
-  }
-
+export class PublicPage {
   navigateToResources() {
     const element = document.getElementById('third-section');
     if (element) {

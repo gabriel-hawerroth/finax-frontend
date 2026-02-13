@@ -30,7 +30,7 @@ export class UtilsService {
     private readonly _matDialog: MatDialog,
     private readonly _bottomSheet: MatBottomSheet,
     private readonly _translateService: TranslateService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
   ) {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
@@ -41,7 +41,7 @@ export class UtilsService {
   public readonly username = new BehaviorSubject<string>('');
 
   public readonly userImage = new BehaviorSubject<string>(
-    cloudFireCdnImgsLink + 'user-image.webp'
+    cloudFireCdnImgsLink + 'user-image.webp',
   );
 
   private readonly userConfigs: BehaviorSubject<UserConfigs> =
@@ -59,7 +59,7 @@ export class UtilsService {
 
     if (user.profileImage)
       this.userImage.next(
-        `${cloudFireCdnLink}/user/profile-image/${user.profileImage}`
+        `${cloudFireCdnLink}/user/profile-image/${user.profileImage}`,
       );
 
     user.password = '';
@@ -73,7 +73,7 @@ export class UtilsService {
         return JSON.parse(this.getItemLocalStorage('savedUserConfigsFinax')!);
       } catch {
         return JSON.parse(
-          atob(this.getItemLocalStorage('savedUserConfigsFinax')!)
+          atob(this.getItemLocalStorage('savedUserConfigsFinax')!),
         );
       }
     }
@@ -95,12 +95,6 @@ export class UtilsService {
 
   get showValues() {
     return this.getItemLocalStorage(LS_SHOW_VALUES) === ShowValues.ON;
-  }
-
-  get getUserToken(): string | null {
-    return this.getItemLocalStorage('tokenFinax')
-      ? JSON.parse(atob(this.getItemLocalStorage('tokenFinax')!))
-      : null;
   }
 
   setFallbackLanguage() {
@@ -159,20 +153,20 @@ export class UtilsService {
   showParamitezedMessages(
     message: string,
     params?: Record<string, string>,
-    duration: number = 3500
+    duration: number = 3500,
   ) {
     const translatedParams = new Map<string, string>();
     if (params)
       Object.entries(params).forEach(([key, value]) => {
         translatedParams.set(
           key,
-          this._translateService.instant(value).toLowerCase()
+          this._translateService.instant(value).toLowerCase(),
         );
       });
 
     message = this._translateService.instant(
       message,
-      Object.fromEntries(translatedParams)
+      Object.fromEntries(translatedParams),
     );
 
     this._snackBar.open(message, '', {
@@ -203,7 +197,7 @@ export class UtilsService {
           if (item[attribute]) {
             return (
               this.removeAccents(String(item[attribute]).toLowerCase()).indexOf(
-                this.removeAccents(keyWord.toLowerCase())
+                this.removeAccents(keyWord.toLowerCase()),
               ) !== -1
             );
           }
@@ -242,7 +236,7 @@ export class UtilsService {
     rows: any[],
     atributo: string,
     dateFilterStart: Date,
-    dateFilterEnd: Date
+    dateFilterEnd: Date,
   ) {
     if (!rows || !dateFilterStart) return rows;
 
@@ -315,14 +309,14 @@ export class UtilsService {
 
   showConfirmDialog(
     message: string,
-    params?: Record<string, string>
+    params?: Record<string, string>,
   ): Promise<boolean> {
     const translatedParams = new Map<string, string>();
     if (params)
       Object.entries(params).forEach(([key, value]) => {
         translatedParams.set(
           key,
-          this._translateService.instant(value).toLowerCase()
+          this._translateService.instant(value).toLowerCase(),
         );
       });
 
@@ -332,13 +326,13 @@ export class UtilsService {
           data: <ConfirmDialogData>{
             message: this._translateService.instant(
               message,
-              Object.fromEntries(translatedParams)
+              Object.fromEntries(translatedParams),
             ),
           },
           panelClass: 'confirm-dialog',
           autoFocus: false,
         })
-        .afterClosed()
+        .afterClosed(),
     );
   }
 
@@ -354,18 +348,18 @@ export class UtilsService {
       minWidth: this._responsiveService.smallWidth()
         ? '100vw'
         : this._responsiveService.veryLargeWith()
-        ? '47vw'
-        : '55vw',
+          ? '47vw'
+          : '55vw',
     };
 
     if (this._responsiveService.smallWidth()) {
       return lastValueFrom(
-        this._bottomSheet.open(ReleaseFormDialog, config).afterDismissed()
+        this._bottomSheet.open(ReleaseFormDialog, config).afterDismissed(),
       );
     }
 
     return lastValueFrom(
-      this._matDialog.open(ReleaseFormDialog, config).afterClosed()
+      this._matDialog.open(ReleaseFormDialog, config).afterClosed(),
     );
   }
 
@@ -380,7 +374,7 @@ export class UtilsService {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     document.querySelectorAll(selectors).forEach((el) => observer.observe(el));
