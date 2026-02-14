@@ -86,12 +86,15 @@ export class LoginService {
           return;
         }
 
-        switch (err.error.errorDescription) {
+        switch (err.error.errorDescription?.toLowerCase()) {
           case 'inactive user':
             this._utils.showMessage('login.inactive-user');
             break;
           case 'bad credentials':
             this._utils.showMessage('login.invalid-login');
+            break;
+          case 'use google to sign in':
+            this._utils.showMessage('login.use-google-to-sign-in');
             break;
           default:
             this._utils.showJoinedMessages(

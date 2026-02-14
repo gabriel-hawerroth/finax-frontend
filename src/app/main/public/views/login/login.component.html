@@ -71,11 +71,13 @@
             (onGeneric)="login()"
           ></app-buttons>
 
-          <div class="divider">
-            <span>{{ "login.or" | translate }}</span>
-          </div>
+          @if (googleBtnRendered()) {
+            <div class="divider">
+              <span>{{ "login.or" | translate }}</span>
+            </div>
+          }
 
-          <div class="google-btn-wrapper">
+          <div class="google-btn-wrapper" [hidden]="!googleBtnRendered()">
             <div #googleButtonContainer></div>
           </div>
         </div>

@@ -97,7 +97,8 @@
     "activation-link-validity": "El enlace de activación será válido por dos horas.",
     "email-resent-successfully": "Email reenviado exitosamente",
     "error-resending-email": "Error al reenviar email",
-    "user-already-active": "Usuario ya está activo"
+    "user-already-active": "Usuario ya está activo",
+    "or": "o"
   },
   "change-password": {
     "title": "Define tu nueva contraseña",

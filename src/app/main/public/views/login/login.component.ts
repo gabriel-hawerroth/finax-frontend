@@ -53,6 +53,7 @@ export class LoginPage implements OnInit, AfterViewInit {
 
   loginForm!: FormGroup;
   showLoading = signal(false);
+  googleBtnRendered = signal(false);
 
   constructor(
     private readonly _utils: UtilsService,
@@ -115,7 +116,9 @@ export class LoginPage implements OnInit, AfterViewInit {
       cancel_on_tap_outside: true,
     });
 
-    google.accounts.id.renderButton(this.googleButtonContainer.nativeElement, {
+    const container = this.googleButtonContainer.nativeElement;
+
+    google.accounts.id.renderButton(container, {
       type: 'standard',
       theme: 'outline',
       size: 'large',
@@ -123,6 +126,22 @@ export class LoginPage implements OnInit, AfterViewInit {
       shape: 'rectangular',
       width: 280,
     });
+
+    if (container.querySelector('iframe') || container.children.length > 0) {
+      this.googleBtnRendered.set(true);
+    } else {
+      const observer = new MutationObserver(() => {
+        if (
+          container.querySelector('iframe') ||
+          container.children.length > 0
+        ) {
+          this._ngZone.run(() => this.googleBtnRendered.set(true));
+          observer.disconnect();
+        }
+      });
+
+      observer.observe(container, { childList: true, subtree: true });
+    }
   }
 
   private handleGoogleCredentialResponse(

@@ -10,120 +10,135 @@
       />
 
       @if (viewReady() && !accountCreated()) {
-      <h1>
-        {{ "create-account.title" | translate }}
-      </h1>
+        <h1>
+          {{ "create-account.title" | translate }}
+        </h1>
       }
     </div>
 
     @if (viewReady() && !accountCreated()) {
-    <form [formGroup]="userRegisterForm">
-      <div class="row">
-        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>{{ "generic.email" | translate }}</mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="email"
-            maxlength="255"
-            autocomplete="off"
-            autofocus
-          />
-        </mat-form-field>
-      </div>
+      <form [formGroup]="userRegisterForm">
+        <div class="row">
+          <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
+            <mat-label>{{ "generic.email" | translate }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="email"
+              maxlength="255"
+              autocomplete="off"
+              autofocus
+            />
+          </mat-form-field>
+        </div>
 
-      <div class="row" style="gap: 0.3rem">
-        <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "generic.password" | translate }}
-          </mat-label>
-          <input
-            type="password"
-            matInput
-            formControlName="password"
-            autocomplete="new-password"
-          />
+        <div class="row" style="gap: 0.3rem">
+          <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
+            <mat-label>
+              {{ "generic.password" | translate }}
+            </mat-label>
+            <input
+              type="password"
+              matInput
+              formControlName="password"
+              autocomplete="new-password"
+            />
 
-          <span
-            class="material-symbols-rounded primary-color"
-            matSuffix
-            [matTooltip]="passwordRequirementsText"
-            matTooltipPosition="below"
-            matTooltipShowDelay="200"
-          >
-            info
-          </span>
-        </mat-form-field>
-      </div>
+            <span
+              class="material-symbols-rounded primary-color"
+              matSuffix
+              [matTooltip]="passwordRequirementsText"
+              matTooltipPosition="below"
+              matTooltipShowDelay="200"
+            >
+              info
+            </span>
+          </mat-form-field>
+        </div>
 
-      <div class="row" style="gap: 0.9rem">
-        <mat-form-field style="width: 32%" [hideRequiredMarker]="true">
-          <mat-label>
-            {{ "create-account.first-name" | translate }}
-          </mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="firstName"
-            maxlength="30"
-          />
-        </mat-form-field>
+        <div class="row" style="gap: 0.9rem">
+          <mat-form-field style="width: 32%" [hideRequiredMarker]="true">
+            <mat-label>
+              {{ "create-account.first-name" | translate }}
+            </mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="firstName"
+              maxlength="30"
+            />
+          </mat-form-field>
 
-        <mat-form-field style="width: 45%">
-          <mat-label>{{ "create-account.last-name" | translate }}</mat-label>
-          <input
-            type="text"
-            matInput
-            formControlName="lastName"
-            maxlength="40"
-          />
-        </mat-form-field>
-      </div>
+          <mat-form-field style="width: 45%">
+            <mat-label>{{ "create-account.last-name" | translate }}</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="lastName"
+              maxlength="40"
+            />
+          </mat-form-field>
+        </div>
 
-      <div class="row" style="gap: 70px">
-        <mat-checkbox formControlName="useTerms">
-          {{ "create-account.read-and-agree" | translate }}
+        <div class="row" style="gap: 70px">
+          <mat-checkbox formControlName="useTerms">
+            {{ "create-account.read-and-agree" | translate }}
 
-          <span style="text-decoration: underline" routerLink="/termos-de-uso">
-            {{ "create-account.use-terms" | translate }}
-          </span>
-        </mat-checkbox>
-      </div>
-    </form>
+            <span
+              style="text-decoration: underline"
+              routerLink="/termos-de-uso"
+            >
+              {{ "create-account.use-terms" | translate }}
+            </span>
+          </mat-checkbox>
+        </div>
+      </form>
     }
 
     <!---->
     @if (viewReady() && accountCreated()) {
-    <div id="account-created">
-      <h2>{{ "create-account.account-created-title" | translate }}</h2>
+      <div id="account-created">
+        <h2>{{ "create-account.account-created-title" | translate }}</h2>
 
-      <span>
-        {{ "create-account.email-sent-message" | translate }}
-      </span>
+        <span>
+          {{ "create-account.email-sent-message" | translate }}
+        </span>
 
-      <app-email-resend-controls
-        [timerUI]="timerUI"
-        [showLoading]="showLoading()"
-        (resend)="resendConfirmationEmail()"
-      />
-    </div>
+        <app-email-resend-controls
+          [timerUI]="timerUI"
+          [showLoading]="showLoading()"
+          (resend)="resendConfirmationEmail()"
+        />
+      </div>
     }
     <!---->
 
     @if (viewReady() && !accountCreated()) {
-    <div class="row bottom">
-      @if (showLoading()) {
-      <mat-spinner [diameter]="40" color="primary"></mat-spinner>
-      } @else {
-      <app-buttons
-        [showGeneric]="true"
-        [genericStyle]="getBtnStyle('flat')"
-        genericLabel="create-account.create"
-        genericIcon="person"
-        (onGeneric)="createUser()"
-      ></app-buttons>
-      }
-    </div>
+      <div class="row bottom">
+        @if (showLoading()) {
+          <mat-spinner [diameter]="40" color="primary"></mat-spinner>
+        } @else {
+          <div class="login-actions">
+            <app-buttons
+              [showGeneric]="true"
+              [genericStyle]="getBtnStyle('flat')"
+              genericLabel="create-account.create"
+              genericIcon="person"
+              (onGeneric)="createUser()"
+            ></app-buttons>
+
+            @if (googleBtnRendered()) {
+              <div class="divider">
+                <span>{{ "create-account.or" | translate }}</span>
+              </div>
+            }
+
+            <div class="google-btn-wrapper" [hidden]="!googleBtnRendered()">
+              <div #googleButtonContainer></div>
+            </div>
+          </div>
+        }
+      </div>
     }
   </div>
 

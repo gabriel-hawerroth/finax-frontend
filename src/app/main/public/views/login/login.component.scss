@@ -1,7 +1,11 @@
 .simple-page {
   .login-box {
+    height: auto;
+    min-height: 510px;
+
     .top {
       justify-content: space-evenly !important;
+      padding-bottom: 0.5rem;
     }
 
     form {
@@ -13,12 +17,14 @@
 
     .bottom {
       height: auto;
-      min-height: 18%;
+      min-height: 22%;
+      padding-bottom: 1.5rem;
 
       app-buttons {
         width: 65%;
         border-radius: 3rem;
         padding: 1.5rem 2rem;
+        padding-bottom: 0.5rem;
       }
 
       .login-actions {
@@ -37,7 +43,7 @@
 
         &::before,
         &::after {
-          content: '';
+          content: "";
           flex: 1;
           border-bottom: 1px solid #ccc;
         }
