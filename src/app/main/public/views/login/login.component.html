@@ -9,7 +9,7 @@
         alt="company logo"
       />
 
-      <h1 (click)="throwTestError()">{{ "login.title" | translate }}</h1>
+      <h1>{{ "login.title" | translate }}</h1>
     </div>
 
     <form [formGroup]="loginForm">
@@ -60,15 +60,25 @@
 
     <div class="row bottom">
       @if (showLoading()) {
-      <mat-spinner [diameter]="40"></mat-spinner>
+        <mat-spinner [diameter]="40"></mat-spinner>
       } @else {
-      <app-buttons
-        [showGeneric]="true"
-        [genericStyle]="getBtnStyle('flat')"
-        genericLabel="login.login"
-        genericIcon="person"
-        (onGeneric)="login()"
-      ></app-buttons>
+        <div class="login-actions">
+          <app-buttons
+            [showGeneric]="true"
+            [genericStyle]="getBtnStyle('flat')"
+            genericLabel="login.login"
+            genericIcon="person"
+            (onGeneric)="login()"
+          ></app-buttons>
+
+          <div class="divider">
+            <span>{{ "login.or" | translate }}</span>
+          </div>
+
+          <div class="google-btn-wrapper">
+            <div #googleButtonContainer></div>
+          </div>
+        </div>
       }
     </div>
   </div>

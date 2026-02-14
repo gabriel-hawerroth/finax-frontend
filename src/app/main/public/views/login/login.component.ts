@@ -1,9 +1,13 @@
 import { NgOptimizedImage } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  NgZone,
   OnInit,
   signal,
+  ViewChild,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -16,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { environment } from '../../../../../environments/environment';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import {
@@ -34,15 +39,17 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     MatCheckboxModule,
     RouterModule,
     TranslateModule,
-    ButtonsComponent
-],
+    ButtonsComponent,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, AfterViewInit {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getBtnStyle = getBtnStyle;
+
+  @ViewChild('googleButtonContainer') googleButtonContainer!: ElementRef;
 
   loginForm!: FormGroup;
   showLoading = signal(false);
@@ -50,7 +57,8 @@ export class LoginPage implements OnInit {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _loginService: LoginService,
-    private readonly _fb: FormBuilder
+    private readonly _fb: FormBuilder,
+    private readonly _ngZone: NgZone,
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +66,21 @@ export class LoginPage implements OnInit {
 
     const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
     if (savedLogin) this.loginForm.patchValue(JSON.parse(atob(savedLogin!)));
+  }
+
+  ngAfterViewInit(): void {
+    if (typeof google !== 'undefined' && google.accounts) {
+      this.initializeGoogleSignIn();
+    } else {
+      const checkInterval = setInterval(() => {
+        if (typeof google !== 'undefined' && google.accounts) {
+          clearInterval(checkInterval);
+          this.initializeGoogleSignIn();
+        }
+      }, 100);
+
+      setTimeout(() => clearInterval(checkInterval), 5000);
+    }
   }
 
   buildForm() {
@@ -80,7 +103,35 @@ export class LoginPage implements OnInit {
       .finally(() => this.showLoading.set(false));
   }
 
-  public throwTestError(): void {
-    throw new Error('Sentry Test Error');
+  private initializeGoogleSignIn(): void {
+    google.accounts.id.initialize({
+      client_id: environment.googleClientId,
+      callback: (response) => {
+        this._ngZone.run(() => {
+          this.handleGoogleCredentialResponse(response);
+        });
+      },
+      auto_select: false,
+      cancel_on_tap_outside: true,
+    });
+
+    google.accounts.id.renderButton(this.googleButtonContainer.nativeElement, {
+      type: 'standard',
+      theme: 'outline',
+      size: 'large',
+      text: 'signin_with',
+      shape: 'rectangular',
+      width: 280,
+    });
+  }
+
+  private handleGoogleCredentialResponse(
+    response: google.accounts.id.CredentialResponse,
+  ): void {
+    this.showLoading.set(true);
+
+    this._loginService
+      .googleLogin(response.credential)
+      .finally(() => this.showLoading.set(false));
   }
 }

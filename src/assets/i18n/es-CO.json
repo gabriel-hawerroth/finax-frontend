@@ -58,7 +58,9 @@
     "error-getting-user": "Error al obtener el usuario, póngase en contacto con nuestro soporte",
     "login-successfully": "Inicie sesión con éxito",
     "inactive-user": "Usuario inactivo, por favor revise su correo electrónico",
-    "access-expired": "Acceso caducado, vuelva a iniciar sesión"
+    "access-expired": "Acceso caducado, vuelva a iniciar sesión",
+    "or": "o",
+    "use-google-to-sign-in": "Usa Google para iniciar sesión en esta cuenta"
   },
   "forgot-password": {
     "title": "Recuperación de contraseña",

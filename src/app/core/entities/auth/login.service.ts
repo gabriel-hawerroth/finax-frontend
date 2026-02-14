@@ -115,6 +115,43 @@ export class LoginService {
     });
   }
 
+  async googleLogin(credential: string) {
+    await this._authService
+      .googleLogin(credential)
+      .then((user) => {
+        if (!user) {
+          this._utils.showMessage('login.error-getting-user');
+          return;
+        }
+
+        this._utils.updateLoggedUser(user);
+        this._utils.removeItemLocalStorage('savedLoginFinax');
+
+        this.getUserConfigs();
+        this.getUserImage();
+
+        this._timerService.reset();
+
+        this._utils.showMessage('login.login-successfully');
+
+        this._router.navigateByUrl('home');
+        this.isLogged.set(true);
+      })
+      .catch((err) => {
+        if (err.error?.errorDescription === 'use google to sign in') {
+          this._utils.showMessage('login.use-google-to-sign-in');
+          return;
+        }
+
+        this._utils.showJoinedMessages(
+          '. ',
+          4500,
+          'generic.server-down',
+          'generic.try-again-later',
+        );
+      });
+  }
+
   getUserImage() {
     this._userService.getUserImage().then((response) => {
       if (!response) return;

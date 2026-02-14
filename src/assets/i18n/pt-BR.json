@@ -58,7 +58,9 @@
     "error-getting-user": "Erro ao obter o usuário, entre em contato com nosso suporte",
     "login-successfully": "Login realizado com sucesso",
     "inactive-user": "Usuário inativo, verifique seu email",
-    "access-expired": "Acesso expirado, por favor logue novamente"
+    "access-expired": "Acesso expirado, por favor logue novamente",
+    "or": "ou",
+    "use-google-to-sign-in": "Use o Google para entrar nesta conta"
   },
   "forgot-password": {
     "title": "Recuperação de senha",

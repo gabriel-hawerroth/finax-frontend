@@ -58,7 +58,9 @@
     "error-getting-user": "Error getting the user, please contact our support",
     "login-successfully": "Login successfully",
     "inactive-user": "Inactive user, please check your email",
-    "access-expired": "Access expired, please log in again"
+    "access-expired": "Access expired, please log in again",
+    "or": "or",
+    "use-google-to-sign-in": "Use Google to sign in to this account"
   },
   "forgot-password": {
     "title": "Password recovery",

@@ -12,12 +12,47 @@
     }
 
     .bottom {
-      height: 18%;
+      height: auto;
+      min-height: 18%;
 
       app-buttons {
         width: 65%;
         border-radius: 3rem;
         padding: 1.5rem 2rem;
+      }
+
+      .login-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 0.75rem;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        width: 65%;
+        gap: 1rem;
+
+        &::before,
+        &::after {
+          content: '';
+          flex: 1;
+          border-bottom: 1px solid #ccc;
+        }
+
+        span {
+          font-size: 0.85rem;
+          color: #888;
+          white-space: nowrap;
+        }
+      }
+
+      .google-btn-wrapper {
+        display: flex;
+        justify-content: center;
+        width: 65%;
       }
     }
   }

@@ -58,7 +58,9 @@
     "error-getting-user": "Fehler beim Abrufen des Benutzers, wenden Sie sich bitte an unseren Support",
     "login-successfully": "Erfolgreich anmelden",
     "inactive-user": "Inaktiver Benutzer, bitte überprüfen Sie Ihre E-Mails",
-    "access-expired": "Zugang abgelaufen, bitte melden Sie sich erneut an"
+    "access-expired": "Zugang abgelaufen, bitte melden Sie sich erneut an",
+    "or": "oder",
+    "use-google-to-sign-in": "Verwenden Sie Google, um sich bei diesem Konto anzumelden"
   },
   "forgot-password": {
     "title": "Passwortwiederherstellung",
