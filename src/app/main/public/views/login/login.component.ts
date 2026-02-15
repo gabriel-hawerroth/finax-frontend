@@ -1,11 +1,14 @@
-import { NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  inject,
   NgZone,
+  OnDestroy,
   OnInit,
+  PLATFORM_ID,
   signal,
   ViewChild,
 } from '@angular/core';
@@ -45,7 +48,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPage implements OnInit, AfterViewInit {
+export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getBtnStyle = getBtnStyle;
 
@@ -54,6 +57,10 @@ export class LoginPage implements OnInit, AfterViewInit {
   loginForm!: FormGroup;
   showLoading = signal(false);
   googleBtnRendered = signal(false);
+
+  private checkInterval?: ReturnType<typeof setInterval>;
+  private checkTimeout?: ReturnType<typeof setTimeout>;
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor(
     private readonly _utils: UtilsService,
@@ -70,17 +77,36 @@ export class LoginPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (typeof google !== 'undefined' && google.accounts) {
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    if (this.isGoogleSignInAvailable()) {
       this.initializeGoogleSignIn();
     } else {
-      const checkInterval = setInterval(() => {
-        if (typeof google !== 'undefined' && google.accounts) {
-          clearInterval(checkInterval);
+      this.checkInterval = setInterval(() => {
+        if (this.isGoogleSignInAvailable()) {
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
           this.initializeGoogleSignIn();
         }
       }, 100);
 
-      setTimeout(() => clearInterval(checkInterval), 5000);
+      this.checkTimeout = setTimeout(() => {
+        if (this.checkInterval) {
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
+        }
+      }, 5000);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
+      this.checkInterval = undefined;
+    }
+    if (this.checkTimeout) {
+      clearTimeout(this.checkTimeout);
+      this.checkTimeout = undefined;
     }
   }
 
@@ -105,42 +131,35 @@ export class LoginPage implements OnInit, AfterViewInit {
   }
 
   private initializeGoogleSignIn(): void {
-    google.accounts.id.initialize({
-      client_id: environment.googleClientId,
-      callback: (response) => {
-        this._ngZone.run(() => {
-          this.handleGoogleCredentialResponse(response);
-        });
-      },
-      auto_select: false,
-      cancel_on_tap_outside: true,
-    });
-
-    const container = this.googleButtonContainer.nativeElement;
-
-    google.accounts.id.renderButton(container, {
-      type: 'standard',
-      theme: 'outline',
-      size: 'large',
-      text: 'signin_with',
-      shape: 'rectangular',
-      width: 280,
-    });
-
-    if (container.querySelector('iframe') || container.children.length > 0) {
+    try {
+      // Show the wrapper before rendering the button
       this.googleBtnRendered.set(true);
-    } else {
-      const observer = new MutationObserver(() => {
-        if (
-          container.querySelector('iframe') ||
-          container.children.length > 0
-        ) {
-          this._ngZone.run(() => this.googleBtnRendered.set(true));
-          observer.disconnect();
-        }
+
+      google.accounts.id.initialize({
+        client_id: environment.googleClientId,
+        callback: (response) => {
+          this._ngZone.run(() => {
+            this.handleGoogleCredentialResponse(response);
+          });
+        },
+        auto_select: false,
+        cancel_on_tap_outside: true,
       });
 
-      observer.observe(container, { childList: true, subtree: true });
+      const container = this.googleButtonContainer.nativeElement;
+
+      google.accounts.id.renderButton(container, {
+        type: 'standard',
+        theme: 'outline',
+        size: 'large',
+        text: 'signin_with',
+        shape: 'rectangular',
+        width: 280,
+      });
+    } catch (error) {
+      // If rendering fails, hide the wrapper
+      this.googleBtnRendered.set(false);
+      console.error('Failed to initialize Google Sign-In:', error);
     }
   }
 
@@ -152,5 +171,9 @@ export class LoginPage implements OnInit, AfterViewInit {
     this._loginService
       .googleLogin(response.credential)
       .finally(() => this.showLoading.set(false));
+  }
+
+  private isGoogleSignInAvailable(): boolean {
+    return typeof google !== 'undefined' && google.accounts !== undefined;
   }
 }

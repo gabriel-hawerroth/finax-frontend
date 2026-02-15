@@ -74,6 +74,9 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
 
   readonly timerUI: EmailResendTimerUI;
   private registeredEmail?: string;
+  private checkInterval?: ReturnType<typeof setInterval>;
+  private checkTimeout?: ReturnType<typeof setTimeout>;
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor(
     private readonly _utils: UtilsService,
@@ -93,7 +96,7 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
       this.registeredEmail = undefined;
     });
 
-    if (isPlatformBrowser(inject(PLATFORM_ID))) {
+    if (isPlatformBrowser(this.platformId)) {
       const existingEmail = this.timerUI.checkExistingState();
       if (existingEmail) {
         this.accountCreated.set(true);
@@ -113,22 +116,38 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.timerUI.destroy();
+
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
+      this.checkInterval = undefined;
+    }
+    if (this.checkTimeout) {
+      clearTimeout(this.checkTimeout);
+      this.checkTimeout = undefined;
+    }
   }
 
   ngAfterViewInit(): void {
     if (this.accountCreated()) return;
+    if (!isPlatformBrowser(this.platformId)) return;
 
-    if (typeof google !== 'undefined' && google.accounts) {
+    if (this.isGoogleSignInAvailable()) {
       this.initializeGoogleSignIn();
     } else {
-      const checkInterval = setInterval(() => {
-        if (typeof google !== 'undefined' && google.accounts) {
-          clearInterval(checkInterval);
+      this.checkInterval = setInterval(() => {
+        if (this.isGoogleSignInAvailable()) {
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
           this.initializeGoogleSignIn();
         }
       }, 100);
 
-      setTimeout(() => clearInterval(checkInterval), 5000);
+      this.checkTimeout = setTimeout(() => {
+        if (this.checkInterval) {
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
+        }
+      }, 5000);
     }
   }
 
@@ -218,42 +237,35 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private initializeGoogleSignIn(): void {
-    google.accounts.id.initialize({
-      client_id: environment.googleClientId,
-      callback: (response) => {
-        this._ngZone.run(() => {
-          this.handleGoogleCredentialResponse(response);
-        });
-      },
-      auto_select: false,
-      cancel_on_tap_outside: true,
-    });
-
-    const container = this.googleButtonContainer.nativeElement;
-
-    google.accounts.id.renderButton(container, {
-      type: 'standard',
-      theme: 'outline',
-      size: 'large',
-      text: 'signup_with',
-      shape: 'rectangular',
-      width: 280,
-    });
-
-    if (container.querySelector('iframe') || container.children.length > 0) {
+    try {
+      // Show the wrapper before rendering the button
       this.googleBtnRendered.set(true);
-    } else {
-      const observer = new MutationObserver(() => {
-        if (
-          container.querySelector('iframe') ||
-          container.children.length > 0
-        ) {
-          this._ngZone.run(() => this.googleBtnRendered.set(true));
-          observer.disconnect();
-        }
+
+      google.accounts.id.initialize({
+        client_id: environment.googleClientId,
+        callback: (response) => {
+          this._ngZone.run(() => {
+            this.handleGoogleCredentialResponse(response);
+          });
+        },
+        auto_select: false,
+        cancel_on_tap_outside: true,
       });
 
-      observer.observe(container, { childList: true, subtree: true });
+      const container = this.googleButtonContainer.nativeElement;
+
+      google.accounts.id.renderButton(container, {
+        type: 'standard',
+        theme: 'outline',
+        size: 'large',
+        text: 'signup_with',
+        shape: 'rectangular',
+        width: 280,
+      });
+    } catch (error) {
+      // If rendering fails, hide the wrapper
+      this.googleBtnRendered.set(false);
+      console.error('Failed to initialize Google Sign-In:', error);
     }
   }
 
@@ -265,5 +277,9 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
     this._loginService
       .googleLogin(response.credential)
       .finally(() => this.showLoading.set(false));
+  }
+
+  private isGoogleSignInAvailable(): boolean {
+    return typeof google !== 'undefined' && google.accounts !== undefined;
   }
 }

@@ -115,29 +115,32 @@
 
     @if (viewReady() && !accountCreated()) {
       <div class="row bottom">
-        @if (showLoading()) {
-          <mat-spinner [diameter]="40" color="primary"></mat-spinner>
-        } @else {
-          <div class="login-actions">
-            <app-buttons
-              [showGeneric]="true"
-              [genericStyle]="getBtnStyle('flat')"
-              genericLabel="create-account.create"
-              genericIcon="person"
-              (onGeneric)="createUser()"
-            ></app-buttons>
+        <mat-spinner
+          [class.hidden]="!showLoading()"
+          [diameter]="40"
+          color="primary"
+        ></mat-spinner>
 
-            @if (googleBtnRendered()) {
-              <div class="divider">
-                <span>{{ "create-account.or" | translate }}</span>
-              </div>
-            }
+        <div class="login-actions" [class.hidden]="showLoading()">
+          <app-buttons
+            [showGeneric]="true"
+            [genericStyle]="getBtnStyle('flat')"
+            genericLabel="create-account.create"
+            genericIcon="person"
+            (onGeneric)="createUser()"
+          ></app-buttons>
 
-            <div class="google-btn-wrapper" [hidden]="!googleBtnRendered()">
-              <div #googleButtonContainer></div>
-            </div>
+          <div class="divider" [class.hidden]="!googleBtnRendered()">
+            <span>{{ "create-account.or" | translate }}</span>
           </div>
-        }
+
+          <div
+            class="google-btn-wrapper"
+            [class.hidden]="!googleBtnRendered() || showLoading()"
+          >
+            <div #googleButtonContainer></div>
+          </div>
+        </div>
       </div>
     }
   </div>
