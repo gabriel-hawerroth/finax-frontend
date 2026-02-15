@@ -1,11 +1,15 @@
-import { NgOptimizedImage } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
+  inject,
   NgZone,
+  OnDestroy,
   OnInit,
+  PLATFORM_ID,
   signal,
   ViewChild,
 } from '@angular/core';
@@ -45,7 +49,7 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
   styleUrl: './login.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPage implements OnInit, AfterViewInit {
+export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly getBtnStyle = getBtnStyle;
 
@@ -55,12 +59,30 @@ export class LoginPage implements OnInit, AfterViewInit {
   showLoading = signal(false);
   googleBtnRendered = signal(false);
 
+  private checkInterval?: ReturnType<typeof setInterval>;
+  private checkTimeout?: ReturnType<typeof setTimeout>;
+  private mutationObserver?: MutationObserver;
+  private readonly platformId = inject(PLATFORM_ID);
+
   constructor(
     private readonly _utils: UtilsService,
     private readonly _loginService: LoginService,
     private readonly _fb: FormBuilder,
     private readonly _ngZone: NgZone,
-  ) {}
+  ) {
+    effect(() => {
+      const loading = this.showLoading();
+      if (!loading && this.googleBtnRendered() && isPlatformBrowser(this.platformId)) {
+        // Reset and re-render Google button when loading ends
+        setTimeout(() => {
+          if (this.googleButtonContainer && typeof google !== 'undefined' && google.accounts) {
+            this.googleBtnRendered.set(false);
+            this.initializeGoogleSignIn();
+          }
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -70,17 +92,40 @@ export class LoginPage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     if (typeof google !== 'undefined' && google.accounts) {
       this.initializeGoogleSignIn();
     } else {
-      const checkInterval = setInterval(() => {
+      this.checkInterval = setInterval(() => {
         if (typeof google !== 'undefined' && google.accounts) {
-          clearInterval(checkInterval);
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
           this.initializeGoogleSignIn();
         }
       }, 100);
 
-      setTimeout(() => clearInterval(checkInterval), 5000);
+      this.checkTimeout = setTimeout(() => {
+        if (this.checkInterval) {
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
+        }
+      }, 5000);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
+      this.checkInterval = undefined;
+    }
+    if (this.checkTimeout) {
+      clearTimeout(this.checkTimeout);
+      this.checkTimeout = undefined;
+    }
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect();
+      this.mutationObserver = undefined;
     }
   }
 
@@ -130,17 +175,20 @@ export class LoginPage implements OnInit, AfterViewInit {
     if (container.querySelector('iframe') || container.children.length > 0) {
       this.googleBtnRendered.set(true);
     } else {
-      const observer = new MutationObserver(() => {
+      this.mutationObserver = new MutationObserver(() => {
         if (
           container.querySelector('iframe') ||
           container.children.length > 0
         ) {
           this._ngZone.run(() => this.googleBtnRendered.set(true));
-          observer.disconnect();
+          if (this.mutationObserver) {
+            this.mutationObserver.disconnect();
+            this.mutationObserver = undefined;
+          }
         }
       });
 
-      observer.observe(container, { childList: true, subtree: true });
+      this.mutationObserver.observe(container, { childList: true, subtree: true });
     }
   }
 

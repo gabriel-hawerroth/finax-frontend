@@ -141,7 +141,7 @@ export class LoginService {
         this.isLogged.set(true);
       })
       .catch((err) => {
-        if (err.error?.errorDescription === 'use google to sign in') {
+        if (err.error?.errorDescription?.toLowerCase?.() === 'use google to sign in') {
           this._utils.showMessage('login.use-google-to-sign-in');
           return;
         }

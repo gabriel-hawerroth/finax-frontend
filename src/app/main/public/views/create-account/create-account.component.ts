@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  effect,
   ElementRef,
   inject,
   NgZone,
@@ -74,6 +75,9 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
 
   readonly timerUI: EmailResendTimerUI;
   private registeredEmail?: string;
+  private checkInterval?: ReturnType<typeof setInterval>;
+  private checkTimeout?: ReturnType<typeof setTimeout>;
+  private mutationObserver?: MutationObserver;
 
   constructor(
     private readonly _utils: UtilsService,
@@ -101,6 +105,20 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
       }
       this.viewReady.set(true);
     }
+
+    effect(() => {
+      const loading = this.showLoading();
+      const created = this.accountCreated();
+      if (!loading && !created && this.googleBtnRendered() && isPlatformBrowser(inject(PLATFORM_ID))) {
+        // Reset and re-render Google button when loading ends
+        setTimeout(() => {
+          if (this.googleButtonContainer && typeof google !== 'undefined' && google.accounts) {
+            this.googleBtnRendered.set(false);
+            this.initializeGoogleSignIn();
+          }
+        });
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -113,22 +131,42 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.timerUI.destroy();
+
+    if (this.checkInterval) {
+      clearInterval(this.checkInterval);
+      this.checkInterval = undefined;
+    }
+    if (this.checkTimeout) {
+      clearTimeout(this.checkTimeout);
+      this.checkTimeout = undefined;
+    }
+    if (this.mutationObserver) {
+      this.mutationObserver.disconnect();
+      this.mutationObserver = undefined;
+    }
   }
 
   ngAfterViewInit(): void {
     if (this.accountCreated()) return;
+    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
 
     if (typeof google !== 'undefined' && google.accounts) {
       this.initializeGoogleSignIn();
     } else {
-      const checkInterval = setInterval(() => {
+      this.checkInterval = setInterval(() => {
         if (typeof google !== 'undefined' && google.accounts) {
-          clearInterval(checkInterval);
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
           this.initializeGoogleSignIn();
         }
       }, 100);
 
-      setTimeout(() => clearInterval(checkInterval), 5000);
+      this.checkTimeout = setTimeout(() => {
+        if (this.checkInterval) {
+          clearInterval(this.checkInterval);
+          this.checkInterval = undefined;
+        }
+      }, 5000);
     }
   }
 
@@ -243,17 +281,20 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
     if (container.querySelector('iframe') || container.children.length > 0) {
       this.googleBtnRendered.set(true);
     } else {
-      const observer = new MutationObserver(() => {
+      this.mutationObserver = new MutationObserver(() => {
         if (
           container.querySelector('iframe') ||
           container.children.length > 0
         ) {
           this._ngZone.run(() => this.googleBtnRendered.set(true));
-          observer.disconnect();
+          if (this.mutationObserver) {
+            this.mutationObserver.disconnect();
+            this.mutationObserver = undefined;
+          }
         }
       });
 
-      observer.observe(container, { childList: true, subtree: true });
+      this.mutationObserver.observe(container, { childList: true, subtree: true });
     }
   }
 
