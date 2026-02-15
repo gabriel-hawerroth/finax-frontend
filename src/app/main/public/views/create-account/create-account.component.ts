@@ -237,30 +237,36 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private initializeGoogleSignIn(): void {
-    // Show the wrapper before rendering the button
-    this.googleBtnRendered.set(true);
+    try {
+      // Show the wrapper before rendering the button
+      this.googleBtnRendered.set(true);
 
-    google.accounts.id.initialize({
-      client_id: environment.googleClientId,
-      callback: (response) => {
-        this._ngZone.run(() => {
-          this.handleGoogleCredentialResponse(response);
-        });
-      },
-      auto_select: false,
-      cancel_on_tap_outside: true,
-    });
+      google.accounts.id.initialize({
+        client_id: environment.googleClientId,
+        callback: (response) => {
+          this._ngZone.run(() => {
+            this.handleGoogleCredentialResponse(response);
+          });
+        },
+        auto_select: false,
+        cancel_on_tap_outside: true,
+      });
 
-    const container = this.googleButtonContainer.nativeElement;
+      const container = this.googleButtonContainer.nativeElement;
 
-    google.accounts.id.renderButton(container, {
-      type: 'standard',
-      theme: 'outline',
-      size: 'large',
-      text: 'signup_with',
-      shape: 'rectangular',
-      width: 280,
-    });
+      google.accounts.id.renderButton(container, {
+        type: 'standard',
+        theme: 'outline',
+        size: 'large',
+        text: 'signup_with',
+        shape: 'rectangular',
+        width: 280,
+      });
+    } catch (error) {
+      // If rendering fails, hide the wrapper
+      this.googleBtnRendered.set(false);
+      console.error('Failed to initialize Google Sign-In:', error);
+    }
   }
 
   private handleGoogleCredentialResponse(
