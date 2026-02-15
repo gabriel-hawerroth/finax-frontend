@@ -96,6 +96,9 @@ export class LoginService {
           case 'use google to sign in':
             this._utils.showMessage('login.use-google-to-sign-in');
             break;
+          case 'google account does not match the registered account':
+            this._utils.showMessage('login.google-account-mismatch');
+            break;
           default:
             this._utils.showJoinedMessages(
               '. ',

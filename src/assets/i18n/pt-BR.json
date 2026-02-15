@@ -60,7 +60,8 @@
     "inactive-user": "Usuário inativo, verifique seu email",
     "access-expired": "Acesso expirado, por favor logue novamente",
     "or": "ou",
-    "use-google-to-sign-in": "Use o Google para entrar nesta conta"
+    "use-google-to-sign-in": "Use o Google para entrar nesta conta",
+    "google-account-mismatch": "A conta do Google que você está tentando usar não corresponde à conta registrada. Por favor, tente novamente com a conta correta ou entre em contato com nosso suporte para assistência."
   },
   "forgot-password": {
     "title": "Recuperação de senha",

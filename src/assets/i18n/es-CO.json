@@ -60,7 +60,8 @@
     "inactive-user": "Usuario inactivo, por favor revise su correo electrónico",
     "access-expired": "Acceso caducado, vuelva a iniciar sesión",
     "or": "o",
-    "use-google-to-sign-in": "Usa Google para iniciar sesión en esta cuenta"
+    "use-google-to-sign-in": "Usa Google para iniciar sesión en esta cuenta",
+    "google-account-mismatch": "La cuenta de Google que estás intentando usar no coincide con la cuenta registrada. Por favor, inténtalo nuevamente con la cuenta correcta o contacta a nuestro soporte para obtener ayuda."
   },
   "forgot-password": {
     "title": "Recuperación de contraseña",

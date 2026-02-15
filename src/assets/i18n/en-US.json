@@ -60,7 +60,8 @@
     "inactive-user": "Inactive user, please check your email",
     "access-expired": "Access expired, please log in again",
     "or": "or",
-    "use-google-to-sign-in": "Use Google to sign in to this account"
+    "use-google-to-sign-in": "Use Google to sign in to this account",
+    "google-account-mismatch": "The Google account you are trying to use does not match the registered account. Please try again with the correct account or contact our support for assistance."
   },
   "forgot-password": {
     "title": "Password recovery",
