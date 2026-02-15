@@ -75,11 +75,11 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
       if (!loading && this.googleBtnRendered() && isPlatformBrowser(this.platformId)) {
         // Reset and re-render Google button when loading ends
         setTimeout(() => {
-          if (this.googleButtonContainer && typeof google !== 'undefined' && google.accounts) {
+          if (this.googleButtonContainer && this.isGoogleSignInAvailable()) {
             this.googleBtnRendered.set(false);
             this.initializeGoogleSignIn();
           }
-        });
+        }, 0);
       }
     });
   }
@@ -94,11 +94,11 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    if (typeof google !== 'undefined' && google.accounts) {
+    if (this.isGoogleSignInAvailable()) {
       this.initializeGoogleSignIn();
     } else {
       this.checkInterval = setInterval(() => {
-        if (typeof google !== 'undefined' && google.accounts) {
+        if (this.isGoogleSignInAvailable()) {
           clearInterval(this.checkInterval);
           this.checkInterval = undefined;
           this.initializeGoogleSignIn();
@@ -200,5 +200,9 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     this._loginService
       .googleLogin(response.credential)
       .finally(() => this.showLoading.set(false));
+  }
+
+  private isGoogleSignInAvailable(): boolean {
+    return typeof google !== 'undefined' && google.accounts !== undefined;
   }
 }

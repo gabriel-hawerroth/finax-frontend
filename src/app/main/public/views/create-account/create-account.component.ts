@@ -78,6 +78,7 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
   private checkInterval?: ReturnType<typeof setInterval>;
   private checkTimeout?: ReturnType<typeof setTimeout>;
   private mutationObserver?: MutationObserver;
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor(
     private readonly _utils: UtilsService,
@@ -97,7 +98,7 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
       this.registeredEmail = undefined;
     });
 
-    if (isPlatformBrowser(inject(PLATFORM_ID))) {
+    if (isPlatformBrowser(this.platformId)) {
       const existingEmail = this.timerUI.checkExistingState();
       if (existingEmail) {
         this.accountCreated.set(true);
@@ -109,14 +110,14 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
     effect(() => {
       const loading = this.showLoading();
       const created = this.accountCreated();
-      if (!loading && !created && this.googleBtnRendered() && isPlatformBrowser(inject(PLATFORM_ID))) {
+      if (!loading && !created && this.googleBtnRendered() && isPlatformBrowser(this.platformId)) {
         // Reset and re-render Google button when loading ends
         setTimeout(() => {
-          if (this.googleButtonContainer && typeof google !== 'undefined' && google.accounts) {
+          if (this.googleButtonContainer && this.isGoogleSignInAvailable()) {
             this.googleBtnRendered.set(false);
             this.initializeGoogleSignIn();
           }
-        });
+        }, 0);
       }
     });
   }
@@ -148,13 +149,13 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (this.accountCreated()) return;
-    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
+    if (!isPlatformBrowser(this.platformId)) return;
 
-    if (typeof google !== 'undefined' && google.accounts) {
+    if (this.isGoogleSignInAvailable()) {
       this.initializeGoogleSignIn();
     } else {
       this.checkInterval = setInterval(() => {
-        if (typeof google !== 'undefined' && google.accounts) {
+        if (this.isGoogleSignInAvailable()) {
           clearInterval(this.checkInterval);
           this.checkInterval = undefined;
           this.initializeGoogleSignIn();
@@ -306,5 +307,9 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
     this._loginService
       .googleLogin(response.credential)
       .finally(() => this.showLoading.set(false));
+  }
+
+  private isGoogleSignInAvailable(): boolean {
+    return typeof google !== 'undefined' && google.accounts !== undefined;
   }
 }
