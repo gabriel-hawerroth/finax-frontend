@@ -59,28 +59,30 @@
     </form>
 
     <div class="row bottom">
-      @if (showLoading()) {
-        <mat-spinner [diameter]="40"></mat-spinner>
-      } @else {
-        <div class="login-actions">
-          <app-buttons
-            [showGeneric]="true"
-            [genericStyle]="getBtnStyle('flat')"
-            genericLabel="login.login"
-            genericIcon="person"
-            (onGeneric)="login()"
-          ></app-buttons>
+      <mat-spinner
+        [class.hidden]="!showLoading()"
+        [diameter]="40"
+      ></mat-spinner>
 
-          @if (googleBtnRendered()) {
-            <div class="divider">
-              <span>{{ "login.or" | translate }}</span>
-            </div>
-          }
+      <div class="login-actions" [class.hidden]="showLoading()">
+        <app-buttons
+          [showGeneric]="true"
+          [genericStyle]="getBtnStyle('flat')"
+          genericLabel="login.login"
+          genericIcon="person"
+          (onGeneric)="login()"
+        ></app-buttons>
+
+        <div class="divider" [class.hidden]="!googleBtnRendered()">
+          <span>{{ "login.or" | translate }}</span>
         </div>
-      }
 
-      <div class="google-btn-wrapper" [hidden]="!googleBtnRendered() || showLoading()">
-        <div #googleButtonContainer></div>
+        <div
+          class="google-btn-wrapper"
+          [class.hidden]="!googleBtnRendered() || showLoading()"
+        >
+          <div #googleButtonContainer></div>
+        </div>
       </div>
     </div>
   </div>
