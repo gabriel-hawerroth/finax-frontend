@@ -132,12 +132,12 @@
                 <span>{{ "create-account.or" | translate }}</span>
               </div>
             }
-
-            <div class="google-btn-wrapper" [hidden]="!googleBtnRendered()">
-              <div #googleButtonContainer></div>
-            </div>
           </div>
         }
+
+        <div class="google-btn-wrapper" [hidden]="!googleBtnRendered() || showLoading()">
+          <div #googleButtonContainer></div>
+        </div>
       </div>
     }
   </div>

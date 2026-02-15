@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  effect,
   ElementRef,
   inject,
   NgZone,
@@ -69,20 +68,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     private readonly _loginService: LoginService,
     private readonly _fb: FormBuilder,
     private readonly _ngZone: NgZone,
-  ) {
-    effect(() => {
-      const loading = this.showLoading();
-      if (!loading && this.googleBtnRendered() && isPlatformBrowser(this.platformId)) {
-        // Reset and re-render Google button when loading ends
-        setTimeout(() => {
-          if (this.googleButtonContainer && this.isGoogleSignInAvailable()) {
-            this.googleBtnRendered.set(false);
-            this.initializeGoogleSignIn();
-          }
-        }, 0);
-      }
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();

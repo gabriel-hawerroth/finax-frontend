@@ -3,7 +3,6 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  effect,
   ElementRef,
   inject,
   NgZone,
@@ -106,20 +105,6 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
       }
       this.viewReady.set(true);
     }
-
-    effect(() => {
-      const loading = this.showLoading();
-      const created = this.accountCreated();
-      if (!loading && !created && this.googleBtnRendered() && isPlatformBrowser(this.platformId)) {
-        // Reset and re-render Google button when loading ends
-        setTimeout(() => {
-          if (this.googleButtonContainer && this.isGoogleSignInAvailable()) {
-            this.googleBtnRendered.set(false);
-            this.initializeGoogleSignIn();
-          }
-        }, 0);
-      }
-    });
   }
 
   ngOnInit(): void {
