@@ -76,7 +76,6 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
   private registeredEmail?: string;
   private checkInterval?: ReturnType<typeof setInterval>;
   private checkTimeout?: ReturnType<typeof setTimeout>;
-  private mutationObserver?: MutationObserver;
   private readonly platformId = inject(PLATFORM_ID);
 
   constructor(
@@ -125,10 +124,6 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
     if (this.checkTimeout) {
       clearTimeout(this.checkTimeout);
       this.checkTimeout = undefined;
-    }
-    if (this.mutationObserver) {
-      this.mutationObserver.disconnect();
-      this.mutationObserver = undefined;
     }
   }
 
@@ -242,6 +237,9 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private initializeGoogleSignIn(): void {
+    // Show the wrapper before rendering the button
+    this.googleBtnRendered.set(true);
+
     google.accounts.id.initialize({
       client_id: environment.googleClientId,
       callback: (response) => {
@@ -263,25 +261,6 @@ export class CreateAccountPage implements OnInit, OnDestroy, AfterViewInit {
       shape: 'rectangular',
       width: 280,
     });
-
-    if (container.querySelector('iframe') || container.children.length > 0) {
-      this.googleBtnRendered.set(true);
-    } else {
-      this.mutationObserver = new MutationObserver(() => {
-        if (
-          container.querySelector('iframe') ||
-          container.children.length > 0
-        ) {
-          this._ngZone.run(() => this.googleBtnRendered.set(true));
-          if (this.mutationObserver) {
-            this.mutationObserver.disconnect();
-            this.mutationObserver = undefined;
-          }
-        }
-      });
-
-      this.mutationObserver.observe(container, { childList: true, subtree: true });
-    }
   }
 
   private handleGoogleCredentialResponse(
