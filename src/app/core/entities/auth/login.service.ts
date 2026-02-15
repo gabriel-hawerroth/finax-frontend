@@ -86,12 +86,18 @@ export class LoginService {
           return;
         }
 
-        switch (err.error.errorDescription) {
+        switch (err.error.errorDescription?.toLowerCase()) {
           case 'inactive user':
             this._utils.showMessage('login.inactive-user');
             break;
           case 'bad credentials':
             this._utils.showMessage('login.invalid-login');
+            break;
+          case 'use google to sign in':
+            this._utils.showMessage('login.use-google-to-sign-in');
+            break;
+          case 'google account does not match the registered account':
+            this._utils.showMessage('login.google-account-mismatch');
             break;
           default:
             this._utils.showJoinedMessages(
@@ -113,6 +119,43 @@ export class LoginService {
         JSON.stringify(response),
       );
     });
+  }
+
+  async googleLogin(credential: string) {
+    await this._authService
+      .googleLogin(credential)
+      .then((user) => {
+        if (!user) {
+          this._utils.showMessage('login.error-getting-user');
+          return;
+        }
+
+        this._utils.updateLoggedUser(user);
+        this._utils.removeItemLocalStorage('savedLoginFinax');
+
+        this.getUserConfigs();
+        this.getUserImage();
+
+        this._timerService.reset();
+
+        this._utils.showMessage('login.login-successfully');
+
+        this._router.navigateByUrl('home');
+        this.isLogged.set(true);
+      })
+      .catch((err) => {
+        if (err.error?.errorDescription?.toLowerCase?.() === 'use google to sign in') {
+          this._utils.showMessage('login.use-google-to-sign-in');
+          return;
+        }
+
+        this._utils.showJoinedMessages(
+          '. ',
+          4500,
+          'generic.server-down',
+          'generic.try-again-later',
+        );
+      });
   }
 
   getUserImage() {

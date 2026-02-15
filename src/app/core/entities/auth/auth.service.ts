@@ -41,4 +41,10 @@ export class AuthService {
   doLogout(): Promise<void> {
     return lastValueFrom(this._http.post<void>(`${this.apiUrl}/logout`, null));
   }
+
+  googleLogin(credential: string): Promise<User> {
+    return lastValueFrom(
+      this._http.post<User>(`${this.apiUrl}/google`, { credential }),
+    );
+  }
 }

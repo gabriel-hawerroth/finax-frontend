@@ -58,7 +58,10 @@
     "error-getting-user": "Error getting the user, please contact our support",
     "login-successfully": "Login successfully",
     "inactive-user": "Inactive user, please check your email",
-    "access-expired": "Access expired, please log in again"
+    "access-expired": "Access expired, please log in again",
+    "or": "or",
+    "use-google-to-sign-in": "Use Google to sign in to this account",
+    "google-account-mismatch": "The Google account you are trying to use does not match the registered account. Please try again with the correct account or contact our support for assistance."
   },
   "forgot-password": {
     "title": "Password recovery",
@@ -95,7 +98,8 @@
     "activation-link-validity": "The activation link will be valid for two hours.",
     "email-resent-successfully": "Email resent successfully",
     "error-resending-email": "Error resending email",
-    "user-already-active": "User is already active"
+    "user-already-active": "User is already active",
+    "or": "or"
   },
   "change-password": {
     "title": "Set your new password",

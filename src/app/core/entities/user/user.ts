@@ -1,5 +1,7 @@
 import { UserAccess, UserSignature } from '../../enums/user-enums';
 
+export type AuthProvider = 'LOCAL' | 'GOOGLE';
+
 export interface User {
   id: number;
   email: string;
@@ -12,4 +14,5 @@ export interface User {
   signature: UserSignature;
   signatureExpiration?: Date;
   profileImage?: string;
+  provider?: AuthProvider;
 }

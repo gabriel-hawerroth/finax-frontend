@@ -58,7 +58,10 @@
     "error-getting-user": "Erro ao obter o usuário, entre em contato com nosso suporte",
     "login-successfully": "Login realizado com sucesso",
     "inactive-user": "Usuário inativo, verifique seu email",
-    "access-expired": "Acesso expirado, por favor logue novamente"
+    "access-expired": "Acesso expirado, por favor logue novamente",
+    "or": "ou",
+    "use-google-to-sign-in": "Use o Google para entrar nesta conta",
+    "google-account-mismatch": "A conta do Google que você está tentando usar não corresponde à conta registrada. Por favor, tente novamente com a conta correta ou entre em contato com nosso suporte para assistência."
   },
   "forgot-password": {
     "title": "Recuperação de senha",
@@ -95,7 +98,8 @@
     "activation-link-validity": "O link de ativação será válido por duas horas.",
     "email-resent-successfully": "Email reenviado com sucesso",
     "error-resending-email": "Erro ao reenviar email",
-    "user-already-active": "Usuário já está ativo"
+    "user-already-active": "Usuário já está ativo",
+    "or": "ou"
   },
   "change-password": {
     "title": "Defina sua nova senha",
