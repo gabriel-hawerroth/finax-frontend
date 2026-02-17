@@ -71,19 +71,6 @@
     gap: 1.5rem;
     font-size: 2.3rem;
 
-    #add-btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 2.3rem;
-      height: 2.3rem;
-      background-color: #099e26;
-
-      .material-symbols-rounded {
-        color: #fff;
-      }
-    }
-
     #filter-button-title {
       position: absolute;
       right: 3rem;
@@ -108,7 +95,7 @@
 
       header {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         padding: 1rem 2rem;
         margin-bottom: 1rem;
@@ -137,8 +124,8 @@
         .right {
           justify-content: flex-end;
           padding-right: 2rem;
-          position: absolute;
-          right: 0;
+          // position: absolute;
+          // right: 0;
         }
       }
 
@@ -182,20 +169,54 @@
   }
 }
 
-.new-release-menu {
+.add-release-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 0 !important;
-  padding: 0.5rem 0;
-  background-color: var(--primary-background-color);
-  color: var(--primary-font-color);
+  gap: 0.7rem;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
 
-  label {
-    padding: 0.7rem 1.2rem;
-
-    &:hover {
-      background-color: var(--button-hover-background-color);
-      cursor: pointer;
-    }
-  }
+.release-btn {
+  min-width: 44px;
+  min-height: 40px;
+  width: 51px;
+  height: 37px;
+  border-radius: 8px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fff;
+  transition:
+    filter 0.2s,
+    box-shadow 0.2s;
+}
+.release-btn .material-symbols-rounded {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #ffffff;
+}
+.transfer-btn {
+  background: #90a4ae;
+}
+.revenue-btn {
+  background: #28ca49;
+}
+.expense-btn {
+  background: #ca2828;
+}
+.release-btn:hover,
+.release-btn:focus {
+  filter: brightness(1);
+}
+.transfer-btn:hover {
+  box-shadow: 0 0 8px rgba(144, 164, 174, 0.55);
+}
+.revenue-btn:hover {
+  box-shadow: 0 0 8px rgba(0, 230, 118, 0.6);
+}
+.expense-btn:hover {
+  box-shadow: 0 0 8px rgba(255, 82, 82, 0.6);
 }

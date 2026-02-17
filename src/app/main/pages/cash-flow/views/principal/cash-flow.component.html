@@ -6,20 +6,52 @@
       <div id="filter-button-title">
         <ng-container *ngTemplateOutlet="filterButton" />
       </div>
-    } @else {
-      <button
-        id="add-btn"
-        mat-icon-button
-        [mat-menu-trigger-for]="newReleaseMenu"
-      >
-        <span class="material-symbols-rounded">add</span>
-      </button>
     }
   </h1>
 
   <div class="content">
     <mat-card class="card">
       <header>
+        @if (!isMobileView()) {
+          <div class="add-release-buttons">
+            <button
+              id="add-transfer-btn"
+              mat-button
+              (click)="addRelease('T')"
+              class="release-btn transfer-btn"
+              [matTooltip]="'cash-flow.new-transfer' | translate"
+              [matTooltipShowDelay]="500"
+            >
+              <span
+                class="material-symbols-rounded"
+                [style.font-size]="'1.7rem'"
+              >
+                compare_arrows
+              </span>
+            </button>
+            <button
+              id="add-revenue-btn"
+              mat-button
+              (click)="addRelease('R')"
+              class="release-btn revenue-btn"
+              [matTooltip]="'cash-flow.new-revenue' | translate"
+              [matTooltipShowDelay]="500"
+            >
+              <span class="material-symbols-rounded">arrow_upward</span>
+            </button>
+            <button
+              id="add-expense-btn"
+              mat-button
+              (click)="addRelease('E')"
+              class="release-btn expense-btn"
+              [matTooltip]="'cash-flow.new-expense' | translate"
+              [matTooltipShowDelay]="500"
+            >
+              <span class="material-symbols-rounded">arrow_downward</span>
+            </button>
+          </div>
+        }
+
         <div class="center">
           <button
             mat-icon-button
@@ -86,22 +118,6 @@
     />
   </div>
 </div>
-
-<mat-menu #newReleaseMenu="matMenu">
-  <div class="new-release-menu">
-    <label (click)="addRelease('E')">
-      {{ "cash-flow.new-expense" | translate }}
-    </label>
-
-    <label (click)="addRelease('R')">
-      {{ "cash-flow.new-revenue" | translate }}
-    </label>
-
-    <label (click)="addRelease('T')">
-      {{ "cash-flow.new-transfer" | translate }}
-    </label>
-  </div>
-</mat-menu>
 
 <ng-template #filterButton>
   <app-buttons

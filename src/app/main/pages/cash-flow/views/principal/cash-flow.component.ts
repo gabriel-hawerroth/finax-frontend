@@ -24,6 +24,7 @@ import {
 } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
@@ -73,6 +74,7 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     MatBadgeModule,
     ButtonsComponent,
     MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',
