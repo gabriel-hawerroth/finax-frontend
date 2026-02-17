@@ -1,5 +1,15 @@
-
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomCurrencyPipe } from '../../../../../../shared/pipes/custom-currency.pipe';
@@ -17,4 +27,58 @@ export class BalanceComponent {
   currency = input.required<string>();
   icon = input.required<string>();
   iconColor = input.required<string>();
+
+  private readonly balanceContentEl =
+    viewChild<ElementRef<HTMLElement>>('balanceContent');
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly currencyPipe = new CustomCurrencyPipe();
+
+  containerWidth = signal(0);
+
+  private readonly MAX_FONT_SIZE = 1.5;
+  private readonly MIN_FONT_SIZE = 0.8;
+  private readonly CHAR_WIDTH_FACTOR = 0.6;
+
+  constructor() {
+    afterNextRender(() => {
+      const el = this.balanceContentEl()?.nativeElement;
+      if (!el) return;
+
+      this.containerWidth.set(el.clientWidth);
+
+      const observer = new ResizeObserver((entries) => {
+        const width = entries[0]?.contentRect.width;
+        if (width != null) {
+          this.containerWidth.set(width);
+        }
+      });
+      observer.observe(el);
+
+      this.destroyRef.onDestroy(() => observer.disconnect());
+    });
+  }
+
+  private readonly displayText = computed(() => {
+    return `${this.currency()} ${this.currencyPipe.transform(this.value())}`;
+  });
+
+  fontSize = computed(() => {
+    const width = this.containerWidth();
+    if (!width) return `${this.MAX_FONT_SIZE}rem`;
+
+    const charCount = this.displayText().length;
+    const baseFontPx = this.MAX_FONT_SIZE * 16;
+    const estimatedTextWidth = charCount * baseFontPx * this.CHAR_WIDTH_FACTOR;
+
+    if (estimatedTextWidth <= width) {
+      return `${this.MAX_FONT_SIZE}rem`;
+    }
+
+    const ratio = width / (charCount * 16 * this.CHAR_WIDTH_FACTOR);
+    const clamped = Math.max(
+      Math.min(ratio, this.MAX_FONT_SIZE),
+      this.MIN_FONT_SIZE,
+    );
+    return `${clamped}rem`;
+  });
 }
