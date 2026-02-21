@@ -49,17 +49,12 @@
         }
       </header>
 
-      @if (errorFetchingReleases()) {
-        <div class="empty">
-          <label>{{ "cash-flow.error-getting-releases" | translate }}</label>
-        </div>
-      } @else if (searching()) {
-        <div class="empty">
-          <mat-spinner [diameter]="40"></mat-spinner>
-        </div>
-      } @else {
-        <!---->
-        @if (monthlyReleases().length) {
+      <app-loading-content [loading]="searching()">
+        @if (errorFetchingReleases()) {
+          <div class="empty">
+            <label>{{ "cash-flow.error-getting-releases" | translate }}</label>
+          </div>
+        } @else if (monthlyReleases().length) {
           <app-releases-list
             [releases]="monthlyReleases()"
             [accounts]="accounts"
@@ -69,14 +64,14 @@
             (updateList)="getReleases()"
             (updateItem)="updateItem($event)"
           ></app-releases-list>
-        } @else {
+        } @else if (!monthlyReleases().length) {
           <div class="empty">
             <label style="font-size: 1.2rem">
               {{ "cash-flow.empty-releases" | translate }}
             </label>
           </div>
         }
-      }
+      </app-loading-content>
     </mat-card>
 
     <app-cash-flow-balances

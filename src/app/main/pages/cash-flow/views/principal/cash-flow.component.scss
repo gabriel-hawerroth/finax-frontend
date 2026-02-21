@@ -142,14 +142,21 @@
         }
       }
 
-      app-releases-list {
-        padding: 0 1.2rem;
+      app-loading-content {
+        app-releases-list {
+          padding: 0 1.2rem;
+        }
       }
 
       app-releases-list,
       .empty {
         flex: 1;
-        overflow-y: scroll;
+      }
+
+      .empty {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
 

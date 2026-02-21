@@ -1,0 +1,11 @@
+<div class="loading-content-wrapper" [class.loading]="loading()">
+  @if (loading()) {
+    <div class="loading-overlay">
+      <mat-spinner [diameter]="diameter()"></mat-spinner>
+    </div>
+  }
+
+  <div class="content">
+    <ng-content />
+  </div>
+</div>

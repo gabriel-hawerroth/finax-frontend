@@ -23,7 +23,6 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
@@ -45,6 +44,7 @@ import {
   updateDoneReleaseEvent,
 } from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { LoadingContentComponent } from '../../../../../shared/components/loading-content/loading-content.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
@@ -72,7 +72,7 @@ import { ReleasesListComponent } from '../../components/releases-list/releases-l
     CashFlowBalancesComponent,
     MatBadgeModule,
     ButtonsComponent,
-    MatProgressSpinnerModule,
+    LoadingContentComponent,
   ],
   templateUrl: './cash-flow.component.html',
   styleUrl: './cash-flow.component.scss',

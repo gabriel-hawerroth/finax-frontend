@@ -1,0 +1,35 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.loading-content-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+
+  &.loading > .content {
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}
