@@ -29,6 +29,10 @@ export const authInterceptor: HttpInterceptorFn = (
     catchError((error) => {
       console.log('Error: ', error);
 
+      if (utilsService.isUnloading) {
+        return throwError(() => error);
+      }
+
       switch (error.status) {
         case 401:
           onLogoutEvent.next({ showMessage: true });

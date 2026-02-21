@@ -1,4 +1,5 @@
-import { inject } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
+import { inject, PLATFORM_ID } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivateFn,
@@ -11,8 +12,11 @@ export const FreeTierGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
   loginService = inject(LoginService),
-  router = inject(Router)
+  router = inject(Router),
+  platformId = inject(PLATFORM_ID),
 ) => {
+  if (isPlatformServer(platformId)) return false;
+
   if (loginService.logged) {
     return true;
   }

@@ -24,6 +24,7 @@ import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
 })
 export class UtilsService {
   public isBrowser: boolean;
+  public isUnloading = false;
 
   constructor(
     private readonly _snackBar: MatSnackBar,
@@ -33,6 +34,10 @@ export class UtilsService {
     private readonly _responsiveService: ResponsiveService,
   ) {
     this.isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
+    if (this.isBrowser) {
+      window.addEventListener('beforeunload', () => (this.isUnloading = true));
+    }
 
     this.username.next(this.getLoggedUser?.firstName || '');
   }
