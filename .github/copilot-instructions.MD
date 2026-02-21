@@ -1,5 +1,6 @@
 # Angular instructions
 
+- This projects use Angular 21, make sure to use the latest features and best practices
 - Use the inject method instead of a constructor
 - Make use of signals where possible
 - Always use control flow
@@ -8,5 +9,5 @@
 - Import rxjs operators from 'rxjs' instead of 'rxjs/operators'
 - Prefer reactive forms
 
-# Angular 19 documentation
-- https://v19.material.angular.dev/components/categories
+# Angular 21 documentation
+- https://v21.material.angular.dev/components/categories
