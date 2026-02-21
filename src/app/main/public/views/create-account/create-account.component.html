@@ -17,7 +17,10 @@
     </div>
 
     @if (viewReady() && !accountCreated()) {
-      <form [formGroup]="userRegisterForm">
+      <form
+        [formGroup]="userRegisterForm"
+        (keydown.enter)="$event.preventDefault(); createUser()"
+      >
         <div class="row">
           <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
             <mat-label>{{ "generic.email" | translate }}</mat-label>
@@ -27,7 +30,6 @@
               formControlName="email"
               maxlength="255"
               autocomplete="off"
-              autofocus
             />
           </mat-form-field>
         </div>

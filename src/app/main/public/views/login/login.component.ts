@@ -114,7 +114,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     this.loginForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      rememberMe: false,
+      rememberMe: true,
     });
   }
 

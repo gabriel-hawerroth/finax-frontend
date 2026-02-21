@@ -12,7 +12,10 @@
       <h1>{{ "login.title" | translate }}</h1>
     </div>
 
-    <form [formGroup]="loginForm">
+    <form
+      [formGroup]="loginForm"
+      (keydown.enter)="$event.preventDefault(); login()"
+    >
       <div class="row">
         <mat-form-field style="width: 80%" [hideRequiredMarker]="true">
           <mat-label>{{ "generic.email" | translate }}</mat-label>
@@ -20,7 +23,6 @@
             matInput
             formControlName="email"
             autocomplete="off"
-            autofocus
             maxlength="255"
           />
         </mat-form-field>
