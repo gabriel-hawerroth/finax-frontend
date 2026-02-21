@@ -12,7 +12,7 @@
         height: '2.3rem',
       }"
       [contentStyle]="{
-        color: '#fff'
+        color: '#fff',
       }"
       (onGeneric)="addRelease()"
     ></app-buttons>
@@ -29,14 +29,14 @@
                 [routerLink]="'/cartoes-de-credito/' + creditCardId"
               >
                 @if (creditCard()?.image) {
-                <img
-                  [ngSrc]="
-                    cloudFireCdnImgsLink + 'banks/' + creditCard()!.image
-                  "
-                  width="40"
-                  height="40"
-                  alt="credit card logo"
-                />
+                  <img
+                    [ngSrc]="
+                      cloudFireCdnImgsLink + 'banks/' + creditCard()!.image
+                    "
+                    width="40"
+                    height="40"
+                    alt="credit card logo"
+                  />
                 }
 
                 <span>{{ creditCard()?.name }}</span>
@@ -46,36 +46,38 @@
 
           <div class="right">
             @if (monthValues().payments.length != 0) {
-            <!---->
-            @if (smallWidth()) {
-            <app-buttons
-              [showGeneric]="true"
-              genericLabel="invoice.view-payments"
-              (onGeneric)="seePayments()"
-            ></app-buttons>
+              <!---->
+              @if (smallWidth()) {
+                <app-buttons
+                  [showGeneric]="true"
+                  genericLabel="invoice.view-payments"
+                  (onGeneric)="seePayments()"
+                ></app-buttons>
 
-            @if (!fullyPaid()) {
-            <app-buttons
-              [showGeneric]="true"
-              genericLabel="invoice.payments-card.pay-remaining"
-              (onGeneric)="payInvoice()"
-            ></app-buttons>
-            } } @else {
-            <app-invoice-payments-card
-              id="payments-card"
-              [payments]="monthValues().payments"
-              [invoiceValue]="invoiceValues().value"
-              [fullyPaid]="fullyPaid()"
-              (editPayment)="payInvoice($event)"
-              (updateValues)="getMonthValues()"
-            ></app-invoice-payments-card>
-            } } @else if (invoiceValues().value > 0) {
-            <app-buttons
-              id="pay-btn"
-              [showGeneric]="true"
-              genericLabel="invoice.pay"
-              (onGeneric)="payInvoice()"
-            ></app-buttons>
+                @if (!fullyPaid()) {
+                  <app-buttons
+                    [showGeneric]="true"
+                    genericLabel="invoice.payments-card.pay-remaining"
+                    (onGeneric)="payInvoice()"
+                  ></app-buttons>
+                }
+              } @else {
+                <app-invoice-payments-card
+                  id="payments-card"
+                  [payments]="monthValues().payments"
+                  [invoiceValue]="invoiceValues().value"
+                  [fullyPaid]="fullyPaid()"
+                  (editPayment)="payInvoice($event)"
+                  (updateValues)="getMonthValues()"
+                ></app-invoice-payments-card>
+              }
+            } @else if (invoiceValues().value > 0) {
+              <app-buttons
+                id="pay-btn"
+                [showGeneric]="true"
+                genericLabel="invoice.pay"
+                (onGeneric)="payInvoice()"
+              ></app-buttons>
             }
           </div>
         </div>
@@ -106,56 +108,32 @@
       </header>
 
       @if (errorFetchingReleases()) {
-      <div class="empty">
-        <label style="font-size: 1.2rem">
-          {{ "cash-flow.error-getting-releases" | translate }}
-        </label>
-      </div>
+        <div class="empty">
+          <label style="font-size: 1.2rem">
+            {{ "cash-flow.error-getting-releases" | translate }}
+          </label>
+        </div>
       } @else {
-      <!---->
-      @if (monthValues().releases.length) {
-      <app-releases-list
-        id="releases-list"
-        [releases]="monthValues().releases"
-        [accounts]="accounts"
-        [categories]="categories"
-        [creditCards]="creditCards"
-        [selectedDate]="selectedDate()"
-        (updateList)="getMonthValues()"
-      ></app-releases-list>
-      } @else {
-      <div class="empty">
-        <label style="font-size: 1.2rem">
-          {{ "cash-flow.empty-releases" | translate }}
-        </label>
-      </div>
-      } }
-
-      <!-- <div class="totals">
-        <div class="item">
-          <span>{{ "invoice.closing" | translate }}:</span>
-
-          <span class="value">
-            {{ invoiceValues().close | date : "dd/MM/yyyy" }}
-          </span>
-        </div>
-
-        <div class="item">
-          <span>{{ "invoice.expiration" | translate }}:</span>
-
-          <span class="value">
-            {{ invoiceValues().expire | date : "dd/MM/yyyy" }}
-          </span>
-        </div>
-
-        <div class="item">
-          <span>{{ "invoice.amount" | translate }}:</span>
-
-          <span class="value" style="font-weight: bold">
-            {{ currency }}{{ invoiceValues().value | customCurrency }}
-          </span>
-        </div>
-      </div> -->
+        <!---->
+        @if (monthValues().releases.length) {
+          <app-releases-list
+            id="releases-list"
+            [releases]="monthValues().releases"
+            [accounts]="accounts"
+            [categories]="categories"
+            [creditCards]="creditCards"
+            [selectedDate]="selectedDate()"
+            (updateList)="getMonthValues()"
+            (updateItem)="getMonthValues()"
+          ></app-releases-list>
+        } @else {
+          <div class="empty">
+            <label style="font-size: 1.2rem">
+              {{ "cash-flow.empty-releases" | translate }}
+            </label>
+          </div>
+        }
+      }
     </mat-card>
 
     <app-invoice-balances

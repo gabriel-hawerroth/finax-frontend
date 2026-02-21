@@ -70,8 +70,8 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
     RouterModule,
     InvoicePaymentsCardComponent,
     ButtonsComponent,
-    InvoiceBalancesComponent
-],
+    InvoiceBalancesComponent,
+  ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -112,12 +112,12 @@ export class CreditCardInvoicePage implements OnInit {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _invoiceService: InvoiceService,
     private readonly _creditCardService: CreditCardService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
   ) {}
 
   ngOnInit(): void {
     this.getValues();
-    this.invoiceValues = this.getComputedInvoiceValues;
+    this.invoiceValues = this.getComputedInvoiceValues();
 
     this._creditCardService.getById(this.creditCardId).then((response) => {
       this.creditCard.set(response);
@@ -125,7 +125,7 @@ export class CreditCardInvoicePage implements OnInit {
     });
   }
 
-  get getComputedInvoiceValues(): Signal<CreditCardInvoiceValues> {
+  getComputedInvoiceValues(): Signal<CreditCardInvoiceValues> {
     return computed(() => {
       const close = this.parseDateWithFallback(this.getCloseDtString);
       let expire = this.parseDateWithFallback(this.getExpireDtString);
@@ -203,7 +203,7 @@ export class CreditCardInvoicePage implements OnInit {
           this.invoiceValues().value -
           this.monthValues().payments.reduce(
             (amount, item) => (amount += item.paymentAmount),
-            0
+            0,
           ),
         monthYear: format(this.selectedDate(), 'MM/yyyy'),
         payment: invoicePayment,
@@ -244,7 +244,7 @@ export class CreditCardInvoicePage implements OnInit {
           autoFocus: false,
           width: '98vw',
         })
-        .afterClosed()
+        .afterClosed(),
     ).then((response) => {
       if (!response) return;
       this.payInvoice(response);
@@ -259,7 +259,7 @@ export class CreditCardInvoicePage implements OnInit {
 
       return addDays(
         toDate(`${dtParts[0]}-${this.formatDay(Number(dtParts[1]) + 1)}-01`),
-        1
+        1,
       );
     }
 
@@ -280,13 +280,13 @@ export class CreditCardInvoicePage implements OnInit {
 
   get getCloseDtString(): string {
     return `${this.selectedDate().getFullYear()}-${this.formatDay(
-      this.selectedDate().getMonth() + 1
+      this.selectedDate().getMonth() + 1,
     )}-${this.formatDay(this.creditCard()?.closeDay)}`;
   }
 
   get getExpireDtString(): string {
     return `${this.selectedDate().getFullYear()}-${this.formatDay(
-      this.selectedDate().getMonth() + 1
+      this.selectedDate().getMonth() + 1,
     )}-${this.formatDay(this.creditCard()?.expiresDay)}`;
   }
 
@@ -297,7 +297,7 @@ export class CreditCardInvoicePage implements OnInit {
   fullyPaid = computed(() => {
     const paymentsAmount = this.monthValues().payments.reduce(
       (count, item) => (count += item.paymentAmount),
-      0
+      0,
     );
 
     return paymentsAmount >= this.invoiceValues().value;
@@ -307,12 +307,12 @@ export class CreditCardInvoicePage implements OnInit {
     const undoneReleases: MonthlyRelease[] = this._utils.filterList(
       this.monthValues().releases,
       'done',
-      false
+      false,
     );
 
     const allUndoneExpensesAmount = undoneReleases.reduce(
       (count, item) => (count += item.amount),
-      0
+      0,
     );
 
     const expectedBalance =
