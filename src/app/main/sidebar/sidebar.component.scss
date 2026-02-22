@@ -13,12 +13,13 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03), 0px 0px 2px rgba(0, 0, 0, 0.06),
-    0px 2px 6px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
   background-color: var(--sidebar-background-color) !important;
 
   app-logo-title {
-    margin: 1.5rem 3rem 1rem 1rem;
+    margin: 1.5rem 0 1rem 0;
+    display: block;
+    overflow: hidden;
   }
 
   .navigation {
@@ -31,12 +32,13 @@
     padding: 0.5rem;
     margin-top: 0.5rem;
 
-    .nav-ul-item {
+    .user-item {
       display: flex;
       align-items: center;
       text-decoration: none;
       cursor: pointer;
-      padding: 1.1rem 0;
+      padding: 1.1rem 0 1.1rem 0.625rem;
+      overflow: hidden;
       outline: none;
 
       * {
@@ -48,6 +50,12 @@
         border-radius: 3px;
       }
 
+      img {
+        border-radius: 50%;
+        margin-right: 0.5rem;
+        flex-shrink: 0;
+      }
+
       .material-symbols-rounded {
         width: 3rem;
         display: flex;
@@ -57,11 +65,29 @@
 
       span {
         font-weight: 500;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 14rem;
+        opacity: 1;
+        transition:
+          max-width 0.3s ease,
+          opacity 0.2s ease;
       }
 
-      .expand {
+      .user-expand {
         margin-left: auto;
-        margin-right: 0.5rem;
+        flex-shrink: 0;
+        overflow: hidden;
+        max-width: 3rem;
+        opacity: 1;
+        transition:
+          max-width 0.3s ease,
+          opacity 0.2s ease,
+          margin 0.3s ease;
+      }
+
+      i {
+        margin-left: auto;
       }
     }
   }
@@ -76,27 +102,41 @@
     .nav-ul {
       margin-top: 0;
       transform-origin: bottom;
-    }
-  }
 
-  .user-item {
-    padding-left: 0.5rem !important;
-
-    img {
-      border-radius: 50%;
-      margin-right: 0.5rem;
-    }
-
-    span {
-      overflow-x: hidden;
-    }
-
-    i {
-      margin-left: auto;
+      .nav-ul-item {
+        padding-left: 0 !important;
+      }
     }
   }
 }
 
 .hidden {
   display: none !important;
+}
+
+#sidebar.minimized {
+  .user-item {
+    img {
+      margin-right: 0;
+    }
+
+    span {
+      max-width: 0;
+      opacity: 0;
+    }
+
+    .user-expand {
+      max-width: 0;
+      opacity: 0;
+      margin-left: 0;
+    }
+  }
+
+  .user-options {
+    padding: 0.5rem 0rem !important;
+
+    img {
+      margin-left: 0.5rem;
+    }
+  }
 }

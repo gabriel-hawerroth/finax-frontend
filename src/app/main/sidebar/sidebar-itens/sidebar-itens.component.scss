@@ -10,7 +10,9 @@
   text-decoration: none;
   cursor: pointer;
   padding: 1.1rem 0;
+  padding-left: 0.4rem;
   outline: none;
+  overflow: hidden;
 
   * {
     color: var(--sidebar-font-color);
@@ -23,21 +25,62 @@
 
   .material-symbols-rounded {
     width: 3rem;
+    min-width: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
   }
 
   span {
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 14rem;
+    opacity: 1;
+    transition:
+      max-width 0.3s ease,
+      opacity 0.2s ease;
   }
 
   .expand {
     margin-left: auto;
     margin-right: 0.5rem;
+    flex-shrink: 0;
   }
 }
 
 .nav-ul-childs {
   padding-left: 1rem;
+  transition: padding-left 0.3s ease;
+}
+
+:host.minimized {
+  .nav-ul-item {
+    position: relative;
+
+    span {
+      max-width: 0;
+      opacity: 0;
+    }
+  }
+
+  .expand {
+    position: absolute;
+    right: -0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    font-size: 16px;
+    width: auto;
+    min-width: auto;
+  }
+
+  .nav-ul-childs {
+    padding-left: 0;
+
+    .nav-ul-item .material-symbols-rounded {
+      font-size: 20px;
+    }
+  }
 }

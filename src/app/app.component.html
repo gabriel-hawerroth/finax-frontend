@@ -1,4 +1,10 @@
 <mat-sidenav-container
+  [class.sidebar-expanded]="
+    sidebarOpened() && !sidebarMinimized() && !mobileToolbarOpened()
+  "
+  [class.sidebar-minimized]="
+    sidebarOpened() && sidebarMinimized() && !mobileToolbarOpened()
+  "
   [style.height]="mobileToolbarOpened() ? 'calc(100% - 6rem)' : '100%'"
   [style.max-height]="mobileToolbarOpened() ? 'calc(100% - 6rem)' : '100%'"
   [style.position]="mobileToolbarOpened() ? 'fixed' : 'relative'"
@@ -7,10 +13,12 @@
     id="sidebar"
     [(opened)]="sidebarOpened"
     [mode]="sidebarMode()"
-    [style.width]="mobileToolbarOpened() ? '100vw' : '18rem'"
+    [style.width]="sidebarWidth()"
     [disableClose]="true"
+    (mouseenter)="sidebarHovered.set(true)"
+    (mouseleave)="sidebarHovered.set(false)"
   >
-    <app-sidebar />
+    <app-sidebar [minimized]="sidebarMinimized()" />
   </mat-sidenav>
 
   <div class="container">
@@ -18,22 +26,39 @@
   </div>
 </mat-sidenav-container>
 
+@if (sidebarOpened() && !mobileToolbarOpened()) {
+  <button
+    class="sidebar-toggle-btn"
+    [class.visible]="sidebarHovered()"
+    [style.left]="
+      sidebarMinimized() ? 'calc(5rem - 14px)' : 'calc(18rem - 14px)'
+    "
+    (mouseenter)="sidebarHovered.set(true)"
+    (mouseleave)="sidebarHovered.set(false)"
+    (click)="toggleSidebarMinimized()"
+  >
+    <i class="material-symbols-rounded">
+      {{ sidebarMinimized() ? "chevron_right" : "chevron_left" }}
+    </i>
+  </button>
+}
+
 @if (mobileToolbarOpened()) {
-<mat-toolbar id="mobile-toolbar">
-  <dynamic-button class="toolbar-item" [config]="HOME_TOOLBAR_ITEM_CONFIG" />
+  <mat-toolbar id="mobile-toolbar">
+    <dynamic-button class="toolbar-item" [config]="HOME_TOOLBAR_ITEM_CONFIG" />
 
-  <dynamic-button
-    class="toolbar-item"
-    [config]="RELEASES_TOOLBAR_ITEM_CONFIG"
-  />
+    <dynamic-button
+      class="toolbar-item"
+      [config]="RELEASES_TOOLBAR_ITEM_CONFIG"
+    />
 
-  <app-speed-dial></app-speed-dial>
+    <app-speed-dial></app-speed-dial>
 
-  <dynamic-button
-    class="toolbar-item"
-    [config]="MONITORING_TOOLBAR_ITEM_CONFIG"
-  />
+    <dynamic-button
+      class="toolbar-item"
+      [config]="MONITORING_TOOLBAR_ITEM_CONFIG"
+    />
 
-  <dynamic-button class="toolbar-item" [config]="MORE_TOOLBAR_ITEM_CONFIG" />
-</mat-toolbar>
+    <dynamic-button class="toolbar-item" [config]="MORE_TOOLBAR_ITEM_CONFIG" />
+  </mat-toolbar>
 }

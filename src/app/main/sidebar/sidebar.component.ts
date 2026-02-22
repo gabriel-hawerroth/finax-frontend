@@ -1,5 +1,10 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  OnInit,
+} from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -33,6 +38,7 @@ import { SidebarItensComponent } from './sidebar-itens/sidebar-itens.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
+  readonly minimized = input(false);
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
 
   userAccess: UserAccess | null = this.utils.getLoggedUser?.access || null;
@@ -49,7 +55,7 @@ export class SidebarComponent implements OnInit {
     private readonly _loginService: LoginService,
     private readonly _userService: UserService,
     private readonly _userConfigsService: UserConfigsService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +70,7 @@ export class SidebarComponent implements OnInit {
       this.utils.setUserConfigs(response);
       this.utils.setItemLocalStorage(
         'savedUserConfigsFinax',
-        JSON.stringify(response)
+        JSON.stringify(response),
       );
     });
   }
@@ -74,7 +80,7 @@ export class SidebarComponent implements OnInit {
       if (!response) return;
 
       this.utils.userImage.next(
-        `${cloudFireCdnLink}/user/profile-image/${response}`
+        `${cloudFireCdnLink}/user/profile-image/${response}`,
       );
     });
   }
