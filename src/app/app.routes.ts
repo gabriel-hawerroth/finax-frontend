@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { BasicTierGuard } from './core/guards/basic-tier.guard';
 import { FreeTierGuard } from './core/guards/free-tier.guard';
 import { mobileGuard } from './core/guards/mobile.guard';
+import { notPwaGuard } from './core/guards/not-pwa.guard';
 import { UnauthenticatedUserGuard } from './core/guards/unauthenticated-user.guard';
 import { webGuard } from './core/guards/web.guard';
 
@@ -12,6 +13,7 @@ export const routes: Routes = [
       import('./main/public/views/principal/public.component').then(
         (m) => m.PublicPage
       ),
+    canActivate: [notPwaGuard],
   },
   {
     path: 'fora-do-ar',
