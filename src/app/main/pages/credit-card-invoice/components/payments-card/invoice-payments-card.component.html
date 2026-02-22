@@ -3,16 +3,17 @@
     <h3>{{ "invoice.payments-card.title" | translate }}</h3>
 
     @if (showPayRemainingButton()) {
-    <button
-      mat-raised-button
-      color="primary"
-      id="pay-remaining-btn"
-      (click)="editPayment.emit(undefined)"
-    >
-      <span id="pay-remaining-label">
-        {{ "invoice.payments-card.pay-remaining" | translate }}
-      </span>
-    </button>
+      <button
+        mat-raised-button
+        color="primary"
+        id="pay-remaining-btn"
+        [disabled]="disabled()"
+        (click)="editPayment.emit(undefined)"
+      >
+        <span id="pay-remaining-label">
+          {{ "invoice.payments-card.pay-remaining" | translate }}
+        </span>
+      </button>
     }
   </div>
 
@@ -37,62 +38,64 @@
       </div>
 
       @for (payment of payments(); track payment.id) {
-      <div class="payment">
-        <div class="date">
-          <span>{{ payment.paymentDate | date : "dd/MM/yy" }}</span>
+        <div class="payment">
+          <div class="date">
+            <span>{{ payment.paymentDate | date: "dd/MM/yy" }}</span>
 
-          @if (payment.paymentHour !== '') {
-          <span id="hour">{{ payment.paymentHour }}</span>
-          }
+            @if (payment.paymentHour !== "") {
+              <span id="hour">{{ payment.paymentHour }}</span>
+            }
+          </div>
+
+          <span class="amount">
+            {{ currency }}{{ payment.paymentAmount | customCurrency }}
+          </span>
+
+          <div class="account">
+            <img
+              [ngSrc]="
+                cloudFireCdnImgsLink + 'banks/' + payment.paymentAccountImage
+              "
+              width="25"
+              height="25"
+              alt="payment account image"
+            />
+            <span>{{ payment.paymentAccountName }}</span>
+          </div>
+
+          <div class="actions">
+            @if (payment.attachmentName) {
+              <button
+                mat-icon-button
+                (click)="downloadAttachment(payment.id)"
+                [matTooltip]="'buttons.download-attachment' | translate"
+                matTooltipShowDelay="250"
+              >
+                <span class="material-symbols-rounded">cloud_download</span>
+              </button>
+            }
+
+            <button
+              mat-icon-button
+              [disabled]="disabled()"
+              (click)="editPayment.emit(payment)"
+              [matTooltip]="'actions.edit' | translate"
+              matTooltipShowDelay="250"
+            >
+              <span class="material-symbols-rounded">edit</span>
+            </button>
+
+            <button
+              mat-icon-button
+              [disabled]="disabled()"
+              (click)="deletePayment(payment.id)"
+              [matTooltip]="'actions.exclude' | translate"
+              matTooltipShowDelay="250"
+            >
+              <span class="material-symbols-rounded">delete</span>
+            </button>
+          </div>
         </div>
-
-        <span class="amount">
-          {{ currency }}{{ payment.paymentAmount | customCurrency }}
-        </span>
-
-        <div class="account">
-          <img
-            [ngSrc]="
-              cloudFireCdnImgsLink + 'banks/' + payment.paymentAccountImage
-            "
-            width="25"
-            height="25"
-            alt="payment account image"
-          />
-          <span>{{ payment.paymentAccountName }}</span>
-        </div>
-
-        <div class="actions">
-          @if (payment.attachmentName) {
-          <button
-            mat-icon-button
-            (click)="downloadAttachment(payment.id)"
-            [matTooltip]="'buttons.download-attachment' | translate"
-            matTooltipShowDelay="250"
-          >
-            <span class="material-symbols-rounded">cloud_download</span>
-          </button>
-          }
-
-          <button
-            mat-icon-button
-            (click)="editPayment.emit(payment)"
-            [matTooltip]="'actions.edit' | translate"
-            matTooltipShowDelay="250"
-          >
-            <span class="material-symbols-rounded">edit</span>
-          </button>
-
-          <button
-            mat-icon-button
-            (click)="deletePayment(payment.id)"
-            [matTooltip]="'actions.exclude' | translate"
-            matTooltipShowDelay="250"
-          >
-            <span class="material-symbols-rounded">delete</span>
-          </button>
-        </div>
-      </div>
       }
     </div>
 
@@ -108,15 +111,15 @@
       </div>
 
       @if (totalValue() < invoiceValue()) {
-      <div class="remaining">
-        <span class="label">
-          {{ "invoice.payments-card.remaining-value" | translate }}
-        </span>
+        <div class="remaining">
+          <span class="label">
+            {{ "invoice.payments-card.remaining-value" | translate }}
+          </span>
 
-        <span class="value">
-          {{ currency }}{{ invoiceValue() - totalValue() | customCurrency }}
-        </span>
-      </div>
+          <span class="value">
+            {{ currency }}{{ invoiceValue() - totalValue() | customCurrency }}
+          </span>
+        </div>
       }
     </div>
   </div>

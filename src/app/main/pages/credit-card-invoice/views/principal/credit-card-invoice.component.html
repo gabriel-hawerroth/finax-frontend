@@ -51,6 +51,7 @@
                 <app-buttons
                   [showGeneric]="true"
                   genericLabel="invoice.view-payments"
+                  [disableGeneric]="searching()"
                   (onGeneric)="seePayments()"
                 ></app-buttons>
 
@@ -58,6 +59,7 @@
                   <app-buttons
                     [showGeneric]="true"
                     genericLabel="invoice.payments-card.pay-remaining"
+                    [disableGeneric]="searching()"
                     (onGeneric)="payInvoice()"
                   ></app-buttons>
                 }
@@ -67,6 +69,7 @@
                   [payments]="monthValues().payments"
                   [invoiceValue]="invoiceValues().value"
                   [fullyPaid]="fullyPaid()"
+                  [disabled]="searching()"
                   (editPayment)="payInvoice($event)"
                   (updateValues)="getMonthValues()"
                 ></app-invoice-payments-card>
@@ -76,6 +79,7 @@
                 id="pay-btn"
                 [showGeneric]="true"
                 genericLabel="invoice.pay"
+                [disableGeneric]="searching()"
                 (onGeneric)="payInvoice()"
               ></app-buttons>
             }
@@ -107,15 +111,14 @@
         </div>
       </header>
 
-      @if (errorFetchingReleases()) {
-        <div class="empty">
-          <label style="font-size: 1.2rem">
-            {{ "cash-flow.error-getting-releases" | translate }}
-          </label>
-        </div>
-      } @else {
-        <!---->
-        @if (monthValues().releases.length) {
+      <app-loading-content [loading]="searching()">
+        @if (errorFetchingReleases()) {
+          <div class="empty">
+            <label style="font-size: 1.2rem">
+              {{ "cash-flow.error-getting-releases" | translate }}
+            </label>
+          </div>
+        } @else if (monthValues().releases.length) {
           <app-releases-list
             id="releases-list"
             [releases]="monthValues().releases"
@@ -126,14 +129,14 @@
             (updateList)="getMonthValues()"
             (updateItem)="getMonthValues()"
           ></app-releases-list>
-        } @else {
+        } @else if (!monthValues().releases.length) {
           <div class="empty">
             <label style="font-size: 1.2rem">
               {{ "cash-flow.empty-releases" | translate }}
             </label>
           </div>
         }
-      }
+      </app-loading-content>
     </mat-card>
 
     <app-invoice-balances

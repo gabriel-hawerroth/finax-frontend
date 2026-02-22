@@ -37,22 +37,23 @@ export class InvoicePaymentsCardComponent implements OnInit {
   payments = input.required<InvoicePaymentPerson[]>();
   invoiceValue = input.required<number>();
   fullyPaid = input.required<boolean>();
+  disabled = input(false);
 
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
 
   totalValue = computed(() =>
-    this.payments().reduce((count, item) => (count += item.paymentAmount), 0)
+    this.payments().reduce((count, item) => (count += item.paymentAmount), 0),
   );
 
   showPayRemainingButton = computed(
-    () => !this.fullyPaid() && !this._responsiveService.smallWidth()
+    () => !this.fullyPaid() && !this._responsiveService.smallWidth(),
   );
 
   constructor(
     private readonly _utils: UtilsService,
     private readonly _invoiceService: InvoiceService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
   ) {}
 
   ngOnInit(): void {}
@@ -67,7 +68,7 @@ export class InvoicePaymentsCardComponent implements OnInit {
           .deletePayment(invoicePaymentId)
           .then(() => {
             this._utils.showMessage(
-              'invoice.payments-card.deleted-successfully'
+              'invoice.payments-card.deleted-successfully',
             );
 
             this.updateValues.emit();

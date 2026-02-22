@@ -45,6 +45,7 @@ import {
 import { ButtonType } from '../../../../../core/enums/button-style';
 import { releaseCreatedEvent } from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import { LoadingContentComponent } from '../../../../../shared/components/loading-content/loading-content.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
 import { cloudFireCdnImgsLink } from '../../../../../shared/utils/utils';
@@ -73,6 +74,7 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
     InvoicePaymentsCardComponent,
     ButtonsComponent,
     InvoiceBalancesComponent,
+    LoadingContentComponent,
   ],
   templateUrl: './credit-card-invoice.component.html',
   styleUrl: './credit-card-invoice.component.scss',
