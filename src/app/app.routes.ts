@@ -11,106 +11,104 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./main/public/views/principal/public.component').then(
-        (m) => m.PublicPage
+        (m) => m.PublicPage,
       ),
     canActivate: [notPwaGuard],
   },
   {
     path: 'fora-do-ar',
     loadComponent: () =>
-      import(
-        './shared/components/system-error-warning/system-error-warning.component'
-      ).then((m) => m.SystemErrorWarningPage),
+      import('./shared/components/system-error-warning/system-error-warning.component').then(
+        (m) => m.SystemErrorWarningPage,
+      ),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'link-expirado',
     loadComponent: () =>
       import('./shared/components/expired-link/expired-link.component').then(
-        (m) => m.ExpiredLinkComponent
+        (m) => m.ExpiredLinkComponent,
       ),
   },
   {
     path: 'erro-ativacao',
     loadComponent: () =>
-      import(
-        './shared/components/activation-error/activation-error.component'
-      ).then((m) => m.ActivationErrorComponent),
+      import('./shared/components/activation-error/activation-error.component').then(
+        (m) => m.ActivationErrorComponent,
+      ),
   },
   {
     path: 'login',
     loadComponent: () =>
       import('./main/public/views/login/login.component').then(
-        (m) => m.LoginPage
+        (m) => m.LoginPage,
       ),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'nova-conta',
     loadComponent: () =>
-      import(
-        './main/public/views/create-account/create-account.component'
-      ).then((m) => m.CreateAccountPage),
+      import('./main/public/views/create-account/create-account.component').then(
+        (m) => m.CreateAccountPage,
+      ),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'ativacao-da-conta',
     loadComponent: () =>
-      import(
-        './main/public/views/user-activation/user-activation.component'
-      ).then((m) => m.UserActivationPage),
+      import('./main/public/views/user-activation/user-activation.component').then(
+        (m) => m.UserActivationPage,
+      ),
   },
   {
     path: 'esqueci-minha-senha',
     loadComponent: () =>
-      import(
-        './main/public/views/forgot-password/forgot-password.component'
-      ).then((m) => m.ForgotPasswordPage),
+      import('./main/public/views/forgot-password/forgot-password.component').then(
+        (m) => m.ForgotPasswordPage,
+      ),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'recuperacao-da-senha/:userId',
     loadComponent: () =>
-      import(
-        './main/public/views/change-password/change-password.component'
-      ).then((m) => m.ChangePasswordPage),
+      import('./main/public/views/change-password/change-password.component').then(
+        (m) => m.ChangePasswordPage,
+      ),
     canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'conta-cancelada',
     loadComponent: () =>
-      import(
-        './main/public/views/account-canceled/account-canceled.component'
-      ).then((m) => m.AccountCanceledPage),
+      import('./main/public/views/account-canceled/account-canceled.component').then(
+        (m) => m.AccountCanceledPage,
+      ),
   },
   {
     path: 'erro-cancelamento',
     loadComponent: () =>
-      import(
-        './main/public/views/cancelation-error/cancelation-error.component'
-      ).then((m) => m.CancelationErrorPage),
+      import('./main/public/views/cancelation-error/cancelation-error.component').then(
+        (m) => m.CancelationErrorPage,
+      ),
   },
   {
     path: 'politica-de-privacidade',
     loadComponent: () =>
-      import(
-        './main/public/views/privacy-policy/privacy-policy.component'
-      ).then((m) => m.PrivacyPolicyPage),
-    canActivate: [UnauthenticatedUserGuard],
+      import('./main/public/views/privacy-policy/privacy-policy.component').then(
+        (m) => m.PrivacyPolicyPage,
+      ),
   },
   {
     path: 'termos-de-uso',
     loadComponent: () =>
       import('./main/public/views/use-terms/use-terms.component').then(
-        (m) => m.UseTermsPage
+        (m) => m.UseTermsPage,
       ),
-    canActivate: [UnauthenticatedUserGuard],
   },
   {
     path: 'home',
     loadComponent: () =>
       import('./main/pages/home/views/principal/home.component').then(
-        (m) => m.HomePage
+        (m) => m.HomePage,
       ),
     canActivate: [FreeTierGuard],
   },
@@ -118,7 +116,7 @@ export const routes: Routes = [
     path: 'fluxo-de-caixa',
     loadComponent: () =>
       import('./main/pages/cash-flow/views/principal/cash-flow.component').then(
-        (m) => m.CashFlowPage
+        (m) => m.CashFlowPage,
       ),
     canActivate: [FreeTierGuard],
   },
@@ -126,48 +124,48 @@ export const routes: Routes = [
     path: 'contas',
     loadComponent: () =>
       import('./main/pages/accounts/views/principal/accounts.component').then(
-        (m) => m.MyBankAccountsPage
+        (m) => m.MyBankAccountsPage,
       ),
     canActivate: [FreeTierGuard],
   },
   {
     path: 'contas/:id',
     loadComponent: () =>
-      import(
-        './main/pages/accounts/views/register/accounts-register.component'
-      ).then((m) => m.AccountsFormPage),
+      import('./main/pages/accounts/views/register/accounts-register.component').then(
+        (m) => m.AccountsFormPage,
+      ),
     canActivate: [FreeTierGuard],
   },
   {
     path: 'cartoes-de-credito',
     loadComponent: () =>
-      import(
-        './main/pages/credit-card/views/principal/credit-cards.component'
-      ).then((m) => m.CreditCardsPage),
+      import('./main/pages/credit-card/views/principal/credit-cards.component').then(
+        (m) => m.CreditCardsPage,
+      ),
     canActivate: [BasicTierGuard],
   },
   {
     path: 'cartoes-de-credito/:id',
     loadComponent: () =>
-      import(
-        './main/pages/credit-card/views/form/credit-cards-form.component'
-      ).then((m) => m.CreditCardsFormPage),
+      import('./main/pages/credit-card/views/form/credit-cards-form.component').then(
+        (m) => m.CreditCardsFormPage,
+      ),
     canActivate: [BasicTierGuard],
   },
   {
     path: 'cartoes-de-credito/fatura/:id',
     loadComponent: () =>
-      import(
-        './main/pages/credit-card-invoice/views/principal/credit-card-invoice.component'
-      ).then((m) => m.CreditCardInvoicePage),
+      import('./main/pages/credit-card-invoice/views/principal/credit-card-invoice.component').then(
+        (m) => m.CreditCardInvoicePage,
+      ),
     canActivate: [BasicTierGuard],
   },
   {
     path: 'categorias',
     loadComponent: () =>
-      import(
-        './main/pages/categories/views/principal/categories.component'
-      ).then((m) => m.CategoriesPage),
+      import('./main/pages/categories/views/principal/categories.component').then(
+        (m) => m.CategoriesPage,
+      ),
     canActivate: [FreeTierGuard],
   },
   {
@@ -177,33 +175,33 @@ export const routes: Routes = [
       {
         path: 'mobile',
         loadComponent: () =>
-          import(
-            './main/pages/reports/views/mobile-reports/mobile-reports.component'
-          ).then((m) => m.MobileReportsPage),
+          import('./main/pages/reports/views/mobile-reports/mobile-reports.component').then(
+            (m) => m.MobileReportsPage,
+          ),
         canActivate: [mobileGuard],
       },
       {
         path: 'por-categoria',
         loadComponent: () =>
-          import(
-            './main/pages/reports/views/releases-by-category/releases-by-category.component'
-          ).then((m) => m.ReleasesByCategoryPage),
+          import('./main/pages/reports/views/releases-by-category/releases-by-category.component').then(
+            (m) => m.ReleasesByCategoryPage,
+          ),
         canActivate: [webGuard],
       },
       {
         path: 'por-conta',
         loadComponent: () =>
-          import(
-            './main/pages/reports/views/releases-by-account/releases-by-account.component'
-          ).then((m) => m.ReleasesByAccountPage),
+          import('./main/pages/reports/views/releases-by-account/releases-by-account.component').then(
+            (m) => m.ReleasesByAccountPage,
+          ),
         canActivate: [webGuard],
       },
       {
         path: 'evolucao-saldo',
         loadComponent: () =>
-          import(
-            './main/pages/reports/views/balance-evolution/balance-evolution.component'
-          ).then((m) => m.BalanceEvolutionPage),
+          import('./main/pages/reports/views/balance-evolution/balance-evolution.component').then(
+            (m) => m.BalanceEvolutionPage,
+          ),
         canActivate: [webGuard],
       },
     ],
@@ -211,17 +209,17 @@ export const routes: Routes = [
   {
     path: 'meu-perfil',
     loadComponent: () =>
-      import(
-        './main/pages/my-profile/views/principal/my-profile.component'
-      ).then((m) => m.MyProfilePage),
+      import('./main/pages/my-profile/views/principal/my-profile.component').then(
+        (m) => m.MyProfilePage,
+      ),
     canActivate: [FreeTierGuard],
   },
   {
     path: 'configuracoes',
     loadComponent: () =>
-      import(
-        './main/pages/user-settings/views/principal/user-settings.component'
-      ).then((m) => m.UserSettingsPage),
+      import('./main/pages/user-settings/views/principal/user-settings.component').then(
+        (m) => m.UserSettingsPage,
+      ),
     canActivate: [FreeTierGuard],
   },
   {
