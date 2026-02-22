@@ -40,7 +40,12 @@ import { UtilsService } from './shared/utils/utils.service';
   },
 })
 export class AppComponent implements OnDestroy {
-  sidebarOpened = signal(this._loginService.logged && this._router.url !== '/');
+  sidebarOpened = signal(
+    this._loginService.logged &&
+      !['/', '/politica-de-privacidade', '/termos-de-uso'].includes(
+        this._router.url,
+      ),
+  );
   mobileToolbarOpened = signal(false);
 
   sidebarMode = computed(() => {
