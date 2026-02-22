@@ -2,9 +2,10 @@ import { NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  OnDestroy,
   OnInit,
   Signal,
-  computed,
   signal,
 } from '@angular/core';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -22,7 +23,7 @@ import {
   setDate,
   toDate,
 } from 'date-fns';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Subject, takeUntil } from 'rxjs';
 import { BasicAccount } from '../../../../../core/entities/account/account-dto';
 import { Category } from '../../../../../core/entities/category/category';
 import { CreditCard } from '../../../../../core/entities/credit-card/credit-card';
@@ -42,6 +43,7 @@ import {
   ReleaseFormDialogData,
 } from '../../../../../core/entities/release/release-dto';
 import { ButtonType } from '../../../../../core/enums/button-style';
+import { releaseCreatedEvent } from '../../../../../core/events/events';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
@@ -76,11 +78,13 @@ import { InvoicePaymentDialog } from '../payment-dialog/invoice-payment-dialog.c
   styleUrl: './credit-card-invoice.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreditCardInvoicePage implements OnInit {
+export class CreditCardInvoicePage implements OnInit, OnDestroy {
   readonly cloudFireCdnImgsLink = cloudFireCdnImgsLink;
   readonly currency = this._utils.getUserConfigs.currency;
   readonly smallWidth = this._responsiveService.smallWidth;
   readonly iconBtnStyle = ButtonType.ICON;
+
+  private readonly _unsubscribeAll = new Subject<void>();
 
   balances = computed(() => this.calculateValues());
 
@@ -123,6 +127,20 @@ export class CreditCardInvoicePage implements OnInit {
       this.creditCard.set(response);
       this.getMonthValues();
     });
+
+    this.subscribeEvents();
+  }
+
+  ngOnDestroy(): void {
+    this._unsubscribeAll.complete();
+    this._unsubscribeAll.unsubscribe();
+  }
+
+  subscribeEvents() {
+    releaseCreatedEvent
+      .asObservable()
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe(() => this.getMonthValues());
   }
 
   getComputedInvoiceValues(): Signal<CreditCardInvoiceValues> {

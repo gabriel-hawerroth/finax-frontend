@@ -36,7 +36,7 @@ export class SpeedDialComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly _speedDialService: SpeedDialService,
-    private readonly _utils: UtilsService
+    private readonly _utils: UtilsService,
   ) {}
 
   ngOnInit(): void {
@@ -114,10 +114,5 @@ export class SpeedDialComponent implements OnInit, OnDestroy {
         if (!response) return;
         releaseCreatedEvent.next();
       });
-  }
-
-  capitalizeFirstLetter(str: string): string {
-    if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 }
