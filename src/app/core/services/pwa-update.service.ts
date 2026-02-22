@@ -20,6 +20,7 @@ export class PwaUpdateService {
     if (!this._isBrowser || !this._swUpdate.isEnabled) return;
 
     this.listenForUpdates();
+    this.listenForUnrecoverableState();
     this.scheduleUpdateChecks();
   }
 
@@ -31,6 +32,10 @@ export class PwaUpdateService {
         ),
       )
       .subscribe(() => this.promptUserToUpdate());
+  }
+
+  private listenForUnrecoverableState(): void {
+    this._swUpdate.unrecoverable.subscribe(() => this.clearCachesAndReload());
   }
 
   private scheduleUpdateChecks(): void {
@@ -49,8 +54,12 @@ export class PwaUpdateService {
       duration: 0,
     });
 
-    snackBarRef.onAction().subscribe(() => {
-      this._swUpdate.activateUpdate().then(() => document.location.reload());
-    });
+    snackBarRef.onAction().subscribe(() => this.clearCachesAndReload());
+  }
+
+  private async clearCachesAndReload(): Promise<void> {
+    const cacheNames = await caches.keys();
+    await Promise.all(cacheNames.map((name) => caches.delete(name)));
+    document.location.reload();
   }
 }
