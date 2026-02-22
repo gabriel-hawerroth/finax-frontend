@@ -27,6 +27,8 @@
     "invalid-form": "Ungültiges Formular",
     "without-permission": "Sie haben keine Berechtigung für den Zugriff auf diesen Bildschirm",
     "update-in-progress": "Update läuft, bitte versuchen Sie es später noch einmal",
+    "new-version-available": "Eine neue Version der App ist verfügbar!",
+    "update": "Aktualisieren",
     "attachment-not-found": "Anhang nicht gefunden",
     "invalid-mail": "Die angegebene E-Mail-Adresse existiert nicht oder ist ungültig. Bitte überprüfen Sie es und versuchen Sie es erneut",
     "internal-server-error": "Interner Serverfehler",

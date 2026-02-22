@@ -27,6 +27,8 @@
     "invalid-form": "Invalid form",
     "without-permission": "You don't have permission to access this screen",
     "update-in-progress": "Update in progress, please try again later",
+    "new-version-available": "A new version of the app is available!",
+    "update": "Update",
     "attachment-not-found": "Attachment not found",
     "invalid-mail": "The email address provided does not exist or is invalid. Please check and try again",
     "internal-server-error": "Internal server error",

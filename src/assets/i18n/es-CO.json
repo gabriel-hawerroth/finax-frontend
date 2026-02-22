@@ -27,6 +27,8 @@
     "invalid-form": "Formulario no válido",
     "without-permission": "No tiene permiso para acceder a esta pantalla",
     "update-in-progress": "Actualización en curso, inténtelo de nuevo más tarde",
+    "new-version-available": "¡Una nueva versión de la app está disponible!",
+    "update": "Actualizar",
     "attachment-not-found": "Adjunto no encontrado",
     "invalid-mail": "La dirección de correo electrónico proporcionada no existe o no es válida. Compruébalo e inténtalo de nuevo",
     "internal-server-error": "Error interno del servidor",

@@ -1,4 +1,3 @@
-
 import { Component, computed, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -16,6 +15,7 @@ import {
 import { LoginService } from './core/entities/auth/login.service';
 import { ButtonType } from './core/enums/button-style';
 import { ButtonConfig } from './core/interfaces/button-config';
+import { PwaUpdateService } from './core/services/pwa-update.service';
 import { SidebarComponent } from './main/sidebar/sidebar.component';
 import { DynamicButtonComponent } from './shared/components/dynamic-buttons/dynamic-button/dynamic-button.component';
 import { SpeedDialComponent } from './shared/components/speed-dial/speed-dial.component';
@@ -31,8 +31,8 @@ import { UtilsService } from './shared/utils/utils.service';
     MatSidenavModule,
     MatToolbarModule,
     DynamicButtonComponent,
-    SpeedDialComponent
-],
+    SpeedDialComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   host: {
@@ -90,8 +90,10 @@ export class AppComponent implements OnDestroy {
     private readonly _loginService: LoginService,
     private readonly _utils: UtilsService,
     private readonly _router: Router,
-    private readonly _themingService: ThemingService
+    private readonly _themingService: ThemingService,
+    private readonly _pwaUpdateService: PwaUpdateService,
   ) {
+    this._pwaUpdateService.init();
     this.subscribeShowMenuChanges();
     this.subscribeWindowResize();
   }
@@ -104,7 +106,7 @@ export class AppComponent implements OnDestroy {
     const location$ = this._router.events.pipe(
       filter((event) => event instanceof NavigationEnd),
       map(() => this._router.url),
-      distinctUntilChanged()
+      distinctUntilChanged(),
     );
 
     const isLogged$ = this._loginService.isLogged$.pipe(distinctUntilChanged());
@@ -113,9 +115,9 @@ export class AppComponent implements OnDestroy {
       .pipe(
         map(
           ([path, isLogged]) =>
-            isLogged && path !== '/' && path !== '/link-expirado'
+            isLogged && path !== '/' && path !== '/link-expirado',
         ),
-        takeUntilDestroyed()
+        takeUntilDestroyed(),
       )
       .subscribe((showMenu) => {
         this.showMenu = showMenu;
