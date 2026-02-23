@@ -40,11 +40,16 @@ import { UtilsService } from './shared/utils/utils.service';
   },
 })
 export class AppComponent implements OnDestroy {
+  private readonly excludedRoutes = [
+    '/',
+    'link-expirado',
+    '/politica-de-privacidade',
+    '/termos-de-uso',
+  ];
+
   sidebarOpened = signal(
     this._loginService.logged &&
-      !['/', '/politica-de-privacidade', '/termos-de-uso'].includes(
-        this._router.url,
-      ),
+      !this.excludedRoutes.includes(this._router.url),
   );
   mobileToolbarOpened = signal(false);
 
@@ -120,7 +125,7 @@ export class AppComponent implements OnDestroy {
       .pipe(
         map(
           ([path, isLogged]) =>
-            isLogged && path !== '/' && path !== '/link-expirado',
+            isLogged && !this.excludedRoutes.includes(this._router.url),
         ),
         takeUntilDestroyed(),
       )
