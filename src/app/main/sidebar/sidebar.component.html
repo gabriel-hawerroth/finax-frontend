@@ -1,11 +1,11 @@
-<div id="sidebar">
+<div id="sidebar" [class.minimized]="minimized()">
   @if (!isMobile()) {
-  <app-logo-title></app-logo-title>
+    <app-logo-title [minimized]="minimized()" />
   }
 
   <div class="navigation">
     <div class="nav-ul">
-      <app-sidebar-itens [items]="routes" />
+      <app-sidebar-itens [items]="routes" [minimized]="minimized()" />
     </div>
   </div>
 
@@ -14,12 +14,10 @@
       <app-sidebar-itens
         [class.hidden]="!userActionsUl"
         [items]="bottomRoutes"
+        [minimized]="minimized()"
       />
 
-      <div
-        class="nav-ul-item user-item"
-        (click)="userActionsUl = !userActionsUl"
-      >
+      <div class="user-item" (click)="userActionsUl = !userActionsUl">
         <img
           [ngSrc]="
             (utils.userImage | async) ||
@@ -33,7 +31,7 @@
 
         <span>{{ utils.username | async }}</span>
 
-        <div style="margin-left: auto">
+        <div class="user-expand">
           <i class="material-symbols-rounded">
             {{ userActionsUl ? "expand_more" : "expand_less" }}
           </i>

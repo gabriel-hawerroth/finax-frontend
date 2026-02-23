@@ -1,4 +1,4 @@
-import { Component, computed, OnDestroy, signal } from '@angular/core';
+import { Component, computed, inject, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -40,6 +40,8 @@ import { UtilsService } from './shared/utils/utils.service';
   },
 })
 export class AppComponent implements OnDestroy {
+  private readonly _utils = inject(UtilsService);
+
   private readonly excludedRoutes = [
     '/',
     'link-expirado',
@@ -53,10 +55,22 @@ export class AppComponent implements OnDestroy {
   );
   mobileToolbarOpened = signal(false);
 
+  sidebarMinimized = signal(
+    this._utils.isBrowser &&
+      this._utils.getItemLocalStorage('sidebarMinimizedFinax') === 'true',
+  );
+
   sidebarMode = computed(() => {
     if (this.mobileToolbarOpened()) return 'over';
     return 'side';
   });
+
+  sidebarWidth = computed(() => {
+    if (this.mobileToolbarOpened()) return '100vw';
+    return this.sidebarMinimized() ? '5rem' : '18rem';
+  });
+
+  sidebarHovered = signal(false);
 
   showMenu: boolean = false;
 
@@ -98,7 +112,6 @@ export class AppComponent implements OnDestroy {
   constructor(
     private readonly _responsiveService: ResponsiveService,
     private readonly _loginService: LoginService,
-    private readonly _utils: UtilsService,
     private readonly _router: Router,
     private readonly _themingService: ThemingService,
     private readonly _pwaUpdateService: PwaUpdateService,
@@ -158,5 +171,15 @@ export class AppComponent implements OnDestroy {
 
   toogleSidebar() {
     this.sidebarOpened.set(!this.sidebarOpened());
+  }
+
+  toggleSidebarMinimized() {
+    this.sidebarMinimized.update((v) => !v);
+    if (this._utils.isBrowser) {
+      this._utils.setItemLocalStorage(
+        'sidebarMinimizedFinax',
+        String(this.sidebarMinimized()),
+      );
+    }
   }
 }

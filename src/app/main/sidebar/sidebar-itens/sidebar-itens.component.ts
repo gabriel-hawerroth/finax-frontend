@@ -14,9 +14,13 @@ import { NavItem } from '../../../core/interfaces/nav-item';
   templateUrl: './sidebar-itens.component.html',
   styleUrl: './sidebar-itens.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.minimized]': 'minimized()',
+  },
 })
 export class SidebarItensComponent {
   items = input.required<NavItem[]>();
+  minimized = input(false);
 
   selectedRoutes = signal<string[]>([]);
 
@@ -27,7 +31,7 @@ export class SidebarItensComponent {
 
     if (this.selectedRoutes().includes(item.icon))
       this.selectedRoutes.update((routes) =>
-        routes.filter((route) => route !== item.icon)
+        routes.filter((route) => route !== item.icon),
       );
     else this.selectedRoutes.update((routes) => [...routes, item.icon]);
   }
