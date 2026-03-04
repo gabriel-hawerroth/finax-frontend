@@ -2,6 +2,58 @@
 
 Personal finance management app built with **Angular 21 (zoneless, SSR, standalone components)**.
 
+## Product & Business Vision
+
+Finax is a **personal finance SaaS** focused on helping users make better day-to-day decisions through a clear cash-flow view and guided insights.
+
+### Core Value Proposition
+
+- Simplify personal finance management with a modern, intuitive experience.
+- Centralize key domains: cash flow, accounts, categories, credit cards, invoices, and reports.
+- Turn financial data into practical decisions (dashboard, trends, category analysis, balance evolution).
+- Support both web and mobile usage patterns.
+
+### Target Users
+
+- People managing personal or family budgets who need visibility of revenues, expenses, and upcoming obligations.
+- Users transitioning from spreadsheets/manual control to a structured financial workflow.
+- Users expecting progressive maturity: start simple, unlock more advanced features over time.
+
+### Business Model & Plans
+
+- Product is offered as **subscription SaaS** (see terms of use).
+- User access levels are tiered (`FREE`, `BASIC`, `PREMIUM`) and enforced by route guards.
+- During pre-launch/early-access phases, premium incentives may exist (e.g., lifetime premium campaigns).
+- Feature work must preserve clear plan boundaries and avoid accidental cross-tier access.
+
+### Primary Product Journeys
+
+1. **Activation & onboarding**: account creation, email activation, login, password recovery.
+2. **Daily finance operation**: create/manage releases (revenues, expenses, transfers), attachments, recurring entries.
+3. **Structure setup**: accounts/subaccounts, credit cards, categories.
+4. **Monitoring**: home dashboard, monthly balance, payable/receivable, current invoice status.
+5. **Analysis**: reports by category, by account, and balance evolution.
+6. **Account lifecycle**: profile/settings, plan/billing actions, cancellation flow with confirmation email.
+
+### Product KPIs (Business Context)
+
+- Activation and first successful login.
+- Recurring engagement in cash-flow and release operations.
+- Retention driven by report usage and perceived insight quality.
+- Conversion/upgrade between tiers and plan continuity.
+- Reliability and trust indicators (availability, safe data handling, predictable behavior).
+
+### AI Implementation Priorities (Business-Aware)
+
+When generating or changing code, prioritize:
+
+1. **User trust first**: no silent data loss, no ambiguous destructive actions, clear confirmations.
+2. **Financial clarity**: keep language and UI states explicit for balances, due dates, paid/unpaid, and projections.
+3. **Tier safety**: respect access rules in routes/UI/services; never expose premium functionality by mistake.
+4. **Operational continuity**: optimize for fast, stable core workflows (cash flow, accounts, cards, reports).
+5. **Localization quality**: all user-facing text must remain i18n-ready and consistent across supported languages.
+6. **Supportability**: errors must be actionable for users and diagnosable for support.
+
 ## Architecture
 
 ```
@@ -101,17 +153,59 @@ ngOnInit(): void {
 - [shared/utils/utils.service.ts](../src/app/shared/utils/utils.service.ts) — user state, snackbar, confirm dialog, localStorage
 - [shared/services/responsive.service.ts](../src/app/shared/services/responsive.service.ts) — signal-based breakpoint detection
 
-# Angular instructions
+---
 
-- This projects use Angular 21, make sure to use the latest features and best practices
-- Use the inject method instead of a constructor
-- Make use of signals where possible
-- Always use control flow
-- Use signal inputs and outputs
-- Don't add standalone properties to decorators, this is enabled by default
-- Import rxjs operators from 'rxjs' instead of 'rxjs/operators'
-- Always use reactive forms
+You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
-# Angular 21 documentation
+## TypeScript Best Practices
 
-- https://v21.material.angular.dev/components/categories
+- Use strict type checking
+- Prefer type inference when the type is obvious
+- Avoid the `any` type; use `unknown` when type is uncertain
+
+## Angular Best Practices
+
+- Always use standalone components over NgModules
+- Must NOT set `standalone: true` inside Angular decorators. It's the default in Angular v20+.
+- Use signals for state management
+- Implement lazy loading for feature routes
+- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
+- Use `NgOptimizedImage` for all static images.
+  - `NgOptimizedImage` does not work for inline base64 images.
+
+## Accessibility Requirements
+
+- It MUST pass all AXE checks.
+- It MUST follow all WCAG AA minimums, including focus management, color contrast, and ARIA attributes.
+
+### Components
+
+- Keep components small and focused on a single responsibility
+- Use `input()` and `output()` functions instead of decorators
+- Use `computed()` for derived state
+- Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
+- Prefer inline templates for small components
+- Prefer Reactive forms instead of Template-driven ones
+- Do NOT use `ngClass`, use `class` bindings instead
+- Do NOT use `ngStyle`, use `style` bindings instead
+- When using external templates/styles, use paths relative to the component TS file.
+
+## State Management
+
+- Use signals for local component state
+- Use `computed()` for derived state
+- Keep state transformations pure and predictable
+- Do NOT use `mutate` on signals, use `update` or `set` instead
+
+## Templates
+
+- Keep templates simple and avoid complex logic
+- Use native control flow (`@if`, `@for`, `@switch`) instead of `*ngIf`, `*ngFor`, `*ngSwitch`
+- Use the async pipe to handle observables
+- Do not assume globals like (`new Date()`) are available.
+
+## Services
+
+- Design services around a single responsibility
+- Use the `providedIn: 'root'` option for singleton services
+- Use the `inject()` function instead of constructor injection
