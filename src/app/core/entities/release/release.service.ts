@@ -26,39 +26,41 @@ export class ReleaseService {
     return lastValueFrom(
       this._http.get<MonthlyRelease[]>(`${this.apiUrl}/get-monthly-releases`, {
         params,
-      })
+      }),
     );
   }
 
   getValues(): Promise<CashFlowValues> {
     return lastValueFrom(
-      this._http.get<CashFlowValues>(`${this.apiUrl}/get-values`)
+      this._http.get<CashFlowValues>(`${this.apiUrl}/get-values`),
     );
   }
 
   addRelease(
     data: Release,
     repeatFor: number,
-    releasedOn: ReleasedOn
+    releasedOn: ReleasedOn,
   ): Promise<Release> {
     let params = new HttpParams();
     params = params.append('repeatFor', repeatFor);
 
     return lastValueFrom(
-      this._http.post<Release>(this.apiUrl, data, { params })
+      this._http.post<Release>(this.apiUrl, data, { params }),
     );
   }
 
   editRelease(
     data: Release,
     duplicatedReleaseAction: DuplicatedReleaseAction,
-    releasedOn: ReleasedOn
+    releasedOn: ReleasedOn,
   ): Promise<Release> {
+    const { id, ...body } = data;
+
     let params = new HttpParams();
     params = params.append('duplicatedReleaseAction', duplicatedReleaseAction);
 
     return lastValueFrom(
-      this._http.put<Release>(this.apiUrl, data, { params })
+      this._http.put<Release>(`${this.apiUrl}/${id}`, body, { params }),
     );
   }
 
@@ -66,11 +68,11 @@ export class ReleaseService {
     let params = new HttpParams();
     params = params.append(
       'duplicatedReleasesAction',
-      duplicatedReleasesAction
+      duplicatedReleasesAction,
     );
 
     return lastValueFrom(
-      this._http.delete<void>(`${this.apiUrl}/${id}`, { params })
+      this._http.delete<void>(`${this.apiUrl}/${id}`, { params }),
     );
   }
 
@@ -81,8 +83,8 @@ export class ReleaseService {
     return lastValueFrom(
       this._http.patch<Release>(
         `${this.apiUrl}/add-attachment/${releaseId}`,
-        formData
-      )
+        formData,
+      ),
     );
   }
 
@@ -90,8 +92,8 @@ export class ReleaseService {
     return lastValueFrom(
       this._http.patch<Release>(
         `${this.apiUrl}/remove-attachment/${releaseId}`,
-        null
-      )
+        null,
+      ),
     );
   }
 
@@ -99,7 +101,7 @@ export class ReleaseService {
     return lastValueFrom(
       this._http.get<Blob>(`${this.apiUrl}/get-attachment/${releaseId}`, {
         responseType: 'blob' as 'json',
-      })
+      }),
     );
   }
 
@@ -107,7 +109,7 @@ export class ReleaseService {
     return lastValueFrom(
       this._http.get(`${cloudFireCdnLink}/${fileName}`, {
         responseType: 'blob',
-      })
+      }),
     );
   }
 
@@ -118,7 +120,7 @@ export class ReleaseService {
     return lastValueFrom(
       this._http.patch<void>(`${this.apiUrl}/update-done/${id}`, null, {
         params,
-      })
+      }),
     );
   }
 }

@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -69,8 +68,8 @@ export class ButtonsComponent {
   constructor() {
     inject(UtilsService)
       .getUserConfigsObservable()
-      .subscribe((configs) => {
-        this.darkThemeEnabled.set(configs.theme === 'dark');
-      });
+      .subscribe((configs) =>
+        this.darkThemeEnabled.set(configs.theme === 'dark'),
+      );
   }
 }

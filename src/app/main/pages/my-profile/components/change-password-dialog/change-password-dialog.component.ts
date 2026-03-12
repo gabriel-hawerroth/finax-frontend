@@ -1,4 +1,3 @@
-
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
@@ -26,6 +25,10 @@ import { Credentials } from '../../../../../core/entities/auth/credentials';
 import { UserService } from '../../../../../core/entities/user/user.service';
 import { DialogControls } from '../../../../../core/interfaces/dialogs-controls';
 import { ButtonsComponent } from '../../../../../shared/components/buttons/buttons.component';
+import {
+  LS_SAVED_LOGIN,
+  LS_USER_FINAX,
+} from '../../../../../shared/utils/local-storage-contants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 
 @Component({
@@ -39,8 +42,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatProgressSpinnerModule,
     MatTooltipModule,
     TranslateModule,
-    ButtonsComponent
-],
+    ButtonsComponent,
+  ],
   templateUrl: './change-password-dialog.component.html',
   styleUrl: './change-password-dialog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,18 +60,18 @@ export class ChangePasswordDialog implements OnInit {
   constructor(
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
-    private readonly _userService: UserService
+    private readonly _userService: UserService,
   ) {
     const injector = inject(Injector);
 
     const ref =
       injector.get<MatDialogRef<ChangePasswordDialog> | null>(
         MatDialogRef,
-        null
+        null,
       ) ||
       injector.get<MatBottomSheetRef<ChangePasswordDialog> | null>(
         MatBottomSheetRef,
-        null
+        null,
       );
 
     this.control = {
@@ -111,7 +114,7 @@ export class ChangePasswordDialog implements OnInit {
 
     if (passwords.currentPassword === passwords.newPassword) {
       this._utils.showMessage(
-        'change-password-dialog.cannot-be-the-same-as-current'
+        'change-password-dialog.cannot-be-the-same-as-current',
       );
       return;
     }
@@ -124,11 +127,11 @@ export class ChangePasswordDialog implements OnInit {
         this._utils.showMessage('change-password.changed-successfully');
         this.control.close();
 
-        const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
+        const savedLogin = this._utils.getItemLocalStorage(LS_SAVED_LOGIN);
 
         this._utils.setItemLocalStorage(
-          'userFinax',
-          btoa(JSON.stringify(user))
+          LS_USER_FINAX,
+          btoa(JSON.stringify(user)),
         );
 
         if (savedLogin) {
@@ -138,19 +141,19 @@ export class ChangePasswordDialog implements OnInit {
             rememberMe: true,
           };
           this._utils.setItemLocalStorage(
-            'savedLoginFinax',
-            btoa(JSON.stringify(credentials))
+            LS_SAVED_LOGIN,
+            btoa(JSON.stringify(credentials)),
           );
         }
       })
       .catch((err: HttpErrorResponse) => {
         if (err.status === 406) {
           this._utils.showMessage(
-            'change-password-dialog.incorrect-current-password'
+            'change-password-dialog.incorrect-current-password',
           );
         } else {
           this._utils.showMessage(
-            'change-password-dialog.unexpected-error-updating-password'
+            'change-password-dialog.unexpected-error-updating-password',
           );
         }
       })

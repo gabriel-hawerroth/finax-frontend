@@ -47,6 +47,7 @@ import { ButtonsComponent } from '../../../../../shared/components/buttons/butto
 import { LoadingContentComponent } from '../../../../../shared/components/loading-content/loading-content.component';
 import { ReleasesMonthPipe } from '../../../../../shared/pipes/releases-month.pipe';
 import { ResponsiveService } from '../../../../../shared/services/responsive.service';
+import { LS_SELECT_MONTH_CASH_FLOW } from '../../../../../shared/utils/local-storage-contants';
 import { UtilsService } from '../../../../../shared/utils/utils.service';
 import {
   CashFlowBalancesComponent,
@@ -122,13 +123,15 @@ export class CashFlowPage implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getValues();
 
-    const savedMonth = this._utils.getItemLocalStorage('selectedMonthCashFlow');
+    const savedMonth = this._utils.getItemLocalStorage(
+      LS_SELECT_MONTH_CASH_FLOW,
+    );
 
     if (savedMonth) {
       this.selectedDate = new Date(savedMonth);
     } else {
       this._utils.setItemLocalStorage(
-        'selectedMonthCashFlow',
+        LS_SELECT_MONTH_CASH_FLOW,
         this.selectedDate.toString(),
       );
     }
@@ -142,7 +145,7 @@ export class CashFlowPage implements OnInit, OnDestroy {
     this._unsubscribeAll.unsubscribe();
 
     this._utils.setItemLocalStorage(
-      'selectedMonthCashFlow',
+      LS_SELECT_MONTH_CASH_FLOW,
       this.selectedDate.toString(),
     );
   }

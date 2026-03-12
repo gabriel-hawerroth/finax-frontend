@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, lastValueFrom } from 'rxjs';
 import { ConfirmDialogData } from '../../core/entities/generic';
 import { ReleaseFormDialogData } from '../../core/entities/release/release-dto';
-import { UserConfigs } from '../../core/entities/user-configs/user-configs';
+import { UserConfigsDTO } from '../../core/entities/user-configs/user-configs-dto';
 import { User } from '../../core/entities/user/user';
 import { ReleasesViewMode } from '../../core/enums/releases-view-mode';
 import { ShowValues } from '../../core/enums/show-values';
@@ -16,7 +16,11 @@ import { Theme } from '../../core/enums/theme';
 import { ReleaseFormDialog } from '../../main/pages/cash-flow/views/form-dialog/release-form-dialog.component';
 import { ConfirmDialog } from '../components/confirm-dialog/confirm-dialog.component';
 import { ResponsiveService } from '../services/responsive.service';
-import { LS_SHOW_VALUES } from './local-storage-contants';
+import {
+  LS_SAVED_USER_CONFIGS,
+  LS_SHOW_VALUES,
+  LS_USER_FINAX,
+} from './local-storage-contants';
 import { cloudFireCdnImgsLink, cloudFireCdnLink } from './utils';
 
 @Injectable({
@@ -49,13 +53,13 @@ export class UtilsService {
     cloudFireCdnImgsLink + 'user-image.webp',
   );
 
-  private readonly userConfigs: BehaviorSubject<UserConfigs> =
-    new BehaviorSubject<UserConfigs>(this.getUserConfigs);
+  private readonly userConfigs: BehaviorSubject<UserConfigsDTO> =
+    new BehaviorSubject<UserConfigsDTO>(this.getUserConfigs);
   // user observables
 
   get getLoggedUser(): User | null {
-    return this.getItemLocalStorage('userFinax')
-      ? JSON.parse(atob(this.getItemLocalStorage('userFinax')!))
+    return this.getItemLocalStorage(LS_USER_FINAX)
+      ? JSON.parse(atob(this.getItemLocalStorage(LS_USER_FINAX)!))
       : null;
   }
 
@@ -69,22 +73,21 @@ export class UtilsService {
 
     user.password = '';
     user.profileImage = undefined;
-    this.setItemLocalStorage('userFinax', btoa(JSON.stringify(user)));
+    this.setItemLocalStorage(LS_USER_FINAX, btoa(JSON.stringify(user)));
   }
 
-  get getUserConfigs(): UserConfigs {
-    if (this.getItemLocalStorage('savedUserConfigsFinax')) {
+  get getUserConfigs(): UserConfigsDTO {
+    const savedConfigs = this.getItemLocalStorage(LS_SAVED_USER_CONFIGS);
+
+    if (savedConfigs) {
       try {
-        return JSON.parse(this.getItemLocalStorage('savedUserConfigsFinax')!);
+        return JSON.parse(savedConfigs);
       } catch {
-        return JSON.parse(
-          atob(this.getItemLocalStorage('savedUserConfigsFinax')!),
-        );
+        return JSON.parse(atob(savedConfigs));
       }
     }
 
     return {
-      userId: 0,
       theme: 'light',
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-BR',
@@ -107,12 +110,13 @@ export class UtilsService {
     this._translateService.use(this.getUserConfigs.language);
   }
 
-  setUserConfigs(configs: UserConfigs) {
+  setUserConfigs(configs: UserConfigsDTO) {
     this.userConfigs.next(configs);
     this._translateService.use(configs.language);
+    this.setItemLocalStorage(LS_SAVED_USER_CONFIGS, JSON.stringify(configs));
   }
 
-  getUserConfigsObservable(): Observable<UserConfigs> {
+  getUserConfigsObservable(): Observable<UserConfigsDTO> {
     return this.userConfigs.asObservable();
   }
 

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { UtilsService } from '../../../shared/utils/utils.service';
-import { UserConfigs } from './user-configs';
+import { UserConfigsDTO } from './user-configs-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -13,24 +13,20 @@ export class UserConfigsService {
 
   constructor(
     private readonly _http: HttpClient,
-    private readonly _utils: UtilsService
+    private readonly _utils: UtilsService,
   ) {}
 
-  getLoggedUserConfigs(): Promise<UserConfigs> {
+  getLoggedUserConfigs(): Promise<UserConfigsDTO> {
     return lastValueFrom(
-      this._http.get<UserConfigs>(`${this.apiUrl}/get-by-user`)
+      this._http.get<UserConfigsDTO>(`${this.apiUrl}/get-by-user`),
     );
   }
 
-  save(userConfigs: UserConfigs): Promise<UserConfigs> {
+  save(userConfigs: UserConfigsDTO): Promise<UserConfigsDTO> {
     this._utils.setUserConfigs(userConfigs);
-    this._utils.setItemLocalStorage(
-      'savedUserConfigsFinax',
-      JSON.stringify(userConfigs)
-    );
 
     return lastValueFrom(
-      this._http.post<UserConfigs>(`${this.apiUrl}/save`, userConfigs)
+      this._http.post<UserConfigsDTO>(`${this.apiUrl}/save`, userConfigs),
     );
   }
 }

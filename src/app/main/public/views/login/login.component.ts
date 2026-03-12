@@ -26,6 +26,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../../../../environments/environment';
 import { LoginService } from '../../../../core/entities/auth/login.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
+import { LS_SAVED_LOGIN } from '../../../../shared/utils/local-storage-contants';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
@@ -72,7 +73,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.buildForm();
 
-    const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
+    const savedLogin = this._utils.getItemLocalStorage(LS_SAVED_LOGIN);
     if (savedLogin) this.loginForm.patchValue(JSON.parse(atob(savedLogin!)));
   }
 

@@ -116,7 +116,7 @@ export class ReleaseFormDialog implements OnInit {
   installmenteRepeat = new FormControl(false);
 
   repeatForSuffix: string = this._translate.instant(
-    'release-form.repeat-for-suffix.MONTHLY'
+    'release-form.repeat-for-suffix.MONTHLY',
   );
 
   selectedCreditCard = this.data.creditCardId !== undefined;
@@ -128,16 +128,16 @@ export class ReleaseFormDialog implements OnInit {
     private readonly _matDialog: MatDialog,
     private readonly _fb: FormBuilder,
     private readonly _cashFlowService: ReleaseService,
-    private readonly _responsiveService: ResponsiveService
+    private readonly _responsiveService: ResponsiveService,
   ) {
     const ref =
       _injector.get<MatDialogRef<ReleaseFormDialog> | null>(
         MatDialogRef,
-        null
+        null,
       ) ||
       _injector.get<MatBottomSheetRef<ReleaseFormDialog> | null>(
         MatBottomSheetRef,
-        null
+        null,
       );
 
     this.control = {
@@ -164,7 +164,7 @@ export class ReleaseFormDialog implements OnInit {
       if (this.data.release.attachmentName) {
         this.selectedFile = new File(
           [new Blob()],
-          this.data.release.attachmentName
+          this.data.release.attachmentName,
         );
       }
 
@@ -178,8 +178,8 @@ export class ReleaseFormDialog implements OnInit {
           (this.data.releaseType === ReleaseType.EXPENSE
             ? 'Outras despesas'
             : this.data.releaseType === ReleaseType.REVENUE
-            ? 'Outras receitas'
-            : '')
+              ? 'Outras receitas'
+              : ''),
       )!.id!;
 
       this.releaseForm.get('categoryId')!.setValue(otherCategorieId);
@@ -187,7 +187,7 @@ export class ReleaseFormDialog implements OnInit {
 
     if (!this.data.editing) {
       this.releaseForm.controls['accountId'].setValue(
-        this.data.defaultAccountId
+        this.data.defaultAccountId,
       );
     }
   }
@@ -195,7 +195,6 @@ export class ReleaseFormDialog implements OnInit {
   private buildForm() {
     this.releaseForm = this._fb.group({
       id: null,
-      userId: this._utils.getLoggedUser!.id,
       description: '',
       accountId: [null, Validators.required],
       targetAccountId: [null],
@@ -210,6 +209,7 @@ export class ReleaseFormDialog implements OnInit {
       fixedBy: 'MONTHLY',
       repeatFor: '12',
       installmentsBy: [2, Validators.min(2)],
+      isBalanceAdjustment: false,
     });
   }
 
@@ -305,7 +305,7 @@ export class ReleaseFormDialog implements OnInit {
       await this._cashFlowService.removeAttachment(release.id!).catch(() => {
         this._utils.showMessage(
           'release-form.error-excluding-attachment',
-          6000
+          6000,
         );
         requestError = true;
       });
@@ -339,7 +339,7 @@ export class ReleaseFormDialog implements OnInit {
   }
 
   private async getSaveDto(
-    saveAction: SaveAction
+    saveAction: SaveAction,
   ): Promise<SaveDto | undefined> {
     var release = this.releaseForm.value;
     var duplicatedReleaseAction: DuplicatedReleaseAction =
@@ -357,7 +357,7 @@ export class ReleaseFormDialog implements OnInit {
             autoFocus: false,
             panelClass: 'confirm-duplicated-releases-action',
           })
-          .afterClosed()
+          .afterClosed(),
       ).then((response: DuplicatedReleaseAction) => {
         if (!response) return;
 
@@ -377,7 +377,7 @@ export class ReleaseFormDialog implements OnInit {
     }
 
     const selectedAccount = this.data.accounts.find(
-      (item: BasicCard) => item.id === release.accountId
+      (item: BasicCard) => item.id === release.accountId,
     );
     const releasedOn: ReleasedOn = selectedAccount
       ? ReleasedOn.ACCOUNT
@@ -469,7 +469,7 @@ export class ReleaseFormDialog implements OnInit {
 
   public onChangeRepeat(
     action: 'FIXED' | 'INSTALLMENTS',
-    event: MatCheckboxChange
+    event: MatCheckboxChange,
   ) {
     if (!event.checked) {
       this.releaseForm.get('repeat')!.setValue('');
@@ -556,7 +556,7 @@ export class ReleaseFormDialog implements OnInit {
 
     this.releaseForm.get('repeatFor')!.setValue(fixedBy);
     this.repeatForSuffix = this._translate.instant(
-      `release-form.repeat-for-suffix.${value}`
+      `release-form.repeat-for-suffix.${value}`,
     );
   }
 
@@ -593,12 +593,12 @@ export class ReleaseFormDialog implements OnInit {
   getResponsiveFieldWidth(
     widths: Widths,
     defaultWidth?: string,
-    minWidth?: string
+    minWidth?: string,
   ) {
     return getResponsiveFieldWidth(
       widths,
       defaultWidth,
-      minWidth
+      minWidth,
     )(this._responsiveService);
   }
 }

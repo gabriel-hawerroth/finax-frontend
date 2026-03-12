@@ -66,13 +66,9 @@ export class SidebarComponent implements OnInit {
   }
 
   getUserConfigs() {
-    this._userConfigsService.getLoggedUserConfigs().then((response) => {
-      this.utils.setUserConfigs(response);
-      this.utils.setItemLocalStorage(
-        'savedUserConfigsFinax',
-        JSON.stringify(response),
-      );
-    });
+    this._userConfigsService
+      .getLoggedUserConfigs()
+      .then((response) => this.utils.setUserConfigs(response));
   }
 
   getUserImage() {

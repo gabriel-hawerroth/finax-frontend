@@ -23,6 +23,7 @@ import { User } from '../../../../core/entities/user/user';
 import { UserService } from '../../../../core/entities/user/user.service';
 import { ButtonsComponent } from '../../../../shared/components/buttons/buttons.component';
 import { EmailResendTimerService } from '../../../../shared/services/email-resend-timer.service';
+import { LS_SAVED_LOGIN } from '../../../../shared/utils/local-storage-contants';
 import {
   cloudFireCdnImgsLink,
   getBtnStyle,
@@ -39,8 +40,8 @@ import { UtilsService } from '../../../../shared/utils/utils.service';
     MatTooltipModule,
     NgOptimizedImage,
     TranslateModule,
-    ButtonsComponent
-],
+    ButtonsComponent,
+  ],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -61,7 +62,7 @@ export class ChangePasswordPage implements OnInit {
     private readonly _activatedRoute: ActivatedRoute,
     private readonly _router: Router,
     private readonly _loginService: LoginService,
-    private readonly _timerService: EmailResendTimerService
+    private readonly _timerService: EmailResendTimerService,
   ) {}
 
   ngOnInit(): void {
@@ -93,7 +94,7 @@ export class ChangePasswordPage implements OnInit {
   changePassword() {
     if (this.changePasswordForm.invalid) {
       this._utils.showMessage(
-        "generic.password-doesn't-meet-security-requirements"
+        "generic.password-doesn't-meet-security-requirements",
       );
       return;
     }
@@ -113,7 +114,7 @@ export class ChangePasswordPage implements OnInit {
       .then(() => {
         this._timerService.reset();
 
-        const savedLogin = this._utils.getItemLocalStorage('savedLoginFinax');
+        const savedLogin = this._utils.getItemLocalStorage(LS_SAVED_LOGIN);
 
         if (
           this._utils.isBrowser &&

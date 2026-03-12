@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -27,8 +26,8 @@ import { UtilsService } from '../../../../../shared/utils/utils.service';
     MatSelectModule,
     MatButtonToggleModule,
     TranslateModule,
-    MatSlideToggleModule
-],
+    MatSlideToggleModule,
+  ],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,7 +51,7 @@ export class UserSettingsPage implements OnInit, OnDestroy {
     private readonly _utils: UtilsService,
     private readonly _fb: FormBuilder,
     private readonly _userConfigsService: UserConfigsService,
-    private readonly _themingService: ThemingService
+    private readonly _themingService: ThemingService,
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +68,6 @@ export class UserSettingsPage implements OnInit, OnDestroy {
   buidForm() {
     this.configsForm = this._fb.group({
       id: null,
-      userId: this._utils.getLoggedUser!.id,
       theme: 'light',
       addingMaterialGoodsToPatrimony: false,
       language: 'pt-BR',
@@ -80,9 +78,11 @@ export class UserSettingsPage implements OnInit, OnDestroy {
   }
 
   getConfigs() {
-    this._userConfigsService.getLoggedUserConfigs().then((response) => {
-      this.configsForm.patchValue(response, { emitEvent: false });
-    });
+    this._userConfigsService
+      .getLoggedUserConfigs()
+      .then((response) =>
+        this.configsForm.patchValue(response, { emitEvent: false }),
+      );
   }
 
   subscribeValueChanges() {

@@ -5,9 +5,13 @@ import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { EmailResendTimerService } from '../../../shared/services/email-resend-timer.service';
+import { ThemingService } from '../../../shared/services/theming.service';
 import {
   LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS,
   LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS,
+  LS_SAVED_LOGIN,
+  LS_SELECT_MONTH_CASH_FLOW,
+  LS_USER_FINAX,
 } from '../../../shared/utils/local-storage-contants';
 import { cloudFireCdnLink } from '../../../shared/utils/utils';
 import { UtilsService } from '../../../shared/utils/utils.service';
@@ -34,6 +38,7 @@ export class LoginService {
     private readonly _userConfigsService: UserConfigsService,
     private readonly _userService: UserService,
     private readonly _timerService: EmailResendTimerService,
+    private readonly _themingService: ThemingService,
   ) {
     onLogoutEvent.subscribe((event) =>
       this.logout(event.showMessage, event.redirectToPublicPage),
@@ -53,11 +58,11 @@ export class LoginService {
 
         if (credentials.rememberMe) {
           this._utils.setItemLocalStorage(
-            'savedLoginFinax',
+            LS_SAVED_LOGIN,
             btoa(JSON.stringify(credentials)),
           );
         } else {
-          this._utils.removeItemLocalStorage('savedLoginFinax');
+          this._utils.removeItemLocalStorage(LS_SAVED_LOGIN);
         }
 
         this.getUserConfigs();
@@ -114,10 +119,7 @@ export class LoginService {
   getUserConfigs() {
     this._userConfigsService.getLoggedUserConfigs().then((response) => {
       this._utils.setUserConfigs(response);
-      this._utils.setItemLocalStorage(
-        'savedUserConfigsFinax',
-        JSON.stringify(response),
-      );
+      this._themingService.applyTheme(response.theme);
     });
   }
 
@@ -131,7 +133,6 @@ export class LoginService {
         }
 
         this._utils.updateLoggedUser(user);
-        this._utils.removeItemLocalStorage('savedLoginFinax');
 
         this.getUserConfigs();
         this.getUserImage();
@@ -144,7 +145,10 @@ export class LoginService {
         this.isLogged.set(true);
       })
       .catch((err) => {
-        if (err.error?.errorDescription?.toLowerCase?.() === 'use google to sign in') {
+        if (
+          err.error?.errorDescription?.toLowerCase?.() ===
+          'use google to sign in'
+        ) {
           this._utils.showMessage('login.use-google-to-sign-in');
           return;
         }
@@ -181,8 +185,8 @@ export class LoginService {
   }
 
   private clearLocalStorage() {
-    this._utils.removeItemLocalStorage('userFinax');
-    this._utils.removeItemLocalStorage('selectedMonthCashFlow');
+    this._utils.removeItemLocalStorage(LS_USER_FINAX);
+    this._utils.removeItemLocalStorage(LS_SELECT_MONTH_CASH_FLOW);
     this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_CATEGORY_CONFIGS);
     this._utils.removeItemLocalStorage(LS_REPORT_RELEASES_BY_ACCOUNT_CONFIGS);
   }
@@ -199,7 +203,7 @@ export class LoginService {
   }
 
   get logged(): boolean {
-    return !!this._utils.getItemLocalStorage('userFinax');
+    return !!this._utils.getItemLocalStorage(LS_USER_FINAX);
   }
 
   sendCancelUserAccountEmail(): Promise<void> {
